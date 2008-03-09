@@ -39,7 +39,7 @@ following premises:
 
 ### Ways to help
 
--   Add information from Pan Docs. (To do: Formatting guide lines)
+-   Add information from Pan Docs. (To do: Formatting guidelines)
 -   Convert ASCII art into images or tables, or other formatting as
     appropriate.
 -   Condense information! Create a parallel article where the most
