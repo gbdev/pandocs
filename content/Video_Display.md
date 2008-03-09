@@ -257,3 +257,320 @@ have been VERY easy to implement in GBA hardware directly, even though
 Nintendo obviously failed to do so. How did they say, This seal is your
 assurance for excellence in workmanship and so on?
 
+LCD OAM DMA Transfers
+---------------------
+
+### FF46 - DMA - DMA Transfer and Start Address (W)
+
+Writing to this register launches a DMA transfer from ROM or RAM to OAM
+memory (sprite attribute table). The written value specifies the
+transfer source address divided by 100h, ie. source & destination are:
+
+` Source:      XX00-XX9F   ;XX in range from 00-F1h`\
+` Destination: FE00-FE9F`
+
+It takes 160 microseconds until the transfer has completed (80
+microseconds in CGB Double Speed Mode), during this time the CPU can
+access only HRAM (memory at FF80-FFFE). For this reason, the programmer
+must copy a short procedure into HRAM, and use this procedure to start
+the transfer from inside HRAM, and wait until the transfer has finished:
+
+`  ld  (0FF46h),a ;start DMA transfer, a=start address/100h`\
+`  ld  a,28h      ;delay...`\
+` wait:           ;total 5x40 cycles, approx 200ms`\
+`  dec a          ;1 cycle`\
+`  jr  nz,wait    ;4 cycles`
+
+Most programs are executing this procedure from inside of their VBlank
+procedure, but it is possible to execute it during display redraw also,
+allowing to display more than 40 sprites on the screen (ie. for example
+40 sprites in upper half, and other 40 sprites in lower half of the
+screen).
+
+LCD VRAM DMA Transfers (CGB only)
+---------------------------------
+
+### FF51 - HDMA1 - CGB Mode Only - New DMA Source, High; FF52 - HDMA2 - CGB Mode Only - New DMA Source, Low; FF53 - HDMA3 - CGB Mode Only - New DMA Destination, High; FF54 - HDMA4 - CGB Mode Only - New DMA Destination, Low; FF55 - HDMA5 - CGB Mode Only - New DMA Length/Mode/Start
+
+These registers are used to initiate a DMA transfer from ROM or RAM to
+VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
+the lower four bits of the address are ignored (treated as zero). The
+Destination Start Address may be located at 8000-9FF0, the lower four
+bits of the address are ignored (treated as zero), the upper 3 bits are
+ignored either (destination is always in VRAM).
+
+Writing to FF55 starts the transfer, the lower 7 bits of FF55 specify
+the Transfer Length (divided by 10h, minus 1). Ie. lengths of 10h-800h
+bytes can be defined by the values 00h-7Fh. And the upper bit of FF55
+indicates the Transfer Mode:
+
+=== Bit7=0 - General Purpose DMA === When using this transfer method,
+all data is transferred at once. The execution of the program is halted
+until the transfer has completed. Note that the General Purpose DMA
+blindly attempts to copy the data, even if the LCD controller is
+currently accessing VRAM. So General Purpose DMA should be used only if
+the Display is disabled, or during V-Blank, or (for rather short blocks)
+during H-Blank. The execution of the program continues when the transfer
+has been completed, and FF55 then contains a value if FFh.
+
+=== Bit7=1 - H-Blank DMA === The H-Blank DMA transfers 10h bytes of data
+during each H-Blank, ie. at LY=0-143, no data is transferred during
+V-Blank (LY=144-153), but the transfer will then continue at LY=00. The
+execution of the program is halted during the separate transfers, but
+the program execution continues during the \'spaces\' between each data
+block. Note that the program may not change the Destination VRAM bank
+(FF4F), or the Source ROM/RAM bank (in case data is transferred from
+bankable memory) until the transfer has completed! Reading from Register
+FF55 returns the remaining length (divided by 10h, minus 1), a value of
+0FFh indicates that the transfer has completed. It is also possible to
+terminate an active H-Blank transfer by writing zero to Bit 7 of FF55.
+In that case reading from FF55 may return any value for the lower 7
+bits, but Bit 7 will be read as \"1\".
+
+### Confirming if the DMA Transfer is Active
+
+Reading Bit 7 of FF55 can be used to confirm if the DMA transfer is
+active (1=Not Active, 0=Active). This works under any circumstances -
+after completion of General Purpose, or H-Blank Transfer, and after
+manually terminating a H-Blank Transfer.
+
+### Transfer Timings
+
+In both Normal Speed and Double Speed Mode it takes about 8us to
+transfer a block of 10h bytes. That are 8 cycles in Normal Speed Mode,
+and 16 \'fast\' cycles in Double Speed Mode. Older MBC controllers (like
+MBC1-4) and slower ROMs are not guaranteed to support General Purpose or
+H-Blank DMA, that\'s because there are always 2 bytes transferred per
+microsecond (even if the itself program runs it Normal Speed Mode).
+
+VRAM Tile Data
+--------------
+
+Tile Data is stored in VRAM at addresses 8000h-97FFh, this area defines
+the Bitmaps for 192 Tiles. In CGB Mode 384 Tiles can be defined, because
+memory at 0:8000h-97FFh and at 1:8000h-97FFh is used.
+
+Each tile is sized 8x8 pixels and has a color depth of 4 colors/gray
+shades. Tiles can be displayed as part of the Background/Window map,
+and/or as OAM tiles (foreground sprites). Note that foreground sprites
+may have only 3 colors, because color 0 is transparent.
+
+As it was said before, there are two Tile Pattern Tables at \$8000-8FFF
+and at \$8800-97FF. The first one can be used for sprites and the
+background. Its tiles are numbered from 0 to 255. The second table can
+be used for the background and the window display and its tiles are
+numbered from -128 to 127.
+
+Each Tile occupies 16 bytes, where each 2 bytes represent a line:
+
+` Byte 0-1  First Line (Upper 8 pixels)`\
+` Byte 2-3  Next Line`\
+` etc.`
+
+For each line, the first byte defines the least significant bits of the
+color numbers for each pixel, and the second byte defines the upper bits
+of the color numbers. In either case, Bit 7 is the leftmost pixel, and
+Bit 0 the rightmost.
+
+So, each pixel is having a color number in range from 0-3. The color
+numbers are translated into real colors (or gray shades) depending on
+the current palettes. The palettes are defined through registers
+FF47-FF49 (Non CGB Mode), and FF68-FF6B (CGB Mode).
+
+VRAM Background Maps
+--------------------
+
+The gameboy contains two 32x32 tile background maps in VRAM at addresses
+9800h-9BFFh and 9C00h-9FFFh. Each can be used either to display
+\"normal\" background, or \"window\" background.
+
+### BG Map Tile Numbers
+
+An area of VRAM known as Background Tile Map contains the numbers of
+tiles to be displayed. It is organized as 32 rows of 32 bytes each. Each
+byte contains a number of a tile to be displayed. Tile patterns are
+taken from the Tile Data Table located either at \$8000-8FFF or
+\$8800-97FF. In the first case, patterns are numbered with unsigned
+numbers from 0 to 255 (i.e. pattern \#0 lies at address \$8000). In the
+second case, patterns have signed numbers from -128 to 127 (i.e. pattern
+\#0 lies at address \$9000). The Tile Data Table address for the
+background can be selected via LCDC register.
+
+### BG Map Attributes (CGB Mode only)
+
+In CGB Mode, an additional map of 32x32 bytes is stored in VRAM Bank 1
+(each byte defines attributes for the corresponding tile-number map
+entry in VRAM Bank 0):
+
+` Bit 0-2  Background Palette number  (BGP0-7)`\
+` Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)`\
+` Bit 4    Not used`\
+` Bit 5    Horizontal Flip            (0=Normal, 1=Mirror horizontally)`\
+` Bit 6    Vertical Flip              (0=Normal, 1=Mirror vertically)`\
+` Bit 7    BG-to-OAM Priority         (0=Use OAM priority bit, 1=BG Priority)`
+
+When Bit 7 is set, the corresponding BG tile will have priority above
+all OBJs (regardless of the priority bits in OAM memory). There\'s also
+an Master Priority flag in LCDC register Bit 0 which overrides all other
+priority bits when cleared.
+
+As one background tile has a size of 8x8 pixels, the BG maps may hold a
+picture of 256x256 pixels, an area of 160x144 pixels of this picture can
+be displayed on the LCD screen.
+
+### Normal Background (BG)
+
+The SCY and SCX registers can be used to scroll the background, allowing
+to select the origin of the visible 160x144 pixel area within the total
+256x256 pixel background map. Background wraps around the screen (i.e.
+when part of it goes off the screen, it appears on the opposite side.)
+
+### The Window
+
+Besides background, there is also a \"window\" overlaying the
+background. The window is not scrollable i.e. it is always displayed
+starting from its left upper corner. The location of a window on the
+screen can be adjusted via WX and WY registers. Screen coordinates of
+the top left corner of a window are WX-7,WY. The tiles for the window
+are stored in the Tile Data Table. Both the Background and the window
+share the same Tile Data Table.
+
+Both background and window can be disabled or enabled separately via
+bits in the LCDC register.
+
+VRAM Sprite Attribute Table (OAM)
+---------------------------------
+
+GameBoy video controller can display up to 40 sprites either in 8x8 or
+in 8x16 pixels. Because of a limitation of hardware, only ten sprites
+can be displayed per scan line. Sprite patterns have the same format as
+BG tiles, but they are taken from the Sprite Pattern Table located at
+\$8000-8FFF and have unsigned numbering.
+
+Sprite attributes reside in the Sprite Attribute Table (OAM - Object
+Attribute Memory) at \$FE00-FE9F. Each of the 40 entries consists of
+four bytes with the following meanings:
+
+### Byte0 - Y Position
+
+Specifies the sprites vertical position on the screen (minus 16). An
+offscreen value (for example, Y=0 or Y\>=160) hides the sprite.
+
+### Byte1 - X Position
+
+Specifies the sprites horizontal position on the screen (minus 8). An
+offscreen value (X=0 or X\>=168) hides the sprite, but the sprite still
+affects the priority ordering - a better way to hide a sprite is to set
+its Y-coordinate offscreen.
+
+### Byte2 - Tile/Pattern Number
+
+Specifies the sprites Tile Number (00-FF). This (unsigned) value selects
+a tile from memory at 8000h-8FFFh. In CGB Mode this could be either in
+VRAM Bank 0 or 1, depending on Bit 3 of the following byte. In 8x16
+mode, the lower bit of the tile number is ignored. Ie. the upper 8x8
+tile is \"NN AND FEh\", and the lower 8x8 tile is \"NN OR 01h\".
+
+### Byte3 - Attributes/Flags:
+
+` Bit7   OBJ-to-BG Priority (0=OBJ Above BG, 1=OBJ Behind BG color 1-3)`\
+`        (Used for both BG and Window. BG color 0 is always behind OBJ)`\
+` Bit6   Y flip          (0=Normal, 1=Vertically mirrored)`\
+` Bit5   X flip          (0=Normal, 1=Horizontally mirrored)`\
+` Bit4   Palette number  **Non CGB Mode Only** (0=OBP0, 1=OBP1)`\
+` Bit3   Tile VRAM-Bank  **CGB Mode Only**     (0=Bank 0, 1=Bank 1)`\
+` Bit2-0 Palette number  **CGB Mode Only**     (OBP0-7)`
+
+### Sprite Priorities and Conflicts
+
+When sprites with different x coordinate values overlap, the one with
+the smaller x coordinate (closer to the left) will have priority and
+appear above any others. This applies in Non CGB Mode only. When sprites
+with the same x coordinate values overlap, they have priority according
+to table ordering. (i.e. \$FE00 - highest, \$FE04 - next highest, etc.)
+In CGB Mode priorities are always assigned like this.
+
+Only 10 sprites can be displayed on any one line. When this limit is
+exceeded, the lower priority sprites (priorities listed above) won\'t be
+displayed. To keep unused sprites from affecting onscreen sprites set
+their Y coordinate to Y=0 or Y=\>144+16. Just setting the X coordinate
+to X=0 or X=\>160+8 on a sprite will hide it but it will still affect
+other sprites sharing the same lines.
+
+### Writing Data to OAM Memory
+
+The recommened method is to write the data to normal RAM first, and to
+copy that RAM to OAM by using the DMA transfer function, initiated
+through DMA register (FF46). Beside for that, it is also possible to
+write data directly to the OAM area by using normal LD commands, this
+works only during the H-Blank and V-Blank periods. The current state of
+the LCD controller can be read out from the STAT register (FF41).
+
+Accessing VRAM and OAM
+----------------------
+
+### CAUTION
+
+When the LCD Controller is drawing the screen it is directly reading
+from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).
+During these periods the Gameboy CPU may not access the VRAM and OAM.
+That means, any attempts to write to VRAM/OAM are ignored (the data
+remains unchanged). And any attempts to read from VRAM/OAM will return
+undefined data (typically a value of FFh).
+
+For this reason the program should verify if VRAM/OAM is accessable
+before actually reading or writing to it. This is usually done by
+reading the Mode Bits from the STAT Register (FF41). When doing this (as
+described in the examples below) you should take care that no interrupts
+occur between the wait loops and the following memory access - the
+memory is guaranted to be accessable only for a few cycles directly
+after the wait loops have completed.
+
+### VRAM (memory at 8000h-9FFFh) is accessable during Mode 0-2
+
+` Mode 0 - H-Blank Period,`\
+` Mode 1 - V-Blank Period, and`\
+` Mode 2 - Searching OAM Period`
+
+A typical procedure that waits for accessibility of VRAM would be:
+
+` ld   hl,0FF41h    ;-STAT Register`\
+`@@wait:            ;\`\
+` bit  1,(hl)       ; Wait until Mode is 0 or 1`\
+` jr   nz,@@wait    ;/`
+
+Even if the procedure gets executed at the <end> of Mode 0 or 1, it is
+still proof to assume that VRAM can be accessed for a few more cycles
+because in either case the following period is Mode 2 which allows
+access to VRAM either. In CGB Mode an alternate method to write data to
+VRAM is to use the HDMA Function (FF51-FF55).
+
+### OAM (memory at FE00h-FE9Fh) is accessable during
+
+`Mode 0-1  Mode 0 - H-Blank Period, and`\
+` Mode 1 - V-Blank Period`
+
+Beside for that, OAM can be accessed at any time by using the DMA
+Function (FF46). When directly reading or writing to OAM, a typical
+procedure that waits for accessibilty or OAM Memory would be:
+
+` ld   hl,0FF41h    ;-STAT Register`\
+`@@wait1:           ;\`\
+` bit  1,(hl)       ; Wait until Mode is -NOT- 0 or 1`\
+` jr   z,@@wait1    ;/`\
+`@@wait2:           ;\`\
+` bit  1,(hl)       ; Wait until Mode 0 or 1 -BEGINS-`\
+` jr   nz,@@wait2   ;/`
+
+The two wait loops ensure that Mode 0 or 1 will last for a few clock
+cycles after completion of the procedure. In V-Blank period it might be
+recommended to skip the whole procedure - and in most cases using the
+above mentioned DMA function would be more recommended anyways.
+
+### Note
+
+When the display is disabled, both VRAM and OAM are accessable at any
+time. The downside is that the screen is blank (white) during this
+period, so that disabling the display would be recommended only during
+initialization.
+
