@@ -1,7 +1,5 @@
-Pan Docs
---------
-
-### Excerpt
+Excerpt
+-------
 
      =================================================================
            Everything You Always Wanted To Know About GAMEBOY *
@@ -16,7 +14,8 @@ Pan Docs
                       Last updated 10/2001 by nocash
                    Previously updated 4-Mar-98 by kOOPa
 
-### Pan Docs Wikification
+Pan Docs Wikification
+---------------------
 
 Pan Docs is the most comprehensive technical reference to Gameboy that
 is available to the public. It was originally written by Pan of Anthrox,
