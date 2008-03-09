@@ -95,3 +95,165 @@ Mode 0 is present between 201-207 clks, 2 about 77-83 clks, and 3 about
 VBlank lasts 4560 clks. A complete screen refresh occurs every 70224
 clks.)
 
+LCD Interrupts
+--------------
+
+### INT 40 - V-Blank Interrupt
+
+The V-Blank interrupt occurs ca. 59.7 times a second on a regular GB and
+ca. 61.1 times a second on a Super GB (SGB). This interrupt occurs at
+the beginning of the V-Blank period (LY=144). During this period video
+hardware is not using video ram so it may be freely accessed. This
+period lasts approximately 1.1 milliseconds.
+
+### INT 48 - LCDC Status Interrupt
+
+There are various reasons for this interrupt to occur as described by
+the STAT register (\$FF40). One very popular reason is to indicate to
+the user when the video hardware is about to redraw a given LCD line.
+This can be useful for dynamically controlling the SCX/SCY registers
+(\$FF43/\$FF42) to perform special video effects.
+
+LCD Position and Scrolling
+--------------------------
+
+### FF42 - SCY - Scroll Y (R/W), FF43 - SCX - Scroll X (R/W)
+
+Specifies the position in the 256x256 pixels BG map (32x32 tiles) which
+is to be displayed at the upper/left LCD display position. Values in
+range from 0-255 may be used for X/Y each, the video controller
+automatically wraps back to the upper (left) position in BG map when
+drawing exceeds the lower (right) border of the BG map area.
+
+### FF44 - LY - LCDC Y-Coordinate (R)
+
+The LY indicates the vertical line to which the present data is
+transferred to the LCD Driver. The LY can take on any value between 0
+through 153. The values between 144 and 153 indicate the V-Blank period.
+Writing will reset the counter.
+
+### FF45 - LYC - LY Compare (R/W)
+
+The gameboy permanently compares the value of the LYC and LY registers.
+When both values are identical, the coincident bit in the STAT register
+becomes set, and (if enabled) a STAT interrupt is requested.
+
+### FF4A - WY - Window Y Position (R/W), FF4B - WX - Window X Position minus 7 (R/W)
+
+Specifies the upper/left positions of the Window area. (The window is an
+alternate background area which can be displayed above of the normal
+background. OBJs (sprites) may be still displayed above or behinf the
+window, just as for normal BG.) The window becomes visible (if enabled)
+when positions are set in range WX=0..166, WY=0..143. A postion of WX=7,
+WY=0 locates the window at upper left, it is then completly covering
+normal background.
+
+LCD Monochrome Palettes
+-----------------------
+
+### FF47 - BGP - BG Palette Data (R/W) - Non CGB Mode Only
+
+This register assigns gray shades to the color numbers of the BG and
+Window tiles.
+
+` Bit 7-6 - Shade for Color Number 3`\
+` Bit 5-4 - Shade for Color Number 2`\
+` Bit 3-2 - Shade for Color Number 1`\
+` Bit 1-0 - Shade for Color Number 0`
+
+The four possible gray shades are:
+
+` 0  White`\
+` 1  Light gray`\
+` 2  Dark gray`\
+` 3  Black`
+
+In CGB Mode the Color Palettes are taken from CGB Palette Memory
+instead.
+
+### FF48 - OBP0 - Object Palette 0 Data (R/W) - Non CGB Mode Only
+
+This register assigns gray shades for sprite palette 0. It works exactly
+as BGP (FF47), except that the lower two bits aren\'t used because
+sprite data 00 is transparent.
+
+### FF49 - OBP1 - Object Palette 1 Data (R/W) - Non CGB Mode Only
+
+This register assigns gray shades for sprite palette 1. It works exactly
+as BGP (FF47), except that the lower two bits aren\'t used because
+sprite data 00 is transparent.
+
+LCD Color Palettes (CGB only)
+-----------------------------
+
+### FF68 - BCPS/BGPI - CGB Mode Only - Background Palette Index
+
+This register is used to address a byte in the CGBs Background Palette
+Memory. Each two byte in that memory define a color value. The first 8
+bytes define Color 0-3 of Palette 0 (BGP0), and so on for BGP1-7. Bit
+0-5 Index (00-3F)
+
+` Bit 7     Auto Increment  (0=Disabled, 1=Increment after Writing)`
+
+Data can be read/written to/from the specified index address through
+Register FF69. When the Auto Increment Bit is set then the index is
+automatically incremented after each <write> to FF69. Auto Increment has
+no effect when <reading> from FF69, so the index must be manually
+incremented in that case.
+
+### FF69 - BCPD/BGPD - CGB Mode Only - Background Palette Data
+
+This register allows to read/write data to the CGBs Background Palette
+Memory, addressed through Register FF68. Each color is defined by two
+bytes (Bit 0-7 in first byte). Bit 0-4 Red Intensity (00-1F)
+
+` Bit 5-9   Green Intensity (00-1F)`\
+` Bit 10-14 Blue Intensity  (00-1F)`
+
+Much like VRAM, Data in Palette Memory cannot be read/written during the
+time when the LCD Controller is reading from it. (That is when the STAT
+register indicates Mode 3). Note: Initially all background colors are
+initialized as white.
+
+### FF6A - OCPS/OBPI - CGB Mode Only - Sprite Palette Index, FF6B - OCPD/OBPD - CGB Mode Only - Sprite Palette Data
+
+These registers are used to initialize the Sprite Palettes OBP0-7,
+identically as described above for Background Palettes. Note that four
+colors may be defined for each OBP Palettes - but only Color 1-3 of each
+Sprite Palette can be displayed, Color 0 is always transparent, and can
+be initialized to a don\'t care value. Note: Initially all sprite colors
+are uninitialized.
+
+### RGB Translation by CGBs
+
+When developing graphics on PCs, note that the RGB values will have
+different appearance on CGB displays as on VGA monitors: The highest
+intensity will produce Light Gray color rather than White. The
+intensities are not linear; the values 10h-1Fh will all appear very
+bright, while medium and darker colors are ranged at 00h-0Fh. The CGB
+display will mix colors quite oddly, increasing intensity of only one
+R,G,B color will also influence the other two R,G,B colors. For example,
+a color setting of 03EFh (Blue=0, Green=1Fh, Red=0Fh) will appear as
+Neon Green on VGA displays, but on the CGB it\'ll produce a decently
+washed out Yellow.
+
+### RGB Translation by GBAs
+
+Even though GBA is described to be compatible to CGB games, most CGB
+games are completely unplayable on GBAs because most colors are
+invisible (black). Of course, colors such like Black and White will
+appear the same on both CGB and GBA, but medium intensities are arranged
+completely different. Intensities in range 00h..0Fh are invisible/black
+(unless eventually under best sunlight circumstances, and when gazing at
+the screen under obscure viewing angles), unfortunately, these
+intensities are regulary used by most existing CGB games for medium and
+darker colors. Newer CGB games may avoid this effect by changing palette
+data when detecting GBA hardware. A relative simple method would be
+using the formula GBA=CGB/2+10h for each R,G,B intensity, probably the
+result won\'t be perfect, and (once colors became visible) it may turn
+out that the color mixing is different also, anyways, it\'d be still
+ways better than no conversion. Asides, this translation method should
+have been VERY easy to implement in GBA hardware directly, even though
+Nintendo obviously failed to do so. How did they say, This seal is your
+assurance for excellence in workmanship and so on?
+
