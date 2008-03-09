@@ -17,6 +17,8 @@ Excerpt
 Pan Docs Wikification
 ---------------------
 
+### Mission
+
 Pan Docs is the most comprehensive technical reference to Gameboy that
 is available to the public. It was originally written by Pan of Anthrox,
 and was later maintained by Martin Korth, also known for
@@ -32,4 +34,14 @@ following premises:
     authors.
 -   Adding the information to a wiki allows people to correct or add
     information if needed.
+-   That the information can be presented in such a way that it is more
+    appealing.
+
+### Ways to help
+
+-   Add information from Pan Docs. (To do: Formatting guide lines)
+-   Convert ASCII art into images or tables, or other formatting as
+    appropriate.
+-   Condense information! Create a parallel article where the most
+    important parts of a Pandocs article are condensed.
 
