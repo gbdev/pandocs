@@ -52,9 +52,9 @@ Pan Docs Wikification
 
 ### Mission
 
-Pan Docs is the most comprehensive technical reference to Gameboy that
-is available to the public. It was originally written by Pan of Anthrox,
-and was later maintained by Martin Korth, also known for
+Pan Docs is the single most comprehensive technical reference to Gameboy
+that is available to the public. It was originally written by Pan of
+Anthrox, and was later maintained by Martin Korth, also known for
 [no\$gmb](no$gmb "wikilink"). As Pandocs is an important resource, it is
 a priority to add it to the wiki.
 
