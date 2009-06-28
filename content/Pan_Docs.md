@@ -4,7 +4,7 @@ Table of Contents
 ### I/O Ports
 
 [Video Display](Video_Display "wikilink") - [Sound
-Controller](Sound_Controller "wikilink") [Joypad
+Controller](Sound_Controller "wikilink") - [Joypad
 Input](Joypad_Input "wikilink") - [Serial Data Transfer (Link
 Cable)](Serial_Data_Transfer_(Link_Cable) "wikilink") - [Timer and
 Divider Registers](Timer_and_Divider_Registers "wikilink") -
