@@ -31,8 +31,11 @@ then an interrupt is requested by setting Bit 2 in the IF Register
 (FF0F). When that interrupt is enabled, then the CPU will execute it by
 calling the timer interrupt vector at 0050h.
 
-**Note** The above described Timer is the built-in timer in the gameboy.
-It has nothing to do with the MBC3s battery buffered Real Time Clock -
-that\'s a completely different thing, described in the chapter about
-Memory Banking Controllers.
+Note
+----
+
+The above described Timer is the built-in timer in the gameboy. It has
+nothing to do with the MBC3s battery buffered Real Time Clock - that\'s
+a completely different thing, described in the chapter about Memory
+Banking Controllers.
 
