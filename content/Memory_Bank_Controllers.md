@@ -244,7 +244,7 @@ The 9th bit of the ROM bank number goes here.
 The lower 8 bits of the ROM bank number goes here. Writing 0 will indeed
 give bank 0 on MBC5, unlike other MBCs.
 
-### 4000-5FFF - RAM Bank Number - or - RTC Register Select (Write Only)
+### 4000-5FFF - RAM Bank Number (Write Only)
 
 As for the MBC1s RAM Banking Mode, writing a value in range for 00h-0Fh
 maps the corresponding external RAM Bank (if any) into memory at
