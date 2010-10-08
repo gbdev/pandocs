@@ -1,6 +1,12 @@
 Table of Contents
 -----------------
 
+### Overview
+
+[About the Pan Docs](About_the_Pan_Docs "wikilink") - [Game Boy
+Technical Data](Game_Boy_Technical_Data "wikilink") - [Memory
+Map](Memory_Map "wikilink")
+
 ### I/O Ports
 
 [Video Display](Video_Display "wikilink") - [Sound
@@ -26,8 +32,7 @@ Cheats](Gamegenie/Shark_Cheats "wikilink")
 
 ### Other
 
-[Game Boy Technical Data](Game_Boy_Technical_Data "wikilink") - [Power
-Up Sequence](Power_Up_Sequence "wikilink") - [Reducing Power
+[Power Up Sequence](Power_Up_Sequence "wikilink") - [Reducing Power
 Consumption](Reducing_Power_Consumption "wikilink") - [Sprite RAM
 Bug](Sprite_RAM_Bug "wikilink") - [External
 Connectors](External_Connectors "wikilink")
