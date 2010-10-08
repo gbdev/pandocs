@@ -36,8 +36,8 @@ Consumption](Reducing_Power_Consumption "wikilink") - [Sprite RAM
 Bug](Sprite_RAM_Bug "wikilink") - [External
 Connectors](External_Connectors "wikilink")
 
-Excerpt
--------
+Excerpt from Martin\'s document
+-------------------------------
 
      =================================================================
            Everything You Always Wanted To Know About GAMEBOY *
@@ -51,6 +51,27 @@ Excerpt
 
                       Last updated 10/2001 by nocash
                    Previously updated 4-Mar-98 by kOOPa
+
+### Foreword
+
+The following was typed up for informational purposes regarding the
+inner workings on the hand-held game machine known as GameBoy,
+manufactured and designed by Nintendo Co., LTD. This info is presented
+to inform a user on how their Game Boy works and what makes it \"tick\".
+GameBoy is copyrighted by Nintendo Co., LTD. Any reference to
+copyrighted material is not presented for monetary gain, but for
+educational purposes and higher learning.
+
+### Available Document Formats
+
+The present version of this document is available in
+[Text](http://www.work.de/nocash/pandocs.txt) and
+[HTML](http://www.work.de/nocash/pandocs.htm) format.
+
+Also, a copy of this document is included in the manual of newer
+versions of the [no\$gmb](no$gmb "wikilink") debugger, because of recent
+piracy attacks (many thanks and best wishes go to hell) I have currently
+no intention to publish any such or further no\$gmb updates though.
 
 Pan Docs Wikification
 ---------------------
