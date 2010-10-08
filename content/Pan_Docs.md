@@ -3,8 +3,7 @@ Table of Contents
 
 ### Overview
 
-[About the Pan Docs](About_the_Pan_Docs "wikilink") - [Game Boy
-Technical Data](Game_Boy_Technical_Data "wikilink") - [Memory
+[Game Boy Technical Data](Game_Boy_Technical_Data "wikilink") - [Memory
 Map](Memory_Map "wikilink")
 
 ### I/O Ports
