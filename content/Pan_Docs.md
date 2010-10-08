@@ -26,7 +26,8 @@ Cheats](Gamegenie/Shark_Cheats "wikilink")
 
 ### Other
 
-[Power Up Sequence](Power_Up_Sequence "wikilink") - [Reducing Power
+[Game Boy Technical Data](Game_Boy_Technical_Data "wikilink") - [Power
+Up Sequence](Power_Up_Sequence "wikilink") - [Reducing Power
 Consumption](Reducing_Power_Consumption "wikilink") - [Sprite RAM
 Bug](Sprite_RAM_Bug "wikilink") - [External
 Connectors](External_Connectors "wikilink")
