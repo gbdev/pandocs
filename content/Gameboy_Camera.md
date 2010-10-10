@@ -1,5 +1,14 @@
-Major chips
------------
+The camera chip
+---------------
+
+The [Gameboy Camera](Gameboy_Camera "wikilink") is using the [Mitsubishi
+M64282FP](Mitsubishi_M64282FP "wikilink"), a.k.a. the \"artificial
+retina\" which is a 128\*128 pixel grayscale CMOS image sensor that can
+perform image adjustments in realtime. The data sheet is available in
+[**/docs/misc/** of the file hub](http://gbdev.gg8.se/files/docs/misc/).
+
+Integrated circuits on the main board
+-------------------------------------
 
 +-------------+----------------------+----------------------+
 | Component\# | Part\# / inscription | Description          |
