@@ -235,14 +235,14 @@ Same as for MBC1, except RAM sizes are 64kbit, 256kbit and 1mbit.
 Mostly the same as for MBC1, a value of 0Ah will enable reading and
 writing to external RAM. A value of 00h will disable it.
 
-### 2000-2FFF - High bit of ROM Bank Number (Write Only)
-
-The 9th bit of the ROM bank number goes here.
-
-### 3000-3FFF - Low 8 bits of ROM Bank Number (Write Only)
+### 2000-2FFF - Low 8 bits of ROM Bank Number (Write Only)
 
 The lower 8 bits of the ROM bank number goes here. Writing 0 will indeed
 give bank 0 on MBC5, unlike other MBCs.
+
+### 3000-3FFF - High bit of ROM Bank Number (Write Only)
+
+The 9th bit of the ROM bank number goes here.
 
 ### 4000-5FFF - RAM Bank Number (Write Only)
 
