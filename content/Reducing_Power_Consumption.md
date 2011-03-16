@@ -1,17 +1,17 @@
-The following can be used to recude the power consumption of the
-gameboy, and to extend the life of the batteries.
+The following programming techniques can be used to reduce the power
+consumption of the GameBoy hardware and extend the life of the
+batteries.
 
-PWR Using the HALT Instruction
-------------------------------
+Using the HALT Instruction
+--------------------------
 
-It is recommended that the HALT instruction be used whenever possible to
-reduce power consumption & extend the life of the batteries. This
-command stops the system clock reducing the power consumption of both
-the CPU and ROM.
+The HALT instruction should be used whenever possible to reduce power
+consumption & extend the life of the batteries. This command stops the
+system clock, reducing the power consumption of both the CPU and ROM.
 
-The CPU will remain suspended until an interrupt occurs at which point
-the interrupt is serviced and then the instruction immediately following
-the HALT is executed.
+The CPU will remain stopped until an interrupt occurs at which point the
+interrupt is serviced and then the instruction immediately following the
+HALT is executed.
 
 Depending on how much CPU time is required by a game, the HALT
 instruction can extend battery life anywhere from 5 to 50% or possibly
@@ -37,51 +37,49 @@ must set vblank\_flag to a non-zero value.
 `  ld   (hl),a          ;set vblank_flag back to zero`
 
 The vblank\_flag is used to determine whether the HALT period has been
-terminated by a vblank interrupt, or by another interrupt. In case that
-your program has all other interrupts disabled, then it would be proof
-to replace the above procedure by a single HALT instruction.
+terminated by a vblank interrupt, or by another interrupt. In case your
+program has all other interrupts disabled, then it would be okay to
+replace the above procedure by a single HALT instruction.
 
-PWR Using the STOP Instruction
-------------------------------
+Using the STOP Instruction
+--------------------------
 
 The STOP instruction is intended to switch the gameboy into VERY low
 power standby mode. For example, a program may use this feature when it
-hasn\'t sensed keyboard input for a longer period (assuming that
+hasn\'t sensed keyboard input for a longer period (for example, when
 somebody forgot to turn off the gameboy).
 
 Before invoking STOP, it might be required to disable Sound and Video
 manually (as well as IR-link port in CGB). Much like HALT, the STOP
-state is terminated by interrupt events - in this case this would be
-commonly a joypad interrupt. The joypad register might be required to be
-prepared for STOP either.
+state is terminated by interrupt events. STOP is commonly terminated
+with a joypad interrupt.
 
-PWR Disabeling the Sound Controller
------------------------------------
+Disabling the Sound Controller
+------------------------------
 
-If your programs doesn\'t use sound at all (or during some periods) then
+If your program doesn\'t use sound at all (or during some periods) then
 write 00h to register FF26 to save 16% or more on GB power consumption.
 Sound can be turned back on by writing 80h to the same register, all
-sound registers must be then re-initialized. When the gameboy becomes
-turned on, sound is enabled by default, and must be turned off manually
-when not used.
+sound registers must be then re-initialized. When the gameboy is turned
+on, sound is enabled by default, and must be turned off manually when
+not used.
 
-PWR Not using CGB Double Speed Mode
------------------------------------
+Not using CGB Double Speed Mode
+-------------------------------
 
-Because CGB Double Speed mode consumes more power, it\'d be recommended
-to use normal speed when possible. There\'s limited ability to switch
+Because CGB Double Speed mode consumes more power, it\'s recommended to
+use normal speed when possible. There\'s limited ability to switch
 between both speeds, for example, a game might use normal speed in the
 title screen, and double speed in the game, or vice versa. However,
-during speed switch the display collapses for a short moment, so that
-it\'d be no good idea to alter speeds within active game or title screen
+during speed switch, the display collapses for a short moment, so it\'s
+not a good idea to alter speeds within active game or title screen
 periods.
 
-PWR Using the Skills
---------------------
+Using the Skills
+----------------
 
 Most of the above power saving methods will produce best results when
-using efficient and tight assembler code which requires as less CPU
-power as possible. Thus, experienced old-school programmers will
-(hopefully) produce lower power consumption, as than HLL-programming
-teenagers, for example.
+using efficient and tight assembler code which requires as little CPU
+power as possible. Using a high level language will require more CPU
+power and these techniques will not have as big as an effect.
 
