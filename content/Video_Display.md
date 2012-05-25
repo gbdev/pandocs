@@ -47,9 +47,9 @@ on CGBs.
 LCD Status Register
 -------------------
 
-=== FF41 - STAT - LCDC Status (R/W) Bit 6 - LYC=LY Coincidence Interrupt
-(1=Enable) (Read/Write) ===
+### FF41 - STAT - LCDC Status (R/W)
 
+` Bit 6 - LYC=LY Coincidence Interrupt (1=Enable) (Read/Write)`\
 ` Bit 5 - Mode 2 OAM Interrupt         (1=Enable) (Read/Write)`\
 ` Bit 4 - Mode 1 V-Blank Interrupt     (1=Enable) (Read/Write)`\
 ` Bit 3 - Mode 0 H-Blank Interrupt     (1=Enable) (Read/Write)`\
