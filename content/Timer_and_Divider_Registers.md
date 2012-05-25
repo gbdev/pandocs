@@ -22,7 +22,9 @@ When the TIMA overflows, this data will be loaded.
 `            00:   4096 Hz    (~4194 Hz SGB)`\
 `            01: 262144 Hz  (~268400 Hz SGB)`\
 `            10:  65536 Hz   (~67110 Hz SGB)`\
-`            11:  16384 Hz   (~16780 Hz SGB)`
+`            11:  16384 Hz   (~16780 Hz SGB)`\
+` `\
+` Note: The FF07.2 only affects the timer. The divider is *ALWAYS* counting, regardless of if the timer is or isn't.`
 
 ### INT 50 - Timer Interrupt
 
