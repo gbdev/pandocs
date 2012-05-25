@@ -546,14 +546,14 @@ because in either case the following period is Mode 2 which allows
 access to VRAM either. In CGB Mode an alternate method to write data to
 VRAM is to use the HDMA Function (FF51-FF55).
 
-### OAM (memory at FE00h-FE9Fh) is accessable during
+### OAM (memory at FE00h-FE9Fh) is accessable during Mode 0-1
 
 ` Mode 0 - H-Blank Period`\
 ` Mode 1 - V-Blank Period`
 
-Beside for that, OAM can be accessed at any time by using the DMA
+Aside from that, OAM can be accessed at any time by using the DMA
 Function (FF46). When directly reading or writing to OAM, a typical
-procedure that waits for accessibilty or OAM Memory would be:
+procedure that waits for accessibility of OAM Memory would be:
 
 ` ld   hl,0FF41h    ;-STAT Register`\
 `@@wait1:           ;\`\
