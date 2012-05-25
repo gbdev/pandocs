@@ -190,9 +190,9 @@ LCD Color Palettes (CGB only)
 
 This register is used to address a byte in the CGBs Background Palette
 Memory. Each two byte in that memory define a color value. The first 8
-bytes define Color 0-3 of Palette 0 (BGP0), and so on for BGP1-7. Bit
-0-5 Index (00-3F)
+bytes define Color 0-3 of Palette 0 (BGP0), and so on for BGP1-7.
 
+` Bit 0-5   Index (00-3F)`\
 ` Bit 7     Auto Increment  (0=Disabled, 1=Increment after Writing)`
 
 Data can be read/written to/from the specified index address through
