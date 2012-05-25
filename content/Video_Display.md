@@ -291,7 +291,15 @@ screen).
 LCD VRAM DMA Transfers (CGB only)
 ---------------------------------
 
-### FF51 - HDMA1 - CGB Mode Only - New DMA Source, High; FF52 - HDMA2 - CGB Mode Only - New DMA Source, Low; FF53 - HDMA3 - CGB Mode Only - New DMA Destination, High; FF54 - HDMA4 - CGB Mode Only - New DMA Destination, Low; FF55 - HDMA5 - CGB Mode Only - New DMA Length/Mode/Start
+### FF51 - HDMA1 - CGB Mode Only - New DMA Source, High
+
+### FF52 - HDMA2 - CGB Mode Only - New DMA Source, Low
+
+### FF53 - HDMA3 - CGB Mode Only - New DMA Destination, High
+
+### FF54 - HDMA4 - CGB Mode Only - New DMA Destination, Low
+
+### FF55 - HDMA5 - CGB Mode Only - New DMA Length/Mode/Start
 
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
