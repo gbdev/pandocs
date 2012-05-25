@@ -15,12 +15,12 @@ LCD Control Register
 ### LCDC.7 - LCD Display Enable
 
 CAUTION: Stopping LCD operation (Bit 7 from 1 to 0) may be performed
-during V-Blank ONLY, disabeling the display outside of the V-Blank
-period may damage the hardware. This appears to be a serious issue,
-Nintendo is reported to reject any games that do not follow this rule.
-V-blank can be confirmed when the value of LY is greater than or equal
-to 144. When the display is disabled the screen is blank (white), and
-VRAM and OAM can be accessed freely.
+during V-Blank ONLY, disabling the display outside of the V-Blank period
+may damage the hardware. This appears to be a serious issue, Nintendo is
+reported to reject any games that do not follow this rule. V-blank can
+be confirmed when the value of LY is greater than or equal to 144. When
+the display is disabled the screen is blank (white), and VRAM and OAM
+can be accessed freely.
 
 \-\-- LCDC.0 has different Meanings depending on Gameboy Type \-\--
 
@@ -57,8 +57,8 @@ LCD Status Register
 ` Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)`\
 `           0: During H-Blank`\
 `           1: During V-Blank`\
-`           2: During Searching OAM-RAM`\
-`           3: During Transfering Data to LCD Driver`
+`           2: During Searching OAM`\
+`           3: During Transferring Data to LCD Driver`
 
 The two lower STAT bits show the current status of the LCD controller.
 
@@ -66,7 +66,7 @@ The two lower STAT bits show the current status of the LCD controller.
 `         the CPU can access both the display RAM (8000h-9FFFh)`\
 `         and OAM (FE00h-FE9Fh)`\
 ` `\
-` Mode 1: The LCD contoller is in the V-Blank period (or the`\
+` Mode 1: The LCD controller is in the V-Blank period (or the`\
 `         display is disabled) and the CPU can access both the`\
 `         display RAM (8000h-9FFFh) and OAM (FE00h-FE9Fh)`\
 ` `\
@@ -134,7 +134,7 @@ Writing will reset the counter.
 
 ### FF45 - LYC - LY Compare (R/W)
 
-The gameboy permanently compares the value of the LYC and LY registers.
+The Gameboy permanently compares the value of the LYC and LY registers.
 When both values are identical, the coincident bit in the STAT register
 becomes set, and (if enabled) a STAT interrupt is requested.
 
@@ -142,11 +142,11 @@ becomes set, and (if enabled) a STAT interrupt is requested.
 
 Specifies the upper/left positions of the Window area. (The window is an
 alternate background area which can be displayed above of the normal
-background. OBJs (sprites) may be still displayed above or behinf the
+background. OBJs (sprites) may be still displayed above or behind the
 window, just as for normal BG.) The window becomes visible (if enabled)
-when positions are set in range WX=0..166, WY=0..143. A postion of WX=7,
-WY=0 locates the window at upper left, it is then completly covering
-normal background.
+when positions are set in range WX=0..166, WY=0..143. A position of
+WX=7, WY=0 locates the window at upper left, it is then completely
+covering normal background.
 
 LCD Monochrome Palettes
 -----------------------
@@ -247,7 +247,7 @@ appear the same on both CGB and GBA, but medium intensities are arranged
 completely different. Intensities in range 00h..0Fh are invisible/black
 (unless eventually under best sunlight circumstances, and when gazing at
 the screen under obscure viewing angles), unfortunately, these
-intensities are regulary used by most existing CGB games for medium and
+intensities are regularly used by most existing CGB games for medium and
 darker colors. Newer CGB games may avoid this effect by changing palette
 data when detecting GBA hardware. A relative simple method would be
 using the formula GBA=CGB/2+10h for each R,G,B intensity, probably the
@@ -381,7 +381,7 @@ FF47-FF49 (Non CGB Mode), and FF68-FF6B (CGB Mode).
 VRAM Background Maps
 --------------------
 
-The gameboy contains two 32x32 tile background maps in VRAM at addresses
+The Gameboy contains two 32x32 tile background maps in VRAM at addresses
 9800h-9BFFh and 9C00h-9FFFh. Each can be used either to display
 \"normal\" background, or \"window\" background.
 
@@ -442,7 +442,7 @@ bits in the LCDC register.
 VRAM Sprite Attribute Table (OAM)
 ---------------------------------
 
-GameBoy video controller can display up to 40 sprites either in 8x8 or
+Gameboy video controller can display up to 40 sprites either in 8x8 or
 in 8x16 pixels. Because of a limitation of hardware, only ten sprites
 can be displayed per scan line. Sprite patterns have the same format as
 BG tiles, but they are taken from the Sprite Pattern Table located at
@@ -455,21 +455,21 @@ four bytes with the following meanings:
 ### Byte0 - Y Position
 
 Specifies the sprites vertical position on the screen (minus 16). An
-offscreen value (for example, Y=0 or Y\>=160) hides the sprite.
+off-screen value (for example, Y=0 or Y\>=160) hides the sprite.
 
 ### Byte1 - X Position
 
 Specifies the sprites horizontal position on the screen (minus 8). An
-offscreen value (X=0 or X\>=168) hides the sprite, but the sprite still
+off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
 affects the priority ordering - a better way to hide a sprite is to set
-its Y-coordinate offscreen.
+its Y-coordinate off-screen.
 
 ### Byte2 - Tile/Pattern Number
 
 Specifies the sprites Tile Number (00-FF). This (unsigned) value selects
 a tile from memory at 8000h-8FFFh. In CGB Mode this could be either in
 VRAM Bank 0 or 1, depending on Bit 3 of the following byte. In 8x16
-mode, the lower bit of the tile number is ignored. Ie. the upper 8x8
+mode, the lower bit of the tile number is ignored. IE: the upper 8x8
 tile is \"NN AND FEh\", and the lower 8x8 tile is \"NN OR 01h\".
 
 ### Byte3 - Attributes/Flags:
@@ -500,7 +500,7 @@ other sprites sharing the same lines.
 
 ### Writing Data to OAM Memory
 
-The recommened method is to write the data to normal RAM first, and to
+The recommended method is to write the data to normal RAM first, and to
 copy that RAM to OAM by using the DMA transfer function, initiated
 through DMA register (FF46). Beside for that, it is also possible to
 write data directly to the OAM area by using normal LD commands, this
@@ -519,15 +519,15 @@ That means, any attempts to write to VRAM/OAM are ignored (the data
 remains unchanged). And any attempts to read from VRAM/OAM will return
 undefined data (typically a value of FFh).
 
-For this reason the program should verify if VRAM/OAM is accessable
+For this reason the program should verify if VRAM/OAM is accessible
 before actually reading or writing to it. This is usually done by
 reading the Mode Bits from the STAT Register (FF41). When doing this (as
 described in the examples below) you should take care that no interrupts
 occur between the wait loops and the following memory access - the
-memory is guaranted to be accessable only for a few cycles directly
+memory is guaranteed to be accessible only for a few cycles directly
 after the wait loops have completed.
 
-### VRAM (memory at 8000h-9FFFh) is accessable during Mode 0-2
+### VRAM (memory at 8000h-9FFFh) is accessible during Mode 0-2
 
 ` Mode 0 - H-Blank Period,`\
 ` Mode 1 - V-Blank Period, and`\
@@ -546,7 +546,7 @@ because in either case the following period is Mode 2 which allows
 access to VRAM either. In CGB Mode an alternate method to write data to
 VRAM is to use the HDMA Function (FF51-FF55).
 
-### OAM (memory at FE00h-FE9Fh) is accessable during Mode 0-1
+### OAM (memory at FE00h-FE9Fh) is accessible during Mode 0-1
 
 ` Mode 0 - H-Blank Period`\
 ` Mode 1 - V-Blank Period`
@@ -570,7 +570,7 @@ above mentioned DMA function would be more recommended anyways.
 
 ### Note
 
-When the display is disabled, both VRAM and OAM are accessable at any
+When the display is disabled, both VRAM and OAM are accessible at any
 time. The downside is that the screen is blank (white) during this
 period, so that disabling the display would be recommended only during
 initialization.
