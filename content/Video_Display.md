@@ -205,8 +205,9 @@ incremented in that case.
 
 This register allows to read/write data to the CGBs Background Palette
 Memory, addressed through Register FF68. Each color is defined by two
-bytes (Bit 0-7 in first byte). Bit 0-4 Red Intensity (00-1F)
+bytes (Bit 0-7 in first byte).
 
+` Bit 0-4   Red Intensity   (00-1F)`\
 ` Bit 5-9   Green Intensity (00-1F)`\
 ` Bit 10-14 Blue Intensity  (00-1F)`
 
