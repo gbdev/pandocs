@@ -548,7 +548,7 @@ VRAM is to use the HDMA Function (FF51-FF55).
 
 ### OAM (memory at FE00h-FE9Fh) is accessable during
 
-`Mode 0-1  Mode 0 - H-Blank Period, and`\
+` Mode 0 - H-Blank Period`\
 ` Mode 1 - V-Blank Period`
 
 Beside for that, OAM can be accessed at any time by using the DMA
