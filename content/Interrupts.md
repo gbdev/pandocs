@@ -96,12 +96,12 @@ According to Z80 datasheets, the following occurs when control is being
 transferred to an interrupt handler:
 
 1\. Two wait states are executed (2 machine cycles pass while nothing
-occurs, presumably the CPU is executing NOPs during this time). 2. The
-current PC is pushed onto the stack, this process consumes 2 more
-machine cycles. 3. The high byte of the PC is set to 0, the low byte is
-set to the address of the handler (\$40,\$48,\$50,\$58,\$60). This
-consumes one last machine cycle.
-
-The entire ISR \*should\* consume a total of 5 machine cycles. This has
+occurs, presumably the CPU is executing NOPs during this time).\
+2. The current PC is pushed onto the stack, this process consumes 2 more
+machine cycles.\
+3. The high byte of the PC is set to 0, the low byte is set to the
+address of the handler (\$40,\$48,\$50,\$58,\$60). This consumes one
+last machine cycle.\
+The entire ISR **should** consume a total of 5 machine cycles. This has
 yet to be tested, but is what the Z80 datasheet implies.
 
