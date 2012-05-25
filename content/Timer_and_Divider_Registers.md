@@ -1,8 +1,10 @@
 ### FF04 - DIV - Divider Register (R/W)
 
-This register is incremented at rate of 16384Hz (\~16779Hz on SGB). In
-CGB Double Speed Mode it is incremented twice as fast, ie. at 32768Hz.
+This register is incremented at rate of 16384Hz (\~16779Hz on SGB).
 Writing any value to this register resets it to 00h.
+
+Note: The divider is affected by CGB double speed mode, and will
+increment at 32768Hz in double speed.
 
 ### FF05 - TIMA - Timer counter (R/W)
 
