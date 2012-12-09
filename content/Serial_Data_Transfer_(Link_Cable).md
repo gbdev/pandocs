@@ -1,4 +1,4 @@
-### F01 - SB - Serial transfer data (R/W)
+### FF01 - SB - Serial transfer data (R/W)
 
 8 Bits of data to be read/written
 
