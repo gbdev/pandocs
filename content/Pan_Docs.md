@@ -69,9 +69,8 @@ educational purposes and higher learning.
 
 ### Available Document Formats
 
-The present version of this document is available in
-[Text](http://www.work.de/nocash/pandocs.txt) and
-[HTML](http://www.work.de/nocash/pandocs.htm) format.
+The present version of this document is available at
+<http://nocash.emubase.de/pandocs.htm>
 
 Also, a copy of this document is included in the manual of newer
 versions of the [no\$gmb](no$gmb "wikilink") debugger, because of recent
