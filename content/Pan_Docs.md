@@ -101,6 +101,17 @@ following premises:
 -   That the information can be presented in such a way that it is more
     appealing.
 
+Update as of 1/30/2014 at 3:41 P.M.
+
+I have provided a link to Pan\'s old webpage using the wayback machine.
+Here you can download some of his old tools that are so hard to find. I
+might provide a tutorial or two after I get enough time.
+
+<http://web.archive.org/web/19990209030645/http://www.anthrox.com/>
+
+Please click on free software to download the tools. We hold no
+liability for the tools that you download.
+
 ### Ways to help
 
 -   Add information from Pan Docs. (To do: Formatting guidelines)
