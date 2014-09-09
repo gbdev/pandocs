@@ -104,10 +104,11 @@ will select Bank 1 either.
 
 ### FF76 - Undocumented (00h) - Always 00h (Read Only)
 
-### FF77 - Undocumented (00h) - Always 00h (Read Only)
+### FF77 - Undocumented (00h) - (Read Only)
 
 These are undocumented CGB Registers. The numbers in brackets ()
 indicate the initial values. Purpose of these registers is unknown (if
 any). Registers FF6C and FF74 are always FFh if the CGB is in Non CGB
-Mode.
+Mode. Register FF77 is 00h when no sound is playing, and alternates
+between 00h and 0Fh otherwise.
 
