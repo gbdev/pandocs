@@ -261,7 +261,7 @@ assurance for excellence in workmanship and so on?
 LCD OAM DMA Transfers
 ---------------------
 
-### FF46 - DMA - DMA Transfer and Start Address (W)
+### FF46 - DMA - DMA Transfer and Start Address (R/W)
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 memory (sprite attribute table). The written value specifies the
