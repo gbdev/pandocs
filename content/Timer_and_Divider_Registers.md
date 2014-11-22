@@ -1,3 +1,6 @@
+Read this page for a more detailed description of what the registers do:
+[Timer Obscure Behaviour](Timer_Obscure_Behaviour "wikilink")
+
 ### FF04 - DIV - Divider Register (R/W)
 
 This register is incremented at rate of 16384Hz (\~16779Hz on SGB).
