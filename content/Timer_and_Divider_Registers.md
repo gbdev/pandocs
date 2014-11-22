@@ -1,6 +1,3 @@
-Read this page for a more detailed description of what the registers do:
-[Timer Obscure Behaviour](Timer_Obscure_Behaviour "wikilink")
-
 ### FF04 - DIV - Divider Register (R/W)
 
 This register is incremented at rate of 16384Hz (\~16779Hz on SGB).
@@ -37,6 +34,11 @@ Each time when the timer overflows (ie. when TIMA gets bigger than FFh),
 then an interrupt is requested by setting Bit 2 in the IF Register
 (FF0F). When that interrupt is enabled, then the CPU will execute it by
 calling the timer interrupt vector at 0050h.
+
+### Timer Obscure Behaviour
+
+Read this page for a more detailed description of what the registers do:
+[Timer Obscure Behaviour](Timer_Obscure_Behaviour "wikilink")
 
 Note
 ----
