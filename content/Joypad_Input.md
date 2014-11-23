@@ -39,7 +39,7 @@ buttons and direction keys simultaneously it still cannot recognize all
 keystrokes, because in that case a bit might be already held low by a
 button key, and pressing the corresponding direction key would thus
 cause no difference. The only meaningful purpose of the keystroke
-interrupt would be to terminate STOP (low power) standby state. Also,
-the joypad interrupt does not appear to work with CGB and GBA hardware
-(the STOP function can be still terminated by joypad keystrokes though).
+interrupt would be to terminate STOP (low power) standby state. GBA SP,
+because of the different buttons used, seems to not be affected by
+switch bounce.
 
