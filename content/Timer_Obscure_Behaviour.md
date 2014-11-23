@@ -62,7 +62,9 @@ When TIMA overflows, the value from TMA is loaded and IF timer flag is
 set to 1, but this doesn\'t happen immediately. Timer interrupt is
 delayed 1 cycle (4 clocks) from the TIMA overflow. The TMA reload to
 TIMA is also delayed. For one cycle, after overflowing TIMA, the value
-in TIMA is 00h, not TMA.
+in TIMA is 00h, not TMA. This happens only when an overflow happens, not
+when the upper bit goes from 1 to 0, it can\'t be done manually writing
+to TIMA, the timer has to increment itself.
 
 For example (SYS is the system internal counter divided by 4 for easier
 understanding, each increment of the graph is 1 cycle, not 1 clock):
