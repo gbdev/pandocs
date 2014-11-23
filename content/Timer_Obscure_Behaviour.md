@@ -3,7 +3,8 @@ Timer Global Circuit
 
 ![](Timer_simplified.png "Timer_simplified.png")
 
-### Relation between Timer and Divider register
+Relation between Timer and Divider register
+-------------------------------------------
 
 This is a schematic of the circuit involving TAC and DIV:
 
@@ -54,7 +55,8 @@ change of value happens (so timer is enabled after the write), the
 behaviour depends on a race condition, so it cannot be predicted for
 every device.
 
-### Timer Overflow Behaviour
+Timer Overflow Behaviour
+------------------------
 
 When TIMA overflows, the value from TMA is loaded and IF timer flag is
 set to 1, but this doesn\'t happen immediately. Timer interrupt is
