@@ -1,3 +1,8 @@
+Timer Global Circuit
+--------------------
+
+![](Timer_simplified.png "Timer_simplified.png")
+
 ### Relation between Timer and Divider register
 
 This is a schematic of the circuit involving TAC and DIV:
@@ -40,4 +45,62 @@ explains the behaviour in DMG and MGB.
             glitch = ((sys_clocks & (old_clocks/2)) != 0) && ((sys_clocks & (new_clocks/2)) == 0)
         END IF
     END IF
+
+The sentence marked with a (\*) has a different behaviour in GBC (AGB
+and AGS seem to have strange behaviour even in the other statements).
+When enabling the timer and maintaining the same frequency it doesn\'t
+glitch. When disabling the timer it doesn\'t glitch either. When another
+change of value happens (so timer is enabled after the write), the
+behaviour depends on a race condition, so it cannot be predicted for
+every device.
+
+### Timer Overflow Behaviour
+
+When TIMA overflows, the value from TMA is loaded and IF timer flag is
+set to 1, but this doesn\'t happen immediately. Timer interrupt is
+delayed 1 cycle (4 clocks) from the TIMA overflow. The TMA reload to
+TIMA is also delayed. For one cycle, after overflowing TIMA, the value
+in TIMA is 00h, not TMA.
+
+For example (SYS is the system internal counter divided by 4 for easier
+understanding, each increment of the graph is 1 cycle, not 1 clock):
+
+    Timer overflows:
+
+                  [A] [B]
+    SYS  FD FE FF |00| 01 02 03
+    TIMA FF FF FF |00| 23 23 23
+    TMA  23 23 23 |23| 23 23 23
+    IF   E0 E0 E0 |E0| E4 E4 E4
+
+    Timer doesn't overflow:
+
+                  [C]
+    SYS  FD FE FF 00 01 02 03
+    TIMA 45 45 45 46 46 46 46
+    TMA  23 23 23 23 23 23 23
+    IF   E0 E0 E0 E0 E0 E0 E0
+
+\- During the strange cycle \[A\] you can prevent the IF flag from being
+set and prevent the TIMA from being reloaded from TMA by writing a value
+to TIMA. That new value will be the one that stays in the TIMA register
+after the instruction. Writing to DIV, TAC or other registers won\'t
+prevent the IF flag from being set or TIMA from being reloaded.
+
+\- If you write to TIMA during the cycle that TMA is being loaded to it
+\[B\], the write will be ignored and TMA value will be written to TIMA
+instead.
+
+\- If TMA is written the same cycle it is loaded to TIMA \[B\], TIMA is
+also loaded with that value.
+
+\- This is a guessed schematic to explain the priorities with registers
+TIMA and TMA:
+
+![](Timer_tima_tma_detailed.png "Timer_tima_tma_detailed.png")
+
+TMA is a latch. As soon as it is written, the output shows that value.
+That explains that when TMA is written and TIMA is being incremented,
+the value written to TMA is also written to TIMA. It doesn\'t affect the
+IF flag, though.
 
