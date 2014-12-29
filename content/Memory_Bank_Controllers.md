@@ -179,9 +179,10 @@ that is done by using address A000.
 When writing 00h, and then 01h to this register, the current time
 becomes latched into the RTC registers. The latched data will not change
 until it becomes latched again, by repeating the write 00h-\>01h
-procedure. This is supposed for <reading> from the RTC registers. It is
-proof to read the latched (frozen) time from the RTC registers, while
-the clock itself continues to tick in background.
+procedure. This is supposed for <reading> from the RTC registers. This
+can be proven by reading the latched (frozen) time from the RTC
+registers, and then unlatch the registers to show the clock itself
+continues to tick in background.
 
 ### The Clock Counter Registers
 
