@@ -7,6 +7,10 @@ Retina\" which is a 128\*128 pixel grayscale CMOS image sensor that can
 perform image adjustments in realtime. The data sheet is available in
 [**/docs/misc/** of the file hub](http://gbdev.gg8.se/files/docs/misc/).
 
+Documentation related to the GB Camera itself (not only the sensor) can
+be found in the following github repository:
+<https://github.com/AntonioND/gbcam-rev-engineer>
+
 Integrated circuits on the main board
 -------------------------------------
 
