@@ -108,6 +108,8 @@ PCM amplitude, channel 1 and 2
 
 ### FF77 - Undocumented (00h) - (Read Only)
 
+PCM amplitude, channel 3 and 4.
+
 These are undocumented CGB Registers. The numbers in brackets ()
 indicate the initial values. Purpose of these registers is unknown (if
 any). Registers FF6C and FF74 are always FFh if the CGB is in Non CGB
