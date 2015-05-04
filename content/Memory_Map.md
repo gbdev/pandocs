@@ -55,7 +55,7 @@ area to output data (write only) to the MBC chip. The second area is
 often used to address external RAM, or to address other external
 hardware ([Real Time Clock](RTC "wikilink"), etc). External memory is
 often battery buffered, and may hold saved game positions and high score
-tables (etc.) even when the gameboy is turned of, or when the cartridge
-is removed. For specific information read the chapter about Memory Bank
-Controllers.
+tables (etc.) even when the Game Boy is turned off, or when the
+cartridge is removed. For specific information read the chapter about
+Memory Bank Controllers.
 
