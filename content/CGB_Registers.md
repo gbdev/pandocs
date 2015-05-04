@@ -104,11 +104,11 @@ will select Bank 1 either.
 
 ### FF76 - Undocumented (00h) - (Read Only)
 
-PCM amplitude, channel 1 and 2
+PCM amplitude, channels 1 and 2.
 
 ### FF77 - Undocumented (00h) - (Read Only)
 
-PCM amplitude, channel 3 and 4.
+PCM amplitude, channels 3 and 4.
 
 These are undocumented CGB Registers. The numbers in brackets ()
 indicate the initial values. Purpose of these registers is unknown (if
