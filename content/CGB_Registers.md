@@ -104,6 +104,8 @@ will select Bank 1 either.
 
 ### FF76 - Undocumented (00h) - (Read Only)
 
+PCM amplitude, channel 1 and 2
+
 ### FF77 - Undocumented (00h) - (Read Only)
 
 These are undocumented CGB Registers. The numbers in brackets ()
