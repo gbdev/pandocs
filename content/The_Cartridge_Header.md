@@ -114,7 +114,8 @@ Specifies the size of the external RAM in the cartridge (if any).
 ` 00h - None`\
 ` 01h - 2 KBytes`\
 ` 02h - 8 Kbytes`\
-` 03h - 32 KBytes (4 banks of 8KBytes each)`
+` 03h - 32 KBytes (4 banks of 8KBytes each)`\
+` 04h - 128 KBytes (16 banks of 8KBytes each)`
 
 When using a MBC2 chip 00h must be specified in this entry, even though
 the MBC2 includes a built-in RAM of 512 x 4 bits.
