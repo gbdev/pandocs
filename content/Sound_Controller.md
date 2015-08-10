@@ -112,8 +112,10 @@ Bit 6 in NR24 is set.
 
 Length of 1 step = n\*(1/64) seconds
 
-FF18 - NR23 - Channel 2 Frequency lo data (W) Frequency\'s lower 8 bits
-of 11 bit data (x). Next 3 bits are in NR24 (\$FF19).
+### FF18 - NR23 - Channel 2 Frequency lo data (W)
+
+Frequency\'s lower 8 bits of 11 bit data (x). Next 3 bits are in NR24
+(\$FF19).
 
 ### FF19 - NR24 - Channel 2 Frequency hi data (R/W)
 
