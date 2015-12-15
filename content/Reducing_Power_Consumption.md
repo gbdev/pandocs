@@ -41,6 +41,15 @@ terminated by a vblank interrupt, or by another interrupt. In case your
 program has all other interrupts disabled, then it would be okay to
 replace the above procedure by a single HALT instruction.
 
+Another possibility is, if your game uses no other interrupt than VBlank
+(or uses no interrupt), to only enable VBlank interrupts and simply use
+a halt instruction, which will only resume main code execution when a
+VBlank occurs.
+
+Remember when using HALT to wait between VBlanks, your interrupt
+routines MUST enable interrupts (ie with ei during the execution, or
+better, using the RETI instruction)
+
 Using the STOP Instruction
 --------------------------
 
