@@ -108,6 +108,11 @@ might provide a tutorial or two after I get enough time.
 
 <http://web.archive.org/web/19990209030645/http://www.anthrox.com/>
 
+Update as of 15/12/2015 at 9:23 P.M.
+
+The Game Boy Color Programming Section was removed from the Wayback
+Machine.
+
 Please click on free software to download the tools. We hold no
 liability for the tools that you download.
 
