@@ -63,6 +63,9 @@ manually (as well as IR-link port in CGB). Much like HALT, the STOP
 state is terminated by interrupt events. STOP is commonly terminated
 with a joypad interrupt.
 
+During STOP mode, the display will turn white, so avoid using it in your
+game\'s main loop.
+
 Disabling the Sound Controller
 ------------------------------
 
