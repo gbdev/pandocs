@@ -56,5 +56,5 @@ RAM.
 External links
 --------------
 
--   [Source on trashfolder.org](http://trashfolder.org/blog/huc1.html)
+-   [Source on jrra.zone](http://jrra.zone/blog/huc1.html)
 
