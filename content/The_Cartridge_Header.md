@@ -74,21 +74,22 @@ than 03h.
 Specifies which Memory Bank Controller (if any) is used in the
 cartridge, and if further external hardware exists in the cartridge.
 
-` 00h  ROM ONLY                 13h  MBC3+RAM+BATTERY`\
-` 01h  MBC1                     15h  MBC4`\
-` 02h  MBC1+RAM                 16h  MBC4+RAM`\
-` 03h  MBC1+RAM+BATTERY         17h  MBC4+RAM+BATTERY`\
-` 05h  MBC2                     19h  MBC5`\
-` 06h  MBC2+BATTERY             1Ah  MBC5+RAM`\
-` 08h  ROM+RAM                  1Bh  MBC5+RAM+BATTERY`\
-` 09h  ROM+RAM+BATTERY          1Ch  MBC5+RUMBLE`\
-` 0Bh  MMM01                    1Dh  MBC5+RUMBLE+RAM`\
-` 0Ch  MMM01+RAM                1Eh  MBC5+RUMBLE+RAM+BATTERY`\
-` 0Dh  MMM01+RAM+BATTERY        FCh  POCKET CAMERA`\
-` 0Fh  MBC3+TIMER+BATTERY       FDh  BANDAI TAMA5`\
-` 10h  MBC3+TIMER+RAM+BATTERY   FEh  HuC3`\
-` 11h  MBC3                     FFh  HuC1+RAM+BATTERY`\
-` 12h  MBC3+RAM`
+` 00h  ROM ONLY                 15h  MBC4`\
+` 01h  MBC1                     16h  MBC4+RAM`\
+` 02h  MBC1+RAM                 17h  MBC4+RAM+BATTERY`\
+` 03h  MBC1+RAM+BATTERY         19h  MBC5`\
+` 05h  MBC2                     1Ah  MBC5+RAM`\
+` 06h  MBC2+BATTERY             1Bh  MBC5+RAM+BATTERY`\
+` 08h  ROM+RAM                  1Ch  MBC5+RUMBLE`\
+` 09h  ROM+RAM+BATTERY          1Dh  MBC5+RUMBLE+RAM`\
+` 0Bh  MMM01                    1Eh  MBC5+RUMBLE+RAM+BATTERY`\
+` 0Ch  MMM01+RAM                20h  MBC6`\
+` 0Dh  MMM01+RAM+BATTERY        22h  MBC7+SENSOR+RUMBLE+RAM+BATTERY`\
+` 0Fh  MBC3+TIMER+BATTERY`\
+` 10h  MBC3+TIMER+RAM+BATTERY   FCh  POCKET CAMERA`\
+` 11h  MBC3                     FDh  BANDAI TAMA5`\
+` 12h  MBC3+RAM                 FEh  HuC3`\
+` 13h  MBC3+RAM+BATTERY         FFh  HuC1+RAM+BATTERY`
 
 ### 0148 - ROM Size
 
