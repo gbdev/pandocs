@@ -1,14 +1,14 @@
 As the gameboys 16 bit address bus offers only limited space for ROM and
 RAM addressing, many games are using Memory Bank Controllers (MBCs) to
 expand the available address space by bank switching. These MBC chips
-are located in the game cartridge (ie. not in the gameboy itself),
-several different MBC types are available:
-
-\_\_TOC\_\_
+are located in the game cartridge (ie. not in the gameboy itself).
 
 In each cartridge, the required (or preferred) MBC type should be
-specified in byte at 0147h of the ROM. (As described in the chapter
-about The Cartridge Header.)
+specified in the byte at 0147h of the ROM, as described in [the
+cartridge header](The_Cartridge_Header#0148_-_ROM_Size "wikilink").
+Several different MBC types are available:
+
+\_\_TOC\_\_
 
 None (32KByte ROM only)
 -----------------------
