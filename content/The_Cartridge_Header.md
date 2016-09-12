@@ -124,7 +124,7 @@ the MBC2 includes a built-in RAM of 512 x 4 bits.
 
 ### 014A - Destination Code
 
-Specifies if this version of the game is supposed to be sold in japan,
+Specifies if this version of the game is supposed to be sold in Japan,
 or anywhere else. Only two values are defined.
 
 ` 00h - Japanese`\
