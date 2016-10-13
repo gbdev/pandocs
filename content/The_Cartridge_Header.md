@@ -104,6 +104,7 @@ shl N\".
 ` 05h -   1MByte (64 banks)  - only 63 banks used by MBC1`\
 ` 06h -   2MByte (128 banks) - only 125 banks used by MBC1`\
 ` 07h -   4MByte (256 banks)`\
+` 08h -   8MByte (512 banks)`\
 ` 52h - 1.1MByte (72 banks)`\
 ` 53h - 1.2MByte (80 banks)`\
 ` 54h - 1.5MByte (96 banks)`
