@@ -1,17 +1,49 @@
+Communication between two Gameboys happens one byte at a time. One
+Gameboy acts as the master, uses its internal clock, and thus controls
+when the exchange happens. The other one uses an external clock (i.e.,
+the one inside the other Gameboy) and has no control over when the
+transfer happens. If it hasn\'t gotten around to loading up the next
+data byte at the time the transfer begins, the last one will go out
+again. Alternately, if it\'s ready to send the next byte but the last
+one hasn\'t gone out yet, it has no choice but to wait.
+
 ### FF01 - SB - Serial transfer data (R/W)
 
-8 Bits of data to be read/written
+Before a transfer, it holds the next byte that will go out.
+
+During a transfer, it has a blend of the outgoing and incoming bytes.
+Each cycle, the leftmost bit is shifted out (and over the wire) and the
+incoming bit is shifted in from the other side:
+
+\
+`o7 o6 o5 o4 o3 o2 o1 o0`\
+`o6 o5 o4 o3 o2 o1 o0 i7`\
+`o5 o4 o3 o2 o1 o0 i7 i6`\
+`o4 o3 o2 o1 o0 i7 i6 i5`\
+`o3 o2 o1 o0 i7 i6 i5 i4`\
+`o2 o1 o0 i7 i6 i5 i4 i3`\
+`o1 o0 i7 i6 i5 i4 i3 i2`\
+`o0 i7 i6 i5 i4 i3 i2 i1`\
+`i7 i6 i5 i4 i3 i2 i1 i0`\
 
 ### FF02 - SC - Serial Transfer Control (R/W)
 
-` Bit 7 - Transfer Start Flag (0=No Transfer, 1=Start)`\
+` Bit 7 - Transfer Start Flag (0=No transfer is in progress or requested, 1=Transfer in progress, or requested)`\
 ` Bit 1 - Clock Speed (0=Normal, 1=Fast) ** CGB Mode Only **`\
 ` Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)`
 
-The clock signal specifies the rate at which the eight data bits in SB
-(FF01) are transferred. When the gameboy is communicating with another
-gameboy (or other computer) then either one must supply internal clock,
-and the other one must use external clock.
+The gameboy acting as master will load up a data byte in SB and then set
+SC to 0x81 (Transfer requested, use internal clock). It will be notified
+that the transfer is complete in two ways: SC\'s Bit 7 will be cleared
+(i.e., SC will be set up 0x01), and also the Serial Interrupt handler
+will be called (i.e., the CPU will jump to 0x0058).
+
+The other gameboy will load up a data byte and can optionally set SC\'s
+Bit 7 (i.e., SC=0x80). Regardless of whether or not it has done this, if
+and when the master gameboy wants to conduct a transfer, it will happen
+(pulling whatever happens to be in SB at that time). The passive gameboy
+will have its serial interrupt handler called at the end of the
+transfer, and if it bothered to set SC\'s Bit 7, it will be cleared.
 
 ### Internal Clock
 
@@ -31,11 +63,11 @@ The external clock is typically supplied by another gameboy, but might
 be supplied by another computer (for example if connected to a PCs
 parallel port), in that case the external clock may have any speed. Even
 the old/monochrome gameboy is reported to recognizes external clocks of
-up to 500KHz. And there is no limitiation into the other direction -
-even when suppling an external clock speed of \"1 bit per month\", then
-the gameboy will still eagerly wait for the next bit(s) to be
-transferred. It isn\'t required that the clock pulses are sent at an
-regular interval either.
+up to 500KHz. And there is no limitation into the other direction - even
+when suppling an external clock speed of \"1 bit per month\", then the
+gameboy will still eagerly wait for the next bit(s) to be transferred.
+It isn\'t required that the clock pulses are sent at an regular interval
+either.
 
 ### Timeouts
 
@@ -57,9 +89,11 @@ the gameboy with internal clock starts the transfer. Alternately, the
 two gameboys could switch between internal and external clock for each
 transferred byte to ensure synchronization.
 
-Transfer is initiated by setting the Transfer Start Flag. This bit is
-automatically set to 0 at the end of Transfer. Reading this bit can be
-used to determine if the transfer is still active.
+Transfer is initiated by setting the master Gameboy setting its Transfer
+Start Flag, regardless of the value of this flag on the other device.
+This bit is automatically set to 0 (on both) at the end of Transfer.
+Reading this bit can be used to determine if the transfer is still
+active.
 
 ### INT 58 - Serial Interrupt
 
@@ -92,8 +126,8 @@ line until another transfer takes place.
 If a serial transfer with internal clock is performed and no external
 GameBoy is present, a value of \$FF will be received in the transfer.
 
-The following code causes \$75 to be shifted out the serial port and a
-byte to be shifted into \$FF01:
+The following code initiates the process of shifting \$75 out the serial
+port and a byte to be shifted into \$FF01:
 
 `   ld   a,$75`\
 `   ld  ($FF01),a`\
