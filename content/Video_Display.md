@@ -147,10 +147,13 @@ becomes set, and (if enabled) a STAT interrupt is requested.
 Specifies the upper/left positions of the Window area. (The window is an
 alternate background area which can be displayed above of the normal
 background. OBJs (sprites) may be still displayed above or behind the
-window, just as for normal BG.) The window becomes visible (if enabled)
-when positions are set in range WX=0..166, WY=0..143. A position of
-WX=7, WY=0 locates the window at upper left, it is then completely
-covering normal background.
+window, just as for normal BG.)
+
+The window becomes visible (if enabled) when positions are set in range
+WX=0..166, WY=0..143. A position of WX=7, WY=0 locates the window at
+upper left, it is then completely covering normal background.
+
+If WX is set to 0, the window will \"stutter\" when SCX is changed.
 
 LCD Monochrome Palettes
 -----------------------
