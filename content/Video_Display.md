@@ -95,6 +95,10 @@ Mode 0 is present between 201-207 clks, 2 about 77-83 clks, and 3 about
 VBlank lasts 4560 clks. A complete screen refresh occurs every 70224
 clks.)
 
+A hardware bug in the gray Game Boys makes the LCD interrupt sometimes
+trigger when writing to STAT (including writing \$00) during a H-Blank
+or V-Blank period.
+
 LCD Interrupts
 --------------
 
