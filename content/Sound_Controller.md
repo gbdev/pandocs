@@ -276,6 +276,7 @@ flag to go off.
 Read more
 ---------
 
-[Wavetable Archive](Wavetable_Archive "wikilink") [Gameboy sound
-hardware](Gameboy_sound_hardware "wikilink")
+[Wavetable Archive](Wavetable_Archive "wikilink")
+
+[Gameboy sound hardware](Gameboy_sound_hardware "wikilink")
 
