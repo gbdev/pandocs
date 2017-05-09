@@ -1,4 +1,5 @@
-### Forward
+Forward
+-------
 
 This chapter describes only CGB (Color Gameboy) registers that didn\'t
 fit into normal categories - most CGB registers are described in the
@@ -6,7 +7,8 @@ chapter about Video Display (Color Palettes, VRAM Bank, VRAM DMA
 Transfers, and changed meaning of Bit 0 of LCDC Control register). Also,
 a changed bit is noted in the chapter about the Serial/Link port.
 
-### Unlocking CGB functions
+Unlocking CGB functions
+-----------------------
 
 When using any CGB registers (including those in the Video/Link
 chapters), you must first unlock CGB features by changing byte 0143h in
@@ -15,7 +17,8 @@ support both CGB and monochrome gameboys, and C0h for games which work
 on CGBs only. Otherwise, the CGB will operate in monochrome \"Non CGB\"
 compatibility mode.
 
-### Detecting CGB (and GBA) functions
+Detecting CGB (and GBA) functions
+---------------------------------
 
 CGB hardware can be detected by examing the CPU accumulator (A-register)
 directly after startup. A value of 11h indicates CGB (or GBA) hardware,
@@ -23,6 +26,9 @@ if so, CGB functions can be used (if unlocked, see above). When A=11h,
 you may also examine Bit 0 of the CPUs B-Register to separate between
 CGB (bit cleared) and GBA (bit set), by that detection it is possible to
 use \'repaired\' color palette data matching for GBA displays.
+
+Documented registers
+--------------------
 
 ### FF4D - KEY1 - CGB Mode Only - Prepare Speed Switch
 
@@ -92,29 +98,46 @@ C000-CFFF, Bank 1-7 can be selected into the address space at D000-DFFF.
 Writing a value of 01h-07h will select Bank 1-7, writing a value of 00h
 will select Bank 1 either.
 
-### FF6C - Undocumented (FEh) - Bit 0 (Read/Write) - CGB Mode Only
+Undocumented registers
+----------------------
 
-### FF72 - Undocumented (00h) - Bit 0-7 (Read/Write)
+These are undocumented CGB Registers. Purpose of these registers is
+unknown (if any). It isn\'t recommended to use them in your software,
+but you could, for example, use them to check if you are running on an
+emulator or on DMG hardware.
 
-### FF73 - Undocumented (00h) - Bit 0-7 (Read/Write)
+### FF6C - Bit 0 (Read/Write) - CGB Mode Only
 
-### FF74 - Undocumented (00h) - Bit 0-7 (Read/Write) - CGB Mode Only
+Only the least significant bit of this register can be written to. It
+defaults to 0, so this register\'s initial value is \$FE.
 
-### FF75 - Undocumented (8Fh) - Bit 4-6 (Read/Write)
+In non-CGB mode, it isn\'t writable, and its value is locked at \$FF.
 
-### FF76 - Undocumented (00h) - (Read Only)
+### FF72 - Bits 0-7 (Read/Write)
 
-PCM amplitude, channels 1 and 2.
+### FF73 - Bits 0-7 (Read/Write)
 
-### FF77 - Undocumented (00h) - (Read Only)
+Both of these registers are fully read/write. Their initial value is
+\$00.
 
-PCM amplitude, channels 3 and 4.
+### FF74 - Bits 0-7 (Read/Write) - CGB Mode Only
 
-These are undocumented CGB Registers. The numbers in brackets ()
-indicate the initial values. Purpose of these registers is unknown (if
-any). Registers FF6C and FF74 are always FFh if the CGB is in Non CGB
-Mode. Each of the four nibbles in registers FF76-FF77 represent the
-current PCM amplitude (00h-0Fh) in each of the four sound channels,
-where the lower nibble of FF76 represents the channel 1 and the higher
-nibble in FF77 represents channel 4.
+In CGB mode, this register is fully readable and writable. Its initial
+value is \$00.
+
+Otherwise, this register is read-only, and locked at value \$FF.
+
+### FF75 - Bits 4-6 (Read/Write)
+
+Only bits 4, 5 and 6 of this register are read/write enabled. Their
+initial value is 0.
+
+### FF76 - PCM amplitudes 1 & 2 (Read Only)
+
+This register is read-only. The low nibble is a copy of sound channel
+\#1\'s PCM amplitude, the high byte a copy of sound channel \#2\'s.
+
+### FF77 - PCM amplitudes 3 & 4 (Read Only)
+
+Same, but with channels 3 and 4.
 
