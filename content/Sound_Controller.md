@@ -273,3 +273,9 @@ remains set until the sound length has expired (if enabled). A volume
 envelopes which has decreased to zero volume will NOT cause the sound
 flag to go off.
 
+Read more
+---------
+
+[Wavetable Archive](Wavetable_Archive "wikilink") [Gameboy sound
+hardware](Gameboy_sound_hardware "wikilink")
+
