@@ -280,3 +280,5 @@ Read more
 
 [Gameboy sound hardware](Gameboy_sound_hardware "wikilink")
 
+[Sound tutorial](Sound_tutorial "wikilink")
+
