@@ -203,10 +203,13 @@ bytes define Color 0-3 of Palette 0 (BGP0), and so on for BGP1-7.
 ` Bit 7     Auto Increment  (0=Disabled, 1=Increment after Writing)`
 
 Data can be read/written to/from the specified index address through
-Register FF69. When the Auto Increment Bit is set then the index is
+Register FF69. When the Auto Increment bit is set then the index is
 automatically incremented after each <write> to FF69. Auto Increment has
 no effect when <reading> from FF69, so the index must be manually
 incremented in that case.
+
+Unlike the following, this register can be accessed outside V-Blank and
+H-Blank.
 
 ### FF69 - BCPD/BGPD - CGB Mode Only - Background Palette Data
 
@@ -218,10 +221,11 @@ bytes (Bit 0-7 in first byte).
 ` Bit 5-9   Green Intensity (00-1F)`\
 ` Bit 10-14 Blue Intensity  (00-1F)`
 
-Much like VRAM, Data in Palette Memory cannot be read/written during the
+Much like VRAM, data in Palette Memory cannot be read/written during the
 time when the LCD Controller is reading from it. (That is when the STAT
-register indicates Mode 3). Note: Initially all background colors are
-initialized as white.
+register indicates Mode 3). Note: All background colors are initialized
+as white by the boot ROM, but it\'s a good idea to initialize at least
+one color yourself (for example if you include a soft-reset mechanic).
 
 ### FF6A - OCPS/OBPI - CGB Mode Only - Sprite Palette Index, FF6B - OCPD/OBPD - CGB Mode Only - Sprite Palette Data
 
@@ -229,21 +233,26 @@ These registers are used to initialize the Sprite Palettes OBP0-7,
 identically as described above for Background Palettes. Note that four
 colors may be defined for each OBP Palettes - but only Color 1-3 of each
 Sprite Palette can be displayed, Color 0 is always transparent, and can
-be initialized to a don\'t care value. Note: Initially all sprite colors
-are uninitialized.
+be initialized to a don\'t care value or plain never initialized.
+
+Note: All sprite colors are left uninitialized by the boot ROM, and are
+somewhat random.
 
 ### RGB Translation by CGBs
 
+![VGA versus CGB color
+mixing](VGA_versus_CGB.png "fig:VGA versus CGB color mixing"){width="150"}
 When developing graphics on PCs, note that the RGB values will have
-different appearance on CGB displays as on VGA monitors: The highest
-intensity will produce Light Gray color rather than White. The
+different appearance on CGB displays as on VGA/HDMI monitors: The
+highest intensity will produce Light Gray color rather than White. The
 intensities are not linear; the values 10h-1Fh will all appear very
-bright, while medium and darker colors are ranged at 00h-0Fh. The CGB
-display will mix colors quite oddly, increasing intensity of only one
-R,G,B color will also influence the other two R,G,B colors. For example,
-a color setting of 03EFh (Blue=0, Green=1Fh, Red=0Fh) will appear as
-Neon Green on VGA displays, but on the CGB it\'ll produce a decently
-washed out Yellow.
+bright, while medium and darker colors are ranged at 00h-0Fh.
+
+The CGB display will mix colors quite oddly, increasing intensity of
+only one R,G,B color will also influence the other two R,G,B colors. For
+example, a color setting of 03EFh (Blue=0, Green=1Fh, Red=0Fh) will
+appear as Neon Green on VGA displays, but on the CGB it\'ll produce a
+decently washed out Yellow. See image on the right.
 
 ### RGB Translation by GBAs
 
@@ -255,15 +264,19 @@ completely different. Intensities in range 00h..0Fh are invisible/black
 (unless eventually under best sunlight circumstances, and when gazing at
 the screen under obscure viewing angles), unfortunately, these
 intensities are regularly used by most existing CGB games for medium and
-darker colors. Newer CGB games may avoid this effect by changing palette
-data when detecting GBA hardware. A relative simple method would be
-using the formula GBA=CGB/2+10h for each R,G,B intensity, probably the
-result won\'t be perfect, and (once colors became visible) it may turn
-out that the color mixing is different also, anyways, it\'d be still
-ways better than no conversion. Asides, this translation method should
-have been VERY easy to implement in GBA hardware directly, even though
-Nintendo obviously failed to do so. How did they say, This seal is your
-assurance for excellence in workmanship and so on?
+darker colors.
+
+Newer CGB games may avoid this effect by changing palette data when
+detecting GBA hardware ([see
+how](CGB_Registers#Detecting_CGB_.28and_GBA.29_functions "wikilink")). A
+relative simple method would be using the formula GBA=CGB/2+10h for each
+R,G,B intensity, probably the result won\'t be perfect, and (once colors
+become visible) it may turn out that the color mixing is different also;
+anyways, it\'d be still ways better than no conversion. Asides, this
+translation method should have been VERY easy to implement in GBA
+hardware directly, even though Nintendo obviously failed to do so. How
+did they say, \"This seal is your assurance for excellence in
+workmanship\" and so on?
 
 LCD OAM DMA Transfers
 ---------------------
