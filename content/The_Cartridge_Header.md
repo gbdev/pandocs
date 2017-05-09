@@ -160,7 +160,9 @@ or anywhere else. Only two values are defined.
 
 Specifies the games company/publisher code in range 00-FFh. A value of
 33h signalizes that the New License Code in header bytes 0144-0145 is
-used instead. (Super GameBoy functions won\'t work if \<\> \$33.)
+used instead. (Super GameBoy functions won\'t work if \<\> \$33.) A list
+of licensee codes can be found
+[here](Gameboy_ROM_Header_Info#Licensee "wikilink").
 
 ### 014C - Mask ROM Version number
 
