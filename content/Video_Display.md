@@ -296,17 +296,30 @@ access only HRAM (memory at FF80-FFFE). For this reason, the programmer
 must copy a short procedure into HRAM, and use this procedure to start
 the transfer from inside HRAM, and wait until the transfer has finished:
 
-`  ld  (0FF46h),a ;start DMA transfer, a=start address/100h`\
+`  ld a, start address / 100h`\
+`  ldh  (FF46h),a ;start DMA transfer (starts right after instruction)`\
 `  ld  a,28h      ;delay...`\
 ` wait:           ;total 5x40 cycles, approx 200ms`\
 `  dec a          ;1 cycle`\
-`  jr  nz,wait    ;4 cycles`
+`  jr  nz,wait    ;4 cycles`\
+`  ret`
 
 Most programs are executing this procedure from inside of their VBlank
 procedure, but it is possible to execute it during display redraw also,
 allowing to display more than 40 sprites on the screen (ie. for example
 40 sprites in upper half, and other 40 sprites in lower half of the
 screen).
+
+A more compact procedure is
+
+`  ldh ($FF00+c), a`\
+` wait:`\
+`  dec b`\
+`  jr nz,wait`\
+`  ret`
+
+which should be called with a = start address / 100h, c = 46h, b = 29h.
+This saves 5 bytes of HRAM.
 
 LCD VRAM DMA Transfers (CGB only)
 ---------------------------------
