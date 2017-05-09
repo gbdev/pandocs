@@ -33,10 +33,11 @@ Cheats](Gamegenie/Shark_Cheats "wikilink")
 
 [MBC1](MBC1 "wikilink") - [MBC2](MBC2 "wikilink") -
 [MMM01](MMM01 "wikilink") - [MBC3](MBC3 "wikilink") -
-[MBC4](MBC4 "wikilink") - [MBC5](MBC5 "wikilink")
--[MBC6](MBC6 "wikilink") - [MBC7](MBC7 "wikilink") -
-[HuC1](HuC1 "wikilink") - [HuC3](HuC3 "wikilink") -
-[TAMA5](TAMA5 "wikilink")
+[MBC5](MBC5 "wikilink") - [MBC6](MBC6 "wikilink") -
+[MBC7](MBC7 "wikilink") - [HuC1](HuC1 "wikilink") -
+[HuC3](HuC3 "wikilink") - [TAMA5](TAMA5 "wikilink")
+
+(Editor\'s note : There is apparently no MBC4 controller)
 
 ### Other
 
