@@ -26,8 +26,7 @@ Z80](CPU_Comparision_with_Z80 "wikilink")
 ### Cartridges
 
 [The Cartridge Header](The_Cartridge_Header "wikilink") - [Memory Bank
-Controllers](Memory_Bank_Controllers "wikilink") - [Gamegenie/Shark
-Cheats](Gamegenie/Shark_Cheats "wikilink")
+Controllers](Memory_Bank_Controllers "wikilink")
 
 ### Memory Bank Controllers
 
@@ -38,6 +37,12 @@ Cheats](Gamegenie/Shark_Cheats "wikilink")
 [HuC3](HuC3 "wikilink") - [TAMA5](TAMA5 "wikilink")
 
 (Editor\'s note : There is apparently no MBC4 controller)
+
+### Accessories
+
+[Gameboy Printer](Gameboy_Printer "wikilink") - [Gameboy
+Camera](Gameboy_Camera "wikilink") - [Gamegenie/Shark
+Cheats](Gamegenie/Shark_Cheats "wikilink")
 
 ### Other
 
