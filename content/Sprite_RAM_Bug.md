@@ -9,3 +9,5 @@ is in the range of \$FE00 to \$FEFF:
 Only sprites 1 & 2 (\$FE00 & \$FE04) are not affected by these
 instructions.
 
+Game Boy Color and Advance are not affected by this bug.
+
