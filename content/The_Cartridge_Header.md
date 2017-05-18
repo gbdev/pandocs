@@ -77,7 +77,7 @@ Sample licensee codes :
   **59**   Milton Bradley       **60**   Titus           **61**   Virgin
   **64**   LucasArts            **67**   Ocean           **69**   Electronic Arts
   **70**   Infogrames           **71**   Interplay       **72**   Broderbund
-  **73**   sculptured           **75**   sci             **78**   t\*hq
+  **73**   sculptured           **75**   sci             **78**   THQ
   **79**   Accolade             **80**   misawa          **83**   lozc
   **86**   tokuma shoten i\*    **87**   tsukuda ori\*   **91**   Chunsoft
   **92**   Video system         **93**   Ocean/Acclaim   **95**   Varie
