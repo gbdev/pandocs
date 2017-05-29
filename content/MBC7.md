@@ -1,0 +1,120 @@
+Overview
+--------
+
+MBC7 (Memory Bank Controller 7) is an MBC containing a 2-axis
+accelerometer (ADXL202E) and a 256 byte EEPROM
+([93LC56](http://www.microchip.com/wwwproducts/en/en010904)). A000-BFFF
+does not directly address the EEPROM, as most MBCs do, but rather
+contains several registers that can be read or written one at a time.
+This makes EEPROM access very slow due to needing multiple writes per
+address.
+
+### 0000-3FFF - ROM Bank 00 (Read Only)
+
+Same as for MBC5.
+
+### 4000-7FFF - ROM Bank 00-7F (Read Only)
+
+Same as for MBC5. (Bank 0 mapping needs confirmation)
+
+### A000-AFFF - RAM Registers (Read/Write)
+
+Must be enabled via 0000 and 4000 region writes (see respective
+sections), otherwise reads read FFh and writes do nothing. Registers are
+addressed through bits 4-7 of the address. Bits 0-3 and 8-11 are
+ignored.
+
+Accelerometer data must be latched before reading. Data is 16-bit and
+centered at the value 81D0. Earth\'s gravity affects the value by
+roughly 70h, with larger acceleration providing a larger range. Maximum
+range is unknown.
+
+#### Ax0x/Ax1x - Latch Accelerometer (Write Only)
+
+Write 55h to Ax0x and AAh to Ax1x to latch the accelerometer and update
+the addressable registers. Reads return FFh. Other writes do not appear
+to do anything. (Partially unconfirmed)
+
+#### Ax2x/Ax3x - Accelerometer X value (Read Only)
+
+Ax2x contains the low byte of the X value (left/right), and Ax3x
+contains the high byte. Reads 8000 before first latching.
+
+#### Ax4x/Ax5x - Accelerometer Y value (Read Only)
+
+Ax4x contains the low byte of the Y value (front/back), and Ax5x
+contains the high byte. Reads 8000 before first latching.
+
+#### Ax6x/Ax7x - Unknown
+
+Ax6x always reads 00h and Ax7x always reads FFh. Possibly reserved for Z
+axis, which does not exist on this accelerometer.
+
+#### Ax8x - EEPROM (Read/Write)
+
+Values in this register correspond to 4 pins on the EEPROM (Possibly
+more? Needs investigation):
+
+-   Bit 0: Data Out (DO)
+-   Bit 1: Data In (DI)
+-   Bit 6: Clock (CLK or SK in existing code)
+-   Bit 7: Chip Select (CS)
+
+Commands are sent to the EEPROM by shifting in a bitstream to DI while
+manually clocking CLK. All commands must be preceded by a 1 bit, and
+existing games precede the 1 bit with a 0 bit:
+
+-   Write 00h (lower CS)
+-   Write 80h (raise CS)
+-   Write C0h (shift in 0 bit?)
+-   Write 82h (lower CS, raise DI)
+-   Write C2h (shift in 1 bit)
+-   Write command
+
+The following commands exist, each 10 bits (excluding data shifted in or
+out). \"x\" means the value of this bit is ignored. \"A\" means the
+relevant bit of the address. All data is shifted in or out MSB first.
+Note that data is addressed 16 bits at a time, so address 1 corresponds
+to bits 16-31, thus bytes 2-3.
+
+-   READ: 10xAAAAAAAb (then shift out 16 bits)
+-   EWEN (Erase/Write enable): 0011xxxxxxb
+-   EWDS (Erase/Write disable): 0000xxxxxxb
+-   WRITE: 01xAAAAAAAb (then shift in 16 bits)
+-   ERASE (fill address with FFFF): 11xAAAAAAAb
+-   ERAL (fill EEPROM with FFFF): 0010xxxxxxb
+-   WRAL (fill EEPROM with value): 0001xxxxxxb (then shift in 16 bits)
+
+According to the datasheet, WRITE/ERASE/ERAL/WRAL take time to settle.
+Check the value of DO to verify if command is still running. Data sheet
+says that the signal to DO is RDY, thus it should read a 1 when the
+command finishes. However, this is untested.
+
+#### Ax9x-AxFx - Unused
+
+Reads out FFh.
+
+### B000-BFFF - Unknown
+
+Only seems to read out FFh.
+
+### 0000-1FFF - RAM Enable 1 (Write Only)
+
+Mostly the same as for MBC1, a value of 0Ah will enable reading and
+writing to RAM registers. A value of 00h will disable it. Please note
+that the RAM must also be enabled in the second RAM enable section as
+well (4000-5FFF)
+
+### 2000-3FFF - ROM Bank Number (Write Only)
+
+The ROM bank number goes here.
+
+### 4000-5FFF - RAM Enable 2 (Write Only)
+
+Writing 40h to this region enables access to the RAM registers. Writing
+any other value appears to disable access to RAM, but this is not fully
+tested. Please note that the RAM must also be enabled in the first RAM
+enable section as well (0000-1FFF)
+
+Source: [1](http://gbdev.gg8.se/forums/viewtopic.php?id=448)
+
