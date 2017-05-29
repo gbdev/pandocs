@@ -66,11 +66,12 @@ more? Needs investigation):
 
 Commands are sent to the EEPROM by shifting in a bitstream to DI while
 manually clocking CLK. All commands must be preceded by a 1 bit, and
-existing games precede the 1 bit with a 0 bit:
+existing games precede the 1 bit with a 0 bit (though this is not
+necessary):
 
 -   Write 00h (lower CS)
 -   Write 80h (raise CS)
--   Write C0h (shift in 0 bit?)
+-   Write C0h (shift in 0 bit)
 -   Write 82h (lower CS, raise DI)
 -   Write C2h (shift in 1 bit)
 -   Write command
