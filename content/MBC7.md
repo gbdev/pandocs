@@ -56,13 +56,15 @@ axis, which does not exist on this accelerometer.
 
 #### Ax8x - EEPROM (Read/Write)
 
-Values in this register correspond to 4 pins on the EEPROM (Possibly
-more? Needs investigation):
+Values in this register correspond to 4 pins on the EEPROM:
 
 -   Bit 0: Data Out (DO)
 -   Bit 1: Data In (DI)
 -   Bit 6: Clock (CLK or SK in existing code)
 -   Bit 7: Chip Select (CS)
+
+The other pins (notably ORG, which controls 8-bit vs 16-bit addressing)
+do not appear to be connected to this register.
 
 Commands are sent to the EEPROM by shifting in a bitstream to DI while
 manually clocking CLK. All commands must be preceded by a 1 bit, and
@@ -93,10 +95,10 @@ to bits 16-31, thus bytes 2-3.
 All programming operations (WRITE/ERASE/WRAL/ERAL) must be preceded with
 EWEN.
 
-According to the datasheet, WRITE/ERASE/ERAL/WRAL take time to settle.
-Check the value of DO to verify if command is still running. Data sheet
-says that the signal to DO is RDY, thus it should read a 1 when the
-command finishes. However, this is untested.
+According to the datasheet, programming operations take time to settle.
+Continue clocking and check the value of DO to verify if command is
+still running. Data sheet says that the signal to DO is RDY, thus it
+reads a 1 when the command finishes.
 
 Datasheet:
 [1](http://ww1.microchip.com/downloads/en/DeviceDoc/21712C.pdf)
@@ -113,7 +115,7 @@ Only seems to read out FFh.
 
 Mostly the same as for MBC1, a value of 0Ah will enable reading and
 writing to RAM registers. A value of 00h will disable it. Please note
-that the RAM must also be enabled in the second RAM enable section as
+that the RAM must second be enabled in the second RAM enable section as
 well (4000-5FFF)
 
 ### 2000-3FFF - ROM Bank Number (Write Only)
@@ -124,7 +126,7 @@ The ROM bank number goes here.
 
 Writing 40h to this region enables access to the RAM registers. Writing
 any other value appears to disable access to RAM, but this is not fully
-tested. Please note that the RAM must also be enabled in the first RAM
+tested. Please note that the RAM must first be enabled in the first RAM
 enable section as well (0000-1FFF)
 
 Source: [2](http://gbdev.gg8.se/forums/viewtopic.php?id=448)
