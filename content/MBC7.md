@@ -90,10 +90,16 @@ to bits 16-31, thus bytes 2-3.
 -   ERAL (fill EEPROM with FFFF): 0010xxxxxxb
 -   WRAL (fill EEPROM with value): 0001xxxxxxb (then shift in 16 bits)
 
+All programming operations (WRITE/ERASE/WRAL/ERAL) must be preceded with
+EWEN.
+
 According to the datasheet, WRITE/ERASE/ERAL/WRAL take time to settle.
 Check the value of DO to verify if command is still running. Data sheet
 says that the signal to DO is RDY, thus it should read a 1 when the
 command finishes. However, this is untested.
+
+Datasheet:
+[1](http://ww1.microchip.com/downloads/en/DeviceDoc/21712C.pdf)
 
 #### Ax9x-AxFx - Unused
 
@@ -121,5 +127,5 @@ any other value appears to disable access to RAM, but this is not fully
 tested. Please note that the RAM must also be enabled in the first RAM
 enable section as well (0000-1FFF)
 
-Source: [1](http://gbdev.gg8.se/forums/viewtopic.php?id=448)
+Source: [2](http://gbdev.gg8.se/forums/viewtopic.php?id=448)
 
