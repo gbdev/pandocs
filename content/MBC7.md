@@ -37,13 +37,15 @@ to do anything. (Partially unconfirmed)
 
 #### Ax2x/Ax3x - Accelerometer X value (Read Only)
 
-Ax2x contains the low byte of the X value (left/right), and Ax3x
-contains the high byte. Reads 8000 before first latching.
+Ax2x contains the low byte of the X value (lower values are towards the
+right and higher values are towards the left), and Ax3x contains the
+high byte. Reads 8000 before first latching.
 
 #### Ax4x/Ax5x - Accelerometer Y value (Read Only)
 
-Ax4x contains the low byte of the Y value (front/back), and Ax5x
-contains the high byte. Reads 8000 before first latching.
+Ax4x contains the low byte of the Y value (lower values are towards the
+bottom and higher values are towards the top), and Ax5x contains the
+high byte. Reads 8000 before first latching.
 
 #### Ax6x/Ax7x - Unknown
 
