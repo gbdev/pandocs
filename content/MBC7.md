@@ -31,9 +31,11 @@ range is unknown.
 
 #### Ax0x/Ax1x - Latch Accelerometer (Write Only)
 
-Write 55h to Ax0x and AAh to Ax1x to latch the accelerometer and update
-the addressable registers. Reads return FFh. Other writes do not appear
-to do anything. (Partially unconfirmed)
+Write 55h to Ax0x to erase the latched data (reset back to 8000) then
+AAh to Ax1x to latch the accelerometer and update the addressable
+registers. Reads return FFh. Other writes do not appear to do anything
+(Partially unconfirmed). Note that you cannot re-latch the accelerometer
+value without first erasing it; attempts to do so yield no change.
 
 #### Ax2x/Ax3x - Accelerometer X value (Read Only)
 
