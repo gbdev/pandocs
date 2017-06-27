@@ -525,19 +525,24 @@ tile is \"NN AND FEh\", and the lower 8x8 tile is \"NN OR 01h\".
 
 ### Sprite Priorities and Conflicts
 
-When sprites with different x coordinate values overlap, the one with
-the smaller x coordinate (closer to the left) will have priority and
-appear above any others. This applies in Non CGB Mode only. When sprites
-with the same x coordinate values overlap, they have priority according
-to table ordering. (i.e. \$FE00 - highest, \$FE04 - next highest, etc.)
-In CGB Mode priorities are always assigned like this.
+When sprites overlap, the highest priority one will appear above all
+others, etc. (Thus, no Z-fighting). In CGB mode, the first sprite in OAM
+(\$FE00-\$FE03) has the highest priority, and so on. In Non-CGB mode,
+the smaller the X coordinate, the higher the priority. The tie breaker
+(same X coordinates) is the same priority as in CGB mode.
 
 Only 10 sprites can be displayed on any one line. When this limit is
-exceeded, the lower priority sprites (priorities listed above) won\'t be
-displayed. To keep unused sprites from affecting onscreen sprites set
-their Y coordinate to Y=0 or Y=\>144+16. Just setting the X coordinate
-to X=0 or X=\>160+8 on a sprite will hide it but it will still affect
-other sprites sharing the same lines.
+exceeded, the lower sprites (in their order in OAM, \$FE00-\$FE03 being
+the highest) won\'t be displayed. To keep unused sprites from affecting
+onscreen sprites, set their Y coordinate to Y = 0 or Y =\> 160 (144 +
+16) (Note : Y \<= 8 also works if sprite size is set to 8x8). Just
+setting the X coordinate to X = 0 or X =\> 168 (160 + 8) on a sprite
+will hide it, but it will still affect other sprites sharing the same
+lines.
+
+If using [BGB](BGB "wikilink"), in the VRAM viewer - OAM tab, hover your
+mouse over the small screen to highlight the sprites on a line. Sprites
+hidden due to the limitation will be highlighted in red.
 
 ### Writing Data to OAM Memory
 
