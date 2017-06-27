@@ -121,6 +121,9 @@ This can be useful for dynamically controlling the SCX/SCY registers
 LCD Position and Scrolling
 --------------------------
 
+These registers can be accessed even during Mode 3, but they have no
+effect until the end of the current scanline.
+
 ### FF42 - SCY - Scroll Y (R/W), FF43 - SCX - Scroll X (R/W)
 
 Specifies the position in the 256x256 pixels BG map (32x32 tiles) which
@@ -153,7 +156,9 @@ The window becomes visible (if enabled) when positions are set in range
 WX=0..166, WY=0..143. A position of WX=7, WY=0 locates the window at
 upper left, it is then completely covering normal background.
 
-If WX is set to 0, the window will \"stutter\" when SCX is changed.
+Due to a hardware bug, if WX is set to 0, the window will \"stutter\"
+horizontally when SCX changes. (Depending on SCX modulo 8, behavior is a
+little complicated so you should try it yourself)
 
 LCD Monochrome Palettes
 -----------------------
