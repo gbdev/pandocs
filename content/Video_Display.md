@@ -20,30 +20,36 @@ pretty sick though)
 ` Bit 1 - OBJ (Sprite) Display Enable    (0=Off, 1=On)`\
 ` Bit 0 - BG Display (for CGB see below) (0=Off, 1=On)`
 
-### LCDC.7 - LCD Display Enable
+#### LCDC.7 - LCD Display Enable
 
 CAUTION: Stopping LCD operation (Bit 7 from 1 to 0) may be performed
 during V-Blank ONLY, disabling the display outside of the V-Blank period
 may damage the hardware. This appears to be a serious issue, Nintendo is
-reported to reject any games that do not follow this rule. V-blank can
-be confirmed when the value of LY is greater than or equal to 144. When
-the display is disabled the screen is blank (white), and VRAM and OAM
-can be accessed freely.
+reported to reject any games that do not follow this rule.
 
-\-\-- LCDC.0 has different Meanings depending on Gameboy Type \-\--
+V-blank can be confirmed when the value of LY is greater than or equal
+to 144. When the display is disabled the screen is blank (white), and
+VRAM and OAM can be accessed freely.
 
-### LCDC.0 - 1) Monochrome Gameboy and SGB: BG Display
+When re-enabling the LCD, it will immediately start at LY = 0, meaning
+it will immediately start drawing.
+
+#### LCDC.0 - BG/Window Display/Priority
+
+LCDC.0 has different meanings depending on Gameboy type and Mode:
+
+##### Monochrome Gameboy and SGB: BG Display
 
 When Bit 0 is cleared, the background becomes blank (white). Window and
 Sprites may still be displayed (if enabled in Bit 1 and/or Bit 5).
 
-### LCDC.0 - 2) CGB in CGB Mode: BG and Window Master Priority
+##### CGB in CGB Mode: BG and Window Master Priority
 
 When Bit 0 is cleared, the background and window lose their priority -
 the sprites will be always displayed on top of background and window,
 independently of the priority flags in OAM and BG Map attributes.
 
-### LCDC.0 - 3) CGB in Non CGB Mode: BG and Window Display
+##### CGB in Non CGB Mode: BG and Window Display
 
 When Bit 0 is cleared, both background and window become blank (white),
 ie. the Window Display Bit (Bit 5) is ignored in that case. Only Sprites
