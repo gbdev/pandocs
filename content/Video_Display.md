@@ -118,6 +118,11 @@ the user when the video hardware is about to redraw a given LCD line.
 This can be useful for dynamically controlling the SCX/SCY registers
 (\$FF43/\$FF42) to perform special video effects.
 
+Example application : set LYC to WY, enable LY=LYC interrupt, and have
+the handler disable sprites. This can be used if you use the window for
+a text box (at the bottom of the screen), and you want sprites to be
+hidden by the text box.
+
 LCD Position and Scrolling
 --------------------------
 
