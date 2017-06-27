@@ -3,6 +3,14 @@ LCD Control Register
 
 ### FF40 - LCDC - LCD Control (R/W)
 
+LCDC is special, because it can be written to during Mode 3 (while
+graphics are being drawn), and **will** affect display during the
+scanline !
+
+This could be used for very complex video effects, but they will
+probably fail to render properly on most emulators. (They could be
+pretty sick though)
+
 ` Bit 7 - LCD Display Enable             (0=Off, 1=On)`\
 ` Bit 6 - Window Tile Map Display Select (0=9800-9BFF, 1=9C00-9FFF)`\
 ` Bit 5 - Window Display Enable          (0=Off, 1=On)`\
