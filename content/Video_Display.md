@@ -518,7 +518,8 @@ background can be selected via LCDC register.
 
 In CGB Mode, an additional map of 32x32 bytes is stored in VRAM Bank 1
 (each byte defines attributes for the corresponding tile-number map
-entry in VRAM Bank 0):
+entry in VRAM Bank 0, ie. 1:9800 defines the attributes for the tile at
+0:9800):
 
 ` Bit 0-2  Background Palette number  (BGP0-7)`\
 ` Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)`\
@@ -532,9 +533,9 @@ all OBJs (regardless of the priority bits in OAM memory). There\'s also
 an Master Priority flag in LCDC register Bit 0 which overrides all other
 priority bits when cleared.
 
-As one background tile has a size of 8x8 pixels, the BG maps may hold a
-picture of 256x256 pixels, an area of 160x144 pixels of this picture can
-be displayed on the LCD screen.
+Note that, if the tile at 0:9800 is tile \$2A, the attribute at 1:9800
+doesn\'t define properties for ALL tiles \$2A on-screen, but only the
+one at 0:9800 !
 
 ### Normal Background (BG)
 
