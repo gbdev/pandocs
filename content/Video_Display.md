@@ -417,8 +417,8 @@ the Transfer Length (divided by 10h, minus 1). Ie. lengths of 10h-800h
 bytes can be defined by the values 00h-7Fh. And the upper bit of FF55
 indicates the Transfer Mode:
 
-== Bit7=0 - General Purpose DMA == When using this transfer method, all
-data is transferred at once. The execution of the program is halted
+==== Bit7=0 - General Purpose DMA ==== When using this transfer method,
+all data is transferred at once. The execution of the program is halted
 until the transfer has completed. Note that the General Purpose DMA
 blindly attempts to copy the data, even if the LCD controller is
 currently accessing VRAM. So General Purpose DMA should be used only if
@@ -426,8 +426,8 @@ the Display is disabled, or during V-Blank, or (for rather short blocks)
 during H-Blank. The execution of the program continues when the transfer
 has been completed, and FF55 then contains a value if FFh.
 
-== Bit7=1 - H-Blank DMA == The H-Blank DMA transfers 10h bytes of data
-during each H-Blank, ie. at LY=0-143, no data is transferred during
+==== Bit7=1 - H-Blank DMA ==== The H-Blank DMA transfers 10h bytes of
+data during each H-Blank, ie. at LY=0-143, no data is transferred during
 V-Blank (LY=144-153), but the transfer will then continue at LY=00. The
 execution of the program is halted during the separate transfers, but
 the program execution continues during the \'spaces\' between each data
@@ -558,6 +558,27 @@ share the same Tile Data Table.
 
 Both background and window can be disabled or enabled separately via
 bits in the LCDC register.
+
+VRAM Banks (CGB only)
+---------------------
+
+The CGB has twice the VRAM of the DMG, but it is banked and either bank
+has a different purpose.
+
+### FF4F - VBK - CGB Mode Only - VRAM Bank (R/W)
+
+This register can be written to to change VRAM banks. Only bit 0
+matters, all other bits are ignored.
+
+### VRAM bank 1
+
+VRAM bank 1 is split like VRAM bank 0 ; 8000-97FF also stores tiles
+(just like in bank 0), which can be accessed the same way as (and at the
+same time as) bank 0 tiles. 9800-9FFF contains the attributes for the
+corresponding Tile Maps.
+
+Reading from this register will return the number of the currently
+loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
 VRAM Sprite Attribute Table (OAM)
 ---------------------------------
