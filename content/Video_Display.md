@@ -178,6 +178,12 @@ the handler disable sprites. This can be used if you use the window for
 a text box (at the bottom of the screen), and you want sprites to be
 hidden by the text box.
 
+The interrupt is triggered when transitioning from \"No conditions met\"
+to \"Any condition met\", which can cause the interrupt to not fire.
+Example : the Mode 0 and LY=LYC interrupts are enabled ; since the
+latter triggers during Mode 2 (right after Mode 0), the interrupt will
+trigger for Mode 0 but fail to for LY=LYC.
+
 LCD Position and Scrolling
 --------------------------
 
