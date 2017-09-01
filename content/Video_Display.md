@@ -459,20 +459,10 @@ microsecond (even if the itself program runs it Normal Speed Mode).
 VRAM Tile Data
 --------------
 
-Tile Data is stored in VRAM at addresses 8000h-97FFh, this area defines
-the Bitmaps for 192 Tiles. In CGB Mode 384 Tiles can be defined, because
-memory at 0:8000h-97FFh and at 1:8000h-97FFh is used.
-
-Each tile is sized 8x8 pixels and has a color depth of 4 colors/gray
-shades. Tiles can be displayed as part of the Background/Window map,
-and/or as OAM tiles (foreground sprites). Note that foreground sprites
-may have only 3 colors, because color 0 is transparent.
-
-As it was said before, there are two Tile Pattern Tables at \$8000-8FFF
-and at \$8800-97FF. The first one can be used for sprites and the
-background. Its tiles are numbered from 0 to 255. The second table can
-be used for the background and the window display and its tiles are
-numbered from -128 to 127.
+Tile Data is stored in VRAM at addresses \$8000h-97FF; with one tile
+being 16 bytes large, this area defines data for 384 Tiles. In CGB Mode,
+this is doubled (768 tiles) because of the two [LCDC bit
+4](#VRAM_banks._Each_tile_is_sized_8x8_pixels_and_has_a_color_depth_of_4_colors/gray_shades._Tiles_can_be_displayed_as_part_of_the_Background/Window_map,_and/or_as_OAM_tiles_(foreground_sprites)._Note_that_foreground_sprites_don't_use_color_0_-_it's_transparent_instead._There_are_three_"blocks"_of_128_tiles_each_:_block_0_is_$8000-87FF,_block_1_is_$8800-8FFF,_block_-1_is_$9000-$97FF._Tiles_are_always_indexed_using_a_8-bit_integer,_but_the_addressing_method_may_differ._The_"8000_method"_uses_$8000_as_its_base_pointer_and_uses_an_unsigned_addressing,_meaning_that_tiles_0-127_are_in_block_0,_and_tiles_128-255_are_in_block_1._The_"8800_method"_uses_$9000_as_its_base_pointer_and_uses_a_signed_addressing._To_put_it_differently,_"8000_addressing"_takes_tiles_0-127_from_block_0_and_tiles_128-255_from_block_1,_whereas_"8800_addressing"_takes_tiles_0-127_from_block_-1_and_tiles_128-255_from_block_1._(You_can_notice_that_block_1_is_shared_by_both_addressing_methods)_Sprites_always_use_8000_addressing,_but_the_BG_and_Window_can_use_either_mode,_controlled_by_[[#LCDC.4_-_BG_.26_Window_Tile_Data_Select "wikilink").
 
 Each Tile occupies 16 bytes, where each 2 bytes represent a line:
 
@@ -483,12 +473,27 @@ Each Tile occupies 16 bytes, where each 2 bytes represent a line:
 For each line, the first byte defines the least significant bits of the
 color numbers for each pixel, and the second byte defines the upper bits
 of the color numbers. In either case, Bit 7 is the leftmost pixel, and
-Bit 0 the rightmost.
+Bit 0 the rightmost. For example : let\'s say you have \$57 \$36 (in
+this order in memory). To obtain the color index for the leftmost pixel,
+you take bit 7 of both bytes : 0, and 0. Thus the index is 00b = 0. For
+the second pixel, repeat with bit 6 : 1, and 0. Thus the index is 01b =
+1 (remember to flip the order of the bits !). If you repeat the
+operation you\'ll find that the indexes for the 8 pixels are 0 1 2 3 0 3
+3 1.
 
 So, each pixel is having a color number in range from 0-3. The color
 numbers are translated into real colors (or gray shades) depending on
 the current palettes. The palettes are defined through registers
-FF47-FF49 (Non CGB Mode), and FF68-FF6B (CGB Mode).
+[BGP](#FF47_-_BGP_-_BG_Palette_Data_.28R.2FW.29_-_Non_CGB_Mode_Only "wikilink"),
+[OBP0](#FF48_-_OBP0_-_Object_Palette_0_Data_.28R.2FW.29_-_Non_CGB_Mode_Only "wikilink")
+and
+[OBP1](#FF49_-_OBP1_-_Object_Palette_1_Data_.28R.2FW.29_-_Non_CGB_Mode_Only "wikilink")
+(Non CGB Mode), and
+[BCPS/BGPI](#FF68_-_BCPS.2FBGPI_-_CGB_Mode_Only_-_Background_Palette_Index "wikilink"),
+[BCPD/BGPD](#FF69_-_BCPD.2FBGPD_-_CGB_Mode_Only_-_Background_Palette_Data "wikilink"),
+[OCPS/OBPI and
+OCPD/OBPD](#FF6A_-_OCPS.2FOBPI_-_CGB_Mode_Only_-_Sprite_Palette_Index.2C_FF6B_-_OCPD.2FOBPD_-_CGB_Mode_Only_-_Sprite_Palette_Data "wikilink")
+(CGB Mode).
 
 VRAM Background Maps
 --------------------
