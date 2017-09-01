@@ -18,7 +18,7 @@ pretty sick though)
 ` Bit 3 - BG Tile Map Display Select     (0=9800-9BFF, 1=9C00-9FFF)`\
 ` Bit 2 - OBJ (Sprite) Size              (0=8x8, 1=8x16)`\
 ` Bit 1 - OBJ (Sprite) Display Enable    (0=Off, 1=On)`\
-` Bit 0 - BG Display (for CGB see below) (0=Off, 1=On)`
+` Bit 0 - BG/Window Display/Priority     (0=Off, 1=On)`
 
 #### LCDC.7 - LCD Display Enable
 
@@ -33,6 +33,47 @@ VRAM and OAM can be accessed freely.
 
 When re-enabling the LCD, it will immediately start at LY = 0, meaning
 it will immediately start drawing.
+
+#### LCDC.6 - Window Tile Map Display Select
+
+This bit controls which [background
+map](#VRAM_Background_Maps "wikilink") the Window uses for rendering.
+Note that the window will always use the \"top-left\" data, ie. the data
+you\'d see at SCY = 0, SCX = 0, as its top-left point.
+
+#### LCDC.5 - Window Display Enable
+
+This bit controls whether the window shall be displayed or not. (TODO :
+what happens when toggling this mid-scanline ?)
+
+Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
+may cause the second write to be ignored. (TODO : test this.)
+
+#### LCDC.4 - BG & Window Tile Data Select
+
+This bit controls which addressing mode the BG and Window use to pick
+tiles. (See [below](#VRAM_Tile_Data "wikilink") for details on
+addressing modes).
+
+#### LCDC.3 - BG Tile Map Display Select
+
+This bit works similarly to bit 6 (explained above).
+
+#### LCDC.2 - OBJ Size
+
+This bit controls the sprite size (1 tile or 2 stacked vertically).
+
+Be cautious when changing this mid-frame from 8x8 to 8x16 : \"remnants\"
+of the sprites intended for 8x8 could \"leak\" into the 8x16 zone and
+cause artifacts.
+
+#### LCDC.1 - OBJ Display Enable
+
+This bit toggles whether sprites are displayed or not. This doesn\'t
+affect Mode 3 timings, just whether they are rendered or not.
+
+This can be toggled mid-frame, for example to avoid sprites being
+displayed above a status bar or text box.
 
 #### LCDC.0 - BG/Window Display/Priority
 
