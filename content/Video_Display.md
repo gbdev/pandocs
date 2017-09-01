@@ -506,13 +506,15 @@ The Gameboy contains two 32x32 tile background maps in VRAM at addresses
 
 An area of VRAM known as Background Tile Map contains the numbers of
 tiles to be displayed. It is organized as 32 rows of 32 bytes each. Each
-byte contains a number of a tile to be displayed. Tile patterns are
-taken from the Tile Data Table located either at \$8000-8FFF or
-\$8800-97FF. In the first case, patterns are numbered with unsigned
-numbers from 0 to 255 (i.e. pattern \#0 lies at address \$8000). In the
-second case, patterns have signed numbers from -128 to 127 (i.e. pattern
-\#0 lies at address \$9000). The Tile Data Table address for the
-background can be selected via LCDC register.
+byte contains a number of a tile to be displayed.
+
+Tile patterns are taken from the Tile Data Table using either of the two
+addressing modes (described [above](#VRAM_Tile_Data "wikilink")), which
+can be selected via LCDC register.
+
+As one background tile has a size of 8x8 pixels, the BG maps may hold a
+picture of 256x256 pixels, and an area of 160x144 pixels of this picture
+can be displayed on the LCD screen.
 
 ### BG Map Attributes (CGB Mode only)
 
