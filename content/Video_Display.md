@@ -381,6 +381,8 @@ allowing to display more than 40 sprites on the screen (ie. for example
 40 sprites in upper half, and other 40 sprites in lower half of the
 screen).
 
+Sprites are not displayed while OAM DMA is being performed.
+
 A more compact procedure is
 
 `  ldh ($FF00+c), a`\
@@ -390,7 +392,8 @@ A more compact procedure is
 `  ret`
 
 which should be called with a = start address / 100h, c = 46h, b = 29h.
-This saves 5 bytes of HRAM.
+This saves 5 bytes of HRAM, but is slightly slower overall (except in
+some specific cases).
 
 LCD VRAM DMA Transfers (CGB only)
 ---------------------------------
