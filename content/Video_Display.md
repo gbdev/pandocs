@@ -402,9 +402,23 @@ LCD VRAM DMA Transfers (CGB only)
 
 ### FF52 - HDMA2 - CGB Mode Only - New DMA Source, Low
 
+These two registers specify the address at which the transfer will read
+data from. Normally, this should be either in ROM, SRAM or WRAM, thus
+either in range 0000-7FF0 or A000-DFF0. \[Note : this has yet to be
+tested on Echo RAM, OAM, FEXX, IO and HRAM\]. Trying to specify a source
+address in VRAM will cause garbage to be copied.
+
+The four lower bits of this address will be ignored and treated as 0.
+
 ### FF53 - HDMA3 - CGB Mode Only - New DMA Destination, High
 
 ### FF54 - HDMA4 - CGB Mode Only - New DMA Destination, Low
+
+These two registers specify the address to which the data will be
+copied. \[Note : bits are supposedly ignored so this is in VRAM, but it
+doesn\'t seem to actually be the case\...\]
+
+The four lower bits of this address will be ignored and treated as 0.
 
 ### FF55 - HDMA5 - CGB Mode Only - New DMA Length/Mode/Start
 
@@ -415,9 +429,9 @@ Destination Start Address may be located at 8000-9FF0, the lower four
 bits of the address are ignored (treated as zero), the upper 3 bits are
 ignored either (destination is always in VRAM).
 
-Writing to FF55 starts the transfer, the lower 7 bits of FF55 specify
-the Transfer Length (divided by 10h, minus 1). Ie. lengths of 10h-800h
-bytes can be defined by the values 00h-7Fh. And the upper bit of FF55
+Writing to this register starts the transfer, the lower 7 bits of which
+specify the Transfer Length (divided by 10h, minus 1), ie. lengths of
+10h-800h bytes can be defined by the values 00h-7Fh. The upper bit
 indicates the Transfer Mode:
 
 ==== Bit7=0 - General Purpose DMA ==== When using this transfer method,
@@ -427,21 +441,33 @@ blindly attempts to copy the data, even if the LCD controller is
 currently accessing VRAM. So General Purpose DMA should be used only if
 the Display is disabled, or during V-Blank, or (for rather short blocks)
 during H-Blank. The execution of the program continues when the transfer
-has been completed, and FF55 then contains a value if FFh.
+has been completed, and FF55 then contains a value of FFh.
 
 ==== Bit7=1 - H-Blank DMA ==== The H-Blank DMA transfers 10h bytes of
 data during each H-Blank, ie. at LY=0-143, no data is transferred during
 V-Blank (LY=144-153), but the transfer will then continue at LY=00. The
 execution of the program is halted during the separate transfers, but
 the program execution continues during the \'spaces\' between each data
-block. Note that the program may not change the Destination VRAM bank
+block. Note that the program should not change the Destination VRAM bank
 (FF4F), or the Source ROM/RAM bank (in case data is transferred from
-bankable memory) until the transfer has completed! Reading from Register
-FF55 returns the remaining length (divided by 10h, minus 1), a value of
-0FFh indicates that the transfer has completed. It is also possible to
-terminate an active H-Blank transfer by writing zero to Bit 7 of FF55.
-In that case reading from FF55 may return any value for the lower 7
-bits, but Bit 7 will be read as \"1\".
+bankable memory) until the transfer has completed! (The transfer should
+be paused as described below while the banks are switched)
+
+Reading from Register FF55 returns the remaining length (divided by 10h,
+minus 1), a value of 0FFh indicates that the transfer has completed. It
+is also possible to terminate an active H-Blank transfer by writing zero
+to Bit 7 of FF55. In that case reading from FF55 will return how many
+\$10 \"blocks\" remained (minus 1) in the lower 7 bits, but Bit 7 will
+be read as \"1\". Stopping the transfer doesn\'t set HDMA1-4 to \$FF.
+
+### Precautions
+
+H-Blank DMA should not be started (write to FF55) during a H-Blank
+period (STAT mode 0).
+
+If the transfer\'s destination address overflows, the transfer stops
+prematurely. \[Note : what\'s the state of the registers if this happens
+?\]
 
 ### Confirming if the DMA Transfer is Active
 
