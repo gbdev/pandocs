@@ -17,10 +17,10 @@ when the gameboy gets turned on. The hexdump of this bitmap is:
 ` 00 08 11 1F 88 89 00 0E DC CC 6E E6 DD DD D9 99`\
 ` BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E`
 
-The gameboys boot procedure verifies the content of this bitmap (after
-it has displayed it), and LOCKS ITSELF UP if these bytes are incorrect.
-A CGB verifies only the first 18h bytes of the bitmap, but others (for
-example a pocket gameboy) verify all 30h bytes.
+The Game Boy\'s boot procedure verifies the content of this bitmap
+(after it has displayed it), and LOCKS ITSELF UP if these bytes are
+incorrect. A CGB verifies only the first 18h bytes of the bitmap, but
+others (for example a pocket gameboy) verify all 30h bytes.
 
 ### 0134-0143 - Title
 
