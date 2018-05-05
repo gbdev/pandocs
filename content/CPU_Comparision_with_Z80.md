@@ -2,9 +2,9 @@
 
 The Game Boy CPU has a bit more in common with an older Intel 8080 CPU
 than the more powerful Zilog Z80 CPU. It is missing a handful of 8080
-instructions but does support almost all CB-prefixed instructions. Also,
-all known Game Boy assemblers use the more obvious Z80-style syntax,
-rather than the chaotic 8080-style syntax.
+instructions but does support JR and almost all CB-prefixed
+instructions. Also, all known Game Boy assemblers use the more obvious
+Z80-style syntax, rather than the chaotic 8080-style syntax.
 
 Unlike the 8080 and Z80, the Game Boy has no dedicated I/O bus and no
 IN/OUT opcodes. Instead, I/O ports are accessed directly by normal LD
@@ -14,19 +14,20 @@ The sign and parity/overflow flags have been removed, as have the 12
 RET, CALL, and JP instructions conditioned on them. So have EX (SP),HL
 (XTHL) and EX DE,HL (XCHG).
 
-### Comparision with Z80
-
-All DD- and FD-prefixed instructions are missing. That means no IX- or
-IY-registers.
+### Comparison with Z80
 
 In addition to the removed 8080 instructions, the other exchange
 instructions have been removed (including total absence of second
 register set).
 
+All DD- and FD-prefixed instructions are missing. That means no IX- or
+IY-registers.
+
 All ED-prefixed instructions are missing. That means 16bit memory
 accesses are mostly missing, 16bit arithmetic functions are heavily
-cut-down, no block commands, and some other missing commands. IN/OUT (C)
-are replaced with new LD (\$FF00+C) opcodes.
+cut-down, and some other missing commands. IN/OUT (C) are replaced with
+new LD (\$FF00+C) opcodes. Block commands are gone, but autoincrementing
+HL accesses are added.
 
 The Game Boy operates approximately as fast as a 4 MHz Z80 (8 MHz in CGB
 double speed mode), with execution time of all instructions having been
