@@ -1,23 +1,36 @@
-### Comparision with 8080
+### Comparison with 8080
 
-Basically, the gameboy CPU works more like an older 8080 CPU rather than
-like a more powerful Z80 CPU. It is, however, supporting CB-prefixed
-instructions. Also, all known gameboy assemblers using the more obvious
-Z80-style syntax, rather than the chaotic 8080-style syntax.
+The Game Boy CPU has a bit more in common with an older Intel 8080 CPU
+than the more powerful Zilog Z80 CPU. It is missing a handful of 8080
+instructions but does support almost all CB-prefixed instructions. Also,
+all known Game Boy assemblers use the more obvious Z80-style syntax,
+rather than the chaotic 8080-style syntax.
+
+Unlike the 8080 and Z80, the Game Boy has no dedicated I/O bus and no
+IN/OUT opcodes. Instead, I/O ports are accessed directly by normal LD
+instructions, or by new LD (FF00+n) opcodes.
+
+The sign and parity/overflow flags have been removed, as have the 12
+RET, CALL, and JP instructions conditioned on them. So have EX (SP),HL
+(XTHL) and EX DE,HL (XCHG).
 
 ### Comparision with Z80
 
-Any DD-, ED-, and FD-prefixed instructions are missing, that means no
-IX-, IY-registers, no block commands, and some other missing commands.
-All exchange instructions have been removed (including total absence of
-second register set), 16bit memory accesses are mostly missing, and
-16bit arithmetic functions are heavily cut-down. The gameboy has no
-IN/OUT instructions, instead I/O ports are accessed directly by normal
-LD instructions, or by special LD (FF00+n) opcodes. The sign and
-parity/overflow flags have been removed. The gameboy operates
-approximately as fast as a 4MHz Z80 (8MHz in CGB double speed mode),
-execution time of all instructions has been rounded up to a multiple of
-4 cycles though.
+All DD- and FD-prefixed instructions are missing. That means no IX- or
+IY-registers.
+
+In addition to the removed 8080 instructions, the other exchange
+instructions have been removed (including total absence of second
+register set).
+
+All ED-prefixed instructions are missing. That means 16bit memory
+accesses are mostly missing, 16bit arithmetic functions are heavily
+cut-down, no block commands, and some other missing commands. IN/OUT (C)
+are replaced with new LD (\$FF00+C) opcodes.
+
+The Game Boy operates approximately as fast as a 4 MHz Z80 (8 MHz in CGB
+double speed mode), with execution time of all instructions having been
+rounded up to a multiple of 4 cycles.
 
 ### Moved, Removed, and Added Opcodes
 
@@ -51,8 +64,5 @@ execution time of all instructions has been rounded up to a multiple of
 ` FD      `<IY>`            -`\
 ` CB3X    SLL  r/(HL)     SWAP r/(HL)`
 
-Note:
------
-
-The unused (-) opcodes will lock-up the gameboy CPU when used.
+Note: The unused (-) opcodes will lock up the Game Boy CPU when used.
 
