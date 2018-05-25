@@ -37,7 +37,7 @@ following register values:
 `  [$FF20] = $FF   ; NR41`\
 `  [$FF21] = $00   ; NR42`\
 `  [$FF22] = $00   ; NR43`\
-`  [$FF23] = $BF   ; NR30`\
+`  [$FF23] = $BF   ; NR44`\
 `  [$FF24] = $77   ; NR50`\
 `  [$FF25] = $F3   ; NR51`\
 `  [$FF26] = $F1-GB, $F0-SGB ; NR52`\
