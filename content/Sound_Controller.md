@@ -229,7 +229,7 @@ Sound Control Registers
 ### FF24 - NR50 - Channel control / ON-OFF / Volume (R/W)
 
 The volume bits specify the \"Master Volume\" for Left/Right sound
-output.
+output. SO2 goes to the left headphone, and SO1 goes to the right.
 
 ` Bit 7   - Output Vin to SO2 terminal (1=Enable)`\
 ` Bit 6-4 - SO2 output level (volume)  (0-7)`\
@@ -242,6 +242,8 @@ additionally to the gameboys internal four channels. As far as I know
 this feature isn\'t used by any existing games.
 
 ### FF25 - NR51 - Selection of Sound output terminal (R/W)
+
+Each channel can be panned hard left, center, or hard right.
 
 ` Bit 7 - Output sound 4 to SO2 terminal`\
 ` Bit 6 - Output sound 3 to SO2 terminal`\
