@@ -53,22 +53,24 @@ Command 2: Start printing
 
 Data length: 4 bytes
 
--   Byte 1: \$01 (what is this ?)
+-   Byte 1: Number of sheets to print (0-255). 0 means line feed only.
 -   Byte 2: Margins, high nibble is the feed before printing, low nibble
     is after printing. GB Camera sends \$13 by default.
 -   Byte 3: Palette, typically \$E4 (0b11100100)
 -   Byte 4: 7 bits exposure value, sets the burning time for the print
-    head. GB Camera sends \$40 by default.
+    head. GB Camera sends \$40 by default. Official manual mentions -25%
+    darkness for \$00 and +25% for \$7F.
 
 Command 4: Fill buffer
 ----------------------
 
-Data length: max \$280 (160\*16 pixels in 2BPP) To transfer more than
+Data length: max. \$280 (160\*16 pixels in 2BPP) To transfer more than
 \$280 bytes, multiple \"command 4 packets\" have to be sent.
 
-**Warning: the graphics are organized in lines, not in tiles ! Also, and
-empty command 4 packet needs to be sent right before sending command 2
-!**
+The graphics are organized in the normal tile format (16 bytes per
+tile), and the tiles are sent in the same order they occur on your
+tilemap (do keep in mind though that the printer does \*not\* have 32x32
+tiles space for a map, but only 20x18).
 
 Command \$F: Read status
 ------------------------
@@ -81,16 +83,16 @@ Status byte
 
 A nonzero value for the higher nibble indicates something went wrong.
 
-  ------- ------------------------- -------------------------------------------------------------------------------------
-  Bit 7   Too hot/too cold          Set when the measured temperature in the case is above or below threshold (°C\'s ?)
-  Bit 6   Paper jam                 Set when the encoder gives no pulses when the motor is powered
-  Bit 5   Timeout occured           Not sure, manual says \"link cable not properly inserted\"
-  Bit 4   Battery voltage too low   Set when the (regulated ?) voltage is under threshold
-  Bit 3   Ready to print            Set when at least \$280 bytes if graphics were received
-  Bit 2   Printing requested        Set when printing starts, stays set until command 1 is received
-  Bit 1   Currently printing        Set as long as the printer\'s burnin\' paper
-  Bit 0   Checksum error            Set when the calculated checksum doesn\'t match the recevied one
-  ------- ------------------------- -------------------------------------------------------------------------------------
+  ------- -------------------- -------------------------------------------------------------------
+  Bit 7   Low Battery          Set when the voltage is below threshold
+  Bit 6   Other error          
+  Bit 5   Paper jam            Set when the encoder gives no pulses when the motor is powered
+  Bit 4   Unprocessed data     Set when there\'s unprocessed data in memory - AKA ready to print
+  Bit 3   Ready to print       Set when at least \$280 bytes if graphics were received
+  Bit 2   Image data full      
+  Bit 1   Currently printing   Set as long as the printer\'s burnin\' paper
+  Bit 0   Checksum error       Set when the calculated checksum doesn\'t match the received one
+  ------- -------------------- -------------------------------------------------------------------
 
 Example
 -------
