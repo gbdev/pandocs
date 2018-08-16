@@ -87,8 +87,8 @@ A nonzero value for the higher nibble indicates something went wrong.
   Bit 7   Low Battery          Set when the voltage is below threshold
   Bit 6   Other error          
   Bit 5   Paper jam            Set when the encoder gives no pulses when the motor is powered
-  Bit 4   Unprocessed data     Set when there\'s unprocessed data in memory - AKA ready to print
-  Bit 3   Ready to print       Set when at least \$280 bytes if graphics were received
+  Bit 4   Packet error         
+  Bit 3   Unprocessed data     Set when there\'s unprocessed data in memory - AKA ready to print
   Bit 2   Image data full      
   Bit 1   Currently printing   Set as long as the printer\'s burnin\' paper
   Bit 0   Checksum error       Set when the calculated checksum doesn\'t match the received one
@@ -110,8 +110,23 @@ Example
     (printing !)
 -   Ask for status with command \$F until it changes to \$81, \$04
     (printing done)
--   Optionnally send 16 zero bytes to clear the printer\'s receive
-    buffer (GB Camera does it)
+-   Optionally send 16 zero bytes to clear the printer\'s receive buffer
+    (GB Camera does it)
+
+Tips
+----
+
+-   The printer has a timeout of 100ms for packets. If no packet is
+    received within that time, the printer will return to an initialized
+    state.
+-   There appears to be an undocumented timeout for the bytes of a
+    packet. It\'s best to send a packet completely or with very little
+    delay between the individual bytes, otherwise the packet may not be
+    accepted.
+-   To print things larger than 20x18 (like GB Camera images with big
+    borders), multiple data packets with a following print command need
+    to be sent. The print command should be set to no linefeed (neither
+    before nor after) to allow for continuous printing.
 
 Compression
 -----------
