@@ -26,9 +26,6 @@ The packets all follow this format:
   **Printer to GB**   0x00          0x00      0x00               0x00             0x00                    0x00       0x00              0x00
   ------------------- ------------- --------- ------------------ ---------------- ----------------------- ---------- ----------------- --------
 
-**Warning: There is a 250ms timeout. If no byte is received during this
-period, the link and graphics buffers are reset.**
-
 The checksum is simply a sum of every byte sent except the magic bytes
 and obviously, the checksum itself.
 
@@ -116,13 +113,13 @@ Example
 Tips
 ----
 
--   The printer has a timeout of 100ms for packets. If no packet is
+-   **The printer has a timeout of 100ms for packets. If no packet is
     received within that time, the printer will return to an initialized
-    state.
--   There appears to be an undocumented timeout for the bytes of a
+    state (meaning the link and graphics buffers are reset).**
+-   **There appears to be an undocumented timeout for the bytes of a
     packet. It\'s best to send a packet completely or with very little
     delay between the individual bytes, otherwise the packet may not be
-    accepted.
+    accepted.**
 -   To print things larger than 20x18 (like GB Camera images with big
     borders), multiple data packets with a following print command need
     to be sent. The print command should be set to no linefeed (neither
