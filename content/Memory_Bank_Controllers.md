@@ -127,11 +127,11 @@ select a ROM bank. For example the following addresses can be used to
 select a ROM bank: 2100-21FF, 2300-23FF, 2500-25FF, \..., 3F00-3FFF. The
 suggested address range to use for MBC2 rom bank selection is 2100-21FF.
 
-MBC3 (max 2MByte ROM and/or 32KByte RAM and Timer)
+MBC3 (max 2MByte ROM and/or 64KByte RAM and Timer)
 --------------------------------------------------
 
-Beside for the ability to access up to 2MB ROM (128 banks), and 32KB RAM
-(4 banks), the MBC3 also includes a built-in Real Time Clock (RTC). The
+Beside for the ability to access up to 2MB ROM (128 banks), and 64KB RAM
+(8 banks), the MBC3 also includes a built-in Real Time Clock (RTC). The
 RTC requires an external 32.768 kHz Quartz Oscillator, and an external
 battery (if it should continue to tick when the gameboy is turned off).
 
@@ -167,7 +167,7 @@ corresponding ROM Banks.
 
 ### 4000-5FFF - RAM Bank Number - or - RTC Register Select (Write Only)
 
-As for the MBC1s RAM Banking Mode, writing a value in range for 00h-03h
+As for the MBC1s RAM Banking Mode, writing a value in range for 00h-07h
 maps the corresponding external RAM Bank (if any) into memory at
 A000-BFFF. When writing a value of 08h-0Ch, this will map the
 corresponding RTC register into memory at A000-BFFF. That register could
