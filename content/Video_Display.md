@@ -79,25 +79,17 @@ displayed above a status bar or text box.
 
 LCDC.0 has different meanings depending on Gameboy type and Mode:
 
-##### Monochrome Gameboy and SGB: BG Display
+##### Monochrome Gameboy, SGB and CGB in Non-CGB Mode: BG Display
 
-When Bit 0 is cleared, the background becomes blank (white). Window and
-Sprites may still be displayed (if enabled in Bit 1 and/or Bit 5).
+When Bit 0 is cleared, both background and window become blank (white),
+ie. the Window Display Bit (Bit 5) is ignored in that case. Only Sprites
+may still be displayed (if enabled in Bit 1).
 
 ##### CGB in CGB Mode: BG and Window Master Priority
 
 When Bit 0 is cleared, the background and window lose their priority -
 the sprites will be always displayed on top of background and window,
 independently of the priority flags in OAM and BG Map attributes.
-
-##### CGB in Non CGB Mode: BG and Window Display
-
-When Bit 0 is cleared, both background and window become blank (white),
-ie. the Window Display Bit (Bit 5) is ignored in that case. Only Sprites
-may still be displayed (if enabled in Bit 1). This is a possible
-compatibility problem - any monochrome games (if any) that disable the
-background, but still want to display the window wouldn\'t work properly
-on CGBs.
 
 LCD Status Register
 -------------------
