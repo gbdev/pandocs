@@ -843,11 +843,13 @@ The tile data is sent by VRAM-Transfer (4 KBytes).
 
 ` 000-FFF  Bitmap data for 128 Tiles`
 
-Each tile occupies 16bytes (8x8 pixels, 16 colors each). When intending
+Each tile occupies 32 bytes (8x8 pixels, 16 colors each). When intending
 to transfer more than 128 tiles, call this function twice (once for
 tiles 00h-7Fh, and once for tiles 80h-FFh). Note: The BG/OBJ Bit seems
 to have no effect and writes to the same VRAM addresses for both BG and
 OBJ ???
+
+TODO: explain tile format
 
 ### SGB Command 14h - PCT\_TRN
 
