@@ -815,11 +815,11 @@ the following joypad input:
 ` 0Dh  Joypad 3`\
 ` 0Ch  Joypad 4`
 
-Next, set P14 and P15 low (one after each other) to select Buttons and
-Cursor lines, and read-out joypad state as normally. When completed, set
-P14 and P15 back HIGH, this automatically increments the joypad number
-(or restarts counting once reached the lastmost joypad). Repeat the
-procedure until you have read-out states for all two (or four) joypads.
+Next, read joypad state as normally. (Actually, just setting P15 LOW is
+enough). When completed, set P14 and P15 back HIGH, this automatically
+increments the joypad number (or restarts counting once reached the
+lastmost joypad). Repeat the procedure until you have read-out states
+for all two (or four) joypads.
 
 SGB Border and OBJ Commands
 ---------------------------
