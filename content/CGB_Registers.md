@@ -135,7 +135,7 @@ initial value is 0.
 ### FF76 - PCM amplitudes 1 & 2 (Read Only)
 
 This register is read-only. The low nibble is a copy of sound channel
-\#1\'s PCM amplitude, the high byte a copy of sound channel \#2\'s.
+\#1\'s PCM amplitude, the high nibble a copy of sound channel \#2\'s.
 
 ### FF77 - PCM amplitudes 3 & 4 (Read Only)
 
