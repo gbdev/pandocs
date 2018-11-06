@@ -132,12 +132,12 @@ Otherwise, this register is read-only, and locked at value \$FF.
 Only bits 4, 5 and 6 of this register are read/write enabled. Their
 initial value is 0.
 
-### FF76 - PCM amplitudes 1 & 2 (Read Only)
+### FF76 - PCM12 - PCM amplitudes 1 & 2 (Read Only)
 
 This register is read-only. The low nibble is a copy of sound channel
 \#1\'s PCM amplitude, the high nibble a copy of sound channel \#2\'s.
 
-### FF77 - PCM amplitudes 3 & 4 (Read Only)
+### FF77 - PCM34 - PCM amplitudes 3 & 4 (Read Only)
 
 Same, but with channels 3 and 4.
 
