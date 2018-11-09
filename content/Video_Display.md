@@ -24,15 +24,19 @@ pretty sick though)
 
 CAUTION: Stopping LCD operation (Bit 7 from 1 to 0) may be performed
 during V-Blank ONLY, disabling the display outside of the V-Blank period
-may damage the hardware. This appears to be a serious issue, Nintendo is
-reported to reject any games that do not follow this rule.
+may damage the hardware by burning in a black horizontal line similar to
+that which appears when the GB is turned off. This appears to be a
+serious issue, Nintendo is reported to reject any games that do not
+follow this rule.
 
 V-blank can be confirmed when the value of LY is greater than or equal
 to 144. When the display is disabled the screen is blank (white), and
 VRAM and OAM can be accessed freely.
 
 When re-enabling the LCD, it will immediately start at LY = 0, meaning
-it will immediately start drawing.
+it will immediately start drawing. The first frame after the LCD is
+reenabled is completely white, though the LCD memory access pattern is
+as usual.
 
 #### LCDC.6 - Window Tile Map Display Select
 
@@ -133,29 +137,32 @@ The following are typical when the display is enabled:
 ` Mode 1  ____________________________________11111111111111_____`
 
 The Mode Flag goes through the values 0, 2, and 3 at a cycle of about
-109uS. 0 is present about 48.6uS, 2 about 19uS, and 3 about 41uS. This
-is interrupted every 16.6ms by the VBlank (1). The mode flag stays set
-at 1 for about 1.08 ms.
+109 μS. 0 is present about 48.6 μS, 2 about 19 μS, and 3 about 41 μS.
+This is interrupted every 16.6ms by the VBlank (1). The mode flag stays
+set at 1 for about 1.08 ms.
 
-Mode 0 is present between 201-207 clks, 2 about 77-83 clks, and 3 about
-169-175 clks. A complete cycle through these states takes 456 clks.
-VBlank lasts 4560 clks. A complete screen refresh occurs every 70224
-clks.)
+A complete cycle through these states takes 456 tstates. Mode 2 is
+present for 80 tstates, mode 3 about 170-240 tstates depending on where
+exactly the sprites, window, and fine scroll (SCX modulo 8) are
+positioned, and mode 0 for the rest of the scanline (up to 200 tstates).
+VBlank lasts 10 scanlines, or 4560 tstates. A complete screen refresh
+occurs every 154 lines, or 70224 tstates.)
 
-A hardware bug in the gray Game Boys makes the LCD interrupt sometimes
-trigger when writing to STAT (including writing \$00) during a H-Blank
-or V-Blank period.
+A hardware bug in the monochrome Game Boy makes the LCD interrupt
+sometimes trigger when writing to STAT (including writing \$00) during a
+H-Blank or V-Blank period.
 
 LCD Interrupts
 --------------
 
 ### INT 40 - V-Blank Interrupt
 
-The V-Blank interrupt occurs ca. 59.7 times a second on a regular GB and
-ca. 61.1 times a second on a Super GB (SGB). This interrupt occurs at
-the beginning of the V-Blank period (LY=144). During this period video
-hardware is not using video ram so it may be freely accessed. This
-period lasts approximately 1.1 milliseconds.
+The V-Blank interrupt occurs ca. 59.7 times a second on a handheld Game
+Boy (DMG or CGB) or Game Boy Player and ca. 61.1 times a second on a
+Super Game Boy (SGB). This interrupt occurs at the beginning of the
+V-Blank period (LY=144). During this period video hardware is not using
+VRAM so it may be freely accessed. This period lasts approximately 1.1
+milliseconds.
 
 ### INT 48 - LCDC Status Interrupt
 
@@ -214,9 +221,10 @@ The window becomes visible (if enabled) when positions are set in range
 WX=0..166, WY=0..143. A position of WX=7, WY=0 locates the window at
 upper left, it is then completely covering normal background.
 
-Due to a hardware bug, if WX is set to 0, the window will \"stutter\"
-horizontally when SCX changes. (Depending on SCX modulo 8, behavior is a
-little complicated so you should try it yourself)
+WX values 0-6 and 166 are unreliable due to hardware bugs. If WX is set
+to 0, the window will \"stutter\" horizontally when SCX changes.
+(Depending on SCX modulo 8, behavior is a little complicated so you
+should try it yourself.)
 
 LCD Monochrome Palettes
 -----------------------
@@ -303,27 +311,29 @@ somewhat random.
 
 ### RGB Translation by CGBs
 
-![VGA versus CGB color
-mixing](VGA_versus_CGB.png "fig:VGA versus CGB color mixing"){width="150"}
+![sRGB versus CGB color
+mixing](VGA_versus_CGB.png "fig:sRGB versus CGB color mixing"){width="150"}
 When developing graphics on PCs, note that the RGB values will have
-different appearance on CGB displays as on VGA/HDMI monitors: The
-highest intensity will produce Light Gray color rather than White. The
-intensities are not linear; the values 10h-1Fh will all appear very
-bright, while medium and darker colors are ranged at 00h-0Fh.
+different appearance on CGB displays as on VGA/HDMI monitors calibrated
+to sRGB color. Because the GBC is not lit, the highest intensity will
+produce Light Gray color rather than White. The intensities are not
+linear; the values 10h-1Fh will all appear very bright, while medium and
+darker colors are ranged at 00h-0Fh.
 
-The CGB display will mix colors quite oddly, increasing intensity of
-only one R,G,B color will also influence the other two R,G,B colors. For
-example, a color setting of 03EFh (Blue=0, Green=1Fh, Red=0Fh) will
-appear as Neon Green on VGA displays, but on the CGB it\'ll produce a
-decently washed out Yellow. See image on the right.
+The CGB display\'s pigments aren\'t perfectly saturated. This means the
+colors mix quite oddly; increasing intensity of only one R,G,B color
+will also influence the other two R,G,B colors. For example, a color
+setting of 03EFh (Blue=0, Green=1Fh, Red=0Fh) will appear as Neon Green
+on VGA displays, but on the CGB it\'ll produce a decently washed out
+Yellow. See image on the right.
 
 ### RGB Translation by GBAs
 
 Even though GBA is described to be compatible to CGB games, most CGB
-games are completely unplayable on GBAs because most colors are
+games are completely unplayable on older GBAs because most colors are
 invisible (black). Of course, colors such like Black and White will
 appear the same on both CGB and GBA, but medium intensities are arranged
-completely different. Intensities in range 00h..0Fh are invisible/black
+completely different. Intensities in range 00h..07h are invisible/black
 (unless eventually under best sunlight circumstances, and when gazing at
 the screen under obscure viewing angles), unfortunately, these
 intensities are regularly used by most existing CGB games for medium and
@@ -331,15 +341,19 @@ darker colors.
 
 Newer CGB games may avoid this effect by changing palette data when
 detecting GBA hardware ([see
-how](CGB_Registers#Detecting_CGB_.28and_GBA.29_functions "wikilink")). A
-relative simple method would be using the formula GBA=CGB/2+10h for each
-R,G,B intensity, probably the result won\'t be perfect, and (once colors
-become visible) it may turn out that the color mixing is different also;
-anyways, it\'d be still ways better than no conversion. Asides, this
-translation method should have been VERY easy to implement in GBA
-hardware directly, even though Nintendo obviously failed to do so. How
-did they say, \"This seal is your assurance for excellence in
-workmanship\" and so on?
+how](CGB_Registers#Detecting_CGB_.28and_GBA.29_functions "wikilink")).
+Based on measurement of GBC and GBA palettes using the \"144p Test
+Suite\" ROM, a fairly close approximation is GBA = GBC \* 3/4 + 8h for
+each R,G,B intensity. The result isn\'t quite perfect, and it may turn
+out that the color mixing is different also; anyways, it\'d be still
+ways better than no conversion. Asides, this translation method should
+have been VERY easy to implement in GBA hardware directly, even though
+Nintendo obviously failed to do so. How did they say, \"This seal is
+your assurance for excellence in workmanship\" and so on?
+
+This problem with low brightness levels does not affect later GBA SP
+units and Game Boy Player. Thus ideally, the player should have control
+of this brightness correction.
 
 LCD OAM DMA Transfers
 ---------------------
@@ -353,39 +367,46 @@ transfer source address divided by 100h, ie. source & destination are:
 ` Source:      XX00-XX9F   ;XX in range from 00-F1h`\
 ` Destination: FE00-FE9F`
 
-It takes 160 microseconds until the transfer has completed (80
-microseconds in CGB Double Speed Mode), during this time the CPU can
-access only HRAM (memory at FF80-FFFE). For this reason, the programmer
-must copy a short procedure into HRAM, and use this procedure to start
-the transfer from inside HRAM, and wait until the transfer has finished:
+The transfer takes 160 machine cycles: 152 microseconds in normal speed
+or 76 microseconds in CGB Double Speed Mode. During this time, the CPU
+can access only HRAM (memory at FF80-FFFE). For this reason, the
+programmer must copy a short procedure into HRAM, and use this procedure
+to start the transfer from inside HRAM, and wait until the transfer has
+finished:
 
+` run_dma:`\
 `  ld a, start address / 100h`\
 `  ldh  (FF46h),a ;start DMA transfer (starts right after instruction)`\
 `  ld  a,28h      ;delay...`\
-` wait:           ;total 4x40 cycles, approx 160ms`\
+` wait:           ;total 4x40 cycles, approx 160 μs`\
 `  dec a          ;1 cycle`\
 `  jr  nz,wait    ;3 cycles`\
 `  ret`
 
-Most programs are executing this procedure from inside of their VBlank
-procedure, but it is possible to execute it during display redraw also,
-allowing to display more than 40 sprites on the screen (ie. for example
-40 sprites in upper half, and other 40 sprites in lower half of the
-screen).
-
-Sprites are not displayed while OAM DMA is being performed.
+Because sprites are not displayed while OAM DMA is in progress, most
+programs are executing this procedure from inside of their VBlank
+procedure. But it is also possible to execute it during display redraw
+also, allowing to display more than 40 sprites on the screen (ie. for
+example 40 sprites in upper half, and other 40 sprites in lower half of
+the screen), at the cost of a couple lines that lack sprites.
 
 A more compact procedure is
 
+` run_dma:  ; This part is in ROM`\
+`  ld a, start address / 100h`\
+`  ld bc, 2946h  ; B: wait time; C: OAM trigger`\
+`  jp run_dma_hrampart`
+
+` run_dma_hrampart:`\
 `  ldh ($FF00+c), a`\
 ` wait:`\
 `  dec b`\
 `  jr nz,wait`\
 `  ret`
 
-which should be called with a = start address / 100h, c = 46h, b = 29h.
-This saves 5 bytes of HRAM, but is slightly slower overall (except in
-some specific cases).
+which should be called with a = start address / 100h, bc = 2946h. This
+saves 5 bytes of HRAM, but is slightly slower in most cases because of
+the jump into the HRAM part.
 
 LCD VRAM DMA Transfers (CGB only)
 ---------------------------------
@@ -406,10 +427,8 @@ The four lower bits of this address will be ignored and treated as 0.
 
 ### FF54 - HDMA4 - CGB Mode Only - New DMA Destination, Low
 
-These two registers specify the address to which the data will be
-copied. \[Note : bits are supposedly ignored so this is in VRAM, but it
-doesn\'t seem to actually be the case\...\]
-
+These two registers specify the address within 8000-9FF0 to which the
+data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
 
 ### FF55 - HDMA5 - CGB Mode Only - New DMA Length/Mode/Start
@@ -470,20 +489,45 @@ manually terminating a H-Blank Transfer.
 
 ### Transfer Timings
 
-In both Normal Speed and Double Speed Mode it takes about 8us to
-transfer a block of 10h bytes. That are 8 cycles in Normal Speed Mode,
-and 16 \'fast\' cycles in Double Speed Mode. Older MBC controllers (like
-MBC1-4) and slower ROMs are not guaranteed to support General Purpose or
-H-Blank DMA, that\'s because there are always 2 bytes transferred per
-microsecond (even if the itself program runs it Normal Speed Mode).
+In both Normal Speed and Double Speed Mode it takes about 8 μs to
+transfer a block of 10h bytes. That are 8 tstates in Normal Speed Mode,
+and 16 \'fast\' tstates in Double Speed Mode. Older MBC controllers
+(like MBC1-4) and slower ROMs are not guaranteed to support General
+Purpose or H-Blank DMA, that\'s because there are always 2 bytes
+transferred per microsecond (even if the itself program runs it Normal
+Speed Mode).
 
 VRAM Tile Data
 --------------
 
-Tile Data is stored in VRAM at addresses \$8000h-97FF; with one tile
+Tile Data is stored in VRAM at addresses \$8000-97FF; with one tile
 being 16 bytes large, this area defines data for 384 Tiles. In CGB Mode,
-this is doubled (768 tiles) because of the two [LCDC bit
-4](#VRAM_banks._Each_tile_is_sized_8x8_pixels_and_has_a_color_depth_of_4_colors/gray_shades._Tiles_can_be_displayed_as_part_of_the_Background/Window_map,_and/or_as_OAM_tiles_(foreground_sprites)._Note_that_foreground_sprites_don't_use_color_0_-_it's_transparent_instead._There_are_three_"blocks"_of_128_tiles_each_:_block_0_is_$8000-87FF,_block_1_is_$8800-8FFF,_block_-1_is_$9000-$97FF._Tiles_are_always_indexed_using_a_8-bit_integer,_but_the_addressing_method_may_differ._The_"8000_method"_uses_$8000_as_its_base_pointer_and_uses_an_unsigned_addressing,_meaning_that_tiles_0-127_are_in_block_0,_and_tiles_128-255_are_in_block_1._The_"8800_method"_uses_$9000_as_its_base_pointer_and_uses_a_signed_addressing._To_put_it_differently,_"8000_addressing"_takes_tiles_0-127_from_block_0_and_tiles_128-255_from_block_1,_whereas_"8800_addressing"_takes_tiles_0-127_from_block_-1_and_tiles_128-255_from_block_1._(You_can_notice_that_block_1_is_shared_by_both_addressing_methods)_Sprites_always_use_8000_addressing,_but_the_BG_and_Window_can_use_either_mode,_controlled_by_[[#LCDC.4_-_BG_.26_Window_Tile_Data_Select "wikilink").
+this is doubled (768 tiles) because of the two VRAM banks.
+
+Each tile is sized 8x8 pixels and has a color depth of 4 colors/gray
+shades. Tiles can be displayed as part of the Background/Window map,
+and/or as OAM tiles (foreground sprites). Note that foreground sprites
+don\'t use color 0 - it\'s transparent instead.
+
+There are three \"blocks\" of 128 tiles each:
+
+-   Block 0 is \$8000-87FF
+-   Block 1 is \$8800-8FFF
+-   Block 2 is \$9000-97FF
+
+Tiles are always indexed using a 8-bit integer, but the addressing
+method may differ. The \"8000 method\" uses \$8000 as its base pointer
+and uses an unsigned addressing, meaning that tiles 0-127 are in block
+0, and tiles 128-255 are in block 1. The \"8800 method\" uses \$9000 as
+its base pointer and uses a signed addressing. To put it differently,
+\"8000 addressing\" takes tiles 0-127 from block 0 and tiles 128-255
+from block 1, whereas \"8800 addressing\" takes tiles 0-127 from block 2
+and tiles 128-255 from block 1. (You can notice that block 1 is shared
+by both addressing methods)
+
+Sprites always use 8000 addressing, but the BG and Window can use either
+mode, controlled by [LCDC bit
+4](#LCDC.4_-_BG_.26_Window_Tile_Data_Select "wikilink").
 
 Each Tile occupies 16 bytes, where each 2 bytes represent a line:
 
@@ -519,9 +563,9 @@ OCPD/OBPD](#FF6A_-_OCPS.2FOBPI_-_CGB_Mode_Only_-_Sprite_Palette_Index.2C_FF6B_-_
 VRAM Background Maps
 --------------------
 
-The Gameboy contains two 32x32 tile background maps in VRAM at addresses
-9800h-9BFFh and 9C00h-9FFFh. Each can be used either to display
-\"normal\" background, or \"window\" background.
+The Game Boy contains two 32x32 tile background maps in VRAM at
+addresses 9800h-9BFFh and 9C00h-9FFFh. Each can be used either to
+display \"normal\" background, or \"window\" background.
 
 ### BG Map Tile Numbers
 
@@ -553,12 +597,12 @@ entry in VRAM Bank 0, ie. 1:9800 defines the attributes for the tile at
 
 When Bit 7 is set, the corresponding BG tile will have priority above
 all OBJs (regardless of the priority bits in OAM memory). There\'s also
-an Master Priority flag in LCDC register Bit 0 which overrides all other
+a Master Priority flag in LCDC register Bit 0 which overrides all other
 priority bits when cleared.
 
-Note that, if the tile at 0:9800 is tile \$2A, the attribute at 1:9800
-doesn\'t define properties for ALL tiles \$2A on-screen, but only the
-one at 0:9800 !
+Note that, if the map entry at 0:9800 is tile \$2A, the attribute at
+1:9800 doesn\'t define properties for ALL tiles \$2A on-screen, but only
+the one at 0:9800 !
 
 ### Normal Background (BG)
 
@@ -570,12 +614,12 @@ when part of it goes off the screen, it appears on the opposite side.)
 ### The Window
 
 Besides background, there is also a \"window\" overlaying the
-background. The window is not scrollable i.e. it is always displayed
-starting from its left upper corner. The location of a window on the
-screen can be adjusted via WX and WY registers. Screen coordinates of
-the top left corner of a window are WX-7,WY. The tiles for the window
-are stored in the Tile Data Table. Both the Background and the window
-share the same Tile Data Table.
+background. The window is not scrollable, that is, it is always
+displayed starting from its left upper corner. The location of a window
+on the screen can be adjusted via WX and WY registers. Screen
+coordinates of the top left corner of a window are WX-7,WY. The tiles
+for the window are stored in the Tile Data Table. Both the Background
+and the window share the same Tile Data Table.
 
 Both background and window can be disabled or enabled separately via
 bits in the LCDC register.
@@ -647,7 +691,7 @@ tile is \"NN AND FEh\", and the lower 8x8 tile is \"NN OR 01h\".
 ### Sprite Priorities and Conflicts
 
 When sprites overlap, the highest priority one will appear above all
-others, etc. (Thus, no Z-fighting). In CGB mode, the first sprite in OAM
+others, etc. (Thus, no Z-fighting.) In CGB mode, the first sprite in OAM
 (\$FE00-\$FE03) has the highest priority, and so on. In Non-CGB mode,
 the smaller the X coordinate, the higher the priority. The tie breaker
 (same X coordinates) is the same priority as in CGB mode.
@@ -710,8 +754,10 @@ A typical procedure that waits for accessibility of VRAM would be:
 Even if the procedure gets executed at the <end> of Mode 0 or 1, it is
 still proof to assume that VRAM can be accessed for a few more cycles
 because in either case the following period is Mode 2 which allows
-access to VRAM either. In CGB Mode an alternate method to write data to
-VRAM is to use the HDMA Function (FF51-FF55).
+access to VRAM either. However, be careful about STAT LCD interrupts or
+other interrupts that could cause the LCD to be back in mode 3 by the
+time it returns. In CGB Mode an alternate method to write data to VRAM
+is to use the HDMA Function (FF51-FF55).
 
 ### OAM (memory at FE00h-FE9Fh) is accessible during Mode 0-1
 
