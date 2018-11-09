@@ -362,9 +362,9 @@ the transfer from inside HRAM, and wait until the transfer has finished:
 `  ld a, start address / 100h`\
 `  ldh  (FF46h),a ;start DMA transfer (starts right after instruction)`\
 `  ld  a,28h      ;delay...`\
-` wait:           ;total 5x40 cycles, approx 200ms`\
+` wait:           ;total 4x40 cycles, approx 160ms`\
 `  dec a          ;1 cycle`\
-`  jr  nz,wait    ;4 cycles`\
+`  jr  nz,wait    ;3 cycles`\
 `  ret`
 
 Most programs are executing this procedure from inside of their VBlank
