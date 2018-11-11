@@ -372,11 +372,13 @@ transfer source address divided by 100h, ie. source & destination are:
 ` Destination: FE00-FE9F`
 
 The transfer takes 160 machine cycles: 152 microseconds in normal speed
-or 76 microseconds in CGB Double Speed Mode. During this time, the CPU
-can access only HRAM (memory at FF80-FFFE). For this reason, the
-programmer must copy a short procedure into HRAM, and use this procedure
-to start the transfer from inside HRAM, and wait until the transfer has
-finished:
+or 76 microseconds in CGB Double Speed Mode. On DMG, during this time,
+the CPU can access only HRAM (memory at FF80-FFFE); on CGB, the bus used
+by the source area cannot be used (this isn\'t understood well at the
+moment, it\'s recommended to assume same behavior as DMG). For this
+reason, the programmer must copy a short procedure into HRAM, and use
+this procedure to start the transfer from inside HRAM, and wait until
+the transfer has finished:
 
 ` run_dma:`\
 `  ld a, start address / 100h`\
