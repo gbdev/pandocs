@@ -73,11 +73,15 @@ cause artifacts.
 
 #### LCDC.1 - OBJ Display Enable
 
-This bit toggles whether sprites are displayed or not. This doesn\'t
-affect Mode 3 timings, just whether they are rendered or not.
+This bit toggles whether sprites are displayed or not. On DMG, this
+doesn\'t affect Mode 3 timings, just whether they are rendered or not;
+on CGB, timing is still affected.
 
 This can be toggled mid-frame, for example to avoid sprites being
 displayed above a status bar or text box.
+
+(Note: toggling mid-scanline might have funky results on DMG?
+Investigation needed.)
 
 #### LCDC.0 - BG/Window Display/Priority
 
