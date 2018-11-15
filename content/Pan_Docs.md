@@ -4,7 +4,7 @@ Table of Contents
 ### Overview
 
 [Game Boy Technical Data](Game_Boy_Technical_Data "wikilink") - [Memory
-Map](Memory_Map "wikilink")
+Map](Memory_Map "wikilink") - [Terminology](Terminology "wikilink")
 
 ### I/O Ports
 
