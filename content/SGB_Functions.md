@@ -878,8 +878,9 @@ Each BG Map Entry consists of a 16bit value as such:
 Even though 32x32 map entries are transferred, only upper 32x28 are
 actually used (256x224 pixels, SNES screen size). The 20x18 entries in
 the center of the 32x28 area should be set to 0000h as transparent space
-for the gameboy window to be displayed inside. Reportedly,
-non-transparent border data will cover the gameboy window.
+for the gameboy window to be displayed inside. Non-transparent border
+data will cover the gameboy window (for example, Mario\'s Picross does
+this).
 
 ### SGB Command 18h - OBJ\_TRN
 
