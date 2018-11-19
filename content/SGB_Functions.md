@@ -285,6 +285,19 @@ used to colorize the gamescreen, only the first four colors of each of
 these palettes are used. Palettes 4-7 are used for the SGB Border, all
 16 colors of each of these palettes may be used.
 
+### Color format
+
+Colors are encoded as 16-bit RGB numbers, in the following way:
+
+` FEDC BA98 7654 3210`\
+` 0BBB BBGG GGGR RRRR`
+
+Here\'s a formula to convert 24-bit RGB into SNES format:
+`(color & 0xF8) << 7 | (color & 0xF800) >> 6 | (color & 0xF80000) >> 19`
+
+The palettes are encoded **little-endian**, thus, the R/G byte comes
+first in memory.
+
 ### Color 0 Restriction
 
 Color 0 of each of the eight palettes is transparent, causing the
@@ -310,25 +323,25 @@ Note that gameboy colors 0-3 are assigned to user-selectable grayshades
 by the gameboys BGP, OBP1, and OBP2 registers. There is thus no fixed
 relationship between gameboy colors 0-3 and SNES colors 0-3.
 
-### Using Gameboy BGP/OBP Registers
+#### Using Gameboy BGP/OBP Registers
 
-A direct translation of color 0-3 into color 0-3 may be produced by
-setting BGP/OBP registers to a value of 0E4h each. However, in case that
-your program uses black background for example, then you may internally
-assign background as \"White\" at the gameboy side by BGP/OBP registers
-(which is then interpreted as SNES color 0, which is shared for all SNES
-palettes). The advantage is that you may define Color 0 as Black at the
-SNES side, and may assign custom colors for Colors 1-3 of each SNES
-palette.
+A direct translation of GB color 0-3 into SNES color 0-3 may be produced
+by setting BGP/OBP registers to a value of 0E4h each. However, in case
+that your program uses black background for example, then you may
+internally assign background as \"White\" at the gameboy side by BGP/OBP
+registers (which is then interpreted as SNES color 0, which is shared
+for all SNES palettes). The advantage is that you may define Color 0 as
+Black at the SNES side, and may assign custom colors for Colors 1-3 of
+each SNES palette.
 
 ### System Color Palette Memory
 
 Beside for the actually visible palettes, up to 512 palettes of 4 colors
-each may be defined in SNES RAM. Basically, this is completely
-irrelevant because the palettes are just stored in RAM whithout any
-relationship to the displayed picture, anyways, these pre-defined colors
-may be transferred to actually visible palettes slightly faster as when
-transferring palette data by separate command packets.
+each may be defined in SNES RAM. The palettes are just stored in RAM
+without any relationship to the displayed picture; however, these
+pre-defined colors may be transferred to actually visible palettes
+slightly faster than when transferring palette data by separate command
+packets.
 
 SGB Palette Commands
 --------------------
