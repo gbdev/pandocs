@@ -229,15 +229,18 @@ Note that the transfer data should be prepared in VRAM <before> sending
 the transfer command packet. The actual transfer starts at the beginning
 of the next frame after the command has been sent, and the transfer ends
 at the end of the 5th frame after the command has been sent (not
-counting the frame in which the command has been sent).
+counting the frame in which the command has been sent). The displayed
+data must not be modified during the transfer, as the SGB reads it in
+multiple chunks.
 
-Avoiding Screen Garbage The display will contain \'garbage\' during the
-transfer, this dirt-effect can be avoided by freezing the screen (in the
-state which has been displayed before the transfer) by using the
-MASK\_EN command. Of course, this works only when actually executing the
-game on a SGB (and not on normal handheld gameboys), it\'d be thus
-required to detect the presence of SGB hardware before blindly sending
-VRAM data.
+### Avoiding Screen Garbage
+
+The display will contain \'garbage\' during the transfer, this
+dirt-effect can be avoided by freezing the screen (in the state which
+has been displayed before the transfer) by using the MASK\_EN command.
+Of course, this works only when actually executing the game on a SGB
+(and not on normal handheld gameboys), it\'d be thus required to detect
+the presence of SGB hardware before blindly sending VRAM data.
 
 SGB Command Summary
 -------------------
