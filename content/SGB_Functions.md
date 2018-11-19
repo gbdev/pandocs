@@ -376,8 +376,10 @@ Same as above PAL01, but for Palettes 1 and 2 respectively.
 
 ### SGB Command 0Ah - PAL\_SET
 
-Used to copy pre-defined palette data from SGB system color palette to
-actual SGB palette.
+Used to copy pre-defined palette data from SGB system color palettes to
+actual SNES palettes.
+
+Note: all palette numbers are little-endian.
 
 ` Byte  Content`\
 ` 0     Command*8+Length (fixed length=1)`\
