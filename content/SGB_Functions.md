@@ -916,7 +916,7 @@ black, or recommended to be covered by the SGB border, or else ??? Also,
 when the function is enabled, \"system attract mode is not performed\" -
 whatever that means ???
 
-This command does nothing on some SGB revisions. (SGBv1?, SGBv2, SGB2?)
+This command does nothing on some SGB revisions. (SGBv2, SGB2?)
 
 ` Byte  Content`\
 ` 0     Command*8+Length (fixed length=1)`\
@@ -965,4 +965,25 @@ The format of SNES OAM MSB Entries is:
 ` Actually, the format is unknown ??? However, 2 bits are used per entry:`\
 ` One bit is the most significant bit of the OBJ X-Position.`\
 ` The other bit specifies the OBJ size (8x8 or 16x16 pixels).`
+
+Undocumented SGB commands
+-------------------------
+
+The following information has been extracted from disassembling a SGBv2
+firmware; it should be verified on other SGB revisions.
+
+The SGB firmware explicitly ignores all commands with ID \>= \$1E. This
+leaves undocumented commands \$19 to \$1D inclusive.
+
+### Stubbed commands
+
+Commands \$1A to \$1F (inclusive)\'s handlers are stubs (only contain a
+\`RTS\`). This is interesting, since the command-processing function
+explicitly ignores commands \$1E and \$1F.
+
+### SGB command 19h
+
+The game Donkey Kong \'94 appears to send this command, and it appears
+to set a flag in the SGB\'s memory. It\'s not known yet what it does,
+though.
 
