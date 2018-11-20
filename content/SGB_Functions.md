@@ -708,6 +708,9 @@ attraction mode is ???, but it is enabled by default.
 Used to enable/disable test mode for \"SGB-CPU variable clock speed
 function\". This function is disabled by default.
 
+This command does nothing on some SGB revisions. (SGBv2 confirmed,
+unknown on others)
+
 ` Byte  Content`\
 ` 0     Command*8+Length    (fixed length=1)`\
 ` 1     Test Mode Enable    (0=Disable, 1=Enable)`\
