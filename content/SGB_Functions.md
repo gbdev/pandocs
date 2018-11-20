@@ -913,6 +913,8 @@ black, or recommended to be covered by the SGB border, or else ??? Also,
 when the function is enabled, \"system attract mode is not performed\" -
 whatever that means ???
 
+This command does nothing on some SGB revisions. (SGBv1?, SGBv2, SGB2?)
+
 ` Byte  Content`\
 ` 0     Command*8+Length (fixed length=1)`\
 ` 1     Control Bits`\
