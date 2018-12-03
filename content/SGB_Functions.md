@@ -194,8 +194,8 @@ parameter bytes are used, then further packet(s) will follow, as such:
 `  1 BIT   Stop Bit (0)`
 
 By using all 7 packets, up to 111 data bytes (15+16\*6) may be sent.
-Unused bytes at the end of the last packet must be set to zero. A 60ms
-(4 frames) delay should be invoked between each packet transfer.
+Unused bytes at the end of the last packet don\'t matter. A 60ms (4
+frames) delay should be invoked between each packet transfer.
 
 SGB VRAM Transfers
 ------------------
