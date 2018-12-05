@@ -33,6 +33,9 @@ V-blank can be confirmed when the value of LY is greater than or equal
 to 144. When the display is disabled the screen is blank (white), and
 VRAM and OAM can be accessed freely.
 
+On SGB, the screen doesn\'t turn white, it appears that the previous
+picture sticks to the screen. (TODO: research this more.)
+
 When re-enabling the LCD, it will immediately start at LY = 0, meaning
 it will immediately start drawing. The first frame after the LCD is
 reenabled is completely white, though the LCD memory access pattern is
