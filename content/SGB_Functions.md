@@ -783,8 +783,8 @@ idea ???
 ### SGB Command 12h - JUMP
 
 Used to set the SNES program counter to a specified address. Optionally,
-it may be used to set a new address for the SNES NMI handler, the NMI
-handler remains unchanged if all bytes 4-6 are zero.
+it may be used to set a new address for the SNES NMI (vblank interrupt)
+handler; the NMI handler remains unchanged if all bytes 4-6 are zero.
 
 ` Byte  Content`\
 ` 0     Command*8+Length    (fixed length=1)`\
@@ -796,10 +796,12 @@ handler remains unchanged if all bytes 4-6 are zero.
 ` 6     SNES NMI Handler, bank number`\
 ` 7-F   Not used, zero`
 
-Note: The game \"Space Invaders 94\" uses this function when selecting
+Note: The game *Space Invaders* uses this function when selecting
 \"Arcade mode\" to execute SNES program code which has been previously
-transferred from the SGB to the SNES. The type of the CPU which is used
-in the SNES is unknown ???
+transferred from the SGB to the SNES. The SNES CPU is a Ricoh 5A22,
+which combines a 65C816 core licensed from WDC with a custom memory
+controller. For more information, see [\"fullsnes\" by
+nocash](https://problemkaputt.de/fullsnes.htm).
 
 SGB Multiplayer Command
 -----------------------
