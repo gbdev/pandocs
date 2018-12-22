@@ -118,10 +118,13 @@ might provide a tutorial or two after I get enough time.
 
 <http://web.archive.org/web/19990209030645/http://www.anthrox.com/>
 
-Update as of 15/12/2015 at 9:23 P.M.
+Update as of 22/12/2018 at 11:52 P.M.
 
-The Game Boy Color Programming Section was removed from the Wayback
-Machine.
+The Game Boy Color Programming Section was removed by it\'s author
+before the Wayback Machine got all the files there. It can still be
+accessed at
+<http://web.archive.org/web/20000116003353/http://www.jps.net:80/paninaro/index.html>
+, but it\'s pretty incomplete.
 
 Please click on free software to download the tools. We hold no
 liability for the tools that you download.
