@@ -572,14 +572,18 @@ internal tone data.
 ` 5-F   Not used (zero)`
 
 See Sound Effect Tables below for a list of available pre-defined
-effects. \"Notes\" 1) Mute is only active when both bits D2 and D3 are
-1. 2) When the volume is set for either Sound Effect A or Sound Effect
-B, mute is turned off. 3) When Mute on/off has been executed, the sound
-fades out/fades in. 4) Mute on/off operates on the (BGM) which is
-reproduced by Sound Effect A, Sound Effect B, and the Super NES APU. A
-\"mute off\" flag does not exist by itself. When mute flag is set,
-volume and pitch of Sound Effect A (port 1) and Sound Effect B (port 2)
-must be set.
+effects.
+
+Notes:
+
+1.  Mute is only active when both bits D2 and D3 are 1.
+2.  When the volume is set for either Sound Effect A or Sound Effect B,
+    mute is turned off.
+3.  When Mute on/off has been executed, the sound fades out/fades in.
+4.  Mute on/off operates on the (BGM) which is reproduced by Sound
+    Effect A, Sound Effect B, and the Super NES APU. A \"mute off\" flag
+    does not exist by itself. When mute flag is set, volume and pitch of
+    Sound Effect A (port 1) and Sound Effect B (port 2) must be set.
 
 ### SGB Command 09h - SOU\_TRN
 
