@@ -262,6 +262,21 @@ CGBs.)
 The Japanese cart \"Fighting Phoenix\" (internal cart name: SUPER B
 DAMAN) is known to contain this chip.
 
+Multicart MBCs
+--------------
+
+**MBC1M** uses the MBC1 IC, but the board does not connect the MBC1\'s
+A18 address output to the ROM. This allows including multiple 2 Mbit (16
+bank) games, with SRAM bank select (\$4000) to select which of up to
+four games is switched in. In theory, a MBC1M board could be made for 1
+Mbit or 512 kbit games by additionally not connecting A17 and A16
+outputs, but this appears not to have been done in licensed games.
+
+**MMM01** is a more complex that allows for games of different sizes
+[Docs on Tauwasser.eu](https://wiki.tauwasser.eu/view/MMM01)
+
+**Bung** and **EMS** MBCs are reported to exist.
+
 MBC Timing Issues
 -----------------
 
