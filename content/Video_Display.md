@@ -284,7 +284,8 @@ Data can be read/written to/from the specified index address through
 Register FF69. When the Auto Increment bit is set then the index is
 automatically incremented after each <write> to FF69. Auto Increment has
 no effect when <reading> from FF69, so the index must be manually
-incremented in that case.
+incremented in that case. Writing to FF69 during rendering still causes
+auto-increment to occur.
 
 Unlike the following, this register can be accessed outside V-Blank and
 H-Blank.
