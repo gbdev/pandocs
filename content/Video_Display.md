@@ -1,15 +1,7 @@
 LCD Control Register
 --------------------
 
-### FF40 - LCDC - LCD Control (R/W)
-
-LCDC is special, because it can be written to during Mode 3 (while
-graphics are being drawn), and **will** affect display during the
-scanline !
-
-This could be used for very complex video effects, but they will
-probably fail to render properly on most emulators. (They could be
-pretty sick though)
+Detailed article: [LCDC](LCDC "wikilink")
 
 ` Bit 7 - LCD Display Enable             (0=Off, 1=On)`\
 ` Bit 6 - Window Tile Map Display Select (0=9800-9BFF, 1=9C00-9FFF)`\
@@ -19,88 +11,6 @@ pretty sick though)
 ` Bit 2 - OBJ (Sprite) Size              (0=8x8, 1=8x16)`\
 ` Bit 1 - OBJ (Sprite) Display Enable    (0=Off, 1=On)`\
 ` Bit 0 - BG/Window Display/Priority     (0=Off, 1=On)`
-
-#### LCDC.7 - LCD Display Enable
-
-CAUTION: Stopping LCD operation (Bit 7 from 1 to 0) may be performed
-during V-Blank ONLY, disabling the display outside of the V-Blank period
-may damage the hardware by burning in a black horizontal line similar to
-that which appears when the GB is turned off. This appears to be a
-serious issue, Nintendo is reported to reject any games that do not
-follow this rule.
-
-V-blank can be confirmed when the value of LY is greater than or equal
-to 144. When the display is disabled the screen is blank (white), and
-VRAM and OAM can be accessed freely.
-
-On SGB, the screen doesn\'t turn white, it appears that the previous
-picture sticks to the screen. (TODO: research this more.)
-
-When re-enabling the LCD, it will immediately start at LY = 0, meaning
-it will immediately start drawing. The first frame after the LCD is
-reenabled is completely white, though the LCD memory access pattern is
-as usual.
-
-#### LCDC.6 - Window Tile Map Display Select
-
-This bit controls which [background
-map](#VRAM_Background_Maps "wikilink") the Window uses for rendering.
-Note that the window will always use the \"top-left\" data, ie. the data
-you\'d see at SCY = 0, SCX = 0, as its top-left point.
-
-#### LCDC.5 - Window Display Enable
-
-This bit controls whether the window shall be displayed or not. (TODO :
-what happens when toggling this mid-scanline ?)
-
-Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
-may cause the second write to be ignored. (TODO : test this.)
-
-#### LCDC.4 - BG & Window Tile Data Select
-
-This bit controls which addressing mode the BG and Window use to pick
-tiles. (See [below](#VRAM_Tile_Data "wikilink") for details on
-addressing modes).
-
-#### LCDC.3 - BG Tile Map Display Select
-
-This bit works similarly to bit 6 (explained above).
-
-#### LCDC.2 - OBJ Size
-
-This bit controls the sprite size (1 tile or 2 stacked vertically).
-
-Be cautious when changing this mid-frame from 8x8 to 8x16 : \"remnants\"
-of the sprites intended for 8x8 could \"leak\" into the 8x16 zone and
-cause artifacts.
-
-#### LCDC.1 - OBJ Display Enable
-
-This bit toggles whether sprites are displayed or not. On DMG, this
-doesn\'t affect Mode 3 timings, just whether they are rendered or not;
-on CGB, timing is still affected.
-
-This can be toggled mid-frame, for example to avoid sprites being
-displayed above a status bar or text box.
-
-(Note: toggling mid-scanline might have funky results on DMG?
-Investigation needed.)
-
-#### LCDC.0 - BG/Window Display/Priority
-
-LCDC.0 has different meanings depending on Gameboy type and Mode:
-
-##### Monochrome Gameboy, SGB and CGB in Non-CGB Mode: BG Display
-
-When Bit 0 is cleared, both background and window become blank (white),
-ie. the Window Display Bit (Bit 5) is ignored in that case. Only Sprites
-may still be displayed (if enabled in Bit 1).
-
-##### CGB in CGB Mode: BG and Window Master Priority
-
-When Bit 0 is cleared, the background and window lose their priority -
-the sprites will be always displayed on top of background and window,
-independently of the priority flags in OAM and BG Map attributes.
 
 LCD Status Register
 -------------------
