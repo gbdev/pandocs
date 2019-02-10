@@ -277,6 +277,37 @@ outputs, but this appears not to have been done in licensed games.
 
 **Bung** and **EMS** MBCs are reported to exist.
 
+### EMS
+
+PinoBatch learned the game selection protocol for EMS flash carts from
+beware, who in turn learned it from nitro2k01. Take this with a grain of
+salt, as it hasn\'t been verified on the authentic EMS hardware.
+
+A [header](The_Cartridge_Header "wikilink") matching any of the
+following is detected as EMS mapper:
+
+-   Header name is \"EMSMENU\", NUL-padded
+-   Header name is \"GB16M\", NUL-padded
+-   Cartridge type (\$0147) = \$1B and region (\$014A) = \$E1
+
+Registers:
+
+\$2000 write: Normal behavior, plus save written value in \$2000 latch\
+\$1000 write: \$A5 enables configure mode, \$98 disables, and other values have no known effect\
+\$7000 write while configure mode is on: Copy \$2000 latch to OR mask
+
+After the OR mask has been set, all reads from ROM will OR A21-A14 (the
+bank number) with the OR mask. This chooses which game is visible to the
+CPU. If the OR mask is not aligned to the game size, the results may be
+nonsensical.
+
+The mapper does not support an outer bank for battery SRAM.
+
+To start a game, do the following in code run from RAM: Write \$A5 to
+\$1000, write game starting bank number to \$2000, write any value to
+\$7000, write \$98 to \$1000, write \$01 to \$2000 (so that 32K games
+work), jump to \$0100.
+
 MBC Timing Issues
 -----------------
 
