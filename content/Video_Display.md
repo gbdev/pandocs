@@ -30,21 +30,10 @@ LCD Status Register
 
 The two lower STAT bits show the current status of the LCD controller.
 
-` Mode 0: The LCD controller is in the H-Blank period and`\
-`         the CPU can access both the display RAM (8000h-9FFFh)`\
-`         and OAM (FE00h-FE9Fh)`\
-` `\
-` Mode 1: The LCD controller is in the V-Blank period (or the`\
-`         display is disabled) and the CPU can access both the`\
-`         display RAM (8000h-9FFFh) and OAM (FE00h-FE9Fh)`\
-` `\
-` Mode 2: The LCD controller is reading from OAM memory.`\
-`         The CPU `<cannot>` access OAM memory (FE00h-FE9Fh)`\
-`         during this period.`\
-` `\
-` Mode 3: The LCD controller is reading from both OAM and VRAM,`\
-`         The CPU `<cannot>` access OAM and VRAM during this period.`\
-`         CGB Mode: Cannot access Palette Data (FF69,FF6B) either.`
+The LCD controller operates on a 2^22^ Hz = 4.194 MHz dot clock. An
+entire frame is 154 scanlines, 70224 dots, or 16.74 ms. On scanlines 0
+through 143, the LCD controller cycles through modes 2, 3, and 0 once
+every 456 dots. Scanlines 144 through 153 are mode 1.
 
 The following are typical when the display is enabled:
 
@@ -53,21 +42,55 @@ The following are typical when the display is enabled:
 ` Mode 0  ___000___000___000___000___000___000________________000`\
 ` Mode 1  ____________________________________11111111111111_____`
 
-The Mode Flag goes through the values 0, 2, and 3 at a cycle of about
-109 μS. 0 is present about 48.6 μS, 2 about 19 μS, and 3 about 41 μS.
-This is interrupted every 16.6ms by the VBlank (1). The mode flag stays
-set at 1 for about 1.08 ms.
+When the LCD controller is reading a particular part of video memory,
+that memory is inaccessible to the CPU.
 
-A complete cycle through these states takes 456 tstates. Mode 2 is
-present for 80 tstates, mode 3 about 170-240 tstates depending on where
-exactly the sprites, window, and fine scroll (SCX modulo 8) are
-positioned, and mode 0 for the rest of the scanline (up to 200 tstates).
-VBlank lasts 10 scanlines, or 4560 tstates. A complete screen refresh
-occurs every 154 lines, or 70224 tstates.)
+-   During modes 2 and 3, the CPU cannot access OAM (FE00h-FE9Fh).
+-   During mode 3, the CPU cannot access VRAM or CGB Palette Data
+    (FF69,FF6B).
+
+  Mode     Action                                                                  Duration                                                             Accessible video memory
+  -------- ----------------------------------------------------------------------- -------------------------------------------------------------------- -------------------------
+  Mode 2   Scanning OAM for (X, Y) coordinates of sprites that overlap this line   80 dots (19 us)                                                      VRAM, CGB palettes
+  Mode 3   Reading OAM and VRAM to generate the picture                            168 to 291 cycles (40 to 60 us) depending on sprite count            None
+  Mode 0   Horizontal blanking                                                     85 to 208 dots (20 to 49 us) depending on previous mode 3 duration   VRAM, OAM, CGB palettes
+  Mode 1   Vertical blanking                                                       4560 dots (1087 us, 10 scanlines)                                    VRAM, OAM, CGB palettes
+
+  : Properties of STAT modes
+
+Unlike most game consoles, the Game Boy can pause the dot clock briefly.
+It routinely takes a 6 to 11 dot break to fetch sprite patterns between
+background tile pattern fetches. On DMG and GBC in DMG mode,
+mid-scanline writes to `BGP` allow observing this behavior, as a sprite
+delay shifts the effect of a write to the left by that many dots.
+
+Each sprite usually adds `11 - min(5, (x + SCX) % 8)` dots to mode 3.
+Because sprite fetch waits for background fetch to finish, a sprite\'s
+cost depends on its position relative to left side of the background
+tile under it. It\'s greater if a sprite is directly aligned over the
+background tile, less if the sprite is to the right. If the sprite\'s
+left side is over the window, use `255 - WX` for `SCX` in the formula.
+An active window also adds at least 6 dots to mode 3, as the background
+fetching mechanism starts over at the left side of the window.
+
+VRAM can be written during a period comprising mode 0 on one line and
+mode 2 on the following line. These sum to 165 to 288 dots. For
+comparison, at single speed (4 dots per machine cycle), a copy from
+stack that takes 9 cycles per 2 bytes can push 8 bytes (half a tile) in
+144 dots.
+
+**Not fully understood:** The exact timing for window start is not
+confirmed; it may have the same background fetch finish delay as a
+sprite. If two sprites\' left sides are over the same background or
+window tile, the second may take fewer cycles.
 
 A hardware bug in the monochrome Game Boy makes the LCD interrupt
-sometimes trigger when writing to STAT (including writing \$00) during a
-H-Blank or V-Blank period.
+sometimes trigger when writing to STAT (including writing \$00) during
+OAM scan, H-Blank, V-Blank, or LY=LYC. It behaves as if \$FF were
+written for one cycle, and then the written value were written the next
+cycle. Because the GBC in DMG mode does not have this bug, two games
+that depend on this bug (Ocean\'s *Road Rash* and Vic Tokai\'s *Xerd no
+Densetsu*) will not run on a GBC.
 
 LCD Interrupts
 --------------
