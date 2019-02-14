@@ -58,33 +58,45 @@ that memory is inaccessible to the CPU.
 
   : Properties of STAT modes
 
-Unlike most game consoles, the Game Boy can pause the dot clock briefly.
-It routinely takes a 6 to 11 dot break to fetch sprite patterns between
-background tile pattern fetches. On DMG and GBC in DMG mode,
-mid-scanline writes to `BGP` allow observing this behavior, as a sprite
-delay shifts the effect of a write to the left by that many dots.
+Unlike most game consoles, the Game Boy can pause the dot clock briefly,
+adding dots to mode 3\'s duration. It routinely takes a 6 to 11 dot
+break to fetch sprite patterns between background tile pattern fetches.
+On DMG and GBC in DMG mode, mid-scanline writes to `BGP` allow observing
+this behavior, as a sprite delay shifts the effect of a write to the
+left by that many dots.
 
-Each sprite usually adds `11 - min(5, (x + SCX) % 8)` dots to mode 3.
-Because sprite fetch waits for background fetch to finish, a sprite\'s
-cost depends on its position relative to left side of the background
-tile under it. It\'s greater if a sprite is directly aligned over the
-background tile, less if the sprite is to the right. If the sprite\'s
-left side is over the window, use `255 - WX` for `SCX` in the formula.
-An active window also adds at least 6 dots to mode 3, as the background
-fetching mechanism starts over at the left side of the window.
+Three things are known to pause the dot clock:
 
-**Not fully understood:** The exact timing for window start is not
-confirmed; it may have the same background fetch finish delay as a
+Background scrolling
+:   If `SCX mod 8` is not zero at the start of the scanline, rendering
+    is paused for that many dots while the shifter discards that many
+    pixels from the leftmost tile.
+
+Window
+:   An active window pauses for at least 6 dots, as the background
+    fetching mechanism starts over at the left side of the window.
+
+Sprites
+:   Each sprite usually pauses for `11 - min(5, (x + SCX) mod 8)` dots.
+    Because sprite fetch waits for background fetch to finish, a
+    sprite\'s cost depends on its position relative to the left side of
+    the background tile under it. It\'s greater if a sprite is directly
+    aligned over the background tile, less if the sprite is to the
+    right. If the sprite\'s left side is over the window, use `255 - WX`
+    for `SCX` in this formula.
+
+**Not fully understood:** The exact pause duration for window start is
+not confirmed; it may have the same background fetch finish delay as a
 sprite. If two sprites\' left sides are over the same background or
-window tile, the second may take fewer cycles.
+window tile, the second may pause for fewer dots.
 
-A hardware bug in the monochrome Game Boy makes the LCD interrupt
+A hardware quirk in the monochrome Game Boy makes the LCD interrupt
 sometimes trigger when writing to STAT (including writing \$00) during
 OAM scan, H-Blank, V-Blank, or LY=LYC. It behaves as if \$FF were
 written for one cycle, and then the written value were written the next
-cycle. Because the GBC in DMG mode does not have this bug, two games
-that depend on this bug (Ocean\'s *Road Rash* and Vic Tokai\'s *Xerd no
-Densetsu*) will not run on a GBC.
+cycle. Because the GBC in DMG mode does not have this quirk, two games
+that depend on this quirk (Ocean\'s *Road Rash* and Vic Tokai\'s *Xerd
+no Densetsu*) will not run on a GBC.
 
 LCD Interrupts
 --------------
