@@ -645,9 +645,9 @@ first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
 allowing only 10 sprites to be displayed on any one line. When this
 limit is exceeded, sprites appearing later in OAM won\'t be displayed.
 To keep unused sprites from affecting onscreen sprites, set their Y
-coordinate to Y = 0 or Y =\> 160 (144 + 16) (Note : Y \<= 8 also works
+coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note : Y \<= 8 also works
 if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
-X =\> 168 (160 + 8) on a sprite will hide it, but it will still affect
+X \>= 168 (160 + 8) on a sprite will hide it, but it will still affect
 other sprites sharing the same lines.
 
 If using [BGB](BGB "wikilink"), in the VRAM viewer - OAM tab, hover your
@@ -661,11 +661,12 @@ Non-CGB mode, the smaller the X coordinate, the higher the priority. The
 tie breaker (same X coordinates) is the same priority as in CGB mode.
 
 The priority calculation between sprites disregards OBJ-to-BG Priority
-(attribute bit 7). Only the highest-priority sprite is compared against
-the background. Thus if a sprite with a higher priority (based on OAM
-index) but with OBJ-to-BG Priority turned on overlaps a sprite with a
-lower priority and a nonzero background pixel, the background pixel is
-displayed even if the lower-priority sprite\'s OBJ-to-BG Priority is on.
+(attribute bit 7). Only the highest-priority nonzero sprite pixel at any
+given point is compared against the background. Thus if a sprite with a
+higher priority (based on OAM index) but with OBJ-to-BG Priority turned
+on overlaps a sprite with a lower priority and a nonzero background
+pixel, the background pixel is displayed regardless of the
+lower-priority sprite\'s OBJ-to-BG Priority.
 
 ### Writing Data to OAM Memory
 
