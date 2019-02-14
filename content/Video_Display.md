@@ -639,24 +639,33 @@ tile is \"NN AND FEh\", and the lower 8x8 tile is \"NN OR 01h\".
 
 ### Sprite Priorities and Conflicts
 
-When sprites overlap, the highest priority one will appear above all
-others, etc. (Thus, no Z-fighting.) In CGB mode, the first sprite in OAM
-(\$FE00-\$FE03) has the highest priority, and so on. In Non-CGB mode,
-the smaller the X coordinate, the higher the priority. The tie breaker
-(same X coordinates) is the same priority as in CGB mode.
-
-Only 10 sprites can be displayed on any one line. When this limit is
-exceeded, the lower sprites (in their order in OAM, \$FE00-\$FE03 being
-the highest) won\'t be displayed. To keep unused sprites from affecting
-onscreen sprites, set their Y coordinate to Y = 0 or Y =\> 160 (144 +
-16) (Note : Y \<= 8 also works if sprite size is set to 8x8). Just
-setting the X coordinate to X = 0 or X =\> 168 (160 + 8) on a sprite
-will hide it, but it will still affect other sprites sharing the same
-lines.
+During each scanline\'s OAM scan, the LCD controller compares LY to each
+sprite\'s Y position to find the 10 sprites on that line that appear
+first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
+allowing only 10 sprites to be displayed on any one line. When this
+limit is exceeded, sprites appearing later in OAM won\'t be displayed.
+To keep unused sprites from affecting onscreen sprites, set their Y
+coordinate to Y = 0 or Y =\> 160 (144 + 16) (Note : Y \<= 8 also works
+if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
+X =\> 168 (160 + 8) on a sprite will hide it, but it will still affect
+other sprites sharing the same lines.
 
 If using [BGB](BGB "wikilink"), in the VRAM viewer - OAM tab, hover your
 mouse over the small screen to highlight the sprites on a line. Sprites
 hidden due to the limitation will be highlighted in red.
+
+When these 10 sprites overlap, the highest priority one will appear
+above all others, etc. (Thus, no Z-fighting.) In CGB mode, the first
+sprite in OAM (\$FE00-\$FE03) has the highest priority, and so on. In
+Non-CGB mode, the smaller the X coordinate, the higher the priority. The
+tie breaker (same X coordinates) is the same priority as in CGB mode.
+
+The priority calculation between sprites disregards OBJ-to-BG Priority
+(attribute bit 7). Only the highest-priority sprite is compared against
+the background. Thus if a sprite with a higher priority (based on OAM
+index) but with OBJ-to-BG Priority turned on overlaps a sprite with a
+lower priority and a nonzero background pixel, the background pixel is
+displayed even if the lower-priority sprite\'s OBJ-to-BG Priority is on.
 
 ### Writing Data to OAM Memory
 
