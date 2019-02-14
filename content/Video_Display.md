@@ -73,12 +73,6 @@ left side is over the window, use `255 - WX` for `SCX` in the formula.
 An active window also adds at least 6 dots to mode 3, as the background
 fetching mechanism starts over at the left side of the window.
 
-VRAM can be written during a period comprising mode 0 on one line and
-mode 2 on the following line. These sum to 165 to 288 dots. For
-comparison, at single speed (4 dots per machine cycle), a copy from
-stack that takes 9 cycles per 2 bytes can push 8 bytes (half a tile) in
-144 dots.
-
 **Not fully understood:** The exact timing for window start is not
 confirmed; it may have the same background fetch finish delay as a
 sprite. If two sprites\' left sides are over the same background or
@@ -694,13 +688,21 @@ A typical procedure that waits for accessibility of VRAM would be:
 ` bit  1,(hl)       ; Wait until Mode is 0 or 1`\
 ` jr   nz,@@wait    ;/`
 
-Even if the procedure gets executed at the <end> of Mode 0 or 1, it is
+Even if the procedure gets executed at the *end* of Mode 0 or 1, it is
 still proof to assume that VRAM can be accessed for a few more cycles
 because in either case the following period is Mode 2 which allows
 access to VRAM either. However, be careful about STAT LCD interrupts or
 other interrupts that could cause the LCD to be back in mode 3 by the
 time it returns. In CGB Mode an alternate method to write data to VRAM
 is to use the HDMA Function (FF51-FF55).
+
+If you\'re not using LCD interrupts, another way to synchronize to the
+start of mode 0 is to use `halt` with IME turned off (`di`). This allows
+use of the entire mode 0 on one line and mode 2 on the following line,
+which sum to 165 to 288 dots. For comparison, at single speed (4 dots
+per machine cycle), a [copy from stack](Popslide "wikilink") that takes
+9 cycles per 2 bytes can push 8 bytes (half a tile) in 144 dots, which
+fits within the worst case timing for mode 0+2.
 
 ### OAM (memory at FE00h-FE9Fh) is accessible during Mode 0-1
 
