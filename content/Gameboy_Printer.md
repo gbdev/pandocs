@@ -69,6 +69,9 @@ tile), and the tiles are sent in the same order they occur on your
 tilemap (do keep in mind though that the printer does \*not\* have 32x32
 tiles space for a map, but only 20x18).
 
+An empty data packet must be sent before sending command 2 to print the
+data, otherwise the print command will be ignored.
+
 Command \$F: Read status
 ------------------------
 
