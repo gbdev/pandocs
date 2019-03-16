@@ -16,6 +16,10 @@ the following opcodes/operations:
 Whereas <INT> means the operation which is automatically executed by the
 CPU when it executes an interrupt.
 
+The effect of EI is delayed by one instruction. This means that EI
+followed immediately by DI does not allow interrupts between the EI and
+the DI.
+
 ### FFFF - IE - Interrupt Enable (R/W)
 
 ` Bit 0: V-Blank  Interrupt Enable  (INT 40h)  (1=Enable)`\
