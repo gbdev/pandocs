@@ -236,10 +236,15 @@ output. SO2 goes to the left headphone, and SO1 goes to the right.
 ` Bit 3   - Output Vin to SO1 terminal (1=Enable)`\
 ` Bit 2-0 - SO1 output level (volume)  (0-7)`
 
-The Vin signal is received from the game cartridge bus, allowing
-external hardware in the cartridge to supply a fifth sound channel,
-additionally to the gameboys internal four channels. As far as I know
-this feature isn\'t used by any existing games.
+The Vin signal is an analog signal received from the game cartridge bus,
+allowing external hardware in the cartridge to supply a fifth sound
+channel, additionally to the Game Boy\'s internal four channels. No
+licensed games used this feature, and it was omitted from the Game Boy
+Advance.
+
+(Despite rumors, *Pocket Music* does not use Vin. It blocks use on the
+GBA for a different reason: the developer couldn\'t figure out how to
+silence buzzing associated with the wave channel\'s DAC.)
 
 ### FF25 - NR51 - Selection of Sound output terminal (R/W)
 
