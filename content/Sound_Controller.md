@@ -280,6 +280,71 @@ remains set until the sound length has expired (if enabled). A volume
 envelopes which has decreased to zero volume will NOT cause the sound
 flag to go off.
 
+Pitfalls
+--------
+
+Enabling or disabling a DAC (resetting NR30 bit 7 or writing %0000 0XXX
+to NRx2 for other channels), adding or removing it using NR51, will
+cause an audio pop. (This causes a change in DC offset, which is
+smoothed out by a high-pass circuit over time, but still creates a pop)
+
+When first starting up a pulse channel, it will *always* output a
+(digital) zero.
+
+The pulse channels\' \"duty step\" (at which position in the duty cycle
+they are) can\'t be reset. The exception to this is turning off the APU,
+which causes them to start over from 0 when turning it on.
+
+Restarting a pulse channel causes its \"duty step timer\" to reset,
+meaning that \"tickling\" a pulse channel regularly enough will cause
+its \"duty step\" to never advance.
+
+When turning off CH3, the nibble being played is latched, but may become
+a 0 over time (TODO: this needs to be researched. Do individual bits
+decay?). When turning the channel on again, that value is played first,
+then the second nibble (lower 4 bits of \$FF30) plays.
+
+APU technical explanation
+-------------------------
+
+### Game Boy, Game Boy Color
+
+Each of the 4 channels work pretty identically. First, there\'s a
+\"generation\" circuit, which usually outputs either a 0 or another
+value (CH3 differs in that it can output multiple values, but
+regardless). That value is digital, and can range between 0 and 7. This
+is then fed to a
+[DAC](https://en.wikipedia.org/wiki/Digital-to-analog_converter), which
+maps this to an analog value; 7 maps to the lowest (negative) voltage, 0
+to the highest (positive) one. Finally, all channels are mixed through
+NR51, scaled through NR50, and sent to the output.
+
+Each DAC is controlled independently from the generation circuit. For
+CH3, the DAC is controlled by NR30 bit 7; for other channels, the DAC is
+turned on unless bits 3-7 of NRx2 are reset, and the values output will
+be 0 and `[NRx2] >> 4`. The generation circuits are turned on by
+restarting them for the first time, and this is what sets the
+corresponding bit in NR52. Yes, it\'s possible to turn on a DAC but not
+the generation circuit. Finally, disabling a DAC also kills the
+generation circuit.
+
+Note that each DAC has a DC offset, so enabling, disabling, adding to or
+removing from NR51, will all cause an audio pop.
+
+Finally, all the output goes through a high-pass filter to remove the DC
+offsets from the DACs.
+
+### Game Boy Advance
+
+The APU was reworked pretty heavily for the GBA. Instead of mixing being
+done analogically, it\'s instead done digitally; then, sound is
+converted to an analog signal and an offset is added (see SOUNDBIAS in
+[GBATEK](http://problemkaputt.de/gbatek.htm#gbasoundcontrolregisters)
+for more details.
+
+This means that the APU has no DACs, or if modelling the GBA as a GB,
+they\'re always on.
+
 Read more
 ---------
 
