@@ -284,9 +284,10 @@ Pitfalls
 --------
 
 Enabling or disabling a DAC (resetting NR30 bit 7 or writing %0000 0XXX
-to NRx2 for other channels), adding or removing it using NR51, will
-cause an audio pop. (This causes a change in DC offset, which is
-smoothed out by a high-pass circuit over time, but still creates a pop)
+to NRx2 for other channels), adding or removing it using NR51, or
+changing the volume in NR50, will cause an audio pop. (This causes a
+change in DC offset, which is smoothed out by a high-pass circuit over
+time, but still creates a pop)
 
 When first starting up a pulse channel, it will *always* output a
 (digital) zero.
