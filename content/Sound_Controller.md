@@ -319,8 +319,8 @@ APU technical explanation
 Each of the 4 channels work pretty identically. First, there\'s a
 \"generation\" circuit, which usually outputs either a 0 or another
 value (CH3 differs in that it can output multiple values, but
-regardless). That value is digital, and can range between 0 and 7. This
-is then fed to a
+regardless). That value is digital, and can range between 0 and 0xF.
+This is then fed to a
 [DAC](https://en.wikipedia.org/wiki/Digital-to-analog_converter), which
 maps this to an analog value; 7 maps to the lowest (negative) voltage, 0
 to the highest (positive) one. Finally, all channels are mixed through
@@ -328,15 +328,17 @@ NR51, scaled through NR50, and sent to the output.
 
 Each DAC is controlled independently from the generation circuit. For
 CH3, the DAC is controlled by NR30 bit 7; for other channels, the DAC is
-turned on unless bits 3-7 of NRx2 are reset, and the values output will
-be 0 and `[NRx2] >> 4`. The generation circuits are turned on by
-restarting them for the first time, and this is what sets the
-corresponding bit in NR52. Yes, it\'s possible to turn on a DAC but not
-the generation circuit. Finally, disabling a DAC also kills the
-generation circuit.
+turned on unless bits 3-7 of NRx2 are reset, and the envelope will be
+set to `[NRx2] >> 4`. (Note: the envelope sweep function changes the
+envelope, but not the value in NRx2! It won\'t disable the DAC, either.)
+The generation circuits are turned on by restarting them for the first
+time, and this is what sets the corresponding bit in NR52. Yes, it\'s
+possible to turn on a DAC but not the generation circuit. Finally,
+disabling a DAC also kills the generation circuit.
 
 Note that each DAC has a DC offset, so enabling, disabling, adding to or
-removing from NR51, will all cause an audio pop.
+removing from NR51, will all cause an audio pop; changing the volume in
+NR50 will as well.
 
 Finally, all the output goes through a high-pass filter to remove the DC
 offsets from the DACs.
