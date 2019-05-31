@@ -300,10 +300,16 @@ Restarting a pulse channel causes its \"duty step timer\" to reset,
 meaning that \"tickling\" a pulse channel regularly enough will cause
 its \"duty step\" to never advance.
 
-When turning off CH3, the nibble being played is latched, but may become
-a 0 over time (TODO: this needs to be researched. Do individual bits
-decay?). When turning the channel on again, that value is played first,
-then the second nibble (lower 4 bits of \$FF30) plays.
+When restarting CH3, it resumes playing the last 4-bit sample it read
+from wave RAM, or 0 if no sample has been read since APU reset. (Sample
+latching is independent of output level control in NR32.) After the
+latched sample completes, it starts with the second sample in wave RAM
+(low 4 bits of \$FF30). The first sample (high 4 bits of \$FF30) is
+played last.
+
+CH3 output level control does not, in fact, alter the output level. It
+shifts the **digital** value CH3 is outputting (read below), not the
+analog value.
 
 APU technical explanation
 -------------------------
