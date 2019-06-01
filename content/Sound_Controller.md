@@ -311,6 +311,10 @@ CH3 output level control does not, in fact, alter the output level. It
 shifts the **digital** value CH3 is outputting (read below), not the
 analog value.
 
+On GBA, CH3 is inverted. This causes the channel to output a loud spike
+when disabled; it\'s a good idea to \"remove\" the channel using NR51
+while refreshing wave RAM.
+
 APU technical explanation
 -------------------------
 
