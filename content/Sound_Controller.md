@@ -283,37 +283,57 @@ flag to go off.
 Pitfalls
 --------
 
-Enabling or disabling a DAC (resetting NR30 bit 7 or writing %0000 0XXX
-to NRx2 for other channels), adding or removing it using NR51, or
-changing the volume in NR50, will cause an audio pop. (This causes a
-change in DC offset, which is smoothed out by a high-pass circuit over
-time, but still creates a pop)
+-   Enabling or disabling a DAC (resetting NR30 bit 7 or writing %0000
+    0XXX to NRx2 for other channels), adding or removing it using NR51,
+    or changing the volume in NR50, will cause an audio pop. (This
+    causes a change in DC offset, which is smoothed out by a high-pass
+    circuit over time, but still creates a pop)
 
-When first starting up a pulse channel, it will *always* output a
-(digital) zero.
+<!-- -->
 
-The pulse channels\' \"duty step\" (at which position in the duty cycle
-they are) can\'t be reset. The exception to this is turning off the APU,
-which causes them to start over from 0 when turning it on.
+-   The final output goes through a high-pass filter, which is more
+    aggressive on GBA than on GBC, which is more aggressive than on DMG.
+    (What this means is that the output is \"pulled\" towards 0V with
+    various degrees of \"aggressiveness\")
 
-Restarting a pulse channel causes its \"duty step timer\" to reset,
-meaning that \"tickling\" a pulse channel regularly enough will cause
-its \"duty step\" to never advance.
+<!-- -->
 
-When restarting CH3, it resumes playing the last 4-bit sample it read
-from wave RAM, or 0 if no sample has been read since APU reset. (Sample
-latching is independent of output level control in NR32.) After the
-latched sample completes, it starts with the second sample in wave RAM
-(low 4 bits of \$FF30). The first sample (high 4 bits of \$FF30) is
-played last.
+-   When first starting up a pulse channel, it will *always* output a
+    (digital) zero.
 
-CH3 output level control does not, in fact, alter the output level. It
-shifts the **digital** value CH3 is outputting (read below), not the
-analog value.
+<!-- -->
 
-On GBA, CH3 is inverted. This causes the channel to output a loud spike
-when disabled; it\'s a good idea to \"remove\" the channel using NR51
-while refreshing wave RAM.
+-   The pulse channels\' \"duty step\" (at which position in the duty
+    cycle they are) can\'t be reset. The exception to this is turning
+    off the APU, which causes them to start over from 0 when turning it
+    on.
+
+<!-- -->
+
+-   Restarting a pulse channel causes its \"duty step timer\" to reset,
+    meaning that \"tickling\" a pulse channel regularly enough will
+    cause its \"duty step\" to never advance.
+
+<!-- -->
+
+-   When restarting CH3, it resumes playing the last 4-bit sample it
+    read from wave RAM, or 0 if no sample has been read since APU reset.
+    (Sample latching is independent of output level control in NR32.)
+    After the latched sample completes, it starts with the second sample
+    in wave RAM (low 4 bits of \$FF30). The first sample (high 4 bits of
+    \$FF30) is played last.
+
+<!-- -->
+
+-   CH3 output level control does not, in fact, alter the output level.
+    It shifts the **digital** value CH3 is outputting (read below), not
+    the analog value.
+
+<!-- -->
+
+-   On GBA, CH3 is inverted. This causes the channel to output a loud
+    spike when disabled; it\'s a good idea to \"remove\" the channel
+    using NR51 before refreshing wave RAM.
 
 APU technical explanation
 -------------------------
