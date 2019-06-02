@@ -134,3 +134,6 @@ port and a byte to be shifted into \$FF01:
 `   ld   a,$81`\
 `   ld  ($FF02),a`
 
+The Game Boy does not support wake-on-LAN. Completion of an externally
+clocked serial transfer does not exit STOP mode.
+
