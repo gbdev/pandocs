@@ -7,7 +7,7 @@ General Memory Map
 
   ----------- --------- ------------------------------------------------------------------------------------------------ ----------------------------------------------------------------------------------------
   **Start**   **End**   **Description**                                                                                  **Notes**
-  0000        3FFF      16KB ROM bank 00                                                                                 From cartridge, fixed bank
+  0000        3FFF      16KB ROM bank 00                                                                                 From cartridge, usually a fixed bank
   4000        7FFF      16KB ROM Bank 01\~NN                                                                             From cartridge, switchable bank via [MBC](Memory_Bank_Controllers "wikilink") (if any)
   8000        9FFF      8KB Video RAM (VRAM)                                                                             Only bank 0 in Non-CGB mode Switchable bank 0/1 in CGB mode
   A000        BFFF      8KB External RAM                                                                                 In cartridge, switchable bank if any
