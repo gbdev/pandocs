@@ -65,9 +65,9 @@ manner, as long as it\'s not the first row (containing the first two
 sprites):
 
 -   The first word in the row is replaced with this bitwise expression:
-    <code>((a \^ c) & (b \^ c)) \^ c<code>, where `a` is the original
-    value of that word, `b` is the first word in the preceding row, and
-    `c` is the third word in the preceding row.
+    `((a ^ c) & (b ^ c)) ^ c`, where `a` is the original value of that
+    word, `b` is the first word in the preceding row, and `c` is the
+    third word in the preceding row.
 -   The last three words are copied from the last three words in the
     preceding row.
 
