@@ -319,7 +319,6 @@ two ways:
 
 -   \$0147 = \$00, \$0148 = \$00, size \> 32k, ROM contains \"WISDOM
     TREE\" or \"WISDOM\\x00TREE\" (the space can be \$20 or \$00)
--   \$0147 = \$c0, \$014a = \$d1
 
 Registers:
 
@@ -333,6 +332,24 @@ Things that should be tested:
 -   Does it always boot in the first bank, or does it boot in a random
     bank? If the latter, a multicart using this mapper would need to
     patch the \$0100 entry point in all banks to jump to the menu.
+
+### Magic values for detection of multicarts in emulators
+
+Sometimes it may be useful to allow a ROM to be detected as a multicart
+in emulator, for example for development of a menu for physical
+multicart hardware. These are values suggested by beware, and supported
+in BGB, for signaling that your ROM is supposed to interface a multicart
+mapper. Emulator authors who are interested in supporting multicart
+mappers are encouraged to support detection of these values in addition
+to the values described in each section, which are heuristics based on
+ROMs in the wild, which may not always be suitable for newly produced
+software. The values are deliberately chosen to be high entropy
+(\"random\") such that the risk of an accidental false positive is
+unlikely.
+
+-   \$0147 = \$c0, \$014a = \$d1 -\> Detect as Wisdom Tree
+-   \$0147 = \$1b, \$014a = \$e1 -\> Detect as EMS multicart
+-   \$0147 = \$be -\> Detect as Bung multicart
 
 MBC Timing Issues
 -----------------
