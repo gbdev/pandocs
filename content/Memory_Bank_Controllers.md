@@ -315,24 +315,33 @@ consisting of a 74LS377 octal latch, aside from the ROM chip. Because
 the mapper consists of a single standard 74 series logic chip, it has
 two unusual properties:
 
-1.  Unlike a usual MBC, it switches the whole 32 kiB ROM area instead of
-    just the \$4000-\$7FFF area. If you want to use the interrupt
-    vectors with this cart, you should duplicate them across all banks.
-    Additionally, since the initial state of the \'377 can\'t be
-    guaranteed, the ROM header and some code for switching to a known
-    bank should also be included in every bank. This also means that the
-    Wisdom Tree mapper could be used as a multicart mapper for 32 kiB
-    ROMs, assuming there was enough ROM space in each bank for some
-    small initialization code, and none of the ROMs wrote to the
-    \$0000-\$7FFF area.
-2.  Because the \'377 latches data on the *positive* edge, and the value
-    on the Gameboy data bus is no longer valid when the positive edge of
-    the write pulse arrives, the designer of this mapper chose to use
-    the A7-A0 address lines for selecting a bank instead of the data
-    lines. Thus, the value you write is ignored, and the lower 8 bits of
-    the address is used. For example, to select bank \$XX, you would
-    write any value to address \$YYXX, where \$YY is in the range
-    \$00-\$7F.
+First, unlike a usual MBC, it switches the whole 32 kiB ROM area instead
+of just the \$4000-\$7FFF area. If you want to use the interrupt vectors
+with this cart, you should duplicate them across all banks.
+Additionally, since the initial state of the \'377 can\'t be guaranteed,
+the ROM header and some code for switching to a known bank should also
+be included in every bank. This also means that the Wisdom Tree mapper
+could be used as a multicart mapper for 32 kiB ROMs, assuming there was
+enough ROM space in each bank for some small initialization code, and
+none of the ROMs wrote to the \$0000-\$7FFF area. For example, if the
+last 5 bytes of all banks are unused, games can be patched as follows:
+
+    ; At $0100 in all banks but the first
+      nop
+      jp $7FFB
+
+    ; At $7FFB in all banks
+      ld hl, $0100
+      ld [hl], a
+      jp hl
+
+Second, because the \'377 latches data on the *positive* edge, and the
+value on the Game Boy data bus is no longer valid when the positive edge
+of the write pulse arrives, the designer of this mapper chose to use the
+A7-A0 address lines for selecting a bank instead of the data lines.
+Thus, the value you write is ignored, and the lower 8 bits of the
+address is used. For example, to select bank \$XX, you would write any
+value to address \$YYXX, where \$YY is in the range \$00-\$7F.
 
 An emulator can detect a ROM designed for Wisdom Tree mapper in one of
 two ways:
