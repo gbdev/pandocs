@@ -337,11 +337,11 @@ Things that should be tested:
 MBC Timing Issues
 -----------------
 
-Using MBCs with CGB Double Speed Mode The MBC5 has been designed to
-support CGB Double Speed Mode. There have been rumours that older MBCs
-(like MBC1-3) wouldn\'t be fast enough in that mode. If so, it might be
-nethertheless possible to use Double Speed during periods which use only
-code and data which is located in internal RAM. However, despite of the
-above, my own good old selfmade MBC1-EPROM card appears to work stable
+Among Nintendo MBCs, only the MBC5 is guaranteed by Nintendo to support
+the tighter timing of CGB Double Speed Mode. There have been rumours
+that older MBCs (like MBC1-3) wouldn\'t be fast enough in that mode. If
+so, it might be nevertheless possible to use Double Speed during periods
+which use only code and data which is located in internal RAM. However,
+despite of the above, a self-made MBC1-EPROM card appears to work stable
 and fine even in Double Speed Mode though.
 
