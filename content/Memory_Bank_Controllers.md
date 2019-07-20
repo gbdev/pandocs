@@ -308,6 +308,32 @@ To start a game, do the following in code run from RAM: Write \$A5 to
 \$7000, write \$98 to \$1000, write \$01 to \$2000 (so that 32K games
 work), jump to \$0100.
 
+Wisdom Tree
+-----------
+
+This is just a 32K ROM switch. Unusually, it uses the address lines, not
+the data lines, to select a bank.
+
+An emulator can detect a ROM designed for Wisdom Tree mapper in one of
+two ways:
+
+-   \$0147 = \$00, \$0148 = \$00, size \> 32k, ROM contains \"WISDOM
+    TREE\" or \"WISDOM\\x00TREE\" (the space can be \$20 or \$00)
+-   \$0147 = \$c0, \$014a = \$d1
+
+Registers:
+
+\$0000-\$7FFF write: Select 32K bank at \$0000-\$7FFF based on A7-A0
+
+Things that should be tested:
+
+-   Does it respond to writes throughout \$0000-\$7FFF? It\'s simpler to
+    do so, but at least one source speculates that only \$0000-\$3FFF
+    actually work.
+-   Does it always boot in the first bank, or does it boot in a random
+    bank? If the latter, a multicart using this mapper would need to
+    patch the \$0100 entry point in all banks to jump to the menu.
+
 MBC Timing Issues
 -----------------
 
