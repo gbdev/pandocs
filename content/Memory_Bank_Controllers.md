@@ -310,28 +310,39 @@ work), jump to \$0100.
 
 ### Wisdom Tree
 
-This is just a 32K ROM switch implemented with a latch on A7-A0 that
-goes to A22-A15. Unusually, it uses the address lines, not the data
-lines, to select a bank.
+The Wisdom Tree mapper is a simple, cost-optimized one chip design
+consisting of a 74LS377 octal latch, aside from the ROM chip. Because
+the mapper consists of a single standard 74 series logic chip, it has
+two unusual properties:
+
+1.  Unlike a usual MBC, it switches the whole 32 kiB ROM area instead of
+    just the \$4000-\$7FFF area. If you want to use the interrupt
+    vectors with this cart, you should duplicate them across all banks.
+    Additionally, since the initial state of the \'377 can\'t be
+    guaranteed, the ROM header and some code for switching to a known
+    bank should also be included in every bank. This also means that the
+    Wisdom Tree mapper could be used as a multicart mapper for 32 kiB
+    ROMs, assuming there was enough ROM space in each bank for some
+    small initialization code, and none of the ROMs wrote to the
+    \$0000-\$7FFF area.
+2.  Because the \'377 latches data on the *positive* edge, and the value
+    on the Gameboy data bus is no longer valid when the positive edge of
+    the write pulse arrives, the designer of this mapper chose to use
+    the A7-A0 address lines for selecting a bank instead of the data
+    lines. Thus, the value you write is ignored, and the lower 8 bits of
+    the address is used. For example, to select bank \$XX, you would
+    write any value to address \$YYXX, where \$YY is in the range
+    \$00-\$7F.
 
 An emulator can detect a ROM designed for Wisdom Tree mapper in one of
 two ways:
 
--   \$0147 = \$00, \$0148 = \$00, size \> 32k, ROM contains \"WISDOM
-    TREE\" or \"WISDOM\\x00TREE\" (the space can be \$20 or \$00)
-
-Registers:
-
-\$0000-\$7FFF write: Select 32K bank at \$0000-\$7FFF based on A7-A0
-
-Things that should be tested:
-
--   Does it respond to writes throughout \$0000-\$7FFF? It\'s simpler to
-    do so, but at least one source speculates that only \$0000-\$3FFF
-    actually work.
--   Does it always boot in the first bank, or does it boot in a random
-    bank? If the latter, a multicart using this mapper would need to
-    patch the \$0100 entry point in all banks to jump to the menu.
+-   ROM contains \"WISDOM TREE\" or \"WISDOM\\x00TREE\" (the space can
+    be \$20 or \$00), \$0147 = \$00, \$0148 = \$00, size \> 32k. This
+    method works for the games released by Wisdom Tree, Inc.
+-   \$0147 = \$C0, \$014A = \$D1. These are the values recommended by
+    beware for 3rd party developers to indicate that the ROM is
+    targeting Wisdom Tree mapper hardware. (See below.)
 
 ### Magic values for detection of multicarts in emulators
 
