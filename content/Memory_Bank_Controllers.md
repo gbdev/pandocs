@@ -332,7 +332,7 @@ last 5 bytes of all banks are unused, games can be patched as follows:
 
     ; At $7FFB in all banks
       ld hl, $0100
-      ld [hl], l
+      ld [hl], a
       jp hl
 
 Second, because the \'377 latches data on the *positive* edge, and the
