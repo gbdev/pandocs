@@ -308,11 +308,11 @@ To start a game, do the following in code run from RAM: Write \$A5 to
 \$7000, write \$98 to \$1000, write \$01 to \$2000 (so that 32K games
 work), jump to \$0100.
 
-Wisdom Tree
------------
+### Wisdom Tree
 
-This is just a 32K ROM switch. Unusually, it uses the address lines, not
-the data lines, to select a bank.
+This is just a 32K ROM switch implemented with a latch on A7-A0 that
+goes to A22-A15. Unusually, it uses the address lines, not the data
+lines, to select a bank.
 
 An emulator can detect a ROM designed for Wisdom Tree mapper in one of
 two ways:
