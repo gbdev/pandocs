@@ -171,10 +171,16 @@ Frequency = 4194304/(64\*(2048-x)) Hz = 65536/(2048-x) Hz
 
 ### FF30-FF3F - Wave Pattern RAM
 
-Contents - Waveform storage for arbitrary sound data
+` Contents - Waveform storage for arbitrary sound data`
 
-This storage area holds 32 4-bit samples that are played back upper 4
+This storage area holds 32 4-bit samples that are played back, upper 4
 bits first.
+
+Wave RAM should only be accessed while CH3 is disabled (NR30 bit 7
+reset), otherwise accesses will behave weirdly.
+
+On almost all models, the byte will be written at the offset CH3 is
+currently reading. On GBA, the write will simply be ignored.
 
 Sound Channel 4 - Noise
 -----------------------
