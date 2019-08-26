@@ -360,7 +360,10 @@ color 1-3 (without separate color 0).
 `         Bit 15    - Not used (zero)`\
 ` F     Not used (00h)`
 
-The value transferred as color 0 will be applied for all eight palettes.
+This is the same RGB5 format as [Game Boy Color palette
+entry](Video_Display#LCD_Color_Palettes_(CGB_only) "wikilink"), though
+without the LCD correction. The value transferred as color 0 will be
+applied for all four palettes.
 
 ### SGB Command 01h - PAL23
 
