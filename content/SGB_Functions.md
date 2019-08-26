@@ -890,11 +890,13 @@ transferred by using the CHR\_TRN function.
 
 The map data is sent by VRAM-Transfer (4 KBytes).
 
-` 000-7FF  BG Map 32x32 Entries of 16bit each (2048 bytes)`\
+` 000-6FF  BG Map 32x28 Entries of 16bit each (1792 bytes)`\
+` 700-7FF  Not used, don't care`\
 ` 800-87F  BG Palette Data (Palettes 4-7, each 16 colors of 16bits each)`\
 ` 880-FFF  Not used, don't care`
 
 Each BG Map Entry consists of a 16bit value as such:
+`VH01 PP00 NNNN NNNN`
 
 ` Bit 0-9   - Character Number (use only 00h-FFh, upper 2 bits zero)`\
 ` Bit 10-12 - Palette Number   (use only 4-7, officially use only 4-6)`\
@@ -902,12 +904,12 @@ Each BG Map Entry consists of a 16bit value as such:
 ` Bit 14    - X-Flip           (0=Normal, 1=Mirror horizontally)`\
 ` Bit 15    - Y-Flip           (0=Normal, 1=Mirror vertically)`
 
-Even though 32x32 map entries are transferred, only upper 32x28 are
-actually used (256x224 pixels, SNES screen size). The 20x18 entries in
-the center of the 32x28 area should be set to 0000h as transparent space
-for the gameboy window to be displayed inside. Non-transparent border
-data will cover the gameboy window (for example, Mario\'s Picross does
-this).
+The 32x28 map entries correspond to 256x224 pixels of the Super NES
+screen. The 20x18 entries in the center of the 32x28 area should be set
+to a blank (solid color 0) tile as transparent space for the Game Boy
+window to be displayed inside. Non-transparent border data will cover
+the Game Boy window (for example, *Mario\'s Picross* does this, as does
+*WildSnake* to a lesser extent).
 
 ### SGB Command 18h - OBJ\_TRN
 
