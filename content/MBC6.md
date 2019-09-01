@@ -15,25 +15,25 @@ Read-only access to ROM bank 0.
 ### 4000-5FFF - ROM/Flash Bank A 00-7F (Read/Write for flash, Read Only for ROM)
 
 Read-only access to ROM and flash banks 00-7F, switchable independently
-from ROM/Flash Bank B. Only 8 kB (0x2000) is accessible at once in this
+from ROM/Flash Bank B. Only 8 kB (\$2000) is accessible at once in this
 bank, as opposed to the usual 16 kB.
 
 ### 6000-7FFF - ROM/Flash Bank B 00-7F (Read/Write for flash, Read Only for ROM)
 
 Read-only access to ROM and flash banks 00-7F, switchable independently
-from ROM/Flash Bank A. Only 8 kB (0x2000) is accessible at once in this
+from ROM/Flash Bank A. Only 8 kB (\$2000) is accessible at once in this
 bank, as opposed to the usual 16 kB.
 
 ### A000-AFFF - RAM Bank A 00-07 (Read/Write)
 
 Read/write access to RAM banks 00-07, switchable independently from RAM
-Bank B. Only 4 kB (0x1000) is accessible at once in this bank, as
+Bank B. Only 4 kB (\$1000) is accessible at once in this bank, as
 opposed to the usual 8 kB.
 
 ### B000-BFFF - RAM Bank B 00-07 (Read/Write)
 
 Read/write access to RAM banks 00-07, switchable independently from RAM
-Bank A. Only 4 kB (0x1000) is accessible at once in this bank, as
+Bank A. Only 4 kB (\$1000) is accessible at once in this bank, as
 opposed to the usual 8 kB.
 
 ### 0000-07FF - RAM Enable (Write Only)
@@ -103,7 +103,7 @@ appropriate command. A status of \$10 indicates a timeout.
 Programming must be done by first erasing a sector, activating write
 mode, writing out 128 bytes (aligned), then writing a 0 to the final
 address to commit the write, waiting for the status to indicate
-completion, and writing 0xF0 to the final address again to exit program
+completion, and writing \$F0 to the final address again to exit program
 mode. If a sector is not erased first programming will not work
 properly. In some cases it will only allow the stored bytes to be anded
 instead of replaced; in others it just won\'t work at all. The only way
