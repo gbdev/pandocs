@@ -36,12 +36,20 @@ Read/write access to RAM banks 00-07, switchable independently from RAM
 Bank A. Only 4 kB (\$1000) is accessible at once in this bank, as
 opposed to the usual 8 kB.
 
-### 0000-07FF - RAM Enable (Write Only)
+### 0000-03FF - RAM Enable (Write Only)
 
 Mostly the same as for MBC1, a value of 0Ah will enable reading and
 writing to external RAM. A value of 00h will disable it.
 
-### 0C00 - Flash Enable (Write Only)
+### 0400-07FF - RAM Bank A Number (Write Only)
+
+Select the active RAM Bank A (A000-AFFF)
+
+### 0800-0BFF - RAM Bank B Number (Write Only)
+
+Select the active RAM Bank B (B000-BFFF)
+
+### 0C00-0FFF - Flash Enable (Write Only)
 
 Enable or disable access to the flash chip. Only the lowest bit (0 for
 disable, 1 for enable) is used. Flash Write Enable must be active to
