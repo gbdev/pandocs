@@ -3,10 +3,14 @@ Overview
 
 MBC6 (Memory Bank Controller 6) is an unusual MBC that contains two
 separately switchable ROM banks (\$4000 and \$6000) and RAM banks
-(\$A000 and \$B000), SRAM and an 8Mbit Macronix MX29F008TC-14 flash
+(\$A000 and \$B000), SRAM and an 8 Mbit Macronix MX29F008TC-14 flash
 memory chip. It is only used in one game, Net de Get: Minigame @ 100,
 which uses the [Mobile Adapter](Mobile_Adapter "wikilink") to connect to
-the web to download minigames onto the local flash.
+the web to download minigames onto the local flash. Both ROM banks and
+both RAM banks are views into the same ROM and RAM, but with separately
+adjustable offsets. Since the banked regions are smaller the effective
+number of banks is twice what it usually would be; 8 kB ROM banks
+instead of 16 kB and 4 kB RAM banks instead of 8 kB.
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
@@ -15,26 +19,22 @@ Read-only access to ROM bank 0.
 ### 4000-5FFF - ROM/Flash Bank A 00-7F (Read/Write for flash, Read Only for ROM)
 
 Read-only access to ROM and flash banks 00-7F, switchable independently
-from ROM/Flash Bank B. Only 8 kB (\$2000) is accessible at once in this
-bank, as opposed to the usual 16 kB.
+from ROM/Flash Bank B.
 
 ### 6000-7FFF - ROM/Flash Bank B 00-7F (Read/Write for flash, Read Only for ROM)
 
 Read-only access to ROM and flash banks 00-7F, switchable independently
-from ROM/Flash Bank A. Only 8 kB (\$2000) is accessible at once in this
-bank, as opposed to the usual 16 kB.
+from ROM/Flash Bank A.
 
 ### A000-AFFF - RAM Bank A 00-07 (Read/Write)
 
 Read/write access to RAM banks 00-07, switchable independently from RAM
-Bank B. Only 4 kB (\$1000) is accessible at once in this bank, as
-opposed to the usual 8 kB.
+Bank B.
 
 ### B000-BFFF - RAM Bank B 00-07 (Read/Write)
 
 Read/write access to RAM banks 00-07, switchable independently from RAM
-Bank A. Only 4 kB (\$1000) is accessible at once in this bank, as
-opposed to the usual 8 kB.
+Bank A.
 
 ### 0000-03FF - RAM Enable (Write Only)
 
