@@ -702,10 +702,13 @@ commands.
 
 ### SGB Command 0Ch - ATRC\_EN
 
-Used to enable/disable Attraction mode. It is not certain what an
-attraction mode is (probably the screen-saver that many built-in borders
-activate when GB controls are left idle for a while), but it is enabled
-by default.
+Used to enable/disable Attraction mode, which is enabled by default.
+
+Built-in borders other than the Game Boy frame and the plain black
+border have a \"screen saver\" activated by pressing R, L, L, L, L, R or
+by leaving the controller alone for roughly 7 minutes (tested with 144p
+Test Suite). It is speculated that attraction mode disables these
+borders.
 
 ` Byte  Content`\
 ` 0     Command*8+Length    (fixed length=1)`\
