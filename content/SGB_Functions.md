@@ -791,9 +791,8 @@ idea ???
 
 ### SGB Command 12h - JUMP
 
-Used to set the SNES program counter to a specified address. Optionally,
-it may be used to set a new address for the SNES NMI (vblank interrupt)
-handler; the NMI handler remains unchanged if all bytes 4-6 are zero.
+Used to set the SNES program counter and NMI (vblank interrupt) handler
+to specific addresses.
 
 ` Byte  Content`\
 ` 0     Command*8+Length    (fixed length=1)`\
@@ -805,12 +804,28 @@ handler; the NMI handler remains unchanged if all bytes 4-6 are zero.
 ` 6     SNES NMI Handler, bank number`\
 ` 7-F   Not used, zero`
 
-Note: The game *Space Invaders* uses this function when selecting
-\"Arcade mode\" to execute SNES program code which has been previously
+The game *Space Invaders* uses this function when selecting \"Arcade
+mode\" to execute SNES program code which has been previously
 transferred from the SGB to the SNES. The SNES CPU is a Ricoh 5A22,
 which combines a 65C816 core licensed from WDC with a custom memory
 controller. For more information, see [\"fullsnes\" by
 nocash](https://problemkaputt.de/fullsnes.htm).
+
+Some notes for intrepid Super NES programmers seeking to use a flash
+cartridge in a Super Game Boy as a storage server:
+
+-   JUMP overwrites the NMI handler even if it is \$000000.
+-   The SGB system software does not appear to use NMIs.
+-   JUMP can return to SGB system software via a 16-bit RTS. To do this,
+    JML to a location in bank \$00 containing byte value \$60, such as
+    any of the [stubbed commands](#Stubbed_commands "wikilink").
+-   IRQs and COP and BRK instructions are not useful because their
+    handlers still point into SGB ROM. Use SEI WAI.
+-   If a program called through JUMP does not intend to return to SGB
+    system software, it can overwrite all Super NES RAM except \$0000BB
+    through \$0000BD, the NMI vector.
+-   To enter APU boot ROM, write \$FE to \$2140. Echo will still be on
+    though.
 
 SGB Multiplayer Command
 -----------------------
