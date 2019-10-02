@@ -930,6 +930,17 @@ window to be displayed inside. Non-transparent border data will cover
 the Game Boy window (for example, *Mario\'s Picross* does this, as does
 *WildSnake* to a lesser extent).
 
+All borders repeat tiles. Assuming that the blank space for the GB
+screen is a single tile, as is the letterbox in a widescreen border, a
+border defining all unique tiles would have to define this many tiles:
+
+-   (256\*224-160\*144)/64+1 = 537 tiles in fullscreen border
+-   (256\*176-160\*144)/64+2 = 346 tiles in widescreen border
+
+But the CHR RAM allocated by SGB for border holds only 256 tiles. This
+means a fullscreen border must repeat at least 281 tiles and a
+widescreen border at least 90.
+
 ### SGB Command 18h - OBJ\_TRN
 
 Used to transfer OBJ attributes to SNES OAM memory. Unlike all other
