@@ -702,8 +702,10 @@ commands.
 
 ### SGB Command 0Ch - ATRC\_EN
 
-Used to enable/disable Attraction mode. It is totally unclear what an
-attraction mode is ???, but it is enabled by default.
+Used to enable/disable Attraction mode. It is not certain what an
+attraction mode is (probably the screen-saver that many built-in borders
+activate when GB controls are left idle for a while), but it is enabled
+by default.
 
 ` Byte  Content`\
 ` 0     Command*8+Length    (fixed length=1)`\
