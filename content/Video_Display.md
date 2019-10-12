@@ -494,6 +494,9 @@ the second pixel, repeat with bit 6 : 1, and 0. Thus the index is 01b =
 operation you\'ll find that the indexes for the 8 pixels are 0 1 2 3 0 3
 3 1.
 
+A more visual explanation can be found
+[here](https://www.huderlem.com/demos/gameboy2bpp.html).
+
 So, each pixel is having a color number in range from 0-3. The color
 numbers are translated into real colors (or gray shades) depending on
 the current palettes. The palettes are defined through registers
