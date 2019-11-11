@@ -707,8 +707,9 @@ Used to enable/disable Attraction mode, which is enabled by default.
 Built-in borders other than the Game Boy frame and the plain black
 border have a \"screen saver\" activated by pressing R, L, L, L, L, R or
 by leaving the controller alone for roughly 7 minutes (tested with 144p
-Test Suite). It is speculated that attraction mode disables these
-borders.
+Test Suite). It is speculated that the animation may have interfered
+with rarely-used SGB features, such as OBJ\_TRN or JUMP, and that
+Attraction Disable disables this animation.
 
 ` Byte  Content`\
 ` 0     Command*8+Length    (fixed length=1)`\
