@@ -1,0 +1,1082 @@
+==============================================================================
+            Everything You Always Wanted To Know About GAMEBOY *
+==============================================================================
+
+                        * but were afraid to ask
+
+
+                   Original information from Pan of Anthrox,
+                      Marat Fayzullin, and Pascal Felber.
+
+                      Expanded by Jeff Frohwein, 31-Dec-96
+
+ Forward: The following was typed up for informational purposes regarding
+          the inner workings on the hand-held game machine known as
+          GameBoy, manufactured and designed by Nintendo Co., LTD.
+          This info is presented to inform a user on how their Game Boy
+          works and what makes it "tick". GameBoy is copyrighted by
+          Nintendo Co., LTD. Any reference to copyrighted material is
+          not presented for monetary gain, but for educational purposes
+          and higher learning.
+
+
+
+Game Boy Specs
+--------------
+
+ CPU: 8-bit (Similiar to the Z80 processor.)
+ Main RAM: 8K Byte
+ Video RAM: 8K Byte
+ Screen Size 2.6"
+ Resolution: 160x144
+ Max # of sprites: 40
+ Max # sprites/line: 10
+ Max sprite size: 8x16
+ Min sprite size: 8x8
+ Clock Speed: 4.194304 MHz
+ Sound: 4 channels with stereo sound
+ Power: DC6V 0.7W
+
+Processor
+---------
+
+ The GameBoy uses a computer chip similiar to the Z80 processor.
+ Compared to the Z80, some instructions have been added and some
+ have been taken away.
+
+ The following are new instructions:
+
+  LDI (HL),#$xx
+  LDD (HL),#$xx
+  SWAP A through L
+  LD A,($FFxx)
+
+ The following instructions have been removed:
+
+  Any command that uses the IX or IY registers.
+  All input or output instructions.
+  All exchange instructions.
+
+General Memory Map*                  Hardware Write Registers
+------------------                   ------------------------
+
+  Interrupt Enable Register
+ --------------------------- FFFF
+  Internal RAM
+ --------------------------- FF80
+  Empty but unusable for I/O
+ --------------------------- FF4C
+  I/O ports
+ --------------------------- FF00
+  Empty but unusable for I/O
+ --------------------------- FEA0
+  Sprite Attrib Table (OAM)
+ --------------------------- FE00
+  Echo of 8kB Internal RAM
+ --------------------------- E000
+  8kB Internal RAM
+ --------------------------- C000
+  8kB switchable RAM bank
+ --------------------------- A000      ------------------------
+  8kB Video RAM                       /       RAM Bank Select
+ --------------------------- 8000    /  -----------------------
+  16kB switchable ROM bank   6000 --/  /      ROM Bank Select
+ --------------------------- 4000 ----/  ----------------------
+  16kB ROM bank #0           2000 ------/     RAM Bank enable
+ --------------------------- 0000 -----------------------------
+
+ * NOTE: b = bit, B = byte
+
+Echo of 8kB Internal RAM
+------------------------
+
+ The addresses E000-FE00 appear to access the internal RAM
+the same as C000-DE00. (i.e. If you write a byte to address
+E000 it will appear at C000 and E000. Similarly, writing a
+byte to C000 will appear at C000 and E000.)
+
+User I/O
+--------
+
+ There are no empty spaces in the memory map for
+implementing input ports except the switchable RAM bank
+area (not an option on the Super Smart Card since it's
+RAM bank is always enabled) and the ROM area from
+6000-7FFF when using a ROM that is smaller than 32kB.
+
+ An output only port may be implemented anywhere between
+6000-FDFF. If implemented in a RAM area care should be
+taken to use an area of RAM not used for anything else.
+(FE00 and above can't be used because the CPU doesn't
+generate an external /WR for these locations.)
+
+Cart Memory Info
+----------------
+
+An internal information area is located at 0100-014F in
+each cartridge. It contains the following values: 
+
+0100-0103  This is the begin code execution point in a
+           cart. Usually there is a NOP and a JP
+           instruction here but not always.
+
+0104-0133  Scrolling Nintendo graphic:
+           CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D
+           00 08 11 1F 88 89 00 0E DC CC 6E E6 DD DD D9 99
+           BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E
+           ( PROGRAM WON'T RUN IF CHANGED!!!)
+
+0134-0143  Title of the game in ASCII. If it is less than
+           16 characters then the remaining bytes are
+           filled with 00's.
+
+0144       Ascii hex digit, high nibble of licensee code.
+0145       Ascii hex digit, low nibble of licensee code.
+0146       SGB features (non-zero if SGB game)
+
+           Note: 0144-0146 are zero for non-super gameboy games.
+
+0147       Cartridge type:
+           0 - ROM ONLY         3 - ROM+MBC1+RAM+BATTERY
+           1 - ROM+MBC1         5 - ROM+MBC2
+           2 - ROM+MBC1+RAM     6 - ROM+MBC2+BATTERY
+
+0148       ROM size:
+           0 - 256kBit =  32kB =  2 banks
+           1 - 512kBit =  64kB =  4 banks
+           2 -   1MBit = 128kB =  8 banks
+           3 -   2MBit = 256kB = 16 banks
+           4 -   4MBit = 512kB = 32 banks
+
+0149       RAM size:
+           0 - None
+           1 -  16kBit =  2kB = 1 bank
+           2 -  64kBit =  8kB = 1 bank
+           3 - 256kBit = 32kB = 4 banks
+
+014A       Country code:
+           0 - Japanese
+           1 - Non-Japanese
+
+014B       Licensee code:
+           33 - Super GameBoy game.
+                Check 0144/0145 for Licensee code.
+           79 - Accolade
+           A4 - Konami
+
+014C       Version number
+
+014D       Complement check
+           (PROGRAM WON'T RUN IF NOT CORRECT!!!)
+
+014E-014F  Checksum (higher byte first) produced by
+           adding all bytes of a cartridge except for two
+           checksum bytes and taking two lower bytes of
+           the result. (GameBoy ignores this value.)
+
+Rom Types
+---------
+
+The following define the byte at cart location 0147:
+
+ ROM ONLY
+  This is a 32kB (256kb) ROM and occupies 0000-7FFF.
+
+ MBC1 (Memory Bank Controller 1)
+   Writing a value into 2000-3FFF area will select an
+  appropriate ROM bank at 4000-7FFF. Values of 0 and 1
+  do the same thing and point to ROM bank 1. Rom bank 0
+  is not accessible from 4000-7FFF and can only be read
+  from 0000-3FFF.
+   Writing a value into 4000-5FFF area will select an
+  appropriate RAM bank at A000-C000. Before you can
+  read or write to a RAM bank you have to enable it by
+  writing a 0A into 0000-1FFF area*. To disable RAM bank
+  operations write a 00 into 0000-1FFF area. Disabling a
+  RAM bank probably protects that bank from false writes
+  during power down of the GameBoy.
+
+  * NOTE: The Super Smart Card doesn't require this
+   operation because it's RAM bank is ALWAYS enabled.
+   Include this operation anyway to allow your code
+   to work with both.
+
+ MBC2 (Memory Bank Controller 2):
+   Same as MBC1 except RAM switching is not provided.
+
+Power Up Sequence
+-----------------
+
+  When the GameBoy is powered up, a 256 byte program
+ starting at memory location 0 is executed. This program
+ is located in a ROM inside the GameBoy. The first thing
+ the program does is read the cartridge locations from
+ $104 to $133 and place this graphic of a Nintendo logo
+ on the screen at the top. This image is then scrolled
+ until it is in the middle of the screen. Two musical
+ notes are then played on the internal speaker. Again,
+ the cartridge locations $104 to $133 are read but this
+ time they are compared with a table in the internal rom.
+ If any byte fails to compare, then the GameBoy stops
+ comparing bytes and simply halts all operations. If all
+ locations compare the same, then the GameBoy starts
+ adding all of the bytes in the cartridge from $134 to
+ $14d. A value of 25 decimal is added to this total. If
+ the least significant byte of the result is a not a
+ zero, then the GameBoy will stop doing anything. If it
+ is a zero, then the internal ROM is disabled and
+ cartridge program execution begins at location $100
+ with AF=$01B0, BC=$0013, DE=$00D8, HL=$014D and
+ Stack Pointer=$FFFE.
+
+Video
+-----
+
+  The main GameBoy screen buffer (aka background) consists
+ of 256x256 pixels or 32x32 tiles (8x8 pixels each). Only
+ 160x144 pixels can be displayed on the screen. Registers
+ SCROLLX and SCROLLY hold the coordinates of background to
+ be displayed in the left upper corner of the screen.
+ Background wraps around the screen (i.e. when part of it
+ goes off the screen, it appears on the opposite side.) 
+
+  An area of VRAM known as Background Tile Table contains
+ the numbers of tiles to be displayed. It is organized as
+ 32 rows of 32 bytes each. Each byte contains a number of
+ a tile to be displayed. Tile patterns are taken from the
+ Tile Pattern Table located either at 8000-8FFF or
+ 8800-97FF. In the first case, patterns are numbered with
+ unsigned numbers from 0 to 255 (i.e. pattern #0 lies at
+ address 8000). In the second case, patterns have signed
+ numbers from -128 to 127 (i.e. pattern #0 lies at address
+ 9000). The Tile Pattern Table address for the background
+ can be selected via LCDCONT register. 
+
+  Besides background, there is also a "window" overlaying
+ the background. The window is not scrollable i.e. it is
+ always displayed starting from its left upper corner. The
+ location of a window on the screen can be adjusted via
+ WNDPOSX and WNDPOSY registers. Screen coordinates of the
+ top left corner of a window are WNDPOSX-7,WNDPOSY. The
+ tile numbers for the window are stored in the Window Tile
+ Table in the same way as background tiles are stored in
+ the Background Tile Table. The tile patterns are taken
+ from the table at 8800-97FF and therefore have unsigned
+ numbers.
+
+  Both background and window can be disabled or enabled
+ separately via bits in the LCDCONT register.
+
+  The tile images are stored in the Tile Pattern Tables.
+ Each 8x8 image occupies 16 bytes, where each 2 bytes
+ represent a line:
+
+  Tile:                                     Image:
+
+  .33333..                     .33333.. -> 01111100 -> 7Ch
+  22...22.                                 01111100 -> 7Ch
+  11...11.                     22...22. -> 00000000 -> 00h
+  2222222. <-- digits                      11000110 -> C6h
+  33...33.     represent       11...11. -> 11000110 -> C6h
+  22...22.     color                       00000000 -> 00h
+  11...11.     numbers         2222222. -> 00000000 -> 00h
+  ........                                 11111110 -> FEh
+                               33...33. -> 11000110 -> C6h
+                                           11000110 -> C6h
+                               22...22. -> 00000000 -> 00h
+                                           11000110 -> C6h
+                               11...11. -> 11000110 -> C6h
+                                           00000000 -> 00h
+                               ........ -> 00000000 -> 00h
+                                           00000000 -> 00h
+
+  As it was said before, there are two Tile Pattern Tables
+ at 8000-8FFF and at 8800-97FF. The first one can be used
+ for sprites and the background. Its tiles are numbered
+ from 0 to 255. The second table can be used for the
+ background and the window display and its tiles are
+ numbered from -128 to 127. 
+
+Sprites
+------
+
+  GameBoy video controller can display up to 40 sprites
+ either in 8x8 or in 8x16 pixels. Because of a limitation
+ of hardware, only ten sprites can be displayed per scan
+ line. Sprite patterns have the same format as tiles, but
+ they are taken from the Sprite Pattern Table located at
+ 8000-8FFF and therefore have unsigned numbers. Sprite
+ attributes reside in the Sprite Attribute Table (aka OAM)
+ at FE00-FE9F. OAM is divided into 40 4-byte blocks each
+ of which corresponds to a sprite. Blocks have the
+ following format:
+
+  Byte0  Y position on the screen
+  Byte1  X position on the screen
+  Byte2  Pattern number 0-255 [notice that unlike tile
+         numbers, sprite pattern numbers are unsigned] 
+  Byte3  Flags:
+         Bit7  Priority
+               Sprite is displayed in front of the window
+               if this bit is set to 1. Otherwise, sprite
+               is shown behind the window but in front of
+               the background.
+         Bit6  Y flip
+               Sprite pattern is flipped vertically if
+               this bit is set to 1.
+         Bit5  X flip
+               Sprite pattern is flipped horizontally if
+               this bit is set to 1.
+         Bit4  Palette number
+               Sprite colors are taken from OBJ1PAL if
+               this bit is set to 1 and from OBJ0PAL
+               otherwise.
+
+Sound
+-----
+
+  There are two sound channels connected to the output
+ terminals SO1 and SO2. There is also a input terminal Vin
+ connected to the cartridge. It can be routed to either of
+ both output terminals. GameBoy circuitry allows producing
+ sound in four different ways:
+
+   Quadrangular wave patterns with sweep and envelope functions
+   Quadrangular wave patterns with envelope functions
+   Voluntary wave pattern
+   White noise
+
+  These four sounds can be controlled independantly and
+ then mixed separately for each of the output terminals. 
+
+Timer
+-----
+
+  Sometimes it's useful to have a timer that interrupts at
+ regular intervals for routines that require periodic or
+ percise updates. The timer in the GameBoy has a selectable
+ frequency of 4096, 16384, 65536, or 262144 Hertz. This
+ frequency increments the Timer Counter (TIMA). When it
+ overflows, it generates an interrupt. It is then loaded
+ with the contents of Timer Modulo (TMA). The following
+ are examples:
+
+ ;This interval timer interrupts 4096 times per second
+
+     ld  a,$ff
+     ldh (6),a     ;Set TMA to divide clock by 1
+     ld  a,4
+     ldh (7),a     ;Set clock to 4096 Hertz
+
+ ;This interval timer interrupts 65536 times per second
+
+     ld  a,256-4
+     ldh (6),a     ;Set TMA to divide clock by 4
+     ld  a,5
+     ldh (7),a     ;Set clock to 262144 Hertz
+
+I/O Registers
+-------------
+
+FF00
+   Name     - P1
+   Contents - Register for reading joy pad info
+              and determining system type.    (R/W)
+
+           Bit 7 - Not used
+           Bit 6 - Not used
+           Bit 5 - P15 out port
+           Bit 4 - P14 out port
+           Bit 3 - P13 in port
+           Bit 2 - P12 in port
+           Bit 1 - P11 in port
+           Bit 0 - P10 in port
+
+        To determine what type of GameBoy this is write an 03
+        to this register then read it back. An Fx indicates
+        GameBoy or GameBoy Pocket, 3x indicates Super GameBoy.
+        (The 'x' indicates a don't care value.)
+
+         This is the matrix layout for register $FF00:
+
+
+                 P14        P15
+                  |          |
+        P10-------O-Right----O-A
+                  |          |
+        P11-------O-Left-----O-B
+                  |          |
+        P12-------O-Up-------O-Select
+                  |          |
+        P13-------O-Down-----O-Start
+                  |          |
+
+
+        This is the logic in reading joy pad data:
+
+          Turn on P15 (bit 5) in $ff00
+          Wait a few clock cycles
+          read $ff00 into A
+          invert A   - same as EOR #$FF - just reverse all bits
+                       apparently the joy pad info returned is like the C64
+                       info. 0 means on, 1 means off. But logic tells us
+                       that it should be the other way around. So to make it
+                       less confusing we just flip the bits!
+
+          AND A with #$0F - get only the first four bits
+                            By turning on P15 we are trying to read column
+                            P15 in the matrix layout. It contains A,B,SEL,STRT
+
+          SWAP A - #$3f becomes #$f3, it swaps hi<->lo nibbles
+
+          store A in B for backup
+
+
+          Turn on P14 (bit 4) in $ff00
+          Wait a few more clock cycles
+          read $ff00 into A
+          invert A - just as above
+          AND A with #$0F - get first 4 bits
+                          - By turning on P14 we get the data for column P14
+                            in the matrix layout. It contains U,D,L,R
+
+          OR A with B - put the two values together.
+
+          turn on P14 and P15 in $ff00 to reset.
+
+          The button values using the above method are such:
+          $80 - Start             $8 - Down
+          $40 - Select            $4 - Up
+          $20 - B                 $2 - Left
+          $10 - A                 $1 - Right
+
+          Let's say we held down A, Start, and Up.
+          The value returned in accumulator A would be $94
+
+       Example:
+          Game: Ms. Pacman
+          Address: $3b1
+
+        LD A,$20       <- bit 5 = $20
+        LD ($FF00),A   <- turn on P15
+        LD A,($FF00)
+        LD A,($FF00)   <- wait a few cycles
+        CPL            <- complement (invert) EOR #$ff
+        AND $0F        <- get only first 4 bits
+        SWAP A         <- swap it
+        LD B,A         <- store A in B
+        LD A,$10       <- bit 4 = $10
+        LD ($FF00),A   <- turn on P14
+        LD A,($FF00)
+        LD A,($FF00)
+        LD A,($FF00)
+        LD A,($FF00)
+        LD A,($FF00)
+        LD A,($FF00)   <- Wait a few MORE cycles
+        CPL            <- complement (invert)
+        AND $0F        <- get first 4 bits
+        OR B           <- put A and B together
+
+
+  The following routine is common on SNES as well. It clarifies that you've
+  only pressed the specified button(s) once every other frame. That way the
+  Joypad is less sensitive to wrong/bad/false movements.
+
+        LD D,A         <- store A in D
+        LD A,($FF8B)   <- read old joy data from ram
+        XOR D          <- toggle w/current button bit
+        AND D          <- get current button bit back
+        LD ($FF8C),A   <- save in new Joydata storage
+        LD A,D         <- put original value in A
+        LD ($FF8B),A   <- store it as old joy data
+
+
+        LD A,$30       <- turn on P14 and P15
+        LD ($FF00),A   <- RESET Joypad?!
+        RET            <- Return from Subroutine
+
+
+FF01
+   Name     - SB
+   Contents - Serial transfer data (R/W)
+
+              8 Bits of data to be read/written
+
+FF02
+   Name     - SC
+   Contents - SIO control  (R/W)
+
+              Bit 7 - Transfer start flag
+                      0: Non transfer 
+                      1: Start transfer
+
+              Bit 0 - Shift Clock
+                      0: External Clock
+                      1: Internal Clock
+
+FF04
+   Name     - DIV
+   Contents - Divider Register (R/W)
+
+FF05
+   Name     - TIMA
+   Contents - Timer counter (R/W)
+
+              The timer generates an interrupt when it overflows.
+
+FF06
+   Name     - TMA
+   Contents - Timer Modulo (R/W)
+
+              When the TIMA overflows, this data will be loaded.
+
+FF07
+   Name     - TAC
+   Contents - Timer Control
+
+              Bit 2 - Timer Stop
+                      0: Stop Timer
+                      1: Start Timer
+
+              Bits 1+0 - Input Clock Select
+                         00: 4.096 khz
+                         01: 262.144 khz
+                         10: 65.536 khz
+                         11: 16.384 khz
+
+FF0F
+   Name     - IF
+   Contents - Interrupt Flag (R/W)
+
+              Bit 4: Transition from High to Low of Pin number P10-P13
+              Bit 3: Serial I/O transfer end
+              Bit 2: Timer Overflow
+              Bit 1: LCDC (see STAT)
+              Bit 0: V-Blank
+
+   The priority and jump address for the above 5 interrupts are:
+
+    Interrupt        Priority        Start Address
+
+    V-Blank             1              $0040
+    LCDC Status         2              $0048 - Modes 0, 01, 10
+                                               LYC=LY coincide (selectable)
+    Timer Overflow      3              $0050
+    Serial Transfer     4              $0058 - when transfer is complete
+    Hi-Lo Of Pin        5              $0060
+
+    * When more than 1 interrupts occur at the same time ONLY the interrupt
+      with the highest priority can be acknowledged.
+      When an interrupt is used a '0' should be stored in the IF register
+      before the IE register is set.
+
+FF10
+   Name     - NR 10
+   Contents - Sound Mode 1 register, Sweep register (R/W)
+
+              Bit 6-4 - Sweep Time
+              Bit 3 - Sweep Increase/Decrease
+                      0: Addition    (frequency increases)
+                      1: Subtraction (frequency increases)
+              Bit 2-0 - Number of sweep shift (# 0-7)
+
+              Sweep Time:
+
+              000: sweep off
+              001: 7.8 ms
+              010: 15.6 ms
+              011: 23.4 ms
+              100: 31.3 ms
+              101: 39.1 ms
+              110: 46.9 ms
+              111: 54.7 ms
+
+FF11
+   Name     - NR 11
+   Contents - Sound Mode 1 register, Sound length/Wave pattern duty (R/W)
+              
+              Only Bits 7-6 can be read.
+
+              Bit 7-6 - Wave Pattern Duty
+              Bit 5-0 - Sound length data (# 0-63)
+
+              Wave Duty:
+              
+              00: 12.5%
+              01: 25%
+              10: 50%
+              11: 75%
+
+FF12
+   Name     - NR 12
+   Contents - Sound Mode 1 register, Envelope (R/W)
+
+              Bit 7-4 - Initial value of envelope
+              Bit 3 - Envelope UP/DOWN
+                      0: Decrease
+                      1: Range of increase
+              Bit 2-0 - Number of envelope sweep (# 0-7)
+              
+              Initial value of envelope is from 0 to F.
+
+FF13
+   Name     - NR 13
+   Contents - Sound Mode 1 register, Frequency lo (W)
+
+              lower 8 bits of 11 bit frequency.
+              Next 3 bit or in NR 14 ($FF14)
+
+FF14
+   Name     - NR 14
+   Contents - Sound Mode 1 register, Frequency hi (R/W)
+
+              Only Bit 6 can be read.
+
+              Bit 7 - Initial (when set, sound restarts)
+              Bit 6 - Counter/consecutive selection
+              Bit 2-0 - Frequency's higher 3 bits
+
+FF16
+   Name     - NR 21
+   Contents - Sound Mode 2 register, Sound Length; Wave Pattern Duty (R/W)
+
+              Only bits 7-6 can be read.
+
+              Bit 7-6 - Wave pattern duty
+              Bit 5-0 - Sound length (# 0-63)
+
+FF17
+   Name     - NR 22
+   Contents - Sound Mode 2 register, envelope (R/W)
+
+              Bit 7-4 - Initial envelope value
+              Bit 3 - Envelope UP/DOWN
+                      0: decrease
+                      1: range of increase
+              Bit 2-0 - Number of envelope step (# 0-7)
+ 
+FF18
+   Name     - NR 23
+   Contents - Sound Mode 2 register, frequency lo data (W)
+
+              Frequency's lower 8 bits of 11 bit data
+              Next 3 bits are in NR 14 ($FF19)
+
+FF19
+   Name     - NR 24
+   Contents - Sound Mode 2 register, frequency hi data (R/W)
+
+              Only bit 6 can be read.
+
+              Bit 7 - Initial
+              Bit 6 - Counter/consecutive selection
+              Bit 2-0 - Frequency's higher 3 bits
+
+FF1A
+   Name     - NR 30
+   Contents - Sound Mode 3 register, Sound on/off (R/W)
+          
+              Only bit 7 can be read
+
+              Bit 7 - Sound OFF
+                      0: Sound 3 output stop
+                      1: Sound 3 output OK
+
+FF1B
+   Name     - NR 31
+   Contents - Sound Mode 3 register, sound length (R/W)
+
+              Bit 7-0 - Sound length
+
+FF1C
+   Name     - NR 32
+   Contents - Sound Mode 3 register, Select output level
+          
+              Only bits 6-5 can be read
+ 
+              Bit 6-5 - Select output level
+                        00: Mute
+                        01: Produce Wave Pattern RAM Data as it is 
+                            (4 bit length)
+                        10: Produce Wave Pattern RAM data shifted once to the
+                            RIGHT (1/2)  (4 bit length)
+                        11: Produce Wave Pattern RAM data shifted twice to the
+                            RIGHT (1/4)  (4 bit length)
+
+       * - Wave Pattern RAM is located from $FF30-$FF3f
+
+FF1D
+   Name     - NR 33
+   Contents - Sound Mode 3 register, frequency's lower data (W)
+
+              Lower 8 bits of an 11 bit frequency
+
+FF1E
+   Name     - NR 34
+   Contents - Sound Mode 3 register, frequency's higher data (R/W)
+ 
+              Only bit 6 can be read.
+
+              Bit 7 - Initial flag
+              Bit 6 - Counter/consecutive flag
+              Bit 2-0 - Frequency's higher 3 bits
+
+FF20
+   Name     - NR 41
+   Contents - Sound Mode 4 register, sound length (R/W)
+
+              Bit 5-0 - Sound length data (# 0-63)
+  
+FF21
+   Name     - NR 42
+   Contents - Sound Mode 4 register, envelope (R/W)
+
+              Bit 7-4 - Initial value of envelope
+              Bit 3 - Envelope UP/DOWN
+                      0: decrease
+                      1: range of increase
+              Bit 2-0 - number of envelope step (# 0-7)
+
+FF22
+   Name     - NR 43
+   Contents - Sound Mode 4 register, polynomial counter (R/W)
+
+              Bit 7-4 - Selection of the shift clock frequency of the
+                        polynomial counter
+              Bit 3 - Selection of the polynomial counter's step
+              Bit 2-0 - Selection of the dividing ratio of frequencies
+
+              Selection of the dividing ratio of frequencies:
+              000: f * 1/2^3 * 2
+              001: f * 1/2^3 * 1
+              010: f * 1/2^3 * 1/2
+              011: f * 1/2^3 * 1/3
+              100: f * 1/2^3 * 1/4
+              101: f * 1/2^3 * 1/5
+              110: f * 1/2^3 * 1/6
+              111: f * 1/2^3 * 1/7           f = 4.194304 Mhz
+
+              Selection of the polynomial counter step:
+              0: 15 steps
+              1: 7 steps
+  
+              Selection of the shift clock frequency of the polynomial
+              counter:
+
+              0000: dividing ratio of frequencies * 1/2
+              0001: dividing ratio of frequencies * 1/2^2
+              0010: dividing ratio of frequencies * 1/2^3
+              0011: dividing ratio of frequencies * 1/2^4
+                    :                          :
+                    :                          : 
+                    :                          :
+              0101: dividing ratio of frequencies * 1/2^14
+              1110: prohibited code
+              1111: prohibited code
+
+FF23
+   Name     - NR 30
+   Contents - Sound Mode 4 register, counter/consecutive; inital (R/W)
+
+              Only bit 6 can be read.
+  
+              Bit 7 - Inital
+              Bit 6 - Counter/consecutive selection                    
+
+FF24
+   Name     - NR 50
+   Contents - Channel control / ON-OFF / Volume (R/W)
+
+              Bit 7 - Vin->SO2 ON/OFF
+              Bit 6-4 - SO2 output level (volume) (# 0-7)
+              Bit 3 - Vin->SO1 ON/OFF
+              Bit 2-0 - SO1 output level (volume) (# 0-7)
+
+              Vin->SO1 (Vin->SO2)
+              
+              By synthesizing the sound from sound 1 through 4, the voice
+              input from Vin terminal is put out.
+              0: no output
+              1: output OK
+
+FF25
+    Name     - NR 51
+    Contents - Selection of Sound output terminal (R/W)
+
+               Bit 7 - Output sound 4 to SO2 terminal
+               Bit 6 - Output sound 3 to SO2 terminal
+               Bit 5 - Output sound 2 to SO2 terminal
+               Bit 4 - Output sound 1 to SO2 terminal
+               Bit 3 - Output sound 4 to SO1 terminal
+               Bit 2 - Output sound 3 to SO1 terminal
+               Bit 1 - Output sound 2 to SO1 terminal
+               Bit 0 - Output sound 0 to SO1 terminal
+
+FF26
+    Name     - NR 52
+    Contents - Sound on/off (R/W)
+
+               Only Bit 7, 3-0 can be read.
+
+               Bit 7 - All sound on/off
+                       0: stop all sound circuits
+                       1: operate all sound circuits
+               Bit 3 - Sound 4 ON flag
+               Bit 2 - Sound 3 ON flag
+               Bit 1 - Sound 2 ON flag
+               Bit 0 - Sound 1 ON flag
+
+FF30 - FF3F
+   Name     - Wave Pattern RAM
+   Contents - Waveform storage for arbitrary sound data
+
+FF40
+   Name     - LCDC
+   Contents - LCD Control (R/W)
+
+              Bit 7 - LCD Control Operation
+                      0: Stop completely (no picture on screen)
+                      1: operation
+
+              Bit 6 - Window Screen Display Data Select
+                      0: $9800-$9BFF
+                      1: $9C00-$9FFF
+
+              Bit 5 - Window Display
+                      0: off
+                      1: on
+         
+              Bit 4 - BG Character Data Select
+                      0: $8800-$97FF
+                      1: $8000-$8FFF <- Same area as OBJ
+
+              Bit 3 - BG Screen Display Data Select
+                      0: $9800-$9BFF
+                      1: $9C00-$9FFF
+           
+              Bit 2 - OBJ Construction
+                      0: 8*8
+                      1: 8*16
+
+              Bit 1 - OBJ Display
+                      0: off
+                      1: on
+
+              Bit 0 - BG Display
+                      0: off
+                      1: on
+
+FF41
+   Name     - STAT
+   Contents - LCDC Status   (R/W)
+
+              Bits 6-3 - Interrupt Selection By LCDC Status
+
+              Bit 6 - LYC=LY Coincidence (Selectable)
+              Bit 5 - Mode 10
+              Bit 4 - Mode 01
+              Bit 3 - Mode 00
+                      0: Non Selection
+                      1: Selection
+
+              Bit 2 - Coincidence Flag
+                      0: LYC not equal to LCDC LY
+                      1: LYC = LCDC LY
+
+              Bit 1-0 - Mode Flag
+                        00: Entire Display Ram can be accessed
+                        01: During V-Blank
+                        10: During Searching OAM-RAM
+                        11: During Transfering Data to LCD Driver
+
+
+     STAT shows the current status of the LCD controller.
+     Mode 00: When the flag is 00 it is the H-Blank period and the CPU can
+              access the display RAM ($8000-$9FFF)
+              When it is not equal the display ram is being used by the
+              LCD controller
+
+     Mode 01: When the flag is 01 it is the V-Blank period and the CPU can
+              access the display RAM ($800-$9FFF)
+
+     Mode 10: When the flag is 10 then the OAM is being used ($FE00-$FE9F)
+              The CPU cannot access the OAM during this period
+     
+     Mode 11: When the flag is 11 both the OAM and CPU are being used.
+              The CPU cannot access either during this period
+
+
+     The following are typical when the display is enabled:
+
+      Mode 00  ---___---___---___---___---___---___---________________
+
+      Mode 01  _______________________________________--------------__
+
+      Mode 02  ___-_____-_____-_____-_____-_____-___________________-_
+
+      Mode 03  ____--____--____--____--____--____--__________________-
+
+
+      Seems the Mode Flag goes through the values 00, 02,
+      and 03 at a cycle of about 109uS. 00 is present
+      about 49uS, 02 about 20uS, and 03 about 40uS. This
+      is interrupted every 16.6ms by the VBlank (01).
+      The mode flag stays set at 01 for 1.1 ms.
+
+FF42
+   Name     - SCY
+   Contents - Scroll Y   (R/W)
+
+              8 Bit value $00-$FF to scroll BG Y screen position
+
+FF43
+   Name     - SCX
+   Contents - Scroll X   (R/W)
+ 
+              8 Bit value $00-$FF to scroll BG X screen position
+
+FF44
+   Name     - LY
+   Contents - LCDC Y-Coordinate (R)
+
+            The LY indicates the vertical line to which the present data
+            is transferred to the LCD Driver
+            The LY can take on any value between 0 through 153. The values
+            between 144 and 153 indicate the V-Blank period. Writing will
+            reset the counter.
+
+            This is just a RASTER register. The current line is thrown
+            into here. But since there are no RASTERS on an LCD display
+            it's called the LCDC Y-Coordinate.
+
+FF45
+   Name     - LYC
+   Contents - LY Compare  (R/W)
+
+            The LYC compares itself with the LY. If the values are the same
+            it causes the STAT to set the coincident flag.
+
+FF46
+   Name     - DMA
+   Contents - DMA Transfer and Start Address (W)
+
+   The DMA Transfer (40*28 bit) from internal ROM or RAM ($0000-$F19F)
+   to the OAM (address $FE00-$FE9F) can be performed. It takes 160 nano-seconds
+   for the transfer.
+
+   40*28 bit = #140  or #$8C.  As you can see, it only transfers $8C bytes
+   of data. OAM data is $A0 bytes long, from $0-$9F.
+
+   But if you examine the OAM data you see that 4 bits are not in use.
+   
+   40*32 bit = #$A0, but since 4 bits for each OAM is not used it's
+   40*28 bit.
+
+   It transfers all the OAM data to OAM RAM.
+
+   The DMA transfer start address can be designated every $100 from address
+   $0000-$F100.   That means $0000, $0100, $0200, $0300.... 
+
+   Example program:
+      di             <- Disable Interrupt
+      ld A,4         <- transfer data from $0400
+      ld ($ff46),a   <- put A into DMA registers
+      ld a,40        <- #40 is the value to wait for. we need to wait 160
+Wait:                <- nano seconds
+      dec a          <- decrease A by 1
+      jr nz,Wait     <- branch if Not Zero to Wait
+      ei             <- Enable Interrupt
+      ret            <- RETurn from sub-routine
+
+FF47
+   Name     - BGP
+   Contents - BG Palette Data  (W)
+
+              Bit 7-6 - Data for Dot Data 11
+              Bit 5-4 - Data for Dot Data 10
+              Bit 3-2 - Data for Dot Data 01
+              Bit 1-0 - Data for Dot Data 00
+
+              This selects the shade of gray you what for your BG pixel.
+              Since each pixel uses 2 bits, the corresponding shade will
+              be selected from here. The Background Color (00) lies at
+              Bits 1-0, just put a value from 0-$3 to change the color.
+
+FF48
+   Name     - OBP0
+   Contents - Object Palette 0 Data (W)
+
+              This selects the colors for sprite palette 0.
+              It works exactly as BGP ($FF47).
+              See BGP for details.
+
+FF49
+   Name     - OBP1
+   Contents - Object Palette 1 Data (W)
+
+              This Selects the colors for sprite palette 1.
+              It works exactly as BGP ($FF47).
+              See BGP for details.
+
+FF4A
+   Name     - WY
+   Contents - Window Y Position  (R/W)
+
+              0 <= WY <= 143
+
+              WY must be greater than or equal to 0 and must be less than
+              or equal to 143.
+
+FF4B
+   Name     - WX
+   Contents - Window X Position  (R/W)
+
+              7 <= WX <= 166
+
+              WX must be greater than or equal to 7 and must be less than
+              or equal to 166.
+
+
+              Lets say WY = 80 and WX = 80.
+              The window would be positioned as so:
+
+               0                  80                          159
+               _________________________________________________
+            0 |                   |                             |
+              |                   |                             |
+              |                   |                             |
+              |                   |                             |
+              |                   |                             |
+              |                   |                             |
+              |                   |                             |
+              |                   |                             |
+              |                   |                             |
+              |                   |80                           |
+           80 |-------------------+-----------------------------|
+              |                80 |                             |
+              |                   |                             |
+              |                   |      Window Display         |
+              |                   |                             |
+              |                   |                             |
+              |                   |           Here              |
+              |                   |                             |
+              |                   |                             |
+              |                   |                             |
+          143 |___________________|_____________________________|
+
+
+          OBJ Characters (Sprites) can still enter the window
+          So can BG characters
+
+FFFF
+   Name     - IE
+   Contents - Interrupt Enable (R/W)
+
+              Bit 4: Transition from High to Low of Pin number P10-P13
+              Bit 3: Serial I/O transfer end
+              Bit 2: Timer Overflow
+              Bit 1: LCDC (see STAT)
+              Bit 0: V-Blank
+
+              0: disable
+              1: enable
