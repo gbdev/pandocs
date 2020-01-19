@@ -1,0 +1,2 @@
+untangle==1.1.1
+xmltodict==0.12.0
