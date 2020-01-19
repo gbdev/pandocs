@@ -24,3 +24,7 @@ In 2020, we want to make this repository the new home of this resource, where it
 ## Contributing 
 
 [This](https://github.com/gbdev/awesome-gbdev/issues/153) is the RFC proposing the change. You're welcome to discuss the development of this project on the [gbdev Discord chat](https://discord.gg/9wBRWWT) or on IRC (EFNET `#gbdev`, `gbdev2`).
+
+## License
+
+We assume the content to be in the [public domain](LICENSE).
