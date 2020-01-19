@@ -44,7 +44,7 @@ for page in doc["mediawiki"]["page"][1:]:
 		d['GIT_AUTHOR_DATE'] = revision["timestamp"]
 
 		# git add the file
-		#subprocess.call(["git","add", "../content/"+filename])
+		subprocess.call(["git","add", "../content/"+filename])
 		print(["git","add", "../content/"+filename])
 		# set the author email
 		author = revision["contributor"]["username"]
@@ -82,4 +82,4 @@ for page in doc["mediawiki"]["page"][1:]:
 		# the revision timestamp as commit date/time
 		gitcmd = ["git", "commit", authorstring, "-m", commitmessage]
 		# execute git commit with the modified environment
-		#subprocess.call(gitcmd, env=d)
+		subprocess.call(gitcmd, env=d)
