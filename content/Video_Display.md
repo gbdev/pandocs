@@ -55,10 +55,10 @@ that memory is inaccessible to the CPU.
 
 | Mode    | Action                                                                | Duration                                                           | Accessible video memory |
 |---------|-----------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------|
-|Mode 2   |Scanning OAM for (X, Y) coordinates of sprites that overlap this line  |80 dots (19 us)                                                     |VRAM, CGB palettes       |
-|Mode 3   |Reading OAM and VRAM to generate the picture                           |168 to 291 cycles (40 to 60 us) depending on sprite count           |None                     |
-|Mode 0   |Horizontal blanking                                                    |85 to 208 dots (20 to 49 us) depending on previous mode 3 duration  |VRAM, OAM, CGB palettes  |
-|Mode 1   |Vertical blanking                                                      |4560 dots (1087 us, 10 scanlines)                                   |VRAM, OAM, CGB palettes  |
+|2        |Scanning OAM for (X, Y) coordinates of sprites that overlap this line  |80 dots (19 us)                                                     |VRAM, CGB palettes       |
+|3        |Reading OAM and VRAM to generate the picture                           |168 to 291 cycles (40 to 60 us) depending on sprite count           |None                     |
+|0        |Horizontal blanking                                                    |85 to 208 dots (20 to 49 us) depending on previous mode 3 duration  |VRAM, OAM, CGB palettes  |
+|1        |Vertical blanking                                                      |4560 dots (1087 us, 10 scanlines)                                   |VRAM, OAM, CGB palettes  |
 
   : Properties of STAT modes
 
@@ -180,17 +180,21 @@ should try it yourself.)
 This register assigns gray shades to the color numbers of the BG and
 Window tiles.
 
-` Bit 7-6 - Shade for Color Number 3`\
-` Bit 5-4 - Shade for Color Number 2`\
-` Bit 3-2 - Shade for Color Number 1`\
-` Bit 1-0 - Shade for Color Number 0`
+```
+Bit 7-6 - Shade for Color Number 3
+Bit 5-4 - Shade for Color Number 2
+Bit 3-2 - Shade for Color Number 1
+Bit 1-0 - Shade for Color Number 0
+```
 
 The four possible gray shades are:
 
-` 0  White`\
-` 1  Light gray`\
-` 2  Dark gray`\
-` 3  Black`
+```
+0  White
+1  Light gray
+2  Dark gray
+3  Black
+```
 
 In CGB Mode the Color Palettes are taken from CGB Palette Memory
 instead.
@@ -470,9 +474,9 @@ don't use color 0 - it's transparent instead.
 
 There are three "blocks" of 128 tiles each:
 
--   Block 0 is \$8000-87FF
--   Block 1 is \$8800-8FFF
--   Block 2 is \$9000-97FF
+-   Block 0 is $8000-87FF
+-   Block 1 is $8800-8FFF
+-   Block 2 is $9000-97FF
 
 Tiles are always indexed using a 8-bit integer, but the addressing
 method may differ. The "8000 method" uses \$8000 as its base pointer
@@ -490,9 +494,11 @@ mode, controlled by [LCDC bit
 
 Each Tile occupies 16 bytes, where each 2 bytes represent a line:
 
-` Byte 0-1  First Line (Upper 8 pixels)`\
-` Byte 2-3  Next Line`\
-` etc.`
+```
+Byte 0-1  First Line (Upper 8 pixels)
+Byte 2-3  Next Line
+etc.`
+```
 
 For each line, the first byte defines the least significant bits of the
 color numbers for each pixel, and the second byte defines the upper bits
