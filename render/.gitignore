@@ -1,0 +1,4 @@
+node_modules/
+index.md
+package-lock.json
+.vuepress/dist

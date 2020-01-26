@@ -7,12 +7,14 @@
     "doc": "docs"
   },
   "scripts": {
-    "deploy": "npx vuepress build && npx gh-pages .vuepress/dist -b a",
+    "remove-prism": "sed -i.bak -e \":a\" -e 'N' -e '$!ba' -e \"s/<style src=\\\"prismjs.*css\\\"><\\/style>/ /\" node_modules/@vuepress/theme-default/layouts/Layout.vue",
+    "deploy": "npx vuepress build && npx gh-pages -d .vuepress/dist -b master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Antonio Vivace",
   "dependencies": {
     "gh-pages": "^2.2.0",
+    "typeface-inter": "^3.11.2",
     "vuepress": "^1.2.0"
   }
 }
