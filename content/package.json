@@ -1,0 +1,13 @@
+{
+  "name": "content",
+  "version": "1.0.0",
+  "description": "This folder contains the content source of the Pan Doc document.",
+  "main": "index.js",
+  "dependencies": {
+    "gh-pages": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
