@@ -13,7 +13,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- [Sound Controller](#sound-controller)
 	- [Joypad Input](#joypad-input)
 	- Serial Data Transfer (Link Cable)
-	- Timer and Divider Registers
+	- Timer and Dividr Registers
 	- Interrupts
 	- CGB Registers
 	- SGB Functions
@@ -55,6 +55,8 @@ The single, most comprehensive technical reference to Game Boy available to the 
 !INCLUDE "Memory_Map.md", 1
 
 # Video Display
+
+!INCLUDE "LCDC.md",1
 
 !INCLUDE "Video_Display.md", 1
 

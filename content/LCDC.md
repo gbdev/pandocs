@@ -1,41 +1,51 @@
+# LCD Control Register
+
 **LCDC** is the main **LCD C**ontrol register. Its bits toggle what
 elements are displayed on the screen, and how.
 
-Description
-===========
+```
+Bit 7 - LCD Display Enable             (0=Off, 1=On)
+Bit 6 - Window Tile Map Display Select (0=9800-9BFF, 1=9C00-9FFF)
+Bit 5 - Window Display Enable          (0=Off, 1=On)
+Bit 4 - BG & Window Tile Data Select   (0=8800-97FF, 1=8000-8FFF)
+Bit 3 - BG Tile Map Display Select     (0=9800-9BFF, 1=9C00-9FFF)
+Bit 2 - OBJ (Sprite) Size              (0=8x8, 1=8x16)
+Bit 1 - OBJ (Sprite) Display Enable    (0=Off, 1=On)
+Bit 0 - BG/Window Display/Priority     (0=Off, 1=On)
+```
 
-LCDC.7 - LCD Display Enable
----------------------------
+
+## LCDC.7 - LCD Display Enable
 
 This bit controls whether the LCD is on and the PPU is active. Setting
 it to 0 turns both off, which grants immediate and full access to VRAM,
 OAM, etc.
 
-**CAUTION**: Stopping LCD operation (Bit 7 from 1 to 0) may be performed
+::: warning
+Stopping LCD operation (Bit 7 from 1 to 0) may be performed
 during [VBlank](VBlank "wikilink") ONLY, disabling the display outside
 of the V-Blank period may damage the hardware by burning in a black
 horizontal line similar to that which appears when the GB is turned off.
 This appears to be a serious issue, Nintendo is reported to reject any
 games that do not follow this rule.
+:::
 
 When the display is disabled the screen is blank, which on DMG is
-displayed as a white \"whiter\" than color \#0.
+displayed as a white "whiter" than color \#0.
 
-On SGB, the screen doesn\'t turn white, it appears that the previous
+On SGB, the screen doesn't turn white, it appears that the previous
 picture sticks to the screen. (TODO: research this more.)
 
 When re-enabling the LCD, the PPU will immediately start drawing again,
 but the screen will stay blank during the first frame.
 
-LCDC.6 - Window Tile Map Display Select
----------------------------------------
+## LCDC.6 - Window Tile Map Display Select
 
 This bit controls which background map the Window uses for rendering.
-When it\'s reset, the \$9800 tilemap is used, otherwise it\'s the \$9C00
+When it's reset, the \$9800 tilemap is used, otherwise it's the \$9C00
 one.
 
-LCDC.5 - Window Display Enable
-------------------------------
+## LCDC.5 - Window Display Enable
 
 This bit controls whether the window shall be displayed or not. (TODO :
 what happens when toggling this mid-scanline ?) This bit is overridden
@@ -45,34 +55,30 @@ if that bit is reset.
 Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
 may cause the second write to be ignored. (TODO : test this.)
 
-LCDC.4 - BG & Window Tile Data Select
--------------------------------------
+## LCDC.4 - BG & Window Tile Data Select
 
 This bit controls which [addressing
 mode](Video_Display#VRAM_Tile_Data "wikilink") the BG and Window use to
 pick tiles.
 
-Sprites aren\'t affected by this, and will always use \$8000 addressing
+Sprites aren't affected by this, and will always use \$8000 addressing
 mode.
 
-LCDC.3 - BG Tile Map Display Select
------------------------------------
+## LCDC.3 - BG Tile Map Display Select
 
-This bit works similarly to [bit
-6](#LCDC.6_-_Window_Tile_Map_Display_Select "wikilink"): if the bit is
-reset, the BG uses tilemap \$9800, otherwise tilemap \$9C00.
+This bit works similarly to LCDC-6: if the bit is
+reset, the BG uses tilemap $9800, otherwise tilemap $9C00.
 
-LCDC.2 - OBJ Size
------------------
+
+## LCDC.2 - OBJ Size
 
 This bit controls the sprite size (1 tile or 2 stacked vertically).
 
-Be cautious when changing this mid-frame from 8x8 to 8x16 : \"remnants\"
-of the sprites intended for 8x8 could \"leak\" into the 8x16 zone and
+Be cautious when changing this mid-frame from 8x8 to 8x16 : "remnants"
+of the sprites intended for 8x8 could "leak" into the 8x16 zone and
 cause artifacts.
 
-LCDC.1 - OBJ Display Enable
----------------------------
+## LCDC.1 - OBJ Display Enable
 
 This bit toggles whether sprites are displayed or not.
 
@@ -82,8 +88,7 @@ displayed on top of a status bar or text box.
 (Note: toggling mid-scanline might have funky results on DMG?
 Investigation needed.)
 
-LCDC.0 - BG/Window Display/Priority
------------------------------------
+## LCDC.0 - BG/Window Display/Priority
 
 LCDC.0 has different meanings depending on Gameboy type and Mode:
 
@@ -100,21 +105,19 @@ When Bit 0 is cleared, the background and window lose their priority -
 the sprites will be always displayed on top of background and window,
 independently of the priority flags in OAM and BG Map attributes.
 
-Using LCDC
-==========
+## Using LCDC
 
 LCDC is a powerful tool: each bit controls a lot of behavior, and can be
 modified at any time during the frame.
 
 One of the important aspects of LCDC is that unlike VRAM, the PPU never
-locks it. It\'s thus possible to modify it mid-scanline!
+locks it. It's thus possible to modify it mid-scanline!
 
-Faux-layer textbox/status bar
------------------------------
+## Faux-layer textbox/status bar
 
 A problem often seen especially in NES games is sprites rendering on top
-of the textbox/status bar. It\'s possible to prevent this using LCDC if
-the textbox/status bar is \"alone\" on its scanlines:
+of the textbox/status bar. It's possible to prevent this using LCDC if
+the textbox/status bar is "alone" on its scanlines:
 
 -   Set LCDC.1 to 1 for gameplay scanlines
 -   Set LCDC.1 to 0 for textbox/status bar scanlines
