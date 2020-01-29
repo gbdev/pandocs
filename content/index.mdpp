@@ -11,7 +11,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 - I/O Ports
 	- [Video Display](#video-display)
 	- [Sound Controller](#sound-controller)
-	- Joypad Input
+	- [Joypad Input](#joypad-input)
 	- Serial Data Transfer (Link Cable)
 	- Timer and Divider Registers
 	- Interrupts
@@ -61,3 +61,8 @@ The single, most comprehensive technical reference to Game Boy available to the 
 # Sound Controller
 
 !INCLUDE "Sound_Controller.md", 1
+
+# Joypad Input
+
+!INCLUDE "Joypad_Input.md", 1
+
