@@ -281,8 +281,8 @@ darker colors.
 Newer CGB games may avoid this effect by changing palette data when
 detecting GBA hardware ([see
 how](CGB_Registers#Detecting_CGB_.28and_GBA.29_functions "wikilink")).
-Based on measurement of GBC and GBA palettes using the "144p Test
-Suite" ROM, a fairly close approximation is GBA = GBC \* 3/4 + 8h for
+Based on measurement of GBC and GBA palettes using the [144p Test
+Suite](https://github.com/pinobatch/240p-test-mini/tree/master/gameboy) ROM, a fairly close approximation is GBA = GBC \* 3/4 + 8h for
 each R,G,B intensity. The result isn't quite perfect, and it may turn
 out that the color mixing is different also; anyways, it'd be still
 ways better than no conversion.
