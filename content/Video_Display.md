@@ -285,10 +285,7 @@ Based on measurement of GBC and GBA palettes using the "144p Test
 Suite" ROM, a fairly close approximation is GBA = GBC \* 3/4 + 8h for
 each R,G,B intensity. The result isn't quite perfect, and it may turn
 out that the color mixing is different also; anyways, it'd be still
-ways better than no conversion. Asides, this translation method should
-have been VERY easy to implement in GBA hardware directly, even though
-Nintendo obviously failed to do so. How did they say, "This seal is
-your assurance for excellence in workmanship" and so on?
+ways better than no conversion.
 
 This problem with low brightness levels does not affect later GBA SP
 units and Game Boy Player. Thus ideally, the player should have control
