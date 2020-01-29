@@ -1,53 +1,44 @@
 # Pan Docs
 
-#### Table of Contents
+The single, most comprehensive technical reference to Game Boy available to the public.
 
-Overview
+### Table of Contents
 
-- [About the Pan Docs](#about-the-pan-docs)
-- [Specifications](#specifications)
-- [Memory Map](#memory-map)
-
-I/O Ports
-
-- [Video Display](#video-display)
-- Sound Controller
-- Joypad Input
-- Serial Data Transfer (Link Cable)
-- Timer and Divider Registers
-- Interrupts
-- CGB Registers
-- SGB Functions
-
-CPU Specifications
-
-- Registers and Flags
-- Instruction Set
-- Comparision with Z80
-
-Cartridges
-
-- Cartridge header
-- MBC1
-- MBC2
-- MBC3
-- MBC5
-- MBC6
-- MBC7
-- HuC1
-
-Accessories
-
-- Gameboy Printer
-- Gameboy Camera
-- Gamegenie/Shark Cheats 
-
-Other
-
-- Power Up Sequence
-- Reducing Power Consumption
-- Sprite RAM Bug
-- External Connectors 
+- Overview
+	- [About the Pan Docs](#about-the-pan-docs)
+	- [Specifications](#specifications)
+	- [Memory Map](#memory-map)
+- I/O Ports
+	- [Video Display](#video-display)
+	- [Sound Controller](#sound-controller)
+	- Joypad Input
+	- Serial Data Transfer (Link Cable)
+	- Timer and Divider Registers
+	- Interrupts
+	- CGB Registers
+	- SGB Functions
+- CPU Specifications
+	- Registers and Flags
+	- Instruction Set
+	- Comparision with Z80
+- Cartridges
+	- Cartridge header
+	- MBC1
+	- MBC2
+	- MBC3
+	- MBC5
+	- MBC6
+	- MBC7
+	- HuC1
+- Accessories
+	- Gameboy Printer
+	- Gameboy Camera
+	- Gamegenie/Shark Cheats
+- Other
+	- Power Up Sequence
+	- Reducing Power Consumption
+	- Sprite RAM Bug
+	- External Connectors 
 
 ---
 
@@ -66,3 +57,7 @@ Other
 # Video Display
 
 !INCLUDE "Video_Display.md", 1
+
+# Sound Controller
+
+!INCLUDE "Sound_Controller.md", 1
