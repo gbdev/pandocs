@@ -2,15 +2,24 @@ import xmltodict
 import pypandoc
 import os, subprocess
 
-with open('GbdevWiki-20200119114605.xml') as fd:
+with open('lcdc.xml') as fd:
     doc = xmltodict.parse(fd.read())
 
 # Skip the first page, (the Template)
-for page in doc["mediawiki"]["page"][1:]:
+if (len(doc["mediawiki"]["page"]) == 1):
+	pages = [doc["mediawiki"]["page"]]
+else:
+	page = doc["mediawiki"]["page"]
+for page in pages:
 	print("## Parsing page",page["title"])
 	print(len(page["revision"]), "revisions found")
-	for revision in page["revision"]:
+	if len(page["revision"] == 1):
+		revisions = [page["revision"]]
+	else:
+		revisions = page["revision"]
+	for revision in revisions:
 		print("\n\n\n")
+		print(revision)
 		print("ID", revision["id"])
 		
 		# Timestamp
@@ -31,7 +40,7 @@ for page in doc["mediawiki"]["page"][1:]:
 		s = pypandoc.convert_text(revision["text"]["#text"], 'md', format='mediawiki')
 
 		# Create the markdown file
-		filename = page["title"].replace(" ", "_")+revision["id"]+".md"
+		filename = page["title"].replace(" ", "_")+".md"
 		with open("../content/" + filename, "w") as text_file:
 			print("{}".format(s), file=text_file)
 
