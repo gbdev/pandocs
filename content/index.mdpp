@@ -12,9 +12,9 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- [Video Display](#video-display)
 	- [Sound Controller](#sound-controller)
 	- [Joypad Input](#joypad-input)
-	- Serial Data Transfer (Link Cable)
-	- Timer and Dividr Registers
-	- Interrupts
+	- [Serial Data Transfer (Link Cable)](#serial-data-transfer)
+	- [Timer and Divider Registers](#timer-and-divider-registers)
+	- [Interrupts](#interrupts)
 	- CGB Registers
 	- SGB Functions
 - CPU Specifications
@@ -68,3 +68,14 @@ The single, most comprehensive technical reference to Game Boy available to the 
 
 !INCLUDE "Joypad_Input.md", 1
 
+# Serial Data Transfer
+
+!INCLUDE "Serial_Data_Transfer_(Link_Cable).md", 1
+
+# Timer and Divider Registers
+
+!INCLUDE "Timer_and_Divider_Registers.md", 1
+
+# Interrupts
+
+!INCLUDE "Interrupts.md", 1
