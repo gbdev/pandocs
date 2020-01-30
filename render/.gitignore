@@ -2,3 +2,7 @@ node_modules/
 index.md
 package-lock.json
 .vuepress/dist
+bin/
+lib/
+lib64
+pyvenv.cfg
