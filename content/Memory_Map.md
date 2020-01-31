@@ -1,4 +1,4 @@
-The gameboy has a 16bit address bus, that is used to address ROM, RAM and I/O 
+The Game Boy has a 16bit address bus, that is used to address ROM, RAM and I/O 
 
 # General Memory Map
 

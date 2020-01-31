@@ -4,15 +4,15 @@ SGB Description
 ### General Description
 
 Basically, the SGB (Super Gameboy) is an adapter cartridge that allows
-to play gameboy games on a SNES (Super Nintendo Entertainment System)
-gaming console. In detail, you plug the gameboy cartridge into the SGB
+to play Game Boy games on a SNES (Super Nintendo Entertainment System)
+gaming console. In detail, you plug the Game Boy cartridge into the SGB
 cartridge, then plug the SGB cartridge into the SNES, and then connect
 the SNES to your TV Set. In result, games can be played and viewed on
 the TV Set, and are controlled by using the SNES joypad(s).
 
 ### More Technical Description
 
-The SGB cartridge just contains a normal gameboy CPU and normal gameboy
+The SGB cartridge just contains a normal Game Boy CPU and normal gameboy
 video controller. Normally the video signal from this controller would
 be sent to the LCD screen, however, in this special case the SNES read
 out the video signal and displays it on the TV set by using a special
@@ -23,7 +23,7 @@ gameboy joypad inputs.
 
 ### Normal Monochrome Games
 
-Any gameboy games which have been designed for normal monochrome
+Any Game Boy games which have been designed for normal monochrome
 handheld gameboys will work with the SGB hardware as well. The SGB will
 apply a four color palette to these games by replacing the normal four
 grayshades. The 160x144 pixel gamescreen is displayed in the middle of
@@ -71,7 +71,7 @@ the same display screen.
 
 ### Sound Functions
 
-Beside for normal gameboy sound, a number of digital sound effects is
+Beside for normal Game Boy sound, a number of digital sound effects is
 pre-defined in the SNES BIOS, these effects may be accessed quite
 easily. Programmers whom are familiar with SNES sounds may also access
 the SNES sound chip, or use the SNES MIDI engine directly in order to
@@ -84,14 +84,14 @@ and to execute such program code by using the SNES CPU.
 
 ### SGB System Clock
 
-Because the SGB is synchronized to the SNES CPU, the gameboy system
+Because the SGB is synchronized to the SNES CPU, the Game Boy system
 clock is directly chained to the SNES system clock. In result, the
 gameboy CPU, video controller, timers, and sound frequencies will be all
 operated approx 2.4% faster as by normal gameboys. Basically, this
 should be no problem, and the game will just run a little bit faster.
 However sensitive musicians may notice that sound frequencies are a bit
 too high, programs that support SGB functions may avoid this effect by
-reducing frequencies of gameboy sounds when having detected SGB
+reducing frequencies of Game Boy sounds when having detected SGB
 hardware. Also, I think that I\'ve heard that SNES models which use a
 50Hz display refresh rate (rather than 60Hz) are resulting in
 respectively slower SGB/gameboy timings ???
@@ -102,24 +102,24 @@ SGB Unlocking and Detecting SGB Functions
 ### Cartridge Header
 
 SGB games are required to have a cartridge header with Nintendo and
-proper checksum just as normal gameboy games. Also, two special entries
+proper checksum just as normal Game Boy games. Also, two special entries
 must be set in order to unlock SGB functions:
 
 ` 146h - SGB Flag - Must be set to 03h for SGB games`\
 ` 14Bh - Old Licensee Code - Must be set 33h for SGB games`
 
 When these entries aren\'t set, the game will still work just like all
-\'monochrome\' gameboy games, but it cannot access any of the special
+\'monochrome\' Game Boy games, but it cannot access any of the special
 SGB functions.
 
 ### Detecting SGB hardware
 
 The recommended detection method is to send a MLT\_REQ command which
-enables two (or four) joypads. A normal handheld gameboy will ignore
+enables two (or four) joypads. A normal handheld Game Boy will ignore
 this command, a SGB will now return incrementing joypad IDs each time
 when deselecting keyboard lines (see MLT\_REQ description for details).
 Now read-out joypad state/IDs several times, and if the ID-numbers are
-changing, then it is a SGB (a normal gameboy would typically always
+changing, then it is a SGB (a normal Game Boy would typically always
 return 0Fh as ID). Finally, when not intending to use more than one
 joypad, send another MLT\_REQ command in order to re-disable the
 multi-controller mode. Detection works regardless of whether and how
@@ -149,7 +149,7 @@ is available in SGB2-type models only ???
 SGB Command Packet Transfers
 ----------------------------
 
-Command packets (aka Register Files) are transferred from the gameboy to
+Command packets (aka Register Files) are transferred from the Game Boy to
 the SNES by using P14 and P15 output lines of the JOYPAD register
 (FF00h), these lines are normally used to select the two rows in the
 gameboy keyboard matrix (which still works).
@@ -210,16 +210,16 @@ gameboy display memory during the next frame.
 
 ### Transfer Data
 
-Normally, transfer data should be stored at 8000h-8FFFh in gameboy VRAM,
+Normally, transfer data should be stored at 8000h-8FFFh in Game Boy VRAM,
 even though the SNES receives the data in from display scanlines, it
 will automatically re-produce the same ordering of bits and bytes, as
-being originally stored at 8000h-8FFFh in gameboy memory.
+being originally stored at 8000h-8FFFh in Game Boy memory.
 
 ### Preparing the Display
 
 The above method works only when recursing the following things: BG Map
 must display unsigned characters 00h-FFh on the screen; 00h..13h in
-first line, 14h..27h in next line, etc. The gameboy display must be
+first line, 14h..27h in next line, etc. The Game Boy display must be
 enabled, the display may not be scrolled, OBJ sprites should not overlap
 the background tiles, the BGP palette register must be set to E4h.
 
@@ -310,7 +310,7 @@ for for all palettes, which will then all share the same color though.
 
 ### Translation of Grayshades into Colors
 
-Because the SGB/SNES reads out the gameboy video controllers display
+Because the SGB/SNES reads out the Game Boy video controllers display
 signal, it translates the different grayshades from the signal into SNES
 colors as such:
 
@@ -319,16 +319,16 @@ colors as such:
 ` Dark Gray   -->  Color 2`\
 ` Black       -->  Color 3`
 
-Note that gameboy colors 0-3 are assigned to user-selectable grayshades
+Note that Game Boy colors 0-3 are assigned to user-selectable grayshades
 by the gameboys BGP, OBP1, and OBP2 registers. There is thus no fixed
-relationship between gameboy colors 0-3 and SNES colors 0-3.
+relationship between Game Boy colors 0-3 and SNES colors 0-3.
 
-#### Using Gameboy BGP/OBP Registers
+#### Using Game Boy BGP/OBP Registers
 
 A direct translation of GB color 0-3 into SNES color 0-3 may be produced
 by setting BGP/OBP registers to a value of 0E4h each. However, in case
 that your program uses black background for example, then you may
-internally assign background as \"White\" at the gameboy side by BGP/OBP
+internally assign background as \"White\" at the Game Boy side by BGP/OBP
 registers (which is then interpreted as SNES color 0, which is shared
 for all SNES palettes). The advantage is that you may define Color 0 as
 Black at the SNES side, and may assign custom colors for Colors 1-3 of
@@ -520,7 +520,7 @@ wraps to the next row/column when reaching the end of the screen.
 ### SGB Command 15h - ATTR\_TRN
 
 Used to initialize Attribute Files (ATFs) in SNES RAM. Each ATF consists
-of 20x18 color attributes for the gameboy screen. This function does not
+of 20x18 color attributes for the Game Boy screen. This function does not
 directly affect display attributes. Instead, one of the defined ATFs may
 be copied to actual display memory at a later time by using ATTR\_SET or
 PAL\_SET functions.
@@ -535,21 +535,21 @@ The ATF data is sent by VRAM-Transfer (4 KBytes).
 ` FD2-FFF  Not used`
 
 Each ATF consists of 90 bytes, that are 5 bytes (20x2bits) for each of
-the 18 character lines of the gameboy window. The two most significant
+the 18 character lines of the Game Boy window. The two most significant
 bits of the first byte define the color attribute (0-3) for the first
 character of the first line, the next two bits the next character, and
 so on.
 
 ### SGB Command 16h - ATTR\_SET
 
-Used to transfer attributes from Attribute File (ATF) to gameboy window.
+Used to transfer attributes from Attribute File (ATF) to Game Boy window.
 
 ` Byte  Content`\
 ` 0     Command*8+Length (fixed length=1)`\
 ` 1     Attribute File Number (00-2Ch), Bit 6=Cancel Mask`\
 ` 2-F   Not used (zero)`
 
-When above Bit 6 is set, the gameboy screen becomes re-enabled after the
+When above Bit 6 is set, the Game Boy screen becomes re-enabled after the
 transfer (in case it has been disabled/frozen by MASK\_EN command).
 Note: The same functions may be (optionally) also included in PAL\_SET
 commands, as described in the chapter about Color Palette Commands.
@@ -680,9 +680,9 @@ SGB System Control Commands
 
 ### SGB Command 17h - MASK\_EN
 
-Used to mask the gameboy window, among others this can be used to freeze
-the gameboy screen before transferring data through VRAM (the SNES then
-keeps displaying the gameboy screen, even though VRAM doesn\'t contain
+Used to mask the Game Boy window, among others this can be used to freeze
+the Game Boy screen before transferring data through VRAM (the SNES then
+keeps displaying the Game Boy screen, even though VRAM doesn\'t contain
 meaningful display information during the transfer).
 
 ` Byte  Content`\
@@ -968,9 +968,9 @@ Used to transfer OBJ attributes to SNES OAM memory. Unlike all other
 functions with the ending \_TRN, this function does not use the usual
 one-shot 4KBytes VRAM transfer method. Instead, when enabled (below
 execute bit set), data is permanently (each frame) read out from the
-lower character line of the gameboy screen. To suppress garbage on the
+lower character line of the Game Boy screen. To suppress garbage on the
 display, the lower line is masked, and only the upper 20x17 characters
-of the gameboy window are used - the masking method is unknwon - frozen,
+of the Game Boy window are used - the masking method is unknwon - frozen,
 black, or recommended to be covered by the SGB border, or else ??? Also,
 when the function is enabled, \"system attract mode is not performed\" -
 whatever that means ???
@@ -996,11 +996,11 @@ This command does nothing on some SGB revisions. (SGBv2, SGB2?)
 `         system palettes 511, 0, 1, 2 to the SNES OBJ palette.`\
 ` A-F   Not used (zero)`
 
-The recommended method is to \"display\" gameboy BG tiles F9h..FFh from
+The recommended method is to \"display\" Game Boy BG tiles F9h..FFh from
 left to right as first 7 characters of the bottom-most character line of
-the gameboy screen. As for normal 4KByte VRAM transfers, this area
-should not be scrolled, should not be overlapped by gameboy OBJs, and
-the gameboy BGP palette register should be set up properly. By following
+the Game Boy screen. As for normal 4KByte VRAM transfers, this area
+should not be scrolled, should not be overlapped by Game Boy OBJs, and
+the Game Boy BGP palette register should be set up properly. By following
 that method, SNES OAM data can be defined in the 70h bytes of the
 gameboy BG tile memory at following addresses:
 

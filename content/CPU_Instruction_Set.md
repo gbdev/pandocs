@@ -1,7 +1,7 @@
 Tables below specify the mnemonic, opcode bytes, clock cycles, affected
 flags (ordered as znhc), and explanatation. The timings assume a CPU
 clock frequency of 4.194304 MHz (or 8.4 MHz for CGB in double speed
-mode), as all gameboy timings are divideable by 4, many people specify
+mode), as all Game Boy timings are divideable by 4, many people specify
 timings and clock frequency divided by 4.
 
 ### GMB 8bit-Loadcommands

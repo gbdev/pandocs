@@ -90,7 +90,7 @@ Investigation needed.)
 
 ## LCDC.0 - BG/Window Display/Priority
 
-LCDC.0 has different meanings depending on Gameboy type and Mode:
+LCDC.0 has different meanings depending on Game Boy type and Mode:
 
 ### Monochrome Gameboy, SGB and CGB in Non-CGB Mode: BG Display
 

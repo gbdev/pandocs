@@ -1,5 +1,5 @@
 The following programming techniques can be used to reduce the power
-consumption of the GameBoy hardware and extend the life of the
+consumption of the Game Boy hardware and extend the life of the
 batteries.
 
 Using the HALT Instruction
@@ -53,7 +53,7 @@ better, using the RETI instruction)
 Using the STOP Instruction
 --------------------------
 
-The STOP instruction is intended to switch the gameboy into VERY low
+The STOP instruction is intended to switch the Game Boy into VERY low
 power standby mode. For example, a program may use this feature when it
 hasn\'t sensed keyboard input for a longer period (for example, when
 somebody forgot to turn off the gameboy).
@@ -72,7 +72,7 @@ Disabling the Sound Controller
 If your program doesn\'t use sound at all (or during some periods) then
 write 00h to register FF26 to save 16% or more on GB power consumption.
 Sound can be turned back on by writing 80h to the same register, all
-sound registers must be then re-initialized. When the gameboy is turned
+sound registers must be then re-initialized. When the Game Boy is turned
 on, sound is enabled by default, and must be turned off manually when
 not used.
 

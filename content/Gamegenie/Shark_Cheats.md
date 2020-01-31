@@ -1,5 +1,5 @@
 Game Shark and Gamegenie are external cartridge adapters that can be
-plugged between the gameboy and the actual game cartridge. Hexadecimal
+plugged between the Game Boy and the actual game cartridge. Hexadecimal
 codes can be then entered for specific games, typically providing things
 like Infinite Sex, 255 Cigarettes, or Starting directly in Wonderland
 Level PRO, etc.

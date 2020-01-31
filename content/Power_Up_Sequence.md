@@ -1,4 +1,4 @@
-When the GameBoy is powered up, a 256 byte program starting at memory
+When the Game Boy is powered up, a 256 byte program starting at memory
 location 0 is executed. This program is located in a ROM inside the
 GameBoy. The first thing the program does is read the cartridge
 locations from \$104 to \$133 and place this graphic of a Nintendo logo
@@ -6,11 +6,11 @@ on the screen at the top. This image is then scrolled until it is in the
 middle of the screen. Two musical notes are then played on the internal
 speaker. Again, the cartridge locations \$104 to \$133 are read but this
 time they are compared with a table in the internal rom. If any byte
-fails to compare, then the GameBoy stops comparing bytes and simply
+fails to compare, then the Game Boy stops comparing bytes and simply
 halts all operations. If all locations compare the same, then the
 GameBoy starts adding all of the bytes in the cartridge from \$134 to
 \$14d. A value of 25 decimal is added to this total. If the least
-significant byte of the result is a not a zero, then the GameBoy will
+significant byte of the result is a not a zero, then the Game Boy will
 stop doing anything. If it is a zero, then the internal ROM is disabled
 and cartridge program execution begins at location \$100 with the
 following register values:
@@ -53,14 +53,14 @@ following register values:
 `  [$FFFF] = $00   ; IE`
 
 It is not a good idea to assume the above values will always exist. A
-later version GameBoy could contain different values than these at
+later version Game Boy could contain different values than these at
 reset. Always set these registers on reset rather than assume they are
 as above.
 
-Please note that GameBoy internal RAM on power up contains random data.
-All of the GameBoy emulators tend to set all RAM to value \$00 on entry.
+Please note that Game Boy internal RAM on power up contains random data.
+All of the Game Boy emulators tend to set all RAM to value \$00 on entry.
 
-Cart RAM the first time it is accessed on a real GameBoy contains random
-data. It will only contain known data if the GameBoy code initializes it
+Cart RAM the first time it is accessed on a real Game Boy contains random
+data. It will only contain known data if the Game Boy code initializes it
 to some value.
 

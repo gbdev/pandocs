@@ -4,7 +4,7 @@ MBC3 (max 2MByte ROM and/or 32KByte RAM and Timer)
 Beside for the ability to access up to 2MB ROM (128 banks), and 32KB RAM
 (4 banks), the MBC3 also includes a built-in Real Time Clock (RTC). The
 RTC requires an external 32.768 kHz Quartz Oscillator, and an external
-battery (if it should continue to tick when the gameboy is turned off).
+battery (if it should continue to tick when the Game Boy is turned off).
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 

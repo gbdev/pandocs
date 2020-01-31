@@ -24,7 +24,7 @@ odd amount of 125 banks.
 
 This area is used to address external RAM in the cartridge (if any).
 External RAM is often battery buffered, allowing to store game positions
-or high score tables, even if the gameboy is turned off, or if the
+or high score tables, even if the Game Boy is turned off, or if the
 cartridge is removed from the gameboy. Available RAM sizes are: 2KByte
 (at A000-A7FF), 8KByte (at A000-BFFF), and 32KByte (in form of four 8K
 banks at A000-BFFF).

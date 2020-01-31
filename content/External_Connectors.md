@@ -15,7 +15,7 @@
 ### Link Port
 
 Pin numbers are arranged as 2,4,6 in upper row, 1,3,5 un lower row;
-outside view of gameboy socket; flat side of socket upside. Colors as
+outside view of Game Boy socket; flat side of socket upside. Colors as
 used in most or all standard link cables, because SIN and SOUT are
 crossed, colors Red and Orange are exchanged at one cable end.
 
@@ -27,7 +27,7 @@ crossed, colors Red and Orange are exchanged at one cable end.
 ` 5   SCK  green  Shift Clock`\
 ` 6   GND  blue   Ground`
 
-Note: The original gameboy used larger plugs (unlike pocket gameboys and
+Note: The original Game Boy used larger plugs (unlike pocket gameboys and
 newer), linking between older/newer gameboys is possible by using cables
 with one large and one small plug though.
 

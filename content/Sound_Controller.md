@@ -1,6 +1,6 @@
 There are two sound channels connected to the output terminals SO1 and
 SO2. There is also a input terminal Vin connected to the cartridge. It
-can be routed to either of both output terminals. GameBoy circuitry
+can be routed to either of both output terminals. Game Boy circuitry
 allows producing sound in four different ways:
 
 ```

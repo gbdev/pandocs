@@ -1,7 +1,7 @@
 As the gameboys 16 bit address bus offers only limited space for ROM and
 RAM addressing, many games are using Memory Bank Controllers (MBCs) to
 expand the available address space by bank switching. These MBC chips
-are located in the game cartridge (ie. not in the gameboy itself).
+are located in the game cartridge (ie. not in the Game Boy itself).
 
 In each cartridge, the required (or preferred) MBC type should be
 specified in the byte at 0147h of the ROM, as described in [the
@@ -44,7 +44,7 @@ odd amount of 125 banks.
 
 This area is used to address external RAM in the cartridge (if any).
 External RAM is often battery buffered, allowing to store game positions
-or high score tables, even if the gameboy is turned off, or if the
+or high score tables, even if the Game Boy is turned off, or if the
 cartridge is removed from the gameboy. Available RAM sizes are: 2KByte
 (at A000-A7FF), 8KByte (at A000-BFFF), and 32KByte (in form of four 8K
 banks at A000-BFFF).
@@ -133,7 +133,7 @@ MBC3 (max 2MByte ROM and/or 64KByte RAM and Timer)
 Beside for the ability to access up to 2MB ROM (128 banks), and 64KB RAM
 (8 banks), the MBC3 also includes a built-in Real Time Clock (RTC). The
 RTC requires an external 32.768 kHz Quartz Oscillator, and an external
-battery (if it should continue to tick when the gameboy is turned off).
+battery (if it should continue to tick when the Game Boy is turned off).
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 

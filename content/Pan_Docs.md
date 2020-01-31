@@ -55,7 +55,7 @@ Excerpt from Martin\'s document
 -------------------------------
 
      =================================================================
-           Everything You Always Wanted To Know About GAMEBOY *
+           Everything You Always Wanted To Know About Game Boy *
      =================================================================
 
                          * but were afraid to ask

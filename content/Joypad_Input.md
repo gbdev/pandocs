@@ -1,6 +1,6 @@
 ### FF00 - P1/JOYP - Joypad (R/W)
 
-The eight gameboy buttons/direction keys are arranged in form of a 2x4
+The eight Game Boy buttons/direction keys are arranged in form of a 2x4
 matrix. Select either button or direction keys by writing to this
 register, then read-out bit 0-3.
 

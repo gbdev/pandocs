@@ -11,7 +11,7 @@ followed by a JP 0150h instruction. But not always.
 ### 0104-0133 - Nintendo Logo
 
 These bytes define the bitmap of the Nintendo logo that is displayed
-when the gameboy gets turned on. The hexdump of this bitmap is:
+when the Game Boy gets turned on. The hexdump of this bitmap is:
 
 ` CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D`\
 ` 00 08 11 1F 88 89 00 0E DC CC 6E E6 DD DD D9 99`\
@@ -161,7 +161,7 @@ or anywhere else. Only two values are defined.
 
 Specifies the games company/publisher code in range 00-FFh. A value of
 33h signalizes that the New License Code in header bytes 0144-0145 is
-used instead. (Super GameBoy functions won\'t work if \<\> \$33.) A list
+used instead. (Super Game Boy functions won\'t work if \<\> \$33.) A list
 of licensee codes can be found
 [here](Gameboy_ROM_Header_Info#Licensee "wikilink").
 
@@ -183,5 +183,5 @@ entry. The GAME WON\'T WORK if this checksum is incorrect.
 
 Contains a 16 bit checksum (upper byte first) across the whole cartridge
 ROM. Produced by adding all bytes of the cartridge (except for the two
-checksum bytes). The Gameboy doesn\'t verify this checksum.
+checksum bytes). The Game Boy doesn\'t verify this checksum.
 

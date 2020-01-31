@@ -138,7 +138,7 @@ through 153. The values between 144 and 153 indicate the V-Blank period.
 
 ### FF45 - LYC - LY Compare (R/W)
 
-The Gameboy permanently compares the value of the LYC and LY registers.
+The Game Boy permanently compares the value of the LYC and LY registers.
 When both values are identical, the coincident bit in the STAT register
 becomes set, and (if enabled) a STAT interrupt is requested.
 
@@ -686,7 +686,7 @@ the LCD controller can be read out from the STAT register (FF41).
 ::: warning
 When the LCD Controller is drawing the screen it is directly reading
 from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).
-During these periods the Gameboy CPU may not access the VRAM and OAM.
+During these periods the Game Boy CPU may not access the VRAM and OAM.
 That means, any attempts to write to VRAM/OAM are ignored (the data
 remains unchanged). And any attempts to read from VRAM/OAM will return
 undefined data (typically a value of FFh).

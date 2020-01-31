@@ -35,10 +35,10 @@ Documented registers
 ` Bit 7: Current Speed     (0=Normal, 1=Double) (Read Only)`\
 ` Bit 0: Prepare Speed Switch (0=No, 1=Prepare) (Read/Write)`
 
-This register is used to prepare the gameboy to switch between CGB
+This register is used to prepare the Game Boy to switch between CGB
 Double Speed Mode and Normal Speed Mode. The actual speed switch is
 performed by executing a STOP command after Bit 0 has been set. After
-that Bit 0 will be cleared automatically, and the gameboy will operate
+that Bit 0 will be cleared automatically, and the Game Boy will operate
 at the \'other\' speed. The recommended speed switching procedure in
 pseudo code would be:
 

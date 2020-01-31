@@ -35,22 +35,22 @@ Bit 1 - Clock Speed (0=Normal, 1=Fast) ** CGB Mode Only **
 Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
 ```
 
-The gameboy acting as master will load up a data byte in SB and then set
+The Game Boy acting as master will load up a data byte in SB and then set
 SC to 0x81 (Transfer requested, use internal clock). It will be notified
 that the transfer is complete in two ways: SC's Bit 7 will be cleared
 (i.e., SC will be set up 0x01), and also the Serial Interrupt handler
 will be called (i.e., the CPU will jump to 0x0058).
 
-The other gameboy will load up a data byte and can optionally set SC's
+The other Game Boy will load up a data byte and can optionally set SC's
 Bit 7 (i.e., SC=0x80). Regardless of whether or not it has done this, if
-and when the master gameboy wants to conduct a transfer, it will happen
+and when the master Game Boy wants to conduct a transfer, it will happen
 (pulling whatever happens to be in SB at that time). The passive gameboy
 will have its serial interrupt handler called at the end of the
 transfer, and if it bothered to set SC's Bit 7, it will be cleared.
 
 ### Internal Clock
 
-In Non-CGB Mode the gameboy supplies an internal clock of 8192Hz only
+In Non-CGB Mode the Game Boy supplies an internal clock of 8192Hz only
 (allowing to transfer about 1 KByte per second). In CGB Mode four
 internal clock rates are available, depending on Bit 1 of the SC
 register, and on whether the CGB Double Speed Mode is used:
@@ -67,7 +67,7 @@ register, and on whether the CGB Double Speed Mode is used:
 The external clock is typically supplied by another gameboy, but might
 be supplied by another computer (for example if connected to a PCs
 parallel port), in that case the external clock may have any speed. Even
-the old/monochrome gameboy is reported to recognizes external clocks of
+the old/monochrome Game Boy is reported to recognizes external clocks of
 up to 500KHz. And there is no limitation into the other direction - even
 when suppling an external clock speed of "1 bit per month", then the
 gameboy will still eagerly wait for the next bit(s) to be transferred.
@@ -77,7 +77,7 @@ either.
 ### Timeouts
 
 When using external clock then the transfer will not complete until the
-last bit is received. In case that the second gameboy isn't supplying a
+last bit is received. In case that the second Game Boy isn't supplying a
 clock signal, if it gets turned off, or if there is no second gameboy
 connected at all) then transfer will never complete. For this reason the
 transfer procedure should use a timeout counter, and abort the
@@ -86,15 +86,15 @@ interval.
 
 ### Delays and Synchronization
 
-The gameboy that is using internal clock should always execute a small
+The Game Boy that is using internal clock should always execute a small
 delay between each transfer, in order to ensure that the opponent
 gameboy has enough time to prepare itself for the next transfer, ie. the
 gameboy with external clock must have set its transfer start bit before
-the gameboy with internal clock starts the transfer. Alternately, the
+the Game Boy with internal clock starts the transfer. Alternately, the
 two gameboys could switch between internal and external clock for each
 transferred byte to ensure synchronization.
 
-Transfer is initiated by setting the master Gameboy setting its Transfer
+Transfer is initiated by setting the master Game Boy setting its Transfer
 Start Flag, regardless of the value of this flag on the other device.
 This bit is automatically set to 0 (on both) at the end of Transfer.
 Reading this bit can be used to determine if the transfer is still
@@ -112,7 +112,7 @@ at 0058 is called.
 Transmitting and receiving serial data is done simultaneously. The
 received data is automatically stored in SB.
 
-The serial I/O port on the Gameboy is a very simple setup and is crude
+The serial I/O port on the Game Boy is a very simple setup and is crude
 compared to standard RS-232 (IBM-PC) or RS-485 (Macintosh) serial ports.
 There are no start or stop bits.
 
