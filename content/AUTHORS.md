@@ -1,1 +1,5 @@
-AntonioND, avivace, Beannaich, Elizafox, endrift, exezin, Furrtek, Gekkio, ISSOtm, Jeff Frohwein, John Harrison, kOOPa, LIJI32, Mantidactyle, Marat Fayzullin, Martin "nocash" Korth, mattcurrie, nitro2k01, Pan of Anthrox, Pascal Felber, Paul Robson, pinobatch, T4g1, TechFalcon
+Non-exhaustive, list of content contributors:
+
+*Pan of ATX, Marat Fayzullin, Felber Pascal, Robson Paul, Korth Martin.*
+
+*Antonio Niño Díaz, Antonio Vivace, Beannaich, Elizafox, endrift, exezin, Furrtek, Gekkio, ISSOtm, Jeff Frohwein, John Harrison, kOOPa, LIJI32, Mantidactyle, mattcurrie, nitro2k01, Pascal Felber, pinobatch, T4g1, TechFalcon*

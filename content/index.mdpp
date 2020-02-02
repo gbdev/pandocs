@@ -6,6 +6,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 
 - Overview
 	- [About the Pan Docs](#about-the-pan-docs)
+	- [Authors](#authors)
 	- [Specifications](#specifications)
 	- [Memory Map](#memory-map)
 - I/O Ports
@@ -39,12 +40,19 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- Reducing Power Consumption
 	- Sprite RAM Bug
 	- External Connectors 
+- [References](#references)
 
 ---
 
 # About the Pan Docs
 
 !INCLUDE "About.md"
+
+## Authors
+
+This document is the product of 25 years of community effort: it's hard to keep track of every contribution. If we missed something, contact us.
+
+!INCLUDE "AUTHORS.md", 1
 
 # Specifications
 
@@ -79,3 +87,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 # Interrupts
 
 !INCLUDE "Interrupts.md", 1
+
+### References
+
+!INCLUDE "References.md", 1

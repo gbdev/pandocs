@@ -1,0 +1,8 @@
+- [Antonio Niño Díaz (AntonioND). The Cycle-Accurate Game Boy Docs](https://github.com/AntonioND/giibiiadvance/tree/master/docs)
+- [Costis Sideris. The quest for dumping GameBoy Boot ROMs!](http://www.its.caltech.edu/~costis/sgb_hack/)
+- [Tauwasser. MBC1 - Tauwasser’s Wiki](https://wiki.tauwasser.eu/view/MBC1)
+- [Tauwasser. MBC2 - Tauwasser’s Wiki](https://wiki.tauwasser.eu/view/MBC2)
+- [Gekkio. Game Boy: Complete Technical Reference](https://github.com/Gekkio/gb-ctr)
+- [Game Boy CPU (SM83) instruction set](https://gbdev.github.io/gb-opcodes/optables/)
+- [Gekkio. Dumping the Super Game Boy 2 boot ROM](https://gekkio.fi/blog/2015/dumping-the-super-game-boy-2-boot-rom/)
+- [exezin. OAM DMA tutorial](https://exez.in/gameboy-dma)
