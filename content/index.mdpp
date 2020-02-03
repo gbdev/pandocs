@@ -36,7 +36,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- Game Boy Camera
 	- Gamegenie/Shark Cheats
 - Other
-	- Power Up Sequence
+	- [Power Up Sequence](#power-up-sequence)
 	- Reducing Power Consumption
 	- Sprite RAM Bug
 	- External Connectors 
@@ -87,6 +87,10 @@ This document is the product of 25 years of community effort: it's hard to keep 
 # Interrupts
 
 !INCLUDE "Interrupts.md", 1
+
+# Power Up Sequence
+
+!INCLUDE "Power_Up_Sequence.md", 1
 
 ### References
 
