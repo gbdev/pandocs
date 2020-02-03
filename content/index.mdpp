@@ -24,7 +24,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- Comparision with Z80
 - Cartridges
 	- Cartridge header
-	- MBC1
+	- [MBC1](#mbc1)
 	- MBC2
 	- MBC3
 	- MBC5
@@ -87,6 +87,10 @@ This document is the product of 25 years of community effort: it's hard to keep 
 # Interrupts
 
 !INCLUDE "Interrupts.md", 1
+
+# MBC1
+
+!INCLUDE "MBC1.md", 1
 
 # Power Up Sequence
 
