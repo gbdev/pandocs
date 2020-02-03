@@ -1,5 +1,4 @@
-MBC3 (max 2MByte ROM and/or 32KByte RAM and Timer)
---------------------------------------------------
+(max 2MByte ROM and/or 32KByte RAM and Timer)
 
 Beside for the ability to access up to 2MB ROM (128 banks), and 32KB RAM
 (4 banks), the MBC3 also includes a built-in Real Time Clock (RTC). The
@@ -50,23 +49,25 @@ that is done by using address A000.
 When writing 00h, and then 01h to this register, the current time
 becomes latched into the RTC registers. The latched data will not change
 until it becomes latched again, by repeating the write 00h-\>01h
-procedure. This is supposed for <reading> from the RTC registers. This
+procedure. This is supposed for **reading** from the RTC registers. This
 can be proven by reading the latched (frozen) time from the RTC
 registers, and then unlatch the registers to show the clock itself
 continues to tick in background.
 
 ### The Clock Counter Registers
 
-` 08h  RTC S   Seconds   0-59 (0-3Bh)`\
-` 09h  RTC M   Minutes   0-59 (0-3Bh)`\
-` 0Ah  RTC H   Hours     0-23 (0-17h)`\
-` 0Bh  RTC DL  Lower 8 bits of Day Counter (0-FFh)`\
-` 0Ch  RTC DH  Upper 1 bit of Day Counter, Carry Bit, Halt Flag`\
-`       Bit 0  Most significant bit of Day Counter (Bit 8)`\
-`       Bit 6  Halt (0=Active, 1=Stop Timer)`\
-`       Bit 7  Day Counter Carry Bit (1=Counter Overflow)`
+```
+08h  RTC S   Seconds   0-59 (0-3Bh)
+09h  RTC M   Minutes   0-59 (0-3Bh)
+0Ah  RTC H   Hours     0-23 (0-17h)
+0Bh  RTC DL  Lower 8 bits of Day Counter (0-FFh)
+0Ch  RTC DH  Upper 1 bit of Day Counter, Carry Bit, Halt Flag
+      Bit 0  Most significant bit of Day Counter (Bit 8)
+      Bit 6  Halt (0=Active, 1=Stop Timer)
+      Bit 7  Day Counter Carry Bit (1=Counter Overflow)
+```
 
-The Halt Flag is supposed to be set before <writing> to the RTC
+The Halt Flag is supposed to be set before **writing** to the RTC
 Registers.
 
 ### The Day Counter

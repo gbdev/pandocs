@@ -25,9 +25,9 @@ The single, most comprehensive technical reference to Game Boy available to the 
 - Cartridges
 	- Cartridge header
 	- [MBC1](#mbc1)
-	- MBC2
-	- MBC3
-	- MBC5
+	- [MBC2](#mbc2)
+	- [MBC3](#mbc3)
+	- [MBC5](#mbc5)
 	- MBC6
 	- MBC7
 	- HuC1
@@ -91,6 +91,18 @@ This document is the product of 25 years of community effort: it's hard to keep 
 # MBC1
 
 !INCLUDE "MBC1.md", 1
+
+# MBC2
+
+!INCLUDE "MBC2.md", 1
+
+# MBC3
+
+!INCLUDE "MBC3.md", 1
+
+# MBC5
+
+!INCLUDE "MBC5.md", 1
 
 # Power Up Sequence
 

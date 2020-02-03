@@ -6,3 +6,4 @@
 - [Game Boy CPU (SM83) instruction set](https://gbdev.github.io/gb-opcodes/optables/)
 - [Gekkio. Dumping the Super Game Boy 2 boot ROM](https://gekkio.fi/blog/2015/dumping-the-super-game-boy-2-boot-rom/)
 - [exezin. OAM DMA tutorial](https://exez.in/gameboy-dma)
+- [MBC5 schematic](http://www.semis.demon.co.uk/Gameboy/Gbmain.htm)
