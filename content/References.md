@@ -7,3 +7,4 @@
 - [Gekkio. Dumping the Super Game Boy 2 boot ROM](https://gekkio.fi/blog/2015/dumping-the-super-game-boy-2-boot-rom/)
 - [exezin. OAM DMA tutorial](https://exez.in/gameboy-dma)
 - [MBC5 schematic](http://www.semis.demon.co.uk/Gameboy/Gbmain.htm)
+- [Furrtek - Reverse-engineered schematics for DMG-CPU-B](https://github.com/furrtek/DMG-CPU-Inside)
