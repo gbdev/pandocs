@@ -17,7 +17,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- [Timer and Divider Registers](#timer-and-divider-registers)
 	- [Interrupts](#interrupts)
 	- CGB Registers
-	- SGB Functions
+	- [SGB Functions](#sgb-functions)
 - CPU Specifications
 	- Registers and Flags
 	- Instruction Set
@@ -87,6 +87,10 @@ This document is the product of 25 years of community effort: it's hard to keep 
 # Interrupts
 
 !INCLUDE "Interrupts.md", 1
+
+# SGB Functions
+
+!INCLUDE "SGB_Functions.md", 1
 
 # MBC1
 

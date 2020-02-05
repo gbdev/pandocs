@@ -1,5 +1,4 @@
-SGB Description
----------------
+# SGB Description
 
 ### General Description
 
@@ -36,7 +35,7 @@ the following additional features:
 
 ### Colorized Game Screen
 
-There\'s limited ability to colorize the gamescreen by assigning custom
+There's limited ability to colorize the gamescreen by assigning custom
 color palettes to each 20x18 display characters, however, this works
 mainly for static display data such like title screens or status bars,
 the 20x18 color attribute map is non-scrollable, and it is not possible
@@ -48,8 +47,8 @@ palette of four colors only.
 
 Up to 24 foreground sprites (OBJs) of 8x8 or 16x16 pixels, 16 colors can
 be displayed. When replacing (or just overlaying) the normal gameboy
-OBJs by SNES OBJs it\'d be thus possible to display OBJs with other
-colors than normal background area. This method doesn\'t appear to be
+OBJs by SNES OBJs it'd be thus possible to display OBJs with other
+colors than normal background area. This method doesn't appear to be
 very popular, even though it appears to be quite easy to implement,
 however, the bottommost character line of the gamescreen will be masked
 out because this area is used to transfer OAM data to the SNES.
@@ -92,12 +91,11 @@ should be no problem, and the game will just run a little bit faster.
 However sensitive musicians may notice that sound frequencies are a bit
 too high, programs that support SGB functions may avoid this effect by
 reducing frequencies of Game Boy sounds when having detected SGB
-hardware. Also, I think that I\'ve heard that SNES models which use a
+hardware. Also, I think that I've heard that SNES models which use a
 50Hz display refresh rate (rather than 60Hz) are resulting in
 respectively slower SGB/gameboy timings ???
 
-SGB Unlocking and Detecting SGB Functions
------------------------------------------
+# SGB Unlocking and Detecting SGB Functions
 
 ### Cartridge Header
 
@@ -108,20 +106,20 @@ must be set in order to unlock SGB functions:
 ` 146h - SGB Flag - Must be set to 03h for SGB games`\
 ` 14Bh - Old Licensee Code - Must be set 33h for SGB games`
 
-When these entries aren\'t set, the game will still work just like all
-\'monochrome\' Game Boy games, but it cannot access any of the special
+When these entries aren't set, the game will still work just like all
+'monochrome' Game Boy games, but it cannot access any of the special
 SGB functions.
 
 ### Detecting SGB hardware
 
-The recommended detection method is to send a MLT\_REQ command which
+The recommended detection method is to send a MLT_REQ command which
 enables two (or four) joypads. A normal handheld Game Boy will ignore
 this command, a SGB will now return incrementing joypad IDs each time
-when deselecting keyboard lines (see MLT\_REQ description for details).
+when deselecting keyboard lines (see MLT_REQ description for details).
 Now read-out joypad state/IDs several times, and if the ID-numbers are
 changing, then it is a SGB (a normal Game Boy would typically always
 return 0Fh as ID). Finally, when not intending to use more than one
-joypad, send another MLT\_REQ command in order to re-disable the
+joypad, send another MLT_REQ command in order to re-disable the
 multi-controller mode. Detection works regardless of whether and how
 many joypads are physically connected to the SNES. However, detection
 works only when having unlocked SGB functions in the cartridge header,
@@ -137,17 +135,16 @@ the inital value of the accumulator (A-register) directly after startup.
 ` 11h  CGB or GBA`
 
 Because values 01h and FFh are shared for both handhelds and SGBs, it is
-still required to use the above MLT\_REQ detection procedure. As far as
-I know the SGB2 doesn\'t have any extra features which\'d require
+still required to use the above MLT_REQ detection procedure. As far as
+I know the SGB2 doesn't have any extra features which'd require
 separate SGB2 detection except for curiosity purposes, for example, the
-game \"Tetris DX\" chooses to display an alternate SGB border on SGB2s.
+game "Tetris DX" chooses to display an alternate SGB border on SGB2s.
 
 Reportedly, some SGB models include link ports (just like handheld
 gameboy) (my own SGB does not have such an port), possibly this feature
 is available in SGB2-type models only ???
 
-SGB Command Packet Transfers
-----------------------------
+# SGB Command Packet Transfers
 
 Command packets (aka Register Files) are transferred from the Game Boy to
 the SNES by using P14 and P15 output lines of the JOYPAD register
@@ -159,7 +156,7 @@ gameboy keyboard matrix (which still works).
 A command packet transfer must be initiated by setting both P14 and P15
 to LOW, this will reset and start the SNES packet receiving program.
 Data is then transferred (LSB first), setting P14=LOW will indicate a
-\"0\" bit, and setting P15=LOW will indicate a \"1\" bit. For example:
+"0" bit, and setting P15=LOW will indicate a "1" bit. For example:
 
 `      RESET 0   0   1   1   0   1   0`\
 ` P14  --_---_---_-----------_-------_--...`\
@@ -167,7 +164,7 @@ Data is then transferred (LSB first), setting P14=LOW will indicate a
 
 Data and reset pulses must be kept LOW for at least 5us. P14 and P15
 must be kept both HIGH for at least 15us between any pulses. Obviously,
-it\'d be no good idea to access the JOYPAD register during the transfer,
+it'd be no good idea to access the JOYPAD register during the transfer,
 for example, in case that your VBlank interrupt procedure reads-out
 joypad states each frame, be sure to disable that interrupt during the
 transfer (or disable only the joypad procedure by using a software
@@ -177,7 +174,7 @@ flag).
 
 Each packet is invoked by a RESET pulse, then 128 bits of data are
 transferred (16 bytes, LSB of first byte first), and finally, a
-\"0\"-bit must be transferred as stop bit. The structure of normal
+"0"-bit must be transferred as stop bit. The structure of normal
 packets is:
 
 `  1 PULSE Reset`\
@@ -185,7 +182,7 @@ packets is:
 ` 15 BYTES Parameter Data`\
 `  1 BIT   Stop Bit (0)`
 
-The above \'Length\' indicates the total number of packets (1-7,
+The above 'Length' indicates the total number of packets (1-7,
 including the first packet) which will be sent, ie. if more than 15
 parameter bytes are used, then further packet(s) will follow, as such:
 
@@ -194,11 +191,10 @@ parameter bytes are used, then further packet(s) will follow, as such:
 `  1 BIT   Stop Bit (0)`
 
 By using all 7 packets, up to 111 data bytes (15+16\*6) may be sent.
-Unused bytes at the end of the last packet don\'t matter. A 60ms (4
+Unused bytes at the end of the last packet don't matter. A 60ms (4
 frames) delay should be invoked between each packet transfer.
 
-SGB VRAM Transfers
-------------------
+# SGB VRAM Transfers
 
 ### Overview
 
@@ -225,7 +221,7 @@ the background tiles, the BGP palette register must be set to E4h.
 
 ### Transfer Time
 
-Note that the transfer data should be prepared in VRAM <before> sending
+Note that the transfer data should be prepared in VRAM **before** sending
 the transfer command packet. The actual transfer starts at the beginning
 of the next frame after the command has been sent, and the transfer ends
 at the end of the 5th frame after the command has been sent (not
@@ -235,15 +231,14 @@ multiple chunks.
 
 ### Avoiding Screen Garbage
 
-The display will contain \'garbage\' during the transfer, this
+The display will contain 'garbage' during the transfer, this
 dirt-effect can be avoided by freezing the screen (in the state which
-has been displayed before the transfer) by using the MASK\_EN command.
+has been displayed before the transfer) by using the MASK_EN command.
 Of course, this works only when actually executing the game on a SGB
-(and not on normal handheld gameboys), it\'d be thus required to detect
+(and not on normal handheld gameboys), it'd be thus required to detect
 the presence of SGB hardware before blindly sending VRAM data.
 
-SGB Command Summary
--------------------
+# SGB Command Summary
 
 ### SGB System Command Table
 
@@ -274,8 +269,7 @@ SGB Command Summary
 ` 17   MASK_EN   Game Boy Window Mask`\
 ` 18   OBJ_TRN   Super NES OBJ Mode`
 
-SGB Color Palettes Overview
----------------------------
+# SGB Color Palettes Overview
 
 ### Available SNES Palettes
 
@@ -292,7 +286,7 @@ Colors are encoded as 16-bit RGB numbers, in the following way:
 ` FEDC BA98 7654 3210`\
 ` 0BBB BBGG GGGR RRRR`
 
-Here\'s a formula to convert 24-bit RGB into SNES format:
+Here's a formula to convert 24-bit RGB into SNES format:
 `(color & 0xF8) << 7 | (color & 0xF800) >> 6 | (color & 0xF80000) >> 19`
 
 The palettes are encoded **little-endian**, thus, the R/G byte comes
@@ -328,7 +322,7 @@ relationship between Game Boy colors 0-3 and SNES colors 0-3.
 A direct translation of GB color 0-3 into SNES color 0-3 may be produced
 by setting BGP/OBP registers to a value of 0E4h each. However, in case
 that your program uses black background for example, then you may
-internally assign background as \"White\" at the Game Boy side by BGP/OBP
+internally assign background as "White" at the Game Boy side by BGP/OBP
 registers (which is then interpreted as SNES color 0, which is shared
 for all SNES palettes). The advantage is that you may define Color 0 as
 Black at the SNES side, and may assign custom colors for Colors 1-3 of
@@ -343,8 +337,7 @@ pre-defined colors may be transferred to actually visible palettes
 slightly faster than when transferring palette data by separate command
 packets.
 
-SGB Palette Commands
---------------------
+# SGB Palette Commands
 
 ### SGB Command 00h - PAL01
 
@@ -377,7 +370,7 @@ Same as above PAL01, but for Palettes 0 and 3 respectively.
 
 Same as above PAL01, but for Palettes 1 and 2 respectively.
 
-### SGB Command 0Ah - PAL\_SET
+### SGB Command 0Ah - PAL_SET
 
 Used to copy pre-defined palette data from SGB system color palettes to
 actual SNES palettes.
@@ -397,16 +390,16 @@ Note: all palette numbers are little-endian.
 ` A-F   Not used (zero)`
 
 Before using this function, System Palette data should be initialized by
-PAL\_TRN command, and (when used) Attribute File data should be
-initialized by ATTR\_TRN.
+PAL_TRN command, and (when used) Attribute File data should be
+initialized by ATTR_TRN.
 
-### SGB Command 0Bh - PAL\_TRN
+### SGB Command 0Bh - PAL_TRN
 
 Used to initialize SGB system color palettes in SNES RAM. System color
 palette memory contains 512 pre-defined palettes, these palettes do not
-directly affect the display, however, the PAL\_SET command may be later
-used to transfer four of these \'logical\' palettes to actual visible
-\'physical\' SGB palettes. Also, the OBJ\_TRN function will use groups
+directly affect the display, however, the PAL_SET command may be later
+used to transfer four of these 'logical' palettes to actual visible
+'physical' SGB palettes. Also, the OBJ_TRN function will use groups
 of 4 System Color Palettes (4\*4 colors) for SNES OBJ palettes (16
 colors).
 
@@ -421,10 +414,9 @@ The palette data is sent by VRAM-Transfer (4 KBytes).
 Each Palette consists of four 16bit-color definitions (8 bytes). Note:
 The data is stored at 3000h-3FFFh in SNES memory.
 
-SGB Color Attribute Commands
-----------------------------
+# SGB Color Attribute Commands
 
-### SGB Command 04h - ATTR\_BLK
+### SGB Command 04h - ATTR_BLK
 
 Used to specify color attributes for the inside or outside of one or
 more rectangular screen regions.
@@ -457,7 +449,7 @@ When sending three or more data sets, data is continued in further
 packet(s). Unused bytes at the end of the last packet should be set to
 zero. The format of the separate Data Sets is described below.
 
-### SGB Command 05h - ATTR\_LIN
+### SGB Command 05h - ATTR_LIN
 
 Used to specify color attributes of one or more horizontal or vertical
 character lines.
@@ -480,7 +472,7 @@ below. The length of each line reaches from one end of the screen to the
 other end. In case that some lines overlap each other, then lines from
 lastmost data sets will overwrite lines from previous data sets.
 
-### SGB Command 06h - ATTR\_DIV
+### SGB Command 06h - ATTR_DIV
 
 Used to split the screen into two halfes, and to assign separate color
 attributes to each half, and to the division line between them.
@@ -495,7 +487,7 @@ attributes to each half, and to the division line between them.
 ` 2     X- or Y-Coordinate (depending on H/V bit)`\
 ` 3-F   Not used (zero)`
 
-### SGB Command 07h - ATTR\_CHR
+### SGB Command 07h - ATTR_CHR
 
 Used to specify color attributes for separate characters.
 
@@ -517,13 +509,13 @@ for one character. Depending on the writing style, data sets are written
 from left to right, or from top to bottom. In either case the function
 wraps to the next row/column when reaching the end of the screen.
 
-### SGB Command 15h - ATTR\_TRN
+### SGB Command 15h - ATTR_TRN
 
 Used to initialize Attribute Files (ATFs) in SNES RAM. Each ATF consists
 of 20x18 color attributes for the Game Boy screen. This function does not
 directly affect display attributes. Instead, one of the defined ATFs may
-be copied to actual display memory at a later time by using ATTR\_SET or
-PAL\_SET functions.
+be copied to actual display memory at a later time by using ATTR_SET or
+PAL_SET functions.
 
 ` Byte  Content`\
 ` 0     Command*8+Length (fixed length=1)`\
@@ -540,7 +532,7 @@ bits of the first byte define the color attribute (0-3) for the first
 character of the first line, the next two bits the next character, and
 so on.
 
-### SGB Command 16h - ATTR\_SET
+### SGB Command 16h - ATTR_SET
 
 Used to transfer attributes from Attribute File (ATF) to Game Boy window.
 
@@ -550,12 +542,11 @@ Used to transfer attributes from Attribute File (ATF) to Game Boy window.
 ` 2-F   Not used (zero)`
 
 When above Bit 6 is set, the Game Boy screen becomes re-enabled after the
-transfer (in case it has been disabled/frozen by MASK\_EN command).
-Note: The same functions may be (optionally) also included in PAL\_SET
+transfer (in case it has been disabled/frozen by MASK_EN command).
+Note: The same functions may be (optionally) also included in PAL_SET
 commands, as described in the chapter about Color Palette Commands.
 
-SGB Sound Functions
--------------------
+# SGB Sound Functions
 
 ### SGB Command 08h - SOUND
 
@@ -584,11 +575,11 @@ Notes:
     mute is turned off.
 3.  When Mute on/off has been executed, the sound fades out/fades in.
 4.  Mute on/off operates on the (BGM) which is reproduced by Sound
-    Effect A, Sound Effect B, and the Super NES APU. A \"mute off\" flag
+    Effect A, Sound Effect B, and the Super NES APU. A "mute off" flag
     does not exist by itself. When mute flag is set, volume and pitch of
     Sound Effect A (port 1) and Sound Effect B (port 2) must be set.
 
-### SGB Command 09h - SOU\_TRN
+### SGB Command 09h - SOU_TRN
 
 Used to transfer sound code or data to SNES Audio Processing Unit memory
 (APU-RAM).
@@ -617,7 +608,7 @@ knowledge of SNES sound programming.
 ### SGB Sound Effect A/B Tables
 
 Below lists the digital sound effects that are pre-defined in the
-SGB/SNES BIOS, and which can be used with the SGB \"SOUND\" Command.
+SGB/SNES BIOS, and which can be used with the SGB "SOUND" Command.
 Effect A and B may be simultaneously reproduced. The P-column indicates
 the recommended Pitch value, the V-column indicates the numbers of
 Voices used. Sound Effect A uses voices 6,7. Sound Effect B uses voices
@@ -675,14 +666,13 @@ Sound effect A is used for formanto sounds (percussion sounds).
 
 Sound effect B is mainly used for looping sounds (sustained sounds).
 
-SGB System Control Commands
----------------------------
+# SGB System Control Commands
 
-### SGB Command 17h - MASK\_EN
+### SGB Command 17h - MASK_EN
 
 Used to mask the Game Boy window, among others this can be used to freeze
 the Game Boy screen before transferring data through VRAM (the SNES then
-keeps displaying the Game Boy screen, even though VRAM doesn\'t contain
+keeps displaying the Game Boy screen, even though VRAM doesn't contain
 meaningful display information during the transfer).
 
 ` Byte  Content`\
@@ -697,18 +687,18 @@ meaningful display information during the transfer).
 Freezing works only if the SNES has stored a picture, ie. if necessary
 wait one or two frames before freezing (rather than freezing directly
 after having displayed the picture). The Cancel Mask function may be
-also invoked (optionally) by completion of PAL\_SET and ATTR\_SET
+also invoked (optionally) by completion of PAL_SET and ATTR_SET
 commands.
 
-### SGB Command 0Ch - ATRC\_EN
+### SGB Command 0Ch - ATRC_EN
 
 Used to enable/disable Attraction mode, which is enabled by default.
 
 Built-in borders other than the Game Boy frame and the plain black
-border have a \"screen saver\" activated by pressing R, L, L, L, L, R or
+border have a "screen saver" activated by pressing R, L, L, L, L, R or
 by leaving the controller alone for roughly 7 minutes (tested with 144p
 Test Suite). It is speculated that the animation may have interfered
-with rarely-used SGB features, such as OBJ\_TRN or JUMP, and that
+with rarely-used SGB features, such as OBJ_TRN or JUMP, and that
 Attraction Disable disables this animation.
 
 ` Byte  Content`\
@@ -716,10 +706,10 @@ Attraction Disable disables this animation.
 ` 1     Attraction Disable  (0=Enable, 1=Disable)`\
 ` 2-F   Not used (zero)`
 
-### SGB Command 0Dh - TEST\_EN
+### SGB Command 0Dh - TEST_EN
 
-Used to enable/disable test mode for \"SGB-CPU variable clock speed
-function\". This function is disabled by default.
+Used to enable/disable test mode for "SGB-CPU variable clock speed
+function". This function is disabled by default.
 
 This command does nothing on some SGB revisions. (SGBv2 confirmed,
 unknown on others)
@@ -733,7 +723,7 @@ Maybe intended to determine whether SNES operates at 50Hz or 60Hz
 display refresh rate ??? Possibly result can be read-out from joypad
 register ???
 
-### SGB Command 0Eh - ICON\_EN
+### SGB Command 0Eh - ICON_EN
 
 Used to enable/disable ICON function. Possibly meant to enable/disable
 SGB/SNES popup menues which might otherwise activated during gameboy
@@ -753,7 +743,7 @@ might be useful when starting a monochrome game from inside of the
 SGB-menu of a multi-gamepak which contains a collection of different
 games.
 
-### SGB Command 0Fh - DATA\_SND
+### SGB Command 0Fh - DATA_SND
 
 Used to write one or more bytes directly into SNES Work RAM.
 
@@ -773,7 +763,7 @@ function is restricted to a single packet, so that not more than 11
 bytes can be defined at once. Free Addresses in SNES memory are Bank 0
 1800h-1FFFh, Bank 7Fh 0000h-FFFFh.
 
-### SGB Command 10h - DATA\_TRN
+### SGB Command 10h - DATA_TRN
 
 Used to transfer binary code or data directly into SNES RAM.
 
@@ -808,33 +798,32 @@ to specific addresses.
 ` 6     SNES NMI Handler, bank number`\
 ` 7-F   Not used, zero`
 
-The game *Space Invaders* uses this function when selecting \"Arcade
-mode\" to execute SNES program code which has been previously
+The game *Space Invaders* uses this function when selecting "Arcade
+mode" to execute SNES program code which has been previously
 transferred from the SGB to the SNES. The SNES CPU is a Ricoh 5A22,
 which combines a 65C816 core licensed from WDC with a custom memory
-controller. For more information, see [\"fullsnes\" by
+controller. For more information, see ["fullsnes" by
 nocash](https://problemkaputt.de/fullsnes.htm).
 
 Some notes for intrepid Super NES programmers seeking to use a flash
 cartridge in a Super Game Boy as a storage server:
 
--   JUMP overwrites the NMI handler even if it is \$000000.
+-   JUMP overwrites the NMI handler even if it is $000000.
 -   The SGB system software does not appear to use NMIs.
 -   JUMP can return to SGB system software via a 16-bit RTS. To do this,
-    JML to a location in bank \$00 containing byte value \$60, such as
+    JML to a location in bank $00 containing byte value $60, such as
     any of the [stubbed commands](#Stubbed_commands "wikilink").
 -   IRQs and COP and BRK instructions are not useful because their
     handlers still point into SGB ROM. Use SEI WAI.
 -   If a program called through JUMP does not intend to return to SGB
-    system software, it can overwrite all Super NES RAM except \$0000BB
-    through \$0000BD, the NMI vector.
--   To enter APU boot ROM, write \$FE to \$2140. Echo will still be on
+    system software, it can overwrite all Super NES RAM except $0000BB
+    through $0000BD, the NMI vector.
+-   To enter APU boot ROM, write $FE to $2140. Echo will still be on
     though.
 
-SGB Multiplayer Command
------------------------
+# SGB Multiplayer Command
 
-### SGB Command 11h - MLT\_REQ
+### SGB Command 11h - MLT_REQ
 
 Used to request multiplayer mode (ie. input from more than one joypad).
 Because this function provides feedback from the SGB/SNES to the Game
@@ -851,20 +840,20 @@ Boy program, it is also used to detect SGB hardware.
 In one player mode, the second joypad (if any) is used for the SGB
 system program. In two player mode, both joypads are used for the game.
 Because SNES have only two joypad sockets, four player mode requires an
-external \"Multiplayer 5\" adapter.
+external "Multiplayer 5" adapter.
 
 Changing the number of active players ANDs the currently selected player
 minus one with the number of players in that mode minus one. For example
 if you go from four players to two players and player 4 was active
 player 2 will then be active because 3 AND 1 is 1. However, sending the
-MLT\_REQ command will increment the counter several times so results may
+MLT_REQ command will increment the counter several times so results may
 not be exactly as expected. The most frequent case is going from one
 player to two-or-four player which will always start with player 1
 active.
 
 ### Reading Multiple Controllers (Joypads)
 
-When having enabled multiple controllers by MLT\_REQ, data for each
+When having enabled multiple controllers by MLT_REQ, data for each
 joypad can be read out through JOYPAD register (FF00) as follows: First
 set P14 and P15 both HIGH (deselect both Buttons and Cursor keys), you
 can now read the lower 4bits of FF00 which indicate the joypad ID for
@@ -888,15 +877,14 @@ again without bringing both P14 and P15 HIGH at any point, it cancels
 the increment until P15 is lowered again. There are games, such as
 Pokémon Yellow, which rely on this cancelling when detecting the SGB.
 
-SGB Border and OBJ Commands
----------------------------
+# SGB Border and OBJ Commands
 
-### SGB Command 13h - CHR\_TRN
+### SGB Command 13h - CHR_TRN
 
 Used to transfer tile data (characters) to SNES Tile memory in VRAM.
-This normally used to define BG tiles for the SGB Border (see PCT\_TRN),
+This normally used to define BG tiles for the SGB Border (see PCT_TRN),
 but might be also used to define moveable SNES foreground sprites (see
-OBJ\_TRN).
+OBJ_TRN).
 
 ` Byte  Content`\
 ` 0     Command*8+Length    (fixed length=1)`\
@@ -918,11 +906,11 @@ OBJ ???
 
 TODO: explain tile format
 
-### SGB Command 14h - PCT\_TRN
+### SGB Command 14h - PCT_TRN
 
 Used to transfer tile map data and palette data to SNES BG Map memory in
 VRAM to be used for the SGB border. The actual tiles must be separately
-transferred by using the CHR\_TRN function.
+transferred by using the CHR_TRN function.
 
 ` Byte  Content`\
 ` 0     Command*8+Length    (fixed length=1)`\
@@ -948,7 +936,7 @@ The 32x28 map entries correspond to 256x224 pixels of the Super NES
 screen. The 20x18 entries in the center of the 32x28 area should be set
 to a blank (solid color 0) tile as transparent space for the Game Boy
 window to be displayed inside. Non-transparent border data will cover
-the Game Boy window (for example, *Mario\'s Picross* does this, as does
+the Game Boy window (for example, *Mario's Picross* does this, as does
 *WildSnake* to a lesser extent).
 
 All borders repeat tiles. Assuming that the blank space for the GB
@@ -962,7 +950,7 @@ But the CHR RAM allocated by SGB for border holds only 256 tiles. This
 means a fullscreen border must repeat at least 281 tiles and a
 widescreen border at least 90.
 
-### SGB Command 18h - OBJ\_TRN
+### SGB Command 18h - OBJ_TRN
 
 Used to transfer OBJ attributes to SNES OAM memory. Unlike all other
 functions with the ending \_TRN, this function does not use the usual
@@ -972,7 +960,7 @@ lower character line of the Game Boy screen. To suppress garbage on the
 display, the lower line is masked, and only the upper 20x17 characters
 of the Game Boy window are used - the masking method is unknwon - frozen,
 black, or recommended to be covered by the SGB border, or else ??? Also,
-when the function is enabled, \"system attract mode is not performed\" -
+when the function is enabled, "system attract mode is not performed" -
 whatever that means ???
 
 This command does nothing on some SGB revisions. (SGBv2, SGB2?)
@@ -996,7 +984,7 @@ This command does nothing on some SGB revisions. (SGBv2, SGB2?)
 `         system palettes 511, 0, 1, 2 to the SNES OBJ palette.`\
 ` A-F   Not used (zero)`
 
-The recommended method is to \"display\" Game Boy BG tiles F9h..FFh from
+The recommended method is to "display" Game Boy BG tiles F9h..FFh from
 left to right as first 7 characters of the bottom-most character line of
 the Game Boy screen. As for normal 4KByte VRAM transfers, this area
 should not be scrolled, should not be overlapped by Game Boy OBJs, and
@@ -1025,24 +1013,22 @@ The format of SNES OAM MSB Entries is:
 ` One bit is the most significant bit of the OBJ X-Position.`\
 ` The other bit specifies the OBJ size (8x8 or 16x16 pixels).`
 
-Undocumented SGB commands
--------------------------
+# Undocumented SGB commands
 
 The following information has been extracted from disassembling a SGBv2
 firmware; it should be verified on other SGB revisions.
 
-The SGB firmware explicitly ignores all commands with ID \>= \$1E. This
-leaves undocumented commands \$19 to \$1D inclusive.
+The SGB firmware explicitly ignores all commands with ID >= $1E. This
+leaves undocumented commands $19 to $1D inclusive.
 
 ### Stubbed commands
 
-Commands \$1A to \$1F (inclusive)\'s handlers are stubs (only contain a
-\`RTS\`). This is interesting, since the command-processing function
-explicitly ignores commands \$1E and \$1F.
+Commands $1A to $1F (inclusive)'s handlers are stubs (only contain a
+`RTS`). This is interesting, since the command-processing function
+explicitly ignores commands $1E and $1F.
 
 ### SGB command 19h
 
-The game Donkey Kong \'94 appears to send this command, and it appears
-to set a flag in the SGB\'s memory. It\'s not known yet what it does,
+The game Donkey Kong '94 appears to send this command, and it appears
+to set a flag in the SGB's memory. It's not known yet what it does,
 though.
-
