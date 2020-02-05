@@ -35,35 +35,37 @@ rounded up to a multiple of 4 cycles.
 
 ### Moved, Removed, and Added Opcodes
 
-` Opcode  Z80             GMB`\
-` ---------------------------------------`\
-` 08      EX   AF,AF      LD   (nn),SP`\
-` 10      DJNZ PC+dd      STOP`\
-` 22      LD   (nn),HL    LDI  (HL),A`\
-` 2A      LD   HL,(nn)    LDI  A,(HL)`\
-` 32      LD   (nn),A     LDD  (HL),A`\
-` 3A      LD   A,(nn)     LDD  A,(HL)`\
-` D3      OUT  (n),A      -`\
-` D9      EXX             RETI`\
-` DB      IN   A,(n)      -`\
-` DD      `<IX>`            -`\
-` E0      RET  PO         LD   (FF00+n),A`\
-` E2      JP   PO,nn      LD   (FF00+C),A`\
-` E3      EX   (SP),HL    -`\
-` E4      CALL P0,nn      -`\
-` E8      RET  PE         ADD  SP,dd`\
-` EA      JP   PE,nn      LD   (nn),A`\
-` EB      EX   DE,HL      -`\
-` EC      CALL PE,nn      -`\
-` ED      `<pref>`          -`\
-` F0      RET  P          LD   A,(FF00+n)`\
-` F2      JP   P,nn       LD   A,(FF00+C)`\
-` F4      CALL P,nn       -`\
-` F8      RET  M          LD   HL,SP+dd`\
-` FA      JP   M,nn       LD   A,(nn)`\
-` FC      CALL M,nn       -`\
-` FD      `<IY>`            -`\
-` CB3X    SLL  r/(HL)     SWAP r/(HL)`
+```
+Opcode  Z80             GMB
+---------------------------------------
+08      EX   AF,AF      LD   (nn),SP
+10      DJNZ PC+dd      STOP
+22      LD   (nn),HL    LDI  (HL),A
+2A      LD   HL,(nn)    LDI  A,(HL)
+32      LD   (nn),A     LDD  (HL),A
+3A      LD   A,(nn)     LDD  A,(HL)
+D3      OUT  (n),A      -
+D9      EXX             RETI
+DB      IN   A,(n)      -
+DD      `<IX>`            -
+E0      RET  PO         LD   (FF00+n),A
+E2      JP   PO,nn      LD   (FF00+C),A
+E3      EX   (SP),HL    -
+E4      CALL P0,nn      -
+E8      RET  PE         ADD  SP,dd
+EA      JP   PE,nn      LD   (nn),A
+EB      EX   DE,HL      -
+EC      CALL PE,nn      -
+ED      `<pref>`          -
+F0      RET  P          LD   A,(FF00+n)
+F2      JP   P,nn       LD   A,(FF00+C)
+F4      CALL P,nn       -
+F8      RET  M          LD   HL,SP+dd
+FA      JP   M,nn       LD   A,(nn)
+FC      CALL M,nn       -
+FD      `<IY>`            -
+CB3X    SLL  r/(HL)     SWAP r/(HL)
+```
 
 Note: The unused (-) opcodes will lock up the Game Boy CPU when used.
 
