@@ -8,3 +8,4 @@
 - [exezin. OAM DMA tutorial](https://exez.in/gameboy-dma)
 - [MBC5 schematic](http://www.semis.demon.co.uk/Gameboy/Gbmain.htm)
 - [Furrtek - Reverse-engineered schematics for DMG-CPU-B](https://github.com/furrtek/DMG-CPU-Inside)
+- [Pan of ATX, Marat Fayzullin, Felber Pascal, Robson Paul, and Korth Martin - Pan Docs (previous versions and revisions)](https://github.com/gbdev/pandocs/tree/develop/historical)
