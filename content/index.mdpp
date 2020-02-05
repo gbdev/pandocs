@@ -21,7 +21,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 - CPU Specifications
 	- Registers and Flags
 	- Instruction Set
-	- Comparision with Z80
+	- [Comparision with Z80](#comparison-with-z80)
 - Cartridges
 	- Cartridge header
 	- [MBC1](#mbc1)
@@ -92,6 +92,9 @@ This document is the product of 25 years of community effort: it's hard to keep 
 
 !INCLUDE "SGB_Functions.md", 1
 
+# Comparison with Z80
+
+!INCLUDE "CPU_Comparision_with_Z80.md", 1
 # MBC1
 
 !INCLUDE "MBC1.md", 1
