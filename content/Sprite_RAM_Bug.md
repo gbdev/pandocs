@@ -1,25 +1,26 @@
 There is a flaw in the Game Boy hardware that causes trash to be written
 to OAM RAM if the following commands are used while their 16-bit content
-is in the range of \$FE00 to \$FEFF while the PPU is in mode 2:
+is in the range of $FE00 to $FEFF while the PPU is in mode 2:
 
-` inc rr        dec rr          ;rr = bc,de, or hl`\
-` ldi a,(hl)    ldd a,(hl)`\
-` ldi (hl),a    ldd (hl),a`
+```
+ inc rr        dec rr          ;rr = bc,de, or hl
+ ldi a,(hl)    ldd a,(hl)
+ ldi (hl),a    ldd (hl),a
+```
 
-Sprites 1 & 2 (\$FE00 & \$FE04) are not affected by this bug.
+Sprites 1 & 2 ($FE00 & $FE04) are not affected by this bug.
 
 Game Boy Color and Advance are not affected by this bug.
 
-Accurate Description
---------------------
+# Accurate Description
 
 The Sprite RAM Bug (or OAM Bug) actually consists of two different bugs:
 
--   Attempting to read or write from OAM (Including the \$FFA0-\$FEFF
+-   Attempting to read or write from OAM (Including the $FFA0-$FEFF
     region) while the PPU is in mode 2 (OAM mode) will corrupt it.
 -   Performing an increase or decrease operation on any 16-bit register
     (BC, DE, HL, SP or PC) while that register is in the OAM range
-    (\$FE00 - \$FEFF) will trigger a memory write to OAM, causing a
+    ($FE00 - $FEFF) will trigger a memory write to OAM, causing a
     corruption.
 
 ### Affected Operations
@@ -45,7 +46,7 @@ The following operations are affected by this bug:
 -   Executing code from OAM - If PC is inside OAM (executing FF,
     i.e.`rst $38`) the bug will trigger twice, once for increasing PC
     inside OAM (triggering a write), and once for reading from OAM. If a
-    multi-byte opcode is executed from \$FDFF or \$FDFE, and bug will
+    multi-byte opcode is executed from $FDFF or $FDFE, and bug will
     similarly trigger twice for every read from OAM.
 
 ### Corruption Patterns
@@ -61,7 +62,7 @@ operations are on 16-bit words.
 #### Write Corruption
 
 A write corruption corrupts the currently access row in the following
-manner, as long as it\'s not the first row (containing the first two
+manner, as long as it's not the first row (containing the first two
 sprites):
 
 -   The first word in the row is replaced with this bitwise expression:
@@ -89,7 +90,7 @@ this will effectively trigger both a read **and** a write in a single
 M-cycle, resulting in a more complex corruption pattern:
 
 -   This corruption will not happen if the accessed row is one of the
-    first four, as well as if it\'s the last row:
+    first four, as well as if it's the last row:
     -   The first word in the row preceding the currently accessed row
         is replaced with the following bitwise expression:
         `(b & (a | c | d)) | (a & c & d)` where `a` is the first word

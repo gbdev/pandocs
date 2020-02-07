@@ -37,7 +37,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- Gamegenie/Shark Cheats
 - Other
 	- [Power Up Sequence](#power-up-sequence)
-	- Reducing Power Consumption
+	- [Reducing Power Consumption](#reducing-power-consumption)
 	- Sprite RAM Bug
 	- External Connectors 
 - [References](#references)
@@ -114,6 +114,14 @@ This document is the product of 25 years of community effort: it's hard to keep 
 # Power Up Sequence
 
 !INCLUDE "Power_Up_Sequence.md", 1
+
+# Reducing Power Consumption
+
+!INCLUDE "Reducing_Power_Consumption.md", 1
+
+# Sprite RAM Bug
+
+!INCLUDE "Sprite_RAM_Bug.md", 1
 
 ### References
 
