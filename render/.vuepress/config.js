@@ -3,8 +3,12 @@ module.exports = {
   // We're serving this on gbdev.github.io/pandocs
   base: "/pandocs/",
   themeConfig: {
-  nav: [
+    nav: [
       { text: 'Contribute', link: 'https://github.com/gbdev/pandocs' },
+    ],
+    sidebar: [
+      '/',
+      '/Timer_Obscure_Behaviour'
     ]
   }
 }
