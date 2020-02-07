@@ -1,4 +1,5 @@
-- [Antonio Niño Díaz (AntonioND). The Cycle-Accurate Game Boy Docs](https://github.com/AntonioND/giibiiadvance/tree/master/docs)
+- [Antonio Niño Díaz - The Cycle-Accurate Game Boy Docs](https://github.com/AntonioND/giibiiadvance/tree/master/docs)
+- [Antonio Niño Díaz - Game Boy Camera RE](https://github.com/AntonioND/gbcam-rev-engineer)
 - [Costis Sideris. The quest for dumping GameBoy Boot ROMs!](http://www.its.caltech.edu/~costis/sgb_hack/)
 - [Tauwasser. MBC1 - Tauwasser’s Wiki](https://wiki.tauwasser.eu/view/MBC1)
 - [Tauwasser. MBC2 - Tauwasser’s Wiki](https://wiki.tauwasser.eu/view/MBC2)
@@ -8,4 +9,6 @@
 - [exezin. OAM DMA tutorial](https://exez.in/gameboy-dma)
 - [MBC5 schematic](http://www.semis.demon.co.uk/Gameboy/Gbmain.htm)
 - [Furrtek - Reverse-engineered schematics for DMG-CPU-B](https://github.com/furrtek/DMG-CPU-Inside)
+- [Furrtek - Game Boy Printer](http://furrtek.free.fr/?a=gbprinter)
 - [Pan of ATX, Marat Fayzullin, Felber Pascal, Robson Paul, and Korth Martin - Pan Docs (previous versions and revisions)](https://github.com/gbdev/pandocs/tree/develop/historical)
+- [Jeff Frohwein - DMG, SGB, MBC schematics](http://www.devrs.com/gb/hardware.php)
