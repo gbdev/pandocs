@@ -99,6 +99,17 @@ This document is the product of 25 years of community effort: it's hard to keep 
 # Comparison with Z80
 
 !INCLUDE "CPU_Comparision_with_Z80.md", 1
+
+# The Cartridge Header
+
+TOADD
+
+# Memory Bank Controllers
+
+As the gameboys 16 bit address bus offers only limited space for ROM and RAM addressing, many games are using Memory Bank Controllers (MBCs) to expand the available address space by bank switching. These MBC chips are located in the game cartridge (ie. not in the gameboy itself).
+
+In each cartridge, the required (or preferred) MBC type should be specified in the byte at 0147h of the ROM, as described in the cartridge header. Several different MBC types are available: 
+
 # MBC1
 
 !INCLUDE "MBC1.md", 1

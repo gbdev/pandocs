@@ -208,10 +208,12 @@ Bit 6 in NR44 is set.
 
 ### FF21 - NR42 - Channel 4 Volume Envelope (R/W)
 
-` Bit 7-4 - Initial Volume of envelope (0-0Fh) (0=No Sound)`\
-` Bit 3   - Envelope Direction (0=Decrease, 1=Increase)`\
-` Bit 2-0 - Number of envelope sweep (n: 0-7)`\
-`           (If zero, stop envelope operation.)`
+```
+ Bit 7-4 - Initial Volume of envelope (0-0Fh) (0=No Sound)
+ Bit 3   - Envelope Direction (0=Decrease, 1=Increase)
+ Bit 2-0 - Number of envelope sweep (n: 0-7)`\
+           (If zero, stop envelope operation.)
+```
 
 Length of 1 step = n\*(1/64) seconds
 
