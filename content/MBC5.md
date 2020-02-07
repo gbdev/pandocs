@@ -38,4 +38,4 @@ As for the MBC1s RAM Banking Mode, writing a value in range for 00h-0Fh
 maps the corresponding external RAM Bank (if any) into memory at
 A000-BFFF.
 
-![]("imgs/MBC5.png")
+![](imgs/MBC5.png "imgs/MBC5.png")
