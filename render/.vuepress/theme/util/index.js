@@ -170,6 +170,9 @@ export function groupHeaders (headers) {
   headers = headers.map(h => Object.assign({}, h))
   let lastH2
   headers.forEach(h => {
+    if (h.level === 1){
+      h.level = 2
+    }
     if (h.level === 2) {
       lastH2 = h
     } else if (lastH2) {
