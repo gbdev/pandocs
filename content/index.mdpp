@@ -16,7 +16,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- [Serial Data Transfer (Link Cable)](#serial-data-transfer)
 	- [Timer and Divider Registers](#timer-and-divider-registers)
 	- [Interrupts](#interrupts)
-	- CGB Registers
+	- [CGB Registers](#cgb-registers)
 	- [SGB Functions](#sgb-functions)
 - CPU Specifications
 	- Registers and Flags
@@ -38,8 +38,8 @@ The single, most comprehensive technical reference to Game Boy available to the 
 - Other
 	- [Power Up Sequence](#power-up-sequence)
 	- [Reducing Power Consumption](#reducing-power-consumption)
-	- Sprite RAM Bug
-	- External Connectors 
+	- [Sprite RAM Bug](#sprite-ram-bug)
+	- [External Connectors](#external-connectors)
 - [References](#references)
 
 ---
@@ -88,6 +88,10 @@ This document is the product of 25 years of community effort: it's hard to keep 
 
 !INCLUDE "Interrupts.md", 1
 
+# CGB Registers
+
+!INCLUDE "CGB_Registers.md", 1
+
 # SGB Functions
 
 !INCLUDE "SGB_Functions.md", 1
@@ -122,6 +126,10 @@ This document is the product of 25 years of community effort: it's hard to keep 
 # Sprite RAM Bug
 
 !INCLUDE "Sprite_RAM_Bug.md", 1
+
+# External Connectors
+
+!INCLUDE "External_Connectors.md", 1
 
 ### References
 

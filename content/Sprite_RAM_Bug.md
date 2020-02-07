@@ -23,7 +23,7 @@ The Sprite RAM Bug (or OAM Bug) actually consists of two different bugs:
     ($FE00 - $FEFF) will trigger a memory write to OAM, causing a
     corruption.
 
-### Affected Operations
+# Affected Operations
 
 The following operations are affected by this bug:
 
@@ -49,7 +49,7 @@ The following operations are affected by this bug:
     multi-byte opcode is executed from $FDFF or $FDFE, and bug will
     similarly trigger twice for every read from OAM.
 
-### Corruption Patterns
+# Corruption Patterns
 
 The OAM is split into 20 rows of 8 bytes each, and during mode 2 the PPU
 reads those rows consecutively; one every 1 M-cycle. The operations
@@ -59,7 +59,7 @@ actual read/write address used, or the written value have no effect.
 Additionally, keep in mind that OAM uses a 16-bit data bus, so all
 operations are on 16-bit words.
 
-#### Write Corruption
+## Write Corruption
 
 A write corruption corrupts the currently access row in the following
 manner, as long as it's not the first row (containing the first two
@@ -72,18 +72,18 @@ sprites):
 -   The last three words are copied from the last three words in the
     preceding row.
 
-#### Read Corruption
+## Read Corruption
 
 A read corruption works similarly to a write corruption, except the
 bitwise expression is `b | (a & c)`.
 
-#### Write During Increase/Decrease
+## Write During Increase/Decrease
 
 If a register is increased or decreased in the same M cycle of a write,
 this will effectively trigger two writes in a single M-cycle. However,
 this case behaves just like a single write.
 
-#### Read During Increase/Decrease
+## Read During Increase/Decrease
 
 If a register is increased or decreased in the same M cycle of a write,
 this will effectively trigger both a read **and** a write in a single
