@@ -29,7 +29,7 @@ centered at the value 81D0. Earth\'s gravity affects the value by
 roughly 70h, with larger acceleration providing a larger range. Maximum
 range is unknown.
 
-#### Ax0x/Ax1x - Latch Accelerometer (Write Only)
+### Ax0x/Ax1x - Latch Accelerometer (Write Only)
 
 Write 55h to Ax0x to erase the latched data (reset back to 8000) then
 AAh to Ax1x to latch the accelerometer and update the addressable
@@ -37,24 +37,24 @@ registers. Reads return FFh. Other writes do not appear to do anything
 (Partially unconfirmed). Note that you cannot re-latch the accelerometer
 value without first erasing it; attempts to do so yield no change.
 
-#### Ax2x/Ax3x - Accelerometer X value (Read Only)
+### Ax2x/Ax3x - Accelerometer X value (Read Only)
 
 Ax2x contains the low byte of the X value (lower values are towards the
 right and higher values are towards the left), and Ax3x contains the
 high byte. Reads 8000 before first latching.
 
-#### Ax4x/Ax5x - Accelerometer Y value (Read Only)
+### Ax4x/Ax5x - Accelerometer Y value (Read Only)
 
 Ax4x contains the low byte of the Y value (lower values are towards the
 bottom and higher values are towards the top), and Ax5x contains the
 high byte. Reads 8000 before first latching.
 
-#### Ax6x/Ax7x - Unknown
+### Ax6x/Ax7x - Unknown
 
 Ax6x always reads 00h and Ax7x always reads FFh. Possibly reserved for Z
 axis, which does not exist on this accelerometer.
 
-#### Ax8x - EEPROM (Read/Write)
+### Ax8x - EEPROM (Read/Write)
 
 Values in this register correspond to 4 pins on the EEPROM:
 
@@ -103,7 +103,7 @@ reads a 1 when the command finishes.
 Datasheet:
 [1](http://ww1.microchip.com/downloads/en/DeviceDoc/21712C.pdf)
 
-#### Ax9x-AxFx - Unused
+### Ax9x-AxFx - Unused
 
 Reads out FFh.
 

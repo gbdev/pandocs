@@ -23,16 +23,16 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- Instruction Set
 	- [Comparision with Z80](#comparison-with-z80)
 - Cartridges
-	- Cartridge header
+	- [Cartridge header](#the-cartridge-header)
 	- [MBC1](#mbc1)
 	- [MBC2](#mbc2)
 	- [MBC3](#mbc3)
 	- [MBC5](#mbc5)
-	- MBC6
-	- MBC7
-	- HuC1
+	- [MBC6](#mbc6)
+	- [MBC7](#mbc7)
+	- [HuC1](#huc1)
 - Accessories
-	- Game Boy Printer
+	- [Game Boy Printer](#game-boy-printer)
 	- Game Boy Camera
 	- Gamegenie/Shark Cheats
 - Other
@@ -102,7 +102,7 @@ This document is the product of 25 years of community effort: it's hard to keep 
 
 # The Cartridge Header
 
-TOADD
+!INCLUDE "The_Cartrdige_Header.md", 1
 
 # Memory Bank Controllers
 
@@ -125,6 +125,22 @@ In each cartridge, the required (or preferred) MBC type should be specified in t
 # MBC5
 
 !INCLUDE "MBC5.md", 1
+
+# MBC6
+
+!INCLUDE "MBC6.md", 1
+
+# MBC7
+
+!INCLUDE "MBC7.md", 1
+
+# HuC1
+
+!INCLUDE "HuC1.md", 1
+
+# Game Boy Printer
+
+!INCLUDE "Gameboy_Printer.md", 1
 
 # Power Up Sequence
 
