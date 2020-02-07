@@ -1,4 +1,8 @@
-# Pan Docs
+---
+title: 'Pan Docs'
+---
+
+<div class="pantitle"> Pan Docs</div>
 
 The single, most comprehensive technical reference to Game Boy available to the public.
 
@@ -19,8 +23,8 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- [CGB Registers](#cgb-registers)
 	- [SGB Functions](#sgb-functions)
 - CPU Specifications
-	- Registers and Flags
-	- Instruction Set
+	- [Registers and Flags](#registers-and-flags)
+	- [Instruction Set](#instruction-set)
 	- [Comparision with Z80](#comparison-with-z80)
 - Cartridges
 	- [Cartridge header](#the-cartridge-header)
@@ -42,6 +46,8 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- [Sprite RAM Bug](#sprite-ram-bug)
 	- [External Connectors](#external-connectors)
 - [References](#references)
+
+<br>
 
 ---
 
@@ -96,6 +102,15 @@ This document is the product of 25 years of community effort: it's hard to keep 
 # SGB Functions
 
 !INCLUDE "SGB_Functions.md", 1
+
+# Registers and Flags
+
+!INCLUDE "CPU_Registers_and_Flags.md", 1
+
+# Instruction Set
+
+!INCLUDE "CPU_Instruction_Set.md", 1
+
 
 # Comparison with Z80
 

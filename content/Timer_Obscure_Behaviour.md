@@ -1,4 +1,8 @@
-# Timer Global Circuit
+---
+title: 'Timer obscure behaviour'
+---
+
+## Timer Global Circuit
 
 ![](imgs/timer_simplified.svg "imgs/timer_simplified.svg")
 

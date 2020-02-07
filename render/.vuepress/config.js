@@ -6,9 +6,11 @@ module.exports = {
     nav: [
       { text: 'Contribute', link: 'https://github.com/gbdev/pandocs' },
     ],
+    /*
     sidebar: [
       '/',
       'Timer_Obscure_Behaviour'
     ]
+    */
   }
 }
