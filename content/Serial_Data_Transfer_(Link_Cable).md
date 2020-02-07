@@ -30,9 +30,9 @@ i7 i6 i5 i4 i3 i2 i1 i0
 ### FF02 - SC - Serial Transfer Control (R/W)
 
 ```
-Bit 7 - Transfer Start Flag (0=No transfer is in progress or requested, 1=Transfer in progress, or requested)
-Bit 1 - Clock Speed (0=Normal, 1=Fast) ** CGB Mode Only **
-Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
+Bit 7 - Transfer Start Flag (0=No transfer is in progress or requested, 1=Transfer in progress, or requested)
+Bit 1 - Clock Speed (0=Normal, 1=Fast) ** CGB Mode Only **
+Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
 ```
 
 The Game Boy acting as master will load up a data byte in SB and then set
@@ -56,10 +56,10 @@ internal clock rates are available, depending on Bit 1 of the SC
 register, and on whether the CGB Double Speed Mode is used:
 
 ```
-   8192Hz -  1KB/s - Bit 1 cleared, Normal
-  16384Hz -  2KB/s - Bit 1 cleared, Double Speed Mode
- 262144Hz - 32KB/s - Bit 1 set,     Normal
- 524288Hz - 64KB/s - Bit 1 set,     Double Speed Mode
+   8192Hz -  1KB/s - Bit 1 cleared, Normal
+  16384Hz -  2KB/s - Bit 1 cleared, Double Speed Mode
+ 262144Hz - 32KB/s - Bit 1 set,     Normal
+ 524288Hz - 64KB/s - Bit 1 set,     Double Speed Mode
 ```
 
 ### External Clock
@@ -135,10 +135,10 @@ The following code initiates the process of shifting \$75 out the serial
 port and a byte to be shifted into \$FF01:
 
 ```
-   ld   a,$75
-   ld  ($FF01),a
-   ld   a,$81
-   ld  ($FF02),a
+   ld   a,$75
+   ld  ($FF01),a
+   ld   a,$81
+   ld  ($FF02),a
 ```
 
 The Game Boy does not support wake-on-LAN. Completion of an externally

@@ -1,8 +1,8 @@
 ### IME - Interrupt Master Enable Flag (Write Only)
 
 ```
-0 - Disable all Interrupts
-1 - Enable all Interrupts that are enabled in IE Register (FFFF)
+0 - Disable all Interrupts
+1 - Enable all Interrupts that are enabled in IE Register (FFFF)
 ```
 
 The IME flag is used to disable all interrupts, overriding any enabled
@@ -11,10 +11,10 @@ using a I/O address, instead IME is accessed directly from the CPU, by
 the following opcodes/operations:
 
 ```
-EI     ;Enable Interrupts  (ie. IME=1)
-DI     ;Disable Interrupts (ie. IME=0)
-RETI   ;Enable Ints & Return (same as the opcode combination EI, RET)
-<INT>  ;Disable Ints & Call to Interrupt Vector
+EI     ;Enable Interrupts  (ie. IME=1)
+DI     ;Disable Interrupts (ie. IME=0)
+RETI   ;Enable Ints & Return (same as the opcode combination EI, RET)
+<INT>  ;Disable Ints & Call to Interrupt Vector
 ```
 
 Whereas \<INT\> means the operation which is automatically executed by the
@@ -27,21 +27,21 @@ the DI.
 ### FFFF - IE - Interrupt Enable (R/W)
 
 ```
-Bit 0: V-Blank  Interrupt Enable  (INT 40h)  (1=Enable)
-Bit 1: LCD STAT Interrupt Enable  (INT 48h)  (1=Enable)
-Bit 2: Timer    Interrupt Enable  (INT 50h)  (1=Enable)
-Bit 3: Serial   Interrupt Enable  (INT 58h)  (1=Enable)
-Bit 4: Joypad   Interrupt Enable  (INT 60h)  (1=Enable)
+Bit 0: V-Blank  Interrupt Enable  (INT 40h)  (1=Enable)
+Bit 1: LCD STAT Interrupt Enable  (INT 48h)  (1=Enable)
+Bit 2: Timer    Interrupt Enable  (INT 50h)  (1=Enable)
+Bit 3: Serial   Interrupt Enable  (INT 58h)  (1=Enable)
+Bit 4: Joypad   Interrupt Enable  (INT 60h)  (1=Enable)
 ```
 
 ### FF0F - IF - Interrupt Flag (R/W)
 
 ```
-Bit 0: V-Blank  Interrupt Request (INT 40h)  (1=Request)
-Bit 1: LCD STAT Interrupt Request (INT 48h)  (1=Request)
-Bit 2: Timer    Interrupt Request (INT 50h)  (1=Request)
-Bit 3: Serial   Interrupt Request (INT 58h)  (1=Request)
-Bit 4: Joypad   Interrupt Request (INT 60h)  (1=Request)
+Bit 0: V-Blank  Interrupt Request (INT 40h)  (1=Request)
+Bit 1: LCD STAT Interrupt Request (INT 48h)  (1=Request)
+Bit 2: Timer    Interrupt Request (INT 50h)  (1=Request)
+Bit 3: Serial   Interrupt Request (INT 58h)  (1=Request)
+Bit 4: Joypad   Interrupt Request (INT 60h)  (1=Request)
 ```
 
 When an interrupt signal changes from low to high, then the
@@ -77,9 +77,9 @@ unless/until IME and IE allow its execution.
 
 In the following three situations it might happen that more than 1 bit in the IF register are set, requesting more than one interrupt at once:
 
-1. More than one interrupt signal changed from Low to High at the same time.
+1. More than one interrupt signal changed from Low to High at the same time.
 2. Several interrupts have been requested during a time in which IME/IE didn't allow these interrupts to be executed directly.
-3. The user has written a value with several "1" bits (for example 1Fh) to the IF register. 
+3. The user has written a value with several "1" bits (for example 1Fh) to the IF register. 
 
 Provided that IME and IE allow the execution of more than one of the
 requested interrupts, then the interrupt with the highest priority

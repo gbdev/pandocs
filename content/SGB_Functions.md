@@ -103,8 +103,8 @@ SGB games are required to have a cartridge header with Nintendo and
 proper checksum just as normal Game Boy games. Also, two special entries
 must be set in order to unlock SGB functions:
 
-` 146h - SGB Flag - Must be set to 03h for SGB games`\
-` 14Bh - Old Licensee Code - Must be set 33h for SGB games`
+` 146h - SGB Flag - Must be set to 03h for SGB games`
+` 14Bh - Old Licensee Code - Must be set 33h for SGB games`
 
 When these entries aren't set, the game will still work just like all
 'monochrome' Game Boy games, but it cannot access any of the special
@@ -130,9 +130,9 @@ as described above.
 It is also possible to separate between SGB and SGB2 models by examining
 the inital value of the accumulator (A-register) directly after startup.
 
-` 01h  SGB or Normal Gameboy (DMG)`\
-` FFh  SGB2 or Pocket Gameboy`\
-` 11h  CGB or GBA`
+` 01h  SGB or Normal Gameboy (DMG)`
+` FFh  SGB2 or Pocket Gameboy`
+` 11h  CGB or GBA`
 
 Because values 01h and FFh are shared for both handhelds and SGBs, it is
 still required to use the above MLT_REQ detection procedure. As far as
@@ -158,9 +158,9 @@ to LOW, this will reset and start the SNES packet receiving program.
 Data is then transferred (LSB first), setting P14=LOW will indicate a
 "0" bit, and setting P15=LOW will indicate a "1" bit. For example:
 
-`      RESET 0   0   1   1   0   1   0`\
-` P14  --_---_---_-----------_-------_--...`\
-` P15  --_-----------_---_-------_------...`
+`      RESET 0   0   1   1   0   1   0`
+` P14  --_---_---_-----------_-------_--...`
+` P15  --_-----------_---_-------_------...`
 
 Data and reset pulses must be kept LOW for at least 5us. P14 and P15
 must be kept both HIGH for at least 15us between any pulses. Obviously,
@@ -177,18 +177,18 @@ transferred (16 bytes, LSB of first byte first), and finally, a
 "0"-bit must be transferred as stop bit. The structure of normal
 packets is:
 
-`  1 PULSE Reset`\
-`  1 BYTE  Command Code*8+Length`\
-` 15 BYTES Parameter Data`\
-`  1 BIT   Stop Bit (0)`
+`  1 PULSE Reset`
+`  1 BYTE  Command Code*8+Length`
+` 15 BYTES Parameter Data`
+`  1 BIT   Stop Bit (0)`
 
 The above 'Length' indicates the total number of packets (1-7,
 including the first packet) which will be sent, ie. if more than 15
 parameter bytes are used, then further packet(s) will follow, as such:
 
-`  1 PULSE Reset`\
-` 16 BYTES Parameter Data`\
-`  1 BIT   Stop Bit (0)`
+`  1 PULSE Reset`
+` 16 BYTES Parameter Data`
+`  1 BIT   Stop Bit (0)`
 
 By using all 7 packets, up to 111 data bytes (15+16\*6) may be sent.
 Unused bytes at the end of the last packet don't matter. A 60ms (4
@@ -242,32 +242,32 @@ the presence of SGB hardware before blindly sending VRAM data.
 
 ### SGB System Command Table
 
-` Code Name      Expl.`\
-` 00   PAL01     Set SGB Palette 0,1 Data`\
-` 01   PAL23     Set SGB Palette 2,3 Data`\
-` 02   PAL03     Set SGB Palette 0,3 Data`\
-` 03   PAL12     Set SGB Palette 1,2 Data`\
-` 04   ATTR_BLK  "Block" Area Designation Mode`\
-` 05   ATTR_LIN  "Line" Area Designation Mode`\
-` 06   ATTR_DIV  "Divide" Area Designation Mode`\
-` 07   ATTR_CHR  "1CHR" Area Designation Mode`\
-` 08   SOUND     Sound On/Off`\
-` 09   SOU_TRN   Transfer Sound PRG/DATA`\
-` 0A   PAL_SET   Set SGB Palette Indirect`\
-` 0B   PAL_TRN   Set System Color Palette Data`\
-` 0C   ATRC_EN   Enable/disable Attraction Mode`\
-` 0D   TEST_EN   Speed Function`\
-` 0E   ICON_EN   SGB Function`\
-` 0F   DATA_SND  SUPER NES WRAM Transfer 1`\
-` 10   DATA_TRN  SUPER NES WRAM Transfer 2`\
-` 11   MLT_REG   Controller 2 Request`\
-` 12   JUMP      Set SNES Program Counter`\
-` 13   CHR_TRN   Transfer Character Font Data`\
-` 14   PCT_TRN   Set Screen Data Color Data`\
-` 15   ATTR_TRN  Set Attribute from ATF`\
-` 16   ATTR_SET  Set Data to ATF`\
-` 17   MASK_EN   Game Boy Window Mask`\
-` 18   OBJ_TRN   Super NES OBJ Mode`
+` Code Name      Expl.`
+` 00   PAL01     Set SGB Palette 0,1 Data`
+` 01   PAL23     Set SGB Palette 2,3 Data`
+` 02   PAL03     Set SGB Palette 0,3 Data`
+` 03   PAL12     Set SGB Palette 1,2 Data`
+` 04   ATTR_BLK  "Block" Area Designation Mode`
+` 05   ATTR_LIN  "Line" Area Designation Mode`
+` 06   ATTR_DIV  "Divide" Area Designation Mode`
+` 07   ATTR_CHR  "1CHR" Area Designation Mode`
+` 08   SOUND     Sound On/Off`
+` 09   SOU_TRN   Transfer Sound PRG/DATA`
+` 0A   PAL_SET   Set SGB Palette Indirect`
+` 0B   PAL_TRN   Set System Color Palette Data`
+` 0C   ATRC_EN   Enable/disable Attraction Mode`
+` 0D   TEST_EN   Speed Function`
+` 0E   ICON_EN   SGB Function`
+` 0F   DATA_SND  SUPER NES WRAM Transfer 1`
+` 10   DATA_TRN  SUPER NES WRAM Transfer 2`
+` 11   MLT_REG   Controller 2 Request`
+` 12   JUMP      Set SNES Program Counter`
+` 13   CHR_TRN   Transfer Character Font Data`
+` 14   PCT_TRN   Set Screen Data Color Data`
+` 15   ATTR_TRN  Set Attribute from ATF`
+` 16   ATTR_SET  Set Data to ATF`
+` 17   MASK_EN   Game Boy Window Mask`
+` 18   OBJ_TRN   Super NES OBJ Mode`
 
 # SGB Color Palettes Overview
 
@@ -283,8 +283,8 @@ these palettes are used. Palettes 4-7 are used for the SGB Border, all
 
 Colors are encoded as 16-bit RGB numbers, in the following way:
 
-` FEDC BA98 7654 3210`\
-` 0BBB BBGG GGGR RRRR`
+` FEDC BA98 7654 3210`
+` 0BBB BBGG GGGR RRRR`
 
 Here's a formula to convert 24-bit RGB into SNES format:
 `(color & 0xF8) << 7 | (color & 0xF800) >> 6 | (color & 0xF80000) >> 19`
@@ -308,10 +308,10 @@ Because the SGB/SNES reads out the Game Boy video controllers display
 signal, it translates the different grayshades from the signal into SNES
 colors as such:
 
-` White       -->  Color 0`\
-` Light Gray  -->  Color 1`\
-` Dark Gray   -->  Color 2`\
-` Black       -->  Color 3`
+` White       -->  Color 0`
+` Light Gray  -->  Color 1`
+` Dark Gray   -->  Color 2`
+` Black       -->  Color 3`
 
 Note that Game Boy colors 0-3 are assigned to user-selectable grayshades
 by the gameboys BGP, OBP1, and OBP2 registers. There is thus no fixed
@@ -344,14 +344,14 @@ packets.
 Transmit color data for SGB palette 0, color 0-3, and for SGB palette 1,
 color 1-3 (without separate color 0).
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=01h)`\
-` 1-E   Color Data for 7 colors of 2 bytes (16bit) each:`\
-`         Bit 0-4   - Red Intensity   (0-31)`\
-`         Bit 5-9   - Green Intensity (0-31)`\
-`         Bit 10-14 - Blue Intensity  (0-31)`\
-`         Bit 15    - Not used (zero)`\
-` F     Not used (00h)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=01h)`
+` 1-E   Color Data for 7 colors of 2 bytes (16bit) each:`
+`         Bit 0-4   - Red Intensity   (0-31)`
+`         Bit 5-9   - Green Intensity (0-31)`
+`         Bit 10-14 - Blue Intensity  (0-31)`
+`         Bit 15    - Not used (zero)`
+` F     Not used (00h)`
 
 This is the same RGB5 format as [Game Boy Color palette
 entry](Video_Display#LCD_Color_Palettes_(CGB_only) "wikilink"), though
@@ -377,17 +377,17 @@ actual SNES palettes.
 
 Note: all palette numbers are little-endian.
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=1)`\
-` 1-2   System Palette number for SGB Color Palette 0 (0-511)`\
-` 3-4   System Palette number for SGB Color Palette 1 (0-511)`\
-` 5-6   System Palette number for SGB Color Palette 2 (0-511)`\
-` 7-8   System Palette number for SGB Color Palette 3 (0-511)`\
-` 9     Attribute File`\
-`         Bit 0-5 - Attribute File Number (00h-2Ch) (Used only if Bit7=1)`\
-`         Bit 6   - Cancel Mask           (0=No change, 1=Yes)`\
-`         Bit 7   - Use Attribute File    (0=No, 1=Apply above ATF Number)`\
-` A-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=1)`
+` 1-2   System Palette number for SGB Color Palette 0 (0-511)`
+` 3-4   System Palette number for SGB Color Palette 1 (0-511)`
+` 5-6   System Palette number for SGB Color Palette 2 (0-511)`
+` 7-8   System Palette number for SGB Color Palette 3 (0-511)`
+` 9     Attribute File`
+`         Bit 0-5 - Attribute File Number (00h-2Ch) (Used only if Bit7=1)`
+`         Bit 6   - Cancel Mask           (0=No change, 1=Yes)`
+`         Bit 7   - Use Attribute File    (0=No, 1=Apply above ATF Number)`
+` A-F   Not used (zero)`
 
 Before using this function, System Palette data should be initialized by
 PAL_TRN command, and (when used) Attribute File data should be
@@ -403,13 +403,13 @@ used to transfer four of these 'logical' palettes to actual visible
 of 4 System Color Palettes (4\*4 colors) for SNES OBJ palettes (16
 colors).
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=1)`\
-` 1-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=1)`
+` 1-F   Not used (zero)`
 
 The palette data is sent by VRAM-Transfer (4 KBytes).
 
-` 000-FFF  Data for System Color Palette 0-511`
+` 000-FFF  Data for System Color Palette 0-511`
 
 Each Palette consists of four 16bit-color definitions (8 bytes). Note:
 The data is stored at 3000h-3FFFh in SNES memory.
@@ -421,29 +421,29 @@ The data is stored at 3000h-3FFFh in SNES memory.
 Used to specify color attributes for the inside or outside of one or
 more rectangular screen regions.
 
-` Byte  Content`\
-` 0     Command*8+Length (length=1..7)`\
-` 1     Number of Data Sets (01h..12h)`\
-` 2-7   Data Set #1`\
-`         Byte 0 - Control Code (0-7)`\
-`           Bit 0 - Change Colors inside of surrounded area     (1=Yes)`\
-`           Bit 1 - Change Colors of surrounding character line (1=Yes)`\
-`           Bit 2 - Change Colors outside of surrounded area    (1=Yes)`\
-`           Bit 3-7 - Not used (zero)`\
-`           Exception: When changing only the Inside or Outside, then the`\
-`           Surrounding line becomes automatically changed to same color.`\
-`         Byte 1 - Color Palette Designation`\
-`           Bit 0-1 - Palette Number for inside of surrounded area`\
-`           Bit 2-3 - Palette Number for surrounding character line`\
-`           Bit 4-5 - Palette Number for outside of surrounded area`\
-`           Bit 6-7 - Not used (zero)`\
-`         Data Set Byte 2 - Coordinate X1 (left)`\
-`         Data Set Byte 3 - Coordinate Y1 (upper)`\
-`         Data Set Byte 4 - Coordinate X2 (right)`\
-`         Data Set Byte 5 - Coordinate Y2 (lower)`\
-`           Specifies the coordinates of the surrounding rectangle.`\
-` 8-D   Data Set #2 (if any)`\
-` E-F   Data Set #3 (continued at 0-3 in next packet) (if any)`
+` Byte  Content`
+` 0     Command*8+Length (length=1..7)`
+` 1     Number of Data Sets (01h..12h)`
+` 2-7   Data Set #1`
+`         Byte 0 - Control Code (0-7)`
+`           Bit 0 - Change Colors inside of surrounded area     (1=Yes)`
+`           Bit 1 - Change Colors of surrounding character line (1=Yes)`
+`           Bit 2 - Change Colors outside of surrounded area    (1=Yes)`
+`           Bit 3-7 - Not used (zero)`
+`           Exception: When changing only the Inside or Outside, then the`
+`           Surrounding line becomes automatically changed to same color.`
+`         Byte 1 - Color Palette Designation`
+`           Bit 0-1 - Palette Number for inside of surrounded area`
+`           Bit 2-3 - Palette Number for surrounding character line`
+`           Bit 4-5 - Palette Number for outside of surrounded area`
+`           Bit 6-7 - Not used (zero)`
+`         Data Set Byte 2 - Coordinate X1 (left)`
+`         Data Set Byte 3 - Coordinate Y1 (upper)`
+`         Data Set Byte 4 - Coordinate X2 (right)`
+`         Data Set Byte 5 - Coordinate Y2 (lower)`
+`           Specifies the coordinates of the surrounding rectangle.`
+` 8-D   Data Set #2 (if any)`
+` E-F   Data Set #3 (continued at 0-3 in next packet) (if any)`
 
 When sending three or more data sets, data is continued in further
 packet(s). Unused bytes at the end of the last packet should be set to
@@ -454,16 +454,16 @@ zero. The format of the separate Data Sets is described below.
 Used to specify color attributes of one or more horizontal or vertical
 character lines.
 
-` Byte  Content`\
-` 0     Command*8+Length (length=1..7)`\
-` 1     Number of Data Sets (01h..6Eh) (one byte each)`\
-` 2     Data Set #1`\
-`         Bit 0-4 - Line Number    (X- or Y-coordinate, depending on bit 7)`\
-`         Bit 5-6 - Palette Number (0-3)`\
-`         Bit 7   - H/V Mode Bit   (0=Vertical line, 1=Horizontal Line)`\
-` 3     Data Set #2 (if any)`\
-` 4     Data Set #3 (if any)`\
-` etc.`
+` Byte  Content`
+` 0     Command*8+Length (length=1..7)`
+` 1     Number of Data Sets (01h..6Eh) (one byte each)`
+` 2     Data Set #1`
+`         Bit 0-4 - Line Number    (X- or Y-coordinate, depending on bit 7)`
+`         Bit 5-6 - Palette Number (0-3)`
+`         Bit 7   - H/V Mode Bit   (0=Vertical line, 1=Horizontal Line)`
+` 3     Data Set #2 (if any)`
+` 4     Data Set #3 (if any)`
+` etc.`
 
 When sending 15 or more data sets, data is continued in further
 packet(s). Unused bytes at the end of the last packet should be set to
@@ -477,30 +477,30 @@ lastmost data sets will overwrite lines from previous data sets.
 Used to split the screen into two halfes, and to assign separate color
 attributes to each half, and to the division line between them.
 
-` Byte  Content`\
-` 0     Command*8+Length   (fixed length=1)`\
-` 1     Color Palette Numbers and H/V Mode Bit`\
-`         Bit 0-1  Palette Number below/right of division line`\
-`         Bit 2-3  Palette Number above/left of division line`\
-`         Bit 4-5  Palette Number for division line`\
-`         Bit 6    H/V Mode Bit  (0=split left/right, 1=split above/below)`\
-` 2     X- or Y-Coordinate (depending on H/V bit)`\
-` 3-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length   (fixed length=1)`
+` 1     Color Palette Numbers and H/V Mode Bit`
+`         Bit 0-1  Palette Number below/right of division line`
+`         Bit 2-3  Palette Number above/left of division line`
+`         Bit 4-5  Palette Number for division line`
+`         Bit 6    H/V Mode Bit  (0=split left/right, 1=split above/below)`
+` 2     X- or Y-Coordinate (depending on H/V bit)`
+` 3-F   Not used (zero)`
 
 ### SGB Command 07h - ATTR_CHR
 
 Used to specify color attributes for separate characters.
 
-` Byte  Content`\
-` 0     Command*8+Length (length=1..6)`\
-` 1     Beginning X-Coordinate`\
-` 2     Beginning Y-Coordinate`\
-` 3-4   Number of Data Sets (1-360)`\
-` 5     Writing Style   (0=Left to Right, 1=Top to Bottom)`\
-` 6     Data Sets 1-4   (Set 1 in MSBs, Set 4 in LSBs)`\
-` 7     Data Sets 5-8   (if any)`\
-` 8     Data Sets 9-12  (if any)`\
-` etc.`
+` Byte  Content`
+` 0     Command*8+Length (length=1..6)`
+` 1     Beginning X-Coordinate`
+` 2     Beginning Y-Coordinate`
+` 3-4   Number of Data Sets (1-360)`
+` 5     Writing Style   (0=Left to Right, 1=Top to Bottom)`
+` 6     Data Sets 1-4   (Set 1 in MSBs, Set 4 in LSBs)`
+` 7     Data Sets 5-8   (if any)`
+` 8     Data Sets 9-12  (if any)`
+` etc.`
 
 When sending 41 or more data sets, data is continued in further
 packet(s). Unused bytes at the end of the last packet should be set to
@@ -517,14 +517,14 @@ directly affect display attributes. Instead, one of the defined ATFs may
 be copied to actual display memory at a later time by using ATTR_SET or
 PAL_SET functions.
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=1)`\
-` 1-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=1)`
+` 1-F   Not used (zero)`
 
 The ATF data is sent by VRAM-Transfer (4 KBytes).
 
-` 000-FD1  Data for ATF0 through ATF44 (4050 bytes)`\
-` FD2-FFF  Not used`
+` 000-FD1  Data for ATF0 through ATF44 (4050 bytes)`
+` FD2-FFF  Not used`
 
 Each ATF consists of 90 bytes, that are 5 bytes (20x2bits) for each of
 the 18 character lines of the Game Boy window. The two most significant
@@ -536,10 +536,10 @@ so on.
 
 Used to transfer attributes from Attribute File (ATF) to Game Boy window.
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=1)`\
-` 1     Attribute File Number (00-2Ch), Bit 6=Cancel Mask`\
-` 2-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=1)`
+` 1     Attribute File Number (00-2Ch), Bit 6=Cancel Mask`
+` 2-F   Not used (zero)`
 
 When above Bit 6 is set, the Game Boy screen becomes re-enabled after the
 transfer (in case it has been disabled/frozen by MASK_EN command).
@@ -553,17 +553,17 @@ commands, as described in the chapter about Color Palette Commands.
 Used to start/stop internal sound effect, start/stop sound using
 internal tone data.
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=1)`\
-` 1     Sound Effect A (Port 1) Decrescendo 8bit Sound Code`\
-` 2     Sound Effect B (Port 2) Sustain     8bit Sound Code`\
-` 3     Sound Effect Attributes`\
-`         Bit 0-1 - Sound Effect A Pitch  (0..3=Low..High)`\
-`         Bit 2-3 - Sound Effect A Volume (0..2=High..Low, 3=Mute on)`\
-`         Bit 4-5 - Sound Effect B Pitch  (0..3=Low..High)`\
-`         Bit 6-7 - Sound Effect B Volume (0..2=High..Low, 3=Not used)`\
-` 4     Music Score Code (must be zero if not used)`\
-` 5-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=1)`
+` 1     Sound Effect A (Port 1) Decrescendo 8bit Sound Code`
+` 2     Sound Effect B (Port 2) Sustain     8bit Sound Code`
+` 3     Sound Effect Attributes`
+`         Bit 0-1 - Sound Effect A Pitch  (0..3=Low..High)`
+`         Bit 2-3 - Sound Effect A Volume (0..2=High..Low, 3=Mute on)`
+`         Bit 4-5 - Sound Effect B Pitch  (0..3=Low..High)`
+`         Bit 6-7 - Sound Effect B Volume (0..2=High..Low, 3=Not used)`
+` 4     Music Score Code (must be zero if not used)`
+` 5-F   Not used (zero)`
 
 See Sound Effect Tables below for a list of available pre-defined
 effects.
@@ -584,22 +584,22 @@ Notes:
 Used to transfer sound code or data to SNES Audio Processing Unit memory
 (APU-RAM).
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=1)`\
-` 1-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=1)`
+` 1-F   Not used (zero)`
 
 The sound code/data is sent by VRAM-Transfer (4 KBytes).
 
-` 000      One (or two ???) 16bit expression(s ???) indicating the`\
-`          transfer destination address and transfer length.`\
-` ...-...  Transfer Data`\
-` ...-FFF  Remaining bytes not used`
+` 000      One (or two ???) 16bit expression(s ???) indicating the`
+`          transfer destination address and transfer length.`
+` ...-...  Transfer Data`
+` ...-FFF  Remaining bytes not used`
 
 Possible destinations in APU-RAM are:
 
-` 0400h-2AFFh  APU-RAM Program Area (9.75KBytes)`\
-` 2B00h-4AFFh  APU-RAM Sound Score Area (8Kbytes)`\
-` 4DB0h-EEFFh  APU-RAM Sampling Data Area (40.25 Kbytes)`
+` 0400h-2AFFh  APU-RAM Program Area (9.75KBytes)`
+` 2B00h-4AFFh  APU-RAM Sound Score Area (8Kbytes)`
+` 4DB0h-EEFFh  APU-RAM Sampling Data Area (40.25 Kbytes)`
 
 This function may be used to take control of the SNES sound chip, and/or
 to access the SNES MIDI engine. In either case it requires deeper
@@ -617,52 +617,52 @@ Voices used. Sound Effect A uses voices 6,7. Sound Effect B uses voices
 
 ### Sound Effect A Flag Table
 
-` Code Description             P V     Code Description             P V`\
-` 00  Dummy flag, re-trigger   - 2     18  Fast Jump                3 1`\
-` 80  Effect A, stop/silent    - 2     19  Jet (rocket) takeoff     0 1`\
-` 01  Nintendo                 3 1     1A  Jet (rocket) landing     0 1`\
-` 02  Game Over                3 2     1B  Cup breaking             2 2`\
-` 03  Drop                     3 1     1C  Glass breaking           1 2`\
-` 04  OK ... A                 3 2     1D  Level UP                 2 2`\
-` 05  OK ... B                 3 2     1E  Insert air               1 1`\
-` 06  Select...A               3 2     1F  Sword swing              1 1`\
-` 07  Select...B               3 1     20  Water falling            2 1`\
-` 08  Select...C               2 2     21  Fire                     1 1`\
-` 09  Mistake...Buzzer         2 1     22  Wall collapsing          1 2`\
-` 0A  Catch Item               2 2     23  Cancel                   1 2`\
-` 0B  Gate squeaks 1 time      2 2     24  Walking                  1 2`\
-` 0C  Explosion...small        1 2     25  Blocking strike          1 2`\
-` 0D  Explosion...medium       1 2     26  Picture floats on & off  3 2`\
-` 0E  Explosion...large        1 2     27  Fade in                  0 2`\
-` 0F  Attacked...A             3 1     28  Fade out                 0 2`\
-` 10  Attacked...B             3 2     29  Window being opened      1 2`\
-` 11  Hit (punch)...A          0 2     2A  Window being closed      0 2`\
-` 12  Hit (punch)...B          0 2     2B  Big Laser                3 2`\
-` 13  Breath in air            3 2     2C  Stone gate closes/opens  0 2`\
-` 14  Rocket Projectile...A    3 2     2D  Teleportation            3 1`\
-` 15  Rocket Projectile...B    3 2     2E  Lightning                0 2`\
-` 16  Escaping Bubble          2 1     2F  Earthquake               0 2`\
-` 17  Jump                     3 1     30  Small Laser              2 2`
+` Code Description             P V     Code Description             P V`
+` 00  Dummy flag, re-trigger   - 2     18  Fast Jump                3 1`
+` 80  Effect A, stop/silent    - 2     19  Jet (rocket) takeoff     0 1`
+` 01  Nintendo                 3 1     1A  Jet (rocket) landing     0 1`
+` 02  Game Over                3 2     1B  Cup breaking             2 2`
+` 03  Drop                     3 1     1C  Glass breaking           1 2`
+` 04  OK ... A                 3 2     1D  Level UP                 2 2`
+` 05  OK ... B                 3 2     1E  Insert air               1 1`
+` 06  Select...A               3 2     1F  Sword swing              1 1`
+` 07  Select...B               3 1     20  Water falling            2 1`
+` 08  Select...C               2 2     21  Fire                     1 1`
+` 09  Mistake...Buzzer         2 1     22  Wall collapsing          1 2`
+` 0A  Catch Item               2 2     23  Cancel                   1 2`
+` 0B  Gate squeaks 1 time      2 2     24  Walking                  1 2`
+` 0C  Explosion...small        1 2     25  Blocking strike          1 2`
+` 0D  Explosion...medium       1 2     26  Picture floats on & off  3 2`
+` 0E  Explosion...large        1 2     27  Fade in                  0 2`
+` 0F  Attacked...A             3 1     28  Fade out                 0 2`
+` 10  Attacked...B             3 2     29  Window being opened      1 2`
+` 11  Hit (punch)...A          0 2     2A  Window being closed      0 2`
+` 12  Hit (punch)...B          0 2     2B  Big Laser                3 2`
+` 13  Breath in air            3 2     2C  Stone gate closes/opens  0 2`
+` 14  Rocket Projectile...A    3 2     2D  Teleportation            3 1`
+` 15  Rocket Projectile...B    3 2     2E  Lightning                0 2`
+` 16  Escaping Bubble          2 1     2F  Earthquake               0 2`
+` 17  Jump                     3 1     30  Small Laser              2 2`
 
 Sound effect A is used for formanto sounds (percussion sounds).
 
 ### Sound Effect B Flag Table
 
-` Code Description             P V     Code Description             P V`\
-` 00  Dummy flag, re-trigger   - 4     0D  Waterfall                2 2`\
-` 80  Effect B, stop/silent    - 4     0E  Small character running  3 1`\
-` 01  Applause...small group   2 1     0F  Horse running            3 1`\
-` 02  Applause...medium group  2 2     10  Warning sound            1 1`\
-` 03  Applause...large group   2 4     11  Approaching car          0 1`\
-` 04  Wind                     1 2     12  Jet flying               1 1`\
-` 05  Rain                     1 1     13  UFO flying               2 1`\
-` 06  Storm                    1 3     14  Electromagnetic waves    0 1`\
-` 07  Storm with wind/thunder  2 4     15  Score UP                 3 1`\
-` 08  Lightning                0 2     16  Fire                     2 1`\
-` 09  Earthquake               0 2     17  Camera shutter, formanto 3 4`\
-` 0A  Avalanche                0 2     18  Write, formanto          0 1`\
-` 0B  Wave                     0 1     19  Show up title, formanto  0 1`\
-` 0C  River                    3 2`
+` Code Description             P V     Code Description             P V`
+` 00  Dummy flag, re-trigger   - 4     0D  Waterfall                2 2`
+` 80  Effect B, stop/silent    - 4     0E  Small character running  3 1`
+` 01  Applause...small group   2 1     0F  Horse running            3 1`
+` 02  Applause...medium group  2 2     10  Warning sound            1 1`
+` 03  Applause...large group   2 4     11  Approaching car          0 1`
+` 04  Wind                     1 2     12  Jet flying               1 1`
+` 05  Rain                     1 1     13  UFO flying               2 1`
+` 06  Storm                    1 3     14  Electromagnetic waves    0 1`
+` 07  Storm with wind/thunder  2 4     15  Score UP                 3 1`
+` 08  Lightning                0 2     16  Fire                     2 1`
+` 09  Earthquake               0 2     17  Camera shutter, formanto 3 4`
+` 0A  Avalanche                0 2     18  Write, formanto          0 1`
+` 0B  Wave                     0 1     19  Show up title, formanto  0 1`
+` 0C  River                    3 2`
 
 Sound effect B is mainly used for looping sounds (sustained sounds).
 
@@ -675,14 +675,14 @@ the Game Boy screen before transferring data through VRAM (the SNES then
 keeps displaying the Game Boy screen, even though VRAM doesn't contain
 meaningful display information during the transfer).
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=1)`\
-` 1     Gameboy Screen Mask (0-3)`\
-`         0  Cancel Mask   (Display activated)`\
-`         1  Freeze Screen (Keep displaying current picture)`\
-`         2  Blank Screen  (Black)`\
-`         3  Blank Screen  (Color 0)`\
-` 2-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=1)`
+` 1     Gameboy Screen Mask (0-3)`
+`         0  Cancel Mask   (Display activated)`
+`         1  Freeze Screen (Keep displaying current picture)`
+`         2  Blank Screen  (Black)`
+`         3  Blank Screen  (Color 0)`
+` 2-F   Not used (zero)`
 
 Freezing works only if the SNES has stored a picture, ie. if necessary
 wait one or two frames before freezing (rather than freezing directly
@@ -701,10 +701,10 @@ Test Suite). It is speculated that the animation may have interfered
 with rarely-used SGB features, such as OBJ_TRN or JUMP, and that
 Attraction Disable disables this animation.
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1     Attraction Disable  (0=Enable, 1=Disable)`\
-` 2-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1     Attraction Disable  (0=Enable, 1=Disable)`
+` 2-F   Not used (zero)`
 
 ### SGB Command 0Dh - TEST_EN
 
@@ -714,10 +714,10 @@ function". This function is disabled by default.
 This command does nothing on some SGB revisions. (SGBv2 confirmed,
 unknown on others)
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1     Test Mode Enable    (0=Disable, 1=Enable)`\
-` 2-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1     Test Mode Enable    (0=Disable, 1=Enable)`
+` 2-F   Not used (zero)`
 
 Maybe intended to determine whether SNES operates at 50Hz or 60Hz
 display refresh rate ??? Possibly result can be read-out from joypad
@@ -729,14 +729,14 @@ Used to enable/disable ICON function. Possibly meant to enable/disable
 SGB/SNES popup menues which might otherwise activated during gameboy
 game play. By default all functions are enabled (0).
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1     Disable Bits`\
-`         Bit 0 - Use of SGB-Built-in Color Palettes    (1=Disable)`\
-`         Bit 1 - Controller Set-up Screen    (0=Enable, 1=Disable)`\
-`         Bit 2 - SGB Register File Transfer (0=Receive, 1=Disable)`\
-`         Bit 3-6 - Not used (zero)`\
-` 2-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1     Disable Bits`
+`         Bit 0 - Use of SGB-Built-in Color Palettes    (1=Disable)`
+`         Bit 1 - Controller Set-up Screen    (0=Enable, 1=Disable)`
+`         Bit 2 - SGB Register File Transfer (0=Receive, 1=Disable)`
+`         Bit 3-6 - Not used (zero)`
+` 2-F   Not used (zero)`
 
 Above Bit 2 will suppress all further packets/commands when set, this
 might be useful when starting a monochrome game from inside of the
@@ -747,16 +747,16 @@ games.
 
 Used to write one or more bytes directly into SNES Work RAM.
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1     SNES Destination Address, low`\
-` 2     SNES Destination Address, high`\
-` 3     SNES Destination Address, bank number`\
-` 4     Number of bytes to write (01h-0Bh)`\
-` 5     Data Byte #1`\
-` 6     Data Byte #2 (if any)`\
-` 7     Data Byte #3 (if any)`\
-` etc.`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1     SNES Destination Address, low`
+` 2     SNES Destination Address, high`
+` 3     SNES Destination Address, bank number`
+` 4     Number of bytes to write (01h-0Bh)`
+` 5     Data Byte #1`
+` 6     Data Byte #2 (if any)`
+` 7     Data Byte #3 (if any)`
+` etc.`
 
 Unused bytes at the end of the packet should be set to zero, this
 function is restricted to a single packet, so that not more than 11
@@ -767,16 +767,16 @@ bytes can be defined at once. Free Addresses in SNES memory are Bank 0
 
 Used to transfer binary code or data directly into SNES RAM.
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1     SNES Destination Address, low`\
-` 2     SNES Destination Address, high`\
-` 3     SNES Destination Address, bank number`\
-` 4-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1     SNES Destination Address, low`
+` 2     SNES Destination Address, high`
+` 3     SNES Destination Address, bank number`
+` 4-F   Not used (zero)`
 
 The data is sent by VRAM-Transfer (4 KBytes).
 
-` 000-FFF  Data`
+` 000-FFF  Data`
 
 Free Addresses in SNES memory are Bank 0 1800h-1FFFh, Bank 7Fh
 0000h-FFFFh. The transfer length is fixed at 4KBytes ???, so that
@@ -788,15 +788,15 @@ idea ???
 Used to set the SNES program counter and NMI (vblank interrupt) handler
 to specific addresses.
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1     SNES Program Counter, low`\
-` 2     SNES Program Counter, high`\
-` 3     SNES Program Counter, bank number`\
-` 4     SNES NMI Handler, low`\
-` 5     SNES NMI Handler, high`\
-` 6     SNES NMI Handler, bank number`\
-` 7-F   Not used, zero`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1     SNES Program Counter, low`
+` 2     SNES Program Counter, high`
+` 3     SNES Program Counter, bank number`
+` 4     SNES NMI Handler, low`
+` 5     SNES NMI Handler, high`
+` 6     SNES NMI Handler, bank number`
+` 7-F   Not used, zero`
 
 The game *Space Invaders* uses this function when selecting "Arcade
 mode" to execute SNES program code which has been previously
@@ -829,13 +829,13 @@ Used to request multiplayer mode (ie. input from more than one joypad).
 Because this function provides feedback from the SGB/SNES to the Game
 Boy program, it is also used to detect SGB hardware.
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1     Multiplayer Control (0-3) (Bit0=Enable, Bit1=Two/Four Players)`\
-`         0 = One player`\
-`         1 = Two players`\
-`         3 = Four players`\
-` 2-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1     Multiplayer Control (0-3) (Bit0=Enable, Bit1=Two/Four Players)`
+`         0 = One player`
+`         1 = Two players`
+`         3 = Four players`
+` 2-F   Not used (zero)`
 
 In one player mode, the second joypad (if any) is used for the SGB
 system program. In two player mode, both joypads are used for the game.
@@ -859,10 +859,10 @@ set P14 and P15 both HIGH (deselect both Buttons and Cursor keys), you
 can now read the lower 4bits of FF00 which indicate the joypad ID for
 the following joypad input:
 
-` 0Fh  Joypad 1`\
-` 0Eh  Joypad 2`\
-` 0Dh  Joypad 3`\
-` 0Ch  Joypad 4`
+` 0Fh  Joypad 1`
+` 0Eh  Joypad 2`
+` 0Dh  Joypad 3`
+` 0Ch  Joypad 4`
 
 Next, read joypad state as normally. When completed, set P14 and P15
 back HIGH, this automatically increments the joypad number (or restarts
@@ -886,17 +886,17 @@ This normally used to define BG tiles for the SGB Border (see PCT_TRN),
 but might be also used to define moveable SNES foreground sprites (see
 OBJ_TRN).
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1     Tile Transfer Destination`\
-`         Bit 0   - Tile Numbers   (0=Tiles 00h-7Fh, 1=Tiles 80h-FFh)`\
-`         Bit 1   - Tile Type      (0=BG Tiles, 1=OBJ Tiles)`\
-`         Bit 2-7 - Not used (zero)`\
-` 2-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1     Tile Transfer Destination`
+`         Bit 0   - Tile Numbers   (0=Tiles 00h-7Fh, 1=Tiles 80h-FFh)`
+`         Bit 1   - Tile Type      (0=BG Tiles, 1=OBJ Tiles)`
+`         Bit 2-7 - Not used (zero)`
+` 2-F   Not used (zero)`
 
 The tile data is sent by VRAM-Transfer (4 KBytes).
 
-` 000-FFF  Bitmap data for 128 Tiles`
+` 000-FFF  Bitmap data for 128 Tiles`
 
 Each tile occupies 32 bytes (8x8 pixels, 16 colors each). When intending
 to transfer more than 128 tiles, call this function twice (once for
@@ -912,25 +912,25 @@ Used to transfer tile map data and palette data to SNES BG Map memory in
 VRAM to be used for the SGB border. The actual tiles must be separately
 transferred by using the CHR_TRN function.
 
-` Byte  Content`\
-` 0     Command*8+Length    (fixed length=1)`\
-` 1-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length    (fixed length=1)`
+` 1-F   Not used (zero)`
 
 The map data is sent by VRAM-Transfer (4 KBytes).
 
-` 000-6FF  BG Map 32x28 Entries of 16bit each (1792 bytes)`\
-` 700-7FF  Not used, don't care`\
-` 800-87F  BG Palette Data (Palettes 4-7, each 16 colors of 16bits each)`\
-` 880-FFF  Not used, don't care`
+` 000-6FF  BG Map 32x28 Entries of 16bit each (1792 bytes)`
+` 700-7FF  Not used, don't care`
+` 800-87F  BG Palette Data (Palettes 4-7, each 16 colors of 16bits each)`
+` 880-FFF  Not used, don't care`
 
 Each BG Map Entry consists of a 16bit value as such:
 `VH01 PP00 NNNN NNNN`
 
-` Bit 0-9   - Character Number (use only 00h-FFh, upper 2 bits zero)`\
-` Bit 10-12 - Palette Number   (use only 4-7, officially use only 4-6)`\
-` Bit 13    - BG Priority      (use only 0)`\
-` Bit 14    - X-Flip           (0=Normal, 1=Mirror horizontally)`\
-` Bit 15    - Y-Flip           (0=Normal, 1=Mirror vertically)`
+` Bit 0-9   - Character Number (use only 00h-FFh, upper 2 bits zero)`
+` Bit 10-12 - Palette Number   (use only 4-7, officially use only 4-6)`
+` Bit 13    - BG Priority      (use only 0)`
+` Bit 14    - X-Flip           (0=Normal, 1=Mirror horizontally)`
+` Bit 15    - Y-Flip           (0=Normal, 1=Mirror vertically)`
 
 The 32x28 map entries correspond to 256x224 pixels of the Super NES
 screen. The 20x18 entries in the center of the 32x28 area should be set
@@ -965,24 +965,24 @@ whatever that means ???
 
 This command does nothing on some SGB revisions. (SGBv2, SGB2?)
 
-` Byte  Content`\
-` 0     Command*8+Length (fixed length=1)`\
-` 1     Control Bits`\
-`         Bit 0   - SNES OBJ Mode enable (0=Cancel, 1=Enable)`\
-`         Bit 1   - Change OBJ Color     (0=No, 1=Use definitions below)`\
-`         Bit 2-7 - Not used (zero)`\
-` 2-3   System Color Palette Number for OBJ Palette 4 (0-511)`\
-` 4-5   System Color Palette Number for OBJ Palette 5 (0-511)`\
-` 6-7   System Color Palette Number for OBJ Palette 6 (0-511)`\
-` 8-9   System Color Palette Number for OBJ Palette 7 (0-511)`\
-`         These color entries are ignored if above Control Bit 1 is zero.`\
-`         Because each OBJ palette consists of 16 colors, four system`\
-`         palette entries (of 4 colors each) are transferred into each`\
-`         OBJ palette. The system palette numbers are not required to be`\
-`         aligned to a multiple of four, and will wrap to palette number`\
-`         0 when exceeding 511. For example, a value of 511 would copy`\
-`         system palettes 511, 0, 1, 2 to the SNES OBJ palette.`\
-` A-F   Not used (zero)`
+` Byte  Content`
+` 0     Command*8+Length (fixed length=1)`
+` 1     Control Bits`
+`         Bit 0   - SNES OBJ Mode enable (0=Cancel, 1=Enable)`
+`         Bit 1   - Change OBJ Color     (0=No, 1=Use definitions below)`
+`         Bit 2-7 - Not used (zero)`
+` 2-3   System Color Palette Number for OBJ Palette 4 (0-511)`
+` 4-5   System Color Palette Number for OBJ Palette 5 (0-511)`
+` 6-7   System Color Palette Number for OBJ Palette 6 (0-511)`
+` 8-9   System Color Palette Number for OBJ Palette 7 (0-511)`
+`         These color entries are ignored if above Control Bit 1 is zero.`
+`         Because each OBJ palette consists of 16 colors, four system`
+`         palette entries (of 4 colors each) are transferred into each`
+`         OBJ palette. The system palette numbers are not required to be`
+`         aligned to a multiple of four, and will wrap to palette number`
+`         0 when exceeding 511. For example, a value of 511 would copy`
+`         system palettes 511, 0, 1, 2 to the SNES OBJ palette.`
+` A-F   Not used (zero)`
 
 The recommended method is to "display" Game Boy BG tiles F9h..FFh from
 left to right as first 7 characters of the bottom-most character line of
@@ -992,26 +992,26 @@ the Game Boy BGP palette register should be set up properly. By following
 that method, SNES OAM data can be defined in the 70h bytes of the
 gameboy BG tile memory at following addresses:
 
-` 8F90-8FEF  SNES OAM, 24 Entries of 4 bytes each (96 bytes)`\
-` 8FF0-8FF5  SNES OAM MSBs, 24 Entries of 2 bits each (6 bytes)`\
-` 8FF6-8FFF  Not used, don't care (10 bytes)`
+` 8F90-8FEF  SNES OAM, 24 Entries of 4 bytes each (96 bytes)`
+` 8FF0-8FF5  SNES OAM MSBs, 24 Entries of 2 bits each (6 bytes)`
+` 8FF6-8FFF  Not used, don't care (10 bytes)`
 
 The format of SNES OAM Entries is:
 
-` Byte 0  OBJ X-Position (0-511, MSB is separately stored, see below)`\
-` Byte 1  OBJ Y-Position (0-255)`\
-` Byte 2-3  Attributes (16bit)`\
-`   Bit 0-8    Tile Number     (use only 00h-FFh, upper bit zero)`\
-`   Bit 9-11   Palette Number  (use only 4-7)`\
-`   Bit 12-13  OBJ Priority    (use only 3)`\
-`   Bit 14     X-Flip          (0=Normal, 1=Mirror horizontally)`\
-`   Bit 15     Y-Flip          (0=Normal, 1=Mirror vertically)`
+` Byte 0  OBJ X-Position (0-511, MSB is separately stored, see below)`
+` Byte 1  OBJ Y-Position (0-255)`
+` Byte 2-3  Attributes (16bit)`
+`   Bit 0-8    Tile Number     (use only 00h-FFh, upper bit zero)`
+`   Bit 9-11   Palette Number  (use only 4-7)`
+`   Bit 12-13  OBJ Priority    (use only 3)`
+`   Bit 14     X-Flip          (0=Normal, 1=Mirror horizontally)`
+`   Bit 15     Y-Flip          (0=Normal, 1=Mirror vertically)`
 
 The format of SNES OAM MSB Entries is:
 
-` Actually, the format is unknown ??? However, 2 bits are used per entry:`\
-` One bit is the most significant bit of the OBJ X-Position.`\
-` The other bit specifies the OBJ size (8x8 or 16x16 pixels).`
+` Actually, the format is unknown ??? However, 2 bits are used per entry:`
+` One bit is the most significant bit of the OBJ X-Position.`
+` The other bit specifies the OBJ size (8x8 or 16x16 pixels).`
 
 # Undocumented SGB commands
 

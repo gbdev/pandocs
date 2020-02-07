@@ -57,14 +57,14 @@ continues to tick in background.
 ### The Clock Counter Registers
 
 ```
-08h  RTC S   Seconds   0-59 (0-3Bh)
-09h  RTC M   Minutes   0-59 (0-3Bh)
-0Ah  RTC H   Hours     0-23 (0-17h)
-0Bh  RTC DL  Lower 8 bits of Day Counter (0-FFh)
-0Ch  RTC DH  Upper 1 bit of Day Counter, Carry Bit, Halt Flag
-      Bit 0  Most significant bit of Day Counter (Bit 8)
-      Bit 6  Halt (0=Active, 1=Stop Timer)
-      Bit 7  Day Counter Carry Bit (1=Counter Overflow)
+08h  RTC S   Seconds   0-59 (0-3Bh)
+09h  RTC M   Minutes   0-59 (0-3Bh)
+0Ah  RTC H   Hours     0-23 (0-17h)
+0Bh  RTC DL  Lower 8 bits of Day Counter (0-FFh)
+0Ch  RTC DH  Upper 1 bit of Day Counter, Carry Bit, Halt Flag
+      Bit 0  Most significant bit of Day Counter (Bit 8)
+      Bit 6  Halt (0=Active, 1=Stop Timer)
+      Bit 7  Day Counter Carry Bit (1=Counter Overflow)
 ```
 
 The Halt Flag is supposed to be set before **writing** to the RTC

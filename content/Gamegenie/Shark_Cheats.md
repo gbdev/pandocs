@@ -9,10 +9,10 @@ Level PRO, etc.
 Gamegenie codes consist of nine-digit hex numbers, formatted as
 ABC-DEF-GHI, the meaning of the separate digits is:
 
-` AB    New data`\
-` FCDE  Memory address, XORed by 0F000h`\
-` GI    Old data, XORed by 0BAh and rotated left by two`\
-` H     Don't know, maybe checksum and/or else`
+` AB    New data`
+` FCDE  Memory address, XORed by 0F000h`
+` GI    Old data, XORed by 0BAh and rotated left by two`
+` H     Don't know, maybe checksum and/or else`
 
 The address should be located in ROM area 0000h-7FFFh, the adapter
 permanently compares address/old data with address/data being read by
@@ -28,9 +28,9 @@ simultaneously.
 Game Shark codes consist of eight-digit hex numbers, formatted as
 ABCDEFGH, the meaning of the separate digits is:
 
-` AB    External RAM bank number`\
-` CD    New Data`\
-` GHEF  Memory Address (internal or external RAM, A000-DFFF)`
+` AB    External RAM bank number`
+` CD    New Data`
+` GHEF  Memory Address (internal or external RAM, A000-DFFF)`
 
 As far as I understand, patching is implement by hooking the original
 VBlank interrupt handler, and re-writing RAM values each frame. The

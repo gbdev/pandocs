@@ -36,8 +36,8 @@ after accessing it, in order to protect its contents from damage during
 power down of the Game Boy. Usually the following values are used:
 
 ```
-00h  Disable RAM (default)
-0Ah  Enable RAM`
+00h  Disable RAM (default)
+0Ah  Enable RAM`
 ```
 
 Practically any value with 0Ah in the lower 4 bits enables RAM, and any
@@ -65,8 +65,8 @@ This 1bit Register selects whether the two bits of the above register
 should be used as upper two bits of the ROM Bank, or as RAM Bank Number.
 
 ```
-00h = ROM Banking Mode (up to 8KByte RAM, 2MByte ROM) (default)
-01h = RAM Banking Mode (up to 32KByte RAM, 512KByte ROM)
+00h = ROM Banking Mode (up to 8KByte RAM, 2MByte ROM) (default)
+01h = RAM Banking Mode (up to 32KByte RAM, 512KByte ROM)
 ```
 
 The program may freely switch between both modes, the only limitiation
