@@ -12,12 +12,12 @@ followed by a JP 0150h instruction. But not always.
 
 These bytes define the bitmap of the Nintendo logo that is displayed
 when the Game Boy gets turned on. The hexdump of this bitmap is:
-
-` CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D`
-` 00 08 11 1F 88 89 00 0E DC CC 6E E6 DD DD D9 99`
-` BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E`
-
-The Game Boy\'s boot procedure verifies the content of this bitmap
+```
+ CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D
+ 00 08 11 1F 88 89 00 0E DC CC 6E E6 DD DD D9 99
+ BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E
+```
+The Game Boy's boot procedure verifies the content of this bitmap
 (after it has displayed it), and LOCKS ITSELF UP if these bytes are
 incorrect. A CGB verifies only the first 18h bytes of the bitmap, but
 others (for example a pocket gameboy) verify all 30h bytes.
@@ -25,7 +25,7 @@ others (for example a pocket gameboy) verify all 30h bytes.
 ### 0134-0143 - Title
 
 Title of the game in UPPER CASE ASCII. If it is less than 16 characters
-then the remaining bytes are filled with 00\'s. When inventing the CGB,
+then the remaining bytes are filled with 00's. When inventing the CGB,
 Nintendo has reduced the length of this area to 15 characters, and some
 months later they had the fantastic idea to reduce it to 11 characters
 only. The new meaning of the ex-title bytes is described below.
@@ -42,10 +42,10 @@ In older cartridges this byte has been part of the Title (see above). In
 CGB cartridges the upper bit is used to enable CGB functions. This is
 required, otherwise the CGB switches itself into Non-CGB-Mode. Typical
 values are:
-
-` 80h - Game supports CGB functions, but works on old gameboys also.`
-` C0h - Game works on CGB only (physically the same as 80h).`
-
+```
+ 80h - Game supports CGB functions, but works on old gameboys also.
+ C0h - Game works on CGB only (physically the same as 80h).
+```
 Values with Bit 7 set, and either Bit 2 or 3 set, will switch the
 gameboy into a special non-CGB-mode with uninitialized palettes. Purpose
 unknown, eventually this has been supposed to be used to colorize
@@ -60,7 +60,7 @@ publisher of the game. These two bytes are used in newer games only
 games are using the header entry at 014B instead.
 
 Sample licensee codes :
-
+```
   -------- -------------------- -------- --------------- -------- -----------------------
   **00**   none                 **01**   Nintendo R&D1   **08**   Capcom
   **13**   Electronic Arts      **18**   Hudson Soft     **19**   b-ai
@@ -81,16 +81,17 @@ Sample licensee codes :
   **79**   Accolade             **80**   misawa          **83**   lozc
   **86**   tokuma shoten i\*    **87**   tsukuda ori\*   **91**   Chunsoft
   **92**   Video system         **93**   Ocean/Acclaim   **95**   Varie
-  **96**   Yonezawa/s\'pal      **97**   Kaneko          **99**   Pack in soft
+  **96**   Yonezawa/s'pal      **97**   Kaneko          **99**   Pack in soft
   **A4**   Konami (Yu-Gi-Oh!)                                     
   -------- -------------------- -------- --------------- -------- -----------------------
+```
 
 ### 0146 - SGB Flag
 
 Specifies whether the game supports SGB functions, common values are:
 
-` 00h = No SGB functions (Normal Gameboy or CGB only game)`
-` 03h = Game supports SGB functions`
+ 00h = No SGB functions (Normal Gameboy or CGB only game)
+ 03h = Game supports SGB functions
 
 The SGB disables its SGB functions if this byte is set to another value
 than 03h.
@@ -100,51 +101,57 @@ than 03h.
 Specifies which Memory Bank Controller (if any) is used in the
 cartridge, and if further external hardware exists in the cartridge.
 
-` 00h  ROM ONLY                 19h  MBC5`
-` 01h  MBC1                     1Ah  MBC5+RAM`
-` 02h  MBC1+RAM                 1Bh  MBC5+RAM+BATTERY`
-` 03h  MBC1+RAM+BATTERY         1Ch  MBC5+RUMBLE`
-` 05h  MBC2                     1Dh  MBC5+RUMBLE+RAM`
-` 06h  MBC2+BATTERY             1Eh  MBC5+RUMBLE+RAM+BATTERY`
-` 08h  ROM+RAM                  20h  MBC6`
-` 09h  ROM+RAM+BATTERY          22h  MBC7+SENSOR+RUMBLE+RAM+BATTERY`
-` 0Bh  MMM01`
-` 0Ch  MMM01+RAM`
-` 0Dh  MMM01+RAM+BATTERY`
-` 0Fh  MBC3+TIMER+BATTERY`
-` 10h  MBC3+TIMER+RAM+BATTERY   FCh  POCKET CAMERA`
-` 11h  MBC3                     FDh  BANDAI TAMA5`
-` 12h  MBC3+RAM                 FEh  HuC3`
-` 13h  MBC3+RAM+BATTERY         FFh  HuC1+RAM+BATTERY`
+```
+ 00h  ROM ONLY                 19h  MBC5
+ 01h  MBC1                     1Ah  MBC5+RAM
+ 02h  MBC1+RAM                 1Bh  MBC5+RAM+BATTERY
+ 03h  MBC1+RAM+BATTERY         1Ch  MBC5+RUMBLE
+ 05h  MBC2                     1Dh  MBC5+RUMBLE+RAM
+ 06h  MBC2+BATTERY             1Eh  MBC5+RUMBLE+RAM+BATTERY
+ 08h  ROM+RAM                  20h  MBC6
+ 09h  ROM+RAM+BATTERY          22h  MBC7+SENSOR+RUMBLE+RAM+BATTERY
+ 0Bh  MMM01
+ 0Ch  MMM01+RAM
+ 0Dh  MMM01+RAM+BATTERY
+ 0Fh  MBC3+TIMER+BATTERY
+ 10h  MBC3+TIMER+RAM+BATTERY   FCh  POCKET CAMERA
+ 11h  MBC3                     FDh  BANDAI TAMA5
+ 12h  MBC3+RAM                 FEh  HuC3
+ 13h  MBC3+RAM+BATTERY         FFh  HuC1+RAM+BATTERY
+```
 
 ### 0148 - ROM Size
 
 Specifies the ROM Size of the cartridge. Typically calculated as \"32KB
 shl N\".
 
-` 00h -  32KByte (no ROM banking)`
-` 01h -  64KByte (4 banks)`
-` 02h - 128KByte (8 banks)`
-` 03h - 256KByte (16 banks)`
-` 04h - 512KByte (32 banks)`
-` 05h -   1MByte (64 banks)  - only 63 banks used by MBC1`
-` 06h -   2MByte (128 banks) - only 125 banks used by MBC1`
-` 07h -   4MByte (256 banks)`
-` 08h -   8MByte (512 banks)`
-` 52h - 1.1MByte (72 banks)`
-` 53h - 1.2MByte (80 banks)`
-` 54h - 1.5MByte (96 banks)`
+```
+ 00h -  32KByte (no ROM banking)
+ 01h -  64KByte (4 banks)
+ 02h - 128KByte (8 banks)
+ 03h - 256KByte (16 banks)
+ 04h - 512KByte (32 banks)
+ 05h -   1MByte (64 banks)  - only 63 banks used by MBC1
+ 06h -   2MByte (128 banks) - only 125 banks used by MBC1
+ 07h -   4MByte (256 banks)
+ 08h -   8MByte (512 banks)
+ 52h - 1.1MByte (72 banks)
+ 53h - 1.2MByte (80 banks)
+ 54h - 1.5MByte (96 banks)
+```
 
 ### 0149 - RAM Size
 
 Specifies the size of the external RAM in the cartridge (if any).
 
-` 00h - None`
-` 01h - 2 KBytes`
-` 02h - 8 Kbytes`
-` 03h - 32 KBytes (4 banks of 8KBytes each)`
-` 04h - 128 KBytes (16 banks of 8KBytes each)`
-` 05h - 64 KBytes (8 banks of 8KBytes each)`
+```
+ 00h - None
+ 01h - 2 KBytes
+ 02h - 8 Kbytes
+ 03h - 32 KBytes (4 banks of 8KBytes each)
+ 04h - 128 KBytes (16 banks of 8KBytes each)
+ 05h - 64 KBytes (8 banks of 8KBytes each)
+```
 
 When using a MBC2 chip 00h must be specified in this entry, even though
 the MBC2 includes a built-in RAM of 512 x 4 bits.
@@ -154,14 +161,16 @@ the MBC2 includes a built-in RAM of 512 x 4 bits.
 Specifies if this version of the game is supposed to be sold in Japan,
 or anywhere else. Only two values are defined.
 
-` 00h - Japanese`
-` 01h - Non-Japanese`
+```
+00h - Japanese
+01h - Non-Japanese
+```
 
 ### 014B - Old Licensee Code
 
 Specifies the games company/publisher code in range 00-FFh. A value of
 33h signalizes that the New License Code in header bytes 0144-0145 is
-used instead. (Super Game Boy functions won\'t work if \<\> \$33.) A list
+used instead. (Super Game Boy functions won't work if \<\> \$33.) A list
 of licensee codes can be found
 [here](Gameboy_ROM_Header_Info#Licensee "wikilink").
 
@@ -174,14 +183,16 @@ Specifies the version number of the game. That is usually 00h.
 Contains an 8 bit checksum across the cartridge header bytes 0134-014C.
 The checksum is calculated as follows:
 
-` x=0:FOR i=0134h TO 014Ch:x=x-MEM[i]-1:NEXT`
+```
+x=0:FOR i=0134h TO 014Ch:x=x-MEM[i]-1:NEXT
+```
 
 The lower 8 bits of the result must be the same than the value in this
-entry. The GAME WON\'T WORK if this checksum is incorrect.
+entry. The GAME WON'T WORK if this checksum is incorrect.
 
 ### 014E-014F - Global Checksum
 
 Contains a 16 bit checksum (upper byte first) across the whole cartridge
 ROM. Produced by adding all bytes of the cartridge (except for the two
-checksum bytes). The Game Boy doesn\'t verify this checksum.
+checksum bytes). The Game Boy doesn't verify this checksum.
 

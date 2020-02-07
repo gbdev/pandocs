@@ -31,6 +31,7 @@ The single, most comprehensive technical reference to Game Boy available to the 
 	- [MBC6](#mbc6)
 	- [MBC7](#mbc7)
 	- [HuC1](#huc1)
+	- [Other MBCs](#other-mbcs)
 - Accessories
 	- [Game Boy Printer](#game-boy-printer)
 	- Game Boy Camera
@@ -102,13 +103,18 @@ This document is the product of 25 years of community effort: it's hard to keep 
 
 # The Cartridge Header
 
-!INCLUDE "The_Cartrdige_Header.md", 1
+!INCLUDE "The_Cartridge_Header.md", 1
 
 # Memory Bank Controllers
 
 As the gameboys 16 bit address bus offers only limited space for ROM and RAM addressing, many games are using Memory Bank Controllers (MBCs) to expand the available address space by bank switching. These MBC chips are located in the game cartridge (ie. not in the gameboy itself).
 
-In each cartridge, the required (or preferred) MBC type should be specified in the byte at 0147h of the ROM, as described in the cartridge header. Several different MBC types are available: 
+In each cartridge, the required (or preferred) MBC type should be specified in the byte at 0147h of the ROM, as described in the [the
+cartridge header](#the-cartrdige-header). Several different MBC types are available: 
+
+# No MBC
+
+!INCLUDE "nombc.md", 1
 
 # MBC1
 
@@ -137,6 +143,10 @@ In each cartridge, the required (or preferred) MBC type should be specified in t
 # HuC1
 
 !INCLUDE "HuC1.md", 1
+
+# Other MBCs
+
+!INCLUDE "othermbc.md", 1
 
 # Game Boy Printer
 
