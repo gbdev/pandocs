@@ -1,6 +1,15 @@
 $contentClass = '.theme-default-content'
+
 // colors
 $accentColor = #0366d6
 $textColor = #24292e
 $borderColor = #eaecef
 $codeBgColor = #eee
+
+// FIXME: something else is injecting the default green color on the sidebar
+a.sidebar-link.active
+  color $accentColor !important
+  border-left-color $accentColor !important
+
+a.sidebar-link:hover
+  color $accentColor !important
