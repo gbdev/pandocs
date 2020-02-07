@@ -8,7 +8,7 @@ module.exports = {
     ],
     sidebar: [
       '/',
-      '/Timer_Obscure_Behaviour'
+      'Timer_Obscure_Behaviour'
     ]
   }
 }

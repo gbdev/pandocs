@@ -19,12 +19,14 @@ status after two $00 writes.
 
 The packets all follow this format:
 
+```
   ------------------- ------------- --------- ------------------ ---------------- ----------------------- ---------- ----------------- --------
   **Description**     Magic bytes   Command   Compression flag   Length of data   Command-specific data   Checksum   Alive indicator   Status
   **Size**            2 bytes       1 byte    1 byte             2 bytes          Variable                2 bytes    1 byte            1 byte
-  **GB to Printer**   $88          $33      See below          0/1              LSB                     MSB        See below         LSB
+  **GB to Printer**   $88           $33       See below          0/1              LSB                     MSB        See below         LSB
   **Printer to GB**   0x00          0x00      0x00               0x00             0x00                    0x00       0x00              0x00
   ------------------- ------------- --------- ------------------ ---------------- ----------------------- ---------- ----------------- --------
+```
 
 The checksum is simply a sum of every byte sent except the magic bytes
 and obviously, the checksum itself.
@@ -82,7 +84,7 @@ Status byte
 -----------
 
 A nonzero value for the higher nibble indicates something went wrong.
-
+```
   ------- -------------------- -------------------------------------------------------------------
   Bit 7   Low Battery          Set when the voltage is below threshold
   Bit 6   Other error          
@@ -93,7 +95,7 @@ A nonzero value for the higher nibble indicates something went wrong.
   Bit 1   Currently printing   Set as long as the printer's burnin' paper
   Bit 0   Checksum error       Set when the calculated checksum doesn't match the received one
   ------- -------------------- -------------------------------------------------------------------
-
+```
 Example
 -------
 

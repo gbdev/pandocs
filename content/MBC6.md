@@ -2,8 +2,8 @@ Overview
 --------
 
 MBC6 (Memory Bank Controller 6) is an unusual MBC that contains two
-separately switchable ROM banks (\$4000 and \$6000) and RAM banks
-(\$A000 and \$B000), SRAM and an 8 Mbit Macronix MX29F008TC-14 flash
+separately switchable ROM banks ($4000 and $6000) and RAM banks
+($A000 and $B000), SRAM and an 8 Mbit Macronix MX29F008TC-14 flash
 memory chip. It is only used in one game, Net de Get: Minigame @ 100,
 which uses the [Mobile Adapter](Mobile_Adapter "wikilink") to connect to
 the web to download minigames onto the local flash. Both ROM banks and
@@ -85,7 +85,7 @@ value of 00 selects the ROM and 08 selects the flash.
 
 The flash chip is mapped directly into the A or B address space, which
 means standard flash access commands are used. To issue a command, you
-must write the value \$AA to \$5555 then \$55 to \$2AAA and, which are
+must write the value $AA to $5555 then $55 to $2AAA and, which are
 mapped as 2:5555/1:4AAA for bank A or 2:7555/1:6AAA for bank B followed
 by the command at either 2:5555/2:7555, or a relevant address, depending
 on the command.
@@ -93,32 +93,34 @@ on the command.
 The commands and access sequences are as follows, were X refers to
 either 4 or 6 and Y to 5 or 7, depending on the bank region:
 
+```
   ------------- ------------- ------------- ------------- ------------- ------------- ------------------------------------------------
-  2:Y555=\$AA   1:XAAA=\$55   2:Y555=\$80   2:Y555=\$AA   1:XAAA=\$55   ?:X000=\$30   Erase sector\* (set 8 kB region to \$FFs)
-  2:Y555=\$AA   1:XAAA=\$55   2:Y555=\$80   2:Y555=\$AA   1:XAAA=\$55   ?:Y555=\$10   Erase chip\* (set entire flash to \$FFs)
-  2:Y555=\$AA   1:XAAA=\$55   2:Y555=\$90                                             ID mode (reads out JEDEC ID (C2,81) at \$X000)
-  2:Y555=\$AA   1:XAAA=\$55   2:Y555=\$A0                                             Program mode\*
-  2:Y555=\$AA   1:XAAA=\$55   2:Y555=\$F0                                             Exit ID/erase chip mode
-  2:Y555=\$AA   1:XAAA=\$55   ?:X000=\$F0                                             Exit erase sector mode
-  ?:????=\$F0                                                                         Exit program mode
+  2:Y555=$AA   1:XAAA=$55   2:Y555=$80   2:Y555=$AA   1:XAAA=$55   ?:X000=$30   Erase sector\* (set 8 kB region to $FFs)
+  2:Y555=$AA   1:XAAA=$55   2:Y555=$80   2:Y555=$AA   1:XAAA=$55   ?:Y555=$10   Erase chip\* (set entire flash to $FFs)
+  2:Y555=$AA   1:XAAA=$55   2:Y555=$90                                             ID mode (reads out JEDEC ID (C2,81) at $X000)
+  2:Y555=$AA   1:XAAA=$55   2:Y555=$A0                                             Program mode\*
+  2:Y555=$AA   1:XAAA=$55   2:Y555=$F0                                             Exit ID/erase chip mode
+  2:Y555=$AA   1:XAAA=$55   ?:X000=$F0                                             Exit erase sector mode
+  ?:????=$F0                                                                         Exit program mode
   ------------- ------------- ------------- ------------- ------------- ------------- ------------------------------------------------
+```
 
 Commands marked with \* require the Write Enable bit to be 1. These will
-make the flash read out status bytes instead of values. A status of \$80
+make the flash read out status bytes instead of values. A status of $80
 means the operation has finished and you should exit the mode using the
-appropriate command. A status of \$10 indicates a timeout.
+appropriate command. A status of $10 indicates a timeout.
 
 Programming must be done by first erasing a sector, activating write
 mode, writing out 128 bytes (aligned), then writing a 0 to the final
 address to commit the write, waiting for the status to indicate
-completion, and writing \$F0 to the final address again to exit program
+completion, and writing $F0 to the final address again to exit program
 mode. If a sector is not erased first programming will not work
 properly. In some cases it will only allow the stored bytes to be anded
-instead of replaced; in others it just won\'t work at all. The only way
+instead of replaced; in others it just won't work at all. The only way
 to set the bits back to 1 is to erase the sector entirely. It is
 recommended to check the flash to make sure all bytes were written
 properly and re-write (without erasing) the 128 byte block if some bits
-didn\'t get set to 0 properly. After writing all blocks in a sector
+didn't get set to 0 properly. After writing all blocks in a sector
 Flash Write Enable should be set to 0.
 
 Source: [1](http://gbdev.gg8.se/forums/viewtopic.php?id=544)
