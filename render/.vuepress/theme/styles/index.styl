@@ -22,8 +22,9 @@
   color: #333333
   
 .pansubtitle
+  font-style: italic
   padding-top: 10px
-  font-size: 1.75rem
+  font-size: 1.4rem
   text-align: center
   font-weight: 300
   letter-spacing: -0.00rem
@@ -36,6 +37,9 @@
   margin-bottom:25px
   margin-top:10px
 
+@media (min-width: 800px)
+  .pansubtitle
+    margin:10px 15% 20px 15%
 
 html, body
   padding 0
@@ -260,6 +264,5 @@ div.theme-default-content:not(.custom) {
   div.theme-default-content:not(.custom) {
       max-width: 70%;
   }
-
-
+  
 @require 'mobile.styl'
