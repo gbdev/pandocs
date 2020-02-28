@@ -173,23 +173,24 @@ cartridge, and if further external hardware exists in the cartridge.
 
 ### 0148 - ROM Size
 
-Specifies the ROM Size of the cartridge. Typically calculated as \"32KB
-shl N\".
+Specifies the ROM Size of the cartridge. Typically calculated as "32KB
+shl N".
 
-```
- 00h -  32KByte (no ROM banking)
- 01h -  64KByte (4 banks)
- 02h - 128KByte (8 banks)
- 03h - 256KByte (16 banks)
- 04h - 512KByte (32 banks)
- 05h -   1MByte (64 banks)  - only 63 banks used by MBC1
- 06h -   2MByte (128 banks) - only 125 banks used by MBC1
- 07h -   4MByte (256 banks)
- 08h -   8MByte (512 banks)
- 52h - 1.1MByte (72 banks)
- 53h - 1.2MByte (80 banks)
- 54h - 1.5MByte (96 banks)
-```
+|code | Size      | Banks |
+|-----|-----------|--------------|
+|`00h`|  32 KByte |no ROM banking|
+|`01h`|  64 KByte |4 banks|
+|`02h`| 128 KByte |8 banks|
+|`03h`| 256 KByte |16 banks|
+|`04h`| 512 KByte |32 banks|
+|`05h`|   1 MByte |64 banks <br> only 63 banks used by MBC1|
+|`06h`|   2 MByte |128 banks <br>only 125 banks used by MBC1|
+|`07h`|   4 MByte |256 banks|
+|`08h`|   8 MByte |512 banks|
+|`52h`| 1.1 MByte |72 banks|
+|`53h`| 1.2 MByte |80 banks|
+|`54h`| 1.5 MByte |96 banks|
+
 
 ### 0149 - RAM Size
 
