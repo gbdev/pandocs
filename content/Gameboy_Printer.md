@@ -19,14 +19,16 @@ status after two $00 writes.
 
 The packets all follow this format:
 
-```
-  ------------------- ------------- --------- ------------------ ---------------- ----------------------- ---------- ----------------- --------
-  **Description**     Magic bytes   Command   Compression flag   Length of data   Command-specific data   Checksum   Alive indicator   Status
-  **Size**            2 bytes       1 byte    1 byte             2 bytes          Variable                2 bytes    1 byte            1 byte
-  **GB to Printer**   $88           $33       See below          0/1              LSB                     MSB        See below         LSB
-  **Printer to GB**   0x00          0x00      0x00               0x00             0x00                    0x00       0x00              0x00
-  ------------------- ------------- --------- ------------------ ---------------- ----------------------- ---------- ----------------- --------
-```
+|                       | Size (bytes) | GB -> Printer | Printer -> GB |
+|-----------------------|--------------|---------------|---------------|
+| Magic bytes           | 2            | $88           | 0x00          |
+| Command               | 1            | $33           | 0x00          |
+|  Compression flag     | 1            | See below     | 0x00          |
+| Length of data        | 2            | 0/1           | 0x00          |
+| Command-specific data | Variable     | LSB           | 0x00          |
+| Checksum              | 2            | MSB           | 0x00          |
+| Alive indicator       | 1            | See below     | 0x00          |
+| Status                | 1            | LSB           | 0x00          |
 
 The checksum is simply a sum of every byte sent except the magic bytes
 and obviously, the checksum itself.
