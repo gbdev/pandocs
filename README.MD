@@ -25,6 +25,28 @@ In 2020, we want to make this repository the new home of this resource, where it
 
 [This](https://github.com/gbdev/awesome-gbdev/issues/153) is the RFC proposing the change. You're welcome to discuss the development of this project on the [gbdev Discord chat](https://discord.gg/9wBRWWT) or on IRC (EFNET `#gbdev`, `gbdev2`).
 
+Contributing is really easy, fork this repo and edit the files in the **content** directory.
+
+To deploy Pandocs locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/gbdev/pandocs
+# Move to the render folder
+cd render
+# Install npm dependencies (web app)
+npm install
+# Install Python dependencies (needed to merge every markdown file into one)
+pip3 install -r requirements.txt
+# Run the merge script
+bash merge.sh
+# Run locally the web documentation
+npx vuepress dev
+# Pandocs is live at localhost:8080
+```
+
+Now, simply edit the markdown files inside the **content** directory, rerun `bash merge.sh` and you should the result updated at `localhost:8080`.
+
 ## License
 
 We assume the content to be in the [public domain](LICENSE).
