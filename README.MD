@@ -15,17 +15,19 @@ Pan Docs - also known as `GAMEBOY.TXT` or `GBSPEC.TXT` - is an old document dati
   <i>ADDRESS1.PCX, one of the diagrams attached to the first version, released January 28th, 1995</i>
 </p>
 
-After its release, it received a number of revisions, corrections and updates, mantaining its TXT format. This [folder](historical/) provides an historical archive of those versions.
+After its release (1995-2008), it received a number of revisions, corrections and updates, mantaining its **TXT format**. This [folder](historical/) provides an historical archive of those versions.
 
-In 2008, a wikified version (using Martin Korth's 2001 revision as baseline) has been published. The document has been split in different articles and it continued being mantained and updated in that form.
+In 2008, a **wikified** version (using Martin Korth's 2001 revision as baseline) has been published. The document has been split in different articles and it continued being mantained and updated in that form.
 
 In 2020, we want to make this repository the new home of this resource, where it can receive new public discussions and contributions, mantain its legacy and historical relevance, while making use of recent tools to be visualized and distributed.
+
+Everything is in plain Markdown and easily editable by anyone with a GitHub account clicking on the "Edit" button on the web UI. We accept contributions, patches, suggestions and feedback via email, too (`pandocs (at) gbdev.io`).
 
 ## Contributing 
 
 [This](https://github.com/gbdev/awesome-gbdev/issues/153) is the RFC proposing the change. You're welcome to discuss the development of this project on the [gbdev Discord chat](https://discord.gg/9wBRWWT) or on IRC (EFNET `#gbdev`, `gbdev2`).
 
-Contributing is really easy, fork this repo and edit the files in the **content** directory.
+Contributing is really easy, fork this repo and edit the files in the **content** directory. Then, you can send your PR.
 
 To deploy Pandocs locally:
 
