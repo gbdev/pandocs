@@ -3,7 +3,7 @@
 > ### The single, most comprehensive technical reference to Game Boy available to the public.
 
 
-**WIP NOTICE**: This is a community effort to give this document a new form. Everything is still work in progress and you're welcome to [contribute](#contributing).
+**WIP NOTICE**: This is a community effort to give this document a new form. Everything is still work in progress. You're welcome to [contribute](#contributing).
 
 ## History
 
