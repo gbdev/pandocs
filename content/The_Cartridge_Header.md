@@ -244,7 +244,7 @@ entry. The GAME WON'T WORK if this checksum is incorrect.
 
 ### 014E-014F - Global Checksum
 
-Contains a 16 bit checksum (upper byte first) across the whole cartridge
+Contains a 16 bit checksum (least significant byte first) across the whole cartridge
 ROM. Produced by adding all bytes of the cartridge (except for the two
 checksum bytes). The Game Boy doesn't verify this checksum.
 
