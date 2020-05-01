@@ -35,7 +35,7 @@ they are also slightly faster.
 
 
 The memory at 0100-014F contains the [cartridge
-header](The_Cartridge_Header "wikilink"). This area contains information
+header](#the-cartridge-header). This area contains information
 about the program, its entry point, checksums, information about the
 used MBC chip, the ROM and RAM sizes, etc. Most of the bytes in this
 area are required to be specified correctly. For more information read
