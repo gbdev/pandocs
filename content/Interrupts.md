@@ -17,7 +17,7 @@ RETI   ;Enable Ints & Return (same as the opcode combination EI, RET)
 <INT>  ;Disable Ints & Call to Interrupt Vector
 ```
 
-Whereas \<INT\> means the operation which is automatically executed by the
+where \<INT\> means the operation which is automatically executed by the
 CPU when it executes an interrupt.
 
 The effect of EI is delayed by one instruction. This means that EI
@@ -59,7 +59,7 @@ interrupt 'waits' until both IME and IE allow its execution.
 
 When an interrupt gets executed, the corresponding bit in the IF
 register becomes automatically reset by the CPU, and the IME flag
-becomes cleared (disabeling any further interrupts until the program
+becomes cleared (disabling any further interrupts until the program
 re-enables the interrupts, typically by using the RETI instruction), and
 the corresponding Interrupt Vector (that are the addresses in range
 0040h-0060h, as shown in IE and IF register decriptions above) becomes
@@ -67,7 +67,7 @@ called.
 
 ### Manually Requesting/Discarding Interrupts
 
-As the CPU automatically sets and cleares the bits in the IF register it
+As the CPU automatically sets and clears the bits in the IF register, it
 is usually not required to write to the IF register. However, the user
 may still do that in order to manually request (or discard) interrupts.
 As for real interrupts, a manually requested interrupt isn't executed
