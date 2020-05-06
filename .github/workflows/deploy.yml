@@ -39,8 +39,9 @@ jobs:
         npx vuepress build
         mkdir dist
         cp .vuepress/dist/* dist/ -r
+        cp pandocs.pdf dist/
         cd ..
-        cp -a repo/dist/. build/
+        cp -a repo/render/dist/. build/
         cd build
         mkdir -m 700 ~/.ssh
         echo "${{ secrets.SSH_KEY_SECRET }}" > ~/.ssh/id_ed25519
