@@ -39,7 +39,7 @@ jobs:
         npx vuepress build
         mkdir dist
         cp .vuepress/dist/* dist/ -r
-        cd ..
+        cd ../..
         cp -a repo/render/dist/. build/
         cd build
         mkdir -m 700 ~/.ssh
