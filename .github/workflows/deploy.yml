@@ -40,6 +40,9 @@ jobs:
       with:
         pandoc-version: '2.7.3'
 
+    - name: Install XeLaTeX
+      run: sudo apt-get install texlive-xetex
+
     - working-directory: folder/
       run: |
         cd repo/render
