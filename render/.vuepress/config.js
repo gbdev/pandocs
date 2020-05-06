@@ -3,9 +3,7 @@ module.exports = {
   // We're serving this on gbdev.github.io/pandocs
   base: "/pandocs/",
   themeConfig: {
-    nav: [
-      { text: 'Contribute', link: 'https://github.com/gbdev/pandocs' },
-    ],
+    navbar: false
     /*
     sidebar: [
       '/',

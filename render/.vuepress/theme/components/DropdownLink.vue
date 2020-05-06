@@ -7,50 +7,53 @@
       class="dropdown-title"
       type="button"
       :aria-label="dropdownAriaLabel"
-      @click="toggle"
+      @click="setOpen(!open)"
     >
       <span class="title">{{ item.text }}</span>
       <span
         class="arrow"
         :class="open ? 'down' : 'right'"
-      ></span>
+      />
     </button>
 
     <DropdownTransition>
       <ul
-        class="nav-dropdown"
         v-show="open"
+        class="nav-dropdown"
       >
         <li
-          class="dropdown-item"
-          :key="subItem.link || index"
           v-for="(subItem, index) in item.items"
+          :key="subItem.link || index"
+          class="dropdown-item"
         >
-          <h4 v-if="subItem.type === 'links'">{{ subItem.text }}</h4>
+          <h4 v-if="subItem.type === 'links'">
+            {{ subItem.text }}
+          </h4>
 
           <ul
-            class="dropdown-subitem-wrapper"
             v-if="subItem.type === 'links'"
+            class="dropdown-subitem-wrapper"
           >
             <li
-              class="dropdown-subitem"
-              :key="childSubItem.link"
               v-for="childSubItem in subItem.items"
+              :key="childSubItem.link"
+              class="dropdown-subitem"
             >
               <NavLink
+                :item="childSubItem"
                 @focusout="
                   isLastItemOfArray(childSubItem, subItem.items) &&
-                  isLastItemOfArray(subItem, item.items) &&
-                  toggle()
+                    isLastItemOfArray(subItem, item.items) &&
+                    setOpen(false)
                 "
-                :item="childSubItem"/>
+              />
             </li>
           </ul>
 
           <NavLink
             v-else
-            @focusout="isLastItemOfArray(subItem, item.items) && toggle()"
             :item="subItem"
+            @focusout="isLastItemOfArray(subItem, item.items) && setOpen(false)"
           />
         </li>
       </ul>
@@ -64,12 +67,11 @@ import DropdownTransition from '@theme/components/DropdownTransition.vue'
 import last from 'lodash/last'
 
 export default {
-  components: { NavLink, DropdownTransition },
+  name: 'DropdownLink',
 
-  data () {
-    return {
-      open: false
-    }
+  components: {
+    NavLink,
+    DropdownTransition
   },
 
   props: {
@@ -78,26 +80,31 @@ export default {
     }
   },
 
-  computed: {
-
-    dropdownAriaLabel () {
-      return this.item.ariaLabel || this.item.text
+  data () {
+    return {
+      open: false
     }
   },
 
-  methods: {
-    toggle () {
-      this.open = !this.open
-    },
-
-    isLastItemOfArray (item, array) {
-      return last(array) === item
+  computed: {
+    dropdownAriaLabel () {
+      return this.item.ariaLabel || this.item.text
     }
   },
 
   watch: {
     $route () {
       this.open = false
+    }
+  },
+
+  methods: {
+    setOpen (value) {
+      this.open = value
+    },
+
+    isLastItemOfArray (item, array) {
+      return last(array) === item
     }
   }
 }
@@ -117,6 +124,7 @@ export default {
     border none
     font-weight 500
     color $textColor
+    pointer-events none
     &:hover
       border-color transparent
     .arrow
