@@ -62,3 +62,9 @@ jobs:
         git config --global user.email "community@gbdev.io"
         git add .
         git commit -m "Update build" && git push || :
+   
+    - name: Upload PDF build
+      uses: actions/upload-artifact@v1
+      with:
+        name: Pandocs PDF build
+        path: folder/build/pandocs.pdf
