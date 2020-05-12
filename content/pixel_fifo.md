@@ -144,11 +144,25 @@ When the sprite enabled bit is off, this process is skipped entirely on
 the DMG, but not on the CGB. On the CGB, this bit is checked only when
 the pixel is actually popped from the FIFO.
 
-**TODO: figure out the todo in display.c line 1277**
+**TODO: figure out the todo in display.c:1277**
 
 If sprite pixels are to be rendered on the current scanline and LCDC.1
-is enabled and **TODO: display.c:1303**
-This is repeated for every sprite on the current scanline.
+is enabled and **TODO: display.c:1303**. At this point the [fetcher](#fifo-pixel-fetcher)
+is advanced up to step 6 or until the background FIFO is not empty, which
+ever comes first. Advancing the fetcher one step here shortens mode 3 by
+1 cycle. This process can be [aborted](#sprite-fetch-abortion) when this
+process is started and sprites are being disabled at the same time. The
+check for fetch abortion comes after the fetcher has advanced a step.
+
+**TODO: object_fetch_aborted - memory.c:746**
+
+Everything in this section is repeated for every sprite on the current
+scanline.
+
+### Sprite Fetch Abortion
+- render_pixel_if_possible
+- advance_fetcher_state_machine
+- sleep for 1 cycle unless at x = 160
 
 ### TODO
 - Timing
