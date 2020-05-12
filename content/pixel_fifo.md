@@ -1,4 +1,4 @@
-# Game Boy Pixel FIFO
+# Pixel FIFO
 The following information is construed from [SameBoy's](https://www.github.com/liji32/sameboy)
 implementation of the pixel FIFO.
 
@@ -49,16 +49,16 @@ This step determines which background/window tile to fetch pixels from.
 
 The WX register can affect which background/window map to use. If LCDC.3
 is enabled and the current tile is not a window tile, then tile map
-9C00h is used, otherwise 9800h is used.
+$9C00 is used, otherwise $9800 is used.
 
 If LCDC.6 is enabled and the current tile is a window tile then tile
-map 9C00h is used, otherwise 9800h is used.
+map $9C00 is used, otherwise $9800 is used.
 
 The fetcher keeps track of which X and Y coordinate of the tile it's on:
 
 If the current tile is a window tile, the X coordinate for the window
 tile is used, otherwise the following formula is used to calculate
-the X coordinate: ((SCX / 8) + fetcher's X coordinate) & 1Fh. Because of
+the X coordinate: ((SCX / 8) + fetcher's X coordinate) & $1F. Because of
 this formula, fetcherX can be between 0 and 31.
 
 If the current tile is a window tile, the Y coordinate for the window
@@ -68,7 +68,7 @@ fetcherY can be between 0 and 415.
 
 The fetcher's X and Y coordinate can then be used to get the tile from
 VRAM. However, if the PPU's access to VRAM is [blocked](#vram-access)
-then the value for the tile is read as FFh.
+then the value for the tile is read as $FF.
 
 CGB can access both tile index and the attributes in the same clock
 cycle. This probably means the CGB has a 16-bit data bus for the VRAM.
@@ -80,7 +80,7 @@ Check LCDC.4 for which tilemap to use. At this step CGB also needs to
 check which VRAM bank to use and if the tile is flipped vertically.
 Once the tilemap, VRAM and vertical flip is calculated the tile data
 is retrieved from VRAM. However, if the PPU's access to VRAM is
-[blocked](#vram-access) then the tile data is read as FFh.
+[blocked](#vram-access) then the tile data is read as $FF.
 
 The tile data retrieved in this step will be used in the push steps.
 
@@ -121,7 +121,7 @@ Do nothing and advance the fetcher to the next step.
 
 ### VRAM Access
 At various times during PPU operation read access to VRAM is blocked and
-the value read is FFh:
+the value read is $FF:
 - In double speed mode (beginning of mode 3)
 - If not CGB (beginning of mode 3)
 - When searching OAM and index 37 is reached, if not CGB (mode 2)
@@ -161,7 +161,7 @@ ever comes first. Advancing the fetcher one step here lengthens mode 3 by
 1 cycle. This process may be [aborted](#sprite-fetch-abortion) after the
 fetcher has advanced a step.
 
-**TODO: timing for object\_fetch\_aborted - memory.c:746**
+**TODO: timing for object_fetch_aborted - memory.c:746**
 
 At this point if **TODO: display.c:1320** then there is a penalty applied
 for SCX values higher than 0. The amount of cycles this lengthens mode 3
@@ -194,7 +194,7 @@ OAM FIFO is replaced with the target object's properties.
 Once the target object's pixels have been merged with the OAM FIFO it's
 time to render a pixel.
 
-**TODO: explain render\_pixel\_if\_possible**
+**TODO: explain render_pixel_if_possible**
 
 The fetcher is advanced to the next step. If the X coordinate being drawn
 is 160 this section stops right here. If the X coordinate is not 160 then
@@ -206,6 +206,6 @@ X coordinate is 160.
 
 ### Sprite Fetch Abortion
 **TODO: explain this process**
-- render\_pixel\_if\_possible
-- advance\_fetcher\_state\_machine
+- render_pixel_if_possible
+- advance_fetcher_state_machine
 - sleep for 1 cycle unless at x = 160
