@@ -3,7 +3,9 @@ The following information is construed from [SameBoy's](https://www.github.com/l
 implementation of the pixel FIFO.
 
 Before we get started, all references to a cycle are meant as T-cycles
-(4.19 MHz) and cycle counts are doubled on CGB in double speed mode.
+(4.19 MHz) and cycle counts are doubled on CGB in double speed mode. Also
+when stating that a certain action "lengthens mode 3" this means that
+mode 0 (hblank) is shortened.
 
 ### FIFO info
 FIFO stands for First In, First Out. The first pixel to be pushed to the
@@ -12,6 +14,12 @@ in practice there are a lot of intricacies.
 
 The FIFOs are manipulated only during mode 3 (pixel transfer). The FIFOs
 are both cleared at the beginning of mode 3.
+
+Each pixel in the FIFO has four properties: color, palette, sprite
+priority and background priority. Color is a value between 0 and 3.
+Palette is a value between 0 and 7 on CGB and 0 or 1 on DMG. Sprite
+priority is 0 on DMG and OAM index on CGB. Background priority holds the
+[OBJ-to-BG Priority](#vram-sprite-attribute-table-oam) bit.
 
 Notes:
 - There are two pixel FIFOs. One for background pixels and one for OAM
@@ -24,8 +32,7 @@ unless they're transparent (color 0).
 - FIFOs are manipulated only during mode 3 (pixel transfer)
 
 ### FIFO Pixel Fetcher
-The pixel fetcher has 8 steps, each taking 1 cycle(?). The order
-of the steps are as follows:
+The pixel fetcher has 8 steps. The order of the steps are as follows:
 
 - Sleep
 - Get tile
@@ -113,13 +120,14 @@ depending on if it's in on step 7 or step 8.
 Do nothing and advance the fetcher to the next step.
 
 ### VRAM Access
-At various times during PPU operation access to VRAM is blocked:
+At various times during PPU operation read access to VRAM is blocked and
+the value read is FFh:
 - In double speed mode (beginning of mode 3)
 - If not CGB (beginning of mode 3)
 - When searching OAM and index 37 is reached, if not CGB (mode 2)
 - After switching from mode 2 (oam search) to mode 3 (pixel transfer)
 
-At various times during PPU operation access to VRAM is restored:
+At various times during PPU operation read access to VRAM is restored:
 - LCD turning off
 - The beginning of mode 0 (hblank)
 - Not in double speed mode (beginning of mode 3)
@@ -140,38 +148,64 @@ is reset to step 1. When WX is 0 and the lower 3 bits of SCX are set
 mode 3 is shortened by 1 cycle.
 
 #### Sprites
-When the sprite enabled bit is off, this process is skipped entirely on
-the DMG, but not on the CGB. On the CGB, this bit is checked only when
-the pixel is actually popped from the FIFO.
+When the sprite enabled bit is off, this process is skipped
+entirely on the DMG, but not on the CGB. On the CGB, this bit is checked
+only when the pixel is actually popped from the FIFO.
 
 **TODO: figure out the todo in display.c:1277**
 
 If sprite pixels are to be rendered on the current scanline and LCDC.1
 is enabled and **TODO: display.c:1303**. At this point the [fetcher](#fifo-pixel-fetcher)
-is advanced up to step 6 or until the background FIFO is not empty, which
-ever comes first. Advancing the fetcher one step here shortens mode 3 by
-1 cycle. This process can be [aborted](#sprite-fetch-abortion) when this
-process is started and sprites are being disabled at the same time. The
-check for fetch abortion comes after the fetcher has advanced a step.
+is advanced up to step 5 or until the background FIFO is not empty, which
+ever comes first. Advancing the fetcher one step here lengthens mode 3 by
+1 cycle. This process may be [aborted](#sprite-fetch-abortion) after the
+fetcher has advanced a step.
 
-**TODO: object_fetch_aborted - memory.c:746**
+**TODO: timing for object\_fetch\_aborted - memory.c:746**
+
+At this point if **TODO: display.c:1320** then there is a penalty applied
+for SCX values higher than 0. The amount of cycles this lengthens mode 3
+by is whatever the lower 3 bits of SCX are. After this penalty is applied
+object fetching may be [aborted](#sprite-fetch-abortion). Note that the
+timing of the penalty is not confirmed. It may happen before or after
+waiting for the fetcher. More research needs to be done.
+
+The fetcher is advanced one step which lengthens mode 3 by 3 cycles.
+[Sprite fetch abortion](#sprite-fetch-abortion) may occur here.
+
+The lower address for the row of pixels of target object tile is now
+retrieved and lengthens mode 3 by 1 cycle. Once the address is retrieved
+this is the last chance for[sprite fetch abortion](#sprite-fetch-abortion)
+to occur. An extra cycle is taken here for... reasons.
+
+The upper address for the target object tile is now retrieved and does
+not shorten mode 3. Maybe the extra cycle before was for this?
+
+At this point [VRAM Access](#vram-access) is checked for the lower and
+upper addresses for the target object. The target object is now pushed
+onto the OAM FIFO. Before any mixing is done, if the OAM FIFO doesn't
+have at least 8 pixels in it, it is filled with white pixels. Once this
+is done each pixel of the target object row is checked. On CGB,
+horizontal flip is checked here. If the target object pixel is not white
+and the pixel in the OAM FIFO *is* white or if the pixel in the OAM FIFO
+has higher priority than the target object's pixel then the pixel in the
+OAM FIFO is replaced with the target object's properties.
+
+Once the target object's pixels have been merged with the OAM FIFO it's
+time to render a pixel.
+
+**TODO: explain render\_pixel\_if\_possible**
+
+The fetcher is advanced to the next step. If the X coordinate being drawn
+is 160 this section stops right here. If the X coordinate is not 160 then
+mode 3 is lengthened by 1 cycle.
 
 Everything in this section is repeated for every sprite on the current
-scanline.
+scanline unless it was decided that fetching should be aborted or the
+X coordinate is 160.
 
 ### Sprite Fetch Abortion
-- render_pixel_if_possible
-- advance_fetcher_state_machine
+**TODO: explain this process**
+- render\_pixel\_if\_possible
+- advance\_fetcher\_state\_machine
 - sleep for 1 cycle unless at x = 160
-
-### TODO
-- Timing
-  - I know each SCX shift takes 1 clock, but I don't know when
-that delay is applied.
-  - How long does a fetcher step take?
-
-> SCX changes the length of Mode 3  
-> When the scanline begins, the pixel FIFO is shifted SCX % 8 times  
-> Each shift takes one clock
-
-~ ISSOtm
