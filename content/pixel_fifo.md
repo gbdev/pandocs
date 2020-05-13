@@ -134,17 +134,13 @@ When rendering the window the background FIFO is cleared and the fetcher
 is reset to step 1. When WX is 0 and the SCX & 7 > 0 mode 3 is shortened
 by 1 cycle.
 
-**TODO: ask liji about the condition in display.c:1288. I can't think of
-or find any situation where the condition is true and all the games
-I tested didn't trigger that block**
+When the window has already started rendering there is a bug that occurs
+when WX is changed mid-scanline. When the value of WX changes after the
+window has started rendering and the new value of WX is reached again,
+a pixel with color value of 0 and the lowest priority is pushed onto the
+background FIFO.
 
 ### Sprites
-**TODO: ask liji about condition in display.c:1307 all the games
-I tested didn't trigger that block**
-
-**TODO: ask liji about condition in display.c:1315 to make sure I
-understand it correctly**
-
 The following is performed for each sprite on the current scanline if
 LCDC.1 is enabled (this condition is ignored on CGB) and the X coordinate
 of the current scanline has a sprite on it. If those conditions are not
