@@ -71,9 +71,11 @@ This document is the product of 25 years of community effort: it's hard to keep 
 
 # Video Display
 
-!INCLUDE "LCDC.md",1
+!INCLUDE "LCDC.md", 1
 
 !INCLUDE "Video_Display.md", 1
+
+!INCLUDE "pixel_fifo.md", 1
 
 # Sound Controller
 
