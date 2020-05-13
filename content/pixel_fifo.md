@@ -144,39 +144,46 @@ are cleared.
 
 #### The Window
 When rendering the window the background FIFO is cleared and the fetcher
-is reset to step 1. When WX is 0 and the lower 3 bits of SCX are set
-mode 3 is shortened by 1 cycle.
+is reset to step 1. When WX is 0 and the SCX & 7 > 0 mode 3 is shortened
+by 1 cycle.
+
+**TODO: ask liji about the condition in display.c:1291. I can't think
+or find any situation where the condition is true and all the games
+I tested didn't trigger that block**
 
 #### Sprites
-When the sprite enabled bit is off, this process is skipped
-entirely on the DMG, but not on the CGB. On the CGB, this bit is checked
-only when the pixel is actually popped from the FIFO.
+**TODO: ask liji about condition in display.c:1298 to make sure I
+understand it correctly**
 
-**TODO: figure out the todo in display.c:1277**
+**TODO: make sure this accurate**
+The following is performed while there are sprites on the current
+scanline, if LCDC.1 is enabled (this condition is ignored on CGB) and
+current X coordinate of the scanline has a sprite on it. If those
+conditions are not met, the process described in [Sprite Fetch Abortion](#sprite-fetch-abortion)
+is performed.
 
-If sprite pixels are to be rendered on the current scanline and LCDC.1
-is enabled and **TODO: display.c:1303**. At this point the [fetcher](#fifo-pixel-fetcher)
-is advanced up to step 5 or until the background FIFO is not empty, which
-ever comes first. Advancing the fetcher one step here lengthens mode 3 by
-1 cycle. This process may be [aborted](#sprite-fetch-abortion) after the
-fetcher has advanced a step.
+At this point, if the [fetcher](#fifo-pixel-fetcher) is not at step 5 or
+the background FIFO is empty, the fetcher is advanced one step until one
+of those conditions is met. Advancing the fetcher one step here lengthens
+mode 3 by 1 cycle. This process may be [aborted](#sprite-fetch-abortion)
+after the fetcher has advanced a step.
 
-**TODO: timing for object_fetch_aborted - memory.c:746**
+At this point if SCX & 7 > 0 and there is a sprite at X coordinate 0 of
+the current scanline then mode 3 is lengthened. The amount of cycles this
+lengthens mode 3 by is whatever the lower 3 bits of SCX are. After this
+penalty is applied object fetching may be aborted. Note that the timing
+of the penalty is not confirmed. It may happen before or after waiting
+for the fetcher. More research needs to be done.
 
-At this point if **TODO: display.c:1320** then there is a penalty applied
-for SCX values higher than 0. The amount of cycles this lengthens mode 3
-by is whatever the lower 3 bits of SCX are. After this penalty is applied
-object fetching may be [aborted](#sprite-fetch-abortion). Note that the
-timing of the penalty is not confirmed. It may happen before or after
-waiting for the fetcher. More research needs to be done.
-
-The fetcher is advanced one step which lengthens mode 3 by 3 cycles.
-[Sprite fetch abortion](#sprite-fetch-abortion) may occur here.
+After checking for sprites at X coordinate 0 the fetcher is advanced two
+steps. The first advancement lengthens mode 3 by 1 cycle and the second
+advancement lengthens mode 3 by 3 cycles. After each fetcher advancement
+there is a chance for a sprite fetch abortion to occur.
 
 The lower address for the row of pixels of target object tile is now
 retrieved and lengthens mode 3 by 1 cycle. Once the address is retrieved
-this is the last chance for[sprite fetch abortion](#sprite-fetch-abortion)
-to occur. An extra cycle is taken here for... reasons.
+this is the last chance for sprite fetch abortion to occur. An extra
+cycle is taken here for... reasons.
 
 The upper address for the target object tile is now retrieved and does
 not shorten mode 3. Maybe the extra cycle before was for this?
@@ -192,20 +199,54 @@ has higher priority than the target object's pixel then the pixel in the
 OAM FIFO is replaced with the target object's properties.
 
 Once the target object's pixels have been merged with the OAM FIFO it's
-time to render a pixel.
+time to [render a pixel](#pixel-rendering).
 
-**TODO: explain render_pixel_if_possible**
-
-The fetcher is advanced to the next step. If the X coordinate being drawn
-is 160 this section stops right here. If the X coordinate is not 160 then
-mode 3 is lengthened by 1 cycle.
+At this point the same process described in Sprite Fetch Abortion is
+performed.
 
 Everything in this section is repeated for every sprite on the current
 scanline unless it was decided that fetching should be aborted or the
 X coordinate is 160.
 
-### Sprite Fetch Abortion
-**TODO: explain this process**
-- render_pixel_if_possible
-- advance_fetcher_state_machine
-- sleep for 1 cycle unless at x = 160
+#### Pixel Rendering
+This is where the background FIFO and OAM FIFO are mixed. There are
+conditions where the either a background pixel or a sprite pixel will
+have display priority.
+
+If there are pixels in the background and OAM FIFOs then a pixel is
+popped off each. If the OAM pixel is not transparent and LCDC.1 is
+enabled then the OAM pixel's background priority property is used if it's
+higher or the same as the background pixel's background priority.
+
+Pixels won't be pushed to the LCD if there is nothing in the background
+FIFO or the X coordinate for the current scanline is greater than 159.
+
+If LCDC.0 is disabled then the background is disabled on DMG and the
+background pixel won't have priority on CGB. When the background pixel
+is disabled the pixel color value will be 0, otherwise the color will be
+whatever color pixel was popped off the background FIFO. When the pixel
+is not 0 and the background pixel has priority the sprite pixel will not
+be drawn.
+
+At this point, on DMG, the color of the pixel is retrieved from the BGP
+register. On CGB when **TODO: explain cgb_palettes_ppu_blocked**.
+
+When a sprite pixel has priority the color value is retrieved from the
+popped pixel from the OAM FIFO. On DMG the color for the pixel is
+retrieved from either the OBP1 or OBP0 register depending on the pixel's
+palette property. If the palette property is 1 then OBP1 is used,
+otherwise OBP0 is used. On CGB when **TODO: explain cgb_palettes_ppu_blocked**.
+
+The pixel is then pushed to the LCD.
+
+#### Sprite Fetch Abortion
+If LCDC.1 is disabled while the PPU is fetching an object from OAM the
+fetch is aborted and mode 3 is lengthened by the amount of cycles the
+previous instruction took plus the residual cycles left for the PPU to
+process. **TODO: does that make sense???**
+
+When OAM fetching is aborted a pixel is [rendered](#pixel-rendering), the
+[fetcher](#fifo-pixel-fetcher) is advanced one step. If the X coordinate
+being drawn is 160 the PPU stops processing sprites. Otherwise mode 3 is
+lengthened by 1 cycle and the PPU will continue to process sprites until
+there are no more for the current line.
