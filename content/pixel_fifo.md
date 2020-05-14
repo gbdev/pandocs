@@ -14,7 +14,7 @@ FIFO is the first pixel to be popped off. In theory that sounds great,
 in practice there are a lot of intricacies.
 
 There are two pixel FIFOs. One for background pixels and one for OAM
-(sprite) pixels. hese two FIFOs are not shared. They are two independent
+(sprite) pixels. These two FIFOs are not shared. They are independent
 of each other. The two FIFOs are mixed only when popping items. Sprites
 take priority unless they're transparent (color 0) which will be
 explained in detail later. The FIFOs can each hold up to 16 pixels at a
