@@ -1,6 +1,6 @@
 |                 | Game Boy                       | Game Boy Pocket | Game Boy Color  | Super Game Boy |
 |-----------------|--------------------------------|-----------------|-----------------|----------------|
-| CPU             | 8-bit Sharp LR25902            |                 |                 |                |
+| CPU             | 8-bit Sharp LR35902            |                 |                 |                |
 | Clock           | 4.194304 MHz                   |                 | 8.4 MHz         | 4.295454MHz (SGB1, NTSC)|
 | Work RAM        | 8 KB                           |                 | 32 KB           |                |
 | Video RAM       | 8 KB                           |                 | 16 KB           |                |
