@@ -35,6 +35,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r folder/repo/render/requirements.txt
 
+    - name: Install npm dependencies
+      working-directory: folder/repo/render
+      run: |
+        npm install
+
     - name: Install pandoc
       uses: r-lib/actions/setup-pandoc@v1
       with:
