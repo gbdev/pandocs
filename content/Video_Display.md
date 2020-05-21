@@ -238,8 +238,8 @@ somewhat random.
 
 ### RGB Translation by CGBs
 
-![sRGB versus CGB color
-mixing](VGA_versus_CGB.png "fig:sRGB versus CGB color mixing"){width="150"}
+![sRGB versus CGB color mixing](VGA_versus_CGB.png)
+
 When developing graphics on PCs, note that the RGB values will have
 different appearance on CGB displays as on VGA/HDMI monitors calibrated
 to sRGB color. Because the GBC is not lit, the highest intensity will
