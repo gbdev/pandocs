@@ -47,7 +47,7 @@ jobs:
       run: |
         cd repo/render
         ./merge.sh
-        npx vuepress build
+        npm run build
         pandoc index.md --pdf-engine=xelatex -o pandocs.pdf
         mkdir dist
         cp .vuepress/dist/* dist/ -r
