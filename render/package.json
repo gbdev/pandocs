@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev":"vuepress dev",
+    "dev": "vuepress dev",
     "build": "vuepress build",
     "remove-prism": "sed -i.bak -e \":a\" -e 'N' -e '$!ba' -e \"s/<style src=\\\"prismjs.*css\\\"><\\/style>/ /\" node_modules/@vuepress/theme-default/layouts/Layout.vue",
     "deploy": "vuepress build && npx gh-pages -d .vuepress/dist -b master",
@@ -17,6 +17,7 @@
   "dependencies": {
     "gh-pages": "^2.2.0",
     "typeface-inter": "^3.11.2",
-    "vuepress": "^1.2.0"
+    "vuepress": "^1.2.0",
+    "vuepress-plugin-git-log": "^1.0.1"
   }
 }
