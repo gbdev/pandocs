@@ -41,7 +41,7 @@ that memory is inaccessible to the CPU.
 | Mode    | Action                                                                | Duration                                                           | Accessible video memory |
 |---------|-----------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------|
 |2        |Scanning OAM for (X, Y) coordinates of sprites that overlap this line  |80 dots (19 us)                                                     |VRAM, CGB palettes       |
-|3        |Reading OAM and VRAM to generate the picture                           |168 to 291 cycles (40 to 60 us) depending on sprite count           |None                     |
+|3        |Reading OAM and VRAM to generate the picture                           |168 to 291 dots (40 to 60 us) depending on sprite count           |None                     |
 |0        |Horizontal blanking                                                    |85 to 208 dots (20 to 49 us) depending on previous mode 3 duration  |VRAM, OAM, CGB palettes  |
 |1        |Vertical blanking                                                      |4560 dots (1087 us, 10 scanlines)                                   |VRAM, OAM, CGB palettes  |
 
