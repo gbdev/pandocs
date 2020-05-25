@@ -114,8 +114,8 @@ Sample licensee codes :
 |`79`|   Accolade |
 |`80`|   misawa |
 |`83`|   lozc |
-|`86`|   tokuma shoten i\*  |
-|`87`|   tsukuda ori\*  |
+|`86`|   Tokuma Shoten Intermedia |
+|`87`|   Tsukuda Original |
 |`91`|   Chunsoft |
 |`92`|   Video system |
 |`93`|   Ocean/Acclaim  |
