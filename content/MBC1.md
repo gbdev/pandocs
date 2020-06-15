@@ -14,7 +14,7 @@ ROM, and for writing to the MBCs Control Registers.
 
 This area normally contains the first 16KBytes (bank 00) of the cartridge
 ROM. Can contain banks 20/40/60 in mode 1 (see below), or banks 10/20/30
-in mode 1 for a 1MB MBC1 multi-cart.
+in mode 1 for a 1MB MBC1 multi-cart (see below).
 
 ### 4000-7FFF - ROM Bank 01-7F (Read Only)
 
