@@ -1,12 +1,14 @@
 # Pixel FIFO
-Before we get started, all references to a cycle are meant as T-cycles
-(4.19 MHz) and cycle counts are doubled on CGB in double speed mode. Also
-when stating that a certain action "lengthens mode 3" this means that
-mode 0 (hblank) is shortened. The extra time has to be made up somewhere
-and the lengthening of mode 3 eats into the mode that comes afterwards,
-which happens to be mode 0 as shown in the following diagram.
+::: Terminology
+All references to a cycle are meant as T-cycles (4.19 MHz) and cycle
+counts are doubled on CGB in double speed mode. When it is stated that a
+certain action "lengthens mode 3" this means that mode 0 (hblank) is
+shortened. The extra time has to be made up somewhere and the lengthening
+of mode 3 eats into the mode that comes afterwards, which happens to be
+mode 0 as shown in the following diagram.
 
 ![](imgs/game-boy-lcd-refresh-diagram.png "imgs/game-boy-lcd-refresh-diagram.png")
+:::
 
 ## FIFO info
 FIFO stands for First In, First Out. The first pixel to be pushed to the
@@ -17,28 +19,28 @@ There are two pixel FIFOs. One for background pixels and one for OAM
 (sprite) pixels. These two FIFOs are not shared. They are independent
 of each other. The two FIFOs are mixed only when popping items. Sprites
 take priority unless they're transparent (color 0) which will be
-explained in detail later. The FIFOs can each hold up to 16 pixels at a
-time. The two FIFOs are manipulated only during mode 3 (pixel transfer)
-and they are both cleared at the beginning of mode 3.
+explained in detail later. Each FIFO can hold up to 16 pixels. The FIFO
+and Pixel Fetcher work together to ensure that the FIFO always contains
+at least 8 pixels at any given time, as 8 pixels are required for the
+Pixel Rendering operation to take place. Each FIFO is manipulated only
+during mode 3 (pixel transfer).
 
 Each pixel in the FIFO has four properties:
 - Color: a value between 0 and 3
-- Palette: on CGB a value between 0 and 7 and on DMG a value between 1 and 0
-- Sprite Priority: on CGB this is the OAM index for the sprite and on DMG this is 0
+- Palette: on CGB a value between 0 and 7 and on DMG this only applies to sprites
+- Sprite Priority: on CGB this is the OAM index for the sprite and on DMG this doesn't exist
 - Background Priority: holds the value of the [OBJ-to-BG Priority](#vram-sprite-attribute-table-oam) bit
 
 ## FIFO Pixel Fetcher
 The fetcher fetches a row of 8 background or window pixels and queues
-them up to be mixed with sprite pixels. The pixel fetcher has 8 steps.
-The order of the steps are as follows:
+them up to be mixed with sprite pixels. The pixel fetcher has 5 steps.
+The first four steps take 2 cycles each and the fifth step is attempted
+every cycle until it succeeds. The order of the steps are as follows:
 
-- Sleep
 - Get tile
-- Sleep
 - Get tile data low
-- Sleep
 - Get tile data high
-- Push
+- Sleep
 - Push
 
 ### Get Tile:
@@ -61,8 +63,8 @@ this formula, fetcherX can be between 0 and 31.
 
 If the current tile is a window tile, the Y coordinate for the window
 tile is used, otherwise the following formula is used to calculate
-the Y coordinate: currentScanline + SCY. Because of this formula,
-fetcherY can be between 0 and 415.
+the Y coordinate: (currentScanline + SCY) & 255. Because of this formula,
+fetcherY can be between 0 and 159.
 
 The fetcher's X and Y coordinate can then be used to get the tile from
 VRAM. However, if the PPU's access to VRAM is [blocked](#vram-access)
@@ -95,8 +97,6 @@ Pushes a row of background/window pixels to the FIFO. Since tiles are 8
 pixels wide, a "row" of pixels is 8 pixels from the tile to be rendered
 based on the X and Y coordinates calculated in the previous steps.
 
-If the fetcher is in the first Push state, the background map index
-is incremented before the pixels are pushed to the background FIFO.
 Pixels are only pushed to the background FIFO if it's empty.
 
 This is where the tile data retrieved in the two Tile Data steps will
@@ -202,7 +202,7 @@ enabled then the OAM pixel's background priority property is used if it's
 the same or higher priority as the background pixel's background priority.
 
 Pixels won't be pushed to the LCD if there is nothing in the background
-FIFO or the X coordinate for the current scanline is greater than 159.
+FIFO or the current pixel is pixel 160 or greater.
 
 If LCDC.0 is disabled then the background is disabled on DMG and the
 background pixel won't have priority on CGB. When the background pixel
@@ -247,6 +247,6 @@ fetching an object from OAM. This abortion lengthens mode 3 by the amount
 of cycles the previous instruction took plus the residual cycles left for
 the PPU to process. When OAM fetching is aborted a pixel is [rendered](#pixel-rendering),
 the [fetcher](#fifo-pixel-fetcher) is advanced one step. This advancement
-lengthens mode 3 by 1 cycle if the X coordinate of the current scanline
-is not 160. If the X coordinate is 160 the PPU stops processing sprites
-(because they won't be visible).
+lengthens mode 3 by 1 cycle if the current pixel is not 160. If the
+current pixel is 160 the PPU stops processing sprites because they won't
+be visible.
