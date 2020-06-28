@@ -1,17 +1,18 @@
 # Pixel FIFO
-::: Terminology
+
+::: warning Terminology
 All references to a cycle are meant as T-cycles (4.19 MHz) and cycle
 counts are doubled on CGB in double speed mode. When it is stated that a
 certain action "lengthens mode 3" this means that mode 0 (hblank) is
 shortened. The extra time has to be made up somewhere and the lengthening
 of mode 3 eats into the mode that comes afterwards, which happens to be
 mode 0 as shown in the following diagram.
-
-![](imgs/game-boy-lcd-refresh-diagram.png "imgs/game-boy-lcd-refresh-diagram.png")
 :::
 
-## FIFO info
-FIFO stands for First In, First Out. The first pixel to be pushed to the
+![](imgs/game-boy-lcd-refresh-diagram.png "imgs/game-boy-lcd-refresh-diagram.png")
+
+## Introduction
+FIFO stands for *First In, First Out*. The first pixel to be pushed to the
 FIFO is the first pixel to be popped off. In theory that sounds great,
 in practice there are a lot of intricacies.
 
@@ -238,8 +239,10 @@ restored and pixels are pushed to the LCD normally when rendering pixels:
 - At the end of mode 2 (oam search)
 - For only 2 cycles when entering HBlank (mode 0) and in double speed mode
 
-NOTE: These conditions are checked only when entering STOP mode and the
+::: warning Note
+These conditions are checked only when entering STOP mode and the
 PPU's access to CGB palettes is always restored upon leaving STOP mode.
+:::
 
 ### Sprite Fetch Abortion
 Sprite fetching may be aborted if LCDC.1 is disabled while the PPU is
