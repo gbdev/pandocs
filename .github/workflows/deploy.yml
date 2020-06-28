@@ -53,7 +53,7 @@ jobs:
         cd repo/render
         ./merge.sh
         npm run build
-        pandoc -f markdown -t latex index.md -o pandocs.tex --top-level-division=chapter
+        pandoc -f markdown -t latex index.md -o index.tex --top-level-division=chapter
         xelatex pandocs.tex
         mkdir dist
         cp .vuepress/dist/* dist/ -r
