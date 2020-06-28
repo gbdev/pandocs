@@ -238,7 +238,7 @@ somewhat random.
 
 ### RGB Translation by CGBs
 
-![sRGB versus CGB color mixing](VGA_versus_CGB.png)
+![sRGB versus CGB color mixing](imgs/VGA_versus_CGB.png)
 
 When developing graphics on PCs, note that the RGB values will have
 different appearance on CGB displays as on VGA/HDMI monitors calibrated
