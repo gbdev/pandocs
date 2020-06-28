@@ -54,10 +54,10 @@ jobs:
         ./merge.sh
         npm run build
         pandoc -f markdown -t latex index.md -o index.tex --top-level-division=chapter
-        xelatex pandocs.tex
+#       xelatex pandocs.tex
         mkdir dist
         cp .vuepress/dist/* dist/ -r
-        cp pandocs.pdf dist/
+#       cp pandocs.pdf dist/
         cd ../..
         cp -a repo/render/dist/. build/
         cd build
@@ -69,8 +69,8 @@ jobs:
         git add .
         git commit -m "Update build" && git push || :
    
-    - name: Upload PDF build
-      uses: actions/upload-artifact@v1
-      with:
-        name: Pandocs PDF build
-        path: folder/build/pandocs.pdf
+ #   - name: Upload PDF build
+ #     uses: actions/upload-artifact@v1
+ #     with:
+ #       name: Pandocs PDF build
+ #       path: folder/build/pandocs.pdf
