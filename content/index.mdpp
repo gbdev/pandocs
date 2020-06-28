@@ -93,6 +93,8 @@ This document is the product of 25 years of community effort: it's hard to keep 
 
 !INCLUDE "Timer_and_Divider_Registers.md", 1
 
+!INCLUDE "Timer_Obscure_Behaviour.md", 1
+
 # Interrupts
 
 !INCLUDE "Interrupts.md", 1
