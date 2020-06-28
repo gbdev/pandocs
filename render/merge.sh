@@ -20,4 +20,4 @@ echo "Copying single non-templated articles.."
 cp ../content/Timer_Obscure_Behaviour.md . --verbose 
 
 echo "Copying image assets.."
-cp ../content/imgs .vuepress/public/ -r --verbose
+cp ../content/imgs .vuepress/public/imgs -r --verbose
