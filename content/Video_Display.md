@@ -17,7 +17,7 @@ Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)
 
 The two lower STAT bits show the current status of the LCD controller.
 
-The LCD controller operates on a 2^22^ Hz = 4.194 MHz dot clock. An
+The LCD controller operates on a 2^22 Hz = 4.194 MHz dot clock. An
 entire frame is 154 scanlines, 70224 dots, or 16.74 ms. On scanlines 0
 through 143, the LCD controller cycles through modes 2, 3, and 0 once
 every 456 dots. Scanlines 144 through 153 are mode 1.
