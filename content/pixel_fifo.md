@@ -1,6 +1,6 @@
 # Pixel FIFO
 
-::: warning Terminology
+::: tip TERMINOLOGY
 All references to a cycle are meant as T-cycles (4.19 MHz) and cycle
 counts are doubled on CGB in double speed mode. When it is stated that a
 certain action "lengthens mode 3" this means that mode 0 (hblank) is
