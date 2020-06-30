@@ -4,7 +4,7 @@ title: 'Pan Docs'
 
 <div class="pantitle"> Pan Docs</div>
 
-<div class="pansubtitle">The single, most comprehensive technical reference to Game Boy available to the public. </div>
+<div class="pansubtitle">Game Boy technical reference</div>
 
 ### Table of Contents
 
@@ -56,8 +56,6 @@ title: 'Pan Docs'
 !INCLUDE "About.md"
 
 ## Authors
-
-This document is the product of 25 years of community effort: it's hard to keep track of every contribution. If we missed something, contact us.
 
 !INCLUDE "AUTHORS.md", 1
 
