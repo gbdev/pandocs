@@ -12,7 +12,7 @@ The Game Boy has a 16bit address bus, that is used to address ROM, RAM and I/O
 | C000        | CFFF      | 4KB Work RAM (WRAM) bank 0                                                                       | |
 | D000        | DFFF      | 4KB Work RAM (WRAM) bank 1\~N                                                                    | Only bank 1 in Non-CGB mode Switchable bank 1\~7 in CGB mode |
 | E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                                                  | Typically not used|
-| FE00        | FE9F      | Sprite attribute table ([OAM](#vram-sprite-attribute-table-oam)   | |
+| FE00        | FE9F      | Sprite attribute table ([OAM](#vram-sprite-attribute-table-oam))   | |
 | FEA0        | FEFF      | Not Usable                                                                                       | |
 | FF00        | FF7F      | I/O Registers                                                                                    | |
 | FF80        | FFFE      | High RAM (HRAM)                                                                                  | |

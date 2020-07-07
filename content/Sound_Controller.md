@@ -379,7 +379,7 @@ The APU was reworked pretty heavily for the GBA. Instead of mixing being
 done analogically, it's instead done digitally; then, sound is
 converted to an analog signal and an offset is added (see SOUNDBIAS in
 [GBATEK](http://problemkaputt.de/gbatek.htm#gbasoundcontrolregisters)
-for more details.
+for more details).
 
 This means that the APU has no DACs, or if modelling the GBA as a GB,
 they're always on.

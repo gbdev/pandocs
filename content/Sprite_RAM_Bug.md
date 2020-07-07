@@ -79,13 +79,13 @@ bitwise expression is `b | (a & c)`.
 
 ## Write During Increase/Decrease
 
-If a register is increased or decreased in the same M cycle of a write,
+If a register is increased or decreased in the same M-cycle of a write,
 this will effectively trigger two writes in a single M-cycle. However,
 this case behaves just like a single write.
 
 ## Read During Increase/Decrease
 
-If a register is increased or decreased in the same M cycle of a write,
+If a register is increased or decreased in the same M-cycle of a write,
 this will effectively trigger both a read **and** a write in a single
 M-cycle, resulting in a more complex corruption pattern:
 
