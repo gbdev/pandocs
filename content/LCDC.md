@@ -1,4 +1,4 @@
-# LCD Control Register
+# FF40 - LCD Control Register
 
 **LCDC** is the main **LCD C**ontrol register. Its bits toggle what
 elements are displayed on the screen, and how.
