@@ -93,7 +93,7 @@ milliseconds.
 ### INT 48 - LCDC Status Interrupt
 
 There are various reasons for this interrupt to occur as described by
-the STAT register (\$FF40). One very popular reason is to indicate to
+the STAT register (\$FF41). One very popular reason is to indicate to
 the user when the video hardware is about to redraw a given LCD line.
 This can be useful for dynamically controlling the SCX/SCY registers
 ($FF43/$FF42) to perform special video effects.
