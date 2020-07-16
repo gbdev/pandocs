@@ -89,6 +89,17 @@ ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a permanent
 880us LED ON signal. Even though being generally CGB compatible, the GBA
 does not include an infra-red port.
 
+### FF6C - OPRI - CGB Mode Only - Object Priority Mode
+
+This register serves as a flag for which object priority mode to use. While
+the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
+location in OAM. This flag is set by the CGB bios after checking the game's
+CGB compatibility.
+
+```
+Bit 0: OBJ Priority Mode (0=OAM Priority, 1=Coordinate Priority) (Read/Write)
+```
+
 ### FF70 - SVBK - CGB Mode Only - WRAM Bank
 
 In CGB Mode 32 KBytes internal RAM are available. This memory is divided
@@ -108,13 +119,6 @@ These are undocumented CGB Registers. Purpose of these registers is
 unknown (if any). It isn't recommended to use them in your software,
 but you could, for example, use them to check if you are running on an
 emulator or on DMG hardware.
-
-### FF6C - Bit 0 (Read/Write) - CGB Mode Only
-
-Only the least significant bit of this register can be written to. It
-defaults to 0, so this register's initial value is $FE.
-
-In non-CGB mode, it isn't writable, and its value is locked at $FF.
 
 ### FF72 - Bits 0-7 (Read/Write)
 
