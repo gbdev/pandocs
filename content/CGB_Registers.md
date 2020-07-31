@@ -94,7 +94,11 @@ does not include an infra-red port.
 This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's
-CGB compatibility.
+CGB compatibility. 
+
+::: warning TO BE VERIFIED
+Changing this bit outside of the bootrom seems to have no effect.
+:::
 
 ```
 Bit 0: OBJ Priority Mode (0=OAM Priority, 1=Coordinate Priority) (Read/Write)
