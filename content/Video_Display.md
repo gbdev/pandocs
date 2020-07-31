@@ -64,7 +64,7 @@ Three things are known to pause the dot clock:
 - Window : An active window pauses for at least 6 dots, as the background fetching mechanism starts over at the left side of the window.
 - Sprites : Each sprite usually pauses for `11 - min(5, (x + SCX) mod 8)` dots. Because sprite fetch waits for background fetch to finish, a sprite's cost depends on its position relative to the left side of the background tile under it. It's greater if a sprite is directly aligned over the background tile, less if the sprite is to the right. If the sprite's left side is over the window, use `255 - WX` for `SCX` in this formula.
 
-::: warning Not fully understood
+::: warning TO BE VERIFIED
 The exact pause duration for window start is
 not confirmed; it may have the same background fetch finish delay as a
 sprite. If two sprites' left sides are over the same background or
