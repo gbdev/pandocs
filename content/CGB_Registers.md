@@ -96,8 +96,11 @@ the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's
 CGB compatibility. 
 
+OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to KEY0 but STOP hasn't been executed yet, and the write takes effect instantly.
+
 ::: warning TO BE VERIFIED
-Changing this bit outside of the bootrom seems to have no effect.
+It does not have an effect, at least not an instant effect, if written to during CGB or DMG mode after the boot ROM has been unmapped. 
+It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effect on this register's behavior.
 :::
 
 ```
