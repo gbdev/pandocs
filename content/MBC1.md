@@ -106,7 +106,7 @@ In mode 0, the 2-bit secondary banking register can only affect the
 (<1 MB ROM, >8kB RAM) then 4000-7FFF is unaffected by this register anyway,
 so the practical effect is that RAM banking is disabled and A000-BFFF is
 locked to only be able to access bank 0 of RAM, with the 2-bit secondary
-banking register entirely ignored. For large ROM carts, the 
+banking register entirely ignored.
 
 In mode 1, the behaviour differs depending on whether the current cart is
 a "large RAM" cart (>8kB RAM) or "large ROM" cart (1 MB or larger). For
