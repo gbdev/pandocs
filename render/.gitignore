@@ -1,6 +1,5 @@
 node_modules/
 *.md
-package-lock.json
 .vuepress/dist
 bin/
 lib/

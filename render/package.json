@@ -1,13 +1,15 @@
 {
   "name": "pandocs-render",
   "version": "1.0.0",
+  "license": "CC0-1.0",
+  "repository": "https://github.com/gbdev/pandocs",
   "description": "",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "dev":"vuepress dev",
+    "dev": "vuepress dev",
     "build": "vuepress build",
     "remove-prism": "sed -i.bak -e \":a\" -e 'N' -e '$!ba' -e \"s/<style src=\\\"prismjs.*css\\\"><\\/style>/ /\" node_modules/@vuepress/theme-default/layouts/Layout.vue",
     "deploy": "vuepress build && npx gh-pages -d .vuepress/dist -b master",
