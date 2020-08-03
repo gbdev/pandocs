@@ -1,6 +1,4 @@
----
-title: 'Timer obscure behaviour'
----
+# Timer obscure behaviour
 
 ## Timer Global Circuit
 
