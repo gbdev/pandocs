@@ -190,7 +190,7 @@ sprite data 00 is transparent.
 
 # LCD Color Palettes (CGB only)
 
-### FF68 - BCPS/BGPI - CGB Mode Only - Background Palette Index
+### FF68 - BCPS/BGPI - CGB Mode Only - Background Color Palette Specification or Background Palette Index
 
 This register is used to address a byte in the CGBs Background Palette
 Memory. Each two byte in that memory define a color value. The first 8
@@ -211,7 +211,7 @@ auto-increment to occur.
 Unlike the following, this register can be accessed outside V-Blank and
 H-Blank.
 
-### FF69 - BCPD/BGPD - CGB Mode Only - Background Palette Data
+### FF69 - BCPD/BGPD - CGB Mode Only - Background Color Palette Data or Background Palette Data
 
 This register allows to read/write data to the CGBs Background Palette
 Memory, addressed through Register FF68. Each color is defined by two
@@ -229,7 +229,7 @@ register indicates Mode 3). Note: All background colors are initialized
 as white by the boot ROM, but it's a good idea to initialize at least
 one color yourself (for example if you include a soft-reset mechanic).
 
-### FF6A - OCPS/OBPI - CGB Mode Only - Sprite Palette Index, FF6B - OCPD/OBPD - CGB Mode Only - Sprite Palette Data
+### FF6A - OCPS/OBPI Object Color Palette Specification or Sprite Palette Index, FF6B - OCPD/OBPD Object Color Palette Data or Sprite Palette Data - Both CGB Mode Only 
 
 These registers are used to initialize the Sprite Palettes OBP0-7,
 identically as described above for Background Palettes. Note that four
