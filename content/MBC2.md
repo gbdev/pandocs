@@ -1,8 +1,10 @@
 (max 256KByte ROM and 512x4 bits RAM)
 
+## ROM/RAM Access
+
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
-Same as for MBC1.
+Contains the first 16KByte banks of the ROM.
 
 ### 4000-7FFF - ROM Bank 01-0F (Read Only)
 
@@ -16,21 +18,36 @@ battery to save data during power-off though. As the data consists of
 4bit values, only the lower 4 bits of the "bytes" in this memory area
 are used.
 
-### 0000-1FFF - RAM Enable (Write Only)
+## Control Registers
 
-The least significant bit of the upper address byte must be zero to
-enable/disable cart RAM. For example the following addresses can be used
-to enable/disable cart RAM: 0000-00FF, 0200-02FF, 0400-04FF, ...,
-1E00-1EFF. The suggested address range to use for MBC2 ram
-enable/disable is 0000-00FF.
+### 0000-3FFF - RAM Enable and ROM Bank Number (Write Only)
 
-### 2000-3FFF - ROM Bank Number (Write Only)
+This address range is responsible for both enabling/disabling the RAM
+and for controlling the ROM bank number. Bit 8 of the address determines
+whether to control the RAM-enable flag or the ROM bank number.
 
-Writing a value (XXXXBBBB - X = Don't cares, B = bank select bits) into
-2000-3FFF area will select an appropriate ROM bank at 4000-7FFF.
+#### When Bit 8 is Clear
 
-The least significant bit of the upper address byte must be one to
-select a ROM bank. For example the following addresses can be used to
-select a ROM bank: 2100-21FF, 2300-23FF, 2500-25FF, ..., 3F00-3FFF. The
-suggested address range to use for MBC2 rom bank selection is 2100-21FF.
+When the least significant bit of the upper address byte is zero, the
+value that is written controls whether the RAM is enabled. When the
+value written to this address range is equal to `0Ah`, RAM is enabled.
+If any other value is written, RAM is disabled.
 
+Examples of address that can control RAM: 0000-00FF, 0200-02FF,
+0400-04FF, ..., 3E00-3EFF.
+
+RAM is disabled by default.
+
+#### When Bit 8 is Set
+
+When the least significant bit of the upper address byte is one, the
+value that is written controls the selected ROM bank at 4000-7FFF.
+
+Specifically, the lower 4 bits of the value written to this address
+range specify the ROM bank number. If bank 0 is written, the resulting
+bank will be bank 1 instead.
+
+Examples of address that can control ROM: 0100-01FF, 0300-03FF,
+0500-05FF, ..., 3F00-3FFF.
+
+The ROM bank is set to 1 by default.
