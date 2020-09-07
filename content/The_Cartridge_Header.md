@@ -199,7 +199,7 @@ Specifies the size of the external RAM in the cartridge (if any).
 ```
  00h - None
  01h - 2 KBytes
- 02h - 8 Kbytes
+ 02h - 8 KBytes
  03h - 32 KBytes (4 banks of 8KBytes each)
  04h - 128 KBytes (16 banks of 8KBytes each)
  05h - 64 KBytes (8 banks of 8KBytes each)
