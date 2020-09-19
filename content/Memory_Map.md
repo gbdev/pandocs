@@ -56,18 +56,18 @@ Memory Bank Controllers.
 
 # Echo RAM
 
-The memory range E000-FDFF is a mirror (or \"echo\") of WRAM, both for
-reading and writing. For example, writing to \$E123 will modify both
-\$C123 and \$E123. It is recommended to avoid using this memory range
-anyways. This memory range's behavior has been confirmed on all grey
-GBs as well as on CGB and GBA. Some emulators (such as VisualBoyAdvance
-\<1.8) don't emulate Echo RAM. It is possible to check if Echo RAM is
-properly emulated by writing to WRAM (avoid values 00 and FF) and
-checking if said value is mirrored in Echo RAM.
+The range at E000-FDFF connects to WRAM, but only the lower 13 bits of
+the address lines are connected. with the upper bits on the upper bank
+set internally in the memory controller by a bank swap register.  This
+causes the address to effectively overflow.  All reads and writes to
+this range have the same effect as reads and writes to C000-DFFF.
 
-This range is likely a result of only connecting the lower 13 bits of
-the address lines to the WRAM, with the upper bits on the upper bank
-set internally in the memory controller by a bank swap register.
+Nintendo prohibits developers from using this memory range.  The
+behavior is confirmed on all grey GBs as well as on CGB and GBA. Some
+emulators (such as VisualBoyAdvance \<1.8) don't emulate Echo RAM.
+Software can check if Echo RAM is properly emulated by writing to RAM
+(avoid values 00 and FF) and checking if said value is mirrored in Echo
+RAM.
 
 # I/O Registers
 
@@ -86,11 +86,8 @@ The Gameboy uses the following I/O ranges:
 | FF68 | FF69 | CGB | BCP/OCP |
 | FF70 | | CGB | WRAM Bank Select |
 
-All other I/O ranges are available for emulator or clone hardware to
-expose internal functions, e.g. for a boot ROM.
-
 # FEA0-FEFF range
 
-This range is very poorly documented. It doesn't even have a name!
-From my experience, this stays 00 on DMG, and alternates between 00 and
-seemingly random values on CGB.
+Nintendo indicates use of this area is prohibited.  It appears to not
+connect anywhere or to otherwise have no function.  Reads return 00 on
+DMG, and alternate between 00 and seemingly random values on CGB.
