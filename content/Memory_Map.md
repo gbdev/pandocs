@@ -42,17 +42,17 @@ area are required to be specified correctly.
 
 # External Memory and Hardware
 
-The areas from 0000-7FFF and A000-BFFF may be used to connect external
-hardware. The first area is typically used to address ROM (read only, of
-course), cartridges with [Memory Bank Controllers
-(MBCs)](Memory_Bank_Controllers "wikilink") are additionally using this
-area to output data (write only) to the MBC chip. The second area is
-often used to address external RAM, or to address other external
-hardware (Real Time Clock, etc). External memory is
-often battery buffered, and may hold saved game positions and high score
-tables (etc.) even when the Game Boy is turned off, or when the
-cartridge is removed. For specific information read the chapter about
-Memory Bank Controllers.
+The areas from 0000-7FFF and A000-BFFF address external hardware, i.e.
+the carridge, which is essentially an expansion board.  Typically this
+is a ROM and SRAM or, more often, a [Memory Bank Controller (MBC)](Memory_Bank_Controllers "wikilink").
+The RAM area is accessed as RAM; writes to the ROM area control the
+MBC.  Some MBCs allow mapping of other hardware into the RAM area in
+this way.
+
+Cartridge RAM is often battery buffered to hold saved game positions,
+high score tables, and other information when the Game Boy is turned
+off.  For specific information read the chapter about Memory Bank
+Controllers.
 
 # Echo RAM
 
