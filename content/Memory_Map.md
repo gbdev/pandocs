@@ -44,10 +44,11 @@ area are required to be specified correctly.
 
 The areas from 0000-7FFF and A000-BFFF address external hardware, i.e.
 the carridge, which is essentially an expansion board.  Typically this
-is a ROM and SRAM or, more often, a [Memory Bank Controller (MBC)](Memory_Bank_Controllers "wikilink").
-The RAM area is accessed as RAM; writes to the ROM area control the
-MBC.  Some MBCs allow mapping of other hardware into the RAM area in
-this way.
+is a ROM and SRAM or, more often, a [Memory Bank Controller
+(MBC)](Memory_Bank_Controllers "wikilink"). The RAM area can be read
+from and written to normally; writes to the ROM area control the MBC.
+some MBCs allow mapping of other hardware into the RAM area in this
+way.
 
 Cartridge RAM is often battery buffered to hold saved game positions,
 high score tables, and other information when the Game Boy is turned
@@ -57,17 +58,16 @@ Controllers.
 # Echo RAM
 
 The range at E000-FDFF connects to WRAM, but only the lower 13 bits of
-the address lines are connected. with the upper bits on the upper bank
+the address lines are connected, with the upper bits on the upper bank
 set internally in the memory controller by a bank swap register.  This
-causes the address to effectively overflow.  All reads and writes to
-this range have the same effect as reads and writes to C000-DFFF.
+causes the address to effectively wrap around.  All reads and writes to
+this range have the same effect as reads and writes to C000-DDFF.
 
 Nintendo prohibits developers from using this memory range.  The
-behavior is confirmed on all grey GBs as well as on CGB and GBA. Some
-emulators (such as VisualBoyAdvance \<1.8) don't emulate Echo RAM.
-Software can check if Echo RAM is properly emulated by writing to RAM
-(avoid values 00 and FF) and checking if said value is mirrored in Echo
-RAM.
+behavior is confirmed on all official hardware. Some emulators (such as
+VisualBoyAdvance \<1.8) don't emulate Echo RAM. Software can check if
+Echo RAM is properly emulated by writing to RAM (avoid values 00 and
+FF) and checking if said value is mirrored in Echo RAM.
 
 # I/O Registers
 
