@@ -11,9 +11,9 @@ The Game Boy has a 16bit address bus, that is used to address ROM, RAM and I/O
 | A000        | BFFF      | 8KB External RAM                                                                                 | In cartridge, switchable bank if any
 | C000        | CFFF      | 4KB Work RAM (WRAM) bank 0                                                                       | |
 | D000        | DFFF      | 4KB Work RAM (WRAM) bank 1\~N                                                                    | Only bank 1 in Non-CGB mode Switchable bank 1\~7 in CGB mode |
-| E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                                                  | Typically not used|
+| E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                                                  | Nintendo says use of this area is prohibited. |
 | FE00        | FE9F      | Sprite attribute table ([OAM](#vram-sprite-attribute-table-oam))   | |
-| FEA0        | FEFF      | Not Usable                                                                                       | |
+| FEA0        | FEFF      | Not Usable                                                                                       | Nintendo says use of this area is prohibited |
 | FF00        | FF7F      | I/O Registers                                                                                    | |
 | FF80        | FFFE      | High RAM (HRAM)                                                                                  | |
 | FFFF        | FFFF      | [Interrupts](#interrupts) Enable Register (IE)                                         | |
@@ -65,8 +65,32 @@ GBs as well as on CGB and GBA. Some emulators (such as VisualBoyAdvance
 properly emulated by writing to WRAM (avoid values 00 and FF) and
 checking if said value is mirrored in Echo RAM.
 
+This range is likely a result of only connecting the lower 13 bits of
+the address lines to the WRAM, with the upper bits on the upper bank
+set internally in the memory controller by a bank swap register.
+
+# I/O Registers
+
+The Gameboy uses the following I/O ranges:
+
+| **Start** | **End** | **Revision** | **Purpose** |
+|-|-|-|-|
+| FF00 | FF02 | DMG | Port/Mode |
+| FF04 | FF07 | DMG | Port/Mode |
+| FF10 | FF26 | DMG | Sound |
+| FF30 | FF3F | DMG | Waveform RAM |
+| FF40 | FF4B | DMG | LCD |
+| FF4F | | CGB | VRAM Bank Select |
+| FF50 | | DMG | Set to non-zero to disable boot ROM |
+| FF51 | FF55 | CGB | HDMA |
+| FF68 | FF69 | CGB | BCP/OCP |
+| FF70 | | CGB | WRAM Bank Select |
+
+All other I/O ranges are available for emulator or clone hardware to
+expose internal functions, e.g. for a boot ROM.
+
 # FEA0-FEFF range
 
-This range is very poorly documented. It doesn't even have a name !
+This range is very poorly documented. It doesn't even have a name!
 From my experience, this stays 00 on DMG, and alternates between 00 and
 seemingly random values on CGB.
