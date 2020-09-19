@@ -90,4 +90,5 @@ The Gameboy uses the following I/O ranges:
 
 Nintendo indicates use of this area is prohibited.  It appears to not
 connect anywhere or to otherwise have no function.  Reads return 00 on
-DMG, and alternate between 00 and seemingly random values on CGB.
+DMG; behavior on CGB is dependent on hardware revision, and may
+alternate between values or be seemingly random.
