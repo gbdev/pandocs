@@ -88,7 +88,15 @@ The Gameboy uses the following I/O ranges:
 
 # FEA0-FEFF range
 
-Nintendo indicates use of this area is prohibited.  It appears to not
-connect anywhere or to otherwise have no function.  Reads return 00 on
-DMG; behavior on CGB is dependent on hardware revision, and may
-alternate between values or be seemingly random.
+Nintendo indicates use of this area is prohibited.  This area returns
+FF when OAM is blocked, and otherwise the behavior depends on the
+hardware revision.
+
+On DMG, MGB, SGB, and SGB2, reads during OAM block trigger the sprite
+bug.  Reads otherwise return 00.
+
+On CGB revisions 0-D, this area is a unique RAM area, but is masked
+with a revision-specific value.
+
+On CGB revision E, it returns the high nybble of the lower address
+byte twice, e.g. FFAx returns AA, FFBx returns BB, and so forth.
