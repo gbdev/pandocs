@@ -23,7 +23,7 @@ OAM, etc.
 
 ::: warning
 Stopping LCD operation (Bit 7 from 1 to 0) may be performed
-during [VBlank](VBlank "wikilink") ONLY, disabling the display outside
+during VBlank ONLY, disabling the display outside
 of the V-Blank period may damage the hardware by burning in a black
 horizontal line similar to that which appears when the GB is turned off.
 This appears to be a serious issue, Nintendo is reported to reject any
@@ -47,9 +47,9 @@ one.
 
 ## LCDC.5 - Window Display Enable
 
-This bit controls whether the window shall be displayed or not. (TODO :
+This bit controls whether the window shall be displayed or not. (TODO:
 what happens when toggling this mid-scanline ?) This bit is overridden
-on DMG by [bit 0](#LCDC.0_-_BG.2FWindow_Display.2FPriority "wikilink")
+on DMG by [bit 0](#lcdc-0-bg-window-display-priority)
 if that bit is reset.
 
 Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
@@ -58,7 +58,7 @@ may cause the second write to be ignored. (TODO : test this.)
 ## LCDC.4 - BG & Window Tile Data Select
 
 This bit controls which [addressing
-mode](Video_Display#VRAM_Tile_Data "wikilink") the BG and Window use to
+mode](#vram-tile-data) the BG and Window use to
 pick tiles.
 
 Sprites aren't affected by this, and will always use \$8000 addressing
@@ -95,7 +95,7 @@ LCDC.0 has different meanings depending on Game Boy type and Mode:
 ### Monochrome Gameboy, SGB and CGB in Non-CGB Mode: BG Display
 
 When Bit 0 is cleared, both background and window become blank (white),
-and the [Window Display Bit](#LCDC.5_-_Window_Display_Enable "wikilink")
+and the [Window Display Bit](#lcdc-5-window-display-enable)
 is ignored in that case. Only Sprites may still be displayed (if enabled
 in Bit 1).
 
@@ -123,5 +123,5 @@ the textbox/status bar is "alone" on its scanlines:
 -   Set LCDC.1 to 0 for textbox/status bar scanlines
 
 Usually, these bars are either at the top or bottom of the screen, so
-the bit can be set by the [VBlank handler](VBlank_handler "wikilink")
+the bit can be set by the VBlank handler.
 

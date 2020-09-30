@@ -45,7 +45,7 @@ area are required to be specified correctly.
 The areas from 0000-7FFF and A000-BFFF may be used to connect external
 hardware. The first area is typically used to address ROM (read only, of
 course), cartridges with [Memory Bank Controllers
-(MBCs)](Memory_Bank_Controllers "wikilink") are additionally using this
+(MBCs)](#memory-bank-controllers) are additionally using this
 area to output data (write only) to the MBC chip. The second area is
 often used to address external RAM, or to address other external
 hardware (Real Time Clock, etc). External memory is
