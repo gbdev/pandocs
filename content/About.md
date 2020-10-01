@@ -1,4 +1,4 @@
-This document, started in early 1995, is considered the single most comprehensive technical reference to Game Boy available to the public.
+This document, started in early 1995, is considered the single most comprehensive technical reference to Game Boy available to the public. It is targeted specifically at homebrew game developers, while https://gekkio.fi/files/gb-docs/gbctr.pdf is a more complete read for emulator developement.
 
 This is a new, experimental version of Pan Docs, mantained in the Markdown format. To learn more about the history and the mission of the project, check the [README](https://github.com/gbdev/pandocs#history).
 
