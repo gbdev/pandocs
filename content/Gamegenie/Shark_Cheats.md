@@ -1,5 +1,5 @@
 Game Shark and Gamegenie are external cartridge adapters that can be
-plugged between the Game Boy and the actual game cartridge.
+plugged in between the Game Boy and the actual game cartridge.
 
 ### Gamegenie (ROM patches)
 
@@ -16,9 +16,10 @@ permanently compares address/old data with address/data being read by
 the game, and replaces that data by new data if necessary. That method
 (more or less) prohibits unwanted patching of wrong memory banks.
 Eventually it is also possible to patch external RAM ? Newer devices
-reportedly allow to specify only the first six digits (optionally). As
-far as I rememeber, around three or four codes can be used
-simultaneously.
+reportedly allow to specify only the first six digits (optionally). 
+Three codes can be used at once on the Gamegenie.
+
+Further Reading: http://www.digitpress.com/library/manuals/gameboy/game%20genie.pdf
 
 ### Game Shark (RAM patches)
 
