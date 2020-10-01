@@ -1,12 +1,12 @@
 (max 2MByte ROM and/or 32KByte RAM)
 
-This is the first MBC chip for the Game Boy. Any newer MBC chips are
-working similiar, so that is relative easy to upgrade a program from one
-MBC chip to another - or even to make it compatible to several different
+This is the first MBC chip for the Game Boy. Any newer MBC chips 
+work similarly, so it is relatively easy to upgrade a program from one
+MBC chip to another - or to make it compatible with several different
 types of MBCs.
 
-Note that the memory in range 0000-7FFF is used for both reading from
-ROM, and for writing to the MBCs Control Registers.
+Note that the memory in range 0000-7FFF is used both for reading from
+ROM, and writing to the MBCs Control Registers.
 
 ## ROM/RAM access
 
@@ -26,8 +26,8 @@ higher (01/21/41/61).
 ### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
 
 This area is used to address external RAM in the cartridge (if any).
-External RAM is often battery buffered, allowing to store game positions
-or high score tables, even if the Game Boy is turned off, or if the
+External RAM is often battery buffered to store game positions
+or high score tables while the Game Boy is turned off, or if the
 cartridge is removed from the Game Boy. Available RAM sizes are: 2KByte
 (at A000-A7FF), 8KByte (at A000-BFFF), and 32KByte (in form of four 8K
 banks at A000-BFFF).
@@ -74,7 +74,7 @@ and 60h, as this register would need to be 00h for those addresses. Any
 attempt to address these ROM Banks will select Bank 21h, 41h, and 61h
 instead. The only way to access banks 20h, 40h or 60h is to enter mode 1,
 which remaps the 0000-3FFF range. This has its own problems for game
-developers as that range contains interrupt handlers, so it's mostly only
+developers as that range contains interrupt handlers, so it's usually only
 used in multi-game compilation carts (see below).
 
 ### 4000-5FFF - RAM Bank Number - or - Upper Bits of ROM Bank Number (Write Only)
