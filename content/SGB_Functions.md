@@ -354,7 +354,7 @@ color 1-3 (without separate color 0).
 ` F     Not used (00h)`<br>
 
 This is the same RGB5 format as [Game Boy Color palette
-entry](Video_Display#LCD_Color_Palettes_(CGB_only) "wikilink"), though
+entry](#lcd-color-palettes-cgb-only), though
 without the LCD correction. The value transferred as color 0 will be
 applied for all four palettes.
 
@@ -812,7 +812,7 @@ cartridge in a Super Game Boy as a storage server:
 -   The SGB system software does not appear to use NMIs.
 -   JUMP can return to SGB system software via a 16-bit RTS. To do this,
     JML to a location in bank $00 containing byte value $60, such as
-    any of the [stubbed commands](#Stubbed_commands "wikilink").
+    any of the [stubbed commands](#stubbed-commands).
 -   IRQs and COP and BRK instructions are not useful because their
     handlers still point into SGB ROM. Use SEI WAI.
 -   If a program called through JUMP does not intend to return to SGB
