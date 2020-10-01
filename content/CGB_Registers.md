@@ -48,7 +48,7 @@ pseudo code would be:
 ```
 
 The CGB is operating in Normal Speed Mode when it is turned on. Note
-that using the Double Speed Mode increases the power consumption, therefore it
+that using the Double Speed Mode increases the power consumption; therefore, it
 would be recommended to use Single Speed whenever possible. However, the
 display will flicker white for a moment during speed switches, so this
 cannot be done permanentely. In Double Speed Mode the following will
