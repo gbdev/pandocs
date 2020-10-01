@@ -48,9 +48,9 @@ pseudo code would be:
 ```
 
 The CGB is operating in Normal Speed Mode when it is turned on. Note
-that using the Double Speed Mode increases the power consumption, it
+that using the Double Speed Mode increases the power consumption, therefore it
 would be recommended to use Single Speed whenever possible. However, the
-display will flicker (white) for a moment during speed switches, so this
+display will flicker white for a moment during speed switches, so this
 cannot be done permanentely. In Double Speed Mode the following will
 operate twice as fast as normal:
 
@@ -118,11 +118,11 @@ C000-CFFF, Bank 1-7 can be selected into the address space at D000-DFFF.
 ```
 
 Writing a value of 01h-07h will select Bank 1-7, writing a value of 00h
-will select Bank 1 either.
+will select Bank 1 too.
 
 # Undocumented registers
 
-These are undocumented CGB Registers. Purpose of these registers is
+These are undocumented CGB Registers. The purpose of these registers is
 unknown (if any). It isn't recommended to use them in your software,
 but you could, for example, use them to check if you are running on an
 emulator or on DMG hardware.
