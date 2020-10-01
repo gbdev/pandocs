@@ -19,7 +19,7 @@ PinoBatch learned the game selection protocol for EMS flash carts from
 beware, who in turn learned it from nitro2k01. Take this with a grain of
 salt, as it hasn't been verified on the authentic EMS hardware.
 
-A [header](The_Cartridge_Header "wikilink") matching any of the
+A [header](#the-cartridge-header) matching any of the
 following is detected as EMS mapper:
 
 -   Header name is "EMSMENU", NUL-padded

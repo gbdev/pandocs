@@ -33,7 +33,6 @@ they are also slightly faster.
 
 # Cartridge Header in first ROM bank
 
-
 The memory at 0100-014F contains the [cartridge
 header](#the-cartridge-header). This area contains information
 about the program, its entry point, checksums, information about the
@@ -45,7 +44,7 @@ area are required to be specified correctly.
 The areas from 0000-7FFF and A000-BFFF address external hardware, i.e.
 the carridge, which is essentially an expansion board.  Typically this
 is a ROM and SRAM or, more often, a [Memory Bank Controller
-(MBC)](Memory_Bank_Controllers "wikilink"). The RAM area can be read
+(MBC)](#memory-bank-controllers). The RAM area can be read
 from and written to normally; writes to the ROM area control the MBC.
 some MBCs allow mapping of other hardware into the RAM area in this
 way.

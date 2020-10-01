@@ -5,7 +5,7 @@ MBC6 (Memory Bank Controller 6) is an unusual MBC that contains two
 separately switchable ROM banks ($4000 and $6000) and RAM banks
 ($A000 and $B000), SRAM and an 8 Mbit Macronix MX29F008TC-14 flash
 memory chip. It is only used in one game, Net de Get: Minigame @ 100,
-which uses the [Mobile Adapter](Mobile_Adapter "wikilink") to connect to
+which uses the Mobile Adapter to connect to
 the web to download minigames onto the local flash. Both ROM banks and
 both RAM banks are views into the same ROM and RAM, but with separately
 adjustable offsets. Since the banked regions are smaller the effective

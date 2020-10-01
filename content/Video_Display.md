@@ -272,7 +272,7 @@ darker colors.
 
 Newer CGB games may avoid this effect by changing palette data when
 detecting GBA hardware ([see
-how](CGB_Registers#Detecting_CGB_.28and_GBA.29_functions "wikilink")).
+how](#detecting-cgb-and-gba-functions)).
 Based on measurement of GBC and GBA palettes using the [144p Test
 Suite](https://github.com/pinobatch/240p-test-mini/tree/master/gameboy) ROM, a fairly close approximation is GBA = GBC \* 3/4 + 8h for
 each R,G,B intensity. The result isn't quite perfect, and it may turn
@@ -465,7 +465,7 @@ by both addressing methods)
 
 Sprites always use 8000 addressing, but the BG and Window can use either
 mode, controlled by [LCDC bit
-4](#LCDC.4_-_BG_.26_Window_Tile_Data_Select "wikilink").
+4](#lcdc-4-bg-window-tile-data-select).
 
 Each Tile occupies 16 bytes, where each 2 bytes represent a line:
 
@@ -492,15 +492,15 @@ A more visual explanation can be found
 So, each pixel is having a color number in range from 0-3. The color
 numbers are translated into real colors (or gray shades) depending on
 the current palettes. The palettes are defined through registers
-[BGP](#FF47_-_BGP_-_BG_Palette_Data_.28R.2FW.29_-_Non_CGB_Mode_Only "wikilink"),
-[OBP0](#FF48_-_OBP0_-_Object_Palette_0_Data_.28R.2FW.29_-_Non_CGB_Mode_Only "wikilink")
+[BGP](#ff47-bgp-bg-palette-data-r-w-non-cgb-mode-only),
+[OBP0](#ff48-obp0-object-palette-0-data-r-w-non-cgb-mode-only)
 and
-[OBP1](#FF49_-_OBP1_-_Object_Palette_1_Data_.28R.2FW.29_-_Non_CGB_Mode_Only "wikilink")
+[OBP1](#ff49-obp1-object-palette-1-data-r-w-non-cgb-mode-only)
 (Non CGB Mode), and
-[BCPS/BGPI](#FF68_-_BCPS.2FBGPI_-_CGB_Mode_Only_-_Background_Palette_Index "wikilink"),
-[BCPD/BGPD](#FF69_-_BCPD.2FBGPD_-_CGB_Mode_Only_-_Background_Palette_Data "wikilink"),
+[BCPS/BGPI](#ff68-bcps-bgpi-cgb-mode-only-background-color-palette-specification-or-background-palette-index),
+[BCPD/BGPD](#ff69-bcpd-bgpd-cgb-mode-only-background-color-palette-data-or-background-palette-data),
 [OCPS/OBPI and
-OCPD/OBPD](#FF6A_-_OCPS.2FOBPI_-_CGB_Mode_Only_-_Sprite_Palette_Index.2C_FF6B_-_OCPD.2FOBPD_-_CGB_Mode_Only_-_Sprite_Palette_Data "wikilink")
+OCPD/OBPD](#ff6a-ocps-obpi-object-color-palette-specification-or-sprite-palette-index-ff6b-ocpd-obpd-object-color-palette-data-or-sprite-palette-data-both-cgb-mode-only)
 (CGB Mode).
 
 
@@ -517,7 +517,7 @@ tiles to be displayed. It is organized as 32 rows of 32 bytes each. Each
 byte contains a number of a tile to be displayed.
 
 Tile patterns are taken from the Tile Data Table using either of the two
-addressing modes (described [above](#VRAM_Tile_Data "wikilink")), which
+addressing modes (described [above](#vram-tile-data)), which
 can be selected via LCDC register.
 
 As one background tile has a size of 8x8 pixels, the BG maps may hold a
@@ -646,7 +646,7 @@ if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
 X \>= 168 (160 + 8) on a sprite will hide it, but it will still affect
 other sprites sharing the same lines.
 
-If using [BGB](BGB "wikilink"), in the VRAM viewer - OAM tab, hover your
+If using BGB, in the VRAM viewer - OAM tab, hover your
 mouse over the small screen to highlight the sprites on a line. Sprites
 hidden due to the limitation will be highlighted in red.
 
@@ -721,7 +721,7 @@ If you're not using LCD interrupts, another way to synchronize to the
 start of mode 0 is to use `halt` with IME turned off (`di`). This allows
 use of the entire mode 0 on one line and mode 2 on the following line,
 which sum to 165 to 288 dots. For comparison, at single speed (4 dots
-per machine cycle), a [copy from stack](Popslide "wikilink") that takes
+per machine cycle), a copy from stack that takes
 9 cycles per 2 bytes can push 8 bytes (half a tile) in 144 dots, which
 fits within the worst case timing for mode 0+2.
 
