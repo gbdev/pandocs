@@ -29,7 +29,7 @@ If it is a zero, then the internal ROM is disabled and cartridge program executi
   [$FF1A] = $7F   ; NR30
   [$FF1B] = $FF   ; NR31
   [$FF1C] = $9F   ; NR32
-  [$FF1E] = $BF   ; NR33
+  [$FF1E] = $BF   ; NR34
   [$FF20] = $FF   ; NR41
   [$FF21] = $00   ; NR42
   [$FF22] = $00   ; NR43
