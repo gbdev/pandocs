@@ -107,7 +107,7 @@ must be set in order to unlock SGB functions:
 ` 14Bh - Old Licensee Code - Must be set 33h for SGB games`<br>
 
 When these entries aren't set, the game will still work just like all
-'monochrome' Game Boy games, but it cannot access any of the special
+"monochrome" Game Boy games, but it cannot access any of the special
 SGB functions.
 
 ### Detecting SGB hardware
@@ -182,7 +182,7 @@ packets is:
 ` 15 BYTES Parameter Data`<br>
 `  1 BIT   Stop Bit (0)`<br>
 
-The above 'Length' indicates the total number of packets (1-7,
+The above "Length" indicates the total number of packets (1-7,
 including the first packet) which will be sent, ie. if more than 15
 parameter bytes are used, then further packet(s) will follow, as such:
 
@@ -231,7 +231,7 @@ multiple chunks.
 
 ### Avoiding Screen Garbage
 
-The display will contain 'garbage' during the transfer, this
+The display will contain "garbage" during the transfer, this
 dirt-effect can be avoided by freezing the screen (in the state which
 has been displayed before the transfer) by using the MASK_EN command.
 Of course, this works only when actually executing the game on a SGB
@@ -398,8 +398,8 @@ initialized by ATTR_TRN.
 Used to initialize SGB system color palettes in SNES RAM. System color
 palette memory contains 512 pre-defined palettes, these palettes do not
 directly affect the display, however, the PAL_SET command may be later
-used to transfer four of these 'logical' palettes to actual visible
-'physical' SGB palettes. Also, the OBJ_TRN function will use groups
+used to transfer four of these "logical" palettes to actual visible
+"physical" SGB palettes. Also, the OBJ_TRN function will use groups
 of 4 System Color Palettes (4\*4 colors) for SNES OBJ palettes (16
 colors).
 

@@ -10,7 +10,7 @@ When using any CGB registers (including those in the Video/Link
 chapters), you must first unlock CGB features by changing byte 0143h in
 the cartridge header. Typically use a value of 80h for games which
 support both CGB and monochrome gameboys, and C0h for games which work
-on CGBs only. Otherwise, the CGB will operate in monochrome 'Non CGB'
+on CGBs only. Otherwise, the CGB will operate in monochrome "Non CGB"
 compatibility mode.
 
 # Detecting CGB (and GBA) functions
@@ -20,7 +20,7 @@ directly after startup. A value of 11h indicates CGB (or GBA) hardware,
 if so, CGB functions can be used (if unlocked, see above). When A=11h,
 you may also examine Bit 0 of the CPUs B-Register to separate between
 CGB (bit cleared) and GBA (bit set), by that detection it is possible to
-use 'repaired' color palette data matching for GBA displays.
+use "repaired" color palette data matching for GBA displays.
 
 # Documented registers
 
@@ -35,7 +35,7 @@ This register is used to prepare the Game Boy to switch between CGB
 Double Speed Mode and Normal Speed Mode. The actual speed switch is
 performed by executing a STOP command after Bit 0 has been set. After
 that Bit 0 will be cleared automatically, and the Game Boy will operate
-at the 'other' speed. The recommended speed switching procedure in
+at the "other" speed. The recommended speed switching procedure in
 pseudo code would be:
 
 ```
