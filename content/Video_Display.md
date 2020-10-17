@@ -396,7 +396,7 @@ The H-Blank DMA transfers 10h bytes of
 data during each H-Blank, ie. at LY=0-143, no data is transferred during
 V-Blank (LY=144-153), but the transfer will then continue at LY=00. The
 execution of the program is halted during the separate transfers, but
-the program execution continues during the 'spaces' between each data
+the program execution continues during the "spaces" between each data
 block. Note that the program should not change the Destination VRAM bank
 (FF4F), or the Source ROM/RAM bank (in case data is transferred from
 bankable memory) until the transfer has completed! (The transfer should
@@ -430,7 +430,7 @@ manually terminating a H-Blank Transfer.
 
 In both Normal Speed and Double Speed Mode it takes about 8 μs to
 transfer a block of 10h bytes. That are 8 tstates in Normal Speed Mode,
-and 16 'fast' tstates in Double Speed Mode. Older MBC controllers
+and 16 "fast" tstates in Double Speed Mode. Older MBC controllers
 (like MBC1-4) and slower ROMs are not guaranteed to support General
 Purpose or H-Blank DMA, that's because there are always 2 bytes
 transferred per microsecond (even if the itself program runs it Normal

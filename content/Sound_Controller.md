@@ -196,8 +196,8 @@ currently reading. On GBA, the write will simply be ignored.
 
 This channel is used to output white noise. This is done by randomly
 switching the amplitude between high and low at a given frequency.
-Depending on the frequency the noise will appear 'harder' or
-'softer'.
+Depending on the frequency the noise will appear "harder" or
+"softer".
 
 It is also possible to influence the function of the random generator,
 so the that the output becomes more regular, resulting in a limited
@@ -226,7 +226,7 @@ Length of 1 step = n\*(1/64) seconds
 ### FF22 - NR43 - Channel 4 Polynomial Counter (R/W)
 
 The amplitude is randomly switched between high and low at the given
-frequency. A higher frequency will make the noise to appear 'softer'.
+frequency. A higher frequency will make the noise to appear "softer".
 When Bit 3 is set, the output will become more regular, and some
 frequencies will sound more like Tone than Noise.
 
