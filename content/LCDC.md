@@ -3,16 +3,16 @@
 **LCDC** is the main **LCD C**ontrol register. Its bits toggle what
 elements are displayed on the screen, and how.
 
-```
-Bit 7 - LCD Display Enable             (0=Off, 1=On)
-Bit 6 - Window Tile Map Display Select (0=9800-9BFF, 1=9C00-9FFF)
-Bit 5 - Window Display Enable          (0=Off, 1=On)
-Bit 4 - BG & Window Tile Data Select   (0=8800-97FF, 1=8000-8FFF)
-Bit 3 - BG Tile Map Display Select     (0=9800-9BFF, 1=9C00-9FFF)
-Bit 2 - OBJ (Sprite) Size              (0=8x8, 1=8x16)
-Bit 1 - OBJ (Sprite) Display Enable    (0=Off, 1=On)
-Bit 0 - BG/Window Display/Priority     (0=Off, 1=On)
-```
+| Bit | Name                           | Usage notes              |
+|-----|--------------------------------|--------------------------|
+| 7   | LCD Display Enable             | 0=Off, 1=On              |
+| 6   | Window Tile Map Display Select | 0=9800-9BFF, 1=9C00-9FFF |
+| 5   | Window Display Enable          | 0=Off, 1=On              |
+| 4   | BG & Window Tile Data Select   | 0=8800-97FF, 1=8000-8FFF |
+| 3   | BG Tile Map Display Select     | 0=9800-9BFF, 1=9C00-9FFF |
+| 2   | OBJ (Sprite) Size              | 0=Off, 1=On              |
+| 1   | OBJ (Sprite) Display Enable    | 0=Off, 1=On              |
+| 0   | BG/Window Display/Priority     | 0=Off, 1=On              |
 
 
 ## LCDC.7 - LCD Display Enable
