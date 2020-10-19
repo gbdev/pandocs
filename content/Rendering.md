@@ -6,7 +6,7 @@ system used to facilitate rendering.
 
 ## Tiles
 
-On the Game Boy, as with many retro systems, pixels are usually not manipulated
+Similarly to other retro systems, pixels are usually not manipulated
 individually, as this would be expensive CPU-wise. Instead, pixels are grouped
 in 8x8 squares, called *tiles* (or sometimes "patterns"), which are essentially
 the base unit as far as Game Boy graphics are concerned.
@@ -30,8 +30,8 @@ palette swaps, and more.
 ## Layers
 
 The Game Boy has three "layers", from bottom to top: the background, the window,
-and sprites. (And even then, some features and behaviors break this abstraction,
-but it works for the most part.)
+and sprites. Some features and behaviors break this abstraction,
+but it works for the most part.
 
 ### Background
 
@@ -43,22 +43,21 @@ required memory space, and is the main mechanism that helps working around the
 paltry 8 KiB of video RAM.
 
 The background can be made to scroll as a whole, simply by writing to two
-hardware registers; this makes scrolling very cheap. By contrast, if a game had
-to update each pixel individually, they would essentially have to redraw the
-whole screen!
+hardware registers; this makes scrolling very cheap. If a game had
+to update each pixel individually, it would have to redraw the whole screen.
 
 ### Window
 
 The window is sort of a second background layer on top of the background.
-It is fairly limited, however: it has no transparency whatever; it's always a
-rectangle; only the position of the top-left pixel can be controlled.
+It is fairly limited: it has no transparency, it's always a
+rectangle and only the position of the top-left pixel can be controlled.
 
-It's useful for e.g. a fixed status bar in an otherwise scrolling game (think
-*Super Mario Bros. 3*, for example).
+Possible usage include a fixed status bar in an otherwise scrolling game (e.g.
+*Super Mario Bros. 3*).
 
 ### Sprites
 
-The background is useful for, well, backgrounds that scroll as a whole; but
+The background layer is useful for elements scrolling as a whole; but
 it's impractical for objects that need to move separately, such as the player.
 *Sprites* are designed to fill this gap: they allow displaying tiles freely
 anywhere on the screen. Sprites are often called *objects* when talking about
@@ -66,4 +65,3 @@ the hardware functionality.
 
 Sprites are fairly small (8x8 or 8x16), so several hardware objects are often
 combined to produce a larger graphic, which is often referred to as a *sprite*.
-(Arguably, the terminology here isn't consistently used by everyone...)
