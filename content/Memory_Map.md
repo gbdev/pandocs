@@ -42,7 +42,7 @@ area are required to be specified correctly.
 # External Memory and Hardware
 
 The areas from 0000-7FFF and A000-BFFF address external hardware, i.e.
-the carridge, which is essentially an expansion board.  Typically this
+the cartridge, which is essentially an expansion board.  Typically this
 is a ROM and SRAM or, more often, a [Memory Bank Controller
 (MBC)](#memory-bank-controllers). The RAM area can be read
 from and written to normally; writes to the ROM area control the MBC.
@@ -56,7 +56,7 @@ Controllers.
 
 # Echo RAM
 
-The range at E000-FDFF connects to WRAM, but only the lower 13 bits of
+The range E000-FDFF is mapped to WRAM, but only the lower 13 bits of
 the address lines are connected, with the upper bits on the upper bank
 set internally in the memory controller by a bank swap register.  This
 causes the address to effectively wrap around.  All reads and writes to
@@ -92,7 +92,7 @@ FF when OAM is blocked, and otherwise the behavior depends on the
 hardware revision.
 
 On DMG, MGB, SGB, and SGB2, reads during OAM block trigger the sprite
-bug.  Reads otherwise return 00.
+bug. Reads otherwise return 00.
 
 On CGB revisions 0-D, this area is a unique RAM area, but is masked
 with a revision-specific value.
