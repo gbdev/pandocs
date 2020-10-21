@@ -11,9 +11,9 @@ The Game Boy has a 16bit address bus, that is used to address ROM, RAM and I/O
 | A000        | BFFF      | 8KB External RAM                                                                                 | In cartridge, switchable bank if any
 | C000        | CFFF      | 4KB Work RAM (WRAM) bank 0                                                                       | |
 | D000        | DFFF      | 4KB Work RAM (WRAM) bank 1\~N                                                                    | Only bank 1 in Non-CGB mode Switchable bank 1\~7 in CGB mode |
-| E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                                                  | Typically not used|
+| E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                                                  | Nintendo says use of this area is prohibited. |
 | FE00        | FE9F      | Sprite attribute table ([OAM](#vram-sprite-attribute-table-oam))   | |
-| FEA0        | FEFF      | Not Usable                                                                                       | |
+| FEA0        | FEFF      | Not Usable                                                                                       | Nintendo says use of this area is prohibited |
 | FF00        | FF7F      | I/O Registers                                                                                    | |
 | FF80        | FFFE      | High RAM (HRAM)                                                                                  | |
 | FFFF        | FFFF      | [Interrupts](#interrupts) Enable Register (IE)                                         | |
@@ -33,7 +33,6 @@ they are also slightly faster.
 
 # Cartridge Header in first ROM bank
 
-
 The memory at 0100-014F contains the [cartridge
 header](#the-cartridge-header). This area contains information
 about the program, its entry point, checksums, information about the
@@ -42,31 +41,62 @@ area are required to be specified correctly.
 
 # External Memory and Hardware
 
-The areas from 0000-7FFF and A000-BFFF may be used to connect external
-hardware. The first area is typically used to address ROM (read only, of
-course), cartridges with [Memory Bank Controllers
-(MBCs)](#memory-bank-controllers) are additionally using this
-area to output data (write only) to the MBC chip. The second area is
-often used to address external RAM, or to address other external
-hardware (Real Time Clock, etc). External memory is
-often battery buffered, and may hold saved game positions and high score
-tables (etc.) even when the Game Boy is turned off, or when the
-cartridge is removed. For specific information read the chapter about
-Memory Bank Controllers.
+The areas from 0000-7FFF and A000-BFFF address external hardware, i.e.
+the cartridge, which is essentially an expansion board.  Typically this
+is a ROM and SRAM or, more often, a [Memory Bank Controller
+(MBC)](#memory-bank-controllers). The RAM area can be read
+from and written to normally; writes to the ROM area control the MBC.
+some MBCs allow mapping of other hardware into the RAM area in this
+way.
+
+Cartridge RAM is often battery buffered to hold saved game positions,
+high score tables, and other information when the Game Boy is turned
+off.  For specific information read the chapter about Memory Bank
+Controllers.
 
 # Echo RAM
 
-The memory range E000-FDFF is a mirror (or \"echo\") of WRAM, both for
-reading and writing. For example, writing to \$E123 will modify both
-\$C123 and \$E123. It is recommended to avoid using this memory range
-anyways. This memory range's behavior has been confirmed on all grey
-GBs as well as on CGB and GBA. Some emulators (such as VisualBoyAdvance
-\<1.8) don't emulate Echo RAM. It is possible to check if Echo RAM is
-properly emulated by writing to WRAM (avoid values 00 and FF) and
-checking if said value is mirrored in Echo RAM.
+The range E000-FDFF is mapped to WRAM, but only the lower 13 bits of
+the address lines are connected, with the upper bits on the upper bank
+set internally in the memory controller by a bank swap register.  This
+causes the address to effectively wrap around.  All reads and writes to
+this range have the same effect as reads and writes to C000-DDFF.
+
+Nintendo prohibits developers from using this memory range.  The
+behavior is confirmed on all official hardware. Some emulators (such as
+VisualBoyAdvance \<1.8) don't emulate Echo RAM. Software can check if
+Echo RAM is properly emulated by writing to RAM (avoid values 00 and
+FF) and checking if said value is mirrored in Echo RAM.
+
+# I/O Registers
+
+The Gameboy uses the following I/O ranges:
+
+| **Start** | **End** | **Revision** | **Purpose** |
+|-|-|-|-|
+| FF00 | FF02 | DMG | Port/Mode |
+| FF04 | FF07 | DMG | Port/Mode |
+| FF10 | FF26 | DMG | Sound |
+| FF30 | FF3F | DMG | Waveform RAM |
+| FF40 | FF4B | DMG | LCD |
+| FF4F | | CGB | VRAM Bank Select |
+| FF50 | | DMG | Set to non-zero to disable boot ROM |
+| FF51 | FF55 | CGB | HDMA |
+| FF68 | FF69 | CGB | BCP/OCP |
+| FF70 | | CGB | WRAM Bank Select |
 
 # FEA0-FEFF range
 
-This range is very poorly documented. It doesn't even have a name !
-From my experience, this stays 00 on DMG, and alternates between 00 and
-seemingly random values on CGB.
+Nintendo indicates use of this area is prohibited.  This area returns
+FF when OAM is blocked, and otherwise the behavior depends on the
+hardware revision.
+
+On DMG, MGB, SGB, and SGB2, reads during OAM block trigger the sprite
+bug. Reads otherwise return 00.
+
+On CGB revisions 0-D, this area is a unique RAM area, but is masked
+with a revision-specific value.
+
+On CGB revision E, AGB, AGS, and GBP, it returns the high nybble of the
+lower address byte twice, e.g. FFAx returns AA, FFBx returns BB, and so
+forth.
