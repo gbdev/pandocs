@@ -63,5 +63,6 @@ it's impractical for objects that need to move separately, such as the player.
 anywhere on the screen. Sprites are often called *objects* when talking about
 the hardware functionality.
 
-Sprites are fairly small (8x8 or 8x16), so several hardware objects are often
-combined to produce a larger graphic, which is often referred to as a *sprite*.
+Sprites are fairly small (1 tile or 2 stacked, so 8x8 or 8x16 pixels), so
+several hardware objects are often combined to produce a larger graphic, which
+is often referred to as a *sprite*.
