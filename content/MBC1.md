@@ -1,12 +1,12 @@
 (max 2MByte ROM and/or 32KByte RAM)
 
-This is the first MBC chip for the Game Boy. Any newer MBC chips are
-working similiar, so that is relative easy to upgrade a program from one
-MBC chip to another - or even to make it compatible to several different
+This is the first MBC chip for the Game Boy. Any newer MBC chips 
+work similarly, so it is relatively easy to upgrade a program from one
+MBC chip to another - or to make it compatible with several different
 types of MBCs.
 
-Note that the memory in range 0000-7FFF is used for both reading from
-ROM, and for writing to the MBCs Control Registers.
+Note that the memory in range 0000-7FFF is used both for reading from
+ROM and writing to the MBCs Control Registers.
 
 ## ROM/RAM access
 
@@ -26,10 +26,9 @@ higher (01/21/41/61).
 ### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
 
 This area is used to address external RAM in the cartridge (if any).
-External RAM is often battery buffered, allowing to store game positions
-or high score tables, even if the Game Boy is turned off, or if the
+External RAM is often battery buffered, allowing for the storage of game data while the Game Boy is turned off, or if the
 cartridge is removed from the Game Boy. Available RAM sizes are: 2KByte
-(at A000-A7FF), 8KByte (at A000-BFFF), and 32KByte (in form of four 8K
+(at A000-A7FF), 8KByte (at A000-BFFF) and 32KByte (in form of four 8K
 banks at A000-BFFF).
 
 ## Control Registers
@@ -46,7 +45,7 @@ power down of the Game Boy. Usually the following values are used:
 0Ah  Enable RAM`
 ```
 
-Practically any value with 0Ah in the lower 4 bits enables RAM, and any
+Practically any value with 0Ah in the lower 4 bits enables RAM and any
 other value disables RAM. RAM is automatically disabled when the gameboy
 is powered off. It is unknown why Ah is the value used to enable RAM.
 
@@ -71,10 +70,10 @@ the MBC translates that to bank 01h also. Not being able to select bank
 0000-3FFF range. But on large carts (using the secondary banking register
 to specify the upper ROM Bank bits), the same happens for banks 20h, 40h,
 and 60h, as this register would need to be 00h for those addresses. Any
-attempt to address these ROM Banks will select Bank 21h, 41h, and 61h
+attempt to address these ROM Banks will select Bank 21h, 41h and 61h
 instead. The only way to access banks 20h, 40h or 60h is to enter mode 1,
 which remaps the 0000-3FFF range. This has its own problems for game
-developers as that range contains interrupt handlers, so it's mostly only
+developers as that range contains interrupt handlers, so it's usually only
 used in multi-game compilation carts (see below).
 
 ### 4000-5FFF - RAM Bank Number - or - Upper Bits of ROM Bank Number (Write Only)
@@ -85,7 +84,7 @@ of the ROM Bank number (1 MB ROM or larger carts only). If neither ROM nor
 RAM is large enough, setting this register does nothing.
 
 In 1MB MBC1 multi-carts (see below), this 2 bit register is instead
-applied to bits 4-5 of the ROM bank number, and the top bit of the main
+applied to bits 4-5 of the ROM bank number and the top bit of the main
 5-bit main ROM banking register is ignored.
 
 ### 6000-7FFF - Banking Mode Select (Write Only)
@@ -117,7 +116,7 @@ by the 2-bit secondary banking register.
 For "large ROM" carts, mode 1 has the 4000-7FFF banked ROM area behave the
 same as mode 0, but additionally the "unbankable" "bank 0" area 0000-3FFF
 is now also affected by the 2-bit secondary banking register, meaning it
-can now be switched between banks 00h, 20h, 40h, and 60h. These banks are
+can now be switched between banks 00h, 20h, 40h and 60h. These banks are
 inaccessible in mode 0 - they cannot be mapped to the 4000-7FFF banked ROM
 area.
 
@@ -132,7 +131,7 @@ banks 00h, 10h, 20h, or 30h, rather than the usual 00h, 20h, 40h or 60h.
 These carts make use of the fact that mode 1 remaps the 0000-3FFF area
 to switch games. The 2 bit register is used to select the game - switching
 the zero bank and the region of banks that the 4000-7FFF rom area can
-access to those for the selected game, and then the game only changes the
+access to those for the selected game and then the game only changes the
 main ROM banking register. As far as the selected game knows, it's running
 from a 256 kB cart!
 
@@ -143,6 +142,6 @@ having duplicate content in banks 10-1Fh (dupe of 00-0Fh) and banks 30-3Fh
 There is a known bad dump of the Mortal Kombat I & II collection around.
 
 An "MBC1M" compilation cart ROM can be converted into a regular MBC1 ROM
-by increasing the ROM size to 2MB, and duplicating each sub-rom - 00-0Fh
+by increasing the ROM size to 2MB and duplicating each sub-rom - 00-0Fh
 duplicated into 10-1Fh, the original 10-1Fh placed in 20-2Fh and
-duplicated into 30-3Fh, and so on.
+duplicated into 30-3Fh and so on.

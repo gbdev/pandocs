@@ -16,7 +16,7 @@
 
 ## Link Port
 
-Pin numbers are arranged as 2,4,6 in upper row, 1,3,5 un lower row;
+Pin numbers are arranged as 2,4,6 in upper row, 1,3,5 in lower row;
 outside view of Game Boy socket; flat side of socket upside. Colors as
 used in most or all standard link cables, because SIN and SOUT are
 crossed, colors Red and Orange are exchanged at one cable end.
