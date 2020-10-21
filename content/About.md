@@ -4,7 +4,7 @@ You are reading a new, experimental version of it, mantained in the Markdown for
 
 This project is open source, released under the [CC0 license](https://raw.githubusercontent.com/gbdev/pandocs/develop/LICENSE). Everyone is welcome to contribute, provide feedback and propose additions or improvements. The git repository is hosted at [github.com/gbdev/pandocs](https://github.com/gbdev/pandocs). You can contact us and send patches also via email: `pandocs (at) gbdev.io`.
 
-::: Scope
+::: tip Scope
 The information here is targeted at homebrew development.
 Emulator developers may be also interested in the [Game Boy: Complete Technical Reference](https://gekkio.fi/files/gb-docs/gbctr.pdf) document.
 :::
