@@ -178,13 +178,13 @@ shl N".
 
 |code | Size      | Banks |
 |-----|-----------|--------------|
-|`00h`|  32 KByte |no ROM banking|
+|`00h`|  32 KByte |2 banks <br> (No ROM banking)|
 |`01h`|  64 KByte |4 banks|
 |`02h`| 128 KByte |8 banks|
 |`03h`| 256 KByte |16 banks|
 |`04h`| 512 KByte |32 banks|
-|`05h`|   1 MByte |64 banks <br> only 63 banks used by MBC1|
-|`06h`|   2 MByte |128 banks <br>only 125 banks used by MBC1|
+|`05h`|   1 MByte |64 banks|
+|`06h`|   2 MByte |128 banks|
 |`07h`|   4 MByte |256 banks|
 |`08h`|   8 MByte |512 banks|
 |`52h`| 1.1 MByte |72 banks|
