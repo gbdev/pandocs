@@ -29,10 +29,10 @@ When the TIMA overflows, this data will be loaded.
 ```
 Bit  2   - Timer Enable
 Bits 1-0 - Input Clock Select
-           00: CPU Clock / 1024 (DMG, CGB:   4096 Hz, SGB:   ~4194 Hz)
-           01: CPU Clock / 16   (DMG, CGB: 262144 Hz, SGB: ~268400 Hz)
-           10: CPU Clock / 64   (DMG, CGB:  65536 Hz, SGB:  ~67110 Hz)
-           11: CPU Clock / 256  (DMG, CGB:  16384 Hz, SGB:  ~16780 Hz)
+           00: CPU Clock / 1024 (DMG, SGB2, CGB Single Speed Mode:   4096 Hz, SGB1:   ~4194 Hz, CGB Double Speed Mode:   8192 Hz)
+           01: CPU Clock / 16   (DMG, SGB2, CGB Single Speed Mode: 262144 Hz, SGB1: ~268400 Hz, CGB Double Speed Mode: 524288 Hz)
+           10: CPU Clock / 64   (DMG, SGB2, CGB Single Speed Mode:  65536 Hz, SGB1:  ~67110 Hz, CGB Double Speed Mode: 131072 Hz)
+           11: CPU Clock / 256  (DMG, SGB2, CGB Single Speed Mode:  16384 Hz, SGB1:  ~16780 Hz, CGB Double Speed Mode:  32768 Hz)
 ```
 
 ::: tip NOTE
