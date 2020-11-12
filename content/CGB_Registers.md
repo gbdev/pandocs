@@ -33,39 +33,47 @@ use "repaired" color palette data matching for GBA displays.
 
 This register is used to prepare the Game Boy to switch between CGB
 Double Speed Mode and Normal Speed Mode. The actual speed switch is
-performed by executing a STOP command after Bit 0 has been set. After
-that Bit 0 will be cleared automatically, and the Game Boy will operate
+performed by executing a `stop` instruction after Bit 0 has been set. After
+that, Bit 0 will be cleared automatically, and the Game Boy will operate
 at the "other" speed. The recommended speed switching procedure in
 pseudo code would be:
 
 ```
- IF KEY1_BIT7 <> DESIRED_SPEED THEN
-   IE=00H       ;(FFFF)=00h
-   JOYP=30H     ;(FF00)=30h
-   KEY1=01H     ;(FF4D)=01h
-   STOP         ;STOP
+ IF KEY1_BIT7 != DESIRED_SPEED THEN
+   IE = $00       ; (FFFF) = $00
+   JOYP = $30     ; (FF00) = $30
+   KEY1 = $01     ; (FF4D) = $01
+   STOP
  ENDIF
 ```
 
-The CGB is operating in Normal Speed Mode when it is turned on. Note
+The CGB is operating in Normal Speed Mode when it is first turned on. Note
 that using the Double Speed Mode increases the power consumption; therefore, it
-would be recommended to use Single Speed whenever possible. However, the
-display will flicker white for a moment during speed switches, so this
-cannot be done permanentely. In Double Speed Mode the following will
-operate twice as fast as normal:
+would be recommended to use Single Speed whenever possible.
 
-```
- The CPU (2.10 MHz, 1 Cycle = approx. 0.5us)
- Timer and Divider Registers
- Serial Port (Link Cable)
- DMA Transfer to OAM
-```
+In Double Speed Mode the following will operate twice as fast as normal:
+
+- The CPU (2.10 MHz, so 1 cycle = approx. 0.5 µs)
+- Timer and Divider Registers
+- Serial Port (Link Cable)
+- DMA Transfer to OAM
 
 And the following will keep operating as usual:
 
 - LCD Video Controller
 - HDMA Transfer to VRAM
 - All Sound Timings and Frequencies
+
+The CPU stops for 2050 cycles (= 8200 clocks) after the `stop` instruction is
+executed. During this time, the CPU is in a strange state. `DIV` does not tick, so
+*some* audio events are not processed. Additionally, VRAM/OAM/... locking is "frozen", yielding
+different results depending on the [STAT mode](#lcd-status-register) it's started in:
+
+- HBlank / VBlank (Mode 0 / Mode 1): The PPU cannot access any videomemory, and produces black pixels
+- OAM scan (Mode 2): The PPU can access VRAM just fine, but not OAM, leading to rendering background, but not sprites
+- Rendering (Mode 3): The PPU can access everything correctly, and so rendering is not affected
+
+TODO: confirm whether interrupts can occur (just the joypad one?) during the pause, and consequences if so
 
 ### FF56 - RP - CGB Mode Only - Infrared Communications Port
 
@@ -94,12 +102,12 @@ does not include an infra-red port.
 This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's
-CGB compatibility. 
+CGB compatibility.
 
 OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to KEY0 but STOP hasn't been executed yet, and the write takes effect instantly.
 
 ::: warning TO BE VERIFIED
-It does not have an effect, at least not an instant effect, if written to during CGB or DMG mode after the boot ROM has been unmapped. 
+It does not have an effect, at least not an instant effect, if written to during CGB or DMG mode after the boot ROM has been unmapped.
 It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effect on this register's behavior.
 :::
 
