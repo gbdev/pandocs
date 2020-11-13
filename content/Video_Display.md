@@ -556,6 +556,8 @@ to select the origin of the visible 160x144 pixel area within the total
 256x256 pixel background map. Background wraps around the screen (i.e.
 when part of it goes off the screen, it appears on the opposite side.)
 
+Background can be disabled(0)/enabled(1) with 0th bit of LCDC register.
+
 ### The Window
 
 Besides background, there is also a "window" overlaying the
@@ -566,8 +568,7 @@ coordinates of the top left corner of a window are WX-7,WY. The tiles
 for the window are stored in the Tile Data Table. Both the Background
 and the window share the same Tile Data Table.
 
-Both background and window can be disabled or enabled separately via
-bits in the LCDC register.
+Window can be disabled(0)/enabled(1) with 5th bits of LCDC register.
 
 # VRAM Banks (CGB only)
 
