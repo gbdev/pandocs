@@ -4,7 +4,7 @@ clock frequency of 4.194304 MHz (or 8.4 MHz for CGB in double speed
 mode), as all Game Boy timings are divideable by 4, many people specify
 timings and clock frequency divided by 4.
 
-### GMB 8bit-Loadcommands
+### GMB 8bit-Load commands
 
 ```
  ld   r,r         xx         4 ---- r=r
@@ -27,7 +27,7 @@ timings and clock frequency divided by 4.
  ldd  (HL),A      32         8 ---- (HL)=A, HL=HL-1
  ldd  A,(HL)      3A         8 ---- A=(HL), HL=HL-1
 ```
-### GMB 16bit-Loadcommands
+### GMB 16bit-Load commands
 
 ```
  ld   rr,nn       x1 nn nn  12 ---- rr=nn (rr may be BC,DE,HL or SP)
@@ -116,7 +116,7 @@ timings and clock frequency divided by 4.
  res  n,(HL)    CB xx       16 ---- reset bit n
 ```
 
-### GMB CPU-Controlcommands
+### GMB CPU-Control commands
 
 ```
  ccf            3F           4 -00c cy=cy xor 1
@@ -127,7 +127,7 @@ timings and clock frequency divided by 4.
  di             F3           4 ---- disable interrupts, IME=0
  ei             FB           4 ---- enable interrupts, IME=1
 ```
-### GMB Jumpcommands
+### GMB Jump commands
 
 ```
  jp   nn        C3 nn nn    16 ---- jump to nn, PC=nn

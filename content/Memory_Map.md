@@ -97,6 +97,6 @@ bug. Reads otherwise return 00.
 On CGB revisions 0-D, this area is a unique RAM area, but is masked
 with a revision-specific value.
 
-On CGB revision E, AGB, AGS, and GBP, it returns the high nybble of the
+On CGB revision E, AGB, AGS, and GBP, it returns the high nibble of the
 lower address byte twice, e.g. FFAx returns AA, FFBx returns BB, and so
 forth.
