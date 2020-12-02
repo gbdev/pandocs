@@ -35,7 +35,7 @@ This bit becomes set (1) if the result of an operation has been zero
 ### The Carry Flag (C, or Cy)
 
 Becomes set when the result of an addition became bigger than FFh (8bit)
-or FFFFh (16bit). Or when the result of a subtraction or comparision
+or FFFFh (16bit). Or when the result of a subtraction or Comparison
 became less than zero (much as for Z80 and 80x86 CPUs, but unlike as for
 65XX and ARM CPUs). Also the flag becomes set when a rotate/shift
 operation has shifted-out a \"1\"-bit. Used for conditional jumps, and

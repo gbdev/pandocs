@@ -25,7 +25,7 @@ title: "Pan Docs"
 - CPU Specifications
 	- [Registers and Flags](#registers-and-flags)
 	- [Instruction Set](#instruction-set)
-	- [Comparision with Z80](#comparison-with-z80)
+	- [Comparison with Z80](#comparison-with-z80)
 - Cartridges
 	- [Cartridge header](#the-cartridge-header)
 	- [MBC1](#mbc1)
@@ -116,7 +116,7 @@ title: "Pan Docs"
 
 # Comparison with Z80
 
-!INCLUDE "CPU_Comparision_with_Z80.md", 1
+!INCLUDE "CPU_Comparison_with_Z80.md", 1
 
 # The Cartridge Header
 

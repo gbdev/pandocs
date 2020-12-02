@@ -449,7 +449,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]] 
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]] 
 === Cartridges ===
 [[The Cartridge Header]] -  [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]] 
 === Other ===
@@ -502,7 +502,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]] 
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]] 
 === Cartridges ===
 [[The Cartridge Header]] -  [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]] 
 === Other ===
@@ -554,7 +554,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]] 
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]] 
 === Cartridges ===
 [[The Cartridge Header]] -  [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]] 
 === Other ===
@@ -607,7 +607,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]] 
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]] 
 === Cartridges ===
 [[The Cartridge Header]] -  [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]] 
 === Other ===
@@ -662,7 +662,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]] 
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]] 
 === Cartridges ===
 [[The Cartridge Header]] -  [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]] 
 === Other ===
@@ -718,7 +718,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]] 
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]] 
 === Cartridges ===
 [[The Cartridge Header]] -  [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]] 
 === Other ===
@@ -774,7 +774,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]] 
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]] 
 === Cartridges ===
 [[The Cartridge Header]] -  [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]] 
 === Other ===
@@ -839,7 +839,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Gamegenie/Shark Cheats]]
 === Memory Bank Controllers ===
@@ -906,7 +906,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]]
 
@@ -974,7 +974,7 @@ The addition of information from the document is done under the following premis
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]]
 
@@ -1055,7 +1055,7 @@ We hold no liability for the tools that you download.
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]]
 
@@ -1137,7 +1137,7 @@ We hold no liability for the tools that you download.
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]]
 
@@ -1222,7 +1222,7 @@ We hold no liability for the tools that you download.
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]]
 
@@ -1309,7 +1309,7 @@ We hold no liability for the tools that you download.
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]] - [[Gamegenie/Shark Cheats]]
 
@@ -1397,7 +1397,7 @@ We hold no liability for the tools that you download.
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]]
 
@@ -1489,7 +1489,7 @@ We hold no liability for the tools that you download.
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]]
 
@@ -1579,7 +1579,7 @@ We hold no liability for the tools that you download.
 === I/O Ports ===
 [[Video Display]] - [[Sound Controller]] - [[Joypad Input]] - [[Serial Data Transfer (Link Cable)]] - [[Timer and Divider Registers]] - [[Interrupts]] - [[CGB Registers]] - [[SGB Functions]]
 === CPU Specifications ===
-[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparision with Z80]]
+[[CPU Registers and Flags]] - [[CPU Instruction Set]] - [[CPU Comparison with Z80]]
 === Cartridges ===
 [[The Cartridge Header]] - [[Memory Bank Controllers]]
 
@@ -39644,7 +39644,7 @@ Conatins the result from the recent instruction which has affected flags.
 This bit becomes set (1) if the result of an operation has been zero (0). Used for conditional jumps.
 
 ===The Carry Flag (C, or Cy)===
-Becomes set when the result of an addition became bigger than FFh (8bit) or FFFFh (16bit). Or when the result of a subtraction or comparision became less than zero (much as for Z80 and 80x86 CPUs, but unlike as for 65XX and ARM CPUs). Also the flag becomes set when a rotate/shift operation has shifted-out a &quot;1&quot;-bit.
+Becomes set when the result of an addition became bigger than FFh (8bit) or FFFFh (16bit). Or when the result of a subtraction or Comparison became less than zero (much as for Z80 and 80x86 CPUs, but unlike as for 65XX and ARM CPUs). Also the flag becomes set when a rotate/shift operation has shifted-out a &quot;1&quot;-bit.
 Used for conditional jumps, and for instructions such like ADC, SBC, RL, RLA, etc.
 
 ===The BCD Flags (N, H)===
@@ -39692,7 +39692,7 @@ Conatins the result from the recent instruction which has affected flags.
 This bit becomes set (1) if the result of an operation has been zero (0). Used for conditional jumps.
 
 ===The Carry Flag (C, or Cy)===
-Becomes set when the result of an addition became bigger than FFh (8bit) or FFFFh (16bit). Or when the result of a subtraction or comparision became less than zero (much as for Z80 and 80x86 CPUs, but unlike as for 65XX and ARM CPUs). Also the flag becomes set when a rotate/shift operation has shifted-out a &quot;1&quot;-bit.
+Becomes set when the result of an addition became bigger than FFh (8bit) or FFFFh (16bit). Or when the result of a subtraction or Comparison became less than zero (much as for Z80 and 80x86 CPUs, but unlike as for 65XX and ARM CPUs). Also the flag becomes set when a rotate/shift operation has shifted-out a &quot;1&quot;-bit.
 Used for conditional jumps, and for instructions such like ADC, SBC, RL, RLA, etc.
 
 ===The BCD Flags (N, H)===
@@ -40007,7 +40007,7 @@ by 4, many people specify timings and clock frequency divided by 4.
     </revision>
   </page>
   <page>
-    <title>CPU Comparision with Z80</title>
+    <title>CPU Comparison with Z80</title>
     <ns>0</ns>
     <id>54</id>
     <revision>
@@ -40017,13 +40017,13 @@ by 4, many people specify timings and clock frequency divided by 4.
         <username>Xzakox</username>
         <id>16</id>
       </contributor>
-      <comment>New page: ===Comparision with 8080=== Basically, the gameboy CPU works more like an older 8080 CPU rather than like a more powerful Z80 CPU. It is, however, supporting CB-prefixed instructions. Also...</comment>
+      <comment>New page: ===Comparison with 8080=== Basically, the gameboy CPU works more like an older 8080 CPU rather than like a more powerful Z80 CPU. It is, however, supporting CB-prefixed instructions. Also...</comment>
       <model>wikitext</model>
       <format>text/x-wiki</format>
-      <text xml:space="preserve" bytes="2146">===Comparision with 8080===
+      <text xml:space="preserve" bytes="2146">===Comparison with 8080===
 Basically, the gameboy CPU works more like an older 8080 CPU rather than like a more powerful Z80 CPU. It is, however, supporting CB-prefixed instructions. Also, all known gameboy assemblers using the more obvious Z80-style syntax, rather than the chaotic 8080-style syntax.
 
-===Comparision with Z80===
+===Comparison with Z80===
 Any DD-, ED-, and FD-prefixed instructions are missing, that means no IX-, IY-registers, no block commands, and some other missing commands.
 All exchange instructions have been removed (including total absence of second register set), 16bit memory accesses are mostly missing, and 16bit arithmetic functions are heavily cut-down.
 The gameboy has no IN/OUT instructions, instead I/O ports are accessed directly by normal LD instructions, or by special LD (FF00+n) opcodes.
@@ -40077,11 +40077,11 @@ The unused (-) opcodes will lock-up the gameboy CPU when used.</text>
       </contributor>
       <model>wikitext</model>
       <format>text/x-wiki</format>
-      <text xml:space="preserve" bytes="2180">{{Pandocs|cpucomparisionwithz80}}
-===Comparision with 8080===
+      <text xml:space="preserve" bytes="2180">{{Pandocs|cpuComparisonwithz80}}
+===Comparison with 8080===
 Basically, the gameboy CPU works more like an older 8080 CPU rather than like a more powerful Z80 CPU. It is, however, supporting CB-prefixed instructions. Also, all known gameboy assemblers using the more obvious Z80-style syntax, rather than the chaotic 8080-style syntax.
 
-===Comparision with Z80===
+===Comparison with Z80===
 Any DD-, ED-, and FD-prefixed instructions are missing, that means no IX-, IY-registers, no block commands, and some other missing commands.
 All exchange instructions have been removed (including total absence of second register set), 16bit memory accesses are mostly missing, and 16bit arithmetic functions are heavily cut-down.
 The gameboy has no IN/OUT instructions, instead I/O ports are accessed directly by normal LD instructions, or by special LD (FF00+n) opcodes.
@@ -40136,7 +40136,7 @@ The unused (-) opcodes will lock-up the gameboy CPU when used.</text>
       <comment>1/1: IN/OUT, EX *,HL, and JP PE/PO/P/M are differences compared all the way back to 8080. Also fix some grammar, usage, and mechanics that</comment>
       <model>wikitext</model>
       <format>text/x-wiki</format>
-      <text xml:space="preserve" bytes="2542">{{Pandocs|cpucomparisionwithz80}}
+      <text xml:space="preserve" bytes="2542">{{Pandocs|cpuComparisonwithz80}}
 ===Comparison with 8080===
 The Game Boy CPU has a bit more in common with an older Intel 8080 CPU than the more powerful Zilog Z80 CPU. It is missing a handful of 8080 instructions but does support almost all CB-prefixed instructions. Also, all known Game Boy assemblers use the more obvious Z80-style syntax, rather than the chaotic 8080-style syntax.
 
@@ -40144,7 +40144,7 @@ Unlike the 8080 and Z80, the Game Boy has no dedicated I/O bus and no IN/OUT opc
 
 The sign and parity/overflow flags have been removed, as have the 12 RET, CALL, and JP instructions conditioned on them. So have EX (SP),HL (XTHL) and EX DE,HL (XCHG).
 
-===Comparision with Z80===
+===Comparison with Z80===
 All DD- and FD-prefixed instructions are missing. That means no IX- or IY-registers.
 
 In addition to the removed 8080 instructions, the other exchange instructions have been removed (including total absence of second register set).
@@ -40200,7 +40200,7 @@ Note: The unused (-) opcodes will lock up the Game Boy CPU when used.</text>
       <comment>Remaining changes, not included before to reduce diff desync</comment>
       <model>wikitext</model>
       <format>text/x-wiki</format>
-      <text xml:space="preserve" bytes="2598">{{Pandocs|cpucomparisionwithz80}}
+      <text xml:space="preserve" bytes="2598">{{Pandocs|cpuComparisonwithz80}}
 ===Comparison with 8080===
 The Game Boy CPU has a bit more in common with an older Intel 8080 CPU than the more powerful Zilog Z80 CPU. It is missing a handful of 8080 instructions but does support JR and almost all CB-prefixed instructions. Also, all known Game Boy assemblers use the more obvious Z80-style syntax, rather than the chaotic 8080-style syntax.
 
