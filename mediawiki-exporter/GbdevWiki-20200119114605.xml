@@ -39721,7 +39721,7 @@ The timings assume a CPU clock frequency of 4.194304 MHz (or 8.4
 MHz for CGB in double speed mode), as all gameboy timings are divideable
 by 4, many people specify timings and clock frequency divided by 4.
 
-===GMB 8bit-Loadcommands===
+===GMB 8bit-Load commands===
 
   ld   r,r         xx         4 ---- r=r
   ld   r,n         xx nn      8 ---- r=n
@@ -39744,7 +39744,7 @@ by 4, many people specify timings and clock frequency divided by 4.
   ldd  A,(HL)      3A         8 ---- A=(HL), HL=HL-1
 
 
-===GMB 16bit-Loadcommands===
+===GMB 16bit-Load commands===
 
   ld   rr,nn       x1 nn nn  12 ---- rr=nn (rr may be BC,DE,HL or SP)
   ld   SP,HL       F9         8 ---- SP=HL
@@ -39829,7 +39829,7 @@ by 4, many people specify timings and clock frequency divided by 4.
   res  n,(HL)    CB xx       16 ---- reset bit n
 
 
-===GMB CPU-Controlcommands===
+===GMB CPU-Control commands===
 
   ccf            3F           4 -00c cy=cy xor 1
   scf            37           4 -001 cy=1
@@ -39840,7 +39840,7 @@ by 4, many people specify timings and clock frequency divided by 4.
   ei             FB           4 ---- enable interrupts, IME=1
 
 
-===GMB Jumpcommands===
+===GMB Jump commands===
 
   jp   nn        C3 nn nn    16 ---- jump to nn, PC=nn
   jp   HL        E9           4 ---- jump to HL, PC=HL
@@ -39871,7 +39871,7 @@ The timings assume a CPU clock frequency of 4.194304 MHz (or 8.4
 MHz for CGB in double speed mode), as all gameboy timings are divideable
 by 4, many people specify timings and clock frequency divided by 4.
 
-===GMB 8bit-Loadcommands===
+===GMB 8bit-Load commands===
 
   ld   r,r         xx         4 ---- r=r
   ld   r,n         xx nn      8 ---- r=n
@@ -39894,7 +39894,7 @@ by 4, many people specify timings and clock frequency divided by 4.
   ldd  A,(HL)      3A         8 ---- A=(HL), HL=HL-1
 
 
-===GMB 16bit-Loadcommands===
+===GMB 16bit-Load commands===
 
   ld   rr,nn       x1 nn nn  12 ---- rr=nn (rr may be BC,DE,HL or SP)
   ld   SP,HL       F9         8 ---- SP=HL
@@ -39979,7 +39979,7 @@ by 4, many people specify timings and clock frequency divided by 4.
   res  n,(HL)    CB xx       16 ---- reset bit n
 
 
-===GMB CPU-Controlcommands===
+===GMB CPU-Control commands===
 
   ccf            3F           4 -00c cy=cy xor 1
   scf            37           4 -001 cy=1
@@ -39990,7 +39990,7 @@ by 4, many people specify timings and clock frequency divided by 4.
   ei             FB           4 ---- enable interrupts, IME=1
 
 
-===GMB Jumpcommands===
+===GMB Jump commands===
 
   jp   nn        C3 nn nn    16 ---- jump to nn, PC=nn
   jp   HL        E9           4 ---- jump to HL, PC=HL
