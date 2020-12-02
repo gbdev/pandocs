@@ -19,7 +19,7 @@ I/O Ports
 CPU Specifications
 --> CPU Registers and Flags
 --> CPU Instruction Set
---> CPU Comparision with Z80
+--> CPU Comparison with Z80
 
 Cartridges
 --> The Cartridge Header
@@ -2099,7 +2099,7 @@ for conditional jumps.
 
 The Carry Flag (C, or Cy)
 Becomes set when the result of an addition became bigger than FFh (8bit) or
-FFFFh (16bit). Or when the result of a subtraction or comparision became less
+FFFFh (16bit). Or when the result of a subtraction or Comparison became less
 than zero (much as for Z80 and 80x86 CPUs, but unlike as for 65XX and ARM
 CPUs). Also the flag becomes set when a rotate/shift operation has shifted-out
 a "1"-bit.
@@ -2247,16 +2247,16 @@ GMB Jumpcommands
   reti           D9          16 ---- return and enable interrupts (IME=1)
   rst  n         xx          16 ---- call to 00,08,10,18,20,28,30,38
 
-CPU Comparision with Z80
+CPU Comparison with Z80
 ------------------------
 
-Comparision with 8080
+Comparison with 8080
 Basically, the gameboy CPU works more like an older 8080 CPU rather than like
 a more powerful Z80 CPU. It is, however, supporting CB-prefixed instructions.
 Also, all known gameboy assemblers using the more obvious Z80-style syntax,
 rather than the chaotic 8080-style syntax.
 
-Comparision with Z80
+Comparison with Z80
 Any DD-, ED-, and FD-prefixed instructions are missing, that means no IX-,
 IY-registers, no block commands, and some other missing commands.
 All exchange instructions have been removed (including total absence of second

@@ -20,8 +20,8 @@ Functions](SGB_Functions "wikilink")
 ### CPU Specifications
 
 [CPU Registers and Flags](CPU_Registers_and_Flags "wikilink") - [CPU
-Instruction Set](CPU_Instruction_Set "wikilink") - [CPU Comparision with
-Z80](CPU_Comparision_with_Z80 "wikilink")
+Instruction Set](CPU_Instruction_Set "wikilink") - [CPU Comparison with
+Z80](CPU_Comparison_with_Z80 "wikilink")
 
 ### Cartridges
 
