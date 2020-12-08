@@ -25,7 +25,7 @@ Everything is in plain Markdown and easily editable by anyone with a GitHub acco
 
 ## Contributing 
 
-[This](https://github.com/gbdev/awesome-gbdev/issues/153) is the RFC proposing the change. You're welcome to discuss the development of this project on the [gbdev Discord chat](https://discord.gg/tKGMPNr) or on IRC (EFNET `#gbdev`, `gbdev2`).
+[This](https://github.com/gbdev/awesome-gbdev/issues/153) is the RFC proposing the change. You're welcome to discuss the development of this project in our various community channels found [here](https://gbdev.io/chat.html).
 
 Contributing is really easy, fork this repo and edit the files in the **content** directory. Then, you can send your PR.
 
