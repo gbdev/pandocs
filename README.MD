@@ -15,9 +15,9 @@ Pan Docs - also known as `GAMEBOY.TXT` or `GBSPEC.TXT` - is an old document dati
   <i>ADDRESS1.PCX, one of the diagrams attached to the first version, released January 28th, 1995</i>
 </p>
 
-After its release (1995-2008), it received a number of revisions, corrections and updates, maintaining its **TXT format**. This [folder](historical/) provides an historical archive of those versions.
+After its release (1995-2008), it received a number of revisions, corrections and updates, maintaining its **TXT format**. This [folder](historical/) provides a historical archive of those versions.
 
-In 2008, a **wikified** version (using Martin Korth's 2001 revision as baseline) has been published. The document has been split in different articles and it continued being maintained and updated in that form.
+In 2008, a **wikified** version (using Martin Korth's 2001 revision as a baseline) has been published. The document was split into different articles and it continued being maintained and updated in that form.
 
 In 2020, we want to make this repository the new home of this resource, where it can receive new public discussions and contributions, maintain its legacy and historical relevance, while making use of recent tools to be visualized and distributed.
 
