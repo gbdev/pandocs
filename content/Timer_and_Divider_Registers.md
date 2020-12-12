@@ -8,7 +8,11 @@ a completely different thing, described in
 ### FF04 - DIV - Divider Register (R/W)
 
 This register is incremented at rate of 16384Hz (\~16779Hz on SGB).
-Writing any value to this register resets it to 00h.
+Writing any value to this register resets it to $00.
+Additionally, this register is reset when executing the `stop` instruction, and
+only begins ticking again once `stop` mode is exited. This also occurs during a
+[speed switch](#ff4d-key1-cgb-mode-only-prepare-speed-switch).
+(TODO: how is it affected by the wait after a speed switch?)
 
 Note: The divider is affected by CGB double speed mode, and will
 increment at 32768Hz in double speed.
