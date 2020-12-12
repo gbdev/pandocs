@@ -1,2 +1,2 @@
-untangle==1.1.1
+pypandoc==1.5
 xmltodict==0.12.0
