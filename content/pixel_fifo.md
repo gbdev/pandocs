@@ -9,7 +9,7 @@ of mode 3 eats into the mode that comes afterwards, which happens to be
 mode 0 as shown in the following diagram.
 :::
 
-![](imgs/game-boy-lcd-refresh-diagram.png "imgs/game-boy-lcd-refresh-diagram.png")
+![](imgs/game-boy-lcd-refresh-diagram-2.svg "imgs/game-boy-lcd-refresh-diagram-2.svg")
 
 ## Introduction
 FIFO stands for *First In, First Out*. The first pixel to be pushed to the
