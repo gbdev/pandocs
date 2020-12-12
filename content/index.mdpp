@@ -9,7 +9,7 @@ title: "Pan Docs"
 ### Table of Contents
 
 - Overview
-	- [About the Pan Docs](#about-the-pan-docs)
+	- [Foreword](#foreword)
 	- [Authors](#authors)
 	- [Specifications](#specifications)
 	- [Memory Map](#memory-map)
@@ -51,7 +51,7 @@ title: "Pan Docs"
 
 ---
 
-# About the Pan Docs
+# Foreword
 
 !INCLUDE "About.md"
 
