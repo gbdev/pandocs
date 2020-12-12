@@ -3,10 +3,8 @@
 ::: tip TERMINOLOGY
 All references to a cycle are meant as T-cycles (4.19 MHz) and cycle
 counts are doubled on CGB in double speed mode. When it is stated that a
-certain action "lengthens mode 3" this means that mode 0 (hblank) is
-shortened. The extra time has to be made up somewhere and the lengthening
-of mode 3 eats into the mode that comes afterwards, which happens to be
-mode 0 as shown in the following diagram.
+certain action *lengthens mode 3* it means that mode 0 (hblank) is
+shortened to make up for the additional time in mode 3, as shown in the following diagram.
 :::
 
 ![](imgs/game-boy-lcd-refresh-diagram-2.svg "imgs/game-boy-lcd-refresh-diagram-2.svg")
