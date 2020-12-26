@@ -18,13 +18,13 @@ A tile does not encode color information. Instead, a tile assigns a
 Game Boy graphics are also called *2bpp*, 2 bits per pixel. These color IDs
 are then associated with a *palette*.
 
-A palettes consists in a array of colors, 4 in the Game Boy's case.
+A palette consists in a array of colors, 4 in the Game Boy's case.
 Palettes are stored differently in monoschrome and color versions of the console.
 When applied to a tile, each color ID is used as an index to select the color
 in the palette array, which then gets sent to the LCD.
 
-Modifying palettes enables effects such as quickly flashing some graphics (damage,
-invunerability, thunderstorm, etc.), fading the screen, "palette swaps", and more.
+Modifying palettes enables graphical effects such as quickly flashing some graphics (damage,
+invulnerability, thunderstorm, etc.), fading the screen, "palette swaps", and more.
 
 ## Layers
 
@@ -35,8 +35,8 @@ but it works for the most part.
 ### Background
 
 The background is composed of a *tilemap*. A tilemap is a
-large grid of tiles. However, tiles aren't directly written to tilemaps;
-instead, tilemaps contain unique references to the tiles.
+large grid of tiles. However, tiles aren't directly written to tilemaps,
+they merely contain references to the tiles.
 This makes reusing tiles very cheap, both in CPU time and in
 required memory space, and it is the main mechanism that helps working around the
 paltry 8 KiB of video RAM.
@@ -62,10 +62,11 @@ The *sprites* layer is designed to fill this gap: it allows displaying tiles any
 on the screen.
 
 Game Boy sprites (or *hardware objects*) are made of 1 or 2 stacked tiles,
-(8x8 or 8x16 pixels), and several of them can be combined (in *metasprites*) to draw a larger 
+(8x8 or 8x16 pixels), and several of them can be combined (*metasprites*) to draw a larger 
 graphical element, usually called a "sprite".
 
-To summerise:
+
+To summarise:
 
 - **Tile**, an 8x8-pixel chunk of graphics.
 - **Hardware Object**, an entry in object attribute memory, composed of 1 or 2 tiles.
