@@ -1,50 +1,48 @@
 
 # Overview
 
-The Game Boy outputs to a 160x144 pixel LCD, but this hides a decently complex
-system used to facilitate rendering.
+The Game Boy outputs to a 160x144 pixel LCD, using a quite complex
+mechanism to facilitate rendering.
 
 ## Tiles
 
 Similarly to other retro systems, pixels are usually not manipulated
 individually, as this would be expensive CPU-wise. Instead, pixels are grouped
-in 8x8 squares, called *tiles* (or sometimes "patterns"), which are essentially
-the base unit as far as Game Boy graphics are concerned.
+in 8x8 squares, called *tiles* (or sometimes "patterns"), often considered as
+the base unit in Game Boy graphics.
 
 ## Palettes
 
-A tile does not encode color information directly. Instead, a tile assigns a
-*color ID* to each of its pixels, thus ranging from 0 to 3. (For this reason,
-Game Boy graphics are called *2bpp*, or "2 bits per pixel".) These color IDs
-are then combined with a *palette* to essentially colorize it.
+A tile does not encode color information. Instead, a tile assigns a
+*color ID* to each of its pixels, ranging from 0 to 3. For this reason,
+Game Boy graphics are also called *2bpp*, 2 bits per pixel. These color IDs
+are then associated with a *palette*.
 
-Conceptually, palettes are simply an array of colors, 4 in the Game Boy's case.
-The way a palette is stored differs between monochrome and Color Game Boys.
-When applied to a tile, each color ID is used as an index into that array of
-colors, which then gets sent to the LCD.
+A palettes consists in a array of colors, 4 in the Game Boy's case.
+Palettes are stored differently in monoschrome and color versions of the console.
+When applied to a tile, each color ID is used as an index to select the color
+in the palette array, which then gets sent to the LCD.
 
-Palettes are useful, for example, for quickly flashing some graphics (damage,
-invunerability, thunderstorm, etc.), for fading the screen, famously for
-palette swaps, and more.
+Modifying palettes enables effects such as quickly flashing some graphics (damage,
+invunerability, thunderstorm, etc.), fading the screen, "palette swaps", and more.
 
 ## Layers
 
 The Game Boy has three "layers", from bottom to top: the background, the window,
-and sprites. Some features and behaviors break this abstraction,
+and the sprites. Some features and behaviors break this abstraction,
 but it works for the most part.
 
 ### Background
 
-The background is composed of what's called a *tilemap*. A tilemap is simply a
+The background is composed of a *tilemap*. A tilemap is a
 large grid of tiles. However, tiles aren't directly written to tilemaps;
-instead, tilemaps contain the *ID* of tiles—a number that uniquely identifies a
-given tile. This makes reusing tiles very cheap, both in CPU time and in
-required memory space, and is the main mechanism that helps working around the
+instead, tilemaps contain unique references to the tiles.
+This makes reusing tiles very cheap, both in CPU time and in
+required memory space, and it is the main mechanism that helps working around the
 paltry 8 KiB of video RAM.
 
-The background can be made to scroll as a whole, simply by writing to two
-hardware registers; this makes scrolling very cheap. If a game had
-to update each pixel individually, it would have to redraw the whole screen.
+The background can be made to scroll as a whole, writing to two
+hardware registers. This makes scrolling very cheap.
 
 ### Window
 
@@ -57,12 +55,19 @@ Possible usage include a fixed status bar in an otherwise scrolling game (e.g.
 
 ### Sprites
 
-The background layer is useful for elements scrolling as a whole; but
+The background layer is useful for elements scrolling as a whole, but
 it's impractical for objects that need to move separately, such as the player.
-*Sprites* are designed to fill this gap: they allow displaying tiles freely
-anywhere on the screen. Sprites are often called *objects* when talking about
-the hardware functionality.
 
-Sprites are fairly small (1 tile or 2 stacked, so 8x8 or 8x16 pixels), so
-several hardware objects are often combined to produce a larger graphic, which
-is often referred to as a *sprite*.
+The *sprites* layer is designed to fill this gap: it allows displaying tiles anywhere
+on the screen.
+
+Game Boy sprites (or *hardware objects*) are made of 1 or 2 stacked tiles,
+(8x8 or 8x16 pixels), and several of them can be combined (in *metasprites*) to draw a larger 
+graphical element, usually called a "sprite".
+
+To summerise:
+
+- **Tile**, an 8x8-pixel chunk of graphics.
+- **Hardware Object**, an entry in object attribute memory, composed of 1 or 2 tiles.
+- **Metasprite** a set of several sprites moved as a unit to display a sprite.
+- **Sprite** (or cel), a set of tiles making up on frame of animation, diplayed using metasprites.
