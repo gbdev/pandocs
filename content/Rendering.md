@@ -4,6 +4,10 @@
 The Game Boy outputs to a 160x144 pixel LCD, using a quite complex
 mechanism to facilitate rendering.
 
+::: warning
+Terminology in graphics can vary a lot among different platforms, consoles, users and communities. You may be familiar with slightly different definitions. Keep also in mind that some of the definitions refers to lower (hardware) tools and some others to higher abstractions concepts.
+:::
+
 ## Tiles
 
 Similarly to other retro systems, pixels are usually not manipulated
@@ -69,6 +73,6 @@ graphical element, usually called a "sprite".
 To summarise:
 
 - **Tile**, an 8x8-pixel chunk of graphics.
-- **Hardware Object**, an entry in object attribute memory, composed of 1 or 2 tiles.
+- **Hardware object**, an entry in object attribute memory, composed of 1 or 2 tiles. Independent from the background.
 - **Metasprite** a set of several sprites moved as a unit to display a sprite.
-- **Sprite** (or cel), a set of tiles making up on frame of animation, diplayed using metasprites.
+- **Sprite**, a set of tiles making up on frame of animation.
