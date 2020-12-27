@@ -241,7 +241,7 @@ while i <= $014C
 	x = x - [i] - 1
 ```
 
-If the byte at $014D does not match the low 8 bits of `x`, the boot ROM will lock up,
+If the byte at $014D does not match the lower 8 bits of `x`, the boot ROM will lock up,
 and the cartridge program **won't run**.
 
 ### 014E-014F - Global Checksum
