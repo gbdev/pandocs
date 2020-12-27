@@ -43,7 +43,7 @@ CGB cartridges the upper bit is used to enable CGB functions. This is
 required, otherwise the CGB switches itself into Non-CGB-Mode. Typical
 values are:
 ```
- 80h - Game supports CGB functions, but works on old Game Boys also.
+ 80h - Game supports CGB functions, but also works on old Game Boys.
  C0h - Game works on CGB only (physically the same as $80).
 ```
 Values with Bit 7 set, and either Bit 2 or 3 set, will switch the
@@ -249,4 +249,3 @@ and the cartridge program **will not be run**.
 Contains a 16 bit checksum (upper byte first) across the whole cartridge
 ROM. Produced by adding all bytes of the cartridge (except for the two
 checksum bytes). The Game Boy doesn't verify this checksum.
-
