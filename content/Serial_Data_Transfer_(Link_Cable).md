@@ -1,7 +1,7 @@
-Communication between two Gameboys happens one byte at a time. One
-Gameboy acts as the master, uses its internal clock, and thus controls
-when the exchange happens. The other one uses an external clock (i.e.,
-the one inside the other Gameboy) and has no control over when the
+Communication between two Game Boy systems happens one byte at a time. One
+Game Boy generates a clock signal internally and thus controls
+when the exchange happens. The other one uses an external clock (that is,
+the one from the other Game Boy) and has no control over when the
 transfer happens. If it hasn't gotten around to loading up the next
 data byte at the time the transfer begins, the last one will go out
 again. Alternately, if it's ready to send the next byte but the last
@@ -35,25 +35,25 @@ Bit 1 - Clock Speed (0=Normal, 1=Fast) ** CGB Mode Only **
 Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
 ```
 
-The Game Boy acting as master will load up a data byte in SB and then set
+The primary Game Boy will load up a data byte in SB and then set
 SC to 0x81 (Transfer requested, use internal clock). It will be notified
 that the transfer is complete in two ways: SC's Bit 7 will be cleared
-(i.e., SC will be set up 0x01), and also the Serial Interrupt handler
-will be called (i.e., the CPU will jump to 0x0058).
+(that is, SC will be set up 0x01), and also the Serial Interrupt handler
+will be called (that is, the CPU will jump to 0x0058).
 
 The other Game Boy will load up a data byte and can optionally set SC's
-Bit 7 (i.e., SC=0x80). Regardless of whether or not it has done this, if
-and when the master Game Boy wants to conduct a transfer, it will happen
-(pulling whatever happens to be in SB at that time). The passive gameboy
-will have its serial interrupt handler called at the end of the
+Bit 7 (that is, SC=0x80). Regardless of whether or not it has done this, if
+and when the primary Game Boy wants to conduct a transfer, it will happen
+(pulling whatever happens to be in SB at that time). The externally clocked
+Game Boy will have its serial interrupt handler called at the end of the
 transfer, and if it bothered to set SC's Bit 7, it will be cleared.
 
 ### Internal Clock
 
 In Non-CGB Mode the Game Boy supplies an internal clock of 8192Hz only
-(allowing to transfer about 1 KByte per second). In CGB Mode four
-internal clock rates are available, depending on Bit 1 of the SC
-register, and on whether the CGB Double Speed Mode is used:
+(allowing to transfer about 1 KByte per second minus overhead for delays).
+In CGB Mode four internal clock rates are available, depending on Bit 1
+of the SC register, and on whether the CGB Double Speed Mode is used:
 
 ```
    8192Hz -  1KB/s - Bit 1 cleared, Normal
@@ -64,13 +64,13 @@ register, and on whether the CGB Double Speed Mode is used:
 
 ### External Clock
 
-The external clock is typically supplied by another gameboy, but might
+The external clock is typically supplied by another Game Boy, but might
 be supplied by another computer (for example if connected to a PCs
 parallel port), in that case the external clock may have any speed. Even
 the old/monochrome Game Boy is reported to recognizes external clocks of
 up to 500KHz. And there is no limitation into the other direction - even
 when suppling an external clock speed of "1 bit per month", then the
-gameboy will still eagerly wait for the next bit(s) to be transferred.
+Game Boy will still eagerly wait for the next bit(s) to be transferred.
 It isn't required that the clock pulses are sent at an regular interval
 either.
 
@@ -78,7 +78,7 @@ either.
 
 When using external clock then the transfer will not complete until the
 last bit is received. In case that the second Game Boy isn't supplying a
-clock signal, if it gets turned off, or if there is no second gameboy
+clock signal, if it gets turned off, or if there is no second Game Boy
 connected at all) then transfer will never complete. For this reason the
 transfer procedure should use a timeout counter, and abort the
 communication if no response has been received during the timeout
@@ -86,15 +86,15 @@ interval.
 
 ### Delays and Synchronization
 
-The Game Boy that is using internal clock should always execute a small
-delay between each transfer, in order to ensure that the opponent
-gameboy has enough time to prepare itself for the next transfer, ie. the
-gameboy with external clock must have set its transfer start bit before
+The primary Game Boy should always execute a small
+delay after each transfer, in order to ensure that the opponent
+Game Boy has enough time to prepare itself for the next transfer, that is, the
+Game Boy with external clock must have set its transfer start bit before
 the Game Boy with internal clock starts the transfer. Alternately, the
-two gameboys could switch between internal and external clock for each
+two Game Boy systems could switch between internal and external clock for each
 transferred byte to ensure synchronization.
 
-Transfer is initiated by setting the master Game Boy setting its Transfer
+Transfer is initiated by setting the primary Game Boy setting its Transfer
 Start Flag, regardless of the value of this flag on the other device.
 This bit is automatically set to 0 (on both) at the end of Transfer.
 Reading this bit can be used to determine if the transfer is still
@@ -102,7 +102,7 @@ active.
 
 ### INT 58 - Serial Interrupt
 
-When the transfer has completed (ie. after sending/receiving 8 bits, if
+When the transfer has completed (that is, after sending/receiving 8 bits, if
 any) then an interrupt is requested by setting Bit 3 of the IF Register
 (FF0F). When that interrupt is enabled, then the Serial Interrupt vector
 at 0058 is called.
@@ -129,7 +129,7 @@ The state of the last bit shifted out determines the state of the output
 line until another transfer takes place.
 
 If a serial transfer with internal clock is performed and no external
-GameBoy is present, a value of \$FF will be received in the transfer.
+Game Boy is present, a value of \$FF will be received in the transfer.
 
 The following code initiates the process of shifting \$75 out the serial
 port and a byte to be shifted into \$FF01:

@@ -20,7 +20,8 @@ when the Game Boy gets turned on. The hexdump of this bitmap is:
 The Game Boy's boot procedure verifies the content of this bitmap
 (after it has displayed it), and LOCKS ITSELF UP if these bytes are
 incorrect. A CGB verifies only the first half ($18 bytes of) the bitmap, but
-others (for example a pocket gameboy) verify all $30 bytes.
+others (for example a Game Boy pocket) verify all $30 bytes, as does the
+Game Boy Advance.
 
 ### 0134-0143 - Title
 
@@ -47,7 +48,7 @@ values are:
  C0h - Game works on CGB only (physically the same as $80).
 ```
 Values with Bit 7 set, and either Bit 2 or 3 set, will switch the
-gameboy into a special non-CGB-mode called "PGB mode".
+Game Boy into a special non-CGB-mode called "PGB mode".
 
 TODO: research and document PGB modes...
 
@@ -128,7 +129,7 @@ Sample licensee codes :
 
 Specifies whether the game supports SGB functions, common values are:
 
-- `$00` : No SGB functions (Normal Gameboy or CGB only game)
+- `$00` : No SGB functions (Normal Game Boy or CGB only game)
 - `$03` : Game supports SGB functions
 
 The SGB disables its SGB functions if this byte is set to a value other than `$03`.

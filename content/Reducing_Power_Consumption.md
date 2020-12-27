@@ -57,12 +57,13 @@ better, using the RETI instruction)
 The STOP instruction is intended to switch the Game Boy into VERY low
 power standby mode. For example, a program may use this feature when it
 hasn't sensed keyboard input for a longer period (for example, when
-somebody forgot to turn off the gameboy).
+somebody forgot to turn off the Game Boy).
 
 Before invoking STOP, it might be required to disable Sound and Video
 manually (as well as IR-link port in CGB). Much like HALT, the STOP
 state is terminated by interrupt events. STOP is commonly terminated
-with a joypad interrupt.
+with a joypad interrupt.  A bug may keep STOP from terminating if STOP
+was invoked while a button was held.
 
 During STOP mode, the display will turn white, so avoid using it in your
 game's main loop.

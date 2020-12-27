@@ -289,7 +289,7 @@ of this brightness correction.
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 memory (sprite attribute table). The written value specifies the
-transfer source address divided by 100h, ie. source & destination are:
+transfer source address divided by 100h, that is, source & destination are:
 
 ```
 Source:      XX00-XX9F   ;XX in range from 00-F1h
@@ -319,7 +319,7 @@ the transfer has finished:
 Because sprites are not displayed while OAM DMA is in progress, most
 programs are executing this procedure from inside of their VBlank
 procedure. But it is also possible to execute it during display redraw
-also, allowing to display more than 40 sprites on the screen (ie. for
+also, allowing to display more than 40 sprites on the screen (that is, for
 example 40 sprites in upper half, and other 40 sprites in lower half of
 the screen), at the cost of a couple lines that lack sprites.
 
@@ -375,7 +375,7 @@ bits of the address are ignored (treated as zero), the upper 3 bits are
 ignored either (destination is always in VRAM).
 
 Writing to this register starts the transfer, the lower 7 bits of which
-specify the Transfer Length (divided by 10h, minus 1), ie. lengths of
+specify the Transfer Length (divided by 10h, minus 1), that is, lengths of
 10h-800h bytes can be defined by the values 00h-7Fh. The upper bit
 indicates the Transfer Mode:
 
@@ -393,7 +393,7 @@ has been completed, and FF55 then contains a value of FFh.
 **Bit7=1 - H-Blank DMA**
 
 The H-Blank DMA transfers 10h bytes of
-data during each H-Blank, ie. at LY=0-143, no data is transferred during
+data during each H-Blank, that is, at LY=0-143, no data is transferred during
 V-Blank (LY=144-153), but the transfer will then continue at LY=00. The
 execution of the program is halted during the separate transfers, but
 the program execution continues during the "spaces" between each data
@@ -528,7 +528,7 @@ can be displayed on the LCD screen.
 
 In CGB Mode, an additional map of 32x32 bytes is stored in VRAM Bank 1
 (each byte defines attributes for the corresponding tile-number map
-entry in VRAM Bank 0, ie. 1:9800 defines the attributes for the tile at
+entry in VRAM Bank 0, that is, 1:9800 defines the attributes for the tile at
 0:9800):
 
 ```
@@ -554,8 +554,8 @@ the one at `0:9800`!
 The [SCY and SCX](#ff42-scy-scroll-y-r-w-ff43-scx-scroll-x-r-w) registers can be
 used to scroll the background, allowing to select the origin of the visible
 160x144 pixel area within the total 256x256 pixel background map.
-Background wraps around the screen (i.e. when part of it goes off the screen, it
-appears on the opposite side.)
+Background wraps around the screen (that is, when part of it goes off the screen, it
+eventually appears on the opposite side).
 
 Whether the background is displayed can be toggled using
 [LCDC bit 0](#lcdc-0-bg-window-display-priority), except on CGB in CGB Mode,

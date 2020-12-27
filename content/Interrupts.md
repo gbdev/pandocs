@@ -11,8 +11,8 @@ using a I/O address, instead IME is accessed directly from the CPU, by
 the following opcodes/operations:
 
 ```
-EI     ;Enable Interrupts  (ie. IME=1)
-DI     ;Disable Interrupts (ie. IME=0)
+EI     ;Enable Interrupts  (that is, IME=1)
+DI     ;Disable Interrupts (that is, IME=0)
 RETI   ;Enable Ints & Return (same as the opcode combination EI, RET)
 <INT>  ;Disable Ints & Call to Interrupt Vector
 ```

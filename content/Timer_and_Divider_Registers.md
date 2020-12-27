@@ -45,7 +45,7 @@ The "Timer Enable" bit only affects the timer, the divider is **always** countin
 
 ### INT 50 - Timer Interrupt
 
-Each time when the timer overflows (ie. when TIMA gets bigger than FFh),
+Each time when the timer overflows (that is, when TIMA gets bigger than FFh),
 then an interrupt is requested by setting Bit 2 in the IF Register
 (FF0F). When that interrupt is enabled, then the CPU will execute it by
 calling the timer interrupt vector at 0050h.

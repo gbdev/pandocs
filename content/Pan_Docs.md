@@ -40,7 +40,7 @@ Controllers](Memory_Bank_Controllers "wikilink")
 
 ### Accessories
 
-[Gameboy Printer](Gameboy_Printer "wikilink") - [Gameboy
+[Game Boy Printer](Gameboy_Printer "wikilink") - [Game Boy
 Camera](Gameboy_Camera "wikilink") - [Gamegenie/Shark
 Cheats](Gamegenie/Shark_Cheats "wikilink")
 
@@ -70,29 +70,28 @@ Excerpt from Martin\'s document
 ### Foreword
 
 The following was typed up for informational purposes regarding the
-inner workings on the hand-held game machine known as GameBoy,
+inner workings on the hand-held game machine known as Game Boy,
 manufactured and designed by Nintendo Co., LTD. This info is presented
 to inform a user on how their Game Boy works and what makes it \"tick\".
-GameBoy is copyrighted by Nintendo Co., LTD. Any reference to
+Game Boy is a trademark of Nintendo Co., LTD. Any reference to
 copyrighted material is not presented for monetary gain, but for
 educational purposes and higher learning.
 
 ### Available Document Formats
 
-The present version of this document is available at
-<http://nocash.emubase.de/pandocs.htm>
-
-Also, a copy of this document is included in the manual of newer
-versions of the [no\$gmb](no$gmb "wikilink") debugger, because of recent
-piracy attacks (many thanks and best wishes go to hell) I have currently
-no intention to publish any such or further no\$gmb updates though.
+The previous version of this document maintained by nocash is available at
+<https://problemkaputt.de/pandocs.htm> and in the manual of newer
+versions of the [no\$gmb](no$gmb "wikilink") debugger.  Nocash
+discontinued no$gmb development at version 2.5 due to widespread
+copyright infringement of the registered version
+(many thanks and best wishes go to hell).
 
 Pan Docs Wikification
 ---------------------
 
 ### Mission
 
-Pan Docs is the single most comprehensive technical reference to Gameboy
+Pan Docs is the single most comprehensive technical reference to Gapy
 that is available to the public. It was originally written by Pan of
 Anthrox, and was later maintained by Martin Korth, also known for
 [no\$gmb](no$gmb "wikilink"). As Pandocs is an important resource, it is

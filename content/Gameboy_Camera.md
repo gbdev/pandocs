@@ -1,7 +1,7 @@
 The camera chip
 ---------------
 
-The [Gameboy Camera](Gameboy_Camera "wikilink") is using the [Mitsubishi
+The [Game Boy Camera](Gameboy_Camera "wikilink") is using the [Mitsubishi
 M64282FP](Mitsubishi_M64282FP "wikilink"), a.k.a. the \"Artificial
 Retina\" which is a 128\*128 pixel grayscale CMOS image sensor that can
 perform image adjustments in realtime. The data sheet is available in

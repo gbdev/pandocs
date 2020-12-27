@@ -23,8 +23,8 @@ register set).
 All DD- and FD-prefixed instructions are missing. That means no IX- or
 IY-registers.
 
-All ED-prefixed instructions are missing. That means 16bit memory
-accesses are mostly missing, 16bit arithmetic functions are heavily
+All ED-prefixed instructions are missing. That means 16-bit memory
+accesses are mostly missing, 16-bit arithmetic functions are heavily
 cut-down, and some other missing commands. IN/OUT (C) are replaced with
 new LD (\$FF00+C) opcodes. Block commands are gone, but autoincrementing
 HL accesses are added.
