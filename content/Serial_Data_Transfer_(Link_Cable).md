@@ -1,7 +1,8 @@
 Communication between two Game Boy systems happens one byte at a time. One
-Game Boy generates a clock signal internally and thus controls
-when the exchange happens. The other one uses an external clock (that is,
-the one from the other Game Boy) and has no control over when the
+Game Boy generates a clock signal internally and thus controls when the
+exchange happens. In SPI terms, the Game Boy generating the clock is
+called the "master."  The other one uses an external clock (receiving
+it from the other Game Boy) and has no control over when the
 transfer happens. If it hasn't gotten around to loading up the next
 data byte at the time the transfer begins, the last one will go out
 again. Alternately, if it's ready to send the next byte but the last
@@ -35,7 +36,7 @@ Bit 1 - Clock Speed (0=Normal, 1=Fast) ** CGB Mode Only **
 Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
 ```
 
-The Game Boy generating the clock will load up a data byte in SB and then set
+The master Game Boy will load up a data byte in SB and then set
 SC to 0x81 (Transfer requested, use internal clock). It will be notified
 that the transfer is complete in two ways: SC's Bit 7 will be cleared
 (that is, SC will be set up 0x01), and also the Serial Interrupt handler
@@ -43,7 +44,7 @@ will be called (that is, the CPU will jump to 0x0058).
 
 The other Game Boy will load up a data byte and can optionally set SC's
 Bit 7 (that is, SC=0x80). Regardless of whether or not it has done this, if
-and when the primary Game Boy wants to conduct a transfer, it will happen
+and when the master wants to conduct a transfer, it will happen
 (pulling whatever happens to be in SB at that time). The externally clocked
 Game Boy will have its serial interrupt handler called at the end of the
 transfer, and if it bothered to set SC's Bit 7, it will be cleared.
@@ -65,10 +66,10 @@ of the SC register, and on whether the CGB Double Speed Mode is used:
 ### External Clock
 
 The external clock is typically supplied by another Game Boy, but might
-be supplied by another computer (for example if connected to a PCs
+be supplied by another computer (for example if connected to a PC's
 parallel port), in that case the external clock may have any speed. Even
 the old/monochrome Game Boy is reported to recognizes external clocks of
-up to 500KHz. And there is no limitation into the other direction - even
+up to 500 kHz. And there is no limitation into the other direction - even
 when suppling an external clock speed of "1 bit per month", then the
 Game Boy will still eagerly wait for the next bit(s) to be transferred.
 It isn't required that the clock pulses are sent at an regular interval
@@ -86,24 +87,24 @@ interval.
 
 ### Delays and Synchronization
 
-The Game Boy generating the clock should always execute a small
-delay after each transfer, in order to ensure that the opponent
-Game Boy has enough time to prepare itself for the next transfer, that is, the
+The master Game Boy should always execute a small
+delay after each transfer, in order to ensure that the other
+Game Boy has enough time to prepare itself for the next transfer. That is, the
 Game Boy with external clock must have set its transfer start bit before
 the Game Boy with internal clock starts the transfer. Alternately, the
 two Game Boy systems could switch between internal and external clock for each
 transferred byte to ensure synchronization.
 
-Transfer is initiated by setting the primary Game Boy setting its Transfer
+Transfer is initiated when the master Game Boy sets its Transfer
 Start Flag, regardless of the value of this flag on the other device.
-This bit is automatically set to 0 (on both) at the end of Transfer.
+This bit is automatically set to 0 (on both) at the end of transfer.
 Reading this bit can be used to determine if the transfer is still
 active.
 
 ### INT 58 - Serial Interrupt
 
-When the transfer has completed (that is, after sending/receiving 8 bits, if
-any) then an interrupt is requested by setting Bit 3 of the IF Register
+Once all 8 bits have been sent and received,
+an interrupt is requested by setting Bit 3 of the IF Register
 (FF0F). When that interrupt is enabled, then the Serial Interrupt vector
 at 0058 is called.
 
