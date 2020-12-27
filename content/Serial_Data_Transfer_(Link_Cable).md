@@ -35,7 +35,7 @@ Bit 1 - Clock Speed (0=Normal, 1=Fast) ** CGB Mode Only **
 Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
 ```
 
-The primary Game Boy will load up a data byte in SB and then set
+The Game Boy generating the clock will load up a data byte in SB and then set
 SC to 0x81 (Transfer requested, use internal clock). It will be notified
 that the transfer is complete in two ways: SC's Bit 7 will be cleared
 (that is, SC will be set up 0x01), and also the Serial Interrupt handler
@@ -86,7 +86,7 @@ interval.
 
 ### Delays and Synchronization
 
-The primary Game Boy should always execute a small
+The Game Boy generating the clock should always execute a small
 delay after each transfer, in order to ensure that the opponent
 Game Boy has enough time to prepare itself for the next transfer, that is, the
 Game Boy with external clock must have set its transfer start bit before

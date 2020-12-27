@@ -185,7 +185,7 @@ packets is:
 `  1 BIT   Stop Bit (0)`<br>
 
 The above "Length" indicates the total number of packets (1-7,
-including the first packet) which will be sent, that is, if more than 15
+including the first packet) which will be sent.  If more than 15
 parameter bytes are used, then further packet(s) will follow, as such:
 
 `  1 PULSE Reset`<br>
@@ -413,7 +413,7 @@ The palette data is sent by VRAM-Transfer (4 KBytes).
 
 ` 000-FFF  Data for System Color Palette 0-511`<br>
 
-Each Palette consists of four 16-bit-color definitions (8 bytes). Note:
+Each Palette consists of four 16-bit color definitions (8 bytes). Note:
 The data is stored at 3000h-3FFFh in SNES memory.
 
 # SGB Color Attribute Commands

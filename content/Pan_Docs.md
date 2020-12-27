@@ -83,15 +83,15 @@ The previous version of this document maintained by nocash is available at
 <https://problemkaputt.de/pandocs.htm> and in the manual of newer
 versions of the [no\$gmb](no$gmb "wikilink") debugger.  Nocash
 discontinued no$gmb development at version 2.5 due to widespread
-copyright infringement of the registered version
-(many thanks and best wishes go to hell).
+copyright infringement of the registered version:
+"many thanks and best wishes go to hell."
 
 Pan Docs Wikification
 ---------------------
 
 ### Mission
 
-Pan Docs is the single most comprehensive technical reference to Gapy
+Pan Docs is the single most comprehensive technical reference to Game Boy
 that is available to the public. It was originally written by Pan of
 Anthrox, and was later maintained by Martin Korth, also known for
 [no\$gmb](no$gmb "wikilink"). As Pandocs is an important resource, it is
