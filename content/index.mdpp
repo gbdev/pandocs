@@ -45,6 +45,7 @@ title: "Pan Docs"
 	- [Reducing Power Consumption](#reducing-power-consumption)
 	- [Sprite RAM Bug](#sprite-ram-bug)
 	- [External Connectors](#external-connectors)
+	- [GBC Approval Process](#gbc-approval-process)
 - [References](#references)
 
 <br>
@@ -126,10 +127,16 @@ title: "Pan Docs"
 
 # Memory Bank Controllers
 
-As the gameboys 16 bit address bus offers only limited space for ROM and RAM addressing, many games are using Memory Bank Controllers (MBCs) to expand the available address space by bank switching. These MBC chips are located in the game cartridge (ie. not in the gameboy itself).
+As the Game Boy's 16-bit address bus offers only limited space for
+ROM and RAM addressing, many games are using Memory Bank Controllers
+(MBCs) to expand the available address space by bank switching.
+These MBC chips are located in the game cartridge (that is, not in
+the Game Boy itself).
 
-In each cartridge, the required (or preferred) MBC type should be specified in the byte at 0147h of the ROM, as described in the [the
-cartridge header](#the-cartridge-header). Several different MBC types are available:
+In each cartridge, the required (or preferred) MBC type should be
+specified in the byte at 0147h of the ROM, as described in
+[the cartridge header](#the-cartridge-header).  Several different MBC
+types are available:
 
 # No MBC
 
@@ -186,6 +193,10 @@ cartridge header](#the-cartridge-header). Several different MBC types are availa
 # External Connectors
 
 !INCLUDE "External_Connectors.md", 1
+
+# GBC Approval Process
+
+!INCLUDE "GBC_Approval_Process.md", 1
 
 ### References
 
