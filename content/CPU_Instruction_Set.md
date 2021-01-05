@@ -12,13 +12,13 @@ called "M-cycles".
  ld   r,n         xx nn      8 ---- r=n
  ld   r,(HL)      xx         8 ---- r=(HL)
  ld   (HL),r      7x         8 ---- (HL)=r
- ld   (HL),n      36 nn     12 ----
- ld   A,(BC)      0A         8 ----
- ld   A,(DE)      1A         8 ----
- ld   A,(nn)      FA        16 ----
- ld   (BC),A      02         8 ----
- ld   (DE),A      12         8 ----
- ld   (nn),A      EA        16 ----
+ ld   (HL),n      36 nn     12 ---- (HL)=n
+ ld   A,(BC)      0A         8 ---- A=(BC)
+ ld   A,(DE)      1A         8 ---- A=(DE)
+ ld   A,(nn)      FA        16 ---- A=(nn)
+ ld   (BC),A      02         8 ---- (BC)=A
+ ld   (DE),A      12         8 ---- (DE)=A
+ ld   (nn),A      EA        16 ---- (nn)=A
  ld   A,(FF00+n)  F0 nn     12 ---- read from io-port n (memory FF00+n)
  ld   (FF00+n),A  E0 nn     12 ---- write to io-port n (memory FF00+n)
  ld   A,(FF00+C)  F2         8 ---- read from io-port C (memory FF00+C)
@@ -32,6 +32,7 @@ called "M-cycles".
 
 ```
  ld   rr,nn       x1 nn nn  12 ---- rr=nn (rr may be BC,DE,HL or SP)
+ ld   (nn),SP     08 nn nn  20 ---- (nn)=SP
  ld   SP,HL       F9         8 ---- SP=HL
  push rr          x5        16 ---- SP=SP-2  (SP)=rr   (rr may be BC,DE,HL,AF)
  pop  rr          x1        12 (AF) rr=(SP)  SP=SP+2   (rr may be BC,DE,HL,AF)
@@ -54,9 +55,9 @@ called "M-cycles".
  and  r           Ax         4 z010 A=A & r
  and  n           E6 nn      8 z010 A=A & n
  and  (HL)        A6         8 z010 A=A & (HL)
- xor  r           Ax         4 z000
- xor  n           EE nn      8 z000
- xor  (HL)        AE         8 z000
+ xor  r           Ax         4 z000 A=A xor r
+ xor  n           EE nn      8 z000 A=A xor n
+ xor  (HL)        AE         8 z000 A=A xor (HL)
  or   r           Bx         4 z000 A=A | r
  or   n           F6 nn      8 z000 A=A | n
  or   (HL)        B6         8 z000 A=A | (HL)
