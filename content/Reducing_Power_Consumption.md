@@ -94,7 +94,7 @@ using efficient and tight assembler code which requires as little CPU
 power as possible. Using a high level language will require more CPU
 power and these techniques will not have as big as an effect.
 
-To optimize you code, it might be a good idea to look at [this
+To optimize your code, it might be a good idea to look at [this
 page](http://wikiti.brandonw.net/index.php?title=Z80_Optimization),
 although it applies to the original Z80 CPU, so one must adapt the
 optimizations to the GBZ80.
