@@ -192,7 +192,9 @@ Specifies the ROM Size of the cartridge. Typically calculated as "N such that 32
 | $53 | 1.2 MByte | 80 *
 | $54 | 1.5 MByte | 96 *
 
-\* Only listed in unofficial docs
+\* Only listed in unofficial docs. No cartridges or ROM files using these sizes are known.
+As the other ROM sizes are all powers of 2, these are likely inaccurate. The source for these
+values is unknown.
 
 ### 0149 - RAM Size
 
@@ -200,15 +202,23 @@ Specifies the size of the external RAM in the cartridge (if any).
 
 | Code | Size   | Comment
 |------|--------|---------
-| $00  | 0      | No RAM
-| $01  | -      | Unused (but unofficial docs list it as 2 KB)
+| $00  | 0      | No RAM *
+| $01  | -      | Unused **
 | $02  | 8 KB   | 1 bank
 | $03  | 32 KB  | 4 banks of 8 KB each
 | $04  | 128 KB | 16 banks of 8 KB each
 | $05  | 64 KB  | 8 banks of 8 KB each
 
-When using a MBC2 chip, $00 must be specified in this entry, even though
+\* When using a MBC2 chip, $00 must be specified as the RAM Size, even though
 the MBC2 includes a built-in RAM of 512 x 4 bits.
+
+\** Listed in various unofficial docs as 2KB. However, a 2KB RAM chip was never used in a cartridge.
+The source for this value is unknown.
+
+Various "PD" ROMs ("Public Domain" homebrew ROMs generally tagged "(PD)"
+in the filename) are known to use the $01 RAM Size tag, but this is believed
+to have been a mistake with early homebrew tools and the PD ROMs often don't use
+cartridge RAM at all.
 
 ### 014A - Destination Code
 
