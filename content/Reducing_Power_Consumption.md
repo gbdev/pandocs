@@ -71,8 +71,9 @@ black screen. Except if the LCD is in Mode3, where it will keep drawing
 the current screen.
 
 STOP is terminated by one of the P10 to P13 lines going low. Which means
-before entering STOP P14 and/or P15 should be active by writting $30 to the
-P1 register.
+before entering STOP P14 and/or P15 should be asserted by writting $00,
+$10 or $20 to the P1 register, depending on which buttons you want
+to terminate the STOP on.
 
 If STOP is invoked while a button is helt down, it might enter a bugged
 STOP mode. Which functions like a HALT instead of STOP, so requires
