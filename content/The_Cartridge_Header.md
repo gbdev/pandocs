@@ -170,7 +170,7 @@ cartridge, and if further external hardware exists in the cartridge.
 |`$FE`|  HuC3|
 |`$FF`|  HuC1+RAM+BATTERY|
 
-*) No licenced game makes use of this option. Exact behavour is unknown.
+*) No licensed game makes use of this option. Exact behaviour is unknown.
 
 ### 0148 - ROM Size
 
