@@ -147,8 +147,8 @@ cartridge, and if further external hardware exists in the cartridge.
 |`$03`|  MBC1+RAM+BATTERY|
 |`$05`|  MBC2|
 |`$06`|  MBC2+BATTERY|
-|`$08`|  ROM+RAM|
-|`$09`|  ROM+RAM+BATTERY |
+|`$08`|  ROM+RAM (*)|
+|`$09`|  ROM+RAM+BATTERY (*)|
 |`$0B`|  MMM01|
 |`$0C`|  MMM01+RAM|
 |`$0D`|  MMM01+RAM+BATTERY|
@@ -170,6 +170,7 @@ cartridge, and if further external hardware exists in the cartridge.
 |`$FE`|  HuC3|
 |`$FF`|  HuC1+RAM+BATTERY|
 
+*) No licenced game makes use of this option. Exact behavour is unknown.
 
 ### 0148 - ROM Size
 
@@ -198,7 +199,7 @@ Specifies the size of the external RAM in the cartridge (if any).
 
 ```
  $00 - None
- $01 - 2 KBytes
+ $01 - 2 KBytes (*)
  $02 - 8 KBytes
  $03 - 32 KBytes (4 banks of 8KBytes each)
  $04 - 128 KBytes (16 banks of 8KBytes each)
@@ -207,6 +208,8 @@ Specifies the size of the external RAM in the cartridge (if any).
 
 When using a MBC2 chip $00 must be specified in this entry, even though
 the MBC2 includes a built-in RAM of 512 x 4 bits.
+
+*) No licenced game makes use of this option. Exact behavour is unknown.
 
 ### 014A - Destination Code
 
