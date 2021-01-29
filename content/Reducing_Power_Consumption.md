@@ -59,7 +59,7 @@ power standby mode. For example, a program may use this feature when it
 hasn't sensed keyboard input for a longer period (for example, when
 somebody forgot to turn off the Game Boy).
 
-No licenced rom makes use of STOP outside of CGB speed switching.
+No licensed rom makes use of STOP outside of CGB speed switching.
 Special care need to be taken if you want to make use of the STOP
 instruction.
 
@@ -71,7 +71,7 @@ black screen. Except if the LCD is in Mode3, where it will keep drawing
 the current screen.
 
 STOP is terminated by one of the P10 to P13 lines going low. Which means
-before entering STOP P14 and/or P15 should be asserted by writting $00,
+before entering STOP P14 and/or P15 should be asserted by writing $00,
 $10 or $20 to the P1 register, depending on which buttons you want
 to terminate the STOP on.
 
