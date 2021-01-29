@@ -209,7 +209,7 @@ Specifies the size of the external RAM in the cartridge (if any).
 When using a MBC2 chip $00 must be specified in this entry, even though
 the MBC2 includes a built-in RAM of 512 x 4 bits.
 
-*) No licenced game makes use of this option. Exact behavour is unknown.
+*) No licensed cartridge makes use of this option. Exact behaviour is unknown.
 
 ### 014A - Destination Code
 
