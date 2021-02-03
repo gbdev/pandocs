@@ -276,7 +276,7 @@ the presence of SGB hardware before blindly sending VRAM data.
 ### Available SNES Palettes
 
 The SGB/SNES provides 8 palettes of 16 colors each, each color may be
-defined out of a selection of 34768 colors (15 bit). Palettes 0-3 are
+defined out of a selection of 32768 colors (15 bit). Palettes 0-3 are
 used to colorize the gamescreen, only the first four colors of each of
 these palettes are used. Palettes 4-7 are used for the SGB Border, all
 16 colors of each of these palettes may be used.
