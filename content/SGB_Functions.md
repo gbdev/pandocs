@@ -589,17 +589,24 @@ Used to transfer sound code or data to SNES Audio Processing Unit memory
 ` 1-F   Not used (zero)`<br>
 
 The sound code/data is sent by VRAM-Transfer (4 KBytes).
+All 16-bit values are little-endian.
 
-` 000      One (or two ???) 16bit expression(s ???) indicating the`<br>
-`          transfer destination address and transfer length.`<br>
-` ...-...  Transfer Data`<br>
-` ...-FFF  Remaining bytes not used`<br>
+```
+ 000-001  Size of transfer data
+ 002-003  Destination address in S-APU RAM (typically $2B00, see below)
+ 004-XXX  Data to be transferred
+ X+1-X+2  "End marker" (???), should be $0000
+ X+3-X+4  S-APU jump address, should be $0400
+ X+5-FFF  Remaining bytes ignored
+```
 
 Possible destinations in APU-RAM are:
 
-` 0400h-2AFFh  APU-RAM Program Area (9.75KBytes)`<br>
-` 2B00h-4AFFh  APU-RAM Sound Score Area (8Kbytes)`<br>
-` 4DB0h-EEFFh  APU-RAM Sampling Data Area (40.25 Kbytes)`<br>
+```
+  $0400-2AFF  APU-RAM Program Area (9.75KBytes)
+  $2B00-4AFF  APU-RAM Sound Score Area (8Kbytes)
+  $4DB0-EEFF  APU-RAM Sampling Data Area (40.25 Kbytes)
+```
 
 This function may be used to take control of the SNES sound chip, and/or
 to access the SNES MIDI engine. In either case it requires deeper
@@ -608,61 +615,100 @@ knowledge of SNES sound programming.
 ### SGB Sound Effect A/B Tables
 
 Below lists the digital sound effects that are pre-defined in the
-SGB/SNES BIOS, and which can be used with the SGB "SOUND" Command.
-Effect A and B may be simultaneously reproduced. The P-column indicates
-the recommended Pitch value, the V-column indicates the numbers of
-Voices used. Sound Effect A uses voices 6,7. Sound Effect B uses voices
-0,1,4,5. Effects that use less voices will use only the upper voices
-(eg. 4,5 for Effect B with only two voices).
+SGB BIOS, and which can be used with the SGB "SOUND" Command.
+Effect A and B may be simultaneously used.
+Sound Effect A uses channels 6 and 7, Sound Effect B uses channels
+0, 1, 4 and 5. Effects that use less channels will use only the upper channels
+(eg. 4 and 5 for a B Effect with only two channels).
 
 ### Sound Effect A Flag Table
 
-` Code Description             P V     Code Description             P V`<br>
-` 00  Dummy flag, re-trigger   - 2     18  Fast Jump                3 1`<br>
-` 80  Effect A, stop/silent    - 2     19  Jet (rocket) takeoff     0 1`<br>
-` 01  Nintendo                 3 1     1A  Jet (rocket) landing     0 1`<br>
-` 02  Game Over                3 2     1B  Cup breaking             2 2`<br>
-` 03  Drop                     3 1     1C  Glass breaking           1 2`<br>
-` 04  OK ... A                 3 2     1D  Level UP                 2 2`<br>
-` 05  OK ... B                 3 2     1E  Insert air               1 1`<br>
-` 06  Select...A               3 2     1F  Sword swing              1 1`<br>
-` 07  Select...B               3 1     20  Water falling            2 1`<br>
-` 08  Select...C               2 2     21  Fire                     1 1`<br>
-` 09  Mistake...Buzzer         2 1     22  Wall collapsing          1 2`<br>
-` 0A  Catch Item               2 2     23  Cancel                   1 2`<br>
-` 0B  Gate squeaks 1 time      2 2     24  Walking                  1 2`<br>
-` 0C  Explosion...small        1 2     25  Blocking strike          1 2`<br>
-` 0D  Explosion...medium       1 2     26  Picture floats on & off  3 2`<br>
-` 0E  Explosion...large        1 2     27  Fade in                  0 2`<br>
-` 0F  Attacked...A             3 1     28  Fade out                 0 2`<br>
-` 10  Attacked...B             3 2     29  Window being opened      1 2`<br>
-` 11  Hit (punch)...A          0 2     2A  Window being closed      0 2`<br>
-` 12  Hit (punch)...B          0 2     2B  Big Laser                3 2`<br>
-` 13  Breath in air            3 2     2C  Stone gate closes/opens  0 2`<br>
-` 14  Rocket Projectile...A    3 2     2D  Teleportation            3 1`<br>
-` 15  Rocket Projectile...B    3 2     2E  Lightning                0 2`<br>
-` 16  Escaping Bubble          2 1     2F  Earthquake               0 2`<br>
-` 17  Jump                     3 1     30  Small Laser              2 2`<br>
+| Code | Description             | Recommended pitch | Nb of channels used
+|------|-------------------------|-------------------|--------------------
+|  00  | Dummy flag, re-trigger  |  -                |  2
+|  01  | Nintendo                |  3                |  1
+|  02  | Game Over               |  3                |  2
+|  03  | Drop                    |  3                |  1
+|  04  | OK ... A                |  3                |  2
+|  05  | OK ... B                |  3                |  2
+|  06  | Select...A              |  3                |  2
+|  07  | Select...B              |  3                |  1
+|  08  | Select...C              |  2                |  2
+|  09  | Mistake...Buzzer        |  2                |  1
+|  0A  | Catch Item              |  2                |  2
+|  0B  | Gate squeaks 1 time     |  2                |  2
+|  0C  | Explosion...small       |  1                |  2
+|  0D  | Explosion...medium      |  1                |  2
+|  0E  | Explosion...large       |  1                |  2
+|  0F  | Attacked...A            |  3                |  1
+|  10  | Attacked...B            |  3                |  2
+|  11  | Hit (punch)...A         |  0                |  2
+|  12  | Hit (punch)...B         |  0                |  2
+|  13  | Breath in air           |  3                |  2
+|  14  | Rocket Projectile...A   |  3                |  2
+|  15  | Rocket Projectile...B   |  3                |  2
+|  16  | Escaping Bubble         |  2                |  1
+|  17  | Jump                    |  3                |  1
+|  18  | Fast Jump               |  3                |  1
+|  19  | Jet (rocket) takeoff    |  0                |  1
+|  1A  | Jet (rocket) landing    |  0                |  1
+|  1B  | Cup breaking            |  2                |  2
+|  1C  | Glass breaking          |  1                |  2
+|  1D  | Level UP                |  2                |  2
+|  1E  | Insert air              |  1                |  1
+|  1F  | Sword swing             |  1                |  1
+|  20  | Water falling           |  2                |  1
+|  21  | Fire                    |  1                |  1
+|  22  | Wall collapsing         |  1                |  2
+|  23  | Cancel                  |  1                |  2
+|  24  | Walking                 |  1                |  2
+|  25  | Blocking strike         |  1                |  2
+|  26  | Picture floats on & off |  3                |  2
+|  27  | Fade in                 |  0                |  2
+|  28  | Fade out                |  0                |  2
+|  29  | Window being opened     |  1                |  2
+|  2A  | Window being closed     |  0                |  2
+|  2B  | Big Laser               |  3                |  2
+|  2C  | Stone gate closes/opens |  0                |  2
+|  2D  | Teleportation           |  3                |  1
+|  2E  | Lightning               |  0                |  2
+|  2F  | Earthquake              |  0                |  2
+|  30  | Small Laser             |  2                |  2
+|  80  | Effect A, stop/silent   |  -                |  2
 
 Sound effect A is used for formanto sounds (percussion sounds).
 
 ### Sound Effect B Flag Table
 
-` Code Description             P V     Code Description             P V`<br>
-` 00  Dummy flag, re-trigger   - 4     0D  Waterfall                2 2`<br>
-` 80  Effect B, stop/silent    - 4     0E  Small character running  3 1`<br>
-` 01  Applause...small group   2 1     0F  Horse running            3 1`<br>
-` 02  Applause...medium group  2 2     10  Warning sound            1 1`<br>
-` 03  Applause...large group   2 4     11  Approaching car          0 1`<br>
-` 04  Wind                     1 2     12  Jet flying               1 1`<br>
-` 05  Rain                     1 1     13  UFO flying               2 1`<br>
-` 06  Storm                    1 3     14  Electromagnetic waves    0 1`<br>
-` 07  Storm with wind/thunder  2 4     15  Score UP                 3 1`<br>
-` 08  Lightning                0 2     16  Fire                     2 1`<br>
-` 09  Earthquake               0 2     17  Camera shutter, formanto 3 4`<br>
-` 0A  Avalanche                0 2     18  Write, formanto          0 1`<br>
-` 0B  Wave                     0 1     19  Show up title, formanto  0 1`<br>
-` 0C  River                    3 2`<br>
+| Code | Description              | Recommended pitch | Nb of channels used
+|------|--------------------------|-------------------|--------------------
+|  00  | Dummy flag, re-trigger   |  -                |  4
+|  01  | Applause...small group   |  2                |  1
+|  02  | Applause...medium group  |  2                |  2
+|  03  | Applause...large group   |  2                |  4
+|  04  | Wind                     |  1                |  2
+|  05  | Rain                     |  1                |  1
+|  06  | Storm                    |  1                |  3
+|  07  | Storm with wind/thunder  |  2                |  4
+|  08  | Lightning                |  0                |  2
+|  09  | Earthquake               |  0                |  2
+|  0A  | Avalanche                |  0                |  2
+|  0B  | Wave                     |  0                |  1
+|  0C  | River                    |  3                |  2
+|  0D  | Waterfall                |  2                |  2
+|  0E  | Small character running  |  3                |  1
+|  0F  | Horse running            |  3                |  1
+|  10  | Warning sound            |  1                |  1
+|  11  | Approaching car          |  0                |  1
+|  12  | Jet flying               |  1                |  1
+|  13  | UFO flying               |  2                |  1
+|  14  | Electromagnetic waves    |  0                |  1
+|  15  | Score UP                 |  3                |  1
+|  16  | Fire                     |  2                |  1
+|  17  | Camera shutter, formanto |  3                |  4
+|  18  | Write, formanto          |  0                |  1
+|  19  | Show up title, formanto  |  0                |  1
+|  80  | Effect B, stop/silent    |  -                |  4
 
 Sound effect B is mainly used for looping sounds (sustained sounds).
 
@@ -999,14 +1045,14 @@ gameboy BG tile memory at following addresses:
 The format of SNES OAM Entries is:
 
 ```
-  Byte 0  OBJ X-Position (0-511, MSB is separately stored, see below) 
-  Byte 1  OBJ Y-Position (0-255) 
-  Byte 2-3  Attributes (16bit) 
-    Bit 0-8    Tile Number     (use only 00h-FFh, upper bit zero) 
-    Bit 9-11   Palette Number  (use only 4-7) 
-    Bit 12-13  OBJ Priority    (use only 3) 
-    Bit 14     X-Flip          (0=Normal, 1=Mirror horizontally) 
-    Bit 15     Y-Flip          (0=Normal, 1=Mirror vertically) 
+  Byte 0  OBJ X-Position (0-511, MSB is separately stored, see below)
+  Byte 1  OBJ Y-Position (0-255)
+  Byte 2-3  Attributes (16bit)
+    Bit 0-8    Tile Number     (use only 00h-FFh, upper bit zero)
+    Bit 9-11   Palette Number  (use only 4-7)
+    Bit 12-13  OBJ Priority    (use only 3)
+    Bit 14     X-Flip          (0=Normal, 1=Mirror horizontally)
+    Bit 15     Y-Flip          (0=Normal, 1=Mirror vertically)
 ```
 
 The format of SNES OAM MSB Entries is:
