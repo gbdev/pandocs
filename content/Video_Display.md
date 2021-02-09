@@ -229,7 +229,7 @@ register indicates Mode 3). Note: All background colors are initialized
 as white by the boot ROM, but it's a good idea to initialize at least
 one color yourself (for example if you include a soft-reset mechanic).
 
-### FF6A - OCPS/OBPI Object Color Palette Specification or Sprite Palette Index, FF6B - OCPD/OBPD Object Color Palette Data or Sprite Palette Data - Both CGB Mode Only 
+### FF6A - OCPS/OBPI Object Color Palette Specification or Sprite Palette Index, FF6B - OCPD/OBPD Object Color Palette Data or Sprite Palette Data - Both CGB Mode Only
 
 These registers are used to initialize the Sprite Palettes OBP0-7,
 identically as described above for Background Palettes. Note that four
@@ -289,7 +289,7 @@ of this brightness correction.
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 memory (sprite attribute table). The written value specifies the
-transfer source address divided by 100h, ie. source & destination are:
+transfer source address divided by 100h, that is, source & destination are:
 
 ```
 Source:      XX00-XX9F   ;XX in range from 00-F1h
@@ -319,7 +319,7 @@ the transfer has finished:
 Because sprites are not displayed while OAM DMA is in progress, most
 programs are executing this procedure from inside of their VBlank
 procedure. But it is also possible to execute it during display redraw
-also, allowing to display more than 40 sprites on the screen (ie. for
+also, allowing to display more than 40 sprites on the screen (that is, for
 example 40 sprites in upper half, and other 40 sprites in lower half of
 the screen), at the cost of a couple lines that lack sprites.
 
@@ -375,13 +375,13 @@ bits of the address are ignored (treated as zero), the upper 3 bits are
 ignored either (destination is always in VRAM).
 
 Writing to this register starts the transfer, the lower 7 bits of which
-specify the Transfer Length (divided by 10h, minus 1), ie. lengths of
+specify the Transfer Length (divided by 10h, minus 1), that is, lengths of
 10h-800h bytes can be defined by the values 00h-7Fh. The upper bit
 indicates the Transfer Mode:
 
 **Bit7=0 - General Purpose DMA**
 
-When using this transfer method, 
+When using this transfer method,
 all data is transferred at once. The execution of the program is halted
 until the transfer has completed. Note that the General Purpose DMA
 blindly attempts to copy the data, even if the LCD controller is
@@ -393,7 +393,7 @@ has been completed, and FF55 then contains a value of FFh.
 **Bit7=1 - H-Blank DMA**
 
 The H-Blank DMA transfers 10h bytes of
-data during each H-Blank, ie. at LY=0-143, no data is transferred during
+data during each H-Blank, that is, at LY=0-143, no data is transferred during
 V-Blank (LY=144-153), but the transfer will then continue at LY=00. The
 execution of the program is halted during the separate transfers, but
 the program execution continues during the "spaces" between each data
@@ -507,7 +507,7 @@ OCPD/OBPD](#ff6a-ocps-obpi-object-color-palette-specification-or-sprite-palette-
 # VRAM Background Maps
 
 The Game Boy contains two 32x32 tile background maps in VRAM at
-addresses 9800h-9BFFh and 9C00h-9FFFh. Each can be used either to
+addresses `$9800h-9BFF` and `$9C00h-9FFF`. Each can be used either to
 display "normal" background, or "window" background.
 
 ### BG Map Tile Numbers
@@ -528,7 +528,7 @@ can be displayed on the LCD screen.
 
 In CGB Mode, an additional map of 32x32 bytes is stored in VRAM Bank 1
 (each byte defines attributes for the corresponding tile-number map
-entry in VRAM Bank 0, ie. 1:9800 defines the attributes for the tile at
+entry in VRAM Bank 0, that is, 1:9800 defines the attributes for the tile at
 0:9800):
 
 ```
@@ -545,16 +545,21 @@ all OBJs (regardless of the priority bits in OAM memory). There's also
 a Master Priority flag in LCDC register Bit 0 which overrides all other
 priority bits when cleared.
 
-Note that, if the map entry at 0:9800 is tile \$2A, the attribute at
-1:9800 doesn't define properties for ALL tiles \$2A on-screen, but only
-the one at 0:9800 !
+Note that, if the map entry at `0:9800` is tile \$2A, the attribute at
+`1:9800` doesn't define properties for ALL tiles \$2A on-screen, but only
+the one at `0:9800`!
 
 ### Normal Background (BG)
 
-The SCY and SCX registers can be used to scroll the background, allowing
-to select the origin of the visible 160x144 pixel area within the total
-256x256 pixel background map. Background wraps around the screen (i.e.
-when part of it goes off the screen, it appears on the opposite side.)
+The [SCY and SCX](#ff42-scy-scroll-y-r-w-ff43-scx-scroll-x-r-w) registers can be
+used to scroll the background, allowing to select the origin of the visible
+160x144 pixel area within the total 256x256 pixel background map.
+Background wraps around the screen (that is, when part of it goes off the screen, it
+eventually appears on the opposite side).
+
+Whether the background is displayed can be toggled using
+[LCDC bit 0](#lcdc-0-bg-window-display-priority), except on CGB in CGB Mode,
+where it's always drawn.
 
 ### The Window
 
@@ -566,8 +571,11 @@ coordinates of the top left corner of a window are WX-7,WY. The tiles
 for the window are stored in the Tile Data Table. Both the Background
 and the window share the same Tile Data Table.
 
-Both background and window can be disabled or enabled separately via
-bits in the LCDC register.
+Whether the window is displayed can be toggled using
+[LCDC bit 5](#lcdc-5-window-display-enable). Enabling the window makes
+[Mode 3](#lcd-status-register) slightly longer on scanlines where it's visible.
+(See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-minus-7-r-w)
+for the definition of "when the window is visible".)
 
 # VRAM Banks (CGB only)
 

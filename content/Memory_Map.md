@@ -1,4 +1,4 @@
-The Game Boy has a 16bit address bus, that is used to address ROM, RAM and I/O 
+The Game Boy has a 16-bit address bus, which is used to address ROM, RAM, and I/O.
 
 # General Memory Map
 
@@ -22,7 +22,7 @@ The Game Boy has a 16bit address bus, that is used to address ROM, RAM and I/O
 
 The following addresses are supposed to be used as jump vectors:
 
--   RST commands: 0000, 0008,0010, 0018, 0020, 0028, 0030, 0038
+-   RST commands: 0000, 0008, 0010, 0018, 0020, 0028, 0030, 0038
 -   Interrupts: 0040, 0048, 0050, 0058, 0060
 
 However, the memory may be used for any other purpose in case that your
@@ -41,7 +41,7 @@ area are required to be specified correctly.
 
 # External Memory and Hardware
 
-The areas from 0000-7FFF and A000-BFFF address external hardware, i.e.
+The areas from 0000-7FFF and A000-BFFF address external hardware on
 the cartridge, which is essentially an expansion board.  Typically this
 is a ROM and SRAM or, more often, a [Memory Bank Controller
 (MBC)](#memory-bank-controllers). The RAM area can be read
@@ -64,13 +64,14 @@ this range have the same effect as reads and writes to C000-DDFF.
 
 Nintendo prohibits developers from using this memory range.  The
 behavior is confirmed on all official hardware. Some emulators (such as
-VisualBoyAdvance \<1.8) don't emulate Echo RAM. Software can check if
+VisualBoyAdvance \<1.8) don't emulate Echo RAM.  In some flash cartridges,
+echo RAM interferes with SRAM normally at A000-BFFF. Software can check if
 Echo RAM is properly emulated by writing to RAM (avoid values 00 and
-FF) and checking if said value is mirrored in Echo RAM.
+FF) and checking if said value is mirrored in Echo RAM and not cart SRAM.
 
 # I/O Registers
 
-The Gameboy uses the following I/O ranges:
+The Game Boy uses the following I/O ranges:
 
 | **Start** | **End** | **Revision** | **Purpose** |
 |-|-|-|-|
@@ -97,6 +98,6 @@ bug. Reads otherwise return 00.
 On CGB revisions 0-D, this area is a unique RAM area, but is masked
 with a revision-specific value.
 
-On CGB revision E, AGB, AGS, and GBP, it returns the high nybble of the
+On CGB revision E, AGB, AGS, and GBP, it returns the high nibble of the
 lower address byte twice, e.g. FFAx returns AA, FFBx returns BB, and so
 forth.

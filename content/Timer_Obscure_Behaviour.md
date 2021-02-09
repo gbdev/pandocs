@@ -14,7 +14,7 @@ Notice how the values that are connected to the inputs of the
 multiplexer are the values of those bits, not the carry of those bits.
 This is the reason of a few things:
 
-- When writing to DIV, the whole counter is reseted, so the timer is
+- When writing to DIV, the whole counter is reset, so the timer is
 also affected.
 
 - When writing to DIV, if the current output is 1 and timer is

@@ -10,7 +10,7 @@ Voluntary wave patterns from wave RAM
 White noise with an envelope function
 ```
 
-These four sounds can be controlled independantly and then mixed
+These four sounds can be controlled independently and then mixed
 separately for each of the output terminals.
 
 Sound registers may be set at all times while producing sound.

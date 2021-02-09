@@ -2,7 +2,7 @@
 
 ### General Description
 
-Basically, the SGB (Super Gameboy) is an adapter cartridge that allows
+Basically, the SGB (Super Game Boy) is an adapter cartridge that allows
 to play Game Boy games on a SNES (Super Nintendo Entertainment System)
 gaming console. In detail, you plug the Game Boy cartridge into the SGB
 cartridge, then plug the SGB cartridge into the SNES, and then connect
@@ -11,19 +11,19 @@ the TV Set, and are controlled by using the SNES joypad(s).
 
 ### More Technical Description
 
-The SGB cartridge just contains a normal Game Boy CPU and normal gameboy
+The SGB cartridge just contains a normal Game Boy CPU and normal Game Boy
 video controller. Normally the video signal from this controller would
 be sent to the LCD screen, however, in this special case the SNES read
 out the video signal and displays it on the TV set by using a special
 SNES BIOS ROM which is located in the SGB cartridge. Also, normal
-gameboy sound output is forwared to the SNES and output to the TV Set,
+Game Boy sound output is forwared to the SNES and output to the TV Set,
 vice versa, joypad input is forwared from the SNES controller(s) to the
-gameboy joypad inputs.
+Game Boy joypad inputs.
 
 ### Normal Monochrome Games
 
-Any Game Boy games which have been designed for normal monochrome
-handheld gameboys will work with the SGB hardware as well. The SGB will
+Any Game Boy games which have been designed for monochrome handheld
+Game Boy systems will work with the SGB hardware as well. The SGB will
 apply a four color palette to these games by replacing the normal four
 grayshades. The 160x144 pixel gamescreen is displayed in the middle of
 the 256x224 pixel SNES screen (the unused area is filled by a screen
@@ -46,7 +46,7 @@ palette of four colors only.
 ### SNES Foreground Sprites
 
 Up to 24 foreground sprites (OBJs) of 8x8 or 16x16 pixels, 16 colors can
-be displayed. When replacing (or just overlaying) the normal gameboy
+be displayed. When replacing (or just overlaying) the normal Game Boy
 OBJs by SNES OBJs it'd be thus possible to display OBJs with other
 colors than normal background area. This method doesn't appear to be
 very popular, even though it appears to be quite easy to implement,
@@ -85,15 +85,19 @@ and to execute such program code by using the SNES CPU.
 
 Because the SGB is synchronized to the SNES CPU, the Game Boy system
 clock is directly chained to the SNES system clock. In result, the
-gameboy CPU, video controller, timers, and sound frequencies will be all
-operated approx 2.4% faster as by normal gameboys. Basically, this
+Game Boy CPU, video controller, timers, and sound frequencies will be all
+operated approx 2.4% faster than handheld systems. Basically, this
 should be no problem, and the game will just run a little bit faster.
 However sensitive musicians may notice that sound frequencies are a bit
 too high, programs that support SGB functions may avoid this effect by
 reducing frequencies of Game Boy sounds when having detected SGB
-hardware. Also, I think that I've heard that SNES models which use a
-50Hz display refresh rate (rather than 60Hz) are resulting in
-respectively slower SGB/gameboy timings ???
+hardware. Also, "PAL version" SNES models which use a
+50Hz display refresh rate (rather than 60Hz) result in
+respectively slower Game Boy timings.
+
+- NTSC SGB: 21.477 MHz master clock, 4.2955 MHz GB clock, 2.41% fast
+- PAL SGB: 21.281 MHz master clock, 4.2563 MHz GB clock, 1.48% fast
+- NTSC SGB2: Separate 20.972 MHz crystal, correct speed
 
 # SGB Unlocking and Detecting SGB Functions
 
@@ -103,8 +107,8 @@ SGB games are required to have a cartridge header with Nintendo and
 proper checksum just as normal Game Boy games. Also, two special entries
 must be set in order to unlock SGB functions:
 
-` 146h - SGB Flag - Must be set to 03h for SGB games`<br>
-` 14Bh - Old Licensee Code - Must be set 33h for SGB games`<br>
+- 146h - SGB Flag - Must be set to 03h for SGB games
+- 14Bh - Old Licensee Code - Must be set 33h for SGB games
 
 When these entries aren't set, the game will still work just like all
 "monochrome" Game Boy games, but it cannot access any of the special
@@ -130,9 +134,9 @@ as described above.
 It is also possible to separate between SGB and SGB2 models by examining
 the inital value of the accumulator (A-register) directly after startup.
 
-` 01h  SGB or Normal Gameboy (DMG)`<br>
-` FFh  SGB2 or Pocket Gameboy`<br>
-` 11h  CGB or GBA`<br>
+- 01h - SGB or original Game Boy (DMG)`
+- FFh - SGB2 or Game Boy Pocket
+- 11h - CGB or GBA
 
 Because values 01h and FFh are shared for both handhelds and SGBs, it is
 still required to use the above MLT_REQ detection procedure. As far as
@@ -140,16 +144,14 @@ I know the SGB2 doesn't have any extra features which'd require
 separate SGB2 detection except for curiosity purposes, for example, the
 game "Tetris DX" chooses to display an alternate SGB border on SGB2s.
 
-Reportedly, some SGB models include link ports (just like handheld
-gameboy) (my own SGB does not have such an port), possibly this feature
-is available in SGB2-type models only ???
+Only the SGB2 contains a link port.
 
 # SGB Command Packet Transfers
 
 Command packets (aka Register Files) are transferred from the Game Boy to
 the SNES by using P14 and P15 output lines of the JOYPAD register
-(FF00h), these lines are normally used to select the two rows in the
-gameboy keyboard matrix (which still works).
+(FF00h).  These same lines are also used to select the two rows in the
+Game Boy keyboard matrix (which still works).
 
 ### Transferring Bits
 
@@ -183,7 +185,7 @@ packets is:
 `  1 BIT   Stop Bit (0)`<br>
 
 The above "Length" indicates the total number of packets (1-7,
-including the first packet) which will be sent, ie. if more than 15
+including the first packet) which will be sent.  If more than 15
 parameter bytes are used, then further packet(s) will follow, as such:
 
 `  1 PULSE Reset`<br>
@@ -202,7 +204,7 @@ Beside for the packet transfer method, larger data blocks of 4KBytes can
 be transferred by using the video signal. These transfers are invoked by
 first sending one of the commands with the ending \_TRN (by using normal
 packet transfer), the 4K data block is then read-out by the SNES from
-gameboy display memory during the next frame.
+Game Boy display memory during the next frame.
 
 ### Transfer Data
 
@@ -235,7 +237,7 @@ The display will contain "garbage" during the transfer, this
 dirt-effect can be avoided by freezing the screen (in the state which
 has been displayed before the transfer) by using the MASK_EN command.
 Of course, this works only when actually executing the game on a SGB
-(and not on normal handheld gameboys), it'd be thus required to detect
+(and not on handheld Game Boy systems), it'd be thus required to detect
 the presence of SGB hardware before blindly sending VRAM data.
 
 # SGB Command Summary
@@ -274,7 +276,7 @@ the presence of SGB hardware before blindly sending VRAM data.
 ### Available SNES Palettes
 
 The SGB/SNES provides 8 palettes of 16 colors each, each color may be
-defined out of a selection of 34768 colors (15 bit). Palettes 0-3 are
+defined out of a selection of 32768 colors (15 bit). Palettes 0-3 are
 used to colorize the gamescreen, only the first four colors of each of
 these palettes are used. Palettes 4-7 are used for the SGB Border, all
 16 colors of each of these palettes may be used.
@@ -314,7 +316,7 @@ colors as such:
 ` Black       -->  Color 3`<br>
 
 Note that Game Boy colors 0-3 are assigned to user-selectable grayshades
-by the gameboys BGP, OBP1, and OBP2 registers. There is thus no fixed
+by the Game Boy's BGP, OBP1, and OBP2 registers. There is thus no fixed
 relationship between Game Boy colors 0-3 and SNES colors 0-3.
 
 #### Using Game Boy BGP/OBP Registers
@@ -346,7 +348,7 @@ color 1-3 (without separate color 0).
 
 ` Byte  Content`<br>
 ` 0     Command*8+Length (fixed length=01h)`<br>
-` 1-E   Color Data for 7 colors of 2 bytes (16bit) each:`<br>
+` 1-E   Color Data for 7 colors of 2 bytes (16 bits) each:`<br>
 `         Bit 0-4   - Red Intensity   (0-31)`<br>
 `         Bit 5-9   - Green Intensity (0-31)`<br>
 `         Bit 10-14 - Blue Intensity  (0-31)`<br>
@@ -411,7 +413,7 @@ The palette data is sent by VRAM-Transfer (4 KBytes).
 
 ` 000-FFF  Data for System Color Palette 0-511`<br>
 
-Each Palette consists of four 16bit-color definitions (8 bytes). Note:
+Each Palette consists of four 16-bit color definitions (8 bytes). Note:
 The data is stored at 3000h-3FFFh in SNES memory.
 
 # SGB Color Attribute Commands
@@ -555,8 +557,8 @@ internal tone data.
 
 ` Byte  Content`<br>
 ` 0     Command*8+Length (fixed length=1)`<br>
-` 1     Sound Effect A (Port 1) Decrescendo 8bit Sound Code`<br>
-` 2     Sound Effect B (Port 2) Sustain     8bit Sound Code`<br>
+` 1     Sound Effect A (Port 1) Decrescendo 8-bit Sound Code`<br>
+` 2     Sound Effect B (Port 2) Sustain     8-bit Sound Code`<br>
 ` 3     Sound Effect Attributes`<br>
 `         Bit 0-1 - Sound Effect A Pitch  (0..3=Low..High)`<br>
 `         Bit 2-3 - Sound Effect A Volume (0..2=High..Low, 3=Mute on)`<br>
@@ -723,14 +725,14 @@ meaningful display information during the transfer).
 
 ` Byte  Content`<br>
 ` 0     Command*8+Length (fixed length=1)`<br>
-` 1     Gameboy Screen Mask (0-3)`<br>
+` 1     Game Boy Screen Mask (0-3)`<br>
 `         0  Cancel Mask   (Display activated)`<br>
 `         1  Freeze Screen (Keep displaying current picture)`<br>
 `         2  Blank Screen  (Black)`<br>
 `         3  Blank Screen  (Color 0)`<br>
 ` 2-F   Not used (zero)`<br>
 
-Freezing works only if the SNES has stored a picture, ie. if necessary
+Freezing works only if the SNES has stored a picture, that is, if necessary
 wait one or two frames before freezing (rather than freezing directly
 after having displayed the picture). The Cancel Mask function may be
 also invoked (optionally) by completion of PAL_SET and ATTR_SET
@@ -772,7 +774,7 @@ register ???
 ### SGB Command 0Eh - ICON_EN
 
 Used to enable/disable ICON function. Possibly meant to enable/disable
-SGB/SNES popup menues which might otherwise activated during gameboy
+SGB/SNES popup menues which might otherwise activated during Game Boy
 game play. By default all functions are enabled (0).
 
 ` Byte  Content`<br>
@@ -871,7 +873,7 @@ cartridge in a Super Game Boy as a storage server:
 
 ### SGB Command 11h - MLT_REQ
 
-Used to request multiplayer mode (ie. input from more than one joypad).
+Used to request multiplayer mode (that is, input from more than one joypad).
 Because this function provides feedback from the SGB/SNES to the Game
 Boy program, it is also used to detect SGB hardware.
 
@@ -964,12 +966,12 @@ transferred by using the CHR_TRN function.
 
 The map data is sent by VRAM-Transfer (4 KBytes).
 
-` 000-6FF  BG Map 32x28 Entries of 16bit each (1792 bytes)`<br>
+` 000-6FF  BG Map 32x28 Entries of 16 bits each (1792 bytes)`<br>
 ` 700-7FF  Not used, don't care`<br>
-` 800-87F  BG Palette Data (Palettes 4-7, each 16 colors of 16bits each)`<br>
+` 800-87F  BG Palette Data (Palettes 4-7, each 16 colors of 16 bits each)`<br>
 ` 880-FFF  Not used, don't care`<br>
 
-Each BG Map Entry consists of a 16bit value as such:
+Each BG Map Entry consists of a 16-bit value as such:
 `VH01 PP00 NNNN NNNN`<br>
 
 ` Bit 0-9   - Character Number (use only 00h-FFh, upper 2 bits zero)`<br>
@@ -1036,7 +1038,7 @@ the Game Boy screen. As for normal 4KByte VRAM transfers, this area
 should not be scrolled, should not be overlapped by Game Boy OBJs, and
 the Game Boy BGP palette register should be set up properly. By following
 that method, SNES OAM data can be defined in the 70h bytes of the
-gameboy BG tile memory at following addresses:
+Game Boy BG tile memory at following addresses:
 
 ` 8F90-8FEF  SNES OAM, 24 Entries of 4 bytes each (96 bytes)`<br>
 ` 8FF0-8FF5  SNES OAM MSBs, 24 Entries of 2 bits each (6 bytes)`<br>
@@ -1077,6 +1079,6 @@ explicitly ignores commands $1E and $1F.
 
 ### SGB command 19h
 
-The game Donkey Kong '94 appears to send this command, and it appears
+The game _Donkey Kong_ (1994) appears to send this command, and it appears
 to set a flag in the SGB's memory. It's not known yet what it does,
 though.

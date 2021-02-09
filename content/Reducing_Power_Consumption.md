@@ -57,15 +57,23 @@ better, using the RETI instruction)
 The STOP instruction is intended to switch the Game Boy into VERY low
 power standby mode. For example, a program may use this feature when it
 hasn't sensed keyboard input for a longer period (for example, when
-somebody forgot to turn off the gameboy).
+somebody forgot to turn off the Game Boy).
 
-Before invoking STOP, it might be required to disable Sound and Video
-manually (as well as IR-link port in CGB). Much like HALT, the STOP
-state is terminated by interrupt events. STOP is commonly terminated
-with a joypad interrupt.
+No licensed rom makes use of STOP outside of CGB speed switching.
+Special care need to be taken if you want to make use of the STOP
+instruction.
 
-During STOP mode, the display will turn white, so avoid using it in your
-game's main loop.
+On a DMG, disabling the LCD before invoking STOP, leaves the LCD enabled
+drawing a horizontal black line on the screen and damaging the hardware.
+
+On CGB, leaving the LCD enabled when invoking STOP will return in a
+black screen. Except if the LCD is in Mode3, where it will keep drawing
+the current screen.
+
+STOP is terminated by one of the P10 to P13 lines going low. For this 
+reason, lines P14 and/or P15 should be asserted by writing $00,
+$10 or $20 to the P1 register before entering STOP (depending on which 
+buttons you want to terminate the STOP on).
 
 # Disabling the Sound Controller
 
@@ -93,7 +101,7 @@ using efficient and tight assembler code which requires as little CPU
 power as possible. Using a high level language will require more CPU
 power and these techniques will not have as big as an effect.
 
-To optimize you code, it might be a good idea to look at [this
+To optimize your code, it might be a good idea to look at [this
 page](http://wikiti.brandonw.net/index.php?title=Z80_Optimization),
 although it applies to the original Z80 CPU, so one must adapt the
 optimizations to the GBZ80.

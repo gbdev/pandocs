@@ -92,7 +92,7 @@ Investigation needed.)
 
 LCDC.0 has different meanings depending on Game Boy type and Mode:
 
-### Monochrome Gameboy, SGB and CGB in Non-CGB Mode: BG Display
+### Monochrome Game Boy, SGB and CGB in Non-CGB Mode: BG Display
 
 When Bit 0 is cleared, both background and window become blank (white),
 and the [Window Display Bit](#lcdc-5-window-display-enable)

@@ -1,4 +1,4 @@
-This chapter describes only CGB (Color Gameboy) registers that didn't
+This chapter describes only Game Boy Color (GBC or CGB) registers that didn't
 fit into normal categories - most CGB registers are described in the
 chapter about Video Display (Color Palettes, VRAM Bank, VRAM DMA
 Transfers, and changed meaning of Bit 0 of LCDC Control register). Also,
@@ -9,7 +9,7 @@ a changed bit is noted in the chapter about the Serial/Link port.
 When using any CGB registers (including those in the Video/Link
 chapters), you must first unlock CGB features by changing byte 0143h in
 the cartridge header. Typically use a value of 80h for games which
-support both CGB and monochrome gameboys, and C0h for games which work
+support both CGB and monochrome Game Boy systems, and C0h for games which work
 on CGBs only. Otherwise, the CGB will operate in monochrome "Non CGB"
 compatibility mode.
 
@@ -39,12 +39,12 @@ at the "other" speed. The recommended speed switching procedure in
 pseudo code would be:
 
 ```
- IF KEY1_BIT7 != DESIRED_SPEED THEN
+IF KEY1_BIT7 != DESIRED_SPEED THEN
    IE = $00       ; (FFFF) = $00
    JOYP = $30     ; (FF00) = $30
    KEY1 = $01     ; (FF4D) = $01
    STOP
- ENDIF
+ENDIF
 ```
 
 The CGB is operating in Normal Speed Mode when it is first turned on. Note
@@ -79,7 +79,7 @@ TODO: confirm whether interrupts can occur (just the joypad one?) during the pau
 
 This register allows to input and output data through the CGBs built-in
 Infrared Port. When reading data, bit 6 and 7 must be set (and obviously
-Bit 0 must be cleared - if you don't want to receive your own gameboys
+Bit 0 must be cleared - if you don't want to receive your own Game Boy's
 IR signal). After sending or receiving data you should reset the
 register to 00h to reduce battery power consumption again.
 
@@ -101,8 +101,7 @@ does not include an infra-red port.
 
 This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
-location in OAM. This flag is set by the CGB bios after checking the game's
-CGB compatibility.
+location in OAM. This flag is set by the CGB bios after checking the game's CGB compatibility.
 
 OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to KEY0 but STOP hasn't been executed yet, and the write takes effect instantly.
 

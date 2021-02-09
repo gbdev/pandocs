@@ -31,8 +31,8 @@ crossed, colors Red and Orange are exchanged at one cable end.
  6   GND  blue   Ground
 ```
 
-Note: The original Game Boy used larger plugs (unlike pocket gameboys and
-newer), linking between older/newer gameboys is possible by using cables
+Note: The original Game Boy used larger plugs than Game Boy pocket and
+newer. Linking between older/newer Game Boy systems is possible by using cables
 with one large and one small plug though.
 
 ## Stereo Sound Connector (3.5mm, female)

@@ -1,19 +1,19 @@
-The Gameboy Printer is a portable thermal printer made by
+The Game Boy Printer is a portable thermal printer made by
 [SII](http://www.sii.co.jp) for Nintendo, which a few games used to
-print out bonus artwork, certificates, pictures ([Gameboy
+print out bonus artwork, certificates, pictures ([Game Boy
 Camera](#gameboy-camera)).
 
-It can use standard 38mm paper and interfaces with the Gameboy through
+It can use standard 38mm paper and interfaces with the Game Boy through
 the Link port.
 
-It is operated by an embedded 8bit microcontroller which has its own
-8KiB of RAM to buffer incoming graphics data. Those 8KiB allow a maximum
+It is operated by an embedded 8-bit microcontroller which has its own
+8 KiB of RAM to buffer incoming graphics data. Those 8 KiB allow a maximum
 bitmap area of 160\*200 (8192/160\*4) pixels between prints.
 
 Communication
 -------------
 
-The Gameboy Printer doesn't use the full-duplex capability of the Link
+The Game Boy Printer doesn't use the full-duplex capability of the Link
 port. It accepts variable length data packets and then answers back its
 status after two $00 writes.
 
@@ -135,7 +135,7 @@ Tips
 Compression
 -----------
 
-Some sort of RLE ? The GB Camera doesn't use it.
+Some sort of RLE? The GB Camera doesn't use it.
 
 ([Details and pictures](http://furrtek.free.fr/?a=gbprinter&i=2), need
 to be copied here)

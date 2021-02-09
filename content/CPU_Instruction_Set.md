@@ -1,23 +1,24 @@
 Tables below specify the mnemonic, opcode bytes, clock cycles, affected
-flags (ordered as znhc), and explanatation. The timings assume a CPU
+flags (ordered as znhc), and explanation. The timings assume a CPU
 clock frequency of 4.194304 MHz (or 8.4 MHz for CGB in double speed
-mode), as all Game Boy timings are divideable by 4, many people specify
-timings and clock frequency divided by 4.
+mode), called "T-states".  Because all Game Boy timings are divisible
+by 4, many people specify timings and clock frequency divided by 4,
+called "M-cycles".
 
-### GMB 8bit-Loadcommands
+### GMB 8-bit Load Commands
 
 ```
  ld   r,r         xx         4 ---- r=r
  ld   r,n         xx nn      8 ---- r=n
  ld   r,(HL)      xx         8 ---- r=(HL)
  ld   (HL),r      7x         8 ---- (HL)=r
- ld   (HL),n      36 nn     12 ----
- ld   A,(BC)      0A         8 ----
- ld   A,(DE)      1A         8 ----
- ld   A,(nn)      FA        16 ----
- ld   (BC),A      02         8 ----
- ld   (DE),A      12         8 ----
- ld   (nn),A      EA        16 ----
+ ld   (HL),n      36 nn     12 ---- (HL)=n
+ ld   A,(BC)      0A         8 ---- A=(BC)
+ ld   A,(DE)      1A         8 ---- A=(DE)
+ ld   A,(nn)      FA        16 ---- A=(nn)
+ ld   (BC),A      02         8 ---- (BC)=A
+ ld   (DE),A      12         8 ---- (DE)=A
+ ld   (nn),A      EA        16 ---- (nn)=A
  ld   A,(FF00+n)  F0 nn     12 ---- read from io-port n (memory FF00+n)
  ld   (FF00+n),A  E0 nn     12 ---- write to io-port n (memory FF00+n)
  ld   A,(FF00+C)  F2         8 ---- read from io-port C (memory FF00+C)
@@ -27,15 +28,16 @@ timings and clock frequency divided by 4.
  ldd  (HL),A      32         8 ---- (HL)=A, HL=HL-1
  ldd  A,(HL)      3A         8 ---- A=(HL), HL=HL-1
 ```
-### GMB 16bit-Loadcommands
+### GMB 16-bit Load Commands
 
 ```
  ld   rr,nn       x1 nn nn  12 ---- rr=nn (rr may be BC,DE,HL or SP)
+ ld   (nn),SP     08 nn nn  20 ---- (nn)=SP
  ld   SP,HL       F9         8 ---- SP=HL
  push rr          x5        16 ---- SP=SP-2  (SP)=rr   (rr may be BC,DE,HL,AF)
  pop  rr          x1        12 (AF) rr=(SP)  SP=SP+2   (rr may be BC,DE,HL,AF)
 ```
-### GMB 8bit-Arithmetic/logical Commands
+### GMB 8-bit Arithmetic/logical Commands
 
 ```
  add  A,r         8x         4 z0hc A=A+r
@@ -53,9 +55,9 @@ timings and clock frequency divided by 4.
  and  r           Ax         4 z010 A=A & r
  and  n           E6 nn      8 z010 A=A & n
  and  (HL)        A6         8 z010 A=A & (HL)
- xor  r           Ax         4 z000
- xor  n           EE nn      8 z000
- xor  (HL)        AE         8 z000
+ xor  r           Ax         4 z000 A=A xor r
+ xor  n           EE nn      8 z000 A=A xor n
+ xor  (HL)        AE         8 z000 A=A xor (HL)
  or   r           Bx         4 z000 A=A | r
  or   n           F6 nn      8 z000 A=A | n
  or   (HL)        B6         8 z000 A=A | (HL)
@@ -70,17 +72,17 @@ timings and clock frequency divided by 4.
  cpl              2F         4 -11- A = A xor FF
 ```
 
-### GMB 16bit-Arithmetic/logical Commands
+### GMB 16-bit Arithmetic/logical Commands
 
 ```
  add  HL,rr     x9           8 -0hc HL = HL+rr     ;rr may be BC,DE,HL,SP
  inc  rr        x3           8 ---- rr = rr+1      ;rr may be BC,DE,HL,SP
  dec  rr        xB           8 ---- rr = rr-1      ;rr may be BC,DE,HL,SP
- add  SP,dd     E8          16 00hc SP = SP +/- dd ;dd is 8bit signed number
- ld   HL,SP+dd  F8          12 00hc HL = SP +/- dd ;dd is 8bit signed number
+ add  SP,dd     E8          16 00hc SP = SP +/- dd ;dd is 8-bit signed number
+ ld   HL,SP+dd  F8          12 00hc HL = SP +/- dd ;dd is 8-bit signed number
 ```
 
-### GMB Rotate- und Shift-Commands
+### GMB Rotate and Shift Commands
 
 ```
  rlca           07           4 000c rotate akku left
@@ -105,7 +107,7 @@ timings and clock frequency divided by 4.
  srl  (HL)      CB 3E       16 z00c shift right logical (b7=0)
 ```
 
-### GMB Singlebit Operation Commands
+### GMB Single-bit Operation Commands
 
 ```
  bit  n,r       CB xx        8 z01- test bit n
@@ -116,7 +118,7 @@ timings and clock frequency divided by 4.
  res  n,(HL)    CB xx       16 ---- reset bit n
 ```
 
-### GMB CPU-Controlcommands
+### GMB CPU Control Commands
 
 ```
  ccf            3F           4 -00c cy=cy xor 1
@@ -127,13 +129,13 @@ timings and clock frequency divided by 4.
  di             F3           4 ---- disable interrupts, IME=0
  ei             FB           4 ---- enable interrupts, IME=1
 ```
-### GMB Jumpcommands
+### GMB Jump Commands
 
 ```
  jp   nn        C3 nn nn    16 ---- jump to nn, PC=nn
  jp   HL        E9           4 ---- jump to HL, PC=HL
  jp   f,nn      xx nn nn 16;12 ---- conditional jump if nz,z,nc,c
- jr   PC+dd     18 dd       12 ---- relative jump to nn (PC=PC+/-7bit)
+ jr   PC+dd     18 dd       12 ---- relative jump to nn (PC=PC+8-bit signed)
  jr   f,PC+dd   xx dd     12;8 ---- conditional relative jump if nz,z,nc,c
  call nn        CD nn nn    24 ---- call to nn, SP=SP-2, (SP)=PC, PC=nn
  call f,nn      xx nn nn 24;12 ---- conditional call if nz,z,nc,c

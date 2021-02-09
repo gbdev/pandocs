@@ -10,7 +10,8 @@ is in the range of $FE00 to $FEFF while the PPU is in mode 2:
 
 Sprites 1 & 2 ($FE00 & $FE04) are not affected by this bug.
 
-Game Boy Color and Advance are not affected by this bug.
+Game Boy Color and Advance are not affected by this bug, even when
+running monochrome software.
 
 # Accurate Description
 
@@ -44,7 +45,7 @@ The following operations are affected by this bug:
     glitched write occur in the same cycle as a actual write, this will
     effectively behave like 3 writes.
 -   Executing code from OAM - If PC is inside OAM (executing FF,
-    i.e.`rst $38`) the bug will trigger twice, once for increasing PC
+    that is, `rst $38`) the bug will trigger twice, once for increasing PC
     inside OAM (triggering a write), and once for reading from OAM. If a
     multi-byte opcode is executed from $FDFF or $FDFE, and bug will
     similarly trigger twice for every read from OAM.

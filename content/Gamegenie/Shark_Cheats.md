@@ -1,9 +1,9 @@
-Game Shark and Gamegenie are external cartridge adapters that can be
+Game Shark and Game Genie are external cartridge adapters that can be
 plugged in between the Game Boy and the actual game cartridge.
 
 ### Gamegenie (ROM patches)
 
-Gamegenie codes consist of nine-digit hex numbers, formatted as
+Game Genie codes consist of nine-digit hex numbers, formatted as
 `ABC-DEF-GHI`, the meaning of the separate digits is:
 
 
