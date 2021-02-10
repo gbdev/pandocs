@@ -3,7 +3,7 @@
 | CPU             | 8-bit Sharp LR35902            |                 |                 |                |
 | Clock           | 4.194304 MHz                   |                 | 8.388608 MHz    | 4.295454MHz (SGB1, NTSC)|
 | Work RAM        | 8 KB                           |                 | 32 KB           |                |
-| Video RAM       | 8 KB                           |                 | 16 KB           | additional 10KB for border|
+| Video RAM       | 8 KB                           |                 | 16 KB           |                |
 | Screen Size     | LCD 4,7 x 4,3 cm               | LCD 4,8 x 4,4 cm| TFT 4,4 x 4 cm  |                |
 | Resolution      | 160x144                        |                 |                 | 256x224 (including border)|
 | Sprites         | Max 40 per screen, 10 per line |                 |                 |                |
