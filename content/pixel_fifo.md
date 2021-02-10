@@ -10,6 +10,7 @@ shortened to make up for the additional time in mode 3, as shown in the followin
 ![](imgs/game-boy-lcd-refresh-diagram-2.svg "imgs/game-boy-lcd-refresh-diagram-2.svg")
 
 ## Introduction
+
 FIFO stands for *First In, First Out*. The first pixel to be pushed to the
 FIFO is the first pixel to be popped off. In theory that sounds great,
 in practice there are a lot of intricacies.
@@ -31,6 +32,7 @@ Each pixel in the FIFO has four properties:
 - Background Priority: holds the value of the [OBJ-to-BG Priority](#vram-sprite-attribute-table-oam) bit
 
 ## FIFO Pixel Fetcher
+
 The fetcher fetches a row of 8 background or window pixels and queues
 them up to be mixed with sprite pixels. The pixel fetcher has 5 steps.
 The first four steps take 2 cycles each and the fifth step is attempted
@@ -42,7 +44,8 @@ every cycle until it succeeds. The order of the steps are as follows:
 - Sleep
 - Push
 
-### Get Tile:
+### Get Tile
+
 This step determines which background/window tile to fetch pixels from.
 By default the tilemap used is the one at $9800 but certain conditions
 can change that.
@@ -72,7 +75,8 @@ then the value for the tile is read as $FF.
 CGB can access both tile index and the attributes in the same clock
 cycle.
 
-### Get Tile Data Low:
+### Get Tile Data Low
+
 Check LCDC.4 for which tilemap to use. At this step CGB also needs to
 check which VRAM bank to use and check if the tile is flipped vertically.
 Once the tilemap, VRAM and vertical flip is calculated the tile data
@@ -81,7 +85,8 @@ is retrieved from VRAM. However, if the PPU's access to VRAM is
 
 The tile data retrieved in this step will be used in the push steps.
 
-### Get Tile Data High:
+### Get Tile Data High
+
 Same as Get Tile Data Low except the tile address is incremented by 1.
 
 The tile data retrieved in this step will be used in the push steps.
@@ -91,7 +96,8 @@ extra push is not part of the 8 steps, meaning there's 3 total chances to
 push pixels to the background FIFO every time the complete fetcher steps
 are performed.
 
-### Push:
+### Push
+
 Pushes a row of background/window pixels to the FIFO. Since tiles are 8
 pixels wide, a "row" of pixels is 8 pixels from the tile to be rendered
 based on the X and Y coordinates calculated in the previous steps.
@@ -104,7 +110,8 @@ pixels will be pushed to the background FIFO differently. If the tile
 is flipped horizontally the pixels will be pushed LSB first. Otherwise
 they will be pushed MSB first.
 
-### Sleep:
+### Sleep
+
 Do nothing.
 
 ### VRAM Access
@@ -124,11 +131,13 @@ NOTE: These conditions are checked only when entering STOP mode and the
 PPU's access to VRAM is always restored upon leaving STOP mode.
 
 ## Mode 3 Operation
+
 As stated before the pixel FIFO only operates during mode 3 (pixel
 transfer). At the beginning of mode 3 both the background and OAM FIFOs
 are cleared.
 
 ### The Window
+
 When rendering the window the background FIFO is cleared and the fetcher
 is reset to step 1. When WX is 0 and the SCX & 7 > 0 mode 3 is shortened
 by 1 cycle.
@@ -140,6 +149,7 @@ a pixel with color value of 0 and the lowest priority is pushed onto the
 background FIFO.
 
 ### Sprites
+
 The following is performed for each sprite on the current scanline if
 LCDC.1 is enabled (this condition is ignored on CGB) and the X coordinate
 of the current scanline has a sprite on it. If those conditions are not
@@ -191,6 +201,7 @@ scanline unless it was decided that fetching should be aborted or the
 X coordinate is 160.
 
 ### Pixel Rendering
+
 This is where the background FIFO and OAM FIFO are mixed. There are
 conditions where either a background pixel or a sprite pixel will have
 display priority.
@@ -224,6 +235,7 @@ palette access is blocked a black pixel is pushed to the LCD.
 The pixel is then finally pushed to the LCD.
 
 ### CGB Palette Access
+
 At various times during PPU operation read access to the CGB palette is
 blocked and a black pixel pushed to the LCD when rendering pixels:
 - LCD turning off
@@ -243,6 +255,7 @@ PPU's access to CGB palettes is always restored upon leaving STOP mode.
 :::
 
 ### Sprite Fetch Abortion
+
 Sprite fetching may be aborted if LCDC.1 is disabled while the PPU is
 fetching an object from OAM. This abortion lengthens mode 3 by the amount
 of cycles the previous instruction took plus the residual cycles left for
