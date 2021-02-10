@@ -132,11 +132,13 @@ as described above.
 ### Separating between SGB and SGB2
 
 It is also possible to separate between SGB and SGB2 models by examining
-the inital value of the accumulator (A-register) directly after startup.
+the inital value of the accumulator (register A) directly after startup.
 
-- 01h - SGB or original Game Boy (DMG)`
-- FFh - SGB2 or Game Boy Pocket
-- 11h - CGB or GBA
+Value | Console
+------|---------
+ $01  | SGB or original Game Boy (DMG)
+ $FF  | SGB2 or Game Boy Pocket
+ $11  | CGB or GBA
 
 Because values 01h and FFh are shared for both handhelds and SGBs, it is
 still required to use the above MLT_REQ detection procedure. As far as
@@ -160,9 +162,11 @@ to LOW, this will reset and start the SNES packet receiving program.
 Data is then transferred (LSB first), setting P14=LOW will indicate a
 "0" bit, and setting P15=LOW will indicate a "1" bit. For example:
 
-`      RESET 0   0   1   1   0   1   0`<br>
-` P14  --_---_---_-----------_-------_--...`<br>
-` P15  --_-----------_---_-------_------...`<br>
+```
+    RESET  0   0   1   1   0   1   0
+P14  --_---_---_-----------_-------_--...
+P15  --_-----------_---_-------_------...
+```
 
 Data and reset pulses must be kept LOW for at least 5us. P14 and P15
 must be kept both HIGH for at least 15us between any pulses. Obviously,
@@ -176,21 +180,21 @@ flag).
 
 Each packet is invoked by a RESET pulse, then 128 bits of data are
 transferred (16 bytes, LSB of first byte first), and finally, a
-"0"-bit must be transferred as stop bit. The structure of normal
-packets is:
+"0" bit must be transferred as stop bit. The structure of normal
+packets thus is:
 
-`  1 PULSE Reset`<br>
-`  1 BYTE  Command Code*8+Length`<br>
-` 15 BYTES Parameter Data`<br>
-`  1 BIT   Stop Bit (0)`<br>
+1. 1 pulse: Start signal
+2. 1 byte: Header byte (Command Code \* 8 + Length)
+3. 15 bytes: Parameter Data
+4. 1 bit: Stop Bit (0)
 
 The above "Length" indicates the total number of packets (1-7,
 including the first packet) which will be sent.  If more than 15
 parameter bytes are used, then further packet(s) will follow, as such:
 
-`  1 PULSE Reset`<br>
-` 16 BYTES Parameter Data`<br>
-`  1 BIT   Stop Bit (0)`<br>
+1. 1 pulse: Start signal
+2. 16 bytes: Parameter Data
+3. 1 bit: Stop Bit (0)
 
 By using all 7 packets, up to 111 data bytes (15+16\*6) may be sent.
 Unused bytes at the end of the last packet don't matter. A 60ms (4
@@ -244,32 +248,33 @@ the presence of SGB hardware before blindly sending VRAM data.
 
 ### SGB System Command Table
 
-` Code Name      Expl.`<br>
-` 00   PAL01     Set SGB Palette 0,1 Data`<br>
-` 01   PAL23     Set SGB Palette 2,3 Data`<br>
-` 02   PAL03     Set SGB Palette 0,3 Data`<br>
-` 03   PAL12     Set SGB Palette 1,2 Data`<br>
-` 04   ATTR_BLK  "Block" Area Designation Mode`<br>
-` 05   ATTR_LIN  "Line" Area Designation Mode`<br>
-` 06   ATTR_DIV  "Divide" Area Designation Mode`<br>
-` 07   ATTR_CHR  "1CHR" Area Designation Mode`<br>
-` 08   SOUND     Sound On/Off`<br>
-` 09   SOU_TRN   Transfer Sound PRG/DATA`<br>
-` 0A   PAL_SET   Set SGB Palette Indirect`<br>
-` 0B   PAL_TRN   Set System Color Palette Data`<br>
-` 0C   ATRC_EN   Enable/disable Attraction Mode`<br>
-` 0D   TEST_EN   Speed Function`<br>
-` 0E   ICON_EN   SGB Function`<br>
-` 0F   DATA_SND  SUPER NES WRAM Transfer 1`<br>
-` 10   DATA_TRN  SUPER NES WRAM Transfer 2`<br>
-` 11   MLT_REG   Controller 2 Request`<br>
-` 12   JUMP      Set SNES Program Counter`<br>
-` 13   CHR_TRN   Transfer Character Font Data`<br>
-` 14   PCT_TRN   Set Screen Data Color Data`<br>
-` 15   ATTR_TRN  Set Attribute from ATF`<br>
-` 16   ATTR_SET  Set Data to ATF`<br>
-` 17   MASK_EN   Game Boy Window Mask`<br>
-` 18   OBJ_TRN   Super NES OBJ Mode`<br>
+Code | Name     | Explanation
+-----|----------|--------------
+ $00 | PAL01    | Set SGB Palette 0 &amp; 1
+ $01 | PAL23    | Set SGB Palette 2 &amp; 3
+ $02 | PAL03    | Set SGB Palette 0 &amp; 3
+ $03 | PAL12    | Set SGB Palette 1 &amp; 2
+ $04 | ATTR_BLK | "Block" Area Designation Mode
+ $05 | ATTR_LIN | "Line" Area Designation Mode
+ $06 | ATTR_DIV | "Divide" Area Designation Mode
+ $07 | ATTR_CHR | "1CHR" Area Designation Mode
+ $08 | SOUND    | Sound On/Off
+ $09 | SOU_TRN  | Transfer Sound PRG/DATA
+ $0A | PAL_SET  | Set SGB Palette Indirect
+ $0B | PAL_TRN  | Set System Color Palette Data
+ $0C | ATRC_EN  | Enable/disable Attraction Mode
+ $0D | TEST_EN  | Speed Function
+ $0E | ICON_EN  | SGB Function
+ $0F | DATA_SND | SUPER NES WRAM Transfer 1
+ $10 | DATA_TRN | SUPER NES WRAM Transfer 2
+ $11 | MLT_REG  | Controller 2 Request
+ $12 | JUMP     | Set SNES Program Counter
+ $13 | CHR_TRN  | Transfer Character Font Data
+ $14 | PCT_TRN  | Set Screen Data Color Data
+ $15 | ATTR_TRN | Set Attribute from ATF
+ $16 | ATTR_SET | Set Data to ATF
+ $17 | MASK_EN  | Game Boy Window Mask
+ $18 | OBJ_TRN  | Super NES OBJ Mode
 
 # SGB Color Palettes Overview
 
@@ -285,8 +290,10 @@ these palettes are used. Palettes 4-7 are used for the SGB Border, all
 
 Colors are encoded as 16-bit RGB numbers, in the following way:
 
-` FEDC BA98 7654 3210`<br>
-` 0BBB BBGG GGGR RRRR`<br>
+```
+FEDC BA98 7654 3210
+0BBB BBGG GGGR RRRR
+```
 
 Here's a formula to convert 24-bit RGB into SNES format:
 `(color & 0xF8) << 7 | (color & 0xF800) >> 6 | (color & 0xF80000) >> 19`<br>
@@ -310,19 +317,21 @@ Because the SGB/SNES reads out the Game Boy video controllers display
 signal, it translates the different grayshades from the signal into SNES
 colors as such:
 
-` White       -->  Color 0`<br>
-` Light Gray  -->  Color 1`<br>
-` Dark Gray   -->  Color 2`<br>
-` Black       -->  Color 3`<br>
+```
+White       -->  Color #0
+Light Gray  -->  Color #1
+Dark Gray   -->  Color #2
+Black       -->  Color #3
+```
 
 Note that Game Boy colors 0-3 are assigned to user-selectable grayshades
-by the Game Boy's BGP, OBP1, and OBP2 registers. There is thus no fixed
+by the Game Boy's BGP, OBP0, and OBP1 registers. There is thus no fixed
 relationship between Game Boy colors 0-3 and SNES colors 0-3.
 
 #### Using Game Boy BGP/OBP Registers
 
 A direct translation of GB color 0-3 into SNES color 0-3 may be produced
-by setting BGP/OBP registers to a value of 0E4h each. However, in case
+by setting BGP/OBPx registers to a value of 0E4h each. However, in case
 that your program uses black background for example, then you may
 internally assign background as "White" at the Game Boy side by BGP/OBP
 registers (which is then interpreted as SNES color 0, which is shared
@@ -604,11 +613,11 @@ All 16-bit values are little-endian.
 
 Possible destinations in APU-RAM are:
 
-```
-  $0400-2AFF  APU-RAM Program Area (9.75KBytes)
-  $2B00-4AFF  APU-RAM Sound Score Area (8Kbytes)
-  $4DB0-EEFF  APU-RAM Sampling Data Area (40.25 Kbytes)
-```
+Memory range | Description
+-------------|-------------
+ $0400-2AFF  | APU-RAM Program Area (9.75KBytes)
+ $2B00-4AFF  | APU-RAM Sound Score Area (8Kbytes)
+ $4DB0-EEFF  | APU-RAM Sampling Data Area (40.25 Kbytes)
 
 This function may be used to take control of the SNES sound chip, and/or
 to access the SNES MIDI engine. In either case it requires deeper
@@ -904,13 +913,15 @@ active.
 When having enabled multiple controllers by MLT_REQ, data for each
 joypad can be read out through JOYPAD register (FF00) as follows: First
 set P14 and P15 both HIGH (deselect both Buttons and Cursor keys), you
-can now read the lower 4bits of FF00 which indicate the joypad ID for
+can now read the lower 4 bits of $FF00 which indicate the joypad ID for
 the following joypad input:
 
-` 0Fh  Joypad 1`<br>
-` 0Eh  Joypad 2`<br>
-` 0Dh  Joypad 3`<br>
-` 0Ch  Joypad 4`<br>
+Byte | Player \#
+-----|-----------
+ $0F | 1
+ $0E | 2
+ $0D | 3
+ $0C | 4
 
 Next, read joypad state as normally. When completed, set P14 and P15
 back HIGH, this automatically increments the joypad number (or restarts

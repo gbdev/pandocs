@@ -14,21 +14,11 @@ be found in the following github repository:
 Integrated circuits on the main board
 -------------------------------------
 
-+-------------+----------------------+----------------------+
-| Component\# | Part\# / inscription | Description          |
-+=============+======================+======================+
-| U1          | MAC-GBD\             | I/O, memory control? |
-|             | Nintendo\            |                      |
-|             | 9807 SA              |                      |
-+-------------+----------------------+----------------------+
-| U2          | GBD-PCAX-0 F\        | 1M X 8 ROM           |
-|             | M538011-E -08\       |                      |
-|             | 8145507              |                      |
-+-------------+----------------------+----------------------+
-| U3          | 52CV1000SF85LL\      | 128K X 8 RAM         |
-|             | SHARP JAPAN\         |                      |
-|             | 9805 5 0A            |                      |
-+-------------+----------------------+----------------------+
+| Component\# | Part\# / inscription                       | Description          |
+|-------------|--------------------------------------------|----------------------|
+| U1          | MAC-GBD<br>Nintendo<br>9807 SA             | I/O, memory control? |
+| U2          | GBD-PCAX-0 F<br>M538011-E -08<br>8145507   | 1M X 8 ROM           |
+| U3          | 52CV1000SF85LL<br>SHARP JAPAN<br>9805 5 0A | 128K X 8 RAM         |
 
 Pictures of the innards
 -----------------------
