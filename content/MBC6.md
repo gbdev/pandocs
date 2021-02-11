@@ -94,15 +94,15 @@ The commands and access sequences are as follows, were X refers to
 either 4 or 6 and Y to 5 or 7, depending on the bank region:
 
 ```
-  ------------- ------------- ------------- ------------- ------------- ------------- ------------------------------------------------
-  2:Y555=$AA   1:XAAA=$55   2:Y555=$80   2:Y555=$AA   1:XAAA=$55   ?:X000=$30   Erase sector\* (set 8 kB region to $FFs)
-  2:Y555=$AA   1:XAAA=$55   2:Y555=$80   2:Y555=$AA   1:XAAA=$55   ?:Y555=$10   Erase chip\* (set entire flash to $FFs)
-  2:Y555=$AA   1:XAAA=$55   2:Y555=$90                                             ID mode (reads out JEDEC ID (C2,81) at $X000)
-  2:Y555=$AA   1:XAAA=$55   2:Y555=$A0                                             Program mode\*
-  2:Y555=$AA   1:XAAA=$55   2:Y555=$F0                                             Exit ID/erase chip mode
-  2:Y555=$AA   1:XAAA=$55   ?:X000=$F0                                             Exit erase sector mode
-  ?:????=$F0                                                                         Exit program mode
-  ------------- ------------- ------------- ------------- ------------- ------------- ------------------------------------------------
+------------- ------------- ------------- ------------- ------------- ------------- ------------------------------------------------
+2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    ?:X000=$30    Erase sector\* (set 8 kB region to $FFs)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    ?:Y555=$10    Erase chip\* (set entire flash to $FFs)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$90                                                 ID mode (reads out JEDEC ID (C2,81) at $X000)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$A0                                                 Program mode\*
+2:Y555=$AA    1:XAAA=$55    2:Y555=$F0                                                 Exit ID/erase chip mode
+2:Y555=$AA    1:XAAA=$55    ?:X000=$F0                                                 Exit erase sector mode
+?:????=$F0                                                                               Exit program mode
+------------- ------------- ------------- ------------- ------------- ------------- ------------------------------------------------
 ```
 
 Commands marked with \* require the Write Enable bit to be 1. These will

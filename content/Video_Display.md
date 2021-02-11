@@ -42,12 +42,12 @@ that memory is inaccessible to the CPU.
 -   During mode 3, the CPU cannot access VRAM or CGB Palette Data
     (FF69,FF6B).
 
-| Mode    | Action                                                                | Duration                                                           | Accessible video memory |
-|---------|-----------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------|
-|2        |Scanning OAM for (X, Y) coordinates of sprites that overlap this line  |80 dots (19 us)                                                     |VRAM, CGB palettes       |
-|3        |Reading OAM and VRAM to generate the picture                           |168 to 291 dots (40 to 60 us) depending on sprite count           |None                     |
-|0        |Horizontal blanking                                                    |85 to 208 dots (20 to 49 us) depending on previous mode 3 duration  |VRAM, OAM, CGB palettes  |
-|1        |Vertical blanking                                                      |4560 dots (1087 us, 10 scanlines)                                   |VRAM, OAM, CGB palettes  |
+| Mode    | Action                                                                | Duration                                                           | Accessible video memory
+|---------|-----------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------
+|    2    | Scanning OAM for (X, Y) coordinates of sprites that overlap this line | 80 dots (19 us)                                                    | VRAM, CGB palettes
+|    3    | Reading OAM and VRAM to generate the picture                          | 168 to 291 dots (40 to 60 us) depending on sprite count            | None
+|    0    | Horizontal blanking                                                   | 85 to 208 dots (20 to 49 us) depending on previous mode 3 duration | VRAM, OAM, CGB palettes
+|    1    | Vertical blanking                                                     | 4560 dots (1087 us, 10 scanlines)                                  | VRAM, OAM, CGB palettes
 
 ### Properties of STAT modes
 
@@ -158,20 +158,18 @@ This register assigns gray shades to the color numbers of the BG and
 Window tiles.
 
 ```
-Bit 7-6 - Shade for Color Number 3
-Bit 5-4 - Shade for Color Number 2
-Bit 3-2 - Shade for Color Number 1
-Bit 1-0 - Shade for Color Number 0
+Bit 7-6 - Color for index 3
+Bit 5-4 - Color for index 2
+Bit 3-2 - Color for index 1
+Bit 1-0 - Color for index 0
 ```
 
-The four possible gray shades are:
-
-```
-0  White
-1  Light gray
-2  Dark gray
-3  Black
-```
+Value | Color
+------|-------
+  0   | White
+  1   | Light gray
+  2   | Dark gray
+  3   | Black
 
 In CGB Mode the Color Palettes are taken from CGB Palette Memory
 instead.

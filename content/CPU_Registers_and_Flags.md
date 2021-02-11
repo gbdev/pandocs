@@ -1,28 +1,25 @@
 ### Registers
 
-
- 16-bit|Hi|Lo|Name/Function
-:-----:|:-----:|:-----:|:-----:
- AF| A| -| Accumulator & Flags
- BC| B| C| BC
- DE| D| E| DE
- HL| H| L| HL
- SP| -| -| Stack Pointer
- PC| -| -| Program Counter/Pointer
-
+16-bit |Hi |Lo | Name/Function
+-------|---|---|--------------
+   AF  | A | - | Accumulator & Flags
+   BC  | B | C | BC
+   DE  | D | E | DE
+   HL  | H | L | HL
+   SP  | - | - | Stack Pointer
+   PC  | - | - | Program Counter/Pointer
 
 As shown above, most registers can be accessed either as one 16-bit
 register, or as two separate 8-bit registers.
 
-### The Flag Register (lower 8-bit of AF register)
+### The Flags Register (lower 8 bits of AF register)
 
-Bit|Name|Set|Clr|Expl.
-:-----:|:-----:|:-----:|:-----:|:-----:
-7|zf|Z|NZ|Zero Flag
-6|n| -|-|Add/Sub-Flag (BCD)
-5|h| -|-|Half Carry Flag (BCD)
-4|cy|C|NC|Carry Flag
-
+Bit | Name | Explanation
+----|------|-------
+  7 |   z  | Zero flag
+  6 |   n  | Add/Sub flag (BCD)
+  5 |   h  | Half Carry flag (BCD)
+  4 |   c  | Carry flag
 
 Contains the result from the recent instruction which has affected
 flags.

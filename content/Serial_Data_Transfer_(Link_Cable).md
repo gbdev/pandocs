@@ -56,12 +56,12 @@ In Non-CGB Mode the Game Boy supplies an internal clock of 8192Hz only
 In CGB Mode four internal clock rates are available, depending on Bit 1
 of the SC register, and on whether the CGB Double Speed Mode is used:
 
-```
-   8192Hz -  1KB/s - Bit 1 cleared, Normal
-  16384Hz -  2KB/s - Bit 1 cleared, Double Speed Mode
- 262144Hz - 32KB/s - Bit 1 set,     Normal
- 524288Hz - 64KB/s - Bit 1 set,     Double Speed Mode
-```
+Clock freq | Transfer speed | Conditions
+-----------|----------------|------------
+   8192Hz  |      1KB/s     | Bit 1 cleared, Normal speed
+  16384Hz  |      2KB/s     | Bit 1 cleared, Double-speed Mode
+ 262144Hz  |     32KB/s     | Bit 1 set,     Normal speed
+ 524288Hz  |     64KB/s     | Bit 1 set,     Double-speed Mode
 
 ### External Clock
 
