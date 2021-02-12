@@ -46,7 +46,7 @@ the cartridge, which is essentially an expansion board.  Typically this
 is a ROM and SRAM or, more often, a [Memory Bank Controller
 (MBC)](#memory-bank-controllers). The RAM area can be read
 from and written to normally; writes to the ROM area control the MBC.
-some MBCs allow mapping of other hardware into the RAM area in this
+Some MBCs allow mapping of other hardware into the RAM area in this
 way.
 
 Cartridge RAM is often battery buffered to hold saved game positions,
