@@ -134,7 +134,7 @@ The Game Boy permanently compares the value of the LYC and LY registers.
 When both values are identical, the coincident bit in the STAT register
 becomes set, and (if enabled) a STAT interrupt is requested.
 
-### FF4A - WY - Window Y Position (R/W), FF4B - WX - Window X Position minus 7 (R/W)
+### FF4A - WY - Window Y Position (R/W), FF4B - WX - Window X Position plus 7 (R/W)
 
 Specifies the upper/left positions of the Window area. (The window is an
 alternate background area which can be displayed above of the normal
