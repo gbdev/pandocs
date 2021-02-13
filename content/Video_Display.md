@@ -738,7 +738,7 @@ Mode 0 - H-Blank Period
 Mode 1 - V-Blank Period
 ```
 
-Aside from that, OAM can be accessed at any time by using the DMA
+During those modes, OAM can be accessed at any time by using the DMA
 Function (FF46). When directly reading or writing to OAM, a typical
 procedure that waits for accessibility of OAM Memory would be:
 
