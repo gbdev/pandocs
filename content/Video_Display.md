@@ -616,7 +616,7 @@ off-screen value (for example, Y=0 or Y\>=160) hides the sprite.
 
 Specifies the sprites horizontal position on the screen (minus 8). An
 off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
-affects the priority ordering - a better way to hide a sprite is to set
+counts towards the ten sprites limit per scan line - a better way to hide a sprite is to set
 its Y-coordinate off-screen.
 
 ### Byte2 - Tile/Pattern Number
