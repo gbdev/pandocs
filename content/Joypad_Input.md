@@ -16,7 +16,7 @@ Bit 0 - P10 Input Right or Button A (0=Pressed) (Read Only)
 ```
 
 ::: tip NOTE
-Most programs are repeatedly reading from this port several times
+Most programs read from this port several times in a row
 (the first reads used as short delay, allowing the inputs to stabilize,
 and only the value from the last read actually used).
 :::
