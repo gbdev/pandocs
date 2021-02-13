@@ -609,12 +609,12 @@ four bytes with the following meanings:
 
 ### Byte0 - Y Position
 
-Specifies the sprites vertical position on the screen (minus 16). An
+Specifies the sprites vertical position on the screen (plus 16). An
 off-screen value (for example, Y=0 or Y\>=160) hides the sprite.
 
 ### Byte1 - X Position
 
-Specifies the sprites horizontal position on the screen (minus 8). An
+Specifies the sprites horizontal position on the screen (plus 8). An
 off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
 affects the priority ordering - a better way to hide a sprite is to set
 its Y-coordinate off-screen.
