@@ -609,15 +609,23 @@ four bytes with the following meanings:
 
 ### Byte0 - Y Position
 
-Specifies the sprites vertical position on the screen (minus 16). An
-off-screen value (for example, Y=0 or Y\>=160) hides the sprite.
+Y = Sprite's vertical position on the screen + 16. So for example,
+Y=0 hides a sprite,
+Y=2 hides a 8x8 sprite but displays the last two rows of a 8x16 sprite,
+Y=16 displays a sprite at the top of the screen,
+Y=144 displays a 8x16 sprite aligned with the bottom of the screen,
+Y=152 displays a 8x8 sprite aligned with the bottom of the screen,
+Y=154 displays the first six rows of a sprite at the bottom of the screen,
+Y=160 hides a sprite.
 
 ### Byte1 - X Position
 
-Specifies the sprites horizontal position on the screen (minus 8). An
+X = Sprite's horizontal position on the screen + 8. This works similarly
+to the examples above, except that the width of a sprite is always 8. An
 off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
-affects the priority ordering - a better way to hide a sprite is to set
-its Y-coordinate off-screen.
+affects the priority ordering, thus other sprites with lower priority may be
+left out due to the ten sprites limit per scan-line.
+A better way to hide a sprite is to set its Y-coordinate off-screen.
 
 ### Byte2 - Tile/Pattern Number
 
