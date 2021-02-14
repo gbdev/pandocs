@@ -611,7 +611,7 @@ four bytes with the following meanings:
 
 Y = Sprite's vertical position on the screen + 16. So for example,
 Y=0 hides a sprite,
-Y=2 hides a 8x8 sprite but displays the first two rows of a 8x16 sprite,
+Y=2 hides a 8x8 sprite but displays the last two rows of a 8x16 sprite,
 Y=16 displays a sprite at the top of the screen,
 Y=144 displays a 8x16 sprite aligned with the bottom of the screen,
 Y=152 displays a 8x8 sprite aligned with the bottom of the screen,
