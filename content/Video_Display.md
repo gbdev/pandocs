@@ -620,8 +620,8 @@ Y=160 hides a sprite.
 
 ### Byte1 - X Position
 
-X = Sprite's horizontal position on the screen + 8. This works like the examples
-above but simpler, because the width of a sprite is always 8. An
+X = Sprite's horizontal position on the screen + 8. This works similarly
+to the examples above, except that the width of a sprite is always 8. An
 off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
 affects the priority ordering, thus other sprites with lower priority may be
 left out due to the ten sprites limit per scan-line.
