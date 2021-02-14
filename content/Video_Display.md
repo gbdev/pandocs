@@ -738,8 +738,11 @@ Mode 0 - H-Blank Period
 Mode 1 - V-Blank Period
 ```
 
-Aside from that, OAM can be accessed at any time by using the DMA
-Function (FF46). When directly reading or writing to OAM, a typical
+During those modes, OAM can be accessed at any time by using the DMA
+Function (FF46). Outside those modes, DMA out-prioritizes the PPU in 
+accessing OAM, and the PPU will read $FF from OAM during that time.
+
+When directly reading or writing to OAM, a typical
 procedure that waits for accessibility of OAM Memory would be:
 
 ```
