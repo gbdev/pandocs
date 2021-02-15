@@ -26,7 +26,7 @@ Game Boy graphics are also called *2bpp*, 2 bits per pixel. These color IDs
 are then associated with a *palette*.
 
 A palette consists in a array of colors, 4 in the Game Boy's case.
-Palettes are stored differently in monoschrome and color versions of the console.
+Palettes are stored differently in monochrome and color versions of the console.
 When applied to a tile, each color ID is used as an index to select the color
 in the palette array, which then gets sent to the LCD.
 
