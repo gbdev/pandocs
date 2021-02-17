@@ -1,10 +1,10 @@
-# LCD Status Register
+# STAT Register
 
 ::: tip TERMINOLOGY
 A *dot* is the shortest period over which the PPU can output one pixel: is it equivalent to 1 T-state on DMG or on CGB single-speed mode or 2 T-states on CGB double-speed mode. On each dot during mode 3, either the PPU outputs a pixel or the fetcher is stalling the [FIFOs](#pixel-fifo).
 :::
 
-### FF41 - STAT - LCDC Status (R/W)
+### FF41 - STAT (R/W)
 
 ```
 Bit 6 - LYC=LY Coincidence Interrupt (1=Enable) (Read/Write)
@@ -90,7 +90,7 @@ V-Blank period (LY=144). During this period video hardware is not using
 VRAM so it may be freely accessed. This period lasts approximately 1.1
 milliseconds.
 
-### INT 48 - LCDC Status Interrupt
+### INT 48 - STAT Interrupt
 
 There are various reasons for this interrupt to occur as described by
 the STAT register (\$FF41). One very popular reason is to indicate to
@@ -105,11 +105,11 @@ hidden by the text box.
 
 As we saw in the description of the STAT register, the LCD Controller cycles
 through the different modes in a fixed order. If we set the STAT bits
-in such a way that they would interrupt the LCD Controller at two
+in a way that they would interrupt the LCD Controller at two
 consecutive modes, then the second interrupt will not trigger. So for example,
-if the Mode 0 and LY=LYC interrupts are enabled, the LY=LYC interrupt may
-not trigger. This is because the LY=LYC interrupt triggers during Mode 2
-(which usually goes right after Mode 0).
+if we enable the interrupts for Mode 0 and LY=LYC (which triggers during Mode 2),
+the LY=LYC interrupt will not trigger unless we are lucky and there is a Mode 1
+between Mode 0 and Mode 2 (which only happens once for every frame).
 
 # LCD Position and Scrolling
 
