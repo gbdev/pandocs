@@ -108,8 +108,8 @@ through the different modes in a fixed order. If we set the STAT bits
 in a way that they would interrupt the LCD Controller at two
 consecutive modes, then the second interrupt will not trigger. So for example,
 if we enable the interrupts for Mode 0 and LY=LYC (which triggers during Mode 2),
-the LY=LYC interrupt will not trigger unless we are lucky and there is a Mode 1
-between Mode 0 and Mode 2 (which only happens once for every frame).
+the LY=LYC interrupt will not trigger unless there is a Mode 1 between Mode 0
+and Mode 2 (which only happens at the end of every frame).
 
 # LCD Position and Scrolling
 
