@@ -81,7 +81,6 @@ The Game Boy uses the following I/O ranges:
 |   $FF30   |  $FF3F  |     DMG      | Waveform RAM
 |   $FF40   |  $FF4B  |     DMG      | LCD
 |   $FF4F   |         |     CGB      | VRAM Bank Select
-|   $FF50   |         |     DMG      | Set to non-zero to disable boot ROM
 |   $FF51   |  $FF55  |     CGB      | HDMA
 |   $FF68   |  $FF69  |     CGB      | BCP/OCP
 |   $FF70   |         |     CGB      | WRAM Bank Select
