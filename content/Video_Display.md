@@ -4,7 +4,7 @@
 A *dot* is the shortest period over which the PPU can output one pixel: is it equivalent to 1 T-state on DMG or on CGB single-speed mode or 2 T-states on CGB double-speed mode. On each dot during mode 3, either the PPU outputs a pixel or the fetcher is stalling the [FIFOs](#pixel-fifo).
 :::
 
-### FF41 - STAT - LCDC Status (R/W)
+### FF41 - STAT (LCDC Status) (R/W)
 
 ```
 Bit 6 - LYC=LY Coincidence Interrupt (1=Enable) (Read/Write)
@@ -114,7 +114,7 @@ trigger for Mode 0 but fail to for LY=LYC.
 These registers can be accessed even during Mode 3, but they have no
 effect until the end of the current scanline.
 
-### FF42 - SCY - Scroll Y (R/W), FF43 - SCX - Scroll X (R/W)
+### FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)
 
 Specifies the position in the 256x256 pixels BG map (32x32 tiles) which
 is to be displayed at the upper/left LCD display position. Values in
@@ -122,13 +122,13 @@ range from 0-255 may be used for X/Y each, the video controller
 automatically wraps back to the upper (left) position in BG map when
 drawing exceeds the lower (right) border of the BG map area.
 
-### FF44 - LY - LCDC Y-Coordinate (R)
+### FF44 - LY (LCDC Y-Coordinate) (R)
 
 The LY indicates the vertical line to which the present data is
 transferred to the LCD Driver. The LY can take on any value between 0
 through 153. The values between 144 and 153 indicate the V-Blank period.
 
-### FF45 - LYC - LY Compare (R/W)
+### FF45 - LYC (LY Compare) (R/W)
 
 The Game Boy permanently compares the value of the LYC and LY registers.
 When both values are identical, the coincident bit in the STAT register
@@ -152,7 +152,7 @@ should try it yourself.)
 
 # LCD Monochrome Palettes
 
-### FF47 - BGP - BG Palette Data (R/W) - Non CGB Mode Only
+### FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades to the color numbers of the BG and
 Window tiles.
@@ -174,13 +174,13 @@ Value | Color
 In CGB Mode the Color Palettes are taken from CGB Palette Memory
 instead.
 
-### FF48 - OBP0 - Object Palette 0 Data (R/W) - Non CGB Mode Only
+### FF48 - OBP0 (Object Palette 0 Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades for sprite palette 0. It works exactly
 as BGP (FF47), except that the lower two bits aren't used because
 sprite data 00 is transparent.
 
-### FF49 - OBP1 - Object Palette 1 Data (R/W) - Non CGB Mode Only
+### FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades for sprite palette 1. It works exactly
 as BGP (FF47), except that the lower two bits aren't used because
@@ -188,7 +188,7 @@ sprite data 00 is transparent.
 
 # LCD Color Palettes (CGB only)
 
-### FF68 - BCPS/BGPI - CGB Mode Only - Background Color Palette Specification or Background Palette Index
+### FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only
 
 This register is used to address a byte in the CGBs Background Palette
 Memory. Each two byte in that memory define a color value. The first 8
@@ -209,7 +209,7 @@ auto-increment to occur.
 Unlike the following, this register can be accessed outside V-Blank and
 H-Blank.
 
-### FF69 - BCPD/BGPD - CGB Mode Only - Background Color Palette Data or Background Palette Data
+### FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only
 
 This register allows to read/write data to the CGBs Background Palette
 Memory, addressed through Register FF68. Each color is defined by two
@@ -227,7 +227,7 @@ register indicates Mode 3). Note: All background colors are initialized
 as white by the boot ROM, but it's a good idea to initialize at least
 one color yourself (for example if you include a soft-reset mechanic).
 
-### FF6A - OCPS/OBPI Object Color Palette Specification or Sprite Palette Index, FF6B - OCPD/OBPD Object Color Palette Data or Sprite Palette Data - Both CGB Mode Only
+### FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only
 
 These registers are used to initialize the Sprite Palettes OBP0-7,
 identically as described above for Background Palettes. Note that four
@@ -283,7 +283,7 @@ of this brightness correction.
 
 # LCD OAM DMA Transfers
 
-### FF46 - DMA - DMA Transfer and Start Address (R/W)
+### FF46 - DMA (DMA Transfer and Start Address) (R/W)
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 memory (sprite attribute table). The written value specifies the
@@ -343,9 +343,9 @@ the jump into the HRAM part.
 
 # LCD VRAM DMA Transfers (CGB only)
 
-### FF51 - HDMA1 - CGB Mode Only - New DMA Source, High
+### FF51 - HDMA1 (New DMA Source, High) - CGB Mode Only
 
-### FF52 - HDMA2 - CGB Mode Only - New DMA Source, Low
+### FF52 - HDMA2 (New DMA Source, Low) - CGB Mode Only
 
 These two registers specify the address at which the transfer will read
 data from. Normally, this should be either in ROM, SRAM or WRAM, thus
@@ -355,15 +355,15 @@ address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF53 - HDMA3 - CGB Mode Only - New DMA Destination, High
+### FF53 - HDMA3 (New DMA Destination, High) - CGB Mode Only
 
-### FF54 - HDMA4 - CGB Mode Only - New DMA Destination, Low
+### FF54 - HDMA4 (New DMA Destination, Low) - CGB Mode Only
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF55 - HDMA5 - CGB Mode Only - New DMA Length/Mode/Start
+### FF55 - HDMA5 (New DMA Length/Mode/Start) - CGB Mode Only
 
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
