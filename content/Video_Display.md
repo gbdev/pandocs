@@ -653,8 +653,7 @@ tile is "NN AND FEh", and the lower 8x8 tile is "NN OR 01h".
 During each scanline's OAM scan, the LCD controller compares LY to each
 sprite's Y position to find the 10 sprites on that line that appear
 first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
-allowing only 10 sprites to be displayed on any one line. When this
-limit is exceeded, sprites appearing later in OAM won't be displayed.
+displaying only those 10 sprites on that line.
 To keep unused sprites from affecting onscreen sprites, set their Y
 coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note : Y \<= 8 also works
 if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
