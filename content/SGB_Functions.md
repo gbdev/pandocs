@@ -132,11 +132,13 @@ as described above.
 ### Separating between SGB and SGB2
 
 It is also possible to separate between SGB and SGB2 models by examining
-the inital value of the accumulator (A-register) directly after startup.
+the inital value of the accumulator (register A) directly after startup.
 
-- 01h - SGB or original Game Boy (DMG)`
-- FFh - SGB2 or Game Boy Pocket
-- 11h - CGB or GBA
+Value | Console
+------|---------
+ $01  | SGB or original Game Boy (DMG)
+ $FF  | SGB2 or Game Boy Pocket
+ $11  | CGB or GBA
 
 Because values 01h and FFh are shared for both handhelds and SGBs, it is
 still required to use the above MLT_REQ detection procedure. As far as
@@ -160,9 +162,11 @@ to LOW, this will reset and start the SNES packet receiving program.
 Data is then transferred (LSB first), setting P14=LOW will indicate a
 "0" bit, and setting P15=LOW will indicate a "1" bit. For example:
 
-`      RESET 0   0   1   1   0   1   0`<br>
-` P14  --_---_---_-----------_-------_--...`<br>
-` P15  --_-----------_---_-------_------...`<br>
+```
+    RESET  0   0   1   1   0   1   0
+P14  --_---_---_-----------_-------_--...
+P15  --_-----------_---_-------_------...
+```
 
 Data and reset pulses must be kept LOW for at least 5us. P14 and P15
 must be kept both HIGH for at least 15us between any pulses. Obviously,
@@ -176,21 +180,21 @@ flag).
 
 Each packet is invoked by a RESET pulse, then 128 bits of data are
 transferred (16 bytes, LSB of first byte first), and finally, a
-"0"-bit must be transferred as stop bit. The structure of normal
-packets is:
+"0" bit must be transferred as stop bit. The structure of normal
+packets thus is:
 
-`  1 PULSE Reset`<br>
-`  1 BYTE  Command Code*8+Length`<br>
-` 15 BYTES Parameter Data`<br>
-`  1 BIT   Stop Bit (0)`<br>
+1. 1 pulse: Start signal
+2. 1 byte: Header byte (Command Code \* 8 + Length)
+3. 15 bytes: Parameter Data
+4. 1 bit: Stop Bit (0)
 
 The above "Length" indicates the total number of packets (1-7,
 including the first packet) which will be sent.  If more than 15
 parameter bytes are used, then further packet(s) will follow, as such:
 
-`  1 PULSE Reset`<br>
-` 16 BYTES Parameter Data`<br>
-`  1 BIT   Stop Bit (0)`<br>
+1. 1 pulse: Start signal
+2. 16 bytes: Parameter Data
+3. 1 bit: Stop Bit (0)
 
 By using all 7 packets, up to 111 data bytes (15+16\*6) may be sent.
 Unused bytes at the end of the last packet don't matter. A 60ms (4
@@ -244,39 +248,40 @@ the presence of SGB hardware before blindly sending VRAM data.
 
 ### SGB System Command Table
 
-` Code Name      Expl.`<br>
-` 00   PAL01     Set SGB Palette 0,1 Data`<br>
-` 01   PAL23     Set SGB Palette 2,3 Data`<br>
-` 02   PAL03     Set SGB Palette 0,3 Data`<br>
-` 03   PAL12     Set SGB Palette 1,2 Data`<br>
-` 04   ATTR_BLK  "Block" Area Designation Mode`<br>
-` 05   ATTR_LIN  "Line" Area Designation Mode`<br>
-` 06   ATTR_DIV  "Divide" Area Designation Mode`<br>
-` 07   ATTR_CHR  "1CHR" Area Designation Mode`<br>
-` 08   SOUND     Sound On/Off`<br>
-` 09   SOU_TRN   Transfer Sound PRG/DATA`<br>
-` 0A   PAL_SET   Set SGB Palette Indirect`<br>
-` 0B   PAL_TRN   Set System Color Palette Data`<br>
-` 0C   ATRC_EN   Enable/disable Attraction Mode`<br>
-` 0D   TEST_EN   Speed Function`<br>
-` 0E   ICON_EN   SGB Function`<br>
-` 0F   DATA_SND  SUPER NES WRAM Transfer 1`<br>
-` 10   DATA_TRN  SUPER NES WRAM Transfer 2`<br>
-` 11   MLT_REG   Controller 2 Request`<br>
-` 12   JUMP      Set SNES Program Counter`<br>
-` 13   CHR_TRN   Transfer Character Font Data`<br>
-` 14   PCT_TRN   Set Screen Data Color Data`<br>
-` 15   ATTR_TRN  Set Attribute from ATF`<br>
-` 16   ATTR_SET  Set Data to ATF`<br>
-` 17   MASK_EN   Game Boy Window Mask`<br>
-` 18   OBJ_TRN   Super NES OBJ Mode`<br>
+Code | Name     | Explanation
+-----|----------|--------------
+ $00 | PAL01    | Set SGB Palette 0 &amp; 1
+ $01 | PAL23    | Set SGB Palette 2 &amp; 3
+ $02 | PAL03    | Set SGB Palette 0 &amp; 3
+ $03 | PAL12    | Set SGB Palette 1 &amp; 2
+ $04 | ATTR_BLK | "Block" Area Designation Mode
+ $05 | ATTR_LIN | "Line" Area Designation Mode
+ $06 | ATTR_DIV | "Divide" Area Designation Mode
+ $07 | ATTR_CHR | "1CHR" Area Designation Mode
+ $08 | SOUND    | Sound On/Off
+ $09 | SOU_TRN  | Transfer Sound PRG/DATA
+ $0A | PAL_SET  | Set SGB Palette Indirect
+ $0B | PAL_TRN  | Set System Color Palette Data
+ $0C | ATRC_EN  | Enable/disable Attraction Mode
+ $0D | TEST_EN  | Speed Function
+ $0E | ICON_EN  | SGB Function
+ $0F | DATA_SND | SUPER NES WRAM Transfer 1
+ $10 | DATA_TRN | SUPER NES WRAM Transfer 2
+ $11 | MLT_REG  | Controller 2 Request
+ $12 | JUMP     | Set SNES Program Counter
+ $13 | CHR_TRN  | Transfer Character Font Data
+ $14 | PCT_TRN  | Set Screen Data Color Data
+ $15 | ATTR_TRN | Set Attribute from ATF
+ $16 | ATTR_SET | Set Data to ATF
+ $17 | MASK_EN  | Game Boy Window Mask
+ $18 | OBJ_TRN  | Super NES OBJ Mode
 
 # SGB Color Palettes Overview
 
 ### Available SNES Palettes
 
 The SGB/SNES provides 8 palettes of 16 colors each, each color may be
-defined out of a selection of 34768 colors (15 bit). Palettes 0-3 are
+defined out of a selection of 32768 colors (15 bit). Palettes 0-3 are
 used to colorize the gamescreen, only the first four colors of each of
 these palettes are used. Palettes 4-7 are used for the SGB Border, all
 16 colors of each of these palettes may be used.
@@ -285,8 +290,10 @@ these palettes are used. Palettes 4-7 are used for the SGB Border, all
 
 Colors are encoded as 16-bit RGB numbers, in the following way:
 
-` FEDC BA98 7654 3210`<br>
-` 0BBB BBGG GGGR RRRR`<br>
+```
+FEDC BA98 7654 3210
+0BBB BBGG GGGR RRRR
+```
 
 Here's a formula to convert 24-bit RGB into SNES format:
 `(color & 0xF8) << 7 | (color & 0xF800) >> 6 | (color & 0xF80000) >> 19`<br>
@@ -310,19 +317,21 @@ Because the SGB/SNES reads out the Game Boy video controllers display
 signal, it translates the different grayshades from the signal into SNES
 colors as such:
 
-` White       -->  Color 0`<br>
-` Light Gray  -->  Color 1`<br>
-` Dark Gray   -->  Color 2`<br>
-` Black       -->  Color 3`<br>
+```
+White       -->  Color #0
+Light Gray  -->  Color #1
+Dark Gray   -->  Color #2
+Black       -->  Color #3
+```
 
 Note that Game Boy colors 0-3 are assigned to user-selectable grayshades
-by the Game Boy's BGP, OBP1, and OBP2 registers. There is thus no fixed
+by the Game Boy's BGP, OBP0, and OBP1 registers. There is thus no fixed
 relationship between Game Boy colors 0-3 and SNES colors 0-3.
 
 #### Using Game Boy BGP/OBP Registers
 
 A direct translation of GB color 0-3 into SNES color 0-3 may be produced
-by setting BGP/OBP registers to a value of 0E4h each. However, in case
+by setting BGP/OBPx registers to a value of 0E4h each. However, in case
 that your program uses black background for example, then you may
 internally assign background as "White" at the Game Boy side by BGP/OBP
 registers (which is then interpreted as SNES color 0, which is shared
@@ -591,17 +600,24 @@ Used to transfer sound code or data to SNES Audio Processing Unit memory
 ` 1-F   Not used (zero)`<br>
 
 The sound code/data is sent by VRAM-Transfer (4 KBytes).
+All 16-bit values are little-endian.
 
-` 000      One (or two ???) 16-bit expression(s ???) indicating the`<br>
-`          transfer destination address and transfer length.`<br>
-` ...-...  Transfer Data`<br>
-` ...-FFF  Remaining bytes not used`<br>
+```
+ 000-001  Size of transfer data
+ 002-003  Destination address in S-APU RAM (typically $2B00, see below)
+ 004-XXX  Data to be transferred
+ X+1-X+2  "End marker" (???), should be $0000
+ X+3-X+4  S-APU jump address, should be $0400
+ X+5-FFF  Remaining bytes ignored
+```
 
 Possible destinations in APU-RAM are:
 
-` 0400h-2AFFh  APU-RAM Program Area (9.75KBytes)`<br>
-` 2B00h-4AFFh  APU-RAM Sound Score Area (8Kbytes)`<br>
-` 4DB0h-EEFFh  APU-RAM Sampling Data Area (40.25 Kbytes)`<br>
+Memory range | Description
+-------------|-------------
+ $0400-2AFF  | APU-RAM Program Area (9.75KBytes)
+ $2B00-4AFF  | APU-RAM Sound Score Area (8Kbytes)
+ $4DB0-EEFF  | APU-RAM Sampling Data Area (40.25 Kbytes)
 
 This function may be used to take control of the SNES sound chip, and/or
 to access the SNES MIDI engine. In either case it requires deeper
@@ -610,61 +626,100 @@ knowledge of SNES sound programming.
 ### SGB Sound Effect A/B Tables
 
 Below lists the digital sound effects that are pre-defined in the
-SGB/SNES BIOS, and which can be used with the SGB "SOUND" Command.
-Effect A and B may be simultaneously reproduced. The P-column indicates
-the recommended Pitch value, the V-column indicates the numbers of
-Voices used. Sound Effect A uses voices 6,7. Sound Effect B uses voices
-0,1,4,5. Effects that use less voices will use only the upper voices
-(eg. 4,5 for Effect B with only two voices).
+SGB BIOS, and which can be used with the SGB "SOUND" Command.
+Effect A and B may be simultaneously used.
+Sound Effect A uses channels 6 and 7, Sound Effect B uses channels
+0, 1, 4 and 5. Effects that use less channels will use only the upper channels
+(eg. 4 and 5 for a B Effect with only two channels).
 
 ### Sound Effect A Flag Table
 
-` Code Description             P V     Code Description             P V`<br>
-` 00  Dummy flag, re-trigger   - 2     18  Fast Jump                3 1`<br>
-` 80  Effect A, stop/silent    - 2     19  Jet (rocket) takeoff     0 1`<br>
-` 01  Nintendo                 3 1     1A  Jet (rocket) landing     0 1`<br>
-` 02  Game Over                3 2     1B  Cup breaking             2 2`<br>
-` 03  Drop                     3 1     1C  Glass breaking           1 2`<br>
-` 04  OK ... A                 3 2     1D  Level UP                 2 2`<br>
-` 05  OK ... B                 3 2     1E  Insert air               1 1`<br>
-` 06  Select...A               3 2     1F  Sword swing              1 1`<br>
-` 07  Select...B               3 1     20  Water falling            2 1`<br>
-` 08  Select...C               2 2     21  Fire                     1 1`<br>
-` 09  Mistake...Buzzer         2 1     22  Wall collapsing          1 2`<br>
-` 0A  Catch Item               2 2     23  Cancel                   1 2`<br>
-` 0B  Gate squeaks 1 time      2 2     24  Walking                  1 2`<br>
-` 0C  Explosion...small        1 2     25  Blocking strike          1 2`<br>
-` 0D  Explosion...medium       1 2     26  Picture floats on & off  3 2`<br>
-` 0E  Explosion...large        1 2     27  Fade in                  0 2`<br>
-` 0F  Attacked...A             3 1     28  Fade out                 0 2`<br>
-` 10  Attacked...B             3 2     29  Window being opened      1 2`<br>
-` 11  Hit (punch)...A          0 2     2A  Window being closed      0 2`<br>
-` 12  Hit (punch)...B          0 2     2B  Big Laser                3 2`<br>
-` 13  Breath in air            3 2     2C  Stone gate closes/opens  0 2`<br>
-` 14  Rocket Projectile...A    3 2     2D  Teleportation            3 1`<br>
-` 15  Rocket Projectile...B    3 2     2E  Lightning                0 2`<br>
-` 16  Escaping Bubble          2 1     2F  Earthquake               0 2`<br>
-` 17  Jump                     3 1     30  Small Laser              2 2`<br>
+| Code | Description             | Recommended pitch | Nb of channels used
+|------|-------------------------|-------------------|--------------------
+|  00  | Dummy flag, re-trigger  |  -                |  2
+|  01  | Nintendo                |  3                |  1
+|  02  | Game Over               |  3                |  2
+|  03  | Drop                    |  3                |  1
+|  04  | OK ... A                |  3                |  2
+|  05  | OK ... B                |  3                |  2
+|  06  | Select...A              |  3                |  2
+|  07  | Select...B              |  3                |  1
+|  08  | Select...C              |  2                |  2
+|  09  | Mistake...Buzzer        |  2                |  1
+|  0A  | Catch Item              |  2                |  2
+|  0B  | Gate squeaks 1 time     |  2                |  2
+|  0C  | Explosion...small       |  1                |  2
+|  0D  | Explosion...medium      |  1                |  2
+|  0E  | Explosion...large       |  1                |  2
+|  0F  | Attacked...A            |  3                |  1
+|  10  | Attacked...B            |  3                |  2
+|  11  | Hit (punch)...A         |  0                |  2
+|  12  | Hit (punch)...B         |  0                |  2
+|  13  | Breath in air           |  3                |  2
+|  14  | Rocket Projectile...A   |  3                |  2
+|  15  | Rocket Projectile...B   |  3                |  2
+|  16  | Escaping Bubble         |  2                |  1
+|  17  | Jump                    |  3                |  1
+|  18  | Fast Jump               |  3                |  1
+|  19  | Jet (rocket) takeoff    |  0                |  1
+|  1A  | Jet (rocket) landing    |  0                |  1
+|  1B  | Cup breaking            |  2                |  2
+|  1C  | Glass breaking          |  1                |  2
+|  1D  | Level UP                |  2                |  2
+|  1E  | Insert air              |  1                |  1
+|  1F  | Sword swing             |  1                |  1
+|  20  | Water falling           |  2                |  1
+|  21  | Fire                    |  1                |  1
+|  22  | Wall collapsing         |  1                |  2
+|  23  | Cancel                  |  1                |  2
+|  24  | Walking                 |  1                |  2
+|  25  | Blocking strike         |  1                |  2
+|  26  | Picture floats on & off |  3                |  2
+|  27  | Fade in                 |  0                |  2
+|  28  | Fade out                |  0                |  2
+|  29  | Window being opened     |  1                |  2
+|  2A  | Window being closed     |  0                |  2
+|  2B  | Big Laser               |  3                |  2
+|  2C  | Stone gate closes/opens |  0                |  2
+|  2D  | Teleportation           |  3                |  1
+|  2E  | Lightning               |  0                |  2
+|  2F  | Earthquake              |  0                |  2
+|  30  | Small Laser             |  2                |  2
+|  80  | Effect A, stop/silent   |  -                |  2
 
 Sound effect A is used for formanto sounds (percussion sounds).
 
 ### Sound Effect B Flag Table
 
-` Code Description             P V     Code Description             P V`<br>
-` 00  Dummy flag, re-trigger   - 4     0D  Waterfall                2 2`<br>
-` 80  Effect B, stop/silent    - 4     0E  Small character running  3 1`<br>
-` 01  Applause...small group   2 1     0F  Horse running            3 1`<br>
-` 02  Applause...medium group  2 2     10  Warning sound            1 1`<br>
-` 03  Applause...large group   2 4     11  Approaching car          0 1`<br>
-` 04  Wind                     1 2     12  Jet flying               1 1`<br>
-` 05  Rain                     1 1     13  UFO flying               2 1`<br>
-` 06  Storm                    1 3     14  Electromagnetic waves    0 1`<br>
-` 07  Storm with wind/thunder  2 4     15  Score UP                 3 1`<br>
-` 08  Lightning                0 2     16  Fire                     2 1`<br>
-` 09  Earthquake               0 2     17  Camera shutter, formanto 3 4`<br>
-` 0A  Avalanche                0 2     18  Write, formanto          0 1`<br>
-` 0B  Wave                     0 1     19  Show up title, formanto  0 1`<br>
-` 0C  River                    3 2`<br>
+| Code | Description              | Recommended pitch | Nb of channels used
+|------|--------------------------|-------------------|--------------------
+|  00  | Dummy flag, re-trigger   |  -                |  4
+|  01  | Applause...small group   |  2                |  1
+|  02  | Applause...medium group  |  2                |  2
+|  03  | Applause...large group   |  2                |  4
+|  04  | Wind                     |  1                |  2
+|  05  | Rain                     |  1                |  1
+|  06  | Storm                    |  1                |  3
+|  07  | Storm with wind/thunder  |  2                |  4
+|  08  | Lightning                |  0                |  2
+|  09  | Earthquake               |  0                |  2
+|  0A  | Avalanche                |  0                |  2
+|  0B  | Wave                     |  0                |  1
+|  0C  | River                    |  3                |  2
+|  0D  | Waterfall                |  2                |  2
+|  0E  | Small character running  |  3                |  1
+|  0F  | Horse running            |  3                |  1
+|  10  | Warning sound            |  1                |  1
+|  11  | Approaching car          |  0                |  1
+|  12  | Jet flying               |  1                |  1
+|  13  | UFO flying               |  2                |  1
+|  14  | Electromagnetic waves    |  0                |  1
+|  15  | Score UP                 |  3                |  1
+|  16  | Fire                     |  2                |  1
+|  17  | Camera shutter, formanto |  3                |  4
+|  18  | Write, formanto          |  0                |  1
+|  19  | Show up title, formanto  |  0                |  1
+|  80  | Effect B, stop/silent    |  -                |  4
 
 Sound effect B is mainly used for looping sounds (sustained sounds).
 
@@ -858,13 +913,15 @@ active.
 When having enabled multiple controllers by MLT_REQ, data for each
 joypad can be read out through JOYPAD register (FF00) as follows: First
 set P14 and P15 both HIGH (deselect both Buttons and Cursor keys), you
-can now read the lower 4bits of FF00 which indicate the joypad ID for
+can now read the lower 4 bits of $FF00 which indicate the joypad ID for
 the following joypad input:
 
-` 0Fh  Joypad 1`<br>
-` 0Eh  Joypad 2`<br>
-` 0Dh  Joypad 3`<br>
-` 0Ch  Joypad 4`<br>
+Byte | Player \#
+-----|-----------
+ $0F | 1
+ $0E | 2
+ $0D | 3
+ $0C | 4
 
 Next, read joypad state as normally. When completed, set P14 and P15
 back HIGH, this automatically increments the joypad number (or restarts
@@ -1001,14 +1058,14 @@ Game Boy BG tile memory at following addresses:
 The format of SNES OAM Entries is:
 
 ```
-  Byte 0  OBJ X-Position (0-511, MSB is separately stored, see below) 
-  Byte 1  OBJ Y-Position (0-255) 
-  Byte 2-3  Attributes (16-bit) 
-    Bit 0-8    Tile Number     (use only 00h-FFh, upper bit zero) 
-    Bit 9-11   Palette Number  (use only 4-7) 
-    Bit 12-13  OBJ Priority    (use only 3) 
-    Bit 14     X-Flip          (0=Normal, 1=Mirror horizontally) 
-    Bit 15     Y-Flip          (0=Normal, 1=Mirror vertically) 
+  Byte 0  OBJ X-Position (0-511, MSB is separately stored, see below)
+  Byte 1  OBJ Y-Position (0-255)
+  Byte 2-3  Attributes (16bit)
+    Bit 0-8    Tile Number     (use only 00h-FFh, upper bit zero)
+    Bit 9-11   Palette Number  (use only 4-7)
+    Bit 12-13  OBJ Priority    (use only 3)
+    Bit 14     X-Flip          (0=Normal, 1=Mirror horizontally)
+    Bit 15     Y-Flip          (0=Normal, 1=Mirror vertically)
 ```
 
 The format of SNES OAM MSB Entries is:

@@ -42,12 +42,12 @@ that memory is inaccessible to the CPU.
 -   During mode 3, the CPU cannot access VRAM or CGB Palette Data
     (FF69,FF6B).
 
-| Mode    | Action                                                                | Duration                                                           | Accessible video memory |
-|---------|-----------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------|
-|2        |Scanning OAM for (X, Y) coordinates of sprites that overlap this line  |80 dots (19 us)                                                     |VRAM, CGB palettes       |
-|3        |Reading OAM and VRAM to generate the picture                           |168 to 291 dots (40 to 60 us) depending on sprite count           |None                     |
-|0        |Horizontal blanking                                                    |85 to 208 dots (20 to 49 us) depending on previous mode 3 duration  |VRAM, OAM, CGB palettes  |
-|1        |Vertical blanking                                                      |4560 dots (1087 us, 10 scanlines)                                   |VRAM, OAM, CGB palettes  |
+| Mode    | Action                                                                | Duration                                                           | Accessible video memory
+|---------|-----------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------
+|    2    | Scanning OAM for (X, Y) coordinates of sprites that overlap this line | 80 dots (19 us)                                                    | VRAM, CGB palettes
+|    3    | Reading OAM and VRAM to generate the picture                          | 168 to 291 dots (40 to 60 us) depending on sprite count            | None
+|    0    | Horizontal blanking                                                   | 85 to 208 dots (20 to 49 us) depending on previous mode 3 duration | VRAM, OAM, CGB palettes
+|    1    | Vertical blanking                                                     | 4560 dots (1087 us, 10 scanlines)                                  | VRAM, OAM, CGB palettes
 
 ### Properties of STAT modes
 
@@ -158,20 +158,18 @@ This register assigns gray shades to the color numbers of the BG and
 Window tiles.
 
 ```
-Bit 7-6 - Shade for Color Number 3
-Bit 5-4 - Shade for Color Number 2
-Bit 3-2 - Shade for Color Number 1
-Bit 1-0 - Shade for Color Number 0
+Bit 7-6 - Color for index 3
+Bit 5-4 - Color for index 2
+Bit 3-2 - Color for index 1
+Bit 1-0 - Color for index 0
 ```
 
-The four possible gray shades are:
-
-```
-0  White
-1  Light gray
-2  Dark gray
-3  Black
-```
+Value | Color
+------|-------
+  0   | White
+  1   | Light gray
+  2   | Dark gray
+  3   | Black
 
 In CGB Mode the Color Palettes are taken from CGB Palette Memory
 instead.
@@ -491,7 +489,8 @@ A more visual explanation can be found
 
 So, each pixel is having a color number in range from 0-3. The color
 numbers are translated into real colors (or gray shades) depending on
-the current palettes. The palettes are defined through registers
+the current palettes, except that when the tile is used in a OBJ the
+color number 0 means transparent. The palettes are defined through registers
 [BGP](#ff47-bgp-bg-palette-data-r-w-non-cgb-mode-only),
 [OBP0](#ff48-obp0-object-palette-0-data-r-w-non-cgb-mode-only)
 and
@@ -599,7 +598,7 @@ loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
 # VRAM Sprite Attribute Table (OAM)
 
-Gameboy video controller can display up to 40 sprites either in 8x8 or
+Game Boy video controller can display up to 40 sprites either in 8x8 or
 in 8x16 pixels. Because of a limitation of hardware, only ten sprites
 can be displayed per scan line. Sprite patterns have the same format as
 BG tiles, but they are taken from the Sprite Pattern Table located at
@@ -611,15 +610,23 @@ four bytes with the following meanings:
 
 ### Byte0 - Y Position
 
-Specifies the sprites vertical position on the screen (minus 16). An
-off-screen value (for example, Y=0 or Y\>=160) hides the sprite.
+Y = Sprite's vertical position on the screen + 16. So for example,
+Y=0 hides a sprite,
+Y=2 hides a 8x8 sprite but displays the last two rows of a 8x16 sprite,
+Y=16 displays a sprite at the top of the screen,
+Y=144 displays a 8x16 sprite aligned with the bottom of the screen,
+Y=152 displays a 8x8 sprite aligned with the bottom of the screen,
+Y=154 displays the first six rows of a sprite at the bottom of the screen,
+Y=160 hides a sprite.
 
 ### Byte1 - X Position
 
-Specifies the sprites horizontal position on the screen (minus 8). An
+X = Sprite's horizontal position on the screen + 8. This works similarly
+to the examples above, except that the width of a sprite is always 8. An
 off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
-affects the priority ordering - a better way to hide a sprite is to set
-its Y-coordinate off-screen.
+affects the priority ordering, thus other sprites with lower priority may be
+left out due to the ten sprites limit per scan-line.
+A better way to hide a sprite is to set its Y-coordinate off-screen.
 
 ### Byte2 - Tile/Pattern Number
 
@@ -676,8 +683,8 @@ lower-priority sprite's OBJ-to-BG Priority.
 
 The recommended method is to write the data to normal RAM first, and to
 copy that RAM to OAM by using the DMA transfer function, initiated
-through DMA register (FF46). Beside for that, it is also possible to
-write data directly to the OAM area by using normal LD commands, this
+through DMA register (FF46). Besides, it is also possible to
+write data directly to the OAM area by using normal LD commands, but this
 works only during the H-Blank and V-Blank periods. The current state of
 the LCD controller can be read out from the STAT register (FF41).
 
@@ -740,8 +747,11 @@ Mode 0 - H-Blank Period
 Mode 1 - V-Blank Period
 ```
 
-Aside from that, OAM can be accessed at any time by using the DMA
-Function (FF46). When directly reading or writing to OAM, a typical
+During those modes, OAM can be accessed at any time by using the DMA
+Function (FF46). Outside those modes, DMA out-prioritizes the PPU in 
+accessing OAM, and the PPU will read $FF from OAM during that time.
+
+When directly reading or writing to OAM, a typical
 procedure that waits for accessibility of OAM Memory would be:
 
 ```

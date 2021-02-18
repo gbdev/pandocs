@@ -18,15 +18,17 @@ individually, as this would be expensive CPU-wise. Instead, pixels are grouped
 in 8x8 squares, called *tiles* (or sometimes "patterns"), often considered as
 the base unit in Game Boy graphics.
 
-## Palettes
-
 A tile does not encode color information. Instead, a tile assigns a
 *color ID* to each of its pixels, ranging from 0 to 3. For this reason,
-Game Boy graphics are also called *2bpp*, 2 bits per pixel. These color IDs
-are then associated with a *palette*.
+Game Boy graphics are also called *2bpp*, 2 bits per pixel. When a tile is used
+in Background or Window, these color IDs are associated with a *palette*. When
+a tile is used in a OBJ, the IDs 1 to 3 are associated with a palette, but
+ID 0 means transparent.
+
+## Palettes
 
 A palette consists in a array of colors, 4 in the Game Boy's case.
-Palettes are stored differently in monoschrome and color versions of the console.
+Palettes are stored differently in monochrome and color versions of the console.
 When applied to a tile, each color ID is used as an index to select the color
 in the palette array, which then gets sent to the LCD.
 

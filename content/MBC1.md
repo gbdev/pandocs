@@ -1,6 +1,6 @@
 (max 2MByte ROM and/or 32KByte RAM)
 
-This is the first MBC chip for the Game Boy. Any newer MBC chips 
+This is the first MBC chip for the Game Boy. Any newer MBC chips
 work similarly, so it is relatively easy to upgrade a program from one
 MBC chip to another - or to make it compatible with several different
 types of MBCs.
@@ -42,7 +42,7 @@ power down of the Game Boy. Usually the following values are used:
 
 ```
 00h  Disable RAM (default)
-0Ah  Enable RAM`
+0Ah  Enable RAM
 ```
 
 Practically any value with 0Ah in the lower 4 bits enables RAM and any

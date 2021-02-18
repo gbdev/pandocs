@@ -46,7 +46,7 @@ the cartridge, which is essentially an expansion board.  Typically this
 is a ROM and SRAM or, more often, a [Memory Bank Controller
 (MBC)](#memory-bank-controllers). The RAM area can be read
 from and written to normally; writes to the ROM area control the MBC.
-some MBCs allow mapping of other hardware into the RAM area in this
+Some MBCs allow mapping of other hardware into the RAM area in this
 way.
 
 Cartridge RAM is often battery buffered to hold saved game positions,
@@ -74,17 +74,17 @@ FF) and checking if said value is mirrored in Echo RAM and not cart SRAM.
 The Game Boy uses the following I/O ranges:
 
 | **Start** | **End** | **Revision** | **Purpose** |
-|-|-|-|-|
-| FF00 | FF02 | DMG | Port/Mode |
-| FF04 | FF07 | DMG | Port/Mode |
-| FF10 | FF26 | DMG | Sound |
-| FF30 | FF3F | DMG | Waveform RAM |
-| FF40 | FF4B | DMG | LCD |
-| FF4F | | CGB | VRAM Bank Select |
-| FF50 | | DMG | Set to non-zero to disable boot ROM |
-| FF51 | FF55 | CGB | HDMA |
-| FF68 | FF69 | CGB | BCP/OCP |
-| FF70 | | CGB | WRAM Bank Select |
+|-----------|---------|--------------|-------------|
+|   $FF00   |  $FF02  |     DMG      | Port/Mode
+|   $FF04   |  $FF07  |     DMG      | Port/Mode
+|   $FF10   |  $FF26  |     DMG      | Sound
+|   $FF30   |  $FF3F  |     DMG      | Waveform RAM
+|   $FF40   |  $FF4B  |     DMG      | LCD
+|   $FF4F   |         |     CGB      | VRAM Bank Select
+|   $FF50   |         |     DMG      | Set to non-zero to disable boot ROM
+|   $FF51   |  $FF55  |     CGB      | HDMA
+|   $FF68   |  $FF69  |     CGB      | BCP/OCP
+|   $FF70   |         |     CGB      | WRAM Bank Select
 
 # FEA0-FEFF range
 

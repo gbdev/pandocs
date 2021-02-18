@@ -21,14 +21,14 @@ The packets all follow this format:
 
 |                       | Size (bytes) | GB -> Printer | Printer -> GB |
 |-----------------------|--------------|---------------|---------------|
-| Magic bytes           | 2            | $88, $33      | 0x00          |
-| Command               | 1            | See below     | 0x00          |
-|  Compression flag     | 1            | 0/1           | 0x00          |
-| Length of data        | 2            | LSB, MSB      | 0x00          |
-| Command-specific data | Variable     | See below     | 0x00          |
-| Checksum              | 2            | LSB, MSB      | 0x00          |
-| Alive indicator       | 1            |               | 0x00          |
-| Status                | 1            | See below     | 0x00          |
+| Magic bytes           | 2            | $88, $33      | $00           |
+| Command               | 1            | See below     | $00           |
+|  Compression flag     | 1            | 0/1           | $00           |
+| Length of data        | 2            | LSB, MSB      | $00           |
+| Command-specific data | Variable     | See below     | $00           |
+| Checksum              | 2            | LSB, MSB      | $00           |
+| Alive indicator       | 1            |               | $00           |
+| Status                | 1            | See below     | $00           |
 
 The checksum is simply a sum of every byte sent except the magic bytes
 and obviously, the checksum itself.
@@ -86,18 +86,18 @@ Status byte
 -----------
 
 A nonzero value for the higher nibble indicates something went wrong.
-```
-  ------- -------------------- -------------------------------------------------------------------
-  Bit 7   Low Battery          Set when the voltage is below threshold
-  Bit 6   Other error          
-  Bit 5   Paper jam            Set when the encoder gives no pulses when the motor is powered
-  Bit 4   Packet error         
-  Bit 3   Unprocessed data     Set when there's unprocessed data in memory - AKA ready to print
-  Bit 2   Image data full      
-  Bit 1   Currently printing   Set as long as the printer's burnin' paper
-  Bit 0   Checksum error       Set when the calculated checksum doesn't match the received one
-  ------- -------------------- -------------------------------------------------------------------
-```
+
+Bit \# | Name                | Description
+-------|---------------------|---------------
+   7   | Low Battery         | Set when the voltage is below threshold
+   6   | Other error         |
+   5   | Paper jam           | Set when the encoder gives no pulses when the motor is powered
+   4   | Packet error        |
+   3   | Unprocessed data    | Set when there's unprocessed data in memory - AKA ready to print
+   2   | Image data full     |
+   1   | Currently printing  | Set as long as the printer's burnin' paper
+   0   | Checksum error      | Set when the calculated checksum doesn't match the received one
+
 Example
 -------
 

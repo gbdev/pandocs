@@ -9,12 +9,13 @@ I took a look, and it turns out that HuC1 differs from MBC1 quite a lot.
 Memory Map
 ----------
 
-`   0000-1FFF   IR select`
-`   2000-3FFF   ROM bank select`
-`   4000-5FFF   RAM bank select`
-`   6000-7FFF   Nothing?`
-`   --`
-`   A000-BFFF   Cart RAM or IR register`
+Address range | Feature
+--------------|---------------------------
+  $0000-1FFF  | RAM/IR select (when writing only)
+  $2000-3FFF  | ROM bank select (when writing only)
+  $4000-5FFF  | RAM bank select (when writing only)
+  $6000-7FFF  | Nothing?
+  $A000-BFFF  | Cart RAM or IR register
 
 0000-1FFF IR Select (Write Only)
 --------------------------------
@@ -57,4 +58,3 @@ External links
 --------------
 
 -   [Source on jrra.zone](http://jrra.zone/blog/huc1.html)
-

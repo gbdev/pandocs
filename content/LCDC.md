@@ -10,7 +10,7 @@ elements are displayed on the screen, and how.
 | 5   | Window Display Enable          | 0=Off, 1=On              |
 | 4   | BG & Window Tile Data Select   | 0=8800-97FF, 1=8000-8FFF |
 | 3   | BG Tile Map Display Select     | 0=9800-9BFF, 1=9C00-9FFF |
-| 2   | OBJ (Sprite) Size              | 0=Off, 1=On              |
+| 2   | OBJ (Sprite) Size              | 0=8x8, 1=8x16            |
 | 1   | OBJ (Sprite) Display Enable    | 0=Off, 1=On              |
 | 0   | BG/Window Display/Priority     | 0=Off, 1=On              |
 
@@ -26,8 +26,8 @@ Stopping LCD operation (Bit 7 from 1 to 0) may be performed
 during VBlank ONLY, disabling the display outside
 of the V-Blank period may damage the hardware by burning in a black
 horizontal line similar to that which appears when the GB is turned off.
-This appears to be a serious issue, Nintendo is reported to reject any
-games that do not follow this rule.
+This appears to be a serious issue. Nintendo is reported to reject any
+games not following this rule.
 :::
 
 When the display is disabled the screen is blank, which on DMG is
