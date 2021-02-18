@@ -489,7 +489,8 @@ A more visual explanation can be found
 
 So, each pixel is having a color number in range from 0-3. The color
 numbers are translated into real colors (or gray shades) depending on
-the current palettes. The palettes are defined through registers
+the current palettes, except that when the tile is used in a OBJ the
+color number 0 means transparent. The palettes are defined through registers
 [BGP](#ff47-bgp-bg-palette-data-r-w-non-cgb-mode-only),
 [OBP0](#ff48-obp0-object-palette-0-data-r-w-non-cgb-mode-only)
 and
