@@ -19,7 +19,7 @@ increment at 32768Hz in double speed.
 
 ### FF05 - TIMA - Timer counter (R/W)
 
-This timer is incremented by a clock frequency specified by the TAC
+This timer is incremented at a clock frequency specified by the TAC
 register (\$FF07). When the value overflows (gets bigger than FFh) then
 it will be reset to the value specified in TMA (FF06), and an interrupt
 will be requested, as described below.
