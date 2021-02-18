@@ -761,11 +761,12 @@ procedure that waits for accessibility of OAM Memory would be:
  bit  1,(hl)       ; Wait until Mode is -NOT- 0 or 1
  jr   z,@@wait1    ;
 @@wait2:           ;
- bit  1,(hl)       ; Wait until Mode 0 or 1 -BEGINS-
+ bit  1,(hl)       ; Wait until Mode 0 or 1 -BEGINS- (but we know that Mode 0 is what will begin)
  jr   nz,@@wait2   ;
 ```
 
-The two wait loops ensure that Mode 0 or 1 will last for a few clock
+The two wait loops ensure that Mode 0 (and Mode 1 if we are at the end
+of a frame) will last for a few clock
 cycles after completion of the procedure. In V-Blank period it might be
 recommended to skip the whole procedure - and in most cases using the
 above mentioned DMA function would be more recommended anyways.
