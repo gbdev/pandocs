@@ -727,7 +727,7 @@ jr   nz,@@wait    ;
 Even if the procedure gets executed at the *end* of Mode 0 or 1, it is
 still proof to assume that VRAM can be accessed for a few more cycles
 because in either case the following period is Mode 2 which allows
-access to VRAM either. However, be careful about STAT LCD interrupts or
+access to VRAM also. However, be careful about STAT LCD interrupts or
 other interrupts that could cause the LCD to be back in mode 3 by the
 time it returns. In CGB Mode an alternate method to write data to VRAM
 is to use the HDMA Function (FF51-FF55).
