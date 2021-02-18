@@ -59,7 +59,7 @@ publisher of the game. These two bytes are used in newer games only
 (games that have been released after the SGB has been invented). Older
 games are using the header entry at `$014B` instead.
 
-Sample licensee codes :
+Sample licensee codes:
 
 |Code| Publisher
 |----|-----------

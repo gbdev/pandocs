@@ -60,9 +60,9 @@ left by that many dots.
 
 Three things are known to pause the dot clock:
 
-- Background scrolling : If `SCX mod 8` is not zero at the start of the scanline, rendering is paused for that many dots while the shifter discards that many pixels from the leftmost tile.
-- Window : An active window pauses for at least 6 dots, as the background fetching mechanism starts over at the left side of the window.
-- Sprites : Each sprite usually pauses for `11 - min(5, (x + SCX) mod 8)` dots. Because sprite fetch waits for background fetch to finish, a sprite's cost depends on its position relative to the left side of the background tile under it. It's greater if a sprite is directly aligned over the background tile, less if the sprite is to the right. If the sprite's left side is over the window, use `255 - WX` for `SCX` in this formula.
+- Background scrolling: If `SCX mod 8` is not zero at the start of the scanline, rendering is paused for that many dots while the shifter discards that many pixels from the leftmost tile.
+- Window: An active window pauses for at least 6 dots, as the background fetching mechanism starts over at the left side of the window.
+- Sprites: Each sprite usually pauses for `11 - min(5, (x + SCX) mod 8)` dots. Because sprite fetch waits for background fetch to finish, a sprite's cost depends on its position relative to the left side of the background tile under it. It's greater if a sprite is directly aligned over the background tile, less if the sprite is to the right. If the sprite's left side is over the window, use `255 - WX` for `SCX` in this formula.
 
 ::: warning TO BE VERIFIED
 The exact pause duration for window start is
@@ -98,14 +98,14 @@ the user when the video hardware is about to redraw a given LCD line.
 This can be useful for dynamically controlling the SCX/SCY registers
 ($FF43/$FF42) to perform special video effects.
 
-Example application : set LYC to WY, enable LY=LYC interrupt, and have
+Example application: set LYC to WY, enable LY=LYC interrupt, and have
 the handler disable sprites. This can be used if you use the window for
 a text box (at the bottom of the screen), and you want sprites to be
 hidden by the text box.
 
 The interrupt is triggered when transitioning from "No conditions met"
 to "Any condition met", which can cause the interrupt to not fire.
-Example : the Mode 0 and LY=LYC interrupts are enabled ; since the
+Example: the Mode 0 and LY=LYC interrupts are enabled ; since the
 latter triggers during Mode 2 (right after Mode 0), the interrupt will
 trigger for Mode 0 but fail to for LY=LYC.
 
@@ -349,7 +349,7 @@ the jump into the HRAM part.
 
 These two registers specify the address at which the transfer will read
 data from. Normally, this should be either in ROM, SRAM or WRAM, thus
-either in range 0000-7FF0 or A000-DFF0. \[Note : this has yet to be
+either in range 0000-7FF0 or A000-DFF0. \[Note: this has yet to be
 tested on Echo RAM, OAM, FEXX, IO and HRAM\]. Trying to specify a source
 address in VRAM will cause garbage to be copied.
 
@@ -413,7 +413,7 @@ H-Blank DMA should not be started (write to FF55) during a H-Blank
 period (STAT mode 0).
 
 If the transfer's destination address overflows, the transfer stops
-prematurely. \[Note : what's the state of the registers if this happens
+prematurely. \[Note: what's the state of the registers if this happens
 ?\]
 :::
 
@@ -476,11 +476,11 @@ etc.`
 For each line, the first byte defines the least significant bits of the
 color numbers for each pixel, and the second byte defines the upper bits
 of the color numbers. In either case, Bit 7 is the leftmost pixel, and
-Bit 0 the rightmost. For example : let's say you have \$57 \$36 (in
+Bit 0 the rightmost. For example: let's say you have \$57 \$36 (in
 this order in memory), which in binary are %01010111 and %00110110.
 To obtain the color index for the leftmost pixel,
-you take bit 7 of both bytes : 0, and 0. Thus the index is 00b = 0. For
-the second pixel, repeat with bit 6 : 1, and 0. Thus the index is 01b =
+you take bit 7 of both bytes: 0, and 0. Thus the index is 00b = 0. For
+the second pixel, repeat with bit 6: 1, and 0. Thus the index is 01b =
 1 (remember to flip the order of the bits !). If you repeat the
 operation you'll find that the indexes for the 8 pixels are 0 1 2 3 0 3
 3 1.
@@ -656,7 +656,7 @@ first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
 allowing only 10 sprites to be displayed on any one line. When this
 limit is exceeded, sprites appearing later in OAM won't be displayed.
 To keep unused sprites from affecting onscreen sprites, set their Y
-coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note : Y \<= 8 also works
+coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note: Y \<= 8 also works
 if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
 X \>= 168 (160 + 8) on a sprite will hide it, but it will still affect
 other sprites sharing the same lines.
