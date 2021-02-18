@@ -44,9 +44,9 @@ Bit 3: Serial   Interrupt Request (INT 58h)  (1=Request)
 Bit 4: Joypad   Interrupt Request (INT 60h)  (1=Request)
 ```
 
-When an interrupt signal changes from low to high, then the
-corresponding bit in the IF register becomes set. For example, Bit 0
-becomes set when the LCD controller enters into the V-Blank period.
+When an interrupt signal changes from low to high, the
+corresponding bit in the IF register is set. For example, Bit 0
+is set when the LCD controller enters the V-Blank period.
 
 ### Interrupt Requests
 
@@ -57,44 +57,44 @@ interrupt "waits" until both IME and IE allow its execution.
 
 ### Interrupt Execution
 
-When an interrupt gets executed, the corresponding bit in the IF
-register becomes automatically reset by the CPU, and the IME flag
-becomes cleared (disabling any further interrupts until the program
+When an interrupt is executed, the corresponding bit in the IF
+register is automatically reset by the CPU, and the IME flag
+is also reset (disabling any further interrupts until the program
 re-enables the interrupts, typically by using the RETI instruction), and
-the corresponding Interrupt Vector (that are the addresses in range
-0040h-0060h, as shown in IE and IF register decriptions above) becomes
+the corresponding Interrupt Vector (which is one of the addresses in the range
+0040h-0060h, as shown in the IE and IF register decriptions above) is
 called.
 
 ### Manually Requesting/Discarding Interrupts
 
-As the CPU automatically sets and clears the bits in the IF register, it
+Since the CPU automatically sets and clears the bits in the IF register, it
 is usually not required to write to the IF register. However, the user
 may still do that in order to manually request (or discard) interrupts.
-As for real interrupts, a manually requested interrupt isn't executed
+Like with real interrupts, a manually requested interrupt isn't executed
 unless/until IME and IE allow its execution.
 
 ### Interrupt Priorities
 
-In the following three situations it might happen that more than 1 bit in the IF register are set, requesting more than one interrupt at once:
+In the following three situations it might happen that more than one bit in the IF register is set, requesting more than one interrupt at once:
 
 1. More than one interrupt signal changed from Low to High at the same time.
 2. Several interrupts have been requested during a time in which IME/IE didn't allow these interrupts to be executed directly.
 3. The user has written a value with several "1" bits (for example 1Fh) to the IF register. 
 
-Provided that IME and IE allow the execution of more than one of the
-requested interrupts, then the interrupt with the highest priority
-becomes executed first. The priorities are ordered as the bits in the IE
-and IF registers, Bit 0 (V-Blank) having the highest priority, and Bit 4
+IME and IE allow the execution of more than one of the
+requested interrupts, but the interrupt with the highest priority
+is executed first. The priorities follow the same order as the bits in the IE
+and IF registers: Bit 0 (V-Blank) having the highest priority, and Bit 4
 (Joypad) having the lowest priority.
 
 ### Nested Interrupts
 
-The CPU automatically disables all other interrupts by setting IME=0
+The CPU automatically disables all the other interrupts by setting IME=0
 when it executes an interrupt. Usually IME remains zero until the
-interrupt procedure returns (and sets IME=1 by the RETI instruction).
-However, if you want any other interrupts of lower or higher (or same)
-priority to be allowed to be executed from inside of the interrupt
-procedure, then you can place an EI instruction into the interrupt
+interrupt procedure returns (and sets IME=1 by means of the RETI instruction).
+However, if you want any other interrupts (of any priority)
+to be allowed to be executed from inside the interrupt
+procedure, then you can use the EI instruction in the interrupt
 procedure.
 
 ### Interrupt Service Routine
