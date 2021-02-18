@@ -773,7 +773,7 @@ above mentioned DMA function would be more recommended anyways.
 
 When the display is disabled, both VRAM and OAM are accessible at any
 time. The downside is that the screen is blank (white) during this
-period, so that disabling the display would be recommended only during
+period, so disabling the display would be recommended only during
 initialization.
 
 :::
