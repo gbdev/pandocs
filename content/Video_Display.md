@@ -658,7 +658,7 @@ coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note : Y \<= 8 also works
 if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
 X \>= 168 (160 + 8) on a sprite will hide it, but it will still count
 towards the 10 sprite limit per scanline, possibly causing another sprite
-with lower priority to be left undisplayed.
+that appears later in OAM to be left undisplayed.
 
 If using BGB, in the VRAM viewer - OAM tab, hover your
 mouse over the small screen to highlight the sprites on a line. Sprites
