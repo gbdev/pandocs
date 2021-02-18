@@ -32,8 +32,8 @@ to the SNES. See SGB description for details.
 
 Joypad interrupt is requested when any of the above Input lines changes
 from High to Low. Generally this should happen when a key becomes
-pressed (provided that the button/direction key is enabled by above
-Bit4/5), however, because of switch bounce, one or more High to Low
+pressed (provided that the direction/button key is enabled by
+bit 4/5 respectively), however, because of switch bounce, one or more High to Low
 transitions are usually produced both when pressing or releasing a key.
 
 ### Using the Joypad Interrupt
