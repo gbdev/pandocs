@@ -53,7 +53,7 @@ on DMG by [bit 0](#lcdc-0-bg-window-display-priority)
 if that bit is reset.
 
 Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
-may cause the second write to be ignored. (TODO : test this.)
+may cause the second write to be ignored. (TODO: test this.)
 
 ## LCDC.4 - BG & Window Tile Data Select
 
@@ -74,7 +74,7 @@ reset, the BG uses tilemap $9800, otherwise tilemap $9C00.
 
 This bit controls the sprite size (1 tile or 2 stacked vertically).
 
-Be cautious when changing this mid-frame from 8x8 to 8x16 : "remnants"
+Be cautious when changing this mid-frame from 8x8 to 8x16: "remnants"
 of the sprites intended for 8x8 could "leak" into the 8x16 zone and
 cause artifacts.
 
