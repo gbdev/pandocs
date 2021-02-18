@@ -71,9 +71,10 @@ on the screen.
 *Objects* are made of 1 or 2 stacked tiles (8x8 or 8x16 pixels).
 
 ::: tip NOTE
-Several objects can be combined (in that case they are called *metasprites*) to draw
-a larger graphical element, usually called "sprite". A sprite is a collection of tiles
-used to display one frame of a game character's animation.
+Several objects can be combined (they can be called *metasprites*) to draw
+a larger graphical element, usually called "sprite". Originally, the term "sprites"
+referred to fixed-sized objects composited together, by hardware, with a background.
+Use of the term has since become more general.
 :::
 
 To summarise:
