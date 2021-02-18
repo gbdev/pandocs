@@ -670,10 +670,10 @@ sprite in OAM (\$FE00-\$FE03) has the highest priority, and so on. In
 Non-CGB mode, the smaller the X coordinate, the higher the priority. The
 tie breaker (same X coordinates) is the same priority as in CGB mode.
 
-The priority calculation between sprites disregards OBJ-to-BG Priority
-(attribute bit 7). Only the highest-priority nonzero sprite pixel at any
+Where sprites overlap, the OBJ-to-BG Priority (attribute bit 7) of the lower
+priority sprites is ignored. Only the highest-priority nonzero sprite pixel at any
 given point is compared against the background. Thus if a sprite with a
-higher priority (based on OAM index) but with OBJ-to-BG Priority turned
+higher priority but with OBJ-to-BG Priority turned
 on overlaps a sprite with a lower priority and a nonzero background
 pixel, the background pixel is displayed regardless of the
 lower-priority sprite's OBJ-to-BG Priority.
