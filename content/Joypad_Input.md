@@ -2,7 +2,7 @@
 
 The eight Game Boy buttons/direction keys are arranged as a 2x4
 matrix. Select either button or direction keys by writing to this
-register, then read-out bits 0-3.
+register, then read out bits 0-3.
 
 ```
 Bit 7 - Not used
