@@ -91,11 +91,11 @@ and IF registers: Bit 0 (V-Blank) having the highest priority, and Bit 4
 
 The CPU automatically disables all the other interrupts by setting IME=0
 when it executes an interrupt. Usually IME remains zero until the
-interrupt procedure returns (and sets IME=1 by means of the RETI instruction).
+interrupt handler returns (and sets IME=1 by means of the RETI instruction).
 However, if you want any other interrupts (of any priority)
 to be allowed to be executed from inside the interrupt
-procedure, then you can use the EI instruction in the interrupt
-procedure.
+handler, then you can use the EI instruction in the interrupt
+handler.
 
 ### Interrupt Service Routine
 
