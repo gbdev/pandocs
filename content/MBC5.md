@@ -11,7 +11,7 @@ Same as for MBC1.
 
 ### 4000-7FFF - ROM Bank 00-1FF (Read Only)
 
-Same as for MBC1, except that accessing up to bank 1E0h is supported
+Same as for MBC1, except that accessing up to bank $1FF is supported
 now. Also, bank 0 is actually bank 0.
 
 ### A000-BFFF - RAM Bank 00-0F, if any (Read/Write)

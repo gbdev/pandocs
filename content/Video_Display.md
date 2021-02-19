@@ -4,7 +4,7 @@
 A *dot* is the shortest period over which the PPU can output one pixel: is it equivalent to 1 T-state on DMG or on CGB single-speed mode or 2 T-states on CGB double-speed mode. On each dot during mode 3, either the PPU outputs a pixel or the fetcher is stalling the [FIFOs](#pixel-fifo).
 :::
 
-### FF41 - STAT - LCDC Status (R/W)
+### FF41 - STAT (LCD Status) (R/W)
 
 ```
 Bit 6 - LYC=LY Coincidence Interrupt (1=Enable) (Read/Write)
@@ -90,7 +90,7 @@ V-Blank period (LY=144). During this period video hardware is not using
 VRAM so it may be freely accessed. This period lasts approximately 1.1
 milliseconds.
 
-### INT 48 - LCDC Status Interrupt
+### INT 48 - STAT Interrupt
 
 There are various reasons for this interrupt to occur as described by
 the STAT register (\$FF41). One very popular reason is to indicate to
@@ -103,18 +103,21 @@ the handler disable sprites. This can be used if you use the window for
 a text box (at the bottom of the screen), and you want sprites to be
 hidden by the text box.
 
-The interrupt is triggered when transitioning from "No conditions met"
-to "Any condition met", which can cause the interrupt to not fire.
-Example: the Mode 0 and LY=LYC interrupts are enabled ; since the
-latter triggers during Mode 2 (right after Mode 0), the interrupt will
-trigger for Mode 0 but fail to for LY=LYC.
+::: warning
+As mentioned in the description of the STAT register, the LCD Controller cycles
+through the different modes in a fixed order. If we set the STAT bits
+in a way that they would interrupt the CPU at two
+consecutive modes, then the second interrupt will not trigger. So for example,
+if we enable the interrupts for Mode 0 and Mode 1,
+the Mode 1 interrupt will not trigger.
+:::
 
 # LCD Position and Scrolling
 
 These registers can be accessed even during Mode 3, but they have no
 effect until the end of the current scanline.
 
-### FF42 - SCY - Scroll Y (R/W), FF43 - SCX - Scroll X (R/W)
+### FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)
 
 Specifies the position in the 256x256 pixels BG map (32x32 tiles) which
 is to be displayed at the upper/left LCD display position. Values in
@@ -122,19 +125,19 @@ range from 0-255 may be used for X/Y each, the video controller
 automatically wraps back to the upper (left) position in BG map when
 drawing exceeds the lower (right) border of the BG map area.
 
-### FF44 - LY - LCDC Y-Coordinate (R)
+### FF44 - LY (LCDC Y-Coordinate) (R)
 
 The LY indicates the vertical line to which the present data is
 transferred to the LCD Driver. The LY can take on any value between 0
 through 153. The values between 144 and 153 indicate the V-Blank period.
 
-### FF45 - LYC - LY Compare (R/W)
+### FF45 - LYC (LY Compare) (R/W)
 
 The Game Boy permanently compares the value of the LYC and LY registers.
 When both values are identical, the coincident bit in the STAT register
 becomes set, and (if enabled) a STAT interrupt is requested.
 
-### FF4A - WY - Window Y Position (R/W), FF4B - WX - Window X Position minus 7 (R/W)
+### FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)
 
 Specifies the upper/left positions of the Window area. (The window is an
 alternate background area which can be displayed above of the normal
@@ -143,7 +146,7 @@ window, just as for normal BG.)
 
 The window becomes visible (if enabled) when positions are set in range
 WX=0..166, WY=0..143. A position of WX=7, WY=0 locates the window at
-upper left, it is then completely covering normal background.
+upper left, it is then completely covering the background.
 
 WX values 0-6 and 166 are unreliable due to hardware bugs. If WX is set
 to 0, the window will "stutter" horizontally when SCX changes.
@@ -152,7 +155,7 @@ should try it yourself.)
 
 # LCD Monochrome Palettes
 
-### FF47 - BGP - BG Palette Data (R/W) - Non CGB Mode Only
+### FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades to the color numbers of the BG and
 Window tiles.
@@ -174,13 +177,13 @@ Value | Color
 In CGB Mode the Color Palettes are taken from CGB Palette Memory
 instead.
 
-### FF48 - OBP0 - Object Palette 0 Data (R/W) - Non CGB Mode Only
+### FF48 - OBP0 (Object Palette 0 Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades for sprite palette 0. It works exactly
 as BGP (FF47), except that the lower two bits aren't used because
 sprite data 00 is transparent.
 
-### FF49 - OBP1 - Object Palette 1 Data (R/W) - Non CGB Mode Only
+### FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades for sprite palette 1. It works exactly
 as BGP (FF47), except that the lower two bits aren't used because
@@ -188,7 +191,7 @@ sprite data 00 is transparent.
 
 # LCD Color Palettes (CGB only)
 
-### FF68 - BCPS/BGPI - CGB Mode Only - Background Color Palette Specification or Background Palette Index
+### FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only
 
 This register is used to address a byte in the CGBs Background Palette
 Memory. Each two byte in that memory define a color value. The first 8
@@ -209,7 +212,7 @@ auto-increment to occur.
 Unlike the following, this register can be accessed outside V-Blank and
 H-Blank.
 
-### FF69 - BCPD/BGPD - CGB Mode Only - Background Color Palette Data or Background Palette Data
+### FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only
 
 This register allows to read/write data to the CGBs Background Palette
 Memory, addressed through Register FF68. Each color is defined by two
@@ -227,7 +230,7 @@ register indicates Mode 3). Note: All background colors are initialized
 as white by the boot ROM, but it's a good idea to initialize at least
 one color yourself (for example if you include a soft-reset mechanic).
 
-### FF6A - OCPS/OBPI Object Color Palette Specification or Sprite Palette Index, FF6B - OCPD/OBPD Object Color Palette Data or Sprite Palette Data - Both CGB Mode Only
+### FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only
 
 These registers are used to initialize the Sprite Palettes OBP0-7,
 identically as described above for Background Palettes. Note that four
@@ -283,7 +286,7 @@ of this brightness correction.
 
 # LCD OAM DMA Transfers
 
-### FF46 - DMA - DMA Transfer and Start Address (R/W)
+### FF46 - DMA (DMA Transfer and Start Address) (R/W)
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 memory (sprite attribute table). The written value specifies the
@@ -343,9 +346,9 @@ the jump into the HRAM part.
 
 # LCD VRAM DMA Transfers (CGB only)
 
-### FF51 - HDMA1 - CGB Mode Only - New DMA Source, High
+### FF51 - HDMA1 (New DMA Source, High) - CGB Mode Only
 
-### FF52 - HDMA2 - CGB Mode Only - New DMA Source, Low
+### FF52 - HDMA2 (New DMA Source, Low) - CGB Mode Only
 
 These two registers specify the address at which the transfer will read
 data from. Normally, this should be either in ROM, SRAM or WRAM, thus
@@ -355,15 +358,15 @@ address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF53 - HDMA3 - CGB Mode Only - New DMA Destination, High
+### FF53 - HDMA3 (New DMA Destination, High) - CGB Mode Only
 
-### FF54 - HDMA4 - CGB Mode Only - New DMA Destination, Low
+### FF54 - HDMA4 (New DMA Destination, Low) - CGB Mode Only
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF55 - HDMA5 - CGB Mode Only - New DMA Length/Mode/Start
+### FF55 - HDMA5 (New DMA Length/Mode/Start) - CGB Mode Only
 
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
@@ -455,9 +458,9 @@ Tiles are always indexed using a 8-bit integer, but the addressing
 method may differ. The "8000 method" uses \$8000 as its base pointer
 and uses an unsigned addressing, meaning that tiles 0-127 are in block
 0, and tiles 128-255 are in block 1. The "8800 method" uses \$9000 as
-its base pointer and uses a signed addressing. To put it differently,
-"8000 addressing" takes tiles 0-127 from block 0 and tiles 128-255
-from block 1, whereas "8800 addressing" takes tiles 0-127 from block 2
+its base pointer and uses a signed addressing, meaning that tiles 0-127
+are in block 2, and tiles -128 to -1 are in block 1, or to put it differently,
+"8800 addressing" takes tiles 0-127 from block 2
 and tiles 128-255 from block 1. (You can notice that block 1 is shared
 by both addressing methods)
 
@@ -490,7 +493,8 @@ A more visual explanation can be found
 
 So, each pixel is having a color number in range from 0-3. The color
 numbers are translated into real colors (or gray shades) depending on
-the current palettes. The palettes are defined through registers
+the current palettes, except that when the tile is used in a OBJ the
+color number 0 means transparent. The palettes are defined through registers
 [BGP](#ff47-bgp-bg-palette-data-r-w-non-cgb-mode-only),
 [OBP0](#ff48-obp0-object-palette-0-data-r-w-non-cgb-mode-only)
 and
@@ -536,7 +540,7 @@ Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)
 Bit 4    Not used
 Bit 5    Horizontal Flip            (0=Normal, 1=Mirror horizontally)
 Bit 6    Vertical Flip              (0=Normal, 1=Mirror vertically)
-Bit 7    BG-to-OAM Priority         (0=Use OAM priority bit, 1=BG Priority)
+Bit 7    BG-to-OAM Priority         (0=Use OAM Priority bit, 1=BG Priority)
 ```
 
 When Bit 7 is set, the corresponding BG tile will have priority above
@@ -548,7 +552,7 @@ Note that, if the map entry at `0:9800` is tile \$2A, the attribute at
 `1:9800` doesn't define properties for ALL tiles \$2A on-screen, but only
 the one at `0:9800`!
 
-### Normal Background (BG)
+### Background (BG)
 
 The [SCY and SCX](#ff42-scy-scroll-y-r-w-ff43-scx-scroll-x-r-w) registers can be
 used to scroll the background, allowing to select the origin of the visible
@@ -653,13 +657,13 @@ tile is "NN AND FEh", and the lower 8x8 tile is "NN OR 01h".
 During each scanline's OAM scan, the LCD controller compares LY to each
 sprite's Y position to find the 10 sprites on that line that appear
 first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
-allowing only 10 sprites to be displayed on any one line. When this
-limit is exceeded, sprites appearing later in OAM won't be displayed.
+displaying only those 10 sprites on that line.
 To keep unused sprites from affecting onscreen sprites, set their Y
 coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note: Y \<= 8 also works
 if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
-X \>= 168 (160 + 8) on a sprite will hide it, but it will still affect
-other sprites sharing the same lines.
+X \>= 168 (160 + 8) on a sprite will hide it, but it will still count
+towards the 10 sprite limit per scanline, possibly causing another sprite
+that appears later in OAM to be left undisplayed.
 
 If using BGB, in the VRAM viewer - OAM tab, hover your
 mouse over the small screen to highlight the sprites on a line. Sprites
@@ -671,13 +675,16 @@ sprite in OAM (\$FE00-\$FE03) has the highest priority, and so on. In
 Non-CGB mode, the smaller the X coordinate, the higher the priority. The
 tie breaker (same X coordinates) is the same priority as in CGB mode.
 
-The priority calculation between sprites disregards OBJ-to-BG Priority
-(attribute bit 7). Only the highest-priority nonzero sprite pixel at any
-given point is compared against the background. Thus if a sprite with a
-higher priority (based on OAM index) but with OBJ-to-BG Priority turned
-on overlaps a sprite with a lower priority and a nonzero background
+::: tip NOTE
+Priority among opaque pixels that overlap is determined using the rules explained
+above. After the pixel with the highest priority has been determined,
+the OBJ-to-BG priority of *only* that pixel is honored (or disregarded if
+this is a transparent pixel, i.e. a pixel with color ID zero). Thus if a sprite with a
+higher priority but with OBJ-to-BG Priority toggled on
+overlaps a sprite with a lower priority and a nonzero background
 pixel, the background pixel is displayed regardless of the
 lower-priority sprite's OBJ-to-BG Priority.
+:::
 
 ### Writing Data to OAM Memory
 
@@ -725,9 +732,9 @@ jr   nz,@@wait    ;
 ```
 
 Even if the procedure gets executed at the *end* of Mode 0 or 1, it is
-still proof to assume that VRAM can be accessed for a few more cycles
+still safe to assume that VRAM can be accessed for a few more cycles
 because in either case the following period is Mode 2 which allows
-access to VRAM either. However, be careful about STAT LCD interrupts or
+access to VRAM also. However, be careful about STAT LCD interrupts or
 other interrupts that could cause the LCD to be back in mode 3 by the
 time it returns. In CGB Mode an alternate method to write data to VRAM
 is to use the HDMA Function (FF51-FF55).
@@ -760,11 +767,12 @@ procedure that waits for accessibility of OAM Memory would be:
  bit  1,(hl)       ; Wait until Mode is -NOT- 0 or 1
  jr   z,@@wait1    ;
 @@wait2:           ;
- bit  1,(hl)       ; Wait until Mode 0 or 1 -BEGINS-
+ bit  1,(hl)       ; Wait until Mode 0 or 1 -BEGINS- (but we know that Mode 0 is what will begin)
  jr   nz,@@wait2   ;
 ```
 
-The two wait loops ensure that Mode 0 or 1 will last for a few clock
+The two wait loops ensure that Mode 0 (and Mode 1 if we are at the end
+of a frame) will last for a few clock
 cycles after completion of the procedure. In V-Blank period it might be
 recommended to skip the whole procedure - and in most cases using the
 above mentioned DMA function would be more recommended anyways.
@@ -773,7 +781,7 @@ above mentioned DMA function would be more recommended anyways.
 
 When the display is disabled, both VRAM and OAM are accessible at any
 time. The downside is that the screen is blank (white) during this
-period, so that disabling the display would be recommended only during
+period, so disabling the display would be recommended only during
 initialization.
 
 :::
