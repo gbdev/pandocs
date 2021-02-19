@@ -5,6 +5,8 @@ apparently was no MBC4, presumably because of the superstition about the
 number 4 in Japanese culture. It is the first MBC that is guaranteed to
 work properly with GBC double speed mode.
 
+## Memory
+
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
 Same as for MBC1.
@@ -17,6 +19,8 @@ now. Also, bank 0 is actually bank 0.
 ### A000-BFFF - RAM Bank 00-0F, if any (Read/Write)
 
 Same as for MBC1, except RAM sizes are 64kbit, 256kbit and 1mbit.
+
+## Registers
 
 ### 0000-1FFF - RAM Enable (Write Only)
 
