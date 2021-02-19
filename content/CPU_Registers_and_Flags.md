@@ -26,13 +26,13 @@ flags.
 
 ### The Zero Flag (Z)
 
-This bit is set if the result of an operation is zero. Used by conditional jumps.
+This bit is set if and only if the result of an operation is zero. Used by conditional jumps.
 
 ### The Carry Flag (C, or Cy)
 
 Is set in these cases:
-- When the result of an addition is higher than $FF (8-bit)
-or $FFFF (16-bit).
+- When the result of a 8-bit addition is higher than $FF.
+- When the result of a 16-bit addition is higher than $FFFF.
 - When the result of a subtraction or comparison
 is lower than zero (like in Z80 and 80x86 CPUs, but unlike in
 65XX and ARM CPUs).
