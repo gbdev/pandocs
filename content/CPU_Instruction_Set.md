@@ -1,5 +1,5 @@
-Tables below specify the mnemonic, opcode bytes, clock cycles, affected
-flags (ordered as znhc), and explanation. The timings assume a CPU
+Tables below specify the mnemonic, encoding, cycles, affected
+flags (ordered as znhc), and description. The timings assume a CPU
 clock frequency of 4.194304 MHz (or 8.4 MHz for CGB in double speed
 mode), called "T-states".  Because all Game Boy timings are divisible
 by 4, many people specify timings and clock frequency divided by 4,
@@ -39,7 +39,7 @@ Mnemonic         | Encoding | Cycles | Flags | Description
  push rr         | x5       |   16   | ----  | SP=SP-2  (SP)=rr ; rr may be BC,DE,HL,AF
  pop  rr         | x1       |   12   | (AF)  | rr=(SP)  SP=SP+2 ; rr may be BC,DE,HL,AF
 
-### 8-bit Arithmetic/logical instructions
+### 8-bit Arithmetic/logic instructions
 
 Mnemonic         | Encoding | Cycles | Flags | Description
 -----------------|----------|--------|-------|-------------
@@ -74,7 +74,7 @@ Mnemonic         | Encoding | Cycles | Flags | Description
  daa             | 27       |    4   | z-0x  | decimal adjust A
  cpl             | 2F       |    4   | -11-  | A = A xor FF
 
-### 16-bit Arithmetic/logical instructions
+### 16-bit Arithmetic/logic instructions
 
 Mnemonic         | Encoding | Cycles | Flags | Description
 -----------------|----------|--------|-------|-------------
