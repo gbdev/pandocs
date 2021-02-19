@@ -1,8 +1,8 @@
 ### FF00 - P1/JOYP - Joypad (R/W)
 
-The eight Game Boy buttons/direction keys are arranged in form of a 2x4
+The eight Game Boy buttons/direction keys are arranged as a 2x4
 matrix. Select either button or direction keys by writing to this
-register, then read-out bit 0-3.
+register, then read out bits 0-3.
 
 ```
 Bit 7 - Not used
@@ -17,8 +17,8 @@ Bit 0 - P10 Input Right or Button A (0=Pressed) (Read Only)
 
 ::: tip NOTE
 Most programs read from this port several times in a row
-(the first reads used as short delay, allowing the inputs to stabilize,
-and only the value from the last read actually used).
+(the first reads are used as a short delay, allowing the inputs to stabilize,
+and only the value from the last read is actually used).
 :::
 
 ### Usage in SGB software
@@ -32,8 +32,8 @@ to the SNES. See SGB description for details.
 
 Joypad interrupt is requested when any of the above Input lines changes
 from High to Low. Generally this should happen when a key becomes
-pressed (provided that the button/direction key is enabled by above
-Bit4/5), however, because of switch bounce, one or more High to Low
+pressed (provided that the direction/button key is enabled by
+bit 4/5, respectively), however, because of switch bounce, one or more High to Low
 transitions are usually produced both when pressing or releasing a key.
 
 ### Using the Joypad Interrupt

@@ -117,7 +117,7 @@ the Mode 1 interrupt will not trigger.
 These registers can be accessed even during Mode 3, but they have no
 effect until the end of the current scanline.
 
-### FF42 - SCY - Scroll Y (R/W), FF43 - SCX - Scroll X (R/W)
+### FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)
 
 Specifies the position in the 256x256 pixels BG map (32x32 tiles) which
 is to be displayed at the upper/left LCD display position. Values in
@@ -125,19 +125,19 @@ range from 0-255 may be used for X/Y each, the video controller
 automatically wraps back to the upper (left) position in BG map when
 drawing exceeds the lower (right) border of the BG map area.
 
-### FF44 - LY - LCDC Y-Coordinate (R)
+### FF44 - LY (LCDC Y-Coordinate) (R)
 
 The LY indicates the vertical line to which the present data is
 transferred to the LCD Driver. The LY can take on any value between 0
 through 153. The values between 144 and 153 indicate the V-Blank period.
 
-### FF45 - LYC - LY Compare (R/W)
+### FF45 - LYC (LY Compare) (R/W)
 
 The Game Boy permanently compares the value of the LYC and LY registers.
 When both values are identical, the coincident bit in the STAT register
 becomes set, and (if enabled) a STAT interrupt is requested.
 
-### FF4A - WY - Window Y Position (R/W), FF4B - WX - Window X Position minus 7 (R/W)
+### FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)
 
 Specifies the upper/left positions of the Window area. (The window is an
 alternate background area which can be displayed above of the normal
@@ -155,7 +155,7 @@ should try it yourself.)
 
 # LCD Monochrome Palettes
 
-### FF47 - BGP - BG Palette Data (R/W) - Non CGB Mode Only
+### FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades to the color numbers of the BG and
 Window tiles.
@@ -177,13 +177,13 @@ Value | Color
 In CGB Mode the Color Palettes are taken from CGB Palette Memory
 instead.
 
-### FF48 - OBP0 - Object Palette 0 Data (R/W) - Non CGB Mode Only
+### FF48 - OBP0 (Object Palette 0 Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades for sprite palette 0. It works exactly
 as BGP (FF47), except that the lower two bits aren't used because
 sprite data 00 is transparent.
 
-### FF49 - OBP1 - Object Palette 1 Data (R/W) - Non CGB Mode Only
+### FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades for sprite palette 1. It works exactly
 as BGP (FF47), except that the lower two bits aren't used because
@@ -191,7 +191,7 @@ sprite data 00 is transparent.
 
 # LCD Color Palettes (CGB only)
 
-### FF68 - BCPS/BGPI - CGB Mode Only - Background Color Palette Specification or Background Palette Index
+### FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only
 
 This register is used to address a byte in the CGBs Background Palette
 Memory. Each two byte in that memory define a color value. The first 8
@@ -212,7 +212,7 @@ auto-increment to occur.
 Unlike the following, this register can be accessed outside V-Blank and
 H-Blank.
 
-### FF69 - BCPD/BGPD - CGB Mode Only - Background Color Palette Data or Background Palette Data
+### FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only
 
 This register allows to read/write data to the CGBs Background Palette
 Memory, addressed through Register FF68. Each color is defined by two
@@ -230,7 +230,7 @@ register indicates Mode 3). Note: All background colors are initialized
 as white by the boot ROM, but it's a good idea to initialize at least
 one color yourself (for example if you include a soft-reset mechanic).
 
-### FF6A - OCPS/OBPI Object Color Palette Specification or Sprite Palette Index, FF6B - OCPD/OBPD Object Color Palette Data or Sprite Palette Data - Both CGB Mode Only
+### FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only
 
 These registers are used to initialize the Sprite Palettes OBP0-7,
 identically as described above for Background Palettes. Note that four
@@ -286,7 +286,7 @@ of this brightness correction.
 
 # LCD OAM DMA Transfers
 
-### FF46 - DMA - DMA Transfer and Start Address (R/W)
+### FF46 - DMA (DMA Transfer and Start Address) (R/W)
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 memory (sprite attribute table). The written value specifies the
@@ -346,9 +346,9 @@ the jump into the HRAM part.
 
 # LCD VRAM DMA Transfers (CGB only)
 
-### FF51 - HDMA1 - CGB Mode Only - New DMA Source, High
+### FF51 - HDMA1 (New DMA Source, High) - CGB Mode Only
 
-### FF52 - HDMA2 - CGB Mode Only - New DMA Source, Low
+### FF52 - HDMA2 (New DMA Source, Low) - CGB Mode Only
 
 These two registers specify the address at which the transfer will read
 data from. Normally, this should be either in ROM, SRAM or WRAM, thus
@@ -358,15 +358,15 @@ address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF53 - HDMA3 - CGB Mode Only - New DMA Destination, High
+### FF53 - HDMA3 (New DMA Destination, High) - CGB Mode Only
 
-### FF54 - HDMA4 - CGB Mode Only - New DMA Destination, Low
+### FF54 - HDMA4 (New DMA Destination, Low) - CGB Mode Only
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF55 - HDMA5 - CGB Mode Only - New DMA Length/Mode/Start
+### FF55 - HDMA5 (New DMA Length/Mode/Start) - CGB Mode Only
 
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
@@ -458,9 +458,9 @@ Tiles are always indexed using a 8-bit integer, but the addressing
 method may differ. The "8000 method" uses \$8000 as its base pointer
 and uses an unsigned addressing, meaning that tiles 0-127 are in block
 0, and tiles 128-255 are in block 1. The "8800 method" uses \$9000 as
-its base pointer and uses a signed addressing. To put it differently,
-"8000 addressing" takes tiles 0-127 from block 0 and tiles 128-255
-from block 1, whereas "8800 addressing" takes tiles 0-127 from block 2
+its base pointer and uses a signed addressing, meaning that tiles 0-127
+are in block 2, and tiles -128 to -1 are in block 1, or to put it differently,
+"8800 addressing" takes tiles 0-127 from block 2
 and tiles 128-255 from block 1. (You can notice that block 1 is shared
 by both addressing methods)
 
@@ -492,7 +492,8 @@ A more visual explanation can be found
 
 So, each pixel is having a color number in range from 0-3. The color
 numbers are translated into real colors (or gray shades) depending on
-the current palettes. The palettes are defined through registers
+the current palettes, except that when the tile is used in a OBJ the
+color number 0 means transparent. The palettes are defined through registers
 [BGP](#ff47-bgp-bg-palette-data-r-w-non-cgb-mode-only),
 [OBP0](#ff48-obp0-object-palette-0-data-r-w-non-cgb-mode-only)
 and
@@ -655,13 +656,13 @@ tile is "NN AND FEh", and the lower 8x8 tile is "NN OR 01h".
 During each scanline's OAM scan, the LCD controller compares LY to each
 sprite's Y position to find the 10 sprites on that line that appear
 first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
-allowing only 10 sprites to be displayed on any one line. When this
-limit is exceeded, sprites appearing later in OAM won't be displayed.
+displaying only those 10 sprites on that line.
 To keep unused sprites from affecting onscreen sprites, set their Y
 coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note : Y \<= 8 also works
 if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
-X \>= 168 (160 + 8) on a sprite will hide it, but it will still affect
-other sprites sharing the same lines.
+X \>= 168 (160 + 8) on a sprite will hide it, but it will still count
+towards the 10 sprite limit per scanline, possibly causing another sprite
+that appears later in OAM to be left undisplayed.
 
 If using BGB, in the VRAM viewer - OAM tab, hover your
 mouse over the small screen to highlight the sprites on a line. Sprites
@@ -727,9 +728,9 @@ jr   nz,@@wait    ;
 ```
 
 Even if the procedure gets executed at the *end* of Mode 0 or 1, it is
-still proof to assume that VRAM can be accessed for a few more cycles
+still safe to assume that VRAM can be accessed for a few more cycles
 because in either case the following period is Mode 2 which allows
-access to VRAM either. However, be careful about STAT LCD interrupts or
+access to VRAM also. However, be careful about STAT LCD interrupts or
 other interrupts that could cause the LCD to be back in mode 3 by the
 time it returns. In CGB Mode an alternate method to write data to VRAM
 is to use the HDMA Function (FF51-FF55).
@@ -775,7 +776,7 @@ above mentioned DMA function would be more recommended anyways.
 
 When the display is disabled, both VRAM and OAM are accessible at any
 time. The downside is that the screen is blank (white) during this
-period, so that disabling the display would be recommended only during
+period, so disabling the display would be recommended only during
 initialization.
 
 :::
