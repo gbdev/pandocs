@@ -26,7 +26,7 @@ higher (01/21/41/61).
 ### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
 
 This area is used to address external RAM in the cartridge (if any).
-External RAM is often battery buffered, allowing for the storage of game data while the Game Boy is turned off, or if the
+External RAM is often battery backed, allowing for the storage of game data while the Game Boy is turned off, or if the
 cartridge is removed from the Game Boy. Available RAM sizes are: 2KByte
 (at A000-A7FF), 8KByte (at A000-BFFF) and 32KByte (in form of four 8K
 banks at A000-BFFF).
