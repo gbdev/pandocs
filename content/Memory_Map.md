@@ -69,14 +69,15 @@ echo RAM interferes with SRAM normally at A000-BFFF. Software can check if
 Echo RAM is properly emulated by writing to RAM (avoid values 00 and
 FF) and checking if said value is mirrored in Echo RAM and not cart SRAM.
 
-# I/O Registers
+# I/O Ranges
 
 The Game Boy uses the following I/O ranges:
 
 | **Start** | **End** | **Revision** | **Purpose** |
 |-----------|---------|--------------|-------------|
-|   $FF00   |  $FF02  |     DMG      | Port/Mode
-|   $FF04   |  $FF07  |     DMG      | Port/Mode
+|   $FF00   |         |     DMG      | Controller
+|   $FF01   |  $FF02  |     DMG      | Communication
+|   $FF04   |  $FF07  |     DMG      | Divider and Timer
 |   $FF10   |  $FF26  |     DMG      | Sound
 |   $FF30   |  $FF3F  |     DMG      | Waveform RAM
 |   $FF40   |  $FF4B  |     DMG      | LCD
