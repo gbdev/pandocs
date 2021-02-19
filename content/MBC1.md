@@ -37,7 +37,7 @@ banks at A000-BFFF).
 
 Before external RAM can be read or written, it must be enabled by
 writing to this address space. It is recommended to disable external RAM
-after accessing it, in order to protect its contents from damage during
+after accessing it, in order to protect its contents from corruption during
 power down of the Game Boy. Usually the following values are used:
 
 ```
