@@ -535,7 +535,7 @@ Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)
 Bit 4    Not used
 Bit 5    Horizontal Flip            (0=Normal, 1=Mirror horizontally)
 Bit 6    Vertical Flip              (0=Normal, 1=Mirror vertically)
-Bit 7    BG-to-OAM Priority         (0=Use OAM priority bit, 1=BG Priority)
+Bit 7    BG-to-OAM Priority         (0=Use OAM Priority bit, 1=BG Priority)
 ```
 
 When Bit 7 is set, the corresponding BG tile will have priority above
@@ -675,8 +675,8 @@ Priority among opaque pixels that overlap is determined using the rules explaine
 above. After the pixel with the highest priority has been determined,
 the OBJ-to-BG priority of *only* that pixel is honored (or disregarded if
 this is a transparent pixel, i.e. a pixel with color ID zero). Thus if a sprite with a
-higher priority but with OBJ-to-BG priority turned
-on overlaps a sprite with a lower priority and a nonzero background
+higher priority but with OBJ-to-BG Priority toggled on
+overlaps a sprite with a lower priority and a nonzero background
 pixel, the background pixel is displayed regardless of the
 lower-priority sprite's OBJ-to-BG Priority.
 :::
