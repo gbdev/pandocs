@@ -62,24 +62,25 @@ rectangle and only the position of the top-left pixel can be controlled.
 Possible usage include a fixed status bar in an otherwise scrolling game (e.g.
 *Super Mario Bros. 3*).
 
-### Sprites
+### Objects
 
 The background layer is useful for elements scrolling as a whole, but
 it's impractical for objects that need to move separately, such as the player.
 
-The *sprites* layer is designed to fill this gap: it allows displaying tiles anywhere
+The *objects* layer is designed to fill this gap: it allows displaying tiles anywhere
 on the screen.
 
-*Hardware objects* are made of 1 or 2 stacked tiles (8x8 or 8x16 pixels), and 
-several of them can be combined (*metasprites*) to draw a larger graphical element,
-usually called "sprite".
+*Objects* are made of 1 or 2 stacked tiles (8x8 or 8x16 pixels).
 
+::: tip NOTE
+Several objects can be combined (they can be called *metasprites*) to draw
+a larger graphical element, usually called "sprite". Originally, the term "sprites"
+referred to fixed-sized objects composited together, by hardware, with a background.
+Use of the term has since become more general.
+:::
 
 To summarise:
 
 - **Tile**, an 8x8-pixel chunk of graphics.
-- **Hardware object**, an entry in object attribute memory, composed of 1 or 2
+- **Object**, an entry in object attribute memory, composed of 1 or 2
 tiles. Independent from the background.
-- **Metasprite** a set of several sprites moved as a unit to display a sprite.
-- **Sprite**, a collection of tiles used to display one frame of a game
-character's animation.
