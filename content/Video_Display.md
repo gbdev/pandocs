@@ -143,7 +143,7 @@ window, just as for normal BG.)
 
 The window becomes visible (if enabled) when positions are set in range
 WX=0..166, WY=0..143. A position of WX=7, WY=0 locates the window at
-upper left, it is then completely covering normal background.
+upper left, it is then completely covering the background.
 
 WX values 0-6 and 166 are unreliable due to hardware bugs. If WX is set
 to 0, the window will "stutter" horizontally when SCX changes.
@@ -549,7 +549,7 @@ Note that, if the map entry at `0:9800` is tile \$2A, the attribute at
 `1:9800` doesn't define properties for ALL tiles \$2A on-screen, but only
 the one at `0:9800`!
 
-### Normal Background (BG)
+### Background (BG)
 
 The [SCY and SCX](#ff42-scy-scroll-y-r-w-ff43-scx-scroll-x-r-w) registers can be
 used to scroll the background, allowing to select the origin of the visible
