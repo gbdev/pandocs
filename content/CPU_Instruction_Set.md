@@ -39,7 +39,7 @@ Mnemonic         | Encoding | Cycles | Flags | Description
  push rr         | x5       |   16   | ----  | SP=SP-2  (SP)=rr ; rr may be BC,DE,HL,AF
  pop  rr         | x1       |   12   | (AF)  | rr=(SP)  SP=SP+2 ; rr may be BC,DE,HL,AF
 
-### 8-bit Arithmetic/logic instructions
+### 8-bit Arithmetic/Logic instructions
 
 Mnemonic         | Encoding | Cycles | Flags | Description
 -----------------|----------|--------|-------|-------------
@@ -74,7 +74,7 @@ Mnemonic         | Encoding | Cycles | Flags | Description
  daa             | 27       |    4   | z-0x  | decimal adjust A
  cpl             | 2F       |    4   | -11-  | A = A xor FF
 
-### 16-bit Arithmetic/logic instructions
+### 16-bit Arithmetic/Logic instructions
 
 Mnemonic         | Encoding | Cycles | Flags | Description
 -----------------|----------|--------|-------|-------------
