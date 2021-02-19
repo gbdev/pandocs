@@ -21,32 +21,35 @@ Bit | Name | Explanation
   5 |   h  | Half Carry flag (BCD)
   4 |   c  | Carry flag
 
-Contains the result from the recent instruction which has affected
+Contains information about the result of the most recent instruction that has affected
 flags.
 
 ### The Zero Flag (Z)
 
-This bit becomes set (1) if the result of an operation has been zero
-(0). Used for conditional jumps.
+This bit is set if and only if the result of an operation is zero. Used by conditional jumps.
 
 ### The Carry Flag (C, or Cy)
 
-Becomes set when the result of an addition became bigger than FFh (8-bit)
-or FFFFh (16-bit). Or when the result of a subtraction or comparison
-became less than zero (much as for Z80 and 80x86 CPUs, but unlike as for
-65XX and ARM CPUs). Also the flag becomes set when a rotate/shift
-operation has shifted-out a \"1\"-bit. Used for conditional jumps, and
-for instructions such like ADC, SBC, RL, RLA, etc.
+Is set in these cases:
+- When the result of a 8-bit addition is higher than $FF.
+- When the result of a 16-bit addition is higher than $FFFF.
+- When the result of a subtraction or comparison
+is lower than zero (like in Z80 and 80x86 CPUs, but unlike in
+65XX and ARM CPUs).
+- When a rotate/shift operation shifts out a \"1\" bit.
+
+Used by conditional jumps and
+instructions such as ADC, SBC, RL, RLA, etc.
 
 ### The BCD Flags (N, H)
 
-These flags are (rarely) used for the DAA instruction only, N Indicates
-whether the previous instruction has been an addition or subtraction,
-and H indicates carry for lower 4 bits of the result, also for DAA, the C
-flag must indicate carry for upper 8 bits. After adding/subtracting two
-BCD numbers, DAA is intended to convert the result into BCD format; BCD
-numbers are ranged from 00h to 99h rather than 00h to FFh. Because C and
-H flags must contain carry-outs for each digit, DAA cannot be used for
+These flags are used by the DAA instruction only. N indicates
+whether the previous instruction has been a subtraction,
+and H indicates carry for the lower 4 bits of the result. DAA also uses the C flag,
+which must indicate carry for the upper 4 bits. After adding/subtracting two
+BCD numbers, DAA is used to convert the result to BCD format. BCD
+numbers range from $00 to $99 rather than $00 to $FF. Because only two flags
+(C and H) exist to indicate carry-outs of BCD digits, DAA is ineffective for
 16-bit operations (which have 4 digits), and use for INC/DEC operations
 (which do not affect C-flag) has limits.
 
