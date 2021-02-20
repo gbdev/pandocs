@@ -69,23 +69,65 @@ echo RAM interferes with SRAM normally at A000-BFFF. Software can check if
 Echo RAM is properly emulated by writing to RAM (avoid values 00 and
 FF) and checking if said value is mirrored in Echo RAM and not cart SRAM.
 
-# I/O Ranges
+# Memory mapped I/O
 
-The Game Boy uses the following I/O ranges:
-
-| **Start** | **End** | **Revision** | **Purpose** |
-|-----------|---------|--------------|-------------|
-|   $FF00   |         |     DMG      | Controller
-|   $FF01   |  $FF02  |     DMG      | Communication
-|   $FF04   |  $FF07  |     DMG      | Divider and Timer
-|   $FF10   |  $FF26  |     DMG      | Sound
-|   $FF30   |  $FF3F  |     DMG      | Waveform RAM
-|   $FF40   |  $FF4B  |     DMG      | LCD
-|   $FF4F   |         |     CGB      | VRAM Bank Select
-|   $FF50   |         |     DMG      | Set to non-zero to disable boot ROM
-|   $FF51   |  $FF55  |     CGB      | HDMA
-|   $FF68   |  $FF69  |     CGB      | BCP/OCP
-|   $FF70   |         |     CGB      | WRAM Bank Select
+|**Rev**|**Section**  |**Address**|**Name** |**Description**                            
+|-------|-------------|-----------|---------|-------------------------------------- 
+|DMG    |Controller   |$FF00      |P1       |Controller                              
+|DMG    |Communication|$FF01      |SB       |Serial byte                             
+|DMG    |Communication|$FF02      |SC       |Serial control                          
+|DMG    |Time         |$FF04      |DIV      |Clock divider                           
+|DMG    |Time         |$FF05      |TIMA     |Timer value                             
+|DMG    |Time         |$FF06      |TMA      |Timer reload                            
+|DMG    |Time         |$FF07      |TAC      |Timer control                           
+|DMG    |Interrupts   |$FF0F      |IF       |Interrupt flag                          
+|DMG    |Audio        |$FF10      |NR10     |Audio channel 1 sweep                   
+|DMG    |Audio        |$FF11      |NR11     |Audio channel 1 sound length/wave duty  
+|DMG    |Audio        |$FF12      |NR12     |Audio channel 1 envelope                
+|DMG    |Audio        |$FF13      |NR13     |Audio channel 1 frenquency              
+|DMG    |Audio        |$FF14      |NR14     |Audio channel 1 control                 
+|DMG    |Audio        |$FF16      |NR21     |Audio channel 2 sound length/wave duty  
+|DMG    |Audio        |$FF17      |NR22     |Audio channel 2 envelope                
+|DMG    |Audio        |$FF18      |NR23     |Audio channel 2 frenquency              
+|DMG    |Audio        |$FF19      |NR24     |Audio channel 2 control                 
+|DMG    |Audio        |$FF1A      |NR30     |Audio channel 3 enable                  
+|DMG    |Audio        |$FF1B      |NR31     |Audio channel 3 sound length            
+|DMG    |Audio        |$FF1C      |NR32     |Audio channel 3 volume                  
+|DMG    |Audio        |$FF1D      |NR33     |Audio channel 3 frequency               
+|DMG    |Audio        |$FF1E      |NR34     |Audio channel 3 control                 
+|DMG    |Audio        |$FF20      |NR41     |Audio channel 4 sound length            
+|DMG    |Audio        |$FF21      |NR42     |Audio channel 4 volume                  
+|DMG    |Audio        |$FF22      |NR43     |Audio channel 4 frequency               
+|DMG    |Audio        |$FF23      |NR44     |Audio channel 4 control                 
+|DMG    |Audio        |$FF24      |NR50     |Audio output mapping                    
+|DMG    |Audio        |$FF25      |NR51     |Audio channel mapping                   
+|DMG    |Audio        |$FF26      |NR52     |Audio channel control                   
+|DMG    |Audio        |$FF30-$FF3F|         |Wave pattern              
+|DMG    |Video        |$FF40      |LCDC     |LCD control                             
+|DMG    |Video        |$FF41      |STAT     |LCD status                              
+|DMG    |Video        |$FF42      |SCY      |Background vertical scroll              
+|DMG    |Video        |$FF43      |SCX      |Background horizontal scroll            
+|DMG    |Video        |$FF44      |LY       |LCD Y coordinate                        
+|DMG    |Video        |$FF45      |LYC      |LCD Y compare                           
+|DMG    |DMA          |$FF46      |DMA      |OAM DMA source address                  
+|DMG    |Video        |$FF47      |BGP      |Background palette                      
+|DMG    |Video        |$FF48      |OBP0     |OBJ palette 0                           
+|DMG    |Video        |$FF49      |OBP1     |OBJ palette 1                           
+|DMG    |Video        |$FF4A      |WY       |Window Y coord                          
+|DMG    |Video        |$FF4B      |WX       |Window X coord                          
+|CGB    |Video        |$FF4F      |VBK      |VRAM Bank Select                        
+|DMG    |             |$FF50      |         |Set to non-zero to disable boot ROM     
+|CGB    |HDMA         |$FF51      |HDMA1    |New DMA Source, High                    
+|CGB    |HDMA         |$FF52      |HDMA2    |New DMA Source, Low                     
+|CGB    |HDMA         |$FF53      |HDMA3    |New DMA Destination, High               
+|CGB    |HDMA         |$FF54      |HDMA4    |New DMA Destination, Low                
+|CGB    |HDMA         |$FF55      |HDMA5    |New DMA Length/Mode/Start               
+|CGB    |Video        |$FF68      |BCPS/BGPI|Background Color Palette Specification  
+|CGB    |Video        |$FF69      |BCPD/BGPD|Background Color Palette Data           
+|CGB    |Video        |$FF6A      |OCPS/OBPI|Object Color Palette Specification      
+|CGB    |Video        |$FF6B      |OCPS/OBPI|Object Color Palette Data               
+|CGB    |Video        |$FF70      |OCPD/OBPD|WRAM Bank Select                        
+|DMG    |Interrupts   |$FFFF      |IE       |Interrupt Enable                        
 
 # FEA0-FEFF range
 
