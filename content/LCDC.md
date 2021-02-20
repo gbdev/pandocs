@@ -88,11 +88,11 @@ displayed on top of a status bar or text box.
 (Note: toggling mid-scanline might have funky results on DMG?
 Investigation needed.)
 
-## LCDC.0 - BG/Window Display/Priority
+## LCDC.0 - BG and Window Display/Priority
 
 LCDC.0 has different meanings depending on Game Boy type and Mode:
 
-### Monochrome Game Boy, SGB and CGB in Non-CGB Mode: BG Display
+### DMG, SGB and CGB in Non-CGB Mode: BG and Window Display
 
 When Bit 0 is cleared, both background and window become blank (white),
 and the [Window Display Bit](#lcdc-5-window-display-enable)
