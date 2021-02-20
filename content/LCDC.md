@@ -12,7 +12,7 @@ elements are displayed on the screen, and how.
 | 3   | BG Tile Map Display Select     | 0=9800-9BFF, 1=9C00-9FFF |
 | 2   | OBJ (Sprite) Size              | 0=8x8, 1=8x16            |
 | 1   | OBJ (Sprite) Display Enable    | 0=Off, 1=On              |
-| 0   | BG/Window Display/Priority     | 0=Off, 1=On              |
+| 0   | BG and Window Display/Priority | 0=Off, 1=On              |
 
 
 ## LCDC.7 - LCD Display Enable
