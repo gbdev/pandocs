@@ -318,7 +318,7 @@ the transfer has finished:
 ```
 
 Because sprites are not displayed while OAM DMA is in progress, most
-programs are executing this procedure from inside of their VBlank
+programs execute this procedure from inside of their VBlank
 procedure. But it is also possible to execute it during display redraw
 also, allowing to display more than 40 sprites on the screen (that is, for
 example 40 sprites in upper half, and other 40 sprites in lower half of
