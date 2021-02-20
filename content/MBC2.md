@@ -1,6 +1,6 @@
 (max 256KByte ROM and 512x4 bits RAM)
 
-## ROM/RAM Access
+## Memory
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
@@ -18,7 +18,7 @@ battery to save data during power-off though. As the data consists of
 4bit values, only the lower 4 bits of the "bytes" in this memory area
 are used.
 
-## Control Registers
+## Registers
 
 ### 0000-3FFF - RAM Enable and ROM Bank Number (Write Only)
 

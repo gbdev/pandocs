@@ -5,6 +5,8 @@ Beside for the ability to access up to 2MB ROM (128 banks), and 32KB RAM
 RTC requires an external 32.768 kHz Quartz Oscillator, and an external
 battery (if it should continue to tick when the Game Boy is turned off).
 
+## Memory
+
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
 Same as for MBC1.
@@ -15,6 +17,8 @@ Same as for MBC1, except that accessing banks 20h, 40h, and 60h is
 supported now.
 
 ### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
+
+## Registers
 
 ### A000-BFFF - RTC Register 08-0C (Read/Write)
 

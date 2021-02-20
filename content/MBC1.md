@@ -8,7 +8,7 @@ types of MBCs.
 Note that the memory in range 0000-7FFF is used both for reading from
 ROM and writing to the MBCs Control Registers.
 
-## ROM/RAM access
+## Memory
 
 ### 0000-3FFF - ROM Bank 00/20/40/60 (Read Only)
 
@@ -31,7 +31,7 @@ cartridge is removed from the Game Boy. Available RAM sizes are: 2KByte
 (at A000-A7FF), 8KByte (at A000-BFFF) and 32KByte (in form of four 8K
 banks at A000-BFFF).
 
-## Control Registers
+## Registers
 
 ### 0000-1FFF - RAM Enable (Write Only)
 
