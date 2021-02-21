@@ -13,7 +13,7 @@ and some others to higher abstractions concepts.
 
 ## Tiles
 
-Similarly to other retro systems, pixels are usually not manipulated
+Similarly to other retro systems, pixels are not manipulated
 individually, as this would be expensive CPU-wise. Instead, pixels are grouped
 in 8x8 squares, called *tiles* (or sometimes "patterns"), often considered as
 the base unit in Game Boy graphics.
