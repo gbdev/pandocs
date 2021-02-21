@@ -8,7 +8,7 @@ The HALT instruction should be used whenever possible to reduce power
 consumption & extend the life of the batteries. This command stops the
 system clock, reducing the power consumption of both the CPU and ROM.
 
-The CPU will remain stopped until an interrupt *enabled in the IE Register (FFFF)* occurs at which point the
+The CPU will remain stopped until an interrupt *enabled by the IE Register (FFFF)* occurs at which point the
 interrupt is serviced and then the instruction immediately following the
 HALT is executed.
 
@@ -19,10 +19,10 @@ more.
 When waiting for a vblank event, this would be a BAD example:
 
 ```
- @@wait:
-  ld   a,(0FF44h)      ;LY
+ .wait:
+  ld   a,[0FF44h]      ;LY
   cp   a,144
-  jr   nz,@@wait
+  jr   nz,.wait
 ```
 
 A better example would be a procedure as shown below. In this case the
@@ -32,11 +32,11 @@ must set vblank_flag to a non-zero value.
 ```
   ld   hl,vblank_flag  ;hl=pointer to vblank_flag
   xor  a               ;a=0
- @@wait:               ;wait...
+ .wait:               ;wait...
   halt                 ;suspend CPU - wait for ANY enabled interrupt
-  cp   a,(hl)          ;vblank flag still zero?
-  jr   z,@@wait        ;wait more if zero
-  ld   (hl),a          ;set vblank_flag back to zero
+  cp   a,[hl]          ;vblank flag still zero?
+  jr   z,.wait        ;wait more if zero
+  ld   [hl],a          ;set vblank_flag back to zero
 ```
 The vblank_flag is used to determine whether the HALT period has been
 terminated by a vblank interrupt, or by another interrupt. In case your
