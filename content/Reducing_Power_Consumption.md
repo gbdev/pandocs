@@ -8,8 +8,8 @@ The HALT instruction should be used whenever possible to reduce power
 consumption and extend battery life. This instruction halts the
 system clock, reducing the power consumption of both the CPU and ROM.
 
-The CPU will remain halted until an interrupt *enabled by [the IE register ($FFFF)](#ffff-ie-interrupt-enable-r-w)* occurs, at which point the
-interrupt is serviced (if IME is enabled)
+The CPU will remain halted until an interrupt *enabled by [the IE register ($FFFF)](#ffff-ie-interrupt-enable-r-w)* is
+flagged in IF, at which point the interrupt is serviced if IME is enabled,
 and then execution continues at the instruction immediately following the
 HALT.
 
@@ -17,7 +17,7 @@ Depending on how much CPU time is required by a game, the HALT
 instruction can extend battery life anywhere from 5% to 50% or possibly
 more.
 
-When waiting for a v-blank event, this would be a BAD example:
+When waiting for a VBlank event, this would be a BAD example:
 
 ```
  .wait:
@@ -35,21 +35,20 @@ must set vblank_flag to a non-zero value.
   xor  a               ;a=0
  .wait:                ;wait...
   halt                 ;suspend CPU - wait for ANY enabled interrupt
-  cp   a, [hl]         ;is vblank_flag still zero?
+  cp   a, [hl]         ;is the vblank_flag still zero?
   jr   z, .wait        ;keep waiting if zero
-  ld   [hl], a         ;set vblank_flag back to zero
+  ld   [hl], a         ;set the vblank_flag back to zero
 ```
+
 The vblank_flag is used to determine whether the HALT period has been
-terminated by a v-blank interrupt or by another interrupt. In case your
-program has all other interrupts disabled, then it would be acceptable to
-replace the above procedure with a single HALT instruction.
+terminated by a VBlank interrupt or by another interrupt.
 
-Another possibility is, if your game uses no other interrupt than v-blank
-(or uses no interrupts), to only enable v-blank interrupts and simply use
+Another possibility is, if your game uses no other interrupt than VBlank
+(or uses no interrupts), to only enable VBlank interrupts and simply use
 a HALT instruction, which will only resume main code execution when a
-v-blank occurs.
+VBlank occurs.
 
-Remember, when using HALT to wait between v-blanks, that your interrupt
+Remember, when using HALT to wait between VBlanks, that your interrupt
 handlers MUST enable interrupts (using EI before returning, or
 better, using the RETI instruction)
 
