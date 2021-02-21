@@ -51,7 +51,7 @@ v-blank occurs.
 
 Remember, when using HALT to wait between v-blanks, that your interrupt
 handlers MUST enable interrupts (using EI before returning, or
-better, the RETI instruction)
+better, using the RETI instruction)
 
 # Using the STOP Instruction
 
