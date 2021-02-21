@@ -27,7 +27,7 @@ The following addresses are supposed to be used as jump vectors:
 
 However, the memory may be used for any other purpose in case that your
 program doesn't use any (or only some) RST commands or interrupts. RST
-commands are 1-byte opcodes that work similarly to CALL opcodes, except
+commands are 1-byte instructions that work similarly to CALL instructions, except
 that the destination address is fixed. Since they are only 1 byte large,
 they are also slightly faster.
 
