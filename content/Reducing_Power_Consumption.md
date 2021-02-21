@@ -8,7 +8,7 @@ The HALT instruction should be used whenever possible to reduce power
 consumption & extend the life of the batteries. This command stops the
 system clock, reducing the power consumption of both the CPU and ROM.
 
-The CPU will remain stopped until an interrupt occurs at which point the
+The CPU will remain stopped until an interrupt *enabled in the IE Register (FFFF)* occurs at which point the
 interrupt is serviced and then the instruction immediately following the
 HALT is executed.
 
@@ -33,7 +33,7 @@ must set vblank_flag to a non-zero value.
   ld   hl,vblank_flag  ;hl=pointer to vblank_flag
   xor  a               ;a=0
  @@wait:               ;wait...
-  halt                 ;suspend CPU - wait for ANY interrupt
+  halt                 ;suspend CPU - wait for ANY enabled interrupt
   cp   a,(hl)          ;vblank flag still zero?
   jr   z,@@wait        ;wait more if zero
   ld   (hl),a          ;set vblank_flag back to zero
