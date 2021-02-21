@@ -128,7 +128,7 @@ drawing exceeds the lower (right) border of the BG map area.
 ### FF44 - LY (LCDC Y-Coordinate) (R)
 
 The LY indicates the vertical line to which the present data is
-transferred to the LCD Driver. The LY can take on any value between 0
+transferred to the LCD driver. The LY can take on any value between 0
 through 153. The values between 144 and 153 indicate the V-Blank period.
 
 ### FF45 - LYC (LY Compare) (R/W)
