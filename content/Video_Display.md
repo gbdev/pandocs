@@ -484,7 +484,7 @@ this order in memory), which in binary are %01010111 and %00110110.
 To obtain the color index for the leftmost pixel,
 you take bit 7 of both bytes: 0, and 0. Thus the index is %00 = 0. For
 the second pixel, repeat with bit 6: 1, and 0. Thus the index is %01 =
-1 (remember to flip the order of the bits !). If you repeat the
+1 (remember to flip the order of the bits!). If you repeat the
 operation you'll find that the indexes for the 8 pixels are 0 1 2 3 0 3
 3 1.
 
