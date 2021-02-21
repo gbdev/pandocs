@@ -135,7 +135,7 @@ through 153. The values between 144 and 153 indicate the V-Blank period.
 
 The Game Boy permanently compares the value of the LYC and LY registers.
 When both values are identical, the coincident bit in the STAT register
-becomes set, and (if enabled) a STAT interrupt is requested.
+is set, and (if enabled) a STAT interrupt is requested.
 
 ### FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)
 
