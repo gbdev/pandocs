@@ -135,7 +135,7 @@ through 153. The values between 144 and 153 indicate the V-Blank period.
 
 The Game Boy permanently compares the value of the LYC and LY registers.
 When both values are identical, the coincident bit in the STAT register
-becomes set, and (if enabled) a STAT interrupt is requested.
+is set, and (if enabled) a STAT interrupt is requested.
 
 ### FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)
 
@@ -290,27 +290,27 @@ of this brightness correction.
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 memory (sprite attribute table). The written value specifies the
-transfer source address divided by 100h, that is, source & destination are:
+transfer source address divided by $100, that is, source and destination are:
 
 ```
-Source:      XX00-XX9F   ;XX in range from 00-F1h
-Destination: FE00-FE9F
+Source:      $XX00-$XX9F   ;XX = $00 to $F1
+Destination: $FE00-$FE9F
 ```
 
 The transfer takes 160 machine cycles: 152 microseconds in normal speed
 or 76 microseconds in CGB Double Speed Mode. On DMG, during this time,
-the CPU can access only HRAM (memory at FF80-FFFE); on CGB, the bus used
+the CPU can access only HRAM (memory at $FF80-$FFFE); on CGB, the bus used
 by the source area cannot be used (this isn't understood well at the
-moment, it's recommended to assume same behavior as DMG). For this
+moment; it's recommended to assume same behavior as DMG). For this
 reason, the programmer must copy a short procedure into HRAM, and use
 this procedure to start the transfer from inside HRAM, and wait until
 the transfer has finished:
 
 ```
  run_dma:
-  ld a, start address / 100h
-  ldh  (FF46h),a ;start DMA transfer (starts right after instruction)
-  ld  a,28h      ;delay...
+  ld a, start address / $100
+  ldh  ($FF46),a ;start DMA transfer (starts right after instruction)
+  ld  a,$28      ;delay...
  wait:           ;total 4x40 cycles, approx 160 μs
   dec a          ;1 cycle
   jr  nz,wait    ;3 cycles
@@ -318,18 +318,18 @@ the transfer has finished:
 ```
 
 Because sprites are not displayed while OAM DMA is in progress, most
-programs execute this procedure from inside of their VBlank
-procedure. But it is also possible to execute it during display redraw
-also, allowing to display more than 40 sprites on the screen (that is, for
-example 40 sprites in upper half, and other 40 sprites in lower half of
+programs execute this procedure from inside of their V-Blank
+handler. But it is also possible to execute it during display redraw,
+allowing to display more than 40 sprites on the screen (that is, for
+example 40 sprites in the top half, and other 40 sprites in the bottom half of
 the screen), at the cost of a couple lines that lack sprites.
 
 A more compact procedure is
 
 ```
  run_dma:  ; This part is in ROM
-  ld a, start address / 100h
-  ld bc, 2946h  ; B: wait time; C: OAM trigger
+  ld a, start address / $100
+  ld bc, $2946  ; B: wait time; C: OAM trigger
   jp run_dma_hrampart
 
  run_dma_hrampart:
@@ -340,8 +340,8 @@ A more compact procedure is
   ret
 ```
 
-which should be called with a = start address / 100h, bc = 2946h. This
-saves 5 bytes of HRAM, but is slightly slower in most cases because of
+which should be called with a = start address / $100, bc = $2946. This
+saves 5 bytes of HRAM, but is slightly slower in most cases due to
 the jump into the HRAM part.
 
 # LCD VRAM DMA Transfers (CGB only)
