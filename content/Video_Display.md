@@ -563,21 +563,21 @@ Whether the background is displayed can be toggled using
 [LCDC bit 0](#lcdc-0-bg-window-display-priority), except on CGB in CGB Mode,
 where it's always drawn.
 
-### The Window
+### Window
 
-Besides background, there is also a "window" overlaying the
-background. The window is not scrollable, that is, it is always
-displayed starting from its left upper corner. The location of a window
-on the screen can be adjusted via WX and WY registers. Screen
-coordinates of the top left corner of a window are WX-7,WY. The tiles
-for the window are stored in the Tile Data Table. Both the Background
-and the window share the same Tile Data Table.
+Besides the Background, there is also the Window overlaying the
+Background. The Window is not scrollable, that is, it is always
+displayed starting from its top left corner. The location of the Window
+on the screen can be adjusted via the WX and WY registers. The screen
+coordinates of the top left corner of the Window are WX-7,WY. The tiles
+for the Window are stored in the Tile Data Table. Both the Background
+and the Window share the same Tile Data Table.
 
-Whether the window is displayed can be toggled using
-[LCDC bit 5](#lcdc-5-window-display-enable). Enabling the window makes
+Whether the Window is displayed can be toggled using
+[LCDC bit 5](#lcdc-5-window-display-enable). Enabling the Window makes
 [Mode 3](#lcd-status-register) slightly longer on scanlines where it's visible.
 (See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-minus-7-r-w)
-for the definition of "when the window is visible".)
+for the definition of "when the Window is visible".)
 
 # VRAM Banks (CGB only)
 
