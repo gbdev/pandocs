@@ -17,7 +17,7 @@ Depending on how much CPU time is required by a game, the HALT
 instruction can extend battery life anywhere from 5% to 50% or possibly
 more.
 
-When waiting for a VBlank event, this would be a BAD example:
+When waiting for a V-Blank event, this would be a BAD example:
 
 ```
  .wait:
@@ -27,7 +27,7 @@ When waiting for a VBlank event, this would be a BAD example:
 ```
 
 A better example would be a procedure as shown below. In this case the
-v-blank interrupt must be enabled, and your v-blank interrupt handler
+V-Blank interrupt must be enabled, and your V-Blank interrupt handler
 must set vblank_flag to a non-zero value.
 
 ```
@@ -41,14 +41,14 @@ must set vblank_flag to a non-zero value.
 ```
 
 The vblank_flag is used to determine whether the HALT period has been
-terminated by a VBlank interrupt or by another interrupt.
+terminated by a V-Blank interrupt or by another interrupt.
 
-Another possibility is, if your game uses no other interrupt than VBlank
-(or uses no interrupts), to only enable VBlank interrupts and simply use
+Another possibility is, if your game uses no other interrupt than V-Blank
+(or uses no interrupts), to only enable V-Blank interrupts and simply use
 a HALT instruction, which will only resume main code execution when a
-VBlank occurs.
+V-Blank occurs.
 
-Remember, when using HALT to wait between VBlanks, that your interrupt
+Remember, when using HALT to wait between V-Blanks, that your interrupt
 handlers MUST enable interrupts (using EI before returning, or
 better, using the RETI instruction)
 
