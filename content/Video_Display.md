@@ -569,7 +569,7 @@ Besides the Background, there is also the Window overlaying the
 Background. The content of the Window is not scrollable, that is, it is always
 displayed starting at the top left tile of its tilemap. The location of the Window
 on the screen can be adjusted via the WX and WY registers. The screen
-coordinates of the top left corner of the Window are WX-7,WY. The tiles
+coordinates of the top left corner of the Window are (WX-7,WY). The tiles
 for the Window are stored in the Tile Data Table. Both the Background
 and the Window share the same Tile Data Table.
 
