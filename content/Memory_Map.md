@@ -5,12 +5,12 @@ The Game Boy has a 16-bit address bus, which is used to address ROM, RAM, and I/
 
 | **Start**   | **End**   | **Description**                                                  | **Notes**
 |-------------|-----------|------------------------------------------------------------------|----------
-| 0000        | 3FFF      | 16KB ROM bank 00                                                 | From cartridge, usually a fixed bank
-| 4000        | 7FFF      | 16KB ROM Bank 01\~NN                                             | From cartridge, switchable bank via [mapper](#memory-bank-controllers) (if any)
-| 8000        | 9FFF      | 8KB Video RAM (VRAM)                                             | In CGB mode, switchable bank 0/1
-| A000        | BFFF      | 8KB External RAM                                                 | From cartridge, switchable bank if any
-| C000        | CFFF      | 4KB Work RAM (WRAM)                                              |
-| D000        | DFFF      | 4KB Work RAM (WRAM)                                              | In CGB mode, switchable bank 1\~7
+| 0000        | 3FFF      | 16 KiB ROM bank 00                                               | From cartridge, usually a fixed bank
+| 4000        | 7FFF      | 16 KiB ROM Bank 01\~NN                                           | From cartridge, switchable bank via [mapper](#memory-bank-controllers) (if any)
+| 8000        | 9FFF      | 8 KiB Video RAM (VRAM)                                           | In CGB mode, switchable bank 0/1
+| A000        | BFFF      | 8 KiB External RAM                                               | From cartridge, switchable bank if any
+| C000        | CFFF      | 4 KiB Work RAM (WRAM)                                            |
+| D000        | DFFF      | 4 KiB Work RAM (WRAM)                                            | In CGB mode, switchable bank 1\~7
 | E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                  | Nintendo says use of this area is prohibited.
 | FE00        | FE9F      | Sprite attribute table ([OAM](#vram-sprite-attribute-table-oam)) |
 | FEA0        | FEFF      | Not Usable                                                       | Nintendo says use of this area is prohibited
