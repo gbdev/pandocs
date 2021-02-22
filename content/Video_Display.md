@@ -471,8 +471,8 @@ mode, controlled by [LCDC bit
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
 ```
-Byte 0-1  First Line (Upper 8 pixels)
-Byte 2-3  Next Line
+Byte 0-1  Topmost Line (Top 8 pixels)
+Byte 2-3  Second Line
 etc.
 ```
 
@@ -482,8 +482,8 @@ of the color IDs. In either case, bit 7 is the leftmost pixel, and
 bit 0 the rightmost. For example: let's say you have \$57 \$36 (in
 this order in memory), which in binary are %01010111 and %00110110.
 To obtain the color ID for the leftmost pixel,
-you take bit 7 of both bytes : 0, and 0. Thus the index is %00 = 0. For
-the second pixel, repeat with bit 6 : 1, and 0. Thus the index is %01 =
+you take bit 7 of both bytes: 0, and 0. Thus the index is %00 = 0. For
+the second pixel, repeat with bit 6: 1, and 0. Thus the index is %01 =
 1 (remember to flip the order of the bits!). If you repeat the
 operation you'll find that the IDs for the eight pixels are 0 1 2 3 0 3
 3 1.
