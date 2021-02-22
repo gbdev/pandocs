@@ -1,4 +1,4 @@
-(max 2MByte ROM and/or 32KByte RAM)
+(max 2MByte ROM and/or 32 KiB RAM)
 
 This is the first MBC chip for the Game Boy. Any newer MBC chips
 work similarly, so it is relatively easy to upgrade a program from one
@@ -12,13 +12,13 @@ ROM and writing to the MBCs Control Registers.
 
 ### 0000-3FFF - ROM Bank 00/20/40/60 (Read Only)
 
-This area normally contains the first 16KBytes (bank 00) of the cartridge
+This area normally contains the first 16 KiB (bank 00) of the cartridge
 ROM. Can contain banks 20/40/60 in mode 1 (see below), or banks 10/20/30
 in mode 1 for a 1MB MBC1 multi-cart (see below).
 
 ### 4000-7FFF - ROM Bank 01-7F (Read Only)
 
-This area may contain any of the further 16KByte banks of the ROM. Cannot
+This area may contain any of the further 16 KiB banks of the ROM. Cannot
 address any banks where the main ROM banking register would be 00h, which
 usually means banks 00/20/40/60. Instead, it automatically maps to 1 bank
 higher (01/21/41/61).
@@ -27,8 +27,8 @@ higher (01/21/41/61).
 
 This area is used to address external RAM in the cartridge (if any).
 External RAM is often battery-backed, allowing for the storage of game data while the Game Boy is turned off, or if the
-cartridge is removed from the Game Boy. Available RAM sizes are: 2KByte
-(at A000-A7FF), 8KByte (at A000-BFFF) and 32KByte (in form of four 8K
+cartridge is removed from the Game Boy. Available RAM sizes are: 2 KiB
+(at A000-A7FF), 8 KiB (at A000-BFFF) and 32 KiB (in form of four 8K
 banks at A000-BFFF).
 
 ## Registers
@@ -55,7 +55,7 @@ This 5 bit register (range 01h-1Fh) selects the ROM bank number. Higher
 bits are discarded - E1h (binary ~~111~~00001) would select bank 01h.
 If the ROM Bank Number is set to a higher value than the number of banks
 in the cart, the bank number is masked to the required number of bits.
-e.g. a 256 kB cart only needs a 4 bit bank number to address all of its
+e.g. a 256 kiB cart only needs a 4 bit bank number to address all of its
 16 banks, so this register is masked to 4 bits. The upper bit would be
 ignored.
 
@@ -79,7 +79,7 @@ used in multi-game compilation carts (see below).
 ### 4000-5FFF - RAM Bank Number - or - Upper Bits of ROM Bank Number (Write Only)
 
 This second 2 bit register can be used to select a RAM Bank in range from
-00-03h (32 kB ram carts only), or to specify the upper two bits (Bit 5-6)
+00-03h (32 kiB ram carts only), or to specify the upper two bits (Bit 5-6)
 of the ROM Bank number (1 MB ROM or larger carts only). If neither ROM nor
 RAM is large enough, setting this register does nothing.
 
@@ -91,7 +91,7 @@ applied to bits 4-5 of the ROM bank number and the top bit of the main
 
 This 1bit Register selects between the two MBC1 banking modes, controlling
 the behaviour of the secondary 2 bit banking register (above). If the cart
-is not large enough to use the 2 bit register (<= 8kB RAM / <= 512 kB ROM)
+is not large enough to use the 2 bit register (<= 8 kiB RAM / <= 512 kiB ROM)
 this mode select has no observable effect. The program may freely switch
 between the two modes at any time.
 
@@ -102,13 +102,13 @@ between the two modes at any time.
 
 In mode 0, the 2-bit secondary banking register can only affect the
 4000-7FFF banked ROM area. If the cart is a "small ROM"/"large RAM" cart
-(<1 MB ROM, >8kB RAM) then 4000-7FFF is unaffected by this register anyway,
+(<1 MB ROM, > 8 KiB RAM) then 4000-7FFF is unaffected by this register anyway,
 so the practical effect is that RAM banking is disabled and A000-BFFF is
 locked to only be able to access bank 0 of RAM, with the 2-bit secondary
 banking register entirely ignored.
 
 In mode 1, the behaviour differs depending on whether the current cart is
-a "large RAM" cart (>8kB RAM) or "large ROM" cart (1 MB or larger). For
+a "large RAM" cart (> 8 KiB RAM) or "large ROM" cart (1 MB or larger). For
 large RAM carts, switching to mode 1 enables RAM banking and (if RAM is
 enabled) immediately switches the A000-BFFF RAM area to the bank selected
 by the 2-bit secondary banking register.
@@ -133,7 +133,7 @@ to switch games. The 2 bit register is used to select the game - switching
 the zero bank and the region of banks that the 4000-7FFF rom area can
 access to those for the selected game and then the game only changes the
 main ROM banking register. As far as the selected game knows, it's running
-from a 256 kB cart!
+from a 256 KiB cart!
 
 These carts can normally be identified by having a Nintendo copyright
 header in bank 0x10. A badly dumped multi-cart ROM can be identified by
