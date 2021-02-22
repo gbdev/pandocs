@@ -127,7 +127,8 @@ drawing exceeds the lower (right) border of the BG map area.
 
 ### FF44 - LY (LCDC Y-Coordinate) (R)
 
-LY indicates the horizontal line that will be drawn next. LY can take
+LY indicates the current horizontal line, which might be about to be drawn,
+being drawn, or just been drawn. LY can take
 on any value from 0 to 153. The values from 144 to 153 indicate the VBlank period.
 
 ### FF45 - LYC (LY Compare) (R/W)
