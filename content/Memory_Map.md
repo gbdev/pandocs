@@ -25,7 +25,7 @@ The following addresses are supposed to be used as jump vectors:
 -   RST commands: 0000, 0008, 0010, 0018, 0020, 0028, 0030, 0038
 -   Interrupts: 0040, 0048, 0050, 0058, 0060
 
-However, the memory may be used for any other purpose in case that your
+However, this memory area (0000-00FF) may be used for any other purpose in case that your
 program doesn't use any (or only some) RST commands or interrupts. RST
 commands are 1-byte opcodes that work similar to CALL opcodes, except
 that the destination address is fixed. Since they are only 1 byte large,
