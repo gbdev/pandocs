@@ -1,4 +1,4 @@
-(max 256KByte ROM and 512x4 bits RAM)
+(max 256 KiB ROM and 512x4 bits RAM)
 
 ## Memory
 
@@ -15,7 +15,7 @@ Same as for MBC1, but only a total of 16 ROM banks is supported.
 The MBC2 doesn't support external RAM, instead it includes 512x4 bits
 of built-in RAM (in the MBC2 chip itself). It still requires an external
 battery to save data during power-off though. As the data consists of
-4bit values, only the lower 4 bits of the bytes in this memory area
+4 bit values, only the lower 4 bits of the bytes in this memory area
 are used.
 
 ## Registers
