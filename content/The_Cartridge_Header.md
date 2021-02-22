@@ -147,8 +147,8 @@ cartridge, and if further external hardware exists in the cartridge.
 | $03 | MBC1+RAM+BATTERY
 | $05 | MBC2
 | $06 | MBC2+BATTERY
-| $08 | ROM+RAM
-| $09 | ROM+RAM+BATTERY
+| $08 | ROM+RAM *
+| $09 | ROM+RAM+BATTERY *
 | $0B | MMM01
 | $0C | MMM01+RAM
 | $0D | MMM01+RAM+BATTERY
@@ -170,6 +170,7 @@ cartridge, and if further external hardware exists in the cartridge.
 | $FE | HuC3
 | $FF | HuC1+RAM+BATTERY
 
+\* No licensed cartridge makes use of this option. Exact behaviour is unknown.
 
 ### 0148 - ROM Size
 
@@ -187,10 +188,11 @@ Specifies the ROM Size of the cartridge. Typically calculated as "N such that 32
 | $06 |   2 MByte | 128
 | $07 |   4 MByte | 256
 | $08 |   8 MByte | 512
-| $52 | 1.1 MByte | 72
-| $53 | 1.2 MByte | 80
-| $54 | 1.5 MByte | 96
+| $52 | 1.1 MByte | 72 *
+| $53 | 1.2 MByte | 80 *
+| $54 | 1.5 MByte | 96 *
 
+\* Only listed in unofficial docs
 
 ### 0149 - RAM Size
 
@@ -199,7 +201,7 @@ Specifies the size of the external RAM in the cartridge (if any).
 | Code | Size   | Comment
 |------|--------|---------
 | $00  | 0      | No RAM
-| $01  | 2 KB   | Partial
+| $01  | -      | Unused (but unofficial docs list it as 2 KB)
 | $02  | 8 KB   | 1 bank
 | $03  | 32 KB  | 4 banks of 8 KB each
 | $04  | 128 KB | 16 banks of 8 KB each
