@@ -127,9 +127,9 @@ drawing exceeds the lower (right) border of the BG map area.
 
 ### FF44 - LY (LCDC Y-Coordinate) (R)
 
-The LY indicates the vertical line to which the present data is
-transferred to the LCD driver. The LY can take on any value between 0
-through 153. The values between 144 and 153 indicate the V-Blank period.
+LY indicates the current horizontal line, which might be about to be drawn,
+being drawn, or just been drawn. LY can hold any value from 0 to 153.
+The values from 144 to 153 indicate the VBlank period.
 
 ### FF45 - LYC (LY Compare) (R/W)
 
@@ -755,7 +755,7 @@ Mode 1 - V-Blank Period
 ```
 
 During those modes, OAM can be accessed at any time by using the DMA
-Function (FF46). Outside those modes, DMA out-prioritizes the PPU in 
+Function (FF46). Outside those modes, DMA out-prioritizes the PPU in
 accessing OAM, and the PPU will read $FF from OAM during that time.
 
 When directly reading or writing to OAM, a typical
