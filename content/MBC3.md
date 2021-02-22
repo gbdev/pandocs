@@ -19,7 +19,7 @@ supported now.
 ### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
 
 Depending on the current Bank Number/RTC Register selection (see below),
-this memory space is used to access an 8KByte external RAM Bank, or a
+this memory space is used to access an 8 KiB external RAM Bank, or a
 single RTC Register.
 
 ## Registers
