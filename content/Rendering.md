@@ -29,8 +29,6 @@ ID 0 means transparent.
 
 A palette consists in a array of colors, 4 in the Game Boy's case.
 Palettes are stored differently in monochrome and color versions of the console.
-When applied to a tile, each color ID is used as an index to select the color
-in the palette array, which then gets sent to the LCD.
 
 Modifying palettes enables graphical effects such as quickly flashing some graphics (damage,
 invulnerability, thunderstorm, etc.), fading the screen, "palette swaps", and more.
