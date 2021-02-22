@@ -12,7 +12,7 @@ elements are displayed on the screen, and how.
 | 3   | BG Tile Map Display Select     | 0=9800-9BFF, 1=9C00-9FFF |
 | 2   | OBJ (Sprite) Size              | 0=8x8, 1=8x16            |
 | 1   | OBJ (Sprite) Display Enable    | 0=Off, 1=On              |
-| 0   | BG/Window Display/Priority     | 0=Off, 1=On              |
+| 0   | BG and Window Display/Priority | 0=Off, 1=On              |
 
 
 ## LCDC.7 - LCD Display Enable
@@ -88,11 +88,11 @@ displayed on top of a status bar or text box.
 (Note: toggling mid-scanline might have funky results on DMG?
 Investigation needed.)
 
-## LCDC.0 - BG/Window Display/Priority
+## LCDC.0 - BG and Window Display/Priority
 
 LCDC.0 has different meanings depending on Game Boy type and Mode:
 
-### Monochrome Game Boy, SGB and CGB in Non-CGB Mode: BG Display
+### DMG, SGB and CGB in Non-CGB Mode: BG and Window Display
 
 When Bit 0 is cleared, both background and window become blank (white),
 and the [Window Display Bit](#lcdc-5-window-display-enable)
