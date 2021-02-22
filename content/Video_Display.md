@@ -509,8 +509,8 @@ OCPD/OBPD](#ff6a-ocps-obpi-object-color-palette-specification-or-sprite-palette-
 # VRAM Background Maps
 
 The Game Boy contains two 32x32 tile background maps in VRAM at
-addresses `$9800-$9BFF` and `$9C00-$9FFF`. Each map can be used to
-display either the Background or the Window.
+addresses `$9800-$9BFF` and `$9C00-$9FFF`. Any of these maps can be used to
+display the Background or the Window.
 
 ### BG Map Tile Indexes
 
