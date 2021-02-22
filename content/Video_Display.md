@@ -309,7 +309,7 @@ the transfer has finished:
 ```
  run_dma:
   ld a, start address / $100
-  ldh  ($FF46),a ;start DMA transfer (starts right after instruction)
+  ldh  [$FF46],a ;start DMA transfer (starts right after instruction)
   ld  a,$28      ;delay...
  wait:           ;total 4x40 cycles, approx 160 μs
   dec a          ;1 cycle
@@ -333,7 +333,7 @@ A more compact procedure is
   jp run_dma_hrampart
 
  run_dma_hrampart:
-  ldh ($FF00+c), a
+  ldh [$FF00+c], a
  wait:
   dec b
   jr nz,wait
@@ -726,7 +726,7 @@ A typical procedure that waits for accessibility of VRAM would be:
 ```
 ld   hl,0FF41h    ;-STAT Register
 @@wait:           ;
-bit  1,(hl)       ; Wait until Mode is 0 or 1
+bit  1,[hl]       ; Wait until Mode is 0 or 1
 jr   nz,@@wait    ;
 ```
 
@@ -763,10 +763,10 @@ procedure that waits for accessibility of OAM Memory would be:
 ```
  ld   hl,0FF41h    ;-STAT Register
 @@wait1:           ;
- bit  1,(hl)       ; Wait until Mode is -NOT- 0 or 1
+ bit  1,[hl]       ; Wait until Mode is -NOT- 0 or 1
  jr   z,@@wait1    ;
 @@wait2:           ;
- bit  1,(hl)       ; Wait until Mode 0 or 1 -BEGINS- (but we know that Mode 0 is what will begin)
+ bit  1,[hl]       ; Wait until Mode 0 or 1 -BEGINS- (but we know that Mode 0 is what will begin)
  jr   nz,@@wait2   ;
 ```
 
