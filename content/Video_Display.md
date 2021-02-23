@@ -198,8 +198,8 @@ Memory. Each two byte in that memory define a color value. The first 8
 bytes define Color 0-3 of Palette 0 (BGP0), and so on for BGP1-7.
 
 ```
-Bit 0-5   Index (00-3F)
 Bit 7     Auto Increment  (0=Disabled, 1=Increment after Writing)
+Bit 5-0   Index (00-3F)
 ```
 
 Data can be read/written to/from the specified index address through
@@ -535,12 +535,12 @@ entry in VRAM Bank 0, that is, 1:9800 defines the attributes for the tile at
 0:9800):
 
 ```
-Bit 0-2  Background Palette number  (BGP0-7)
-Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)
-Bit 4    Not used
-Bit 5    Horizontal Flip            (0=Normal, 1=Mirror horizontally)
-Bit 6    Vertical Flip              (0=Normal, 1=Mirror vertically)
 Bit 7    BG-to-OAM Priority         (0=Use OAM Priority bit, 1=BG Priority)
+Bit 6    Vertical Flip              (0=Normal, 1=Mirror vertically)
+Bit 5    Horizontal Flip            (0=Normal, 1=Mirror horizontally)
+Bit 4    Not used
+Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)
+Bit 2-0  Background Palette number  (BGP0-7)
 ```
 
 When Bit 7 is set, the corresponding BG tile will have priority above
