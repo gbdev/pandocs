@@ -6,10 +6,10 @@ elements are displayed on the screen, and how.
 | Bit | Name                           | Usage notes              |
 |-----|--------------------------------|--------------------------|
 | 7   | LCD enable                     | 0=Off, 1=On              |
-| 6   | Window tile map range          | 0=9800-9BFF, 1=9C00-9FFF |
+| 6   | Window tile map area           | 0=9800-9BFF, 1=9C00-9FFF |
 | 5   | Window enable                  | 0=Off, 1=On              |
-| 4   | BG and Window tile data range  | 0=8800-97FF, 1=8000-8FFF |
-| 3   | BG tile map range              | 0=9800-9BFF, 1=9C00-9FFF |
+| 4   | BG and Window tile data area   | 0=8800-97FF, 1=8000-8FFF |
+| 3   | BG tile map area               | 0=9800-9BFF, 1=9C00-9FFF |
 | 2   | OBJ size                       | 0=8x8, 1=8x16            |
 | 1   | OBJ enable                     | 0=Off, 1=On              |
 | 0   | BG and Window enable/priority  | 0=Off, 1=On              |
