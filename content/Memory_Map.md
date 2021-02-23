@@ -18,7 +18,7 @@ The Game Boy has a 16-bit address bus, which is used to address ROM, RAM, and I/
 | FF80        | FFFE      | High RAM (HRAM)                                                  |
 | FFFF        | FFFF      | [Interrupts](#interrupts) Enable Register (IE)                   |
 
-# Jump Vectors in ROM bank 0
+# Jump Vectors in first ROM bank
 
 The following addresses are supposed to be used as jump vectors:
 
@@ -31,7 +31,7 @@ commands are 1-byte opcodes that work similar to CALL opcodes, except
 that the destination address is fixed. Since they are only 1 byte large,
 they are also slightly faster.
 
-# Cartridge Header in ROM bank 0
+# Cartridge Header in first ROM bank
 
 The memory area at 0100-014F contains the [cartridge
 header](#the-cartridge-header). This area contains information
