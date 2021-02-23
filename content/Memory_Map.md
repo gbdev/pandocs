@@ -33,7 +33,7 @@ they are also slightly faster.
 
 # Cartridge Header in ROM bank 0
 
-The memory at 0100-014F contains the [cartridge
+The memory area at 0100-014F contains the [cartridge
 header](#the-cartridge-header). This area contains information
 about the program, its entry point, checksums, information about the
 used MBC chip, the ROM and RAM sizes, etc. Most of the bytes in this
