@@ -565,8 +565,8 @@ where it's always drawn.
 
 ### Window
 
-Besides the Background, there is also the Window overlaying the
-Background. The content of the Window is not scrollable, that is, it is always
+Besides the Background, there is also a Window overlaying it.
+The content of the Window is not scrollable; it is always
 displayed starting at the top left tile of its tilemap. The only way to adjust the Window
 is by modifying its position on the screen, which is done via the WX and WY registers. The screen
 coordinates of the top left corner of the Window are (WX-7,WY). The tiles
@@ -577,7 +577,7 @@ Whether the Window is displayed can be toggled using
 [LCDC bit 5](#lcdc-5-window-display-enable). Enabling the Window makes
 [Mode 3](#lcd-status-register) slightly longer on scanlines where it's visible.
 (See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-minus-7-r-w)
-for the definition of "when the Window is visible".)
+for the definition of "Window visibility".)
 
 # VRAM Banks (CGB only)
 
