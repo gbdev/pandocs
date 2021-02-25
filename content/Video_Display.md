@@ -318,11 +318,12 @@ the transfer has finished:
 ```
 
 Because sprites are not displayed while OAM DMA is in progress, most
-programs execute this procedure from inside of their V-Blank
-handler. But it is also possible to execute it during display redraw,
+programs execute this procedure from inside their V-Blank
+handler. But it is also possible to execute it during display redraw (Modes 2 and 3),
 allowing to display more than 40 sprites on the screen (that is, for
 example 40 sprites in the top half, and other 40 sprites in the bottom half of
-the screen), at the cost of a couple lines that lack sprites.
+the screen), at the cost of a couple lines that lack sprites due to the fact that
+during those couple lines the PPU reads OAM as $FF.
 
 A more compact procedure is
 
