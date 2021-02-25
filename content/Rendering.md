@@ -1,7 +1,7 @@
 
 # Overview
 
-The Game Boy outputs to a 160x144 pixel LCD, using a quite complex
+The Game Boy outputs graphics to a 160x144 pixel LCD, using a quite complex
 mechanism to facilitate rendering.
 
 ::: warning
