@@ -439,62 +439,62 @@ Speed Mode).
 
 # VRAM Tile Data
 
-Tile Data is stored in VRAM at addresses \$8000-97FF; with one tile
-being 16 bytes large, this area defines data for 384 Tiles. In CGB Mode,
+Tile data is stored in VRAM at addresses \$8000-$97FF; with each tile
+taking 16 bytes, this area defines data for 384 tiles. In CGB Mode,
 this is doubled (768 tiles) because of the two VRAM banks.
 
-Each tile is sized 8x8 pixels and has a color depth of 4 colors/gray
+Each tile has 8x8 pixels and has a color depth of 4 colors/gray
 shades. Tiles can be displayed as part of the Background/Window map,
-and/or as OAM tiles (foreground sprites). Note that foreground sprites
+and/or as OBJ tiles (foreground sprites). Note that OBJs
 don't use color 0 - it's transparent instead.
 
 There are three "blocks" of 128 tiles each:
 
--   Block 0 is $8000-87FF
--   Block 1 is $8800-8FFF
--   Block 2 is $9000-97FF
+-   Block 0 is $8000-$87FF
+-   Block 1 is $8800-$8FFF
+-   Block 2 is $9000-$97FF
 
 Tiles are always indexed using a 8-bit integer, but the addressing
-method may differ. The "8000 method" uses \$8000 as its base pointer
+method may differ. The "$8000 method" uses \$8000 as its base pointer
 and uses an unsigned addressing, meaning that tiles 0-127 are in block
-0, and tiles 128-255 are in block 1. The "8800 method" uses \$9000 as
+0, and tiles 128-255 are in block 1. The "$8800 method" uses \$9000 as
 its base pointer and uses a signed addressing, meaning that tiles 0-127
 are in block 2, and tiles -128 to -1 are in block 1, or to put it differently,
-"8800 addressing" takes tiles 0-127 from block 2
+"$8800 addressing" takes tiles 0-127 from block 2
 and tiles 128-255 from block 1. (You can notice that block 1 is shared
 by both addressing methods)
 
-Sprites always use 8000 addressing, but the BG and Window can use either
+Sprites always use "$8000 addressing", but the BG and Window can use either
 mode, controlled by [LCDC bit
 4](#lcdc-4-bg-window-tile-data-select).
 
-Each Tile occupies 16 bytes, where each 2 bytes represent a line:
+Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
 ```
-Byte 0-1  First Line (Upper 8 pixels)
-Byte 2-3  Next Line
+Byte 0-1  Topmost Line (Top 8 pixels)
+Byte 2-3  Second Line
 etc.
 ```
 
-For each line, the first byte defines the least significant bits of the
-color numbers for each pixel, and the second byte defines the upper bits
-of the color numbers. In either case, Bit 7 is the leftmost pixel, and
-Bit 0 the rightmost. For example: let's say you have \$57 \$36 (in
+For each line, the first byte defines the least significant bit of the
+color ID of each pixel, and the second byte defines the upper bits
+of the color IDs. In either case, bit 7 is the leftmost pixel, and
+bit 0 the rightmost. For example: let's say you have \$57 \$36 (in
 this order in memory), which in binary are %01010111 and %00110110.
-To obtain the color index for the leftmost pixel,
+To obtain the color ID for the leftmost pixel,
 you take bit 7 of both bytes: 0, and 0. Thus the index is %00 = 0. For
 the second pixel, repeat with bit 6: 1, and 0. Thus the index is %01 =
 1 (remember to flip the order of the bits!). If you repeat the
-operation you'll find that the indexes for the 8 pixels are 0 1 2 3 0 3
+operation you'll find that the IDs for the eight pixels are 0 1 2 3 0 3
 3 1.
 
 A more visual explanation can be found
 [here](https://www.huderlem.com/demos/gameboy2bpp.html).
 
-So, each pixel is having a color number in range from 0-3. The color
+So, each pixel has a color ID of 0 to 3. The color
 numbers are translated into real colors (or gray shades) depending on
 the current palettes, except that when the tile is used in a OBJ the
-color number 0 means transparent. The palettes are defined through registers
+color ID 0 means transparent. The palettes are defined through registers
 [BGP](#ff47-bgp-bg-palette-data-r-w-non-cgb-mode-only),
 [OBP0](#ff48-obp0-object-palette-0-data-r-w-non-cgb-mode-only)
 and
