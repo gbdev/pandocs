@@ -22,7 +22,9 @@ relied upon.
 ### A200-BFFF - 15 "echoes" of A000-A1FF
 
 Only the bottom 9 bits of the address are used to index into the internal
-RAM, so RAM access repeats.
+RAM, so RAM access repeats. As with the A000-A1FF region, only the lower
+4 bits of the "bytes" are used, and the upper 4 bits of each byte are
+undefined and should not be relied upon.
 
 ## Control Registers
 
