@@ -473,7 +473,7 @@ Each Tile occupies 16 bytes, where each 2 bytes represent a line:
 ```
 Byte 0-1  First Line (Upper 8 pixels)
 Byte 2-3  Next Line
-etc.`
+etc.
 ```
 
 For each line, the first byte defines the least significant bits of the
