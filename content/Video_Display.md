@@ -13,10 +13,10 @@ Bit 4 - Mode 1 V-Blank Interrupt     (1=Enable) (Read/Write)
 Bit 3 - Mode 0 H-Blank Interrupt     (1=Enable) (Read/Write)
 Bit 2 - Coincidence Flag  (0:LYC<>LY, 1:LYC=LY) (Read Only)
 Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)
-          0: During H-Blank
-          1: During V-Blank
-          2: During Searching OAM
-          3: During Transferring Data to LCD Driver
+          0: In H-Blank
+          1: In V-Blank
+          2: Searching OAM
+          3: Transferring Data to LCD Driver
 ```
 
 The two lower STAT bits show the current status of the LCD controller.
@@ -26,7 +26,7 @@ entire frame is 154 scanlines, 70224 dots, or 16.74 ms. On scanlines 0
 through 143, the LCD controller cycles through modes 2, 3, and 0 once
 every 456 dots. Scanlines 144 through 153 are mode 1.
 
-The following are typical when the display is enabled:
+The following sequence is typical when the display is enabled:
 
 ```
 Mode 2  2_____2_____2_____2_____2_____2___________________2____
