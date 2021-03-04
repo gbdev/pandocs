@@ -19,11 +19,11 @@ Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)
           3: Transferring Data to LCD Controller
 ```
 
-The two lower STAT bits show the current status of the LCD controller.
+The two lower STAT bits show the current status of the PPU.
 
 The LCD controller operates on a 2^22 Hz = 4.194 MHz dot clock. An
 entire frame is 154 scanlines, 70224 dots, or 16.74 ms. On scanlines 0
-through 143, the LCD controller cycles through modes 2, 3, and 0 once
+through 143, the PPU cycles through modes 2, 3, and 0 once
 every 456 dots. Scanlines 144 through 153 are mode 1.
 
 The following sequence is typical when the display is enabled:
@@ -35,7 +35,7 @@ Mode 0  ___000___000___000___000___000___000________________000
 Mode 1  ____________________________________11111111111111_____
 ```
 
-When the LCD controller is reading a particular part of video memory,
+When the PPU is reading a particular part of video memory,
 that memory is inaccessible to the CPU.
 
 -   During modes 2 and 3, the CPU cannot access OAM (FE00h-FE9Fh).
