@@ -144,7 +144,7 @@ alternate background area which can be displayed above of the normal
 background. OBJs (sprites) may be still displayed above or behind the
 window, just as for normal BG.)
 
-The window becomes visible (if enabled) when positions are set in range
+The Window becomes visible (if enabled) when positions are set in the ranges
 WX=0..166, WY=0..143. A position of WX=7, WY=0 locates the window at
 upper left, it is then completely covering the background.
 
