@@ -16,7 +16,7 @@ Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)
           0: In H-Blank
           1: In V-Blank
           2: Searching OAM
-          3: Transferring Data to LCD Driver
+          3: Transferring Data to LCD Controller
 ```
 
 The two lower STAT bits show the current status of the LCD controller.
