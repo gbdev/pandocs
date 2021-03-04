@@ -19,7 +19,8 @@ elements are displayed on the screen, and how.
 
 This bit controls whether the LCD is on and the PPU is active. Setting
 it to 0 turns both off, which grants immediate and full access to VRAM,
-OAM, etc.
+OAM, etc. The PPU is the subsystem that reads graphics data from video RAM,
+translates that data into pixels and transfers them to the LCD controller.
 
 ::: warning
 Stopping LCD operation (Bit 7 from 1 to 0) may be performed
