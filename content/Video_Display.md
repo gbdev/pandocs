@@ -157,7 +157,7 @@ should try it yourself.)
 
 ### FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only
 
-This register assigns gray shades to the color numbers of the BG and
+This register assigns gray shades to the color indexes of the BG and
 Window tiles.
 
 ```
@@ -179,15 +179,15 @@ instead.
 
 ### FF48 - OBP0 (Object Palette 0 Data) (R/W) - Non CGB Mode Only
 
-This register assigns gray shades for sprite palette 0. It works exactly
-as BGP (FF47), except that the lower two bits aren't used because
-sprite data 00 is transparent.
+This register assigns gray shades to the color indexes of the OBJs that use this palette. It works exactly
+like BGP (FF47), except that the lower two bits aren't used because
+sprite index 00 means transparent.
 
 ### FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only
 
-This register assigns gray shades for sprite palette 1. It works exactly
-as BGP (FF47), except that the lower two bits aren't used because
-sprite data 00 is transparent.
+This register assigns gray shades to the color indexes of the OBJs that use this palette. It works exactly
+like BGP (FF47), except that the lower two bits aren't used because
+sprite index 00 means transparent.
 
 # LCD Color Palettes (CGB only)
 
