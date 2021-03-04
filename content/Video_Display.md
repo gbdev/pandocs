@@ -557,8 +557,8 @@ the one at `0:9800`!
 The [SCY and SCX](#ff42-scy-scroll-y-r-w-ff43-scx-scroll-x-r-w) registers can be
 used to scroll the background, allowing to select the origin of the visible
 160x144 pixel area within the total 256x256 pixel background map.
-Background wraps around the screen (that is, when part of it goes off the screen, it
-eventually appears on the opposite side).
+The Background visible area wraps around the Background map (that is, when part of
+the visible area goes beyond the map edge, it starts displaying the opposite side of the map).
 
 Whether the background is displayed can be toggled using
 [LCDC bit 0](#lcdc-0-bg-window-display-priority), except on CGB in CGB Mode,
