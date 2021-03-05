@@ -55,7 +55,7 @@ if that bit is reset.
 Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
 may cause the second write to be ignored. (TODO: test this.)
 
-## LCDC.4 - BG and Window tile data range
+## LCDC.4 - BG and Window tile data area
 
 This bit controls which [addressing
 mode](#vram-tile-data) the BG and Window use to
@@ -64,7 +64,7 @@ pick tiles.
 Sprites aren't affected by this, and will always use \$8000 addressing
 mode.
 
-## LCDC.3 - BG tile map range
+## LCDC.3 - BG tile map area
 
 This bit works similarly to LCDC-6: if the bit is
 reset, the BG uses tilemap $9800, otherwise tilemap $9C00.
