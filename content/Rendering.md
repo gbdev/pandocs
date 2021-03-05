@@ -21,7 +21,7 @@ the base unit in Game Boy graphics.
 A tile does not encode color information. Instead, a tile assigns a
 *color ID* to each of its pixels, ranging from 0 to 3. For this reason,
 Game Boy graphics are also called *2bpp* (2 bits per pixel). When a tile is used
-in Background or Window, these color IDs are associated with a *palette*. When
+in the Background or Window, these color IDs are associated with a *palette*. When
 a tile is used in a OBJ, the IDs 1 to 3 are associated with a palette, but
 ID 0 means transparent.
 
