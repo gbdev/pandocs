@@ -39,7 +39,7 @@ picture sticks to the screen. (TODO: research this more.)
 When re-enabling the LCD, the PPU will immediately start drawing again,
 but the screen will stay blank during the first frame.
 
-## LCDC.6 - Window tile map range
+## LCDC.6 - Window tile map area
 
 This bit controls which background map the Window uses for rendering.
 When it's reset, the \$9800 tilemap is used, otherwise it's the \$9C00
