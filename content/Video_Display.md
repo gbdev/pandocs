@@ -290,27 +290,27 @@ of this brightness correction.
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 memory (sprite attribute table). The written value specifies the
-transfer source address divided by 100h, that is, source & destination are:
+transfer source address divided by $100, that is, source and destination are:
 
 ```
-Source:      XX00-XX9F   ;XX in range from 00-F1h
-Destination: FE00-FE9F
+Source:      $XX00-$XX9F   ;XX = $00 to $DF
+Destination: $FE00-$FE9F
 ```
 
 The transfer takes 160 machine cycles: 152 microseconds in normal speed
 or 76 microseconds in CGB Double Speed Mode. On DMG, during this time,
-the CPU can access only HRAM (memory at FF80-FFFE); on CGB, the bus used
+the CPU can access only HRAM (memory at $FF80-$FFFE); on CGB, the bus used
 by the source area cannot be used (this isn't understood well at the
-moment, it's recommended to assume same behavior as DMG). For this
+moment; it's recommended to assume same behavior as DMG). For this
 reason, the programmer must copy a short procedure into HRAM, and use
 this procedure to start the transfer from inside HRAM, and wait until
 the transfer has finished:
 
 ```
  run_dma:
-  ld a, start address / 100h
-  ldh  (FF46h),a ;start DMA transfer (starts right after instruction)
-  ld  a,28h      ;delay...
+  ld a, start address / $100
+  ldh  [$FF46],a ;start DMA transfer (starts right after instruction)
+  ld  a,$28      ;delay...
  wait:           ;total 4x40 cycles, approx 160 μs
   dec a          ;1 cycle
   jr  nz,wait    ;3 cycles
@@ -318,30 +318,32 @@ the transfer has finished:
 ```
 
 Because sprites are not displayed while OAM DMA is in progress, most
-programs execute this procedure from inside of their VBlank
-procedure. But it is also possible to execute it during display redraw
-also, allowing to display more than 40 sprites on the screen (that is, for
-example 40 sprites in upper half, and other 40 sprites in lower half of
-the screen), at the cost of a couple lines that lack sprites.
+programs execute this procedure from inside their V-Blank
+handler. But it is also possible to execute it during display redraw (Modes 2 and 3),
+allowing to display more than 40 sprites on the screen (that is, for
+example 40 sprites in the top half, and other 40 sprites in the bottom half of
+the screen), at the cost of a couple lines that lack sprites due to the fact that
+during those couple lines the PPU reads OAM as $FF. Besides, graphic glitches may
+happen if starting OAM DMA during Mode 3.
 
 A more compact procedure is
 
 ```
  run_dma:  ; This part is in ROM
-  ld a, start address / 100h
-  ld bc, 2946h  ; B: wait time; C: OAM trigger
+  ld a, start address / $100
+  ld bc, $2946  ; B: wait time; C: OAM trigger
   jp run_dma_hrampart
 
  run_dma_hrampart:
-  ldh ($FF00+c), a
+  ldh [$FF00+c], a
  wait:
   dec b
   jr nz,wait
   ret
 ```
 
-which should be called with a = start address / 100h, bc = 2946h. This
-saves 5 bytes of HRAM, but is slightly slower in most cases because of
+which should be called with a = start address / $100, bc = $2946. This
+saves 5 bytes of HRAM, but is slightly slower in most cases due to
 the jump into the HRAM part.
 
 # LCD VRAM DMA Transfers (CGB only)
@@ -727,7 +729,7 @@ A typical procedure that waits for accessibility of VRAM would be:
 ```
 ld   hl,0FF41h    ;-STAT Register
 @@wait:           ;
-bit  1,(hl)       ; Wait until Mode is 0 or 1
+bit  1,[hl]       ; Wait until Mode is 0 or 1
 jr   nz,@@wait    ;
 ```
 
@@ -764,10 +766,10 @@ procedure that waits for accessibility of OAM Memory would be:
 ```
  ld   hl,0FF41h    ;-STAT Register
 @@wait1:           ;
- bit  1,(hl)       ; Wait until Mode is -NOT- 0 or 1
+ bit  1,[hl]       ; Wait until Mode is -NOT- 0 or 1
  jr   z,@@wait1    ;
 @@wait2:           ;
- bit  1,(hl)       ; Wait until Mode 0 or 1 -BEGINS- (but we know that Mode 0 is what will begin)
+ bit  1,[hl]       ; Wait until Mode 0 or 1 -BEGINS- (but we know that Mode 0 is what will begin)
  jr   nz,@@wait2   ;
 ```
 
