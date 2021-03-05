@@ -40,7 +40,7 @@ must set vblank_flag to a non-zero value.
   ld   [hl], a         ;set the vblank_flag back to zero
 ```
 
-The vblank_flag is used to determine whether the HALT period has been
+The `vblank_flag` is used to determine whether the HALT period has been
 terminated by a V-Blank interrupt or by another interrupt. Note though
 that a V-Blank interrupt might happen after the cp instruction
 and before the jr, in which case the interrupt would go unnoticed by the
