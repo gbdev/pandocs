@@ -51,11 +51,11 @@ is powered off. It is unknown why Ah is the value used to enable RAM.
 
 ### 2000-3FFF - ROM Bank Number (Write Only)
 
-This 5 bit register (range $01-$1F) selects the ROM bank number. Higher
+This 5-bit register (range $01-$1F) selects the ROM bank number. Higher
 bits are discarded - $E1 (binary ~~111~~00001) would select bank $01.
 If the ROM Bank Number is set to a higher value than the number of banks
 in the cart, the bank number is masked to the required number of bits.
-e.g. a 256 KiB cart only needs a 4 bit bank number to address all of its
+e.g. a 256 KiB cart only needs a 4-bit bank number to address all of its
 16 banks, so this register is masked to 4 bits. The upper bit would be
 ignored.
 
