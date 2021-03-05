@@ -13,20 +13,20 @@ Bit 4 - Mode 1 V-Blank Interrupt     (1=Enable) (Read/Write)
 Bit 3 - Mode 0 H-Blank Interrupt     (1=Enable) (Read/Write)
 Bit 2 - Coincidence Flag  (0:LYC<>LY, 1:LYC=LY) (Read Only)
 Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)
-          0: During H-Blank
-          1: During V-Blank
-          2: During Searching OAM
-          3: During Transferring Data to LCD Driver
+          0: In H-Blank
+          1: In V-Blank
+          2: Searching OAM
+          3: Transferring Data to LCD Controller
 ```
 
-The two lower STAT bits show the current status of the LCD controller.
+The two lower STAT bits show the current status of the PPU.
 
 The LCD controller operates on a 2^22 Hz = 4.194 MHz dot clock. An
 entire frame is 154 scanlines, 70224 dots, or 16.74 ms. On scanlines 0
-through 143, the LCD controller cycles through modes 2, 3, and 0 once
+through 143, the PPU cycles through modes 2, 3, and 0 once
 every 456 dots. Scanlines 144 through 153 are mode 1.
 
-The following are typical when the display is enabled:
+The following sequence is typical when the display is enabled:
 
 ```
 Mode 2  2_____2_____2_____2_____2_____2___________________2____
@@ -35,7 +35,7 @@ Mode 0  ___000___000___000___000___000___000________________000
 Mode 1  ____________________________________11111111111111_____
 ```
 
-When the LCD controller is reading a particular part of video memory,
+When the PPU is reading a particular part of video memory,
 that memory is inaccessible to the CPU.
 
 -   During modes 2 and 3, the CPU cannot access OAM (FE00h-FE9Fh).
@@ -44,7 +44,7 @@ that memory is inaccessible to the CPU.
 
 | Mode    | Action                                                                | Duration                                                           | Accessible video memory
 |---------|-----------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------
-|    2    | Scanning OAM for (X, Y) coordinates of sprites that overlap this line | 80 dots (19 us)                                                    | VRAM, CGB palettes
+|    2    | Searching OAM for OBJs whose (X,Y) coordinates overlap this line      | 80 dots (19 us)                                                    | VRAM, CGB palettes
 |    3    | Reading OAM and VRAM to generate the picture                          | 168 to 291 dots (40 to 60 us) depending on sprite count            | None
 |    0    | Horizontal blanking                                                   | 85 to 208 dots (20 to 49 us) depending on previous mode 3 duration | VRAM, OAM, CGB palettes
 |    1    | Vertical blanking                                                     | 4560 dots (1087 us, 10 scanlines)                                  | VRAM, OAM, CGB palettes
