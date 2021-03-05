@@ -293,7 +293,7 @@ memory (sprite attribute table). The written value specifies the
 transfer source address divided by $100, that is, source and destination are:
 
 ```
-Source:      $XX00-$XX9F   ;XX = $00 to $F1
+Source:      $XX00-$XX9F   ;XX = $00 to $DF
 Destination: $FE00-$FE9F
 ```
 
