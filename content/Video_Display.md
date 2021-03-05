@@ -186,7 +186,7 @@ sprite index 00 means transparent.
 ### FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only
 
 This register assigns gray shades to the color indexes of the OBJs that use this palette. It works exactly
-like BGP (FF47), except that the lower two bits aren't used because
+like BGP (FF47), except that the lower two bits are ignored because
 sprite index 00 means transparent.
 
 # LCD Color Palettes (CGB only)
