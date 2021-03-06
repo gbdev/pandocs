@@ -700,19 +700,19 @@ the LCD controller can be read out from the STAT register (FF41).
 # Accessing VRAM and OAM
 
 ::: warning
-When the LCD Controller is drawing the screen it is directly reading
+When the PPU is drawing the screen it is directly reading
 from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).
 During these periods the Game Boy CPU may not access the VRAM and OAM.
 That means, any attempts to write to VRAM/OAM are ignored (the data
 remains unchanged). And any attempts to read from VRAM/OAM will return
-undefined data (typically a value of FFh).
+undefined data (typically a value of $FF).
 
 For this reason the program should verify if VRAM/OAM is accessible
 before actually reading or writing to it. This is usually done by
 reading the Mode Bits from the STAT Register (FF41). When doing this (as
 described in the examples below) you should take care that no interrupts
 occur between the wait loops and the following memory access - the
-memory is guaranteed to be accessible only for a few cycles directly
+memory is guaranteed to be accessible only for a few cycles just
 after the wait loops have completed.
 :::
 
@@ -735,15 +735,15 @@ jr   nz,@@wait    ;
 
 Even if the procedure gets executed at the *end* of Mode 0 or 1, it is
 still safe to assume that VRAM can be accessed for a few more cycles
-because in either case the following period is Mode 2 which allows
-access to VRAM also. However, be careful about STAT LCD interrupts or
-other interrupts that could cause the LCD to be back in mode 3 by the
+because in either case the following period is Mode 2, which allows
+access to VRAM also. However, be careful about STAT interrupts or
+other interrupts that could cause the PPU to be back in Mode 3 by the
 time it returns. In CGB Mode an alternate method to write data to VRAM
 is to use the HDMA Function (FF51-FF55).
 
-If you're not using LCD interrupts, another way to synchronize to the
-start of mode 0 is to use `halt` with IME turned off (`di`). This allows
-use of the entire mode 0 on one line and mode 2 on the following line,
+If you do not require any STAT interrupts, another way to synchronize to the
+start of Mode 0 is to use `halt` with IME turned off (`di`). This allows
+use of the entire Mode 0 on one line and Mode 2 on the following line,
 which sum to 165 to 288 dots. For comparison, at single speed (4 dots
 per machine cycle), a copy from stack that takes
 9 cycles per 2 bytes can push 8 bytes (half a tile) in 144 dots, which
@@ -760,8 +760,8 @@ During those modes, OAM can be accessed at any time by using the DMA
 Function (FF46). Outside those modes, DMA out-prioritizes the PPU in
 accessing OAM, and the PPU will read $FF from OAM during that time.
 
-When directly reading or writing to OAM, a typical
-procedure that waits for accessibility of OAM Memory would be:
+A typical
+procedure that waits for accessibility of OAM would be:
 
 ```
  ld   hl,0FF41h    ;-STAT Register
@@ -775,9 +775,9 @@ procedure that waits for accessibility of OAM Memory would be:
 
 The two wait loops ensure that Mode 0 (and Mode 1 if we are at the end
 of a frame) will last for a few clock
-cycles after completion of the procedure. In V-Blank period it might be
-recommended to skip the whole procedure - and in most cases using the
-above mentioned DMA function would be more recommended anyways.
+cycles after completion of the procedure. If we need to wait for the VBlank period, it would be
+better to skip the whole procedure, and use a STAT interrupt instead. In any case, using the
+previously mentioned DMA function would be better than writing to OAM directly.
 
 ::: tip NOTE
 
