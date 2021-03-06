@@ -604,10 +604,10 @@ loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
 # VRAM Sprite Attribute Table (OAM)
 
-Game Boy video controller can display up to 40 sprites either in 8x8 or
+The Game Boy PPU can display up to 40 sprites either in 8x8 or
 in 8x16 pixels. Because of a limitation of hardware, only ten sprites
-can be displayed per scan line. Sprite patterns have the same format as
-BG tiles, but they are taken from the Sprite Pattern Table located at
+can be displayed per scan line. Sprite tiles have the same format as
+BG tiles, but they are taken from the Sprite Tiles Table located at
 $8000-8FFF and have unsigned numbering.
 
 Sprite attributes reside in the Sprite Attribute Table (OAM - Object
