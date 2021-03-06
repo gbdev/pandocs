@@ -19,8 +19,8 @@ increment at 32768Hz in double speed.
 
 ### FF05 - TIMA - Timer counter (R/W)
 
-This timer is incremented at a clock frequency specified by the TAC
-register (\$FF07). When the value overflows (gets bigger than FFh) then
+This timer is incremented at the clock frequency specified by the TAC
+register (\$FF07). When the value overflows (gets bigger than $FF) then
 it will be reset to the value specified in TMA (FF06), and an interrupt
 will be requested, as described below.
 
@@ -45,7 +45,7 @@ The "Timer Enable" bit only affects the timer, the divider is **always** countin
 
 ### INT 50 - Timer Interrupt
 
-Each time when the timer overflows (that is, when TIMA gets bigger than FFh),
-then an interrupt is requested by setting Bit 2 in the IF Register
-(FF0F). When that interrupt is enabled, then the CPU will execute it by
-calling the timer interrupt vector at 0050h.
+Every time that the timer overflows (that is, when TIMA gets bigger than $FF),
+an interrupt is requested by setting Bit 2 in the IF Register
+(FF0F). As soon as that interrupt is enabled, the CPU will execute it by
+calling the timer interrupt vector at $0050.
