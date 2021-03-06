@@ -645,8 +645,7 @@ tile is "NN AND FEh", and the lower 8x8 tile is "NN OR 01h".
 ### Byte3 - Attributes/Flags:
 
 ```
- Bit7   OBJ-to-BG Priority (0=OBJ Above BG, 1=OBJ Behind BG color 1-3)
-        (Used for both BG and Window. BG color 0 is always behind OBJ)
+ Bit7   BG and Window over OBJ (0=No, 1=BG and Window colors 1-3 over the OBJ)
  Bit6   Y flip          (0=Normal, 1=Vertically mirrored)
  Bit5   X flip          (0=Normal, 1=Horizontally mirrored)
  Bit4   Palette number  **Non CGB Mode Only** (0=OBP0, 1=OBP1)
@@ -656,7 +655,7 @@ tile is "NN AND FEh", and the lower 8x8 tile is "NN OR 01h".
 
 ### Sprite Priorities and Conflicts
 
-During each scanline's OAM scan, the LCD controller compares LY to each
+During each scanline's OAM scan, the PPU compares LY to each
 sprite's Y position to find the 10 sprites on that line that appear
 first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
 displaying only those 10 sprites on that line.
@@ -680,12 +679,12 @@ tie breaker (same X coordinates) is the same priority as in CGB mode.
 ::: tip NOTE
 Priority among opaque pixels that overlap is determined using the rules explained
 above. After the pixel with the highest priority has been determined,
-the OBJ-to-BG priority of *only* that pixel is honored (or disregarded if
+the "BG and Window over OBJ" attribute of *only* that pixel is honored (or disregarded if
 this is a transparent pixel, i.e. a pixel with color ID zero). Thus if a sprite with a
-higher priority but with OBJ-to-BG Priority toggled on
+higher priority but with "BG and Window over OBJ" toggled on
 overlaps a sprite with a lower priority and a nonzero background
 pixel, the background pixel is displayed regardless of the
-lower-priority sprite's OBJ-to-BG Priority.
+lower-priority sprite's "BG and Window over OBJ" attribute.
 :::
 
 ### Writing Data to OAM Memory
