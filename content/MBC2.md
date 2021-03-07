@@ -15,16 +15,25 @@ Same as for MBC1, but only a total of 16 ROM banks is supported.
 The MBC2 doesn't support external RAM, instead it includes 512x4 bits
 of built-in RAM (in the MBC2 chip itself). It still requires an external
 battery to save data during power-off though. As the data consists of
-4-bit values, only the lower 4 bits of the bytes in this memory area
-are used.
+4bit values, only the lower 4 bits of the bit octets in this memory area
+are used. The upper 4 bits of each byte are undefined and should not be
+relied upon.
+
+### A200-BFFF - 15 "echoes" of A000-A1FF
+
+Only the bottom 9 bits of the address are used to index into the internal
+RAM, so RAM access repeats. As with the A000-A1FF region, only the lower
+4 bits of the "bytes" are used, and the upper 4 bits of each byte are
+undefined and should not be relied upon.
 
 ## Registers
 
 ### 0000-3FFF - RAM Enable and ROM Bank Number (Write Only)
 
 This address range is responsible for both enabling/disabling the RAM
-and for controlling the ROM bank number. Bit 8 of the address determines
-whether to control the RAM-enable flag or the ROM bank number.
+and for controlling the ROM bank number. Bit 8 of the address (the least
+significant bit of the upper address byte) determines whether to control
+the RAM enable flag or the ROM bank number.
 
 #### When Bit 8 is Clear
 

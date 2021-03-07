@@ -57,7 +57,7 @@ Data length: 4 bytes
 -   Byte 1: Number of sheets to print (0-255). 0 means line feed only.
 -   Byte 2: Margins, high nibble is the feed before printing, low nibble
     is after printing. GB Camera sends $13 by default.
--   Byte 3: Palette, typically $E4 (0b11100100)
+-   Byte 3: Palette, typically $E4 (%11100100)
 -   Byte 4: 7 bits exposure value, sets the burning time for the print
     head. GB Camera sends $40 by default. Official manual mentions -25%
     darkness for $00 and +25% for $7F.
