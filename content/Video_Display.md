@@ -134,7 +134,7 @@ The values from 144 to 153 indicate the VBlank period.
 ### FF45 - LYC (LY Compare) (R/W)
 
 The Game Boy permanently compares the value of the LYC and LY registers.
-When both values are identical, the coincident bit in the STAT register
+When both values are identical, the "LYC=LY" flag in the STAT register
 is set, and (if enabled) a STAT interrupt is requested.
 
 ### FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)
