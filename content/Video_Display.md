@@ -670,10 +670,10 @@ mouse over the small screen to highlight the sprites on a line. Sprites
 hidden due to the limitation will be highlighted in red.
 
 When these 10 sprites overlap, the highest priority one will appear
-above all others, etc. (Thus, no Z-fighting.) In CGB mode, the first
-sprite in OAM (\$FE00-\$FE03) has the highest priority, and so on. In
-Non-CGB mode, the smaller the X coordinate, the higher the priority. The
-tie breaker (same X coordinates) is the same priority as in CGB mode.
+above all others, etc. (Thus, no Z-fighting.) In Non-CGB mode, the smaller the X
+coordinate, the higher the priority. When X coordinates are the same, sprites located
+first in OAM have a higher priority. In CGB mode, only the sprite's location in OAM
+determines its priority.
 
 ::: tip NOTE
 Priority among opaque pixels that overlap is determined using the rules explained
