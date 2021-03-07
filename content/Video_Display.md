@@ -139,13 +139,13 @@ is set, and (if enabled) a STAT interrupt is requested.
 
 ### FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)
 
-Specifies the upper/left positions of the Window area. (The window is an
+Specify the top-left coordinates of the Window. (The Window is an
 alternate background area which can be displayed above of the normal
 background. OBJs (sprites) may be still displayed above or behind the
-window, just as for normal BG.)
+Window, just as for normal BG.)
 
-The Window becomes visible (if enabled) when both positions are set in the ranges
-WX=0..166, WY=0..143 respectively. Positions WX=7, WY=0 locate the Window at the
+The Window becomes visible (if enabled) when both coordinates are set in the ranges
+WX=0..166, WY=0..143 respectively. Values WX=7, WY=0 locate the Window at the
 top left. It is then completely covering the background.
 
 WX values 0-6 and 166 are unreliable due to hardware bugs. If WX is set
