@@ -20,16 +20,16 @@ in mode 1 for a 1MB MBC1 multi-cart (see below).
 
 This area may contain any of the further 16 KiB banks of the ROM. Cannot
 address any banks where the main ROM banking register would be $00, which
-usually means banks 00/20/40/60. Instead, it automatically maps to 1 bank
-higher (01/21/41/61).
+usually means banks $00/$20/$40/$60. Instead, it automatically maps to 1 bank
+higher ($01/$21/$41/$61).
 
 ### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
 
 This area is used to address external RAM in the cartridge (if any).
 External RAM is often battery-backed, allowing for the storage of game data while the Game Boy is turned off, or if the
 cartridge is removed from the Game Boy. Available RAM sizes are: 2 KiB
-(at A000-A7FF), 8 KiB (at A000-BFFF) and 32 KiB (in form of four 8K
-banks at A000-BFFF).
+(at $A000-$A7FF), 8 KiB (at $A000-$BFFF) and 32 KiB (in form of four 8K
+banks at $A000-$BFFF).
 
 ## Registers
 
