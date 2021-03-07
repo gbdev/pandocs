@@ -16,7 +16,7 @@ now. Also, bank 0 is actually bank 0.
 
 ### A000-BFFF - RAM Bank 00-0F, if any (Read/Write)
 
-Same as for MBC1, except that RAM sizes are 8KiB, 32KiB and 128KiB.
+Same as for MBC1, except that RAM sizes are 8 KiB, 32 KiB and 128 KiB.
 
 ### 0000-1FFF - RAM Enable (Write Only)
 
