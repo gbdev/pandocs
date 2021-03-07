@@ -30,20 +30,20 @@ to the SNES. See SGB description for details.
 
 ### INT 60 - Joypad Interrupt
 
-Joypad interrupt is requested when any of the above Input lines changes
-from High to Low. Generally this should happen when a key becomes
+The Joypad interrupt is requested when any of the above Input lines changes
+from High to Low. This happens when a key is
 pressed (provided that the direction/button key is enabled by
 bit 4/5, respectively), however, because of switch bounce, one or more High to Low
-transitions are usually produced both when pressing or releasing a key.
+transitions are usually produced when pressing and releasing a key.
 
 ### Using the Joypad Interrupt
 
-It's more or less useless for programmers, even when selecting both
+It's practically useless for programmers. Even when selecting both
 buttons and direction keys simultaneously it still cannot recognize all
 keystrokes, because in that case a bit might be already held low by a
 button key, and pressing the corresponding direction key would thus
-cause no difference. The only meaningful purpose of the keystroke
-interrupt would be to terminate STOP (low power) standby state. GBA SP,
+make no difference. The only meaningful purpose of the Joypad
+interrupt would be to terminate the STOP (low power) standby state. GBA SP,
 because of the different buttons used, seems to not be affected by
 switch bounce.
 
