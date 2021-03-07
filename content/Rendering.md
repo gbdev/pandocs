@@ -80,3 +80,8 @@ To summarise:
 - **Tile**, an 8x8-pixel chunk of graphics.
 - **Object**, an entry in object attribute memory, composed of 1 or 2
 tiles. Independent from the background.
+
+## PPU
+
+The PPU is the subsystem that reads graphics data from video RAM,
+translates that data into pixels and transfers them to the LCD controller.
