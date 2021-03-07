@@ -7,13 +7,13 @@
 
 The IME flag is used to disable all interrupts, overriding any enabled
 bits in the IE Register. It isn't possible to access the IME flag by
-using a I/O address, instead IME is accessed directly from the CPU, by
-the following opcodes/operations:
+using a I/O address, instead IME is manipulated by
+the following instructions/operations:
 
 ```
 EI     ;Enable Interrupts  (that is, IME=1)
 DI     ;Disable Interrupts (that is, IME=0)
-RETI   ;Enable Ints & Return (same as the opcode combination EI, RET)
+RETI   ;Enable Ints & Return (same as the instructions combination EI, RET)
 <INT>  ;Disable Ints & Call to Interrupt Vector
 ```
 
@@ -21,8 +21,7 @@ where \<INT\> means the operation which is automatically executed by the
 CPU when it executes an interrupt.
 
 The effect of EI is delayed by one instruction. This means that EI
-followed immediately by DI does not allow interrupts between the EI and
-the DI.
+followed immediately by DI does not allow interrupts between them.
 
 ### FFFF - IE - Interrupt Enable (R/W)
 
