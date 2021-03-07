@@ -34,7 +34,7 @@ The Joypad interrupt is requested when any of the above Input lines changes
 from High to Low. This happens when a key is
 pressed (provided that the direction/button key is enabled by
 bit 4/5, respectively), however, because of switch bounce, one or more High to Low
-transitions are usually produced when pressing a key.
+transitions are usually produced when pressing and releasing a key.
 
 ### Using the Joypad Interrupt
 
