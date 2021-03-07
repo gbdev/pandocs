@@ -5,6 +5,7 @@
 # Overview
 
 - [Specifications](./Specifications.md)
+- [System Architecture](./System_Architecture.md)
 - [Memory Map](./Memory_Map.md)
 
 # I/O Ports
