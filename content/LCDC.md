@@ -1,4 +1,6 @@
-# FF40 - LCD Control Register (R/W)
+# LCD Control
+
+### FF40 - LCDC (LCD Control) (R/W)
 
 **LCDC** is the main **LCD C**ontrol register. Its bits toggle what
 elements are displayed on the screen, and how.
@@ -15,7 +17,7 @@ elements are displayed on the screen, and how.
 | 0   | BG and Window enable/priority  | 0=Off, 1=On              |
 
 
-## LCDC.7 - LCD enable
+#### LCDC.7 - LCD enable
 
 This bit controls whether the LCD is on and the PPU is active. Setting
 it to 0 turns both off, which grants immediate and full access to VRAM,
@@ -39,13 +41,13 @@ picture sticks to the screen. (TODO: research this more.)
 When re-enabling the LCD, the PPU will immediately start drawing again,
 but the screen will stay blank during the first frame.
 
-## LCDC.6 - Window tile map area
+#### LCDC.6 - Window tile map area
 
 This bit controls which background map the Window uses for rendering.
 When it's reset, the \$9800 tilemap is used, otherwise it's the \$9C00
 one.
 
-## LCDC.5 - Window enable
+#### LCDC.5 - Window enable
 
 This bit controls whether the window shall be displayed or not. (TODO:
 what happens when toggling this mid-scanline ?) This bit is overridden
@@ -55,7 +57,7 @@ if that bit is reset.
 Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
 may cause the second write to be ignored. (TODO: test this.)
 
-## LCDC.4 - BG and Window tile data area
+#### LCDC.4 - BG and Window tile data area
 
 This bit controls which [addressing
 mode](#vram-tile-data) the BG and Window use to
@@ -64,13 +66,13 @@ pick tiles.
 Sprites aren't affected by this, and will always use \$8000 addressing
 mode.
 
-## LCDC.3 - BG tile map area
+#### LCDC.3 - BG tile map area
 
 This bit works similarly to LCDC-6: if the bit is
 reset, the BG uses tilemap $9800, otherwise tilemap $9C00.
 
 
-## LCDC.2 - OBJ size
+#### LCDC.2 - OBJ size
 
 This bit controls the sprite size (1 tile or 2 stacked vertically).
 
@@ -78,7 +80,7 @@ Be cautious when changing this mid-frame from 8x8 to 8x16: "remnants"
 of the sprites intended for 8x8 could "leak" into the 8x16 zone and
 cause artifacts.
 
-## LCDC.1 - OBJ enable
+#### LCDC.1 - OBJ enable
 
 This bit toggles whether sprites are displayed or not.
 
@@ -88,7 +90,7 @@ displayed on top of a status bar or text box.
 (Note: toggling mid-scanline might have funky results on DMG?
 Investigation needed.)
 
-## LCDC.0 - BG and Window enable/priority
+#### LCDC.0 - BG and Window enable/priority
 
 LCDC.0 has different meanings depending on Game Boy type and Mode:
 
