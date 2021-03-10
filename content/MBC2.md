@@ -1,6 +1,6 @@
-(max 256KByte ROM and 512x4 bits RAM)
+(max 256 KiB ROM and 512x4 bits RAM)
 
-## ROM/RAM Access
+## Memory
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
@@ -15,7 +15,7 @@ Same as for MBC1, but only a total of 16 ROM banks is supported.
 The MBC2 doesn't support external RAM, instead it includes 512x4 bits
 of built-in RAM (in the MBC2 chip itself). It still requires an external
 battery to save data during power-off though. As the data consists of
-4bit values, only the lower 4 bits of the "bytes" in this memory area
+4bit values, only the lower 4 bits of the bit octets in this memory area
 are used. The upper 4 bits of each byte are undefined and should not be
 relied upon.
 
@@ -26,7 +26,7 @@ RAM, so RAM access repeats. As with the A000-A1FF region, only the lower
 4 bits of the "bytes" are used, and the upper 4 bits of each byte are
 undefined and should not be relied upon.
 
-## Control Registers
+## Registers
 
 ### 0000-3FFF - RAM Enable and ROM Bank Number (Write Only)
 
