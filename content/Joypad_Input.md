@@ -30,9 +30,9 @@ to the SNES. See SGB description for details.
 
 ### INT 60 - Joypad Interrupt
 
-The Joypad interrupt is requested when any of the above Input lines changes
+The Joypad interrupt is requested when any of the bits 0-3 changes
 from High to Low. This happens when a button is
-pressed (provided that the action/direction button is enabled by
+pressed (provided that the action/direction buttons are enabled by
 bit 5/4, respectively), however, due to switch bounce, one or more High to Low
 transitions are usually produced when pressing a button.
 
