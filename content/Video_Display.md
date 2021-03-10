@@ -630,13 +630,17 @@ affects the priority ordering, thus other sprites with lower priority may be
 left out due to the ten sprites limit per scan-line.
 A better way to hide a sprite is to set its Y-coordinate off-screen.
 
-### Byte2 - Tile Number
+### Byte 2 - Tile Index
 
-Specifies the sprite's tile number ($00-$FF). This unsigned value selects
-a tile from memory at $8000-$8FFF. In CGB Mode this could be either in
-VRAM Bank 0 or 1, depending on Bit 3 of the following byte. In 8x16
-mode, the lower bit of the tile number is ignored. IE: the upper 8x8
-tile is "NN AND $FE", and the lower 8x8 tile is "NN OR $01".
+In 8x8 mode (LCDC bit 2 = 0), this byte specifies the sprite's only tile index ($00-$FF).
+This unsigned value selects a tile from the memory area at $8000-$8FFF.
+In CGB Mode this could be either in
+VRAM bank 0 or 1, depending on bit 3 of the following byte.
+In 8x16 mode (LCDC bit 2 = 1), the memory area at $8000-$8FFF is still interpreted
+as a series of 8x8 tiles, where every 2 tiles form a sprite. In this mode, this byte
+specifies the index of the first (top) tile of the sprite. This is enforced by the
+hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
+tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
 
 ### Byte3 - Attributes/Flags:
 
