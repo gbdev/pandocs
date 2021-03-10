@@ -10,7 +10,7 @@ a completely different thing, described in
 This register is incremented at rate of 16384Hz (\~16779Hz on SGB).
 Writing any value to this register resets it to $00.
 Additionally, this register is reset when executing the `stop` instruction, and
-only begins ticking again once `stop` mode is exited. This also occurs during a
+only begins ticking again once `stop` mode ends. This also occurs during a
 [speed switch](#ff4d-key1-cgb-mode-only-prepare-speed-switch).
 (TODO: how is it affected by the wait after a speed switch?)
 
@@ -20,13 +20,13 @@ increment at 32768Hz in double speed.
 ### FF05 - TIMA - Timer counter (R/W)
 
 This timer is incremented at the clock frequency specified by the TAC
-register (\$FF07). When the value overflows (gets bigger than $FF) then
-it will be reset to the value specified in TMA (FF06), and an interrupt
-will be requested, as described below.
+register (\$FF07). When the value overflows (exceeds $FF)
+it is reset to the value specified in TMA (FF06) and an interrupt
+is requested, as described below.
 
 ### FF06 - TMA - Timer Modulo (R/W)
 
-When the TIMA overflows, this data will be loaded.
+When TIMA overflows, it is reset to the value in this register.
 
 ### FF07 - TAC - Timer Control (R/W)
 
@@ -40,12 +40,12 @@ Bits 1-0 - Input Clock Select
 ```
 
 ::: tip NOTE
-The "Timer Enable" bit only affects the timer, the divider is **always** counting
+The "Timer Enable" bit only affects the timer (TIMA). The divider (DIV) is **always** counting
 :::
 
 ### INT 50 - Timer Interrupt
 
-Every time that the timer overflows (that is, when TIMA gets bigger than $FF),
-an interrupt is requested by setting Bit 2 in the IF Register
-(FF0F). As soon as that interrupt is enabled, the CPU will execute it by
+Every time that the timer overflows (that is, when TIMA exceeds $FF),
+an interrupt is requested by setting bit 2 in the IF register
+($FF0F). As soon as that interrupt is enabled, the CPU will execute it by
 calling the timer interrupt vector at $0050.

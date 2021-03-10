@@ -7,11 +7,11 @@ A *dot* is the shortest period over which the PPU can output one pixel: is it eq
 ### FF41 - STAT (LCD Status) (R/W)
 
 ```
-Bit 6 - LYC=LY Coincidence Interrupt (1=Enable) (Read/Write)
+Bit 6 - LYC=LY Interrupt             (1=Enable) (Read/Write)
 Bit 5 - Mode 2 OAM Interrupt         (1=Enable) (Read/Write)
 Bit 4 - Mode 1 V-Blank Interrupt     (1=Enable) (Read/Write)
 Bit 3 - Mode 0 H-Blank Interrupt     (1=Enable) (Read/Write)
-Bit 2 - Coincidence Flag  (0:LYC<>LY, 1:LYC=LY) (Read Only)
+Bit 2 - LYC=LY Flag      (0=Different, 1=Equal) (Read Only)
 Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)
           0: In H-Blank
           1: In V-Blank
@@ -104,7 +104,7 @@ a text box (at the bottom of the screen), and you want sprites to be
 hidden by the text box.
 
 ::: warning
-As mentioned in the description of the STAT register, the LCD Controller cycles
+As mentioned in the description of the STAT register, the PPU cycles
 through the different modes in a fixed order. If we set the STAT bits
 in a way that they would interrupt the CPU at two
 consecutive modes, then the second interrupt will not trigger. So for example,
@@ -119,11 +119,8 @@ effect until the end of the current scanline.
 
 ### FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)
 
-Specifies the position in the 256x256 pixels BG map (32x32 tiles) which
-is to be displayed at the upper/left LCD display position. Values in
-the range 0-255 may be used for X/Y each, the video controller
-automatically wraps back to the upper (left) position in BG map when
-drawing exceeds the lower (right) border of the BG map area.
+Specify the top-left coordinates of the visible 160x144 pixel area within the
+256x256 pixels BG map. Values in the range 0-255 may be used.
 
 ### FF44 - LY (LCDC Y-Coordinate) (R)
 
@@ -134,19 +131,19 @@ The values from 144 to 153 indicate the VBlank period.
 ### FF45 - LYC (LY Compare) (R/W)
 
 The Game Boy permanently compares the value of the LYC and LY registers.
-When both values are identical, the coincident bit in the STAT register
+When both values are identical, the "LYC=LY" flag in the STAT register
 is set, and (if enabled) a STAT interrupt is requested.
 
 ### FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)
 
-Specifies the upper/left positions of the Window area. (The window is an
+Specify the top-left coordinates of the Window. (The Window is an
 alternate background area which can be displayed above of the normal
 background. OBJs (sprites) may be still displayed above or behind the
-window, just as for normal BG.)
+Window, just as for normal BG.)
 
-The Window becomes visible (if enabled) when both positions are set in the ranges
-WX=0..166, WY=0..143 respectively. Positions WX=7, WY=0 locate the Window at the
-top left. It is then completely covering the background.
+The Window is visible (if enabled) when both coordinates are in the ranges
+WX=0..166, WY=0..143 respectively. Values WX=7, WY=0 place the Window at the
+top left of the screen, completely covering the background.
 
 WX values 0-6 and 166 are unreliable due to hardware bugs. If WX is set
 to 0, the window will "stutter" horizontally when SCX changes.
@@ -441,12 +438,12 @@ Speed Mode).
 
 # VRAM Tile Data
 
-Tile data is stored in VRAM at addresses \$8000-$97FF; with each tile
+Tile data is stored in VRAM in the memory area at \$8000-$97FF; with each tile
 taking 16 bytes, this area defines data for 384 tiles. In CGB Mode,
 this is doubled (768 tiles) because of the two VRAM banks.
 
 Each tile has 8x8 pixels and has a color depth of 4 colors/gray
-shades. Tiles can be displayed as part of the Background/Window map,
+shades. Tiles can be displayed as part of the Background/Window maps,
 and/or as OBJ tiles (foreground sprites). Note that OBJs
 don't use color 0 - it's transparent instead.
 
@@ -478,9 +475,9 @@ Byte 2-3  Second Line
 etc.
 ```
 
-For each line, the first byte defines the least significant bit of the
-color ID of each pixel, and the second byte defines the upper bits
-of the color IDs. In either case, bit 7 is the leftmost pixel, and
+For each line, the first byte specifies the least significant bit of the
+color ID of each pixel, and the second byte specifies the most significant bit.
+In both bytes, bit 7 represents the leftmost pixel, and
 bit 0 the rightmost. For example: let's say you have \$57 \$36 (in
 this order in memory), which in binary are %01010111 and %00110110.
 To obtain the color ID for the leftmost pixel,
@@ -633,13 +630,17 @@ affects the priority ordering, thus other sprites with lower priority may be
 left out due to the ten sprites limit per scan-line.
 A better way to hide a sprite is to set its Y-coordinate off-screen.
 
-### Byte2 - Tile Number
+### Byte 2 - Tile Index
 
-Specifies the sprite's tile number ($00-$FF). This unsigned value selects
-a tile from memory at $8000-$8FFF. In CGB Mode this could be either in
-VRAM Bank 0 or 1, depending on Bit 3 of the following byte. In 8x16
-mode, the lower bit of the tile number is ignored. IE: the upper 8x8
-tile is "NN AND $FE", and the lower 8x8 tile is "NN OR $01".
+In 8x8 mode (LCDC bit 2 = 0), this byte specifies the sprite's only tile index ($00-$FF).
+This unsigned value selects a tile from the memory area at $8000-$8FFF.
+In CGB Mode this could be either in
+VRAM bank 0 or 1, depending on bit 3 of the following byte.
+In 8x16 mode (LCDC bit 2 = 1), the memory area at $8000-$8FFF is still interpreted
+as a series of 8x8 tiles, where every 2 tiles form a sprite. In this mode, this byte
+specifies the index of the first (top) tile of the sprite. This is enforced by the
+hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
+tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
 
 ### Byte3 - Attributes/Flags:
 
@@ -670,10 +671,10 @@ mouse over the small screen to highlight the sprites on a line. Sprites
 hidden due to the limitation will be highlighted in red.
 
 When these 10 sprites overlap, the highest priority one will appear
-above all others, etc. (Thus, no Z-fighting.) In CGB mode, the first
-sprite in OAM (\$FE00-\$FE03) has the highest priority, and so on. In
-Non-CGB mode, the smaller the X coordinate, the higher the priority. The
-tie breaker (same X coordinates) is the same priority as in CGB mode.
+above all others, etc. (Thus, no Z-fighting.) In Non-CGB mode, the smaller the X
+coordinate, the higher the priority. When X coordinates are the same, sprites located
+first in OAM have a higher priority. In CGB mode, only the sprite's location in OAM
+determines its priority.
 
 ::: tip NOTE
 Priority among opaque pixels that overlap is determined using the rules explained
@@ -700,21 +701,21 @@ the LCD controller can be read out from the STAT register (FF41).
 ::: warning
 When the PPU is drawing the screen it is directly reading
 from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).
-During these periods the Game Boy CPU may not access the VRAM and OAM.
-That means, any attempts to write to VRAM/OAM are ignored (the data
-remains unchanged). And any attempts to read from VRAM/OAM will return
-undefined data (typically a value of $FF).
+During these periods the Game Boy CPU may not access VRAM and OAM.
+That means that any attempts to write to VRAM or OAM are ignored (data
+remains unchanged). And any attempts to read from VRAM or OAM will return
+undefined data (typically $FF).
 
 For this reason the program should verify if VRAM/OAM is accessible
 before actually reading or writing to it. This is usually done by
-reading the Mode Bits from the STAT Register (FF41). When doing this (as
+reading the Mode bits from the STAT Register (FF41). When doing this (as
 described in the examples below) you should take care that no interrupts
 occur between the wait loops and the following memory access - the
 memory is guaranteed to be accessible only for a few cycles just
 after the wait loops have completed.
 :::
 
-### VRAM (memory at 8000h-9FFFh) is accessible during Mode 0-2
+### VRAM (memory area at $8000-$9FFF) is accessible during Modes 0-2
 
 ```
 Mode 0 - H-Blank Period,
@@ -725,10 +726,10 @@ Mode 2 - Searching OAM Period
 A typical procedure that waits for accessibility of VRAM would be:
 
 ```
-ld   hl,0FF41h    ;-STAT Register
-@@wait:           ;
+ld   hl,$FF41     ;-STAT Register
+.wait:           ;
 bit  1,[hl]       ; Wait until Mode is 0 or 1
-jr   nz,@@wait    ;
+jr   nz,.wait    ;
 ```
 
 Even if the procedure gets executed at the *end* of Mode 0 or 1, it is
@@ -740,7 +741,9 @@ time it returns. In CGB Mode an alternate method to write data to VRAM
 is to use the HDMA Function (FF51-FF55).
 
 If you do not require any STAT interrupts, another way to synchronize to the
-start of Mode 0 is to use `halt` with IME turned off (`di`). This allows
+start of Mode 0 is to disable all the individual STAT interrupts except Mode 0
+(STAT bit 3), enable STAT interrupts (IE bit 1), disable IME (by executing `di`),
+and use the `halt` instruction. This allows
 use of the entire Mode 0 on one line and Mode 2 on the following line,
 which sum to 165 to 288 dots. For comparison, at single speed (4 dots
 per machine cycle), a copy from stack that takes
