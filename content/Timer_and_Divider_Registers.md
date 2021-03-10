@@ -26,7 +26,7 @@ will be requested, as described below.
 
 ### FF06 - TMA - Timer Modulo (R/W)
 
-When the TIMA overflows, this data will be loaded.
+When TIMA overflows, it is reset to the value in this register.
 
 ### FF07 - TAC - Timer Control (R/W)
 
