@@ -11,7 +11,7 @@
 
 - [Rendering](./Rendering.md)
   - [Tile Data](./Tile_Data.md)
-  - [BG Maps](./BG_Maps.md)
+  - [Tile Maps](./Tile_Maps.md)
   - [OAM](./OAM.md)
     - [OAM DMA Transfer](./OAM_DMA_Transfer.md)
   - [LCD Control](./LCDC.md)
