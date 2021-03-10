@@ -119,11 +119,8 @@ effect until the end of the current scanline.
 
 ### FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)
 
-Specifies the position in the 256x256 pixels BG map (32x32 tiles) which
-is to be displayed at the upper/left LCD display position. Values in
-the range 0-255 may be used for X/Y each, the video controller
-automatically wraps back to the upper (left) position in BG map when
-drawing exceeds the lower (right) border of the BG map area.
+Specify the top-left coordinates of the visible 160x144 pixel area within the
+256x256 pixels BG map. Values in the range 0-255 may be used.
 
 ### FF44 - LY (LCDC Y-Coordinate) (R)
 
