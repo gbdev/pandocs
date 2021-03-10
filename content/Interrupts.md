@@ -8,13 +8,13 @@
 The IME flag is used to disable all interrupts, overriding any enabled
 bits in the IE register. It isn't possible to access the IME flag by
 using a I/O address. IME can be modified by
-the following instructions/operations only:
+the following instructions/events only:
 
 ```
-EI     ;Enable interrupts  (that is, IME=1)
-DI     ;Disable interrupts (that is, IME=0)
-RETI   ;Enable interrupts and return (same as the instructions combination EI, RET)
-<INT>  ;Disable interrupts and call an interrupt vector
+EI     ;Interrupts enabled  (that is, IME=1)
+DI     ;Interrupts disabled (that is, IME=0)
+RETI   ;Interrupts enabled and return (same as the instructions combination EI, RET)
+<INT>  ;Interrupts disabled and call to interrupt vector
 ```
 
 where \<INT\> means the operation which is automatically executed by the
