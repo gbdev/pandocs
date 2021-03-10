@@ -1,27 +1,27 @@
 ### IME - Interrupt Master Enable Flag (Write Only)
 
 ```
-0 - Disable all Interrupts
-1 - Enable all Interrupts that are enabled in IE Register (FFFF)
+0 - Disable all interrupts
+1 - Enable all interrupts that are enabled in the IE register (FFFF)
 ```
 
 The IME flag is used to disable all interrupts, overriding any enabled
-bits in the IE Register. It isn't possible to access the IME flag by
-using a I/O address, instead IME is manipulated by
-the following instructions/operations:
+bits in the IE register. It isn't possible to access the IME flag by
+using a I/O address. IME can be modified by
+the following instructions/events only:
 
 ```
-EI     ;Enable Interrupts  (that is, IME=1)
-DI     ;Disable Interrupts (that is, IME=0)
-RETI   ;Enable Ints & Return (same as the instructions combination EI, RET)
-<INT>  ;Disable Ints & Call to Interrupt Vector
+EI     ;Enables interrupts  (that is, IME=1)
+DI     ;Disables interrupts (that is, IME=0)
+RETI   ;Enables interrupts and returns (same as the instruction sequence EI, RET)
+<INT>  ;Disables interrupts and calls interrupt vector
 ```
 
 where \<INT\> means the operation which is automatically executed by the
 CPU when it executes an interrupt.
 
 The effect of EI is delayed by one instruction. This means that EI
-followed immediately by DI does not allow interrupts between them.
+followed immediately by DI does not allow any interrupts between them.
 
 ### FFFF - IE - Interrupt Enable (R/W)
 
