@@ -697,14 +697,14 @@ the LCD controller can be read out from the STAT register (FF41).
 ::: warning
 When the PPU is drawing the screen it is directly reading
 from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).
-During these periods the Game Boy CPU may not access the VRAM and OAM.
-That means, any attempts to write to VRAM/OAM are ignored (the data
-remains unchanged). And any attempts to read from VRAM/OAM will return
-undefined data (typically a value of $FF).
+During these periods the Game Boy CPU may not access VRAM and OAM.
+That means that any attempts to write to VRAM or OAM are ignored (data
+remains unchanged). And any attempts to read from VRAM or OAM will return
+undefined data (typically $FF).
 
 For this reason the program should verify if VRAM/OAM is accessible
 before actually reading or writing to it. This is usually done by
-reading the Mode Bits from the STAT Register (FF41). When doing this (as
+reading the Mode bits from the STAT Register (FF41). When doing this (as
 described in the examples below) you should take care that no interrupts
 occur between the wait loops and the following memory access - the
 memory is guaranteed to be accessible only for a few cycles just
