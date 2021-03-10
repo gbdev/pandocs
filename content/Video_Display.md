@@ -728,7 +728,7 @@ A typical procedure that waits for accessibility of VRAM would be:
 ld   hl,$FF41     ;-STAT Register
 .wait:           ;
 bit  1,[hl]       ; Wait until Mode is 0 or 1
-jr   nz,@@wait    ;
+jr   nz,.wait    ;
 ```
 
 Even if the procedure gets executed at the *end* of Mode 0 or 1, it is
