@@ -104,7 +104,7 @@ a text box (at the bottom of the screen), and you want sprites to be
 hidden by the text box.
 
 ::: warning
-As mentioned in the description of the STAT register, the LCD Controller cycles
+As mentioned in the description of the STAT register, the PPU cycles
 through the different modes in a fixed order. If we set the STAT bits
 in a way that they would interrupt the CPU at two
 consecutive modes, then the second interrupt will not trigger. So for example,
