@@ -715,7 +715,7 @@ memory is guaranteed to be accessible only for a few cycles just
 after the wait loops have completed.
 :::
 
-### VRAM (memory at 8000h-9FFFh) is accessible during Mode 0-2
+### VRAM (memory area at $8000-$9FFF) is accessible during Modes 0-2
 
 ```
 Mode 0 - H-Blank Period,
@@ -726,10 +726,10 @@ Mode 2 - Searching OAM Period
 A typical procedure that waits for accessibility of VRAM would be:
 
 ```
-ld   hl,0FF41h    ;-STAT Register
-@@wait:           ;
+ld   hl,$FF41     ;-STAT Register
+.wait:           ;
 bit  1,[hl]       ; Wait until Mode is 0 or 1
-jr   nz,@@wait    ;
+jr   nz,.wait    ;
 ```
 
 Even if the procedure gets executed at the *end* of Mode 0 or 1, it is
@@ -741,7 +741,9 @@ time it returns. In CGB Mode an alternate method to write data to VRAM
 is to use the HDMA Function (FF51-FF55).
 
 If you do not require any STAT interrupts, another way to synchronize to the
-start of Mode 0 is to use `halt` with IME turned off (`di`). This allows
+start of Mode 0 is to disable all the individual STAT interrupts except Mode 0
+(STAT bit 3), enable STAT interrupts (IE bit 1), disable IME (by executing `di`),
+and use the `halt` instruction. This allows
 use of the entire Mode 0 on one line and Mode 2 on the following line,
 which sum to 165 to 288 dots. For comparison, at single speed (4 dots
 per machine cycle), a copy from stack that takes
