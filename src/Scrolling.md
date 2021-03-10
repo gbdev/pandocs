@@ -6,7 +6,7 @@ effect until the end of the current scanline.
 
 ## FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)
 
-Specify the top-left coordinates of the visible 160x144 pixel area within the
+Those specify the top-left coordinates of the visible 160x144 pixel area within the
 256x256 pixels BG map. Values in the range 0-255 may be used.
 
 ## FF44 - LY (LCD Y Coordinate) (R)
