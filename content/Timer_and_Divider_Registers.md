@@ -40,7 +40,7 @@ Bits 1-0 - Input Clock Select
 ```
 
 ::: tip NOTE
-The "Timer Enable" bit only affects the timer, the divider is **always** counting
+The "Timer Enable" bit only affects the timer (TIMA). The divider (DIV) is **always** counting
 :::
 
 ### INT 50 - Timer Interrupt
