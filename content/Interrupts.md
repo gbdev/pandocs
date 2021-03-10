@@ -11,10 +11,10 @@ using a I/O address. IME can be modified by
 the following instructions/events only:
 
 ```
-EI     ;Interrupts enabled  (that is, IME=1)
-DI     ;Interrupts disabled (that is, IME=0)
-RETI   ;Interrupts enabled and return (same as the instructions combination EI, RET)
-<INT>  ;Interrupts disabled and call to interrupt vector
+EI     ;Enables interrupts  (that is, IME=1)
+DI     ;Disables interrupts (that is, IME=0)
+RETI   ;Enables interrupts and returns (same as the instruction sequence EI, RET)
+<INT>  ;Disables interrupts and calls interrupt vector
 ```
 
 where \<INT\> means the operation which is automatically executed by the
