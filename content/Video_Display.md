@@ -642,8 +642,8 @@ VRAM bank 0 or 1, depending on bit 3 of the following byte.
 In 8x16 mode (LCDC bit 2 = 1), the memory area at $8000-$8FFF is still interpreted
 as a series of 8x8 tiles, where every 2 tiles form a sprite. In this mode, this byte
 specifies the index of the first (top) tile of the sprite. This is enforced by the
-hardware: the least significant bit of the tile index is ignored. IE: the top 8x8
-tile is "NN AND $FE", and the bottom 8x8 tile is "NN OR $01".
+hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
+tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
 
 ### Byte3 - Attributes/Flags:
 
