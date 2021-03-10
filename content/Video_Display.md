@@ -726,7 +726,7 @@ A typical procedure that waits for accessibility of VRAM would be:
 
 ```
 ld   hl,$FF41     ;-STAT Register
-@@wait:           ;
+.wait:           ;
 bit  1,[hl]       ; Wait until Mode is 0 or 1
 jr   nz,@@wait    ;
 ```
@@ -741,7 +741,7 @@ is to use the HDMA Function (FF51-FF55).
 
 If you do not require any STAT interrupts, another way to synchronize to the
 start of Mode 0 is to disable all the individual STAT interrupts except Mode 0
-(STAT bit 3), enable STAT interrupts (IE bit 1), disable IME (by calling `di`),
+(STAT bit 3), enable STAT interrupts (IE bit 1), disable IME (by executing `di`),
 and use the `halt` instruction. This allows
 use of the entire Mode 0 on one line and Mode 2 on the following line,
 which sum to 165 to 288 dots. For comparison, at single speed (4 dots
