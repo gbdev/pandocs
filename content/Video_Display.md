@@ -286,7 +286,7 @@ of this brightness correction.
 ### FF46 - DMA (DMA Transfer and Start Address) (R/W)
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
-memory (sprite attribute table). The written value specifies the
+(Object Attribute Memory). The written value specifies the
 transfer source address divided by $100, that is, source and destination are:
 
 ```
@@ -314,14 +314,14 @@ the transfer has finished:
   ret
 ```
 
-Because sprites are not displayed while OAM DMA is in progress, most
+Because sprites are not displayed while an OAM DMA transfer is in progress, most
 programs execute this procedure from inside their V-Blank
 handler. But it is also possible to execute it during display redraw (Modes 2 and 3),
 allowing to display more than 40 sprites on the screen (that is, for
 example 40 sprites in the top half, and other 40 sprites in the bottom half of
 the screen), at the cost of a couple lines that lack sprites due to the fact that
 during those couple lines the PPU reads OAM as $FF. Besides, graphic glitches may
-happen if starting OAM DMA during Mode 3.
+happen if an OAM DMA transfer is started during Mode 3.
 
 A more compact procedure is
 
