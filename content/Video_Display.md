@@ -441,12 +441,12 @@ Speed Mode).
 
 # VRAM Tile Data
 
-Tile data is stored in VRAM at addresses \$8000-$97FF; with each tile
+Tile data is stored in VRAM in the memory area at \$8000-$97FF; with each tile
 taking 16 bytes, this area defines data for 384 tiles. In CGB Mode,
 this is doubled (768 tiles) because of the two VRAM banks.
 
 Each tile has 8x8 pixels and has a color depth of 4 colors/gray
-shades. Tiles can be displayed as part of the Background/Window map,
+shades. Tiles can be displayed as part of the Background/Window maps,
 and/or as OBJ tiles (foreground sprites). Note that OBJs
 don't use color 0 - it's transparent instead.
 
@@ -478,9 +478,9 @@ Byte 2-3  Second Line
 etc.
 ```
 
-For each line, the first byte defines the least significant bit of the
-color ID of each pixel, and the second byte defines the upper bits
-of the color IDs. In either case, bit 7 is the leftmost pixel, and
+For each line, the first byte specifies the least significant bit of the
+color ID of each pixel, and the second byte specifies the most significant bit.
+In both bytes, bit 7 represents the leftmost pixel, and
 bit 0 the rightmost. For example: let's say you have \$57 \$36 (in
 this order in memory), which in binary are %01010111 and %00110110.
 To obtain the color ID for the leftmost pixel,
