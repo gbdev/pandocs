@@ -78,7 +78,7 @@ In the following three situations it might happen that more than one bit in the 
 
 1. More than one interrupt signal changed from Low to High at the same time.
 2. Several interrupts have been requested during a time in which IME/IE didn't allow these interrupts to be executed directly.
-3. The user has written a value with several "1" bits (for example $1F) to the IF register. 
+3. The user has written a value with several "1" bits (for example binary 00011111) to the IF register. 
 
 If IME and IE allow the execution of more than one of the
 requested interrupts, the interrupt with the highest priority
