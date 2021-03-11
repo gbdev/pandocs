@@ -50,7 +50,7 @@ becomes set when the LCD controller enters the V-Blank period.
 ### Interrupt Requests
 
 Any set bits in the IF register are only **requesting** an interrupt to be
-executed. The actual **execution** happens only if both the IME flag, and
+executed. The actual **execution** happens only if both the IME flag and
 the corresponding bit in the IE register are set, otherwise the
 interrupt "waits" until both IME and IE allow its execution.
 
