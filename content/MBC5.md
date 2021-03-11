@@ -9,7 +9,8 @@ work properly with GBC double speed mode.
 ## Memory
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
-Same as for MBC1.
+
+Contains the first 16 KiB of the ROM.
 
 ### 4000-7FFF - ROM bank 00-1FF (Read Only)
 

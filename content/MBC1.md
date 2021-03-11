@@ -10,7 +10,7 @@ ROM and writing to the MBCs Control Registers.
 
 ## Memory
 
-### 0000-3FFF - ROM Bank 00/20/40/60 (Read Only)
+### 0000-3FFF - ROM Bank X0 (Read Only)
 
 This area normally contains the first 16 KiB (bank 00) of the cartridge
 ROM. Can contain banks $20/$40/$60 in mode 1 (see below), or banks $10/$20/$30

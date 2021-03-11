@@ -4,7 +4,7 @@
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
-Contains the first 16KByte banks of the ROM.
+Contains the first 16 KiB of the ROM.
 
 ### 4000-7FFF - ROM Bank 01-0F (Read Only)
 

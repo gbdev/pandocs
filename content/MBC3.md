@@ -9,7 +9,7 @@ battery (if it should continue to tick when the Game Boy is turned off).
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
-Same as for MBC1.
+Contains the first 16 KiB of the ROM.
 
 ### 4000-7FFF - ROM Bank 01-7F (Read Only)
 

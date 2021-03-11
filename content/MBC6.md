@@ -16,7 +16,7 @@ instead of 16 kB and 4 kB RAM banks instead of 8 kB.
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
-Read-only access to ROM bank 0.
+Contains the first 16 KiB of the ROM.
 
 ### 4000-5FFF - ROM/Flash Bank A 00-7F (Read/Write for flash, Read Only for ROM)
 
