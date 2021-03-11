@@ -38,7 +38,7 @@ transitions are usually produced when pressing a button.
 
 ### Using the Joypad Interrupt
 
-It's practically useless for programmers. Even when selecting both
+It is practically useless for programmers. Even when selecting both
 action and direction buttons simultaneously, it still cannot recognize all
 presses, because in that case a bit might be already held Low by an
 action button, and pressing the corresponding direction button would thus
