@@ -24,12 +24,12 @@ Same as for MBC1, except that RAM sizes are 8 KiB, 32 KiB and 128 KiB.
 
 ### 0000-1FFF - RAM Enable (Write Only)
 
-Mostly the same as for MBC1, a value of $0A will enable reading and
-writing to external RAM. A value of $00 will disable it.
+Mostly the same as for MBC1. Writing $0A will enable reading and
+writing to external RAM. Writing $00 will disable it.
 
 ### 2000-2FFF - 8 least significant bits of ROM bank number (Write Only)
 
-The 8 least significant bits of the ROM bank number goes here. Writing 0 will indeed
+The 8 least significant bits of the ROM bank number go here. Writing 0 will indeed
 give bank 0 on MBC5, unlike other MBCs.
 
 ### 3000-3FFF - 9th bit of ROM bank number (Write Only)
@@ -38,8 +38,8 @@ The 9th bit of the ROM bank number goes here.
 
 ### 4000-5FFF - RAM bank number (Write Only)
 
-As for the MBC1s RAM Banking Mode, writing a value in range for $00-$0F
-maps the corresponding external RAM Bank (if any) into memory at
+As for the MBC1s RAM Banking Mode, writing a value in the range $00-$0F
+maps the corresponding external RAM bank (if any) into the memory area at
 A000-BFFF.
 
 ![](imgs/MBC5.png "imgs/MBC5.png")
