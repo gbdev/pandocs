@@ -56,7 +56,7 @@ interrupt "waits" until both IME and IE allow its execution.
 
 ### Interrupt Execution
 
-When an interrupt is executed, the corresponding bit in the IF
+Just before an interrupt is executed, the corresponding bit in the IF
 register is automatically reset by the CPU, and the IME flag
 is also reset (disabling any further interrupts until the program
 re-enables the interrupts, typically by using the RETI instruction), and
