@@ -750,22 +750,22 @@ per machine cycle), a copy from stack that takes
 9 cycles per 2 bytes can push 8 bytes (half a tile) in 144 dots, which
 fits within the worst case timing for mode 0+2.
 
-### OAM (memory at FE00h-FE9Fh) is accessible during Mode 0-1
+### OAM (memory area at $FE00-$FE9F) is accessible during Modes 0-1
 
 ```
 Mode 0 - H-Blank Period
 Mode 1 - V-Blank Period
 ```
 
-During those modes, OAM can be accessed at any time by using the DMA
-Function (FF46). Outside those modes, DMA out-prioritizes the PPU in
+During those modes, OAM can be accessed directly or by doing a DMA
+transfer (FF46). Outside those modes, DMA out-prioritizes the PPU in
 accessing OAM, and the PPU will read $FF from OAM during that time.
 
 A typical
 procedure that waits for accessibility of OAM would be:
 
 ```
- ld   hl,0FF41h    ;-STAT Register
+ ld   hl,0FF41h    ; STAT Register
 @@wait1:           ;
  bit  1,[hl]       ; Wait until Mode is -NOT- 0 or 1
  jr   z,@@wait1    ;
@@ -776,14 +776,14 @@ procedure that waits for accessibility of OAM would be:
 
 The two wait loops ensure that Mode 0 (and Mode 1 if we are at the end
 of a frame) will last for a few clock
-cycles after completion of the procedure. If we need to wait for the VBlank period, it would be
-better to skip the whole procedure, and use a STAT interrupt instead. In any case, using the
-previously mentioned DMA function would be better than writing to OAM directly.
+cycles after completion of the procedure. If we need to wait for the V-Blank period, it would be
+better to skip the whole procedure, and use a STAT interrupt instead. In any case,
+doing a DMA transfer is more efficient than writing to OAM directly.
 
 ::: tip NOTE
 
-When the display is disabled, both VRAM and OAM are accessible at any
-time. The downside is that the screen is blank (white) during this
+When the display is disabled, both VRAM and OAM are accessible.
+The downside is that the screen is blank (white) during this
 period, so disabling the display would be recommended only during
 initialization.
 
