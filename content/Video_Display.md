@@ -150,6 +150,19 @@ to 0, the window will "stutter" horizontally when SCX changes.
 (Depending on SCX modulo 8, behavior is a little complicated so you
 should try it yourself.)
 
+#### Actual behavior
+
+In principle, the window acts like the above; however, if you start writing to WX, WY etc. mid-frame, you'll find that the actual behavior is much more complex.
+
+For the window to be displayed on a scanline:
+
+- __WY condition was triggered__: i.e. at some point in this frame the value of WY was equal to LY (checked at the start of mode 2 only)
+- __WX condition was triggered__: i.e. the current X coordinate being rendered + 7 was equal to WX
+- Window enable bit in LCDC is set
+
+If the WY condition has already been triggered, and at the the start of a row the window enable bit was set;
+then resetting that bit before the WX condition gets triggered on that row yields a nice window glitch pixel where the window would have been activated.
+
 # LCD Monochrome Palettes
 
 ### FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only
