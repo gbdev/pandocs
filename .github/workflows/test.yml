@@ -4,7 +4,7 @@ on:
   pull_request
 
 jobs:
-  build:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout gbdev/pandocs
@@ -48,7 +48,8 @@ jobs:
     - name: Install XeLaTeX
       run: sudo apt-get install texlive-xetex
 
-    - working-directory: folder/
+    - name: Check anchor links consistency and empty sections
+      working-directory: folder/
       run: |
         cd repo/render
         ./merge.sh
