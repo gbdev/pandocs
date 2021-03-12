@@ -114,6 +114,8 @@ def main(argv=None):
     else:
         with open(args.output, "w", encoding="utf-8") as outfp:
             outfp.writelines(out)
+    if out:
+        sys.exit(1)
 
 if __name__=='__main__':
     if 'idlelib' in sys.modules:
