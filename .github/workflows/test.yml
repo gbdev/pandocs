@@ -1,0 +1,56 @@
+name: Publish 
+
+on:
+  pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout gbdev/pandocs
+      uses: actions/checkout@v2
+      with:
+        repository: gbdev/pandocs
+        path: folder/repo
+
+    - name: Checkout gbdev/pandocs master
+      uses: actions/checkout@v2
+      with:
+        repository: gbdev/pandocs
+        ref: master
+        path: folder/build
+
+    - name: Set up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+
+    - name: Set up Python 3.5
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.5
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r folder/repo/render/requirements.txt
+
+    - name: Install npm dependencies
+      working-directory: folder/repo/render
+      run: |
+        npm install
+
+    - name: Install pandoc
+      uses: r-lib/actions/setup-pandoc@v1
+      with:
+        pandoc-version: '2.7.3'
+
+    - name: Install XeLaTeX
+      run: sudo apt-get install texlive-xetex
+
+    - working-directory: folder/
+      run: |
+        cd repo/render
+        ./merge.sh
+        npm run build
+        python3 checkanchors.py .vuepress/dist/index.html
