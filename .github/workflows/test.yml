@@ -1,4 +1,4 @@
-name: Publish 
+name: Run tests
 
 on:
   pull_request
