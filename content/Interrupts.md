@@ -26,7 +26,7 @@ followed immediately by DI does not allow any interrupts between them.
 ### FFFF - IE - Interrupt Enable (R/W)
 
 ```
-Bit 0: V-Blank  Interrupt Enable  (INT 40h)  (1=Enable)
+Bit 0: VBlank   Interrupt Enable  (INT 40h)  (1=Enable)
 Bit 1: LCD STAT Interrupt Enable  (INT 48h)  (1=Enable)
 Bit 2: Timer    Interrupt Enable  (INT 50h)  (1=Enable)
 Bit 3: Serial   Interrupt Enable  (INT 58h)  (1=Enable)
@@ -36,7 +36,7 @@ Bit 4: Joypad   Interrupt Enable  (INT 60h)  (1=Enable)
 ### FF0F - IF - Interrupt Flag (R/W)
 
 ```
-Bit 0: V-Blank  Interrupt Request (INT 40h)  (1=Request)
+Bit 0: VBlank   Interrupt Request (INT 40h)  (1=Request)
 Bit 1: LCD STAT Interrupt Request (INT 48h)  (1=Request)
 Bit 2: Timer    Interrupt Request (INT 50h)  (1=Request)
 Bit 3: Serial   Interrupt Request (INT 58h)  (1=Request)
@@ -45,7 +45,7 @@ Bit 4: Joypad   Interrupt Request (INT 60h)  (1=Request)
 
 When an interrupt signal changes from low to high, the
 corresponding bit in the IF register becomes set. For example, Bit 0
-becomes set when the LCD controller enters the V-Blank period.
+becomes set when the LCD controller enters the VBlank period.
 
 ### Interrupt Requests
 
@@ -78,12 +78,12 @@ In the following three situations it might happen that more than one bit in the 
 
 1. More than one interrupt signal changed from Low to High at the same time.
 2. Several interrupts have been requested during a time in which IME/IE didn't allow these interrupts to be executed directly.
-3. The user has written a value with several "1" bits (for example binary 00011111) to the IF register. 
+3. The user has written a value with several "1" bits (for example binary 00011111) to the IF register.
 
 If IME and IE allow the execution of more than one of the
 requested interrupts, the interrupt with the highest priority
 is executed first. The priorities follow the same order as the bits in the IE
-and IF registers: Bit 0 (V-Blank) having the highest priority, and Bit 4
+and IF registers: Bit 0 (VBlank) having the highest priority, and Bit 4
 (Joypad) having the lowest priority.
 
 ### Nested Interrupts

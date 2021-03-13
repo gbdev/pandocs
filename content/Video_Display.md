@@ -9,12 +9,12 @@ A *dot* is the shortest period over which the PPU can output one pixel: is it eq
 ```
 Bit 6 - LYC=LY Interrupt             (1=Enable) (Read/Write)
 Bit 5 - Mode 2 OAM Interrupt         (1=Enable) (Read/Write)
-Bit 4 - Mode 1 V-Blank Interrupt     (1=Enable) (Read/Write)
-Bit 3 - Mode 0 H-Blank Interrupt     (1=Enable) (Read/Write)
+Bit 4 - Mode 1 VBlank Interrupt      (1=Enable) (Read/Write)
+Bit 3 - Mode 0 HBlank Interrupt      (1=Enable) (Read/Write)
 Bit 2 - LYC=LY Flag      (0=Different, 1=Equal) (Read Only)
 Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)
-          0: In H-Blank
-          1: In V-Blank
+          0: In HBlank
+          1: In VBlank
           2: Searching OAM
           3: Transferring Data to LCD Controller
 ```
@@ -73,7 +73,7 @@ window tile, the second may pause for fewer dots.
 
 A hardware quirk in the monochrome Game Boy makes the LCD interrupt
 sometimes trigger when writing to STAT (including writing \$00) during
-OAM scan, H-Blank, V-Blank, or LY=LYC. It behaves as if \$FF were
+OAM scan, HBlank, VBlank, or LY=LYC. It behaves as if \$FF were
 written for one cycle, and then the written value were written the next
 cycle. Because the GBC in DMG mode does not have this quirk, two games
 that depend on this quirk (Ocean's *Road Rash* and Vic Tokai's *Xerd
@@ -81,12 +81,12 @@ no Densetsu*) will not run on a GBC.
 
 # LCD Interrupts
 
-### INT 40 - V-Blank Interrupt
+### INT 40 - VBlank Interrupt
 
-The V-Blank interrupt occurs ca. 59.7 times a second on a handheld Game
+The VBlank interrupt occurs ca. 59.7 times a second on a handheld Game
 Boy (DMG or CGB) or Game Boy Player and ca. 61.1 times a second on a
 Super Game Boy (SGB). This interrupt occurs at the beginning of the
-V-Blank period (LY=144). During this period video hardware is not using
+VBlank period (LY=144). During this period video hardware is not using
 VRAM so it may be freely accessed. This period lasts approximately 1.1
 milliseconds.
 
@@ -221,8 +221,8 @@ no effect when **reading** from FF69, so the index must be manually
 incremented in that case. Writing to FF69 during rendering still causes
 auto-increment to occur.
 
-Unlike the following, this register can be accessed outside V-Blank and
-H-Blank.
+Unlike the following, this register can be accessed outside VBlank and
+HBlank.
 
 ### FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only
 
@@ -330,7 +330,7 @@ the transfer has finished:
 ```
 
 Because sprites are not displayed while OAM DMA is in progress, most
-programs execute this procedure from inside their V-Blank
+programs execute this procedure from inside their VBlank
 handler. But it is also possible to execute it during display redraw (Modes 2 and 3),
 allowing to display more than 40 sprites on the screen (that is, for
 example 40 sprites in the top half, and other 40 sprites in the bottom half of
@@ -401,15 +401,15 @@ all data is transferred at once. The execution of the program is halted
 until the transfer has completed. Note that the General Purpose DMA
 blindly attempts to copy the data, even if the LCD controller is
 currently accessing VRAM. So General Purpose DMA should be used only if
-the Display is disabled, or during V-Blank, or (for rather short blocks)
-during H-Blank. The execution of the program continues when the transfer
+the Display is disabled, or during VBlank, or (for rather short blocks)
+during HBlank. The execution of the program continues when the transfer
 has been completed, and FF55 then contains a value of FFh.
 
-**Bit7=1 - H-Blank DMA**
+**Bit7=1 - HBlank DMA**
 
-The H-Blank DMA transfers 10h bytes of
-data during each H-Blank, that is, at LY=0-143, no data is transferred during
-V-Blank (LY=144-153), but the transfer will then continue at LY=00. The
+The HBlank DMA transfers 10h bytes of
+data during each HBlank, that is, at LY=0-143, no data is transferred during
+VBlank (LY=144-153), but the transfer will then continue at LY=00. The
 execution of the program is halted during the separate transfers, but
 the program execution continues during the "spaces" between each data
 block. Note that the program should not change the Destination VRAM bank
@@ -419,14 +419,14 @@ be paused as described below while the banks are switched)
 
 Reading from Register FF55 returns the remaining length (divided by 10h,
 minus 1), a value of 0FFh indicates that the transfer has completed. It
-is also possible to terminate an active H-Blank transfer by writing zero
+is also possible to terminate an active HBlank transfer by writing zero
 to Bit 7 of FF55. In that case reading from FF55 will return how many
 \$10 "blocks" remained (minus 1) in the lower 7 bits, but Bit 7 will
 be read as "1". Stopping the transfer doesn't set HDMA1-4 to \$FF.
 
 ::: warning
 
-H-Blank DMA should not be started (write to FF55) during a H-Blank
+HBlank DMA should not be started (write to FF55) during a HBlank
 period (STAT mode 0).
 
 If the transfer's destination address overflows, the transfer stops
@@ -438,8 +438,8 @@ prematurely. \[Note: what's the state of the registers if this happens
 
 Reading Bit 7 of FF55 can be used to confirm if the DMA transfer is
 active (1=Not Active, 0=Active). This works under any circumstances -
-after completion of General Purpose, or H-Blank Transfer, and after
-manually terminating a H-Blank Transfer.
+after completion of General Purpose, or HBlank Transfer, and after
+manually terminating a HBlank Transfer.
 
 ### Transfer Timings
 
@@ -447,7 +447,7 @@ In both Normal Speed and Double Speed Mode it takes about 8 μs to
 transfer a block of 10h bytes. That are 8 tstates in Normal Speed Mode,
 and 16 "fast" tstates in Double Speed Mode. Older MBC controllers
 (like MBC1-4) and slower ROMs are not guaranteed to support General
-Purpose or H-Blank DMA, that's because there are always 2 bytes
+Purpose or HBlank DMA, that's because there are always 2 bytes
 transferred per microsecond (even if the itself program runs it Normal
 Speed Mode).
 
@@ -708,7 +708,7 @@ The recommended method is to write the data to normal RAM first, and to
 copy that RAM to OAM by using the DMA transfer function, initiated
 through DMA register (FF46). Besides, it is also possible to
 write data directly to the OAM area by using normal LD instructions, but this
-works only during the H-Blank and V-Blank periods. The current state of
+works only during the HBlank and VBlank periods. The current state of
 the LCD controller can be read out from the STAT register (FF41).
 
 # Accessing VRAM and OAM
@@ -733,8 +733,8 @@ after the wait loops have completed.
 ### VRAM (memory area at $8000-$9FFF) is accessible during Modes 0-2
 
 ```
-Mode 0 - H-Blank Period,
-Mode 1 - V-Blank Period, and
+Mode 0 - HBlank Period,
+Mode 1 - VBlank Period, and
 Mode 2 - Searching OAM Period
 ```
 
@@ -768,8 +768,8 @@ fits within the worst case timing for mode 0+2.
 ### OAM (memory at FE00h-FE9Fh) is accessible during Mode 0-1
 
 ```
-Mode 0 - H-Blank Period
-Mode 1 - V-Blank Period
+Mode 0 - HBlank Period
+Mode 1 - VBlank Period
 ```
 
 During those modes, OAM can be accessed at any time by using the DMA
