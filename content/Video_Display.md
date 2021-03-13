@@ -521,7 +521,7 @@ Tiles are obtained from the Tile Data Table using either of the two
 addressing modes (described [above](#vram-tile-data)), which
 can be selected via the LCDC register.
 
-Since one tile has 8x8 pixels, each map may hold a
+Since one tile has 8x8 pixels, each map holds a
 256x256 pixels picture. Only 160x144 pixels may be displayed on the LCD at any
 given time.
 
