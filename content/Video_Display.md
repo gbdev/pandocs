@@ -707,7 +707,7 @@ lower-priority sprite's "BG and Window over OBJ" attribute.
 The recommended method is to write the data to normal RAM first, and to
 copy that RAM to OAM by using the DMA transfer function, initiated
 through DMA register (FF46). Besides, it is also possible to
-write data directly to the OAM area by using normal LD commands, but this
+write data directly to the OAM area by using normal LD instructions, but this
 works only during the H-Blank and V-Blank periods. The current state of
 the LCD controller can be read out from the STAT register (FF41).
 
