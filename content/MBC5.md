@@ -27,6 +27,9 @@ Same as for MBC1, except that RAM sizes are 8 KiB, 32 KiB and 128 KiB.
 Mostly the same as for MBC1. Writing $0A will enable reading and
 writing to external RAM. Writing $00 will disable it.
 
+Actual MBCs actually enable RAM when writing any value whose bottom 4 bits equal $A (so $0A, $1A, and so on), and disable it when writing anything else.
+Relying on this behavior is not recommended for compatibility reasons.
+
 ### 2000-2FFF - 8 least significant bits of ROM bank number (Write Only)
 
 The 8 least significant bits of the ROM bank number go here. Writing 0 will indeed
