@@ -7,7 +7,7 @@ elements are displayed on the screen, and how.
 
 | Bit | Name                           | Usage notes              |
 |-----|--------------------------------|--------------------------|
-| 7   | LCD enable                     | 0=Off, 1=On              |
+| 7   | LCD and PPU enable             | 0=Off, 1=On              |
 | 6   | Window tile map area           | 0=9800-9BFF, 1=9C00-9FFF |
 | 5   | Window enable                  | 0=Off, 1=On              |
 | 4   | BG and Window tile data area   | 0=8800-97FF, 1=8000-8FFF |
