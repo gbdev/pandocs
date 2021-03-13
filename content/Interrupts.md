@@ -54,14 +54,13 @@ executed. The actual **execution** happens only if both the IME flag and
 the corresponding bit in the IE register are set, otherwise the
 interrupt "waits" until both IME and IE allow its execution.
 
-### Interrupt Execution
+### Interrupt Handling
 
-Just before an interrupt is executed, the corresponding bit in the IF
-register is automatically reset by the CPU, and the IME flag
-is also reset (disabling any further interrupts until the program
-re-enables the interrupts, typically by using the RETI instruction), and
-the corresponding Interrupt Vector (which is one of the addresses in the range
-$0040-$0060, as shown in the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-r-w)) is
+1. The IME flag and the IF bit corresponding to this interrupt are reset by the CPU,
+disabling any further interrupts until the program
+re-enables them, typically by using the RETI instruction.
+2. The corresponding interrupt vector (located at one of the addresses $0040, $0048, $0050, $0058, $0060,
+as shown in the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-rw)) is
 called.
 
 ### Manually Requesting/Discarding Interrupts
