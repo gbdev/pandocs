@@ -13,7 +13,7 @@ address.
 
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
-Same as for MBC5.
+Contains the first 16 KiB of the ROM.
 
 ### 4000-7FFF - ROM Bank 00-7F (Read Only)
 
