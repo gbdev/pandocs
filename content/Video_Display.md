@@ -573,7 +573,7 @@ and the Window share the same Tile Data Table.
 
 Whether the Window is displayed can be toggled using
 [LCDC bit 5](#lcdc-5-window-display-enable). But in Non-CGB mode this bit is only
-functional as long as [LCDC bit 0](#lcdc-0-bg-window-display-priority) is set.
+significant if [LCDC bit 0](#lcdc-0-bg-window-display-priority) is set.
 Enabling the Window makes
 [Mode 3](#lcd-status-register) slightly longer on scanlines where it's visible.
 (See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-minus-7-r-w)
