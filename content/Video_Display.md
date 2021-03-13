@@ -776,7 +776,7 @@ procedure that waits for accessibility of OAM would be:
 
 The two wait loops ensure that Mode 0 (and Mode 1 if we are at the end
 of a frame) will last for a few clock
-cycles after completion of the procedure. If we need to wait for the V-Blank period, it would be
+cycles after completion of the procedure. If we need to wait for the VBlank period, it would be
 better to skip the whole procedure, and use a STAT interrupt instead. In any case,
 doing a DMA transfer is more efficient than writing to OAM directly.
 
