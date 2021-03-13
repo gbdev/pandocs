@@ -782,7 +782,7 @@ doing a DMA transfer is more efficient than writing to OAM directly.
 
 ::: tip NOTE
 
-When the display is disabled, both VRAM and OAM are accessible.
+While the display is disabled, both VRAM and OAM are accessible.
 The downside is that the screen is blank (white) during this
 period, so disabling the display would be recommended only during
 initialization.
