@@ -39,9 +39,9 @@ transitions are usually produced when pressing a button.
 ### Using the Joypad Interrupt
 
 This interrupt is useful to identify button presses if we have only selected
-either action (bit 5) or direction (bit 4), but not both,
-because in this case a bit might be already held Low by an
-action button, and pressing the corresponding direction button would thus
+either action (bit 5) or direction (bit 4), but not both.
+If both are selected and, for example, a bit is already held Low by an action button,
+pressing the corresponding direction button would
 make no difference. The only meaningful purpose of the Joypad
 interrupt would be to terminate the STOP (low power) standby state. GBA SP,
 because of the different buttons used, seems to not be affected by
