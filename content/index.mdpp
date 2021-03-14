@@ -117,7 +117,7 @@ title: "Pan Docs"
 !INCLUDE "CPU_Instruction_Set.md", 1
 
 
-# Comparison with Z80
+# Comparison with other CPUs
 
 !INCLUDE "CPU_Comparison_with_Z80.md", 1
 

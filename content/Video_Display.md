@@ -360,9 +360,7 @@ the jump into the HRAM part.
 
 # LCD VRAM DMA Transfers (CGB only)
 
-### FF51 - HDMA1 (New DMA Source, High) - CGB Mode Only
-
-### FF52 - HDMA2 (New DMA Source, Low) - CGB Mode Only
+### FF51 - HDMA1 (New DMA Source, High) (W), FF52 - HDMA2 (New DMA Source, Low) (W) - CGB Mode Only
 
 These two registers specify the address at which the transfer will read
 data from. Normally, this should be either in ROM, SRAM or WRAM, thus
@@ -372,15 +370,13 @@ address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF53 - HDMA3 (New DMA Destination, High) - CGB Mode Only
-
-### FF54 - HDMA4 (New DMA Destination, Low) - CGB Mode Only
+### FF53 - HDMA3 (New DMA Destination, High) (W), FF54 - HDMA4 (New DMA Destination, Low) (W) - CGB Mode Only
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF55 - HDMA5 (New DMA Length/Mode/Start) - CGB Mode Only
+### FF55 - HDMA5 (New DMA Length/Mode/Start) (W) - CGB Mode Only
 
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
@@ -394,7 +390,7 @@ specify the Transfer Length (divided by 10h, minus 1), that is, lengths of
 10h-800h bytes can be defined by the values 00h-7Fh. The upper bit
 indicates the Transfer Mode:
 
-**Bit7=0 - General Purpose DMA**
+#### Bit 7 = 0 - General Purpose DMA
 
 When using this transfer method,
 all data is transferred at once. The execution of the program is halted
@@ -405,7 +401,7 @@ the Display is disabled, or during V-Blank, or (for rather short blocks)
 during H-Blank. The execution of the program continues when the transfer
 has been completed, and FF55 then contains a value of FFh.
 
-**Bit7=1 - H-Blank DMA**
+#### Bit 7 = 1 - HBlank DMA
 
 The H-Blank DMA transfers 10h bytes of
 data during each H-Blank, that is, at LY=0-143, no data is transferred during
