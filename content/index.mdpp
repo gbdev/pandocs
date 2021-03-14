@@ -178,6 +178,8 @@ types are available:
 
 !INCLUDE "Gameboy_Printer.md", 1
 
+!INCLUDE "Gameboy_Camera.md", 1
+
 # Power Up Sequence
 
 !INCLUDE "Power_Up_Sequence.md", 1
