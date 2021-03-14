@@ -21,8 +21,8 @@ increment at 32768Hz in double speed.
 
 This timer is incremented at the clock frequency specified by the TAC
 register (\$FF07). When the register overflows (exceeds $FF)
-it is reset to the value specified in TMA (FF06) and an interrupt
-may be requested, as described below.
+it is reset to the value specified in TMA (FF06). If IME and IE bit 2 are set,
+an interrupt will be requested also, as described below.
 
 ### FF06 - TMA - Timer Modulo (R/W)
 
