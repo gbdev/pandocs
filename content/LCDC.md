@@ -26,7 +26,7 @@ OAM, etc.
 ::: warning
 Stopping LCD operation (Bit 7 from 1 to 0) may be performed
 during VBlank ONLY, disabling the display outside
-of the V-Blank period may damage the hardware by burning in a black
+of the VBlank period may damage the hardware by burning in a black
 horizontal line similar to that which appears when the GB is turned off.
 This appears to be a serious issue. Nintendo is reported to reject any
 games not following this rule.
