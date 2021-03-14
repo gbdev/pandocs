@@ -480,7 +480,7 @@ by both addressing methods)
 
 Sprites always use "$8000 addressing", but the BG and Window can use either
 mode, controlled by [LCDC bit
-4](#lcdc-4-bg-window-tile-data-select).
+4](#lcdc-4-bg-and-window-tile-data-area).
 
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
@@ -514,8 +514,8 @@ color ID 0 means transparent. The palettes are defined through registers
 and
 [OBP1](#ff49-obp1-object-palette-1-data-r-w-non-cgb-mode-only)
 (Non CGB Mode), and
-[BCPS/BGPI](#ff68-bcps-bgpi-cgb-mode-only-background-color-palette-specification-or-background-palette-index),
-[BCPD/BGPD](#ff69-bcpd-bgpd-cgb-mode-only-background-color-palette-data-or-background-palette-data),
+[BCPS/BGPI](#ff68-bcps-bgpi-background-color-palette-specification-or-background-palette-index-cgb-mode-only),
+[BCPD/BGPD](#ff69-bcpd-bgpd-background-color-palette-data-or-background-palette-data-cgb-mode-only),
 [OCPS/OBPI and
 OCPD/OBPD](#ff6a-ocps-obpi-object-color-palette-specification-or-sprite-palette-index-ff6b-ocpd-obpd-object-color-palette-data-or-sprite-palette-data-both-cgb-mode-only)
 (CGB Mode).
@@ -574,7 +574,7 @@ The Background visible area wraps around the Background map (that is, when part 
 the visible area goes beyond the map edge, it starts displaying the opposite side of the map).
 
 Whether the background is displayed can be toggled using
-[LCDC bit 0](#lcdc-0-bg-window-display-priority), except on CGB in CGB Mode,
+[LCDC bit 0](#lcdc-0-bg-and-window-enable-priority), except on CGB in CGB Mode,
 where it's always drawn.
 
 ### Window
@@ -588,9 +588,9 @@ for the Window are stored in the Tile Data Table. Both the Background
 and the Window share the same Tile Data Table.
 
 Whether the Window is displayed can be toggled using
-[LCDC bit 5](#lcdc-5-window-display-enable). Enabling the Window makes
+[LCDC bit 5](#lcdc-5-window-enable). Enabling the Window makes
 [Mode 3](#lcd-status-register) slightly longer on scanlines where it's visible.
-(See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-minus-7-r-w)
+(See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-7-r-w)
 for the definition of "Window visibility".)
 
 # VRAM Banks (CGB only)
