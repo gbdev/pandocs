@@ -301,7 +301,7 @@ of this brightness correction.
 ### FF46 - DMA (DMA Transfer and Start Address) (R/W)
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
-memory (sprite attribute table). The written value specifies the
+(Object Attribute Memory). The written value specifies the
 transfer source address divided by $100, that is, source and destination are:
 
 ```
@@ -329,14 +329,14 @@ the transfer has finished:
   ret
 ```
 
-Because sprites are not displayed while OAM DMA is in progress, most
+Because sprites are not displayed while an OAM DMA transfer is in progress, most
 programs execute this procedure from inside their VBlank
 handler. But it is also possible to execute it during display redraw (Modes 2 and 3),
 allowing to display more than 40 sprites on the screen (that is, for
 example 40 sprites in the top half, and other 40 sprites in the bottom half of
 the screen), at the cost of a couple lines that lack sprites due to the fact that
 during those couple lines the PPU reads OAM as $FF. Besides, graphic glitches may
-happen if starting OAM DMA during Mode 3.
+happen if an OAM DMA transfer is started during Mode 3.
 
 A more compact procedure is
 
@@ -360,9 +360,7 @@ the jump into the HRAM part.
 
 # LCD VRAM DMA Transfers (CGB only)
 
-### FF51 - HDMA1 (New DMA Source, High) - CGB Mode Only
-
-### FF52 - HDMA2 (New DMA Source, Low) - CGB Mode Only
+### FF51 - HDMA1 (New DMA Source, High) (W), FF52 - HDMA2 (New DMA Source, Low) (W) - CGB Mode Only
 
 These two registers specify the address at which the transfer will read
 data from. Normally, this should be either in ROM, SRAM or WRAM, thus
@@ -372,15 +370,13 @@ address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF53 - HDMA3 (New DMA Destination, High) - CGB Mode Only
-
-### FF54 - HDMA4 (New DMA Destination, Low) - CGB Mode Only
+### FF53 - HDMA3 (New DMA Destination, High) (W), FF54 - HDMA4 (New DMA Destination, Low) (W) - CGB Mode Only
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
 
-### FF55 - HDMA5 (New DMA Length/Mode/Start) - CGB Mode Only
+### FF55 - HDMA5 (New DMA Length/Mode/Start) (W) - CGB Mode Only
 
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
@@ -394,7 +390,7 @@ specify the Transfer Length (divided by 10h, minus 1), that is, lengths of
 10h-800h bytes can be defined by the values 00h-7Fh. The upper bit
 indicates the Transfer Mode:
 
-**Bit7=0 - General Purpose DMA**
+#### Bit 7 = 0 - General Purpose DMA
 
 When using this transfer method,
 all data is transferred at once. The execution of the program is halted
@@ -405,7 +401,7 @@ the Display is disabled, or during VBlank, or (for rather short blocks)
 during HBlank. The execution of the program continues when the transfer
 has been completed, and FF55 then contains a value of FFh.
 
-**Bit7=1 - HBlank DMA**
+#### Bit 7 = 1 - HBlank DMA
 
 The HBlank DMA transfers 10h bytes of
 data during each HBlank, that is, at LY=0-143, no data is transferred during
@@ -480,7 +476,7 @@ by both addressing methods)
 
 Sprites always use "$8000 addressing", but the BG and Window can use either
 mode, controlled by [LCDC bit
-4](#lcdc-4-bg-window-tile-data-select).
+4](#lcdc-4-bg-and-window-tile-data-area).
 
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
@@ -514,8 +510,8 @@ color ID 0 means transparent. The palettes are defined through registers
 and
 [OBP1](#ff49-obp1-object-palette-1-data-r-w-non-cgb-mode-only)
 (Non CGB Mode), and
-[BCPS/BGPI](#ff68-bcps-bgpi-cgb-mode-only-background-color-palette-specification-or-background-palette-index),
-[BCPD/BGPD](#ff69-bcpd-bgpd-cgb-mode-only-background-color-palette-data-or-background-palette-data),
+[BCPS/BGPI](#ff68-bcps-bgpi-background-color-palette-specification-or-background-palette-index-cgb-mode-only),
+[BCPD/BGPD](#ff69-bcpd-bgpd-background-color-palette-data-or-background-palette-data-cgb-mode-only),
 [OCPS/OBPI and
 OCPD/OBPD](#ff6a-ocps-obpi-object-color-palette-specification-or-sprite-palette-index-ff6b-ocpd-obpd-object-color-palette-data-or-sprite-palette-data-both-cgb-mode-only)
 (CGB Mode).
@@ -574,7 +570,7 @@ The Background visible area wraps around the Background map (that is, when part 
 the visible area goes beyond the map edge, it starts displaying the opposite side of the map).
 
 Whether the background is displayed can be toggled using
-[LCDC bit 0](#lcdc-0-bg-window-display-priority), except on CGB in CGB Mode,
+[LCDC bit 0](#lcdc-0-bg-and-window-enable-priority), except on CGB in CGB Mode,
 where it's always drawn.
 
 ### Window
@@ -588,9 +584,9 @@ for the Window are stored in the Tile Data Table. Both the Background
 and the Window share the same Tile Data Table.
 
 Whether the Window is displayed can be toggled using
-[LCDC bit 5](#lcdc-5-window-display-enable). Enabling the Window makes
+[LCDC bit 5](#lcdc-5-window-enable). Enabling the Window makes
 [Mode 3](#lcd-status-register) slightly longer on scanlines where it's visible.
-(See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-minus-7-r-w)
+(See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-7-r-w)
 for the definition of "Window visibility".)
 
 # VRAM Banks (CGB only)
@@ -765,22 +761,22 @@ per machine cycle), a copy from stack that takes
 9 cycles per 2 bytes can push 8 bytes (half a tile) in 144 dots, which
 fits within the worst case timing for mode 0+2.
 
-### OAM (memory at FE00h-FE9Fh) is accessible during Mode 0-1
+### OAM (memory area at $FE00-$FE9F) is accessible during Modes 0-1
 
 ```
 Mode 0 - HBlank Period
 Mode 1 - VBlank Period
 ```
 
-During those modes, OAM can be accessed at any time by using the DMA
-Function (FF46). Outside those modes, DMA out-prioritizes the PPU in
+During those modes, OAM can be accessed directly or by doing a DMA
+transfer (FF46). Outside those modes, DMA out-prioritizes the PPU in
 accessing OAM, and the PPU will read $FF from OAM during that time.
 
 A typical
 procedure that waits for accessibility of OAM would be:
 
 ```
- ld   hl,0FF41h    ;-STAT Register
+ ld   hl,0FF41h    ; STAT Register
 @@wait1:           ;
  bit  1,[hl]       ; Wait until Mode is -NOT- 0 or 1
  jr   z,@@wait1    ;
@@ -792,13 +788,13 @@ procedure that waits for accessibility of OAM would be:
 The two wait loops ensure that Mode 0 (and Mode 1 if we are at the end
 of a frame) will last for a few clock
 cycles after completion of the procedure. If we need to wait for the VBlank period, it would be
-better to skip the whole procedure, and use a STAT interrupt instead. In any case, using the
-previously mentioned DMA function would be better than writing to OAM directly.
+better to skip the whole procedure, and use a STAT interrupt instead. In any case,
+doing a DMA transfer is more efficient than writing to OAM directly.
 
 ::: tip NOTE
 
-When the display is disabled, both VRAM and OAM are accessible at any
-time. The downside is that the screen is blank (white) during this
+While the display is disabled, both VRAM and OAM are accessible.
+The downside is that the screen is blank (white) during this
 period, so disabling the display would be recommended only during
 initialization.
 

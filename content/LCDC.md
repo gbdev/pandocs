@@ -7,7 +7,7 @@ elements are displayed on the screen, and how.
 
 | Bit | Name                           | Usage notes              |
 |-----|--------------------------------|--------------------------|
-| 7   | LCD enable                     | 0=Off, 1=On              |
+| 7   | LCD and PPU enable             | 0=Off, 1=On              |
 | 6   | Window tile map area           | 0=9800-9BFF, 1=9C00-9FFF |
 | 5   | Window enable                  | 0=Off, 1=On              |
 | 4   | BG and Window tile data area   | 0=8800-97FF, 1=8000-8FFF |
@@ -51,7 +51,7 @@ one.
 
 This bit controls whether the window shall be displayed or not. (TODO:
 what happens when toggling this mid-scanline ?) This bit is overridden
-on DMG by [bit 0](#lcdc-0-bg-window-display-priority)
+on DMG by [bit 0](#lcdc-0-bg-and-window-enable-priority)
 if that bit is reset.
 
 Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
@@ -97,7 +97,7 @@ LCDC.0 has different meanings depending on Game Boy type and Mode:
 ### DMG, SGB and CGB in Non-CGB Mode: BG and Window Display
 
 When Bit 0 is cleared, both background and window become blank (white),
-and the [Window Display Bit](#lcdc-5-window-display-enable)
+and the [Window Display Bit](#lcdc-5-window-enable)
 is ignored in that case. Only Sprites may still be displayed (if enabled
 in Bit 1).
 
