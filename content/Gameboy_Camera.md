@@ -1,6 +1,6 @@
 # Game Boy Camera
 
-::: tip
+::: tip SOURCE
 This section was originally compiled by Antonio Niño Díaz during his work on reverse engineering the Game Boy Camera. The upstream source can be found [here](https://github.com/AntonioND/gbcam-rev-engineer)
 :::
 
@@ -32,7 +32,7 @@ First 16 KB of the ROM.
 
 This area may contain any ROM bank (0 included). The initial mapped bank is 01.
 
-#### A000-BFFF - RAM Bank 00-0F (Read/Write)
+<!-- #### A000-BFFF - RAM Bank 00-0F (Read/Write) -->
 
 #### A000-BFFF - CAM Registers (Read/Write)
 
