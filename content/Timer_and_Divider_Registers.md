@@ -40,6 +40,7 @@ Bits 1-0 - Input Clock Select
 ```
 
 ::: tip NOTE
+Select the clock frequency first, then enable the Timer.
 The "Timer Enable" bit only affects the timer (TIMA). The divider (DIV) is **always** counting
 :::
 
