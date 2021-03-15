@@ -26,7 +26,14 @@ is requested, as described below.
 
 ### FF06 - TMA - Timer Modulo (R/W)
 
-When TIMA overflows, it is reset to the value in this register.
+When TIMA overflows, it is reset to the value in this register and an interrupt is requested.
+Example of use: if TMA is set to $FF, an interrupt is requested at the clock frequency selected in
+TAC (because every increment is an overflow). However, if TMA is set to $FE, an interrupt is
+only requested every two increments, which effectively divides the selected clock by two. Setting
+TMA to $FD would divide the clock by three, and so on.
+
+If a TMA write is executed on the same cycle as the content of TMA is transferred to TIMA
+due to a timer overflow, the old value is transferred to TIMA.
 
 ### FF07 - TAC - Timer Control (R/W)
 
