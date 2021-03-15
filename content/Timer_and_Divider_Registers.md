@@ -33,7 +33,7 @@ only requested every two increments, which effectively divides the selected cloc
 TMA to $FD would divide the clock by three, and so on.
 
 If a TMA write is executed at the same time as the content of TMA is transferred to TIMA as the
-result of a timer overflow, the old value if transferred to TIMA.
+result of a timer overflow, the old value is transferred to TIMA.
 
 ### FF07 - TAC - Timer Control (R/W)
 
