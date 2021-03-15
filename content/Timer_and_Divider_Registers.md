@@ -32,8 +32,8 @@ TAC (because every increment is an overflow). However, if TMA is set to $FE, an 
 only requested every two increments, which effectively divides the selected clock by two. Setting
 TMA to $FD would divide the clock by three, and so on.
 
-If a TMA write is executed at the same time as the content of TMA is transferred to TIMA as the
-result of a timer overflow, the old value is transferred to TIMA.
+If a TMA write is executed on the same cycle as the content of TMA is transferred to TIMA
+due to a timer overflow, the old value is transferred to TIMA.
 
 ### FF07 - TAC - Timer Control (R/W)
 
