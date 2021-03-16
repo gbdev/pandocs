@@ -71,7 +71,7 @@ Mnemonic         | Encoding | Clock cycles | Flags | Description
  inc  (HL)       | 34       |      12      | z0h-  | (HL)=(HL)+1
  dec  r          | xx       |       4      | z1h-  | r=r-1
  dec  (HL)       | 35       |      12      | z1h-  | (HL)=(HL)-1
- daa             | 27       |       4      | z-0x  | decimal adjust A
+ daa             | 27       |       4      | z-0c  | decimal adjust A
  cpl             | 2F       |       4      | -11-  | A = A xor FF
 
 ### 16-bit Arithmetic/Logic instructions
