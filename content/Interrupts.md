@@ -59,9 +59,8 @@ interrupt "waits" until both IME and IE allow its execution.
 1. The IME flag and the IF bit corresponding to this interrupt are reset by the CPU,
 disabling any further interrupts until the program
 re-enables them, typically by using the RETI instruction.
-2. The corresponding interrupt vector (located at one of the addresses $0040, $0048, $0050, $0058, $0060,
-as shown in the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-rw)) is
-called just like if it was done by the call instruction (the current PC is pushed on the stack
+2. The corresponding interrupt vector (see the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-rw)) is
+called by the CPU. This is a regular call, exactly like what would be performed by a call instruction (the current PC is pushed on the stack
 and then set to the address of the interrupt vector).
 
 ### Manually Requesting/Discarding Interrupts
