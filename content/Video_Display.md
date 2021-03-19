@@ -553,7 +553,7 @@ the one at `0:9800`!
 ### Background (BG)
 
 The [SCY and SCX](#ff42-scy-scroll-y-r-w-ff43-scx-scroll-x-r-w) registers can be
-used to scroll the Background, specifying the origin of the visible
+used to scroll the Background, specifying the top-left on-screen pixel of the visible
 160x144 pixel area within the total 256x256 pixel Background map.
 The Background visible area wraps around the Background map (that is, when part of
 the visible area goes beyond the map edge, it starts displaying the opposite side of the map).
