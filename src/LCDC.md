@@ -97,14 +97,14 @@ Investigation needed.)
 
 LCDC.0 has different meanings depending on Game Boy type and Mode:
 
-#### DMG, SGB and CGB in Non-CGB Mode: BG and Window Display
+#### Non-CGB Mode (DMG, SGB and CGB in compatibility mode): BG and Window Display
 
 When Bit 0 is cleared, both background and window become blank (white),
 and the [Window Display Bit](<#LCDC.5 - Window enable>)
 is ignored in that case. Only Sprites may still be displayed (if enabled
 in Bit 1).
 
-#### CGB in CGB Mode: BG and Window Master Priority
+#### CGB Mode: BG and Window Master Priority
 
 When Bit 0 is cleared, the background and window lose their priority -
 the sprites will be always displayed on top of background and window,
