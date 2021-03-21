@@ -13,10 +13,9 @@ If the least significant byte of the result is a not a zero, then the Game Boy w
 If it is a zero, then the internal ROM is disabled and cartridge program execution begins at location $100 with the following register values:
 
 ```
-  A = $01-GB/SGB, $FF-GBP, $11-GBC/GBA
+  A = 0x01-GB/SGB, 0xFF-GBP/GBL/SGB2, 0x11-CGB
   F = $B0
-  B = $00-GB/SGB/GBP/GBC, $01-GBA
-  C = $13
+  BC = $0013
   DE = $00D8
   HL = $014D
   SP = $FFFE
