@@ -440,9 +440,10 @@ manually terminating a HBlank Transfer.
 ### Transfer Timings
 
 In both Normal Speed and Double Speed Mode it takes about 8 μs to
-transfer a block of 10h bytes. That are 8 M-cycles in Normal Speed Mode,
-and 16 "fast" M-cycles in Double Speed Mode. Older MBC controllers
-(like MBC1-4) and slower ROMs are not guaranteed to support General
+transfer a block of $10 bytes.
+That is, 8 M-cycles in Normal Speed Mode [[1]](imgs/hdma_single_speed.png),
+and 16 "fast" M-cycles in Double Speed Mode [[2]](imgs/hdma_double_speed.png).
+Older MBC controllers (like MBC1-3) and slower ROMs are not guaranteed to support General
 Purpose or HBlank DMA, that's because there are always 2 bytes
 transferred per microsecond (even if the itself program runs it Normal
 Speed Mode).
