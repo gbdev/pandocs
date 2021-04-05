@@ -1,5 +1,5 @@
 There is a flaw in the Game Boy hardware that causes trash to be written
-to OAM RAM if the following commands are used while their 16-bit content
+to OAM RAM if the following instructions are used while their 16-bit content
 is in the range of $FE00 to $FEFF while the PPU is in mode 2:
 
 ```

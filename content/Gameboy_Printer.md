@@ -1,7 +1,7 @@
 The Game Boy Printer is a portable thermal printer made by
 [SII](http://www.sii.co.jp) for Nintendo, which a few games used to
 print out bonus artwork, certificates, pictures ([Game Boy
-Camera](#gameboy-camera)).
+Camera](#game-boy-camera)).
 
 It can use standard 38mm paper and interfaces with the Game Boy through
 the Link port.
@@ -57,7 +57,7 @@ Data length: 4 bytes
 -   Byte 1: Number of sheets to print (0-255). 0 means line feed only.
 -   Byte 2: Margins, high nibble is the feed before printing, low nibble
     is after printing. GB Camera sends $13 by default.
--   Byte 3: Palette, typically $E4 (0b11100100)
+-   Byte 3: Palette, typically $E4 (%11100100)
 -   Byte 4: 7 bits exposure value, sets the burning time for the print
     head. GB Camera sends $40 by default. Official manual mentions -25%
     darkness for $00 and +25% for $7F.

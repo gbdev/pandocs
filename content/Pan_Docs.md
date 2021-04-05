@@ -36,7 +36,7 @@ Controllers](Memory_Bank_Controllers "wikilink")
 [MBC7](MBC7 "wikilink") - [HuC1](HuC1 "wikilink") -
 [HuC3](HuC3 "wikilink") - [TAMA5](TAMA5 "wikilink")
 
-(Editor\'s note : There is apparently no MBC4 controller)
+(Editor\'s note: There is apparently no MBC4 controller)
 
 ### Accessories
 

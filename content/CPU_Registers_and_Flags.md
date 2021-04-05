@@ -17,7 +17,7 @@ register, or as two separate 8-bit registers.
 Bit | Name | Explanation
 ----|------|-------
   7 |   z  | Zero flag
-  6 |   n  | Add/Sub flag (BCD)
+  6 |   n  | Subtraction flag (BCD)
   5 |   h  | Half Carry flag (BCD)
   4 |   c  | Carry flag
 
