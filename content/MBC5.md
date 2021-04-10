@@ -47,3 +47,9 @@ maps the corresponding external RAM bank (if any) into the memory area at
 A000-BFFF.
 
 ![](imgs/MBC5.png "imgs/MBC5.png")
+
+### Rumble
+
+On cartridges which feature a rumble motor, bit 3 of the RAM Bank register
+is connected to the Rumble circuitry. Setting the bit to 1 enables the rumble
+motor and keeps it enabled until the bit is reset again.
