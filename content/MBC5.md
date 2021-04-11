@@ -51,5 +51,16 @@ A000-BFFF.
 ### Rumble
 
 On cartridges which feature a rumble motor, bit 3 of the RAM Bank register
-is connected to the Rumble circuitry. Setting the bit to 1 enables the rumble
-motor and keeps it enabled until the bit is reset again.
+is connected to the Rumble circuitry instead of the RAM chip. Setting the
+bit to 1 enables the rumble motor and keeps it enabled until the bit is reset again.
+
+To control the rumble's intensity, it should be turned on and off repeatedly,
+as seen with these two examples from Pokémon Pinball:
+
+"Light Rumble":
+
+![](imgs/mbc5_rumble_light.png)
+
+"Intense Rumble":
+
+![](imgs/mbc5_rumble_intense.png)
