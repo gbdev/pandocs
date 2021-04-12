@@ -19,6 +19,11 @@ cd -
 echo "Copying single non-templated articles.."
 cp ../content/Timer_Obscure_Behaviour.md . --verbose 
 
+echo "Generating SVG graphs..."
+cd ../content/imgs/src
+python graph_render.py
+cd -
+
 echo "Copying image assets.."
 mkdir -p .vuepress/public/imgs/
 cp -R ../content/imgs/* .vuepress/public/imgs/ --verbose
