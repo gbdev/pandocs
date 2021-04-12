@@ -31,9 +31,9 @@ def gen_graph(g_file):
 
     custom_style = Style(
         font_family="Inter",
-        label_font_size=13,
-        major_label_font_size=13,
-        title_font_size=20
+        label_font_size=12,
+        major_label_font_size=12,
+        title_font_size=16
     )
 
     # Create Line Chart Object and Open File
