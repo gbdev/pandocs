@@ -57,10 +57,6 @@ bit to 1 enables the rumble motor and keeps it enabled until the bit is reset ag
 To control the rumble's intensity, it should be turned on and off repeatedly,
 as seen with these two examples from Pokémon Pinball:
 
-"Light Rumble":
+![](imgs/Rumble_Medium.svg)
 
-![](imgs/mbc5_rumble_light.png)
-
-"Intense Rumble":
-
-![](imgs/mbc5_rumble_intense.png)
+![](imgs/Rumble_Intense.svg)

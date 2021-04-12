@@ -1,2 +1,3 @@
 MarkdownPP==1.5.1
 html5lib==1.1
+pygal==2.4.0
