@@ -7,7 +7,7 @@ import math
 # ------------------------------------------------------------------------------------------------
 
 # Rotation of X-Axis labels in degrees
-x_label_rotation = 45
+x_label_rotation = 0.01
 
 # Number of labels to be displayed on the X-Axis
 x_label_count = 10
@@ -38,6 +38,7 @@ def gen_graph(g_file):
 
     # Create Line Chart Object and Open File
     chart = pygal.Line(
+        height=450,
         show_dots=False,
         show_legend=False,
         show_minor_x_labels=False,
