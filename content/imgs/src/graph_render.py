@@ -1,4 +1,6 @@
 import pygal
+from pygal.style import Style
+import math
 
 # ------------------------------------------------------------------------------------------------
 # Configuration Constants
@@ -26,12 +28,21 @@ graph_files = [
 
 
 def gen_graph(g_file):
+
+    custom_style = Style(
+        font_family="Inter",
+        label_font_size=13,
+        major_label_font_size=13,
+        title_font_size=20
+    )
+
     # Create Line Chart Object and Open File
     chart = pygal.Line(
         show_dots=False,
         show_legend=False,
         show_minor_x_labels=False,
         x_label_rotation=x_label_rotation,
+        style=custom_style
     )
     csv = open(g_file["filename"], "r").readlines()
 
@@ -60,12 +71,14 @@ def gen_graph(g_file):
         # Check if current X-Label should be Major Label
         xval_float = float(data[0])
         if last_x is not None and ((last_x % x_mod_val) > (xval_float % x_mod_val)):
-            x_labels_major.append(data[0])
+            x_labels_major.append(math.floor(xval_float))
+            x_labels.append(math.floor(xval_float))
         last_x = xval_float
 
     # Load graph data into chart object and save to file
     chart.x_labels = x_labels
     chart.x_labels_major = x_labels_major
+
     chart.add("", y_data)
     chart.render_to_file("../" + g_file["filename"].replace(".csv", ".svg"))
 
