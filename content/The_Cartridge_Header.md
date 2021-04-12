@@ -153,10 +153,10 @@ cartridge, and if further external hardware exists in the cartridge.
 | $0C | MMM01+RAM
 | $0D | MMM01+RAM+BATTERY
 | $0F | MBC3+TIMER+BATTERY
-| $10 | MBC3+TIMER+RAM+BATTERY
+| $10 | MBC3+TIMER+RAM+BATTERY \*\*
 | $11 | MBC3
-| $12 | MBC3+RAM
-| $13 | MBC3+RAM+BATTERY
+| $12 | MBC3+RAM \*\*
+| $13 | MBC3+RAM+BATTERY \*\*
 | $19 | MBC5
 | $1A | MBC5+RAM
 | $1B | MBC5+RAM+BATTERY
@@ -170,7 +170,8 @@ cartridge, and if further external hardware exists in the cartridge.
 | $FE | HuC3
 | $FF | HuC1+RAM+BATTERY
 
-\* No licensed cartridge makes use of this option. Exact behaviour is unknown.
+\* No licensed cartridge makes use of this option. Exact behaviour is unknown.  
+\*\* MBC3 with RAM size 64 KByte refers to MBC30, used only in _Pocket Monsters Crystal Version_ for Japan.
 
 ### 0148 - ROM Size
 
