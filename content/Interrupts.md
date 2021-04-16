@@ -60,7 +60,7 @@ interrupt "waits" until both IME and IE allow its execution.
 disabling any further interrupts until the program
 re-enables them, typically by using the RETI instruction.
 2. The corresponding interrupt vector (see the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-rw)) is
-called by the CPU. This is a regular call, exactly like what would be performed by a "call <vector>" instruction (the current PC is pushed on the stack
+called by the CPU. This is a regular call, exactly like what would be performed by a `call <vector>` instruction (the current PC is pushed on the stack
 and then set to the address of the interrupt vector).
 
 ### Manually Requesting/Discarding Interrupts
@@ -110,4 +110,3 @@ last machine cycle.
 
 The entire ISR **should** consume a total of 5 machine cycles. This has
 yet to be tested, but is what the Z80 datasheet implies.
-
