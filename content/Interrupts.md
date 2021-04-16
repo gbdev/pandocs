@@ -56,7 +56,7 @@ interrupt "waits" until both IME and IE allow its execution.
 
 ### Interrupt Handling
 
-1. The IME flag and the IF bit corresponding to this interrupt are reset by the CPU,
+1. The IF bit corresponding to this interrupt and the IME flag are reset by the CPU,
 disabling any further interrupts until the program
 re-enables them, typically by using the `reti` instruction.
 2. The corresponding interrupt vector (see the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-rw)) is
