@@ -54,15 +54,14 @@ executed. The actual **execution** happens only if both the IME flag and
 the corresponding bit in the IE register are set, otherwise the
 interrupt "waits" until both IME and IE allow its execution.
 
-### Interrupt Execution
+### Interrupt Handling
 
-When an interrupt is executed, the corresponding bit in the IF
-register is automatically reset by the CPU, and the IME flag
-is also reset (disabling any further interrupts until the program
-re-enables the interrupts, typically by using the RETI instruction), and
-the corresponding Interrupt Vector (which is one of the addresses in the range
-$0040-$0060, as shown in the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-r-w)) is
-called.
+1. The IF bit corresponding to this interrupt and the IME flag are reset by the CPU,
+respectively "acknowledging" the interrupt and disabling any further interrupts until the program
+re-enables them, typically by using the `reti` instruction.
+2. The corresponding interrupt vector (see the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-r-w)) is
+called by the CPU. This is a regular call, exactly like what would be performed by a `call <vector>` instruction (the current PC is pushed on the stack
+and then set to the address of the interrupt vector).
 
 ### Manually Requesting/Discarding Interrupts
 
@@ -111,4 +110,3 @@ last machine cycle.
 
 The entire ISR **should** consume a total of 5 machine cycles. This has
 yet to be tested, but is what the Z80 datasheet implies.
-
