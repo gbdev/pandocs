@@ -49,10 +49,12 @@ one.
 
 #### LCDC.5 - Window enable
 
-This bit controls whether the window shall be displayed or not. (TODO:
-what happens when toggling this mid-scanline ?) This bit is overridden
-on DMG by [bit 0](#lcdc-0-bg-and-window-enable-priority)
+This bit controls whether the window shall be displayed or not.
+This bit is overridden on DMG by [bit 0](#lcdc-0-bg-and-window-enable-priority)
 if that bit is reset.
+
+Changing the value of this register mid-frame triggers a more complex behaviour:
+see [see further below](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-7-r-w).
 
 Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
 may cause the second write to be ignored. (TODO: test this.)
