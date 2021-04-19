@@ -21,13 +21,13 @@ the base unit in Game Boy graphics.
 A tile does not encode color information. Instead, a tile assigns a
 *color ID* to each of its pixels, ranging from 0 to 3. For this reason,
 Game Boy graphics are also called *2bpp* (2 bits per pixel). When a tile is used
-in Background or Window, these color IDs are associated with a *palette*. When
+in the Background or Window, these color IDs are associated with a *palette*. When
 a tile is used in a OBJ, the IDs 1 to 3 are associated with a palette, but
 ID 0 means transparent.
 
 ## Palettes
 
-A palette consists in a array of colors, 4 in the Game Boy's case.
+A palette consists of a array of colors, 4 in the Game Boy's case.
 Palettes are stored differently in monochrome and color versions of the console.
 
 Modifying palettes enables graphical effects such as quickly flashing some graphics (damage,
@@ -35,8 +35,8 @@ invulnerability, thunderstorm, etc.), fading the screen, "palette swaps", and mo
 
 ## Layers
 
-The Game Boy has three "layers", from bottom to top: the background, the window,
-and the sprites. Some features and behaviors break this abstraction,
+The Game Boy has three "layers", from back to front: the Background, the Window,
+and the Objects. Some features and behaviors break this abstraction,
 but it works for the most part.
 
 ### Background
@@ -65,10 +65,8 @@ Possible usage include a fixed status bar in an otherwise scrolling game (e.g.
 The background layer is useful for elements scrolling as a whole, but
 it's impractical for objects that need to move separately, such as the player.
 
-The *objects* layer is designed to fill this gap: it allows displaying tiles anywhere
-on the screen.
-
-*Objects* are made of 1 or 2 stacked tiles (8x8 or 8x16 pixels).
+The *objects* layer is designed to fill this gap: *objects* are made of 1 or 2 stacked tiles (8x8 or 8x16 pixels)
+and can be displayed anywhere on the screen.
 
 ::: tip NOTE
 Several objects can be combined (they can be called *metasprites*) to draw

@@ -134,9 +134,7 @@ unknown (if any). It isn't recommended to use them in your software,
 but you could, for example, use them to check if you are running on an
 emulator or on DMG hardware.
 
-### FF72 - Bits 0-7 (Read/Write)
-
-### FF73 - Bits 0-7 (Read/Write)
+### FF72 - Bits 0-7 (Read/Write), FF73 - Bits 0-7 (Read/Write)
 
 Both of these registers are fully read/write. Their initial value is
 $00.

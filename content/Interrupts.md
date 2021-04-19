@@ -1,33 +1,32 @@
 ### IME - Interrupt Master Enable Flag (Write Only)
 
 ```
-0 - Disable all Interrupts
-1 - Enable all Interrupts that are enabled in IE Register (FFFF)
+0 - Disable all interrupts
+1 - Enable all interrupts that are enabled in the IE register (FFFF)
 ```
 
 The IME flag is used to disable all interrupts, overriding any enabled
-bits in the IE Register. It isn't possible to access the IME flag by
-using a I/O address, instead IME is accessed directly from the CPU, by
-the following opcodes/operations:
+bits in the IE register. It isn't possible to access the IME flag by
+using a I/O address. IME can be modified by
+the following instructions/events only:
 
 ```
-EI     ;Enable Interrupts  (that is, IME=1)
-DI     ;Disable Interrupts (that is, IME=0)
-RETI   ;Enable Ints & Return (same as the opcode combination EI, RET)
-<INT>  ;Disable Ints & Call to Interrupt Vector
+EI     ;Enables interrupts  (that is, IME=1)
+DI     ;Disables interrupts (that is, IME=0)
+RETI   ;Enables interrupts and returns (same as the instruction sequence EI, RET)
+<INT>  ;Disables interrupts and calls interrupt vector
 ```
 
 where \<INT\> means the operation which is automatically executed by the
 CPU when it executes an interrupt.
 
 The effect of EI is delayed by one instruction. This means that EI
-followed immediately by DI does not allow interrupts between the EI and
-the DI.
+followed immediately by DI does not allow any interrupts between them.
 
 ### FFFF - IE - Interrupt Enable (R/W)
 
 ```
-Bit 0: V-Blank  Interrupt Enable  (INT 40h)  (1=Enable)
+Bit 0: VBlank   Interrupt Enable  (INT 40h)  (1=Enable)
 Bit 1: LCD STAT Interrupt Enable  (INT 48h)  (1=Enable)
 Bit 2: Timer    Interrupt Enable  (INT 50h)  (1=Enable)
 Bit 3: Serial   Interrupt Enable  (INT 58h)  (1=Enable)
@@ -37,7 +36,7 @@ Bit 4: Joypad   Interrupt Enable  (INT 60h)  (1=Enable)
 ### FF0F - IF - Interrupt Flag (R/W)
 
 ```
-Bit 0: V-Blank  Interrupt Request (INT 40h)  (1=Request)
+Bit 0: VBlank   Interrupt Request (INT 40h)  (1=Request)
 Bit 1: LCD STAT Interrupt Request (INT 48h)  (1=Request)
 Bit 2: Timer    Interrupt Request (INT 50h)  (1=Request)
 Bit 3: Serial   Interrupt Request (INT 58h)  (1=Request)
@@ -46,24 +45,23 @@ Bit 4: Joypad   Interrupt Request (INT 60h)  (1=Request)
 
 When an interrupt signal changes from low to high, the
 corresponding bit in the IF register becomes set. For example, Bit 0
-becomes set when the LCD controller enters the V-Blank period.
+becomes set when the LCD controller enters the VBlank period.
 
 ### Interrupt Requests
 
 Any set bits in the IF register are only **requesting** an interrupt to be
-executed. The actual **execution** happens only if both the IME flag, and
+executed. The actual **execution** happens only if both the IME flag and
 the corresponding bit in the IE register are set, otherwise the
 interrupt "waits" until both IME and IE allow its execution.
 
-### Interrupt Execution
+### Interrupt Handling
 
-When an interrupt is executed, the corresponding bit in the IF
-register is automatically reset by the CPU, and the IME flag
-is also reset (disabling any further interrupts until the program
-re-enables the interrupts, typically by using the RETI instruction), and
-the corresponding Interrupt Vector (which is one of the addresses in the range
-$0040-$0060, as shown in the IE and IF register descriptions [above](#ffff---ie---interrupt-enable-rw)) is
-called.
+1. The IF bit corresponding to this interrupt and the IME flag are reset by the CPU,
+respectively "acknowledging" the interrupt and disabling any further interrupts until the program
+re-enables them, typically by using the `reti` instruction.
+2. The corresponding interrupt vector (see the IE and IF register descriptions [above](#ffff-ie-interrupt-enable-r-w)) is
+called by the CPU. This is a regular call, exactly like what would be performed by a `call <vector>` instruction (the current PC is pushed on the stack
+and then set to the address of the interrupt vector).
 
 ### Manually Requesting/Discarding Interrupts
 
@@ -79,12 +77,12 @@ In the following three situations it might happen that more than one bit in the 
 
 1. More than one interrupt signal changed from Low to High at the same time.
 2. Several interrupts have been requested during a time in which IME/IE didn't allow these interrupts to be executed directly.
-3. The user has written a value with several "1" bits (for example $1F) to the IF register. 
+3. The user has written a value with several "1" bits (for example binary 00011111) to the IF register.
 
 If IME and IE allow the execution of more than one of the
 requested interrupts, the interrupt with the highest priority
 is executed first. The priorities follow the same order as the bits in the IE
-and IF registers: Bit 0 (V-Blank) having the highest priority, and Bit 4
+and IF registers: Bit 0 (VBlank) having the highest priority, and Bit 4
 (Joypad) having the lowest priority.
 
 ### Nested Interrupts
@@ -112,4 +110,3 @@ last machine cycle.
 
 The entire ISR **should** consume a total of 5 machine cycles. This has
 yet to be tested, but is what the Z80 datasheet implies.
-

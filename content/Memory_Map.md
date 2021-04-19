@@ -22,14 +22,14 @@ The Game Boy has a 16-bit address bus, which is used to address ROM, RAM, and I/
 
 The following addresses are supposed to be used as jump vectors:
 
--   RST commands: 0000, 0008, 0010, 0018, 0020, 0028, 0030, 0038
+-   RST instructions: 0000, 0008, 0010, 0018, 0020, 0028, 0030, 0038
 -   Interrupts: 0040, 0048, 0050, 0058, 0060
 
 However, this memory area (0000-00FF) may be used for any other purpose in case that your
-program doesn't use any (or only some) RST commands or interrupts. RST
-commands are 1-byte opcodes that work similar to CALL opcodes, except
-that the destination address is fixed. Since they are only 1 byte large,
-they are also slightly faster.
+program doesn't use any (or only some) RST instructions or interrupts. RST
+is a 1-byte instruction that works similarly to the 3-byte CALL instruction, except
+that the destination address is restricted. Since it is 1-byte sized,
+it is also slightly faster.
 
 # Cartridge Header in first ROM bank
 

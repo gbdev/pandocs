@@ -9,13 +9,17 @@ contains several registers that can be read or written one at a time.
 This makes EEPROM access very slow due to needing multiple writes per
 address.
 
+## Memory
+
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
-Same as for MBC5.
+Contains the first 16 KiB of the ROM.
 
 ### 4000-7FFF - ROM Bank 00-7F (Read Only)
 
 Same as for MBC5. (Bank 0 mapping needs confirmation)
+
+## Registers
 
 ### A000-AFFF - RAM Registers (Read/Write)
 

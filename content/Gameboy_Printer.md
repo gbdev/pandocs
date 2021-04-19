@@ -1,7 +1,7 @@
 The Game Boy Printer is a portable thermal printer made by
 [SII](http://www.sii.co.jp) for Nintendo, which a few games used to
 print out bonus artwork, certificates, pictures ([Game Boy
-Camera](#gameboy-camera)).
+Camera](#game-boy-camera)).
 
 It can use standard 38mm paper and interfaces with the Game Boy through
 the Link port.

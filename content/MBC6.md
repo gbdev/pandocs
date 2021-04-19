@@ -12,9 +12,11 @@ adjustable offsets. Since the banked regions are smaller the effective
 number of banks is twice what it usually would be; 8 kB ROM banks
 instead of 16 kB and 4 kB RAM banks instead of 8 kB.
 
+## Memory
+
 ### 0000-3FFF - ROM Bank 00 (Read Only)
 
-Read-only access to ROM bank 0.
+Contains the first 16 KiB of the ROM.
 
 ### 4000-5FFF - ROM/Flash Bank A 00-7F (Read/Write for flash, Read Only for ROM)
 
@@ -35,6 +37,8 @@ Bank B.
 
 Read/write access to RAM banks 00-07, switchable independently from RAM
 Bank A.
+
+## Registers
 
 ### 0000-03FF - RAM Enable (Write Only)
 

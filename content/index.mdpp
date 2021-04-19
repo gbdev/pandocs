@@ -25,7 +25,7 @@ title: "Pan Docs"
 - CPU Specifications
 	- [Registers and Flags](#registers-and-flags)
 	- [Instruction Set](#instruction-set)
-	- [Comparison with Z80](#comparison-with-z80)
+	- [Comparison with other CPUs](#comparison-with-other-cpus)
 - Cartridges
 	- [Cartridge header](#the-cartridge-header)
 	- [MBC1](#mbc1)
@@ -38,7 +38,7 @@ title: "Pan Docs"
 	- [Other MBCs](#other-mbcs)
 - Accessories
 	- [Game Boy Printer](#game-boy-printer)
-	- Game Boy Camera
+	- [Game Boy Camera](#game-boy-camera)
 	- Gamegenie/Shark Cheats
 - Other
 	- [Power Up Sequence](#power-up-sequence)
@@ -117,7 +117,7 @@ title: "Pan Docs"
 !INCLUDE "CPU_Instruction_Set.md", 1
 
 
-# Comparison with Z80
+# Comparison with other CPUs
 
 !INCLUDE "CPU_Comparison_with_Z80.md", 1
 
@@ -178,7 +178,11 @@ types are available:
 
 !INCLUDE "Gameboy_Printer.md", 1
 
+!INCLUDE "Gameboy_Camera.md", 1
+
+
 # Power Up Sequence
+
 
 !INCLUDE "Power_Up_Sequence.md", 1
 
