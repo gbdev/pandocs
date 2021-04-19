@@ -5,18 +5,18 @@ batteries.
 # Using the HALT Instruction
 
 The HALT instruction should be used whenever possible to reduce power
-consumption & extend the life of the batteries. This instruction stops the
-system clock, reducing the power consumption of both the CPU and ROM.
+consumption.
 
-The CPU will remain stopped until an interrupt *enabled by [the IE register ($FFFF)](#ffff-ie-interrupt-enable-r-w)* occurs at which point the
-interrupt is serviced and then the instruction immediately following the
-HALT is executed.
+The CPU will remain halted until an interrupt *enabled by [the IE register ($FFFF)](#ffff-ie-interrupt-enable-r-w)* is
+flagged in IF, at which point the interrupt is serviced if IME is enabled,
+and then execution continues at the instruction immediately following the
+HALT.
 
 Depending on how much CPU time is required by a game, the HALT
-instruction can extend battery life anywhere from 5 to 50% or possibly
+instruction can extend battery life anywhere from 5% to 50% or possibly
 more.
 
-When waiting for a vblank event, this would be a BAD example:
+When waiting for a VBlank event, this would be a BAD example:
 
 ```
  .wait:
@@ -26,30 +26,32 @@ When waiting for a vblank event, this would be a BAD example:
 ```
 
 A better example would be a procedure as shown below. In this case the
-vblank interrupt must be enabled, and your vblank interrupt procedure
-must set vblank_flag to a non-zero value.
+VBlank interrupt must be enabled, and your VBlank interrupt handler
+must set `vblank_flag` to a non-zero value.
 
 ```
   ld   hl, vblank_flag  ;hl=pointer to vblank_flag
   xor  a               ;a=0
- .wait:               ;wait...
+ .wait:                ;wait...
   halt                 ;suspend CPU - wait for ANY enabled interrupt
-  cp   a, [hl]          ;vblank flag still zero?
-  jr   z, .wait        ;wait more if zero
-  ld   [hl], a          ;set vblank_flag back to zero
+  cp   a, [hl]         ;is the vblank_flag still zero?
+  jr   z, .wait        ;keep waiting if zero
+  ld   [hl], a         ;set the vblank_flag back to zero
 ```
-The vblank_flag is used to determine whether the HALT period has been
-terminated by a vblank interrupt, or by another interrupt. In case your
-program has all other interrupts disabled, then it would be okay to
-replace the above procedure by a single HALT instruction.
+
+The `vblank_flag` is used to determine whether the HALT period has been
+terminated by a VBlank interrupt or by another interrupt. Note though
+that a VBlank interrupt might happen after the cp instruction
+and before the jr, in which case the interrupt would go unnoticed by the
+procedure, which would jump again into a halt.
 
 Another possibility is, if your game uses no other interrupt than VBlank
-(or uses no interrupt), to only enable VBlank interrupts and simply use
-a halt instruction, which will only resume main code execution when a
+(or uses no interrupts), to only enable VBlank interrupts and simply use
+a HALT instruction, which will only resume main code execution when a
 VBlank occurs.
 
-Remember when using HALT to wait between VBlanks, your interrupt
-routines MUST enable interrupts (ie with ei during the execution, or
+Remember, when using HALT to wait between VBlanks, that your interrupt
+handlers MUST enable interrupts (using EI before returning, or
 better, using the RETI instruction)
 
 # Using the STOP Instruction
