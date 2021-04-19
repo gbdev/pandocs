@@ -5,8 +5,7 @@ batteries.
 # Using the HALT Instruction
 
 The HALT instruction should be used whenever possible to reduce power
-consumption and extend battery life. This instruction halts the
-system clock, reducing the power consumption of both the CPU and ROM.
+consumption.
 
 The CPU will remain halted until an interrupt *enabled by [the IE register ($FFFF)](#ffff-ie-interrupt-enable-r-w)* is
 flagged in IF, at which point the interrupt is serviced if IME is enabled,
