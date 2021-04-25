@@ -60,6 +60,16 @@ rectangle and only the position of the top-left pixel can be controlled.
 Possible usage include a fixed status bar in an otherwise scrolling game (e.g.
 *Super Mario Bros. 3*).
 
+#### Window Internal Line Counter
+
+The window keeps an internal line counter that's similar in function to `LY`, and increments alongside it. However, it only gets incremented when the window is _visible_, as described [here](https://github.com/gbdev/pandocs/blob/develop/content/Video_Display.md#ff4a---wy-window-y-position-rw-ff4b---wx-window-x-position--7-rw), that is:
+
+1. Whenever `LY >= WY`
+2. The window is enabled (`LCDC` bit 5 set)
+3. `WX` has an on-screen value.
+
+This line counter determines what window line is to be rendered on the current scanline.
+
 ### Objects
 
 The background layer is useful for elements scrolling as a whole, but
