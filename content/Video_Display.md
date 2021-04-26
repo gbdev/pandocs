@@ -163,6 +163,12 @@ For the window to be displayed on a scanline:
 If the WY condition has already been triggered and at the the start of a row the window enable bit was set
 then resetting that bit before the WX condition gets triggered on that row yields a nice window glitch pixel where the window would have been activated.
 
+#### Window Internal Line Counter
+
+The window keeps an internal line counter that's similar in function to `LY`, and increments alongside it. However, it only gets incremented when the window is _visible_, as described above.
+
+This line counter determines what window line is to be rendered on the current scanline.
+
 :::
 
 # LCD Monochrome Palettes
