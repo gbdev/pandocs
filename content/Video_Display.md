@@ -594,7 +594,7 @@ for the definition of "Window visibility".)
 
 The window keeps an internal line counter that's functionally similar to `LY`, and increments alongside it. However, it only gets incremented when the window is visible, as described [here](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-7-r-w). That is whenever:
 
-1. The window is enabled (LCDC bits 5 and 0 (DMG Mode) set)
+1. `LCDC.5` is set (window enabled)
 2. `LY >= WY`
 3. `WX` has an on-screen value.
 
