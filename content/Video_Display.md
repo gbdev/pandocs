@@ -163,12 +163,6 @@ For the window to be displayed on a scanline:
 If the WY condition has already been triggered and at the the start of a row the window enable bit was set
 then resetting that bit before the WX condition gets triggered on that row yields a nice window glitch pixel where the window would have been activated.
 
-#### Window Internal Line Counter
-
-The window keeps an internal line counter that's similar in function to `LY`, and increments alongside it. However, it only gets incremented when the window is _visible_, as described above.
-
-This line counter determines what window line is to be rendered on the current scanline.
-
 :::
 
 # LCD Monochrome Palettes
@@ -595,6 +589,18 @@ Whether the Window is displayed can be toggled using
 [Mode 3](#lcd-status-register) slightly longer on scanlines where it's visible.
 (See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-7-r-w)
 for the definition of "Window visibility".)
+
+::: tip Window Internal Line Counter
+
+The window keeps an internal line counter that's functionally similar to LY, and increments alongside it. However, it only gets incremented when the window is visible, as described [here](https://github.com/gbdev/pandocs/blob/develop/content/Video_Display.md#ff4a---wy-window-y-position-rw-ff4b---wx-window-x-position--7-rw). That is whenever:
+
+1. The window is enabled
+2. `LY >= WY`
+3. `WX` has an on-screen value.
+
+This line counter determines what window line is to be rendered on the current scanline.
+
+:::
 
 # VRAM Banks (CGB only)
 
