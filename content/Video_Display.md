@@ -590,6 +590,14 @@ Whether the Window is displayed can be toggled using
 (See [above](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-7-r-w)
 for the definition of "Window visibility".)
 
+::: tip Window Internal Line Counter
+
+The window keeps an internal line counter that's functionally similar to `LY`, and increments alongside it. However, it only gets incremented when the window is visible, as described [here](#ff4a-wy-window-y-position-r-w-ff4b-wx-window-x-position-7-r-w).
+
+This line counter determines what window line is to be rendered on the current scanline.
+
+:::
+
 # VRAM Banks (CGB only)
 
 The CGB has twice the VRAM of the DMG, but it is banked and either bank
