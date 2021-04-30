@@ -269,7 +269,7 @@ colors mix quite oddly; increasing intensity of only one R,G,B color
 will also influence the other two R,G,B colors. For example, a color
 setting of 03EFh (Blue=0, Green=1Fh, Red=0Fh) will appear as Neon Green
 on VGA displays, but on the CGB it'll produce a decently washed out
-Yellow. See image on the right.
+Yellow. See the image above.
 
 ### RGB Translation by GBAs
 
