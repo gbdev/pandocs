@@ -7,12 +7,12 @@ A *dot* is the shortest period over which the PPU can output one pixel: is it eq
 ### FF41 - STAT (LCD Status) (R/W)
 
 ```
-Bit 6 - LYC=LY Interrupt             (1=Enable) (Read/Write)
-Bit 5 - Mode 2 OAM Interrupt         (1=Enable) (Read/Write)
-Bit 4 - Mode 1 VBlank Interrupt      (1=Enable) (Read/Write)
-Bit 3 - Mode 0 HBlank Interrupt      (1=Enable) (Read/Write)
-Bit 2 - LYC=LY Flag      (0=Different, 1=Equal) (Read Only)
-Bit 1-0 - Mode Flag       (Mode 0-3, see below) (Read Only)
+Bit 6 - LYC=LY STAT Interrupt          (1=Enable) (Read/Write)
+Bit 5 - Mode 2 OAM STAT Interrupt      (1=Enable) (Read/Write)
+Bit 4 - Mode 1 VBlank STAT Interrupt   (1=Enable) (Read/Write)
+Bit 3 - Mode 0 HBlank STAT Interrupt   (1=Enable) (Read/Write)
+Bit 2 - LYC=LY Flag                    (0=Different, 1=Equal) (Read Only)
+Bit 1-0 - Mode Flag                    (Mode 0-3, see below) (Read Only)
           0: In HBlank
           1: In VBlank
           2: Searching OAM
