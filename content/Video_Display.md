@@ -7,12 +7,12 @@ A *dot* is the shortest period over which the PPU can output one pixel: is it eq
 ### FF41 - STAT (LCD Status) (R/W)
 
 ```
-Bit 6 - LYC=LY STAT Interrupt          (1=Enable) (Read/Write)
-Bit 5 - Mode 2 OAM STAT Interrupt      (1=Enable) (Read/Write)
-Bit 4 - Mode 1 VBlank STAT Interrupt   (1=Enable) (Read/Write)
-Bit 3 - Mode 0 HBlank STAT Interrupt   (1=Enable) (Read/Write)
-Bit 2 - LYC=LY Flag                    (0=Different, 1=Equal) (Read Only)
-Bit 1-0 - Mode Flag                    (Mode 0-3, see below) (Read Only)
+Bit 6 - LYC=LY STAT Interrupt source         (1=Enable) (Read/Write)
+Bit 5 - Mode 2 OAM STAT Interrupt source     (1=Enable) (Read/Write)
+Bit 4 - Mode 1 VBlank STAT Interrupt source  (1=Enable) (Read/Write)
+Bit 3 - Mode 0 HBlank STAT Interrupt source  (1=Enable) (Read/Write)
+Bit 2 - LYC=LY Flag                          (0=Different, 1=Equal) (Read Only)
+Bit 1-0 - Mode Flag                          (Mode 0-3, see below) (Read Only)
           0: In HBlank
           1: In VBlank
           2: Searching OAM
@@ -92,11 +92,12 @@ milliseconds.
 
 ### INT 48 - STAT Interrupt
 
-There are various reasons for this interrupt to occur as described by
-the STAT register (\$FF41). One very popular reason is to indicate to
-the user when the video hardware is about to redraw a given LCD line.
-This can be useful for dynamically controlling the SCX/SCY registers
-($FF43/$FF42) to perform special video effects.
+There are various sources which can trigger this interrupt to occur as
+described by the [STAT register (\$FF41)](#ff41-stat-lcd-status-r-w).
+One very popular use is to indicate to the user when the video 
+hardware is about to redraw a given LCD line. This can be useful for 
+dynamically controlling the SCX/SCY registers ($FF43/$FF42) to [perform 
+special video effects](https://github.com/BlitterObjectBob/DeadCScroll).
 
 Example application: set LYC to WY, enable LY=LYC interrupt, and have
 the handler disable sprites. This can be used if you use the window for
@@ -106,10 +107,10 @@ hidden by the text box.
 ::: warning
 As mentioned in the description of the STAT register, the PPU cycles
 through the different modes in a fixed order. If we set the STAT bits
-in a way that they would interrupt the CPU at two
-consecutive modes, then the second interrupt will not trigger. So for example,
-if we enable the interrupts for Mode 0 and Mode 1,
-the Mode 1 interrupt will not trigger.
+in a way that they would interrupt the CPU at two consecutive modes, 
+then the second interrupt will not trigger. So for example, if we 
+enable the interrupts for Mode 0 and Mode 1, the Mode 1 interrupt will
+not trigger. This phenomenon is known as "STAT blocking".
 :::
 
 # LCD Position and Scrolling
