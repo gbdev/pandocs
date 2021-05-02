@@ -104,13 +104,24 @@ the handler disable sprites. This can be used if you use the window for
 a text box (at the bottom of the screen), and you want sprites to be
 hidden by the text box.
 
+The various STAT interrupt sources (modes 0-2 and LYC=LY) have their 
+state (inactive/low and active/high) logically ORed into a shared 
+STAT interrupt line if their respective enable bit is turned on.
+
+A STAT interrupt will be triggered by a rising edge (transition from 
+low-to-high) on the STAT interrupt line.
+
 ::: warning
-As mentioned in the description of the STAT register, the PPU cycles
-through the different modes in a fixed order. If we set the STAT bits
-in a way that they would interrupt the CPU at two consecutive modes, 
-then the second interrupt will not trigger. So for example, if we 
-enable the interrupts for Mode 0 and Mode 1, the Mode 1 interrupt will
-not trigger. This phenomenon is known as "STAT blocking".
+If a STAT interrupt source logically ORs the interrupt line high while 
+(or immediately after) it's already set high by another source, then 
+there will be no low-to-high transition and so no interrupt will occur. 
+This phenomenon is known as "STAT blocking" ([test ROM example](https://github.com/Gekkio/mooneye-gb/blob/2d52008228557f9e713545e702d5b7aa233d09bb/tests/acceptance/ppu/stat_irq_blocking.s#L21-L22)).
+
+As mentioned in the description of the [STAT register](#ff41-stat-lcd-status-r-w), 
+the PPU cycles through the different modes in a fixed order. So for 
+example, if interrupts are enabled for two consecutive modes such as 
+Mode 0 and Mode 1, then no interrupt will trigger for Mode 1 (since 
+the STAT interrupt line won't have a chance to go low between them).
 :::
 
 # LCD Position and Scrolling
