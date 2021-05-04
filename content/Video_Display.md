@@ -479,6 +479,19 @@ Sprites always use "$8000 addressing", but the BG and Window can use either
 mode, controlled by [LCDC bit
 4](#lcdc-4-bg-and-window-tile-data-area).
 
+```
+ Block |  VRAM Addr    |  Sprites  |   |        BG/WIN          |
+                       |           |   | LCDC.4=1  | LCDC.4=0   |
+ -------------------   -------------   --------------------------
+   0     $8000-$87FF   |   0 - 127 |   | 0   - 127 |            |
+ -------------------   -------------   --------------------------
+   1     $8800-$8FFF   | 128 - 255 |   | 128 - 255 | 128 - 255  |
+                       |           |   |           | (-127 - 0) |
+ -------------------   -------------   --------------------------
+   2     $9000-$97FF   |           |   | (unused)  |   0 - 127  |
+ -------------------   -------------   --------------------------
+```
+
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
 ```
