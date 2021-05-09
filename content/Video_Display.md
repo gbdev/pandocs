@@ -501,13 +501,13 @@ There are three "blocks" of 128 tiles each:
       <td>128&ndash;255</td>
       <td>
         128&ndash;255 <br />
-        or (-127&ndash;0)
+        (or -127&ndash;0)
       </td>
     </tr>
     <tr>
       <td>2</td>
       <td>$9000&ndash;$97FF</td>
-      <td colspan="2">(unused)</td>
+      <td colspan="2">(Can't use)</td>
       <td>0&ndash;127</td>
     </tr>
   </tbody>
