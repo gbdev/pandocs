@@ -476,20 +476,17 @@ There are three "blocks" of 128 tiles each:
 <table>
   <thead>
     <tr>
-      <th>Block</th>
-      <th>VRAM Address</th>
-      <th>Sprite Tiles</th>
-      <th colspan="2">BG/Win Tiles</th>
+      <th rowspan="2">Block</th>
+      <th rowspan="2">VRAM Address</th>
+      <th colspan="3">Corresponding Tile IDs</th>
+    </tr>
+    <tr>
+      <td><strong>OBJs</strong></td>
+      <td><strong>BG/Win if LCDC.4=1</strong></td>
+      <td><strong>BG/Win if LCDC.4=0</strong></td>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><strong>if LCDC.4=1</strong></td>
-      <td><strong>if LCDC.4=0</strong></td>
-    </tr>
     <tr>
       <td>0</td>
       <td>$8000&ndash;$87FF</td>
@@ -510,8 +507,7 @@ There are three "blocks" of 128 tiles each:
     <tr>
       <td>2</td>
       <td>$9000&ndash;$97FF</td>
-      <td></td>
-      <td>(unused)</td>
+      <td colspan="2">(unused)</td>
       <td>0&ndash;127</td>
     </tr>
   </tbody>
