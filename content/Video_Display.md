@@ -461,9 +461,50 @@ don't use color 0 - it's transparent instead.
 
 There are three "blocks" of 128 tiles each:
 
--   Block 0 is $8000-$87FF
--   Block 1 is $8800-$8FFF
--   Block 2 is $9000-$97FF
+<table>
+  <thead>
+    <tr>
+      <th>Block</th>
+      <th>VRAM Address</th>
+      <th>Sprite Tiles</th>
+      <th colspan="2">BG/Win Tiles</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><strong>if LCDC.4=1</strong></td>
+      <td><strong>if LCDC.4=0</strong></td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>$8000 - $87FF</td>
+      <td>0 - 127</td>
+      <td>0 - 127</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>$8800 - $8FFF</td>
+      <td>128 - 255</td>
+      <td>128 - 255</td>
+      <td>
+        128 - 255 <br />
+        or (-127 - 0)
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>$9000 - $97FF</td>
+      <td></td>
+      <td>(unused)</td>
+      <td>0 - 127</td>
+    </tr>
+  </tbody>
+</table>
+
 
 Tiles are always indexed using a 8-bit integer, but the addressing
 method may differ. The "$8000 method" uses \$8000 as its base pointer
@@ -478,19 +519,6 @@ by both addressing methods)
 Sprites always use "$8000 addressing", but the BG and Window can use either
 mode, controlled by [LCDC bit
 4](#lcdc-4-bg-and-window-tile-data-area).
-
-```
- Block |  VRAM Addr    |  Sprites  |   |        BG/WIN          |
-                       |           |   | LCDC.4=1  | LCDC.4=0   |
- -------------------   -------------   --------------------------
-   0     $8000-$87FF   |   0 - 127 |   | 0   - 127 |            |
- -------------------   -------------   --------------------------
-   1     $8800-$8FFF   | 128 - 255 |   | 128 - 255 | 128 - 255  |
-                       |           |   |           | (-127 - 0) |
- -------------------   -------------   --------------------------
-   2     $9000-$97FF   |           |   | (unused)  |   0 - 127  |
- -------------------   -------------   --------------------------
-```
 
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
