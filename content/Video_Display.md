@@ -492,27 +492,27 @@ There are three "blocks" of 128 tiles each:
     </tr>
     <tr>
       <td>0</td>
-      <td>$8000 - $87FF</td>
-      <td>0 - 127</td>
-      <td>0 - 127</td>
+      <td>$8000&ndash;$87FF</td>
+      <td>0&ndash;127</td>
+      <td>0&ndash;127</td>
       <td></td>
     </tr>
     <tr>
       <td>1</td>
-      <td>$8800 - $8FFF</td>
-      <td>128 - 255</td>
-      <td>128 - 255</td>
+      <td>$8800&ndash;$8FFF</td>
+      <td>128&ndash;255</td>
+      <td>128&ndash;255</td>
       <td>
-        128 - 255 <br />
-        or (-127 - 0)
+        128&ndash;255 <br />
+        or (-127&ndash;0)
       </td>
     </tr>
     <tr>
       <td>2</td>
-      <td>$9000 - $97FF</td>
+      <td>$9000&ndash;$97FF</td>
       <td></td>
       <td>(unused)</td>
-      <td>0 - 127</td>
+      <td>0&ndash;127</td>
     </tr>
   </tbody>
 </table>
