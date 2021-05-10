@@ -476,43 +476,39 @@ There are three "blocks" of 128 tiles each:
 <table>
   <thead>
     <tr>
-      <th>Block</th>
-      <th>VRAM Address</th>
-      <th>Sprite Tiles</th>
-      <th colspan="2">BG/Win Tiles</th>
+      <th rowspan="2">Block</th>
+      <th rowspan="2">VRAM Address</th>
+      <th colspan="3">Corresponding Tile IDs</th>
+    </tr>
+    <tr>
+      <td><strong>OBJs</strong></td>
+      <td><strong>BG/Win if LCDC.4=1</strong></td>
+      <td><strong>BG/Win if LCDC.4=0</strong></td>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><strong>if LCDC.4=1</strong></td>
-      <td><strong>if LCDC.4=0</strong></td>
-    </tr>
-    <tr>
       <td>0</td>
-      <td>$8000 - $87FF</td>
-      <td>0 - 127</td>
-      <td>0 - 127</td>
+      <td>$8000&ndash;$87FF</td>
+      <td>0&ndash;127</td>
+      <td>0&ndash;127</td>
       <td></td>
     </tr>
     <tr>
       <td>1</td>
-      <td>$8800 - $8FFF</td>
-      <td>128 - 255</td>
-      <td>128 - 255</td>
+      <td>$8800&ndash;$8FFF</td>
+      <td>128&ndash;255</td>
+      <td>128&ndash;255</td>
       <td>
-        128 - 255 <br />
-        or (-127 - 0)
+        128&ndash;255 <br />
+        (or -127&ndash;0)
       </td>
     </tr>
     <tr>
       <td>2</td>
-      <td>$9000 - $97FF</td>
-      <td></td>
-      <td>(unused)</td>
-      <td>0 - 127</td>
+      <td>$9000&ndash;$97FF</td>
+      <td colspan="2">(Can't use)</td>
+      <td>0&ndash;127</td>
     </tr>
   </tbody>
 </table>
