@@ -1,7 +1,9 @@
 name: Build and deploy an updated version of the website
 
 on:
-  push
+  push:
+    branches:
+      - develop
 
 jobs:
   build:
