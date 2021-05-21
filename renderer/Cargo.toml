@@ -1,0 +1,14 @@
+[package]
+name = "pandocs-renderer"
+version = "0.1.0"
+authors = ["ISSOtm <eldredhabert0@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.40"
+# mdbook here is only used as a lib, so no need for the extra features
+mdbook = { version = "0.4.8", default-features = false, features = [ "search" ] }
+regex = "1.5"
+termcolor = "1.1.2"

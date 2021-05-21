@@ -1,0 +1,41 @@
+[book]
+title = "Pan Docs"
+description = "The single, most comprehensive technical reference to Game Boy available to the public."
+language = "en"
+multilingual = false
+src = "src"
+
+[build]
+build-dir = "docs"
+create-missing = true # This is kept for convenience, but CI sets it to false
+use-default-preprocessors = false
+
+# Custom preprocessor for internal links processing
+[preprocessor.pandocs]
+command = "cargo run -p pandocs-preproc --locked --release --"
+
+# Custom back-end for our custom markup
+[output.pandocs]
+command = "cargo run -p pandocs-renderer --locked --release --"
+
+# This configuration will be used by the HTML renderer invoked by the
+[output.html]
+additional-css = [
+	"custom/style.css",
+]
+# rgbasm.min.js gets injected into highlight.js by the renderer
+curly-quotes = true
+print = { enable = true }
+fold = { enable = true, level = 0 }
+git-repository-url = "https://github.com/gbdev/pandocs"
+edit-url-template = "https://github.com/gbdev/pandocs/edit/develop/{path}"
+site-url = "/pandocs/"
+
+[output.linkcheck]
+follow-web-links = true
+traverse-parent-directories = false
+optional = true
+# Do not check the "this was generated from commit N" link, as the commit may not have been pushed yet
+exclude = [
+	'https://github\.com/gbdev/pandocs/tree/'
+]

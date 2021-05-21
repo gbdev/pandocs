@@ -1,0 +1,20 @@
+.box {
+    margin: 20px 0;
+    padding: 1.6px 20px;
+    border-left-width: .5rem;
+    border-left-style: solid;
+}
+
+.box > .box-title {
+	font-weight: 600;
+}
+
+.box.tip {
+	border-color: #42b983;
+    background-color: var(--quote-bg);
+}
+
+.box.warning {
+	border-left-color: #e7c000;
+	background-color: rgba(255, 229, 100, .2);
+}
