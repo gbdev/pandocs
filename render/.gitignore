@@ -1,8 +1,0 @@
-node_modules/
-*.md
-.vuepress/dist
-bin/
-lib/
-lib64
-pyvenv.cfg
-.vuepress/public
