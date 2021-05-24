@@ -4,7 +4,7 @@ This document, started in early 1995, is considered the single most comprehensiv
 
 You are reading a new version of it, mantained in the Markdown format and enjoying renewed community attention, correcting and updating it with recent findings. To learn more about the legacy and the mission of this initiative, check [HISTORY](https://github.com/gbdev/pandocs#history).
 
-This project is open source, released under the [CC0 license](https://raw.githubusercontent.com/gbdev/pandocs/develop/LICENSE). Everyone is welcome to contribute, provide feedback and propose additions or improvements. The git repository is hosted at [github.com/gbdev/pandocs](https://github.com/gbdev/pandocs), where you can submit Issues or send Pull Requests. There is also a [Discord chat](https://gbdev.io/chat) dedicated to the gbdev community.
+This project is open source, released under the [CC0 license](https://raw.githubusercontent.com/gbdev/pandocs/master/LICENSE). Everyone is welcome to contribute, provide feedback and propose additions or improvements. The git repository is hosted at [github.com/gbdev/pandocs](https://github.com/gbdev/pandocs), where you can submit Issues or send Pull Requests. There is also a [Discord chat](https://gbdev.io/chat) dedicated to the gbdev community.
 
 Finally, you can also contact us and send patches via email: `pandocs (at) gbdev.io`.
  
