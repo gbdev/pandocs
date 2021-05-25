@@ -1,7 +1,18 @@
 name: Build and deploy an updated version of the website
 
 on:
-  [push, pull_request]
+  push:
+    paths-ignore:
+      - 'historical/**'
+      - 'mediawiki-exporter/**'
+      - 'README.MD'
+      - 'LICENSE'
+  pull_request:
+    paths-ignore:
+      - 'historical/**'
+      - 'mediawiki-exporter/**'
+      - 'README.MD'
+      - 'LICENSE'
 
 env:
   MDBOOK_LINKCHECK_VER: 0.7.4
