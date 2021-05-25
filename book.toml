@@ -28,7 +28,7 @@ curly-quotes = true
 print = { enable = true }
 fold = { enable = true, level = 0 }
 git-repository-url = "https://github.com/gbdev/pandocs"
-edit-url-template = "https://github.com/gbdev/pandocs/edit/develop/{path}"
+edit-url-template = "https://github.com/gbdev/pandocs/edit/master/{path}"
 site-url = "/pandocs/"
 
 [output.linkcheck]
