@@ -1,6 +1,11 @@
 <!-- The chapter with "Foreword" as its (case-sensitive) name has the commit info appended -->
 [Foreword](./About.md)
-[Authors](./Authors.md)
+[Acknowledgements](./Authors.md)
+[History](./History.md)
+
+<br>
+
+---
 
 # Overview
 
@@ -63,5 +68,7 @@
 - [OAM Corruption Bug](./OAM_Corruption_Bug.md)
 - [External Connectors](./External_Connectors.md)
 - [GBC Approval Process](./GBC_Approval_Process.md)
+
+---
 
 [References](./References.md)
