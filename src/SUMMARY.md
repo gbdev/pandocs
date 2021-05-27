@@ -53,7 +53,7 @@
 
 - [Game Boy Printer](./Gameboy_Printer.md)
 - [Game Boy Camera](./Gameboy_Camera.md)
-- [Game Genie/Shark Cheats]()
+- [Game Genie/Shark Cheats](./Shark_Cheats.md)
 
 # Other
 

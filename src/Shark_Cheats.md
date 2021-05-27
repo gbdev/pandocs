@@ -1,7 +1,7 @@
 Game Shark and Game Genie are external cartridge adapters that can be
 plugged in between the Game Boy and the actual game cartridge.
 
-### Gamegenie (ROM patches)
+## Game Genie (ROM patches)
 
 Game Genie codes consist of nine-digit hex numbers, formatted as
 `ABC-DEF-GHI`, the meaning of the separate digits is:
@@ -23,7 +23,7 @@ Three codes can be used at once.
 
 Check the [Game Genie manual](http://www.digitpress.com/library/manuals/gameboy/game%20genie.pdf) for reference.
 
-### Game Shark (RAM patches)
+## Game Shark (RAM patches)
 
 Game Shark codes consist of eight-digit hex numbers, formatted as
 ABCDEFGH, the meaning of the separate digits is:
@@ -32,9 +32,8 @@ ABCDEFGH, the meaning of the separate digits is:
 ` CD    New Data`
 ` GHEF  Memory Address (internal or external RAM, A000-DFFF)`
 
-As far as I understand, patching is implement by hooking the original
+As far as it is understood, patching is implemented by hooking the original
 VBlank interrupt handler, and re-writing RAM values each frame. The
 downside is that this method steals some CPU time, also, it cannot be
-used to patch program code in ROM. As far as I rememeber, somewhat 10-25
-codes can be used simultaneously.
+used to patch program code in ROM. 10-25 codes can be used simultaneously.
 
