@@ -1,6 +1,6 @@
 # Specifications
 
-.               | Game Boy                       | Game Boy Pocket | Game Boy Color  | Super Game Boy |
+ &#xfeff;       | Game Boy                       | Game Boy Pocket | Game Boy Color  | Super Game Boy |
 ----------------|--------------------------------|-----------------|-----------------|----------------|
 CPU             | 8-bit Sharp LR35902            |                 |                 |                |
 Clock           | 4.194304 MHz                   |                 | 8.388608 MHz    | 4.295454MHz (SGB1, NTSC)|
