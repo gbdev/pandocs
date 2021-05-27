@@ -32,6 +32,6 @@ You can search anywhere by pressing <kbd>s</kbd> on your keyboard or clicking th
 
 The <i class="fa fa-edit"></i> icon allows you to suggest a edit on the current page by directly opening the source file in the git repository.
 
-You can find a one-page version of Pan Docs [here](./print.html). 
+You can find a one-page printable version of Pan Docs [here](https://gbdev.io/pandocs/print.html). 
 
 <br><br>
