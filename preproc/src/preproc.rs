@@ -103,7 +103,7 @@ impl Preprocessor for Pandocs {
                 }
 
                 if chapter.name == "Foreword" {
-                    chapter.content.push_str(&format!("\n\nThis document version was produced from git commit [{}](https://github.com/gbdev/pandocs/tree/{}) ({}).", commit_short_hash, commit_hash,commit_timestamp));
+                    chapter.content.push_str(&format!("<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}). </small>", commit_short_hash, commit_hash,commit_timestamp));
                 }
             }
         });
