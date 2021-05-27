@@ -1,53 +1,88 @@
 # Pan Docs
 
-> ### The single, most comprehensive technical reference to Game Boy available to the public.
+> The single, most comprehensive technical reference to Game Boy available to the public.
+
+Go to https://gbdev.io/pandocs/ to read the document.
 
 ## Contributing 
 
-[This](https://github.com/gbdev/awesome-gbdev/issues/153) is the RFC proposing the change. You're welcome to discuss the development of this project in our various community channels found [here](https://gbdev.io/chat.html).
+[This](https://github.com/gbdev/awesome-gbdev/issues/153) is the RFC proposing the change. You're welcome to discuss the development of this project in the Issues and in our various community channels found [here](https://gbdev.io/chat.html).
 
 Contributing is really easy, fork this repo and edit the files in the **src** directory. Then, you can send your PR.
 
 To deploy Pan Docs locally:
 
 1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads).
-  mdBook powers the book itself, Rust is used for some custom plugins, and Python for some image generation.
+  mdBook powers the book itself, Rust is used for some custom plugins and Python scripts are used to render some images.
 2. [Install](https://packaging.python.org/tutorials/installing-packages/#requirements-files) the Python prerequisites (`pip3 install -r requirements.txt`)
-3. Within a terminal pointed at the directory `book.toml` is in, run mdBook (`mdbook build` / `mdbook watch` / `mdbook serve`).
-4. The HTML files are in `docs/pandocs/`.
+   If you're doing that in a Python virtual environment, be sure to activate it in the shell that will run the `mdbook` commands.
+3. Clone this repository and run `mdBook` in the root folder
+```bash
+# Produce a build
+mdbook build
+# Watch your files and trigger a build automatically whenever you modify a file.
+mdbook watch
+# Watches the book's src directory for changes, rebuild the book, serve it on localhost:3000 and refresh clients for each change.
+mdbook serve
+```
+4. The final HTML files are in `docs/pandocs/`.
 
-  ⚠️ `docs/html/` contains only partially processed files.
-  This folder is what gets served when running `mdbook serve`, so you may see some custom markup missing if using that.
-  As a workaround, you can manually open the files in the `docs/pandocs/` folder in your browser, they just won't auto-refresh on changes.
+
+Be aware of the following caveats:
+
+- `docs/html/` contains only partially processed files and it's also the folder that gets served by `mdbook serve`, so you will see some unprocessed custom markup if you visit the endpoint exposed by mdbook's development web server.
+As a workaround, you can manually serve the file in the `docs/pandocs/` with any web server (e.g. you can just run `npx http-server` in the `docs/pandocs` folder).
+
+- `mdbook watch` and `mdbook serve` do *not* watch for changes to files in the `theme/` or `custom/` directories (e.g. highlight.js builds, CSS style overrides). You must trigger the build by either restarting the command, or manually changing one of the watched files.
 
 ### Special markup
 
 Pan Docs uses a custom mdBook preprocessor & renderer to enable some special markup:
 
-- ```markdown
+#### Custom Containers 
+
+Those mimick Vuepress' [custom containers](https://vuepress.vuejs.org/guide/markdown.html#custom-containers)) functionality.
+
+```markdown
   ::: type HEADING
 
   Content
 
   :::
-  ```
+```
 
-  These are rendered as "info boxes".
-  `type` must be `tip`, or `warning`.
-  `HEADING` can contain spaces, and be omitted entirely.
+These are rendered as "info boxes".
 
-  ⚠️ Both `:::` lines **must** be surrounded by empty lines, otherwise they won't be processed!
+- `type` must be `tip`, or `warning`.
+- `HEADING` can contain spaces and can be omitted entirely.
+- Both `:::` lines **must** be surrounded by empty lines, otherwise they won't be processed.
 
-- ```markdown
-  [VRAM Sprite Attribute Table (OAM)](<#VRAM Sprite Attribute Table (OAM)>)
-  ```
+E.g.
 
-  Since Pan Docs contains a lot of internal references, and getting the actual anchor is somewhat tedious, internal links are given special treatment.
-  Links whose URL simply begins with a hash are eligible; the rest of the (pseudo-)URL is treated as a section name (as plain text), and the link made to point to that section.
+```markdown
+::: tip SCOPE
 
-  Note that the angle brackets [are only required if there are spaces in the URL](https://spec.commonmark.org/0.29/#example-485).
+The information here is targeted at homebrew development.
+Emulator developers may be also interested in the [Game Boy: Complete Technical Reference](https://gekkio.fi/files/gb-docs/gbctr.pdf) document.
 
-  In effect, this means that linking to a section is as simple as copy-pasting its name in the URL field, prepending a `#`, and wrapping everything in `<>` if the name contains a space.
+:::
+```
+
+will render as
+
+<img src=".github/example_container.png"></img>
+
+#### Internal links
+
+```markdown
+[VRAM Sprite Attribute Table (OAM)](<#VRAM Sprite Attribute Table (OAM)>)
+```
+
+Since Pan Docs contains a lot of internal references, and getting the actual anchor is somewhat tedious, internal links are given special treatment. Links whose URL simply begins with a hash are eligible; the rest of the (pseudo-)URL is treated as a section name (as plain text), and the link made to point to that section.
+
+Note that the angle brackets [are only required if there are spaces in the URL](https://spec.commonmark.org/0.29/#example-485).
+
+In effect, this means that linking to a section is as simple as copy-pasting its name in the URL field, prepending a `#`, and wrapping everything in `<>` if the name contains a space.
 
 ### Syntax highlighting
 
@@ -67,11 +102,9 @@ Steps:
 6. Copy `build/highlight.min.js` as `theme/highlight.js` in Pan Docs' source.
   Alternatively, for debugging, you can use `build/highlight.js` for a non-minified version, but please don't commit that.
 
-  ⚠️ `mdbook watch` and `mdbook serve` do *not* watch for changes to files in the `theme/` directory, you must trigger the build by either restarting the command, or manually changing one of the watched files.
+E.g.
 
-Example:
-
-```console
+```bash
 $ git clone git@github.com:highlightjs/highlight.js.git
 $ cd highlight.js
 $ git checkout 10.7.2
