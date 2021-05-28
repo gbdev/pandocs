@@ -50,7 +50,7 @@ Writing a value of 00-3Fh selects the corresponding ROM Bank for area 4000-7FFF.
 
 ### 4000-5FFF - RAM Bank Number/CAM Registers Select (Write Only)
 
-Writing a value in range for 00h-0Fh maps the corresponding external RAM Bank to memory at A000-BFFF. Writing any value with bit 5 set to '1' will select CAM registers. Usually bank 10h is used to select the registers. All registers are mirrored every 80h bytes. RAM bank 0 selected on reset.
+Writing a value in range for 00h-0Fh maps the corresponding external RAM Bank to memory at A000-BFFF. Writing any value with bit 4 set to '1' will select CAM registers. Usually bank 10h is used to select the registers. All registers are mirrored every 80h bytes. RAM bank 0 selected on reset.
 
 ::: tip NOTE
 
@@ -60,7 +60,7 @@ Unlike most games, the GB Camera RAM can only be written when PHI pin = '1'. It'
 
 ## I/O Registers
 
-The Game Boy Camera I/O registers are mapped to all banks with bit 4 set to '1'. The GB Camera ROM usually changes to bank 16 to use the registers.
+The Game Boy Camera I/O registers are mapped to all banks with bit 4 set to '1'. The GB Camera ROM usually changes to bank 16 (10h) to use the registers.
 
 There are 3 groups of registers:
 - The first group is composed by the trigger register A000. This register starts the capture process and returns the current status (working/capture finished).
