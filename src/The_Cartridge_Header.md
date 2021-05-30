@@ -149,16 +149,16 @@ Code | Type
  $03 | MBC1+RAM+BATTERY
  $05 | MBC2
  $06 | MBC2+BATTERY
- $08 | ROM+RAM *
- $09 | ROM+RAM+BATTERY *
+ $08 | ROM+RAM [^rom_ram]
+ $09 | ROM+RAM+BATTERY [^rom_ram]
  $0B | MMM01
  $0C | MMM01+RAM
  $0D | MMM01+RAM+BATTERY
  $0F | MBC3+TIMER+BATTERY
- $10 | MBC3+TIMER+RAM+BATTERY \*\*
+ $10 | MBC3+TIMER+RAM+BATTERY [^mbc30]
  $11 | MBC3
- $12 | MBC3+RAM \*\*
- $13 | MBC3+RAM+BATTERY \*\*
+ $12 | MBC3+RAM [^mbc30]
+ $13 | MBC3+RAM+BATTERY [^mbc30]
  $19 | MBC5
  $1A | MBC5+RAM
  $1B | MBC5+RAM+BATTERY
@@ -172,8 +172,11 @@ Code | Type
  $FE | HuC3
  $FF | HuC1+RAM+BATTERY
 
-\* No licensed cartridge makes use of this option. Exact behaviour is unknown.  
-\*\* MBC3 with RAM size 64 KByte refers to MBC30, used only in _Pocket Monsters Crystal Version_ for Japan.
+[^rom_ram]:
+No licensed cartridge makes use of this option. Exact behaviour is unknown.
+
+[^mbc30]:
+MBC3 with RAM size 64 KByte refers to MBC30, used only in _Pocket Monsters Crystal Version_ for Japan.
 
 ## 0148 - ROM Size
 
@@ -191,11 +194,12 @@ Code | Size      | Amount of banks
  $06 |   2 MByte | 128
  $07 |   4 MByte | 256
  $08 |   8 MByte | 512
- $52 | 1.1 MByte | 72 *
- $53 | 1.2 MByte | 80 *
- $54 | 1.5 MByte | 96 *
+ $52 | 1.1 MByte | 72 [^weird_rom_sizes]
+ $53 | 1.2 MByte | 80 [^weird_rom_sizes]
+ $54 | 1.5 MByte | 96 [^weird_rom_sizes]
 
-\* Only listed in unofficial docs. No cartridges or ROM files using these sizes are known.
+[^weird_rom_sizes]:
+Only listed in unofficial docs. No cartridges or ROM files using these sizes are known.
 As the other ROM sizes are all powers of 2, these are likely inaccurate. The source for these
 values is unknown.
 
@@ -205,17 +209,19 @@ Specifies the size of the external RAM in the cartridge (if any).
 
 Code | Size   | Comment
 -----|--------|---------
- $00 | 0      | No RAM *
- $01 | -      | Unused **
+ $00 | 0      | No RAM [^mbc2]
+ $01 | -      | Unused [^2kib_sram]
  $02 | 8 KB   | 1 bank
  $03 | 32 KB  | 4 banks of 8 KB each
  $04 | 128 KB | 16 banks of 8 KB each
  $05 | 64 KB  | 8 banks of 8 KB each
 
-\* When using a MBC2 chip, $00 must be specified as the RAM Size, even though
+[^mbc2]:
+When using a MBC2 chip, $00 must be specified as the RAM Size, even though
 the MBC2 includes a built-in RAM of 512 x 4 bits.
 
-\** Listed in various unofficial docs as 2KB. However, a 2KB RAM chip was never used in a cartridge.
+[^2kib_sram]:
+Listed in various unofficial docs as 2KB. However, a 2KB RAM chip was never used in a cartridge.
 The source for this value is unknown.
 
 Various "PD" ROMs ("Public Domain" homebrew ROMs generally tagged "(PD)"
