@@ -10,7 +10,7 @@
 use mdbook::book::{Book, BookItem, Chapter};
 use mdbook::errors::Error;
 use mdbook::preprocess::{Preprocessor, PreprocessorContext};
-use pulldown_cmark::{CowStr, Event, LinkType, Parser, Tag};
+use pulldown_cmark::{CowStr, Event, LinkType, Options, Parser, Tag};
 use std::collections::HashMap;
 use std::io::Write;
 use std::process::{Command, Stdio};
@@ -163,8 +163,12 @@ impl Pandocs {
         sections: &HashMap<String, (String, bool)>,
     ) -> Result<(), Error> {
         let mut buf = String::with_capacity(chapter.content.len());
+        let extensions = Options::ENABLE_TABLES
+            | Options::ENABLE_FOOTNOTES
+            | Options::ENABLE_STRIKETHROUGH
+            | Options::ENABLE_SMART_PUNCTUATION;
 
-        let events = Parser::new(&chapter.content).map(|event| match event {
+        let events = Parser::new_ext(&chapter.content, extensions).map(|event| match event {
             Event::Start(Tag::Link(link_type, url, title)) if url.starts_with('#') => {
                 let (link, ok) = translate_anchor_link(sections, link_type, url, title);
                 if !ok {
