@@ -26,7 +26,7 @@ pub fn make_app() -> App<'static, 'static> {
         )
 }
 
-fn main() {
+fn main() -> Result<(), Error> {
     let matches = make_app().get_matches();
 
     // Users will want to construct their own preprocessor here
@@ -34,9 +34,8 @@ fn main() {
 
     if let Some(sub_args) = matches.subcommand_matches("supports") {
         handle_supports(&preprocessor, sub_args);
-    } else if let Err(e) = handle_preprocessing(&preprocessor) {
-        eprintln!("{}", e);
-        process::exit(1);
+    } else {
+        handle_preprocessing(&preprocessor)
     }
 }
 
