@@ -11,6 +11,6 @@ clap = "2.33.3"
 # mdbook here is only used as a lib, so no need for the extra features
 mdbook = { version = "0.4.8", default-features = false }
 pulldown-cmark = "0.8.0"
-pulldown-cmark-to-cmark = "6.0.0"
+pulldown-cmark-to-cmark = "6.0.1"
 termcolor = "1.1.2"
 serde_json = "1.0.59"
