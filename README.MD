@@ -109,7 +109,7 @@ $ git clone git@github.com:highlightjs/highlight.js.git
 $ cd highlight.js
 $ git checkout 10.7.2
 $ npm install
-$ git clone git@github.com:gbdev/highlightjs-rgbasm.git extras/rgbasm
+$ git clone git@github.com:gbdev/highlightjs-rgbasm.git extra/rgbasm
 $ node tools/build.js -t browser rgbasm c
 $ cp build/highlight.min.js ../pandocs/theme/highlight.js
 ```
