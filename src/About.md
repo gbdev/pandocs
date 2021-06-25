@@ -30,7 +30,7 @@ The <i class="fa fa-paint-brush"></i> lets you choose among 5 different themes a
 
 You can search anywhere by pressing <kbd>s</kbd> on your keyboard or clicking the <i class="fa fa-search"></i> icon.
 
-The <i class="fa fa-edit"></i> icon allows you to suggest a edit on the current page by directly opening the source file in the git repository.
+The <i class="fa fa-edit"></i> icon allows you to suggest an edit on the current page by directly opening the source file in the git repository.
 
 You can find a one-page printable version of Pan Docs [here](https://gbdev.io/pandocs/print.html). 
 
