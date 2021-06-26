@@ -54,6 +54,16 @@ tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
  Bit2-0 Palette number  **CGB Mode Only**     (OBP0-7)
 ```
 
+## Writing data to OAM
+
+The recommended method is to write the data to a buffer in normal RAM
+(typically WRAM) first, then to copy that buffer to OAM using
+[the DMA transfer functionality](<#OAM DMA Transfer>).
+
+While it is also possible to write data directly to the OAM area
+[by accessing it normally](<#OAM (memory area at $FE00-$FE9F) is accessible during Modes 0-1>),
+this only works [during the HBlank and VBlank periods](<#LCD Status Register>).
+
 ## Object Priority and Conflicts
 
 There are two kinds of "priorities" as far as objects are concerned.
@@ -113,12 +123,3 @@ This can be exploited to only hide parts of an object behind the background
 A similar behaviour [can be seen on the NES](https://forums.nesdev.com/viewtopic.php?f=10&t=16861)).
 
 :::
-
-## Writing Data to OAM
-
-The recommended method is to write the data to normal RAM first, and to
-copy that RAM to OAM by using the DMA transfer function, initiated
-through DMA register (FF46). Besides, it is also possible to
-write data directly to the OAM area by using normal LD instructions, but this
-works only during the HBlank and VBlank periods. The current state of
-the LCD controller can be read out from the STAT register (FF41).
