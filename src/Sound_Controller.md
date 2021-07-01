@@ -301,7 +301,7 @@ Bit 0 - Output sound 1 to SO1 terminal
 ### FF26 - NR52 - Sound on/off
 
 If your GB programs don't use sound then write 00h to this register to
-save 16% or more on GB power consumption. Disabeling the sound
+save 16% or more on GB power consumption. Disabling the sound
 controller by clearing Bit 7 destroys the contents of all sound
 registers. Also, it is not possible to access any sound registers
 (execpt FF26) while the sound controller is disabled.
