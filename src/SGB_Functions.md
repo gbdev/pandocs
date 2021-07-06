@@ -339,7 +339,7 @@ Code | Name     | Explanation
  $0E | ICON_EN  | SGB Function
  $0F | DATA_SND | SUPER NES WRAM Transfer 1
  $10 | DATA_TRN | SUPER NES WRAM Transfer 2
- $11 | MLT_REG  | Controller 2 Request
+ $11 | MLT_REQ  | Multiple Controllers Request
  $12 | JUMP     | Set SNES Program Counter
  $13 | CHR_TRN  | Transfer Character Font Data
  $14 | PCT_TRN  | Set Screen Data Color Data
