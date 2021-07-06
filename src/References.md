@@ -9,7 +9,7 @@
 - [Gekkio. Game Boy: Complete Technical Reference](https://github.com/Gekkio/gb-ctr)
 - [Game Boy CPU (SM83) instruction set](https://gbdev.github.io/gb-opcodes/optables/)
 - [Gekkio. Dumping the Super Game Boy 2 boot ROM](https://gekkio.fi/blog/2015/dumping-the-super-game-boy-2-boot-rom/)
-- [exezin. OAM DMA tutorial](https://exez.in/gameboy-dma)
+- [exezin. OAM DMA tutorial](https://web.archive.org/web/20210427065258/https://exez.in/gameboy-dma)
 - [Furrtek - Reverse-engineered schematics for DMG-CPU-B](https://github.com/furrtek/DMG-CPU-Inside)
 - [Furrtek - Game Boy Printer](http://furrtek.free.fr/?a=gbprinter)
 - [Pan of ATX, Marat Fayzullin, Felber Pascal, Robson Paul, and Korth Martin - Pan Docs (previous versions and revisions)](https://github.com/gbdev/pandocs/tree/master/historical)
