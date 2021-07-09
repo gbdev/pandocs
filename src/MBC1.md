@@ -32,7 +32,7 @@ higher ($01/$21/$41/$61 or $01/$11/$21/$31 respectively).
 
 This area is used to address external RAM in the cartridge (if any). The RAM is only accessible if RAM is enabled, otherwise reads return open bus values (often $FF, but not guaranteed) and writes are ignored.
 
-Available RAM sizes are: 2 KiB (at $A000-$A7FF, then mirrored until $BFFF), 8 KiB (at $A000-$BFFF) and 32 KiB (in form of four 8K banks at $A000-$BFFF). 32 kiB is only available in cartridges with ROM <= 512 kiB.
+Available RAM sizes are 8 KiB (at $A000-$BFFF) and 32 KiB (in form of four 8K banks at $A000-$BFFF). 32 kiB is only available in cartridges with ROM <= 512 kiB.
 
 External RAM is often battery-backed, allowing for the storage of game data while the Game Boy is turned off, or if the cartridge is removed from the Game Boy. External RAM is no slower than the Game Boy's internal RAM, so many games use part of the external RAM as extra working RAM, even if they use another part of it for battery-backed saves.
 
