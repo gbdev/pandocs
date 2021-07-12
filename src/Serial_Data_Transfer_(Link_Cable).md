@@ -87,6 +87,15 @@ transfer procedure should use a timeout counter, and abort the
 communication if no response has been received during the timeout
 interval.
 
+## Disconnects
+
+On a disconnected link cable, the input bit on a master will start to read 1.
+This means a master will start to receive $FF bytes.
+
+If a disconnection happens during transmission, the input will be pulled up to 1 over a 20uSec period. (TODO: Only measured on a CGB rev E)
+This means if the slave was sending a 0 bit at the time of the disconnect, you will read 0 bits for up to 20uSec.
+Which on a CGB at the highest speed can be more then a byte.
+
 ## Delays and Synchronization
 
 The master Game Boy should always execute a small
