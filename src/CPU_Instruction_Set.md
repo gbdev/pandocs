@@ -63,9 +63,9 @@ Mnemonic         | Encoding | Clock cycles | Flags | Description
  xor  r          | Ax       |       4      | z000  | A=A xor r
  xor  n          | EE nn    |       8      | z000  | A=A xor n
  xor  (HL)       | AE       |       8      | z000  | A=A xor (HL)
- or   r          | Bx       |       4      | z000  | A=A | r
- or   n          | F6 nn    |       8      | z000  | A=A | n
- or   (HL)       | B6       |       8      | z000  | A=A | (HL)
+ or   r          | Bx       |       4      | z000  | A=A \| r
+ or   n          | F6 nn    |       8      | z000  | A=A \| n
+ or   (HL)       | B6       |       8      | z000  | A=A \| (HL)
  cp   r          | Bx       |       4      | z1hc  | compare A-r
  cp   n          | FE nn    |       8      | z1hc  | compare A-n
  cp   (HL)       | BE       |       8      | z1hc  | compare A-(HL)
