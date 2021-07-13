@@ -33,6 +33,18 @@
   - [Interrupt Sources](./Interrupt_Sources.md)
 - [CGB Registers](./CGB_Registers.md)
 - [SGB Functions](./SGB_Functions.md)
+  - [Unlocking and Detecting SGB Functions](./SGB_Unlocking.md)
+  - [Command Packet Transfers](./SGB_Command_Packet.md)
+  - [VRAM Transfers](./SGB_VRAM_Transfer.md)
+  - [Color Palettes Overview](./SGB_Color_Palettes.md)
+  - [Command Summary](./SGB_Command_Summary.md)
+    - [Palette Commands](./SGB_Command_Pallete.md)
+    - [Color Attribute Commands](./SGB_Command_Attribute.md)
+    - [Sound Functions](./SGB_Command_Sound.md)
+	- [System Control Commands](./SGB_Command_System.md)
+	- [Multiplayer Command](./SGB_Command_Multiplayer.md)
+	- [Border and OBJ Commands](./SGB_Command_Border.md)
+	- [Undocumented SGB commands](./SGB_Command_Undocumented.md)
 
 # CPU Specifications
 
