@@ -28,7 +28,7 @@ For example, the Taito Variety Pack contains three 128 KiB games and one 64 KiB 
 
 ### 0000-3FFF - ROM Bank $X0 (Read Only)
 
-On start (in "unmapped" mode), this is mapped to the first half of the menu program in the last 32 KiB of the ROM.
+On startup (in "unmapped" mode), this is mapped to the first half of the menu program in the last 32 KiB of the ROM.
 
 When a game is mapped, this area normally contains the first 16 KiB (bank 00) of the game ROM.
 
@@ -62,7 +62,7 @@ Bits: 22 21 20 19 18 17 16 15 14 13 12 .. 01 00
 
 ### 4000-7FFF - ROM Bank $01-7F (Read Only)
 
-On start (in "unmapped" mode), this is mapped to the second half of the menu program in the last 32 KiB of the ROM.
+On startup (in "unmapped" mode), this is mapped to the second half of the menu program in the last 32 KiB of the ROM.
 
 When a game is mapped, this area may contain any of the further 16 KiB banks of the game ROM.
 Cannot address any ROM banks where the bits of ROM Bank Low that are _not_ masked by ROM Bank Mask are equal to $00, instead it automatically maps to the bank 1 higher.
