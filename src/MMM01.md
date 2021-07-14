@@ -1,39 +1,39 @@
 # MMM01
 
-The MMM01 is a mapper specific to multi-game compilation cartridges. It emulates an MBC1 for the contained games, and supports containing a mix of games from 32 kiB ROM with no RAM up to the same maximum memory _per game_ as the MBC1:
+The MMM01 is a mapper specific to multi-game compilation cartridges. It emulates an MBC1 for the contained games, and supports containing a mix of games from 32 KiB ROM with no RAM up to the same maximum memory _per game_ as the MBC1:
 
-* max 512 kiByte ROM with banked 8, 16, or 32 kiByte RAM (default configuration)
-* max 2 MiByte ROM with unbanked 8 kiByte RAM ("multiplex" mode[^multiplex])
+* max 512 KiB ROM with banked 8, 16, or 32 KiB RAM (default configuration)
+* max 2 MiB ROM with unbanked 8 KiB RAM ("multiplex" mode[^multiplex])
 
 [^multiplex]:
 However, no cartridges were released using the MMM01 "multiplex" mode.
 
-Regardless of the size or number of the games in the compilation, the maximum total cartridge size supported by the MMM01 is the same - up to 8 MiB ROM and 128 kiB RAM.
+Regardless of the size or number of the games in the compilation, the maximum total cartridge size supported by the MMM01 is the same - up to 8 MiB ROM and 128 KiB RAM.
 
-Additional bits in the control registers extend the MBC1 ROM and RAM banking numbers to allow for game selection, and the MBC1 ROM/RAM banking registers can be masked so some of _those_ bits can also be used for game selection, allowing for up to 255x 32 kiB games, plus a 32kiB menu, in an 8 MiB ROM. RAM is more limited at only up to 16x 8kB RAM banks in total. However, despite these generous capabilities, no MMM01 cartridge was released with more than 4 games, and only _one_ contains any RAM at all.
+Additional bits in the control registers extend the MBC1 ROM and RAM banking numbers to allow for game selection, and the MBC1 ROM/RAM banking registers can be masked so some of _those_ bits can also be used for game selection, allowing for up to 255x 32 KiB games, plus a 32KiB menu, in an 8 MiB ROM. RAM is more limited at only up to 16x 8kB RAM banks in total. However, despite these generous capabilities, no MMM01 cartridge was released with more than 4 games, and only _one_ contains any RAM at all.
 
 The ROM and RAM "game select" bank numbers do not have to be set to the same number - this allows an MMM01 cartridge to not waste RAM space on games that do not have RAM[^no_ram], or mix and match games that have different sized ROM or RAM by packing them in tightly in the overall ROM/RAM of the cartridge.
 
 [^no_ram]:
 Technically, the MMM01 can't completely block access to RAM for a game, so if the cartridge contains RAM it's recommended to assign any no-RAM games to the same single RAM bank to prevent no-RAM games from accessing or corrupting other games' SRAM saves.
 
-MMM01 starts up in a unique mode ("unmapped") which always maps the _last 32 kiB_ of the ROM to the 0000-7FFF address region regardless of the values in the bank/mode registers. The correct ROM header (with Nintendo logo) therefore needs to be located at offset `(size - 32 kiB) + 100h` in the ROM rather than the usual `0000 + 100h` (which contains the header of the first game in the collection instead). MMM01 cartridges have a simple menu program in this last 32 kiB, which manipulates the additional MMM01 control bits, allowing game selection and setting the game size, before entering "mapped" mode and booting the selected game (see "Mapping Enable" below).
+MMM01 starts up in a unique mode ("unmapped") which always maps the _last 32 KiB_ of the ROM to the 0000-7FFF address region regardless of the values in the bank/mode registers. The correct ROM header (with Nintendo logo) therefore needs to be located at offset `(size - 32 KiB) + $100` in the ROM rather than the usual `0000 + $100` (which contains the header of the first game in the collection instead). MMM01 cartridges have a simple menu program in this last 32 KiB, which manipulates the additional MMM01 control bits, allowing game selection and setting the game size, before entering "mapped" mode and booting the selected game (see "Mapping Enable" below).
 
-As the last 32 kiB of the ROM are reserved for the cartridge menu, it's best to pack games into the ROM from largest to smallest to avoid having a game overlap the menu. e.g. the Taito Variety Pack contains three 128 kiB games and one 64 kiB game, leaving 32 kiB unused and 32 kiB for the menu in a 512 kiB ROM chip.
+As the last 32 KiB of the ROM are reserved for the cartridge menu, it's best to pack games into the ROM from largest to smallest to avoid having a game overlap the menu. e.g. the Taito Variety Pack contains three 128 KiB games and one 64 KiB game, leaving 32 KiB unused and 32 KiB for the menu in a 512 KiB ROM chip.
 
 ## Memory
 
 ### 0000-3FFF - ROM Bank X0 (Read Only)
 
-On start (in "unmapped" mode), this is mapped to the first half of the menu program in the last 32 kiB of the ROM.
+On start (in "unmapped" mode), this is mapped to the first half of the menu program in the last 32 KiB of the ROM.
 
-When a game is mapped, this area normally contains the first 16 KiB (bank 00) of the game ROM. In multiplexed mode with MBC1 mode set to 1, banks 20h, 40h, and 60h of the game ROM can be mapped here (the same as MBC1).
+When a game is mapped, this area normally contains the first 16 KiB (bank 00) of the game ROM. In multiplexed mode with MBC1 mode set to 1, banks $20, $40, and $60 of the game ROM can be mapped here (the same as MBC1).
 
 ### 4000-7FFF - ROM Bank 01-7F (Read Only)
 
-On start (in "unmapped" mode), this is mapped to the second half of the menu program in the last 32 kiB of the ROM.
+On start (in "unmapped" mode), this is mapped to the second half of the menu program in the last 32 KiB of the ROM.
 
-When a game is mapped, this area may contain any of the further 16 kiB banks of the ROM. Cannot address any banks where the masked main ROM banking register would be 00, instead it automatically maps to the bank 1 higher.
+When a game is mapped, this area may contain any of the further 16 KiB banks of the ROM. Cannot address any banks where the masked main ROM banking register would be 00, instead it automatically maps to the bank 1 higher.
 
 ### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
 
@@ -47,7 +47,7 @@ It is currently unknown whether RAM access is possible while in unmapped mode.
 
 The MMM01 registers are extensions of the MBC1 registers. In "mapped" mode, the extra bits are unwriteable and the MMM01 emulates an MBC1. In "unmapped" mode, the extra bits are writeable, allowing the menu program to select which game to play and configure its size and RAM access.
 
-All the MMM01 registers are 7-bits in size and set to 00h on power-up. For the ROM Bank Number register, this behaves as if it was set to 01h.
+All the MMM01 registers are 7-bits in size and set to $00 on power-up. For the ROM Bank Number register, this behaves as if it was set to $01.
 
 ### 0000-1FFF - RAM Enable (Write Only)
 
@@ -73,7 +73,7 @@ If either or both of these bits are set high, the corresponding bit(s) in the MB
 
 Can only be written in unmapped mode.
 
-If 1, the MMM01 enters "mapped" mode. This immediately begins MBC1 emulation, mapping in the selected banks of the game ROM (typically 00h and 01h within the game's subsection of the cartridge ROM) and prevents write access to any of the MMM01 extended control bits.
+If 1, the MMM01 enters "mapped" mode. This immediately begins MBC1 emulation, mapping in the selected banks of the game ROM (typically $00 and $01 within the game's subsection of the cartridge ROM) and prevents write access to any of the MMM01 extended control bits.
 
 It is unknown if setting bit 6 to enter mapping mode will prevent simultaneous writes to bits 4-5 (RAM Bank Mask). The only released MMM01 cartridge containing RAM performs two separate writes to set the bank mask before enabling mapping.
 
@@ -166,7 +166,7 @@ _Can only be written in unmapped mode._
 
 If any or all bits are set high, the corresponding bit(s) in the MBC1 ROM banking register are locked in as "game select" bits instead of "banking" bits. Any attempt to write to those bits while its matching bit in this register is 1 is prevented. The lowest bit of the ROM Bank Mask is ignored and treated as always 0, so the lowest bit of ROM Bank Low is always writeable.
 
-Note: changing the mask can alter what bank would be mapped - only the _unmasked_ bits are used for the "bank 0 is treated as bank 1" logic. So if ROM Bank Low is set to 10h, 
+Note: changing the mask can alter what bank would be mapped - only the _unmasked_ bits are used for the "bank 0 is treated as bank 1" logic. So if ROM Bank Low is set to $10, 
 
 #### Multiplex Enable
 
