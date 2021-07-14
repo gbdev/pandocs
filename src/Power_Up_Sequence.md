@@ -210,18 +210,50 @@ It is strongly advised for the game to put a large enough known sequence of byte
 
 ### CPU registers
 
-Register | DMG   | MGB   | SGB   | SGB2  | CGB   | AGB
----------|-------|-------|-------|-------|-------|------
-**A**    | $01   | $FF   | $01   | $FF   | $11   | $11
-**F**    | $xx   | $xx   | $xx   | $xx   | $xx   | $xx
-**B**    | $xx   | $xx   | $xx   | $xx   | $xx   | $xx
-**C**    | $xx   | $xx   | $xx   | $xx   | $xx   | $xx
-**D**    | $xx   | $xx   | $xx   | $xx   | $xx   | $xx
-**E**    | $xx   | $xx   | $xx   | $xx   | $xx   | $xx
-**H**    | $xx   | $xx   | $xx   | $xx   | $xx   | $xx
-**L**    | $xx   | $xx   | $xx   | $xx   | $xx   | $xx
-**PC**   | $0100 | $0100 | $0100 | $0100 | $0100 | $0100
-**SP**   | $FFFE | $FFFE | $FFFE | $FFFE | $FFFE | $FFFE
+Register | DMG0            | DMG                     | MGB                     | SGB             | SGB2
+--------:|:---------------:|:-----------------------:|:-----------------------:|:---------------:|:---------------:
+**A**    | $01             | $01                     | $FF                     | $01             | $FF
+**F**    | Z=0 N=0 H=0 C=0 | Z=1 N=0 H=? C=?[^dmg_c] | Z=1 N=0 H=? C=?[^dmg_c] | Z=0 N=0 H=0 C=0 | Z=0 N=0 H=0 C=0
+**B**    | $FF             | $00                     | $00                     | $00             | $00
+**C**    | $13             | $13                     | $13                     | $14             | $14
+**D**    | $00             | $00                     | $00                     | $00             | $00
+**E**    | $C1             | $D8                     | $D8                     | $00             | $00
+**H**    | $84             | $01                     | $01                     | $C0             | $C0
+**L**    | $03             | $4D                     | $4D                     | $60             | $60
+**PC**   | $0100           | $0100                   | $0100                   | $0100           | $0100
+**SP**   | $FFFE           | $FFFE                   | $FFFE                   | $FFFE           | $FFFE
+
+[^dmg_c]:
+If the [header checksum](<#014D - Header Checksum>) is $00, then the carry and half-carry flags are clear; otherwise, they are both set.
+
+Register | CGB (DMG mode)  | AGB (DMG mode)             | CGB             | AGB
+--------:|:---------------:|:--------------------------:|:---------------:|:---------------:
+**A**    | $11             | $11                        | $11             | $11
+**F**    | Z=1 N=0 H=0 C=0 | Z=? N=0 H=? C=0[^agbdmg_f] | Z=1 N=0 H=0 C=0 | Z=0 N=0 H=0 C=0
+**B**    | ??[^cgbdmg_b]   | ??[^cgbdmg_b] + 1          | $00             | $01
+**C**    | $00             | $00                        | $00             | $00
+**D**    | $00             | $00                        | $FF             | $FF
+**E**    | $08             | $08                        | $56             | $56
+**H**    | $??[^cgbdmg_hl] | $??[^cgbdmg_hl]            | $00             | $00
+**L**    | $??[^cgbdmg_hl] | $??[^cgbdmg_hl]            | $0D             | $0D
+**PC**   | $0100           | $0100                      | $0100           | $0100
+**SP**   | $FFFE           | $FFFE                      | $FFFE           | $FFFE
+
+[^agbdmg_f]:
+To determine the flags, take the B register you would have gotten on CGB[^cgbdmg_b], and `inc` it.
+(To be precise: an `inc b` is the last operation to touch the flags.)
+The carry and direction flags are always clear, though.
+
+[^cgbdmg_b]:
+If the [old licensee code](<#014B - Old Licensee Code>) is $01, or the old licensee code is $33 and the [new licensee code](<#0144-0145 - New Licensee Code>) is `"01"` ($30 $31), then B is the sum of all 16 [title](<#0134-0143 - Title>) bytes.
+Otherwise, B is $00.
+As indicated by the "+ 1" in the "AGB (DMG mode)" column, if on AGB, that value is increased by 1[^agbdmg_f].
+
+[^cgbdmg_hl]: There are two possible cases:
+              - **The B register is $43 or $58 (on CGB) / $44 or $59 (on AGB)**: HL = $991A
+              - **Neither of the above**: HL = $007C
+
+<!-- How else do I prevent the footnote definition from being too greedy? >_< -->
 
 ## Hardware registers
 
