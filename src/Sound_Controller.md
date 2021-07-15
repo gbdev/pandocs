@@ -356,6 +356,13 @@ flag to go off.
 
 ## APU technical explanation
 
+<p align="center">
+<img src="imgs/gb_apu.png">
+<br>
+  <i>Source: Lior Halphon</i>
+</p>
+
+
 ### Game Boy, Game Boy Color
 
 Each of the 4 channels work pretty identically. First, there's a
