@@ -194,7 +194,8 @@ Strangely, despite correcting the TOCTTOU vulnerability, the CGB-AGB boot ROM do
 Regardless of the console you intend for your game to run on, it is prudent to rely on as little of the following as possible, barring what is mentioned elsewhere in this documentation to detect which system you are running on.
 This ensures maximum compatibility, both across consoles and cartridges (especially flashcarts, which typically run their own menu code before your game), increases reliability, and is generally considered good practice.
 
-The following information may be incomplete, as well, so rely on this at your own risk.
+Due to the high volatility of the information presented below (due to the complexity of some of the boot ROM behaviors), what is documented below but not elsewhere might contain errors.
+Rely on it at your own risk.
 
 ### Common remarks
 
@@ -255,45 +256,140 @@ As indicated by the "+ 1" in the "AGB (DMG mode)" column, if on AGB, that value 
 
 <!-- How else do I prevent the footnote definition from being too greedy? >_< -->
 
+The tables above were obtained from analysis of [the boot ROM's disassemblies](https://github.com/ISSOtm/gb-bootroms), and confirmed using Mooneye-GB tests [`acceptance/boot_regs-dmg0`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-dmg0.s), [`acceptance/boot_regs-dmgABC`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-dmgABC.s), [`acceptance/boot_regs-mgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-mgb.s), [`acceptance/boot_regs-sgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-sgb.s), [`acceptance/boot_regs-sgb2`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-sgb2.s), [`misc/boot_regs-cgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_regs-cgb.s), and [`misc/boot_regs-A`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_regs-A.s), plus some extra testing.
+
 ## Hardware registers
 
-TODO
+As far as timing-sensitive values are concerned, these values are recorded at PC = $0100.
 
-```
-  AF=$01B0
-  BC=$0013
-  DE=$00D8
-  HL=$014D
-  Stack Pointer=$FFFE
-  [$FF05] = $00   ; TIMA
-  [$FF06] = $00   ; TMA
-  [$FF07] = $00   ; TAC
-  [$FF10] = $80   ; NR10
-  [$FF11] = $BF   ; NR11
-  [$FF12] = $F3   ; NR12
-  [$FF14] = $BF   ; NR14
-  [$FF16] = $3F   ; NR21
-  [$FF17] = $00   ; NR22
-  [$FF19] = $BF   ; NR24
-  [$FF1A] = $7F   ; NR30
-  [$FF1B] = $FF   ; NR31
-  [$FF1C] = $9F   ; NR32
-  [$FF1E] = $BF   ; NR34
-  [$FF20] = $FF   ; NR41
-  [$FF21] = $00   ; NR42
-  [$FF22] = $00   ; NR43
-  [$FF23] = $BF   ; NR44
-  [$FF24] = $77   ; NR50
-  [$FF25] = $F3   ; NR51
-  [$FF26] = $F1-GB, $F0-SGB ; NR52
-  [$FF40] = $91   ; LCDC
-  [$FF42] = $00   ; SCY
-  [$FF43] = $00   ; SCX
-  [$FF45] = $00   ; LYC
-  [$FF47] = $FC   ; BGP
-  [$FF48] = $FF   ; OBP0
-  [$FF49] = $FF   ; OBP1
-  [$FF4A] = $00   ; WY
-  [$FF4B] = $00   ; WX
-  [$FFFF] = $00   ; IE
-```
+Name          | Address | DMG0 | DMG / MGB | SGB / SGB2 | CGB / AGB
+-------------:|:-------:|:----:|:---------:|:----------:|:-----------:
+[`P1`]        | $FF00   | $CF  | $CF       | $C7 or $CF | $C7 or $CF
+[`SB`]        | $FF01   | $00  | $00       | $00        | $00
+[`SC`]        | $FF02   | $7E  | $7E       | $7E        | $7F
+[`DIV`]       | $FF04   | $18  | $AB       | ??[^unk]   | ??[^unk_pad]
+[`TIMA`]      | $FF05   | $00  | $00       | $00        | $00
+[`TMA`]       | $FF06   | $00  | $00       | $00        | $00
+[`TAC`]       | $FF07   | $F8  | $F8       | $F8        | $F8
+[`IF`]        | $FF0F   | $E1  | $E1       | $E1        | $E1
+[`NR10`]      | $FF10   | $80  | $80       | $80        | $80
+[`NR11`]      | $FF11   | $BF  | $BF       | $BF        | $BF
+[`NR12`]      | $FF12   | $F3  | $F3       | $F3        | $F3
+[`NR13`]      | $FF13   | $FF  | $FF       | $FF        | $FF
+[`NR14`]      | $FF14   | $BF  | $BF       | $BF        | $BF
+[`NR21`]      | $FF16   | $3F  | $3F       | $3F        | $3F
+[`NR22`]      | $FF17   | $00  | $00       | $00        | $00
+[`NR23`]      | $FF18   | $FF  | $FF       | $FF        | $FF
+[`NR24`]      | $FF19   | $BF  | $BF       | $BF        | $BF
+[`NR30`]      | $FF1A   | $7F  | $7F       | $7F        | $7F
+[`NR31`]      | $FF1B   | $FF  | $FF       | $FF        | $FF
+[`NR32`]      | $FF1C   | $9F  | $9F       | $9F        | $9F
+[`NR33`]      | $FF1D   | $FF  | $FF       | $FF        | $FF
+[`NR34`]      | $FF1E   | $BF  | $BF       | $BF        | $BF
+[`NR41`]      | $FF20   | $FF  | $FF       | $FF        | $FF
+[`NR42`]      | $FF21   | $00  | $00       | $00        | $00
+[`NR43`]      | $FF22   | $00  | $00       | $00        | $00
+[`NR44`]      | $FF23   | $BF  | $BF       | $BF        | $BF
+[`NR50`]      | $FF24   | $77  | $77       | $77        | $77
+[`NR51`]      | $FF25   | $F3  | $F3       | $F3        | $F3
+[`NR52`]      | $FF26   | $F1  | $F1       | $F0        | $F1
+[`LCDC`]      | $FF40   | $91  | $91       | $91        | $??
+[`STAT`]      | $FF41   | $81  | $85       | ??[^unk]   | ??[^unk_pad]
+[`SCY`]       | $FF42   | $00  | $00       | $00        | $00
+[`SCX`]       | $FF43   | $00  | $00       | $00        | $00
+[`LY`]        | $FF44   | $91  | $00       | ??[^unk]   | ??[^unk_pad]
+[`LYC`]       | $FF45   | $00  | $00       | $00        | $00
+[`DMA`]       | $FF46   | $FF  | $FF       | $FF        | $00
+[`BGP`]       | $FF47   | $FC  | $FC       | $FC        | $FC
+[`OBP0`]      | $FF48   | $FF  | $FF       | $FF        | $00
+[`OBP1`]      | $FF49   | $FF  | $FF       | $FF        | $00
+[`WY`]        | $FF4A   | $00  | $00       | $00        | $00
+[`WX`]        | $FF4B   | $00  | $00       | $00        | $00
+[`KEY1`]      | $FF4D   | $FF  | $FF       | $FF        | $FF
+[`VBK`]       | $FF4F   | $FF  | $FF       | $FF        | $FF
+[`HDMA1`]     | $FF51   | $FF  | $FF       | $FF        | $FF
+[`HDMA2`]     | $FF52   | $FF  | $FF       | $FF        | $FF
+[`HDMA3`]     | $FF53   | $FF  | $FF       | $FF        | $FF
+[`HDMA4`]     | $FF54   | $FF  | $FF       | $FF        | $FF
+[`HDMA5`]     | $FF55   | $FF  | $FF       | $FF        | $FF
+[`RP`]        | $FF56   | $FF  | $FF       | $FF        | $FF
+[`BCPS`]      | $FF68   | $FF  | $FF       | $FF        | ??[^compat]
+[`BCPD`]      | $FF69   | $FF  | $FF       | $FF        | ??[^compat]
+[`OCPS`]      | $FF6A   | $FF  | $FF       | $FF        | ??[^compat]
+[`OCPD`]      | $FF6B   | $FF  | $FF       | $FF        | ??[^compat]
+[`SVBK`]      | $FF70   | $FF  | $FF       | $FF        | $FF
+[`IE`]        | $FFFF   | $00  | $00       | $00        | $00
+
+[^unk]:
+Since this boot ROM's duration depends on the header's contents, a general answer can't be given.
+The value should be static for a given header, though.
+
+[^unk_pad]:
+Since this boot ROM's duration depends on the header's contents (and the player's inputs in compatibility mode), an answer can't be given.
+Just don't rely on these.
+
+[^compat]:
+These depend on whether compatibility mode is enabled.
+
+[`P1`]: <#FF00 - P1/JOYP - Joypad (R/W)>
+[`SB`]: <#FF01 - SB - Serial transfer data (R/W)>
+[`SC`]: <#FF02 - SC - Serial Transfer Control (R/W)>
+[`DIV`]: <#FF04 - DIV - Divider Register (R/W)>
+[`TIMA`]: <#FF05 - TIMA - Timer counter (R/W)>
+[`TMA`]: <#FF06 - TMA - Timer Modulo (R/W)>
+[`TAC`]: <#FF07 - TAC - Timer Control (R/W)>
+[`IF`]: <#FF0F - IF - Interrupt Flag (R/W)>
+[`NR10`]: <#FF10 - NR10 - Channel 1 Sweep register (R/W)>
+[`NR11`]: <#FF11 - NR11 - Channel 1 Sound length/Wave pattern duty (R/W)>
+[`NR12`]: <#FF12 - NR12 - Channel 1 Volume Envelope (R/W)>
+[`NR13`]: <#FF13 - NR13 - Channel 1 Frequency lo (Write Only)>
+[`NR14`]: <#FF14 - NR14 - Channel 1 Frequency hi (R/W)>
+[`NR21`]: <#FF16 - NR21 - Channel 2 Sound Length/Wave Pattern Duty (R/W)>
+[`NR22`]: <#FF17 - NR22 - Channel 2 Volume Envelope (R/W)>
+[`NR23`]: <#FF18 - NR23 - Channel 2 Frequency lo data (W)>
+[`NR24`]: <#FF19 - NR24 - Channel 2 Frequency hi data (R/W)>
+[`NR30`]: <#FF1A - NR30 - Channel 3 Sound on/off (R/W)>
+[`NR31`]: <#FF1B - NR31 - Channel 3 Sound Length (R/W)>
+[`NR32`]: <#FF1C - NR32 - Channel 3 Select output level (R/W)>
+[`NR33`]: <#FF1D - NR33 - Channel 3 Frequency's lower data (W)>
+[`NR34`]: <#FF1E - NR34 - Channel 3 Frequency's higher data (R/W)>
+[`NR41`]: <#FF20 - NR41 - Channel 4 Sound Length (R/W)>
+[`NR42`]: <#FF21 - NR42 - Channel 4 Volume Envelope (R/W)>
+[`NR43`]: <#FF22 - NR43 - Channel 4 Polynomial Counter (R/W)>
+[`NR44`]: <#FF23 - NR44 - Channel 4 Counter/consecutive; Inital (R/W)>
+[`NR50`]: <#FF24 - NR50 - Channel control / ON-OFF / Volume (R/W)>
+[`NR51`]: <#FF25 - NR51 - Selection of Sound output terminal (R/W)>
+[`NR52`]: <#FF26 - NR52 - Sound on/off>
+[`LCDC`]: <#FF40 - LCDC (LCD Control) (R/W)>
+[`STAT`]: <#FF41 - STAT (LCD Status) (R/W)>
+[`SCY`]: <#FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)>
+[`SCX`]: <#FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)>
+[`LY`]: <#FF44 - LY (LCD Y Coordinate) (R)>
+[`LYC`]: <#FF45 - LYC (LY Compare) (R/W)>
+[`DMA`]: <#FF46 - DMA (DMA Transfer and Start Address) (R/W)>
+[`BGP`]: <#FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only>
+[`OBP0`]: <#FF48 - OBP0 (Object Palette 0 Data) (R/W) - Non CGB Mode Only>
+[`OBP1`]: <#FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only>
+[`WY`]: <#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>
+[`WX`]: <#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>
+[`KEY1`]: <#FF4D - KEY1 - CGB Mode Only - Prepare Speed Switch>
+[`VBK`]: <#FF4F - VBK - CGB Mode Only - VRAM Bank (R/W)>
+[`HDMA1`]: <#FF51 - HDMA1 (New DMA Source, High) (W), FF52 - HDMA2 (New DMA Source, Low) (W) - CGB Mode Only>
+[`HDMA2`]: <#FF51 - HDMA1 (New DMA Source, High) (W), FF52 - HDMA2 (New DMA Source, Low) (W) - CGB Mode Only>
+[`HDMA3`]: <#FF53 - HDMA3 (New DMA Destination, High) (W), FF54 - HDMA4 (New DMA Destination, Low) (W) - CGB Mode Only>
+[`HDMA4`]: <#FF53 - HDMA3 (New DMA Destination, High) (W), FF54 - HDMA4 (New DMA Destination, Low) (W) - CGB Mode Only>
+[`HDMA5`]: <#FF55 - HDMA5 (New DMA Length/Mode/Start) (W) - CGB Mode Only>
+[`RP`]: <#FF56 - RP - CGB Mode Only - Infrared Communications Port>
+[`BCPS`]: <#FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only>
+[`BCPD`]: <#FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only>
+[`OCPS`]: <#FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only>
+[`OCPD`]: <#FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only>
+[`OPRI`]: <#FF6C - OPRI - CGB Mode Only - Object Priority Mode>
+[`SVBK`]: <#FF70 - SVBK - CGB Mode Only - WRAM Bank>
+[FF72]: <#FF72 - Bits 0-7 (Read/Write), FF73 - Bits 0-7 (Read/Write)>
+[FF73]: <#FF72 - Bits 0-7 (Read/Write), FF73 - Bits 0-7 (Read/Write)>
+[FF74]: <#FF74 - Bits 0-7 (Read/Write) - CGB Mode Only>
+[FF75]: <#FF75 - Bits 4-6 (Read/Write)>
+[`PCM12`]: <#FF76 - PCM12 - PCM amplitudes 1 & 2 (Read Only)>
+[`PCM34`]: <#FF77 - PCM34 - PCM amplitudes 3 & 4 (Read Only)>
+[`IE`]: <#FFFF - IE - Interrupt Enable (R/W)>
