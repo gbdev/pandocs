@@ -80,6 +80,12 @@ reason, d-pad and/or button inputs should be enabled by writing $00,
 $10 or $20 to the `P1` register before entering STOP (depending on which
 buttons you want to terminate the STOP on).
 
+<p align="center">
+<img src="imgs/gb_stop.png">
+<br>
+  <i>Source: Lior Halphon</i>
+</p>
+
 ## Disabling the Sound Controller
 
 If your program doesn't use sound at all (or during some periods) then
