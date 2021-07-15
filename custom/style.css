@@ -34,12 +34,21 @@ body {
         /* Alternate (Open) digits */
         "ss02",
         /* Disambiguation gliphs */
-        "tnum",
-        /* Tabular numbers */
         "case";
     /* Case alternates */
     letter-spacing: -0.005em;
     /* equals -0.5% */
+}
+
+table {
+    font-feature-settings: "tnum",
+        /* Tabular numbers */
+        "ss01",
+        /* Alternate (Open) digits */
+        "ss02",
+        /* Disambiguation gliphs */
+        "case";
+    		/* Case alternates */
 }
 
 code {
