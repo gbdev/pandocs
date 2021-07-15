@@ -1,48 +1,63 @@
 /* Import Inter font */
 @import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; }
+
+html {
+    font-family: 'Inter', sans-serif;
+}
+
 @supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
+    html {
+        font-family: 'Inter var', sans-serif;
+    }
 }
 
 /* Import Fira Code font */
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css);
+
 @supports (font-variation-settings: normal) {
-  code { font-family: 'Fira Code VF', monospace; }
+    code {
+        font-family: 'Fira Code VF', monospace;
+    }
 }
 
 /* Override global variables */
 :root {
-	/* workaround to get hover+active sidebar links on normal links blue */
-  --sidebar-active: var(--links);
+    /* workaround to get hover+active sidebar links on normal links blue */
+    --sidebar-active: var(--links);
 }
 
 
 body {
-	font-family: "Inter";
-	/* Enable some font features for Inter (https://rsms.me/inter/#features/calt) */
-	font-feature-settings: "ss01", /* Alternate (Open) digits */ 
-						   "ss02", /* Disambiguation gliphs */
-						   "tnum", /* Tabular numbers */
-						   "case"; /* Case alternates */
-	letter-spacing: -0.005em; /* equals -0.5% */
+    font-family: "Inter";
+    /* Enable some font features for Inter (https://rsms.me/inter/#features/calt) */
+    font-feature-settings: "ss01",
+        /* Alternate (Open) digits */
+        "ss02",
+        /* Disambiguation gliphs */
+        "tnum",
+        /* Tabular numbers */
+        "case";
+    /* Case alternates */
+    letter-spacing: -0.005em;
+    /* equals -0.5% */
 }
 
 code {
-	/* "!important" needed because https://github.com/rust-lang/mdBook/issues/1552 */ 
-	font-family: 'Fira Code', monospace !important;
-	font-size: 0.85em;
+    /* "!important" needed because https://github.com/rust-lang/mdBook/issues/1552 */
+    font-family: 'Fira Code', monospace !important;
+    font-size: 0.85em;
 }
 
 
 .header {
-	font-weight: 600;
+    font-weight: 600;
 }
 
 .menu-title {
-	font-weight: 400;
-	font-size: 2.75rem;
-	letter-spacing: -0.02em; /* equals -2% */
+    font-weight: 400;
+    font-size: 2.75rem;
+    letter-spacing: -0.02em;
+    /* equals -2% */
 }
 
 .box {
@@ -52,18 +67,18 @@ code {
     border-left-style: solid;
 }
 
-.box > .box-title {
-	font-weight: 600;
+.box>.box-title {
+    font-weight: 600;
 }
 
 .box.tip {
-	border-color: #42b983;
+    border-color: #42b983;
     background-color: var(--quote-bg);
 }
 
 .box.warning {
-	border-left-color: #e7c000;
-	background-color: rgba(255, 229, 100, .2);
+    border-left-color: #e7c000;
+    background-color: rgba(255, 229, 100, .2);
 }
 
 .spacer {
