@@ -152,7 +152,7 @@ square wave. This channel doesn't have a volume envelope register.
 Bit 7 - Sound Channel 3 Off  (0=Stop, 1=Playback)  (Read/Write)
 ```
 
-### FF1B - NR31 - Channel 3 Sound Length
+### FF1B - NR31 - Channel 3 Sound Length (R/W)
 
 ```
 Bit 7-0 - Sound length (t1: 0 - 255)
