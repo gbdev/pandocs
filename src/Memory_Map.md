@@ -89,15 +89,15 @@ $FF70   |         |       CGB      | WRAM Bank Select
 ## FEA0-FEFF range
 
 Nintendo indicates use of this area is prohibited.  This area returns
-FF when OAM is blocked, and otherwise the behavior depends on the
+$FF when OAM is blocked, and otherwise the behavior depends on the
 hardware revision.
 
-On DMG, MGB, SGB, and SGB2, reads during OAM block trigger the sprite
-bug. Reads otherwise return 00.
+- On DMG, MGB, SGB, and SGB2, reads during OAM block trigger [OAM corruption](<#OAM Corruption Bug>).
+Reads otherwise return $00.
 
-On CGB revisions 0-D, this area is a unique RAM area, but is masked
+- On CGB revisions 0-D, this area is a unique RAM area, but is masked
 with a revision-specific value.
 
-On CGB revision E, AGB, AGS, and GBP, it returns the high nibble of the
-lower address byte twice, e.g. FFAx returns AA, FFBx returns BB, and so
+- On CGB revision E, AGB, AGS, and GBP, it returns the high nibble of the
+lower address byte twice, e.g. FFAx returns $AA, FFBx returns $BB, and so
 forth.
