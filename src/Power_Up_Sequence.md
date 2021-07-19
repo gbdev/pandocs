@@ -3,7 +3,7 @@
 When the Game Boy is powered up, the CPU starts executing instuctions at address $0000—**not** $0100!
 A program called the *boot ROM*, burned inside the CPU, is mapped "over" the cartridge ROM at first, which is responsible for the boot-up animation played before control is handed over to the cartridge's ROM.
 
-There exist 8 different known official boot ROMs:
+8 different known official boot ROMs are known to exist:
 
 Name | Size (bytes) | Notes
 -----|--------------|------------------------------------------------------------
@@ -14,9 +14,9 @@ SGB  | 256          | Only forwards logo to SGB BIOS, performs no checks
 SGB2 | 256          | Same difference to SGB than between MGB and DMG
 CGB0 | 256 + 1792   | Does not init [wave RAM](<#FF30-FF3F - Wave Pattern RAM>)
 CGB  | 256 + 1792   | Split in two parts, with the cartridge header in the middle
-AGB  | 256 + 1792   | Fixes "logo TOCTTOU"
+AGB  | 256 + 1792   | Fixes ["logo TOCTTOU"](<#Bypass>)
 
-A disassembly of all of them [is available online](https://github.com/ISSOtm/gb-bootroms).
+[A disassembly of all of them is available online.](https://github.com/ISSOtm/gb-bootroms)
 
 ## Monochrome models (DMG0, DMG, MGB)
 
@@ -72,17 +72,17 @@ Thus, the boot ROM is actually split in two parts, a $0000-00FF one, and a $0200
 First, the boot ROMs unpack the Nintendo logo to VRAM like the monochrome models, likely for compatibility, and copies the logo to a buffer in HRAM at the same time.
 (It is speculated that HRAM was used due to it being embedded within the CPU, unlike WRAM, so that it couldn't be tampered with.)
 
-Then, the logo is read *again*, but this time, it is decompressed without upscaling, yielding the much smaller logo placed below the big "GAME BOY" one.
+Then, the logo is read *again*, but this time, it is decompressed with no resizing, yielding the much smaller logo placed below the big "GAME BOY" one.
 The boot ROM then sets up compatibility palettes, as described further below, and plays the logo animation with the "ba-ding!" sound.
 
 During the logo animation, and if bit 7 of [the CGB compatibility byte](<#0143 - CGB Flag>) is reset (indicating a monochrome-only game), the user is allowed to pick a palette to override the one chosen for compatibility.
 Each new choice prevents the animation from ending for 30 frames, potentially delaying the checks and fade-out.
 
 Then, like the monochrome boot ROMs, the header logo is checked *from the buffer in HRAM*, and the header checksum is verified.
-For some reason, however, only the first half of the logo is checked, despite the full logo being present in the HRAM buffer.
+For unknown reasons, however, only the first half of the logo is checked, despite the full logo being present in the HRAM buffer.
 
-Finally, the boot ROM fades all BG palettes to white, and sets up compatibility.
-If [the CGB compatibility byte](<#0143 - CGB Flag>) indicates CGB compatibility, the byte is written directly to `KEY0` ($FF4C), potentially enabling PGB mode; otherwise, $04 is written to `KEY0` (enabling DMG compatibility mode in the CPU), $01 is written to [`OPRI`](<#FF6C - OPRI - CGB Mode Only - Object Priority Mode>) (enabling [DMG OBJ priority](<#Sprite Priorities and Conflicts>)), and the compatibility palettes are written.
+Finally, the boot ROM fades all BG palettes to white, and sets the hardware to compatibility mode.
+If [the CGB compatibility byte](<#0143 - CGB Flag>) indicates CGB compatibility, the byte is written directly to `KEY0` ($FF4C), potentially enabling PGB mode; otherwise, $04 is written to `KEY0` (enabling DMG compatibility mode in the CPU), $01 is written to [`OPRI`](<#FF6C - OPRI - CGB Mode Only - Object Priority Mode>) (enabling [DMG OBJ priority](<#Sprite Priorities and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
 Additionally, the DMG logo tilemap is written if the compatibility requests it.
 
 Like all other boot ROMs, the last thing the color boot ROMs do is hand off execution at the same time as they unmap themselves, though they write $11 instead of $01 or $FF.
@@ -101,7 +101,7 @@ It is speculated that this may be debug remnants.
 ### Compatibility palettes
 
 It is fairly well-known that the Game Boy Color automatically colorizes monochrome-only games.
-The boot ROM is actually mostly responsible for this.
+The boot ROM is mostly responsible for this.
 
 When in DMG compatibility mode, the [CGB palettes](<#LCD Color Palettes (CGB only)>) are still being used: the background uses BG palette 0 (likely because the entire [attribute map](<#BG Map Attributes (CGB Mode only)>) is set to all zeros), and objects use OBJ palette 0 or 1 depending on bit 4 of [their attribute](<#Byte3 - Attributes/Flags:>).
 [`BGP`, `OBP0`, and `OBP1`](<#LCD Monochrome Palettes>) actually index into the CGB palettes instead of the DMG's shades of grey.
@@ -194,8 +194,12 @@ Strangely, despite correcting the TOCTTOU vulnerability, the CGB-AGB boot ROM do
 Regardless of the console you intend for your game to run on, it is prudent to rely on as little of the following as possible, barring what is mentioned elsewhere in this documentation to detect which system you are running on.
 This ensures maximum compatibility, both across consoles and cartridges (especially flashcarts, which typically run their own menu code before your game), increases reliability, and is generally considered good practice.
 
-Due to the high volatility of the information presented below (due to the complexity of some of the boot ROM behaviors), what is documented below but not elsewhere might contain errors.
+::: warning
+
+Some of the information below is highly volatile, due to the complexity of some of the boot ROM behaviors; thus, some of it may contain errors.
 Rely on it at your own risk.
+
+:::
 
 ### Common remarks
 
@@ -203,7 +207,7 @@ The console's WRAM and HRAM are random on power-up.
 [Different models tend to exhibit different patterns](https://twitter.com/CasualPkPlayer/status/1409752977812852736?s=19), but they are random nonetheless, even depending on factors such as the ambient teperature.
 Besides, turning the system off and on again has proven reliable enough [to carry over RAM from one game to another](https://www.youtube.com/watch?v=xayxmTLljr8), so it's not a good idea to rely on it at all.
 
-Emulation of uninitialized RAM is spotty: some emulators fill RAM with a constant on startup (typically $00 or $FF), some emulators fully randomize RAM, and others attempt to reproduce the patterns observed on hardware.
+Emulation of uninitialized RAM is inconsistent: some emulators fill RAM with a constant on startup (typically $00 or $FF), some emulators fully randomize RAM, and others attempt to reproduce the patterns observed on hardware.
 It is a good idea to enable your favorite emulator's "break on uninitialized RAM read" exception (and if it doesn't have one, to consider using an emulator that does).
 
 While technically not related to power-on, it is worth noting that external RAM in the cartridge, when present, usually contains random garbage data when first powered on.
