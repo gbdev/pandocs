@@ -19,7 +19,7 @@ running monochrome software.
 
 The OAM Corruption Bug (or OAM Bug) actually consists of two different bugs:
 
-- Attempting to read or write from OAM (Including the $FFA0-$FEFF
+- Attempting to read or write from OAM (Including the $FEA0-$FEFF
   region) while the PPU is in mode 2 (OAM mode) will corrupt it.
 - Performing an increase or decrease operation on any 16-bit register
   (BC, DE, HL, SP or PC) while that register is in the OAM range
