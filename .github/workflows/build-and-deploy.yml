@@ -13,6 +13,8 @@ on:
       - 'mediawiki-exporter/**'
       - 'README.MD'
       - 'LICENSE'
+  schedule:
+    - cron: '42 16 1/7 * *'
 
 env:
   MDBOOK_LINKCHECK_VER: 0.7.4
