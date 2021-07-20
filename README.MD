@@ -134,6 +134,7 @@ $ cp build/highlight.min.js ../pandocs/theme/highlight.js
 ├── src/
 │   ├── imgs/
 │   │   └── ...
+│   ├── SUMMARY.md
 │   ├── *.md
 │   └── ...
 ├── theme/
@@ -154,6 +155,9 @@ $ cp build/highlight.min.js ../pandocs/theme/highlight.js
 - `mediawiki-exporter/` - A script (and support files) to generate this repo's Git history from a MediaWiki export.
 - `preproc/`, `renderer/` - Our custom mdBook [preprocessor](https://rust-lang.github.io/mdBook/for_developers/preprocessors) and [back-end](https://rust-lang.github.io/mdBook/for_developers/backends), respectively. Both are standard Rust project folders (though see `Cargo.toml` below).
 - `src/` - The bulk of this repo.
+  - `imgs/` - Images should go in this folder, for organization purposes.
+  - Any `.md` file mentioned in `SUMMARY.md` will be rendered to HTML to the output directory.
+  - All other files are output verbatim, at the same relative location to `src/` (so, for example, images will be output in `docs/custom/imgs/`).
 - `theme/` - Files overriding [mdBook's default `theme/` files](https://github.com/rust-lang/mdBook/tree/master/src/theme).
 - `Cargo.lock`, `Cargo.toml` - Since `preproc/` and `renderer/` share most dependencies (transitively through `mdbook`), this folder is set up as a Cargo workspace. This creates a single `target/` directory in the repo's root, containing both crates' dependencies.
 - `book.toml` - The [mdBook configuration file](https://rust-lang.github.io/mdBook/format/configuration).
