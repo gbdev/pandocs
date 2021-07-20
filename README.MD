@@ -16,7 +16,7 @@ To deploy Pan Docs locally:
   mdBook powers the book itself, Rust is used for some custom plugins and Python scripts are used to render some images.
 2. [Install](https://packaging.python.org/tutorials/installing-packages/#requirements-files) the Python prerequisites (`pip3 install -r requirements.txt`)
    If you're doing that in a Python virtual environment, be sure to activate it in the shell that will run the `mdbook` commands.
-3. Clone this repository and run `mdBook` in the root folder
+3. Clone this repository and run `mdBook` in the root folder with one of:
 ```bash
 # Produce a build
 mdbook build
