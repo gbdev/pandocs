@@ -27,7 +27,6 @@ mdbook serve
 ```
 4. The final HTML files are in `docs/pandocs/`.
 
-
 Be aware of the following caveats:
 
 - `docs/html/` contains only partially processed files and it's also the folder that gets served by `mdbook serve`, so you will see some unprocessed custom markup if you visit the endpoint exposed by mdbook's development web server.
@@ -113,6 +112,52 @@ $ git clone git@github.com:gbdev/highlightjs-rgbasm.git extra/rgbasm
 $ node tools/build.js -t browser rgbasm c
 $ cp build/highlight.min.js ../pandocs/theme/highlight.js
 ```
+
+### Folder structure
+
+```
+.
+├── .github/
+│   ├── worflows/
+│   │   └── ...
+│   └── ...
+├── custom/
+│   └── ...
+├── historical/
+│   └── ...
+├── mediawiki-exporter/
+│   └── ...
+├── preproc/
+│   └── ...
+├── renderer/
+│   └── ...
+├── src/
+│   ├── imgs/
+│   │   └── ...
+│   ├── *.md
+│   └── ...
+├── theme/
+│   └── ...
+├── .gitignore
+├── Cargo.lock
+├── Cargo.toml
+├── LICENSE
+├── README.MD
+├── book.toml
+└── requirements.txt
+```
+
+- `.github/` - Metadata files related to GitHub.
+  - `workflows/` - [CI workflow description](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions) files.
+- `custom/` - Custom files added to the build.
+- `historical/` - Archive of legacy Pan Docs versions.
+- `mediawiki-exporter/` - A script (and support files) to generate this repo's Git history from a MediaWiki export.
+- `preproc/`, `renderer/` - Our custom mdBook [preprocessor](https://rust-lang.github.io/mdBook/for_developers/preprocessors) and [back-end](https://rust-lang.github.io/mdBook/for_developers/backends), respectively. Both are standard Rust project folders (though see `Cargo.toml` below).
+- `src/` - The bulk of this repo.
+- `theme/` - Files overriding [mdBook's default `theme/` files](https://github.com/rust-lang/mdBook/tree/master/src/theme).
+- `Cargo.lock`, `Cargo.toml` - Since `preproc/` and `renderer/` share most dependencies (transitively through `mdbook`), this folder is set up as a Cargo workspace. This creates a single `target/` directory in the repo's root, containing both crates' dependencies.
+- `book.toml` - The [mdBook configuration file](https://rust-lang.github.io/mdBook/format/configuration).
+- `requirements.txt` - The Python package requirements; [see above](#contributing).
 
 ## License
 
