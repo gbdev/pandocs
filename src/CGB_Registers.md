@@ -191,24 +191,7 @@ TODO: confirm whether interrupts can occur (just the joypad one?) during the pau
 ### FF56 - RP - CGB Mode Only - Infrared Communications Port
 
 This register allows to input and output data through the CGBs built-in
-Infrared Port. When reading data, bit 6 and 7 must be set (and obviously
-Bit 0 must be cleared - if you don't want to receive your own Game Boy's
-IR signal). After sending or receiving data you should reset the
-register to 00h to reduce battery power consumption again.
-
-```
- Bit 0:   Write Data   (0=LED Off, 1=LED On)             (Read/Write)
- Bit 1:   Read Data    (0=Receiving IR Signal, 1=Normal) (Read Only)
- Bit 6-7: Data Read Enable (0=Disable, 3=Enable)         (Read/Write)
-```
-
-Note that the receiver will adapt itself to the normal level of IR
-pollution in the air, so if you would send a LED ON signal for a longer
-period, then the receiver would treat that as normal (=OFF) after a
-while. For example, a Philips TV Remote Control sends a series of 32 LED
-ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a permanent
-880us LED ON signal. Even though being generally CGB compatible, the GBA
-does not include an infra-red port.
+Infrared Port. For more information, see [CGB Infrared](./CGB_Infrared.md).
 
 ### FF6C - OPRI - CGB Mode Only - Object Priority Mode
 

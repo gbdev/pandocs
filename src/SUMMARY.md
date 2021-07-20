@@ -32,6 +32,7 @@
 - [Interrupts](./Interrupts.md)
   - [Interrupt Sources](./Interrupt_Sources.md)
 - [CGB Registers](./CGB_Registers.md)
+  - [CGB Infrared](./CGB_Infrared.md)
 - [SGB Functions](./SGB_Functions.md)
   - [Unlocking and Detecting SGB Functions](./SGB_Unlocking.md)
   - [Command Packet Transfers](./SGB_Command_Packet.md)
