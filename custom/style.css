@@ -40,6 +40,10 @@ body {
     /* equals -0.5% */
 }
 
+button {
+    font-family: inherit;
+}
+
 table {
     font-feature-settings: "tnum",
         /* Tabular numbers */
