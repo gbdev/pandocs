@@ -14,6 +14,9 @@ use-default-preprocessors = false
 [preprocessor.pandocs]
 command = "cargo run -p pandocs-preproc --locked --release --"
 
+# `{{#include }}` etc. resolution
+[preprocessor.links]
+
 # Custom back-end for our custom markup
 [output.pandocs]
 command = "cargo run -p pandocs-renderer --locked --release --"
