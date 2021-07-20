@@ -1,0 +1,152 @@
+<!-- Do not put any blank lines, or all hell will break loose! -->
+<svg viewBox="0 0 700 590" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<style type="text/css"><![CDATA[
+			text {
+				fill: var(--fg);
+			}
+			rect {
+				opacity: 75%;
+			}
+			.mode-box {
+				opacity: 25%;
+				height: 60px;
+			}
+			.scanline {
+				height: 20px;
+			}
+			.square {
+				height: 10px;
+				width: 10px;
+			}
+			.m2 { fill: #ffd966; }
+			.m3 { fill: #ff8000; }
+			.m0 { fill: #97d077; }
+			.m1 { fill: #00ffff; }
+			.m30 {
+				fill: url(#m30-gradient);
+			}
+			.darken {
+				fill: #000;
+				opacity: 50%;
+				font-weight: 500;
+			}
+			.centered { text-anchor: middle; }
+			.right    { text-anchor: end; }
+			.mode-id {
+				font-size: large;
+			}
+			.small {
+				font-size: small;
+			}
+			.middle-baseline {
+				dominant-baseline: middle;
+			}
+			.mode-id, .mode-descr {
+				font-variant: small-caps;
+			}
+		]]></style>
+		<linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="m30-gradient">
+			<stop offset="0%" stop-color="#ff8000"/>
+			<stop offset="100%" stop-color="#97d077"/>
+		</linearGradient>
+	</defs>
+	<rect class="mode-box m2" x="60" y="0" width="80"/>
+	<text class="centered mode-id" x="100" y="25">Mode 2</text>
+	<text class="centered mode-descr" x="100" y="45">OAM scan</text>
+	<text class="centered small" x="100" y="75">80 dots</text>
+	<text class="centered small" x="100" y="90">(= 20 cycles)</text>
+	<rect class="mode-box m3" x="145" y="0" width="172"/>
+	<text class="centered mode-id" x="231" y="25">Mode 3</text>
+	<text class="centered mode-descr" x="231" y="45">Drawing pixels</text>
+	<text class="centered small" x="231" y="75">172–289 dots</text>
+	<text class="centered small" x="231" y="90">(= 43–72 cycles)</text>
+	<rect class="mode-box m0" x="322" y="0" width="204"/>
+	<text class="centered mode-id" x="424" y="25">Mode 0</text>
+	<text class="centered mode-descr" x="424" y="45">Horizontal blank</text>
+	<text class="centered small" x="424" y="75">87–204 dots</text>
+	<text class="centered small" x="424" y="90">(= 22–51 cycles)</text>
+	<rect class="mode-box m1" x="130" y="490" width="230"/>
+	<text class="centered mode-id" x="245" y="515">Mode 1</text>
+	<text class="centered mode-descr" x="245" y="535">Vertical blank</text>
+	<!-- "Accessibility" spans -->
+	<text x="322" y="135">VRAM ($8000–9FFF) inaccessible</text>
+	<text x="322" y="155">CGB palettes inaccessible</text>
+	<path stroke="#ff8000" d="M 317,130
+	                          v 20
+	                          m 0,-10
+	                          h -172
+	                          m 0,10
+	                          v -20"/>
+	<text x="322" y="185">OAM inaccessible (except by DMA)</text>
+	<path stroke="#ffd966" d="M 317,170
+	                          v 20
+	                          m 0,-10
+	                          h -257
+	                          m 0,10
+	                          v -20"/>
+	<text class="centered" x="443" y="515">Everything</text>
+	<text class="centered" x="443" y="535">accessible</text>
+	<!-- Scanlines -->
+	<text class="middle-baseline right" x="55" y="222">LY = 0</text>
+	<rect class="scanline m2" y="210" x="60" width="80"/>
+	<rect class="scanline m3" y="210" x="145" width="172"/>
+	<rect class="scanline m0" y="210" x="322" width="204"/>
+	<text class="middle-baseline darken" y="222" x="150">SHORTEST</text>
+	<text class="middle-baseline darken right" y="222" x="525">LONGEST</text>
+	<text class="middle-baseline small" x="535" y="222">456 dots (= 114 cycles)</text>
+	<text class="middle-baseline right" x="55" y="247">1</text>
+	<rect class="scanline m2" y="235" x="60" width="80"/>
+	<rect class="scanline m3" y="235" x="145" width="289"/>
+	<rect class="scanline m0" y="235" x="439" width="87"/>
+	<text class="middle-baseline darken" y="247" x="150">LONGEST</text>
+	<text class="middle-baseline darken right" y="247" x="525">SHORTEST</text>
+	<text class="middle-baseline small" x="535" y="247">456 dots (= 114 cycles)</text>
+	<text class="middle-baseline right" x="55" y="272">2</text>
+	<rect class="scanline m2" y="260" x="60" width="80"/>
+	<rect class="scanline m3" y="260" x="145" width="172"/>
+	<rect class="scanline m30" y="260" x="322" width="112"/>
+	<rect class="scanline m0" y="260" x="439" width="87"/>
+	<text class="middle-baseline small" x="535" y="272">...</text>
+	<text class="middle-baseline right" x="55" y="297">3</text>
+	<rect class="scanline m2" y="285" x="60" width="80"/>
+	<rect class="scanline m3" y="285" x="145" width="172"/>
+	<rect class="scanline m30" y="285" x="322" width="112"/>
+	<rect class="scanline m0" y="285" x="439" width="87"/>
+	<text class="middle-baseline small" x="535" y="297">...</text>
+	<text class="middle-baseline right" x="55" y="322">4</text>
+	<rect class="scanline m2" y="310" x="60" width="80"/>
+	<rect class="square m3" y="315" x="150"/>
+	<rect class="square m3" y="315" x="175"/>
+	<rect class="square m3" y="315" x="200"/>
+	<text class="middle-baseline right" x="55" y="347">...</text>
+	<rect class="square m2" y="340" x="70"/>
+	<rect class="square m2" y="340" x="95"/>
+	<rect class="square m2" y="340" x="120"/>
+	<text class="middle-baseline right" x="55" y="372">...</text>
+	<rect class="square m2" y="365" x="70"/>
+	<text class="middle-baseline right" x="55" y="397">...</text>
+	<rect class="square m2" y="390" x="70"/>
+	<text class="middle-baseline right" x="55" y="422">143</text>
+	<rect class="scanline m2" y="410" x="60" width="80"/>
+	<rect class="scanline m3" y="410" x="145" width="172"/>
+	<rect class="scanline m30" y="410" x="322" width="112"/>
+	<rect class="scanline m0" y="410" x="439" width="87"/>
+	<text class="middle-baseline right" x="55" y="447">144</text>
+	<rect class="scanline m1" y="435" x="60" width="466"/>
+	<text class="middle-baseline right" x="55" y="472">145</text>
+	<rect class="scanline m1" y="460" x="60" width="466"/>
+	<rect class="square m1" y="490" x="70"/>
+	<rect class="square m1" y="515" x="70"/>
+	<rect class="square m1" y="540" x="70"/>
+	<text class="middle-baseline right" x="55" y="572">153</text>
+	<rect class="scanline m1" y="560" x="60" width="466"/>
+	<rect class="m1" y="435" x="533" height="145" width="2"/>
+	<text class="middle-baseline small" x="540" y="490">10 "scanlines"</text>
+	<text class="middle-baseline small" x="540" y="510">4560 dots (= 1140 cycles)</text>
+	<!-- Totals -->
+	<text class="centered" y="20" x="613">One frame:</text>
+	<text class="centered" y="45" x="613">70224 dots</text>
+	<text class="centered" y="70" x="613">(= 17556 cycles)</text>
+	<text class="centered" y="95" x="613">@ 59.7 fps</text>
+</svg>

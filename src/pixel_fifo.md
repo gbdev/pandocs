@@ -9,7 +9,7 @@ shortened to make up for the additional time in mode 3, as shown in the followin
 
 :::
 
-![](imgs/game-boy-lcd-refresh-diagram-2.svg "imgs/game-boy-lcd-refresh-diagram-2.svg")
+{{#include imgs/ppu_modes_timing.svg:2:}}
 
 ## Introduction
 
