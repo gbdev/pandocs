@@ -8,6 +8,7 @@
  */
 
 use anyhow::Context;
+use globwalk::{FileType, GlobWalkerBuilder};
 use mdbook::book::BookItem;
 use mdbook::errors::{Error, Result};
 use mdbook::renderer::{HtmlHandlebars, RenderContext, Renderer};
@@ -82,7 +83,7 @@ impl Renderer for Pandocs {
         let src_dir = working_dir.join("src");
         let python = if cfg!(windows) { "py3" } else { "python3" };
         let render = |file_name, title| {
-            let mut file_name = PathBuf::from_str(file_name).unwrap();
+            let mut file_name = PathBuf::from_str(file_name).unwrap(); // Can't fail
             let output = File::create(working_dir.join(&file_name))?;
 
             file_name.set_extension("csv");
@@ -93,7 +94,7 @@ impl Renderer for Pandocs {
                 .arg(title)
                 .stdout(output)
                 .status()
-                .unwrap_or_else(|_| panic!("Failed to generate \"{}\"", file_name.display()));
+                .with_context(|| format!("Failed to generate \"{}\"", file_name.display()))?;
             if !status.success() {
                 return Err(Error::msg(format!(
                     "Generating \"{}\" failed with {}",
@@ -105,8 +106,15 @@ impl Renderer for Pandocs {
         };
         render("MBC5_Rumble_Mild.svg", "Mild Rumble")?;
         render("MBC5_Rumble_Strong.svg", "Strong Rumble")?;
-        // Delete the source files
         fs::remove_dir_all(&src_dir).context(format!("Failed to remove {}", src_dir.display()))?;
+
+        // Scrub off files that need not be published
+        for path in GlobWalkerBuilder::from_patterns(&ctx.destination, &[".gitignore", "*.graphml"])
+            .file_type(FileType::FILE)
+            .build()?
+        {
+            fs::remove_file(path?.path())?;
+        }
 
         Ok(())
     }
