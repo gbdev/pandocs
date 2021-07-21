@@ -1,6 +1,7 @@
 import pygal
 from pygal.style import Style
 import math
+from sys import argv, stderr
 
 # ------------------------------------------------------------------------------------------------
 # Configuration Constants
@@ -13,22 +14,12 @@ x_label_rotation = 0.01
 x_label_count = 10
 
 # ------------------------------------------------------------------------------------------------
-# The script will automatically generate SVG line-graphs with the same file name
-# (replacing the .csv extension with .svg) within the /content/imgs directory
-#
 # The first line of the file must contain the X- and Y-Axis labels seperated by commas.
 # The following lines are expected to contain the graph data in a comma-separated format
 #  and in the same order as the Axis labels.
 # ------------------------------------------------------------------------------------------------
-graph_files = [
-    {"filename": "MBC5_Rumble_Mild.csv", "title": "Mild Rumble"},
-    {"filename": "MBC5_Rumble_Strong.csv", "title": "Strong Rumble"},
-]
-# ================================================================================================
 
-
-def gen_graph(g_file):
-
+def gen_graph(in_path, title):
     custom_style = Style(
         font_family="Inter",
         label_font_size=12,
@@ -45,10 +36,10 @@ def gen_graph(g_file):
         x_label_rotation=x_label_rotation,
         style=custom_style
     )
-    csv = open(g_file["filename"], "r").readlines()
+    csv = open(in_path, "r").readlines()
 
     # Set Chart and Axis Titles
-    chart.title = g_file["title"]
+    chart.title = title
     headers = csv.pop(0).split(",")
     chart.x_title = headers[0]
     chart.y_title = headers[1]
@@ -81,10 +72,11 @@ def gen_graph(g_file):
     chart.x_labels_major = x_labels_major
 
     chart.add("", y_data)
-    chart.render_to_file("../" + g_file["filename"].replace(".csv", ".svg"))
+    print(chart.render(is_unicode=True))
 
 
-# Call gen_graph() for each file in the graph_files array
-for g_file in graph_files:
-    print(f"Generating {g_file['filename'].replace('.csv', '.svg')} ..")
-    gen_graph(g_file)
+if len(argv) != 3:
+    print("Usage: python3 graph_render.py <path/to.csv> <graph title>", file=stderr)
+    exit(1)
+
+gen_graph(argv[1], argv[2])

@@ -15,6 +15,8 @@ use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::PathBuf;
 use std::process::Command;
+use std::str::FromStr;
+
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 fn main() -> Result<()> {
@@ -76,19 +78,33 @@ impl Renderer for Pandocs {
         render(&mut path, "<print>", usize::MAX).context("Failed to render print page")?;
 
         // Generate the graphs in `imgs/src/` by shelling out to Python
-        let src_dir = ctx.destination.join("imgs").join("src");
+        let working_dir = ctx.destination.join("imgs");
+        let src_dir = working_dir.join("src");
         let python = if cfg!(windows) { "py3" } else { "python3" };
-        let status = Command::new(python)
-            .arg("graph_render.py")
-            .current_dir(&src_dir)
-            .status()
-            .expect("Failed to execute graph generation script");
-        if !status.success() {
-            return Err(Error::msg(format!(
-                "Graph generation script exited with status {}",
-                status,
-            )));
-        }
+        let render = |file_name, title| {
+            let mut file_name = PathBuf::from_str(file_name).unwrap();
+            let output = File::create(working_dir.join(&file_name))?;
+
+            file_name.set_extension("csv");
+            let status = Command::new(python)
+                .current_dir(&src_dir)
+                .arg("graph_render.py")
+                .arg(&file_name)
+                .arg(title)
+                .stdout(output)
+                .status()
+                .unwrap_or_else(|_| panic!("Failed to generate \"{}\"", file_name.display()));
+            if !status.success() {
+                return Err(Error::msg(format!(
+                    "Generating \"{}\" failed with {}",
+                    file_name.display(),
+                    status,
+                )));
+            }
+            Ok(())
+        };
+        render("MBC5_Rumble_Mild.svg", "Mild Rumble")?;
+        render("MBC5_Rumble_Strong.svg", "Strong Rumble")?;
         // Delete the source files
         fs::remove_dir_all(&src_dir).context(format!("Failed to remove {}", src_dir.display()))?;
 
