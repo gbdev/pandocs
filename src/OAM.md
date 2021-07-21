@@ -54,43 +54,66 @@ tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
  Bit2-0 Palette number  **CGB Mode Only**     (OBP0-7)
 ```
 
-## Sprite Priorities and Conflicts
+## Object Priority and Conflicts
 
-During each scanline's OAM scan, the PPU compares LY to each
-sprite's Y position to find the 10 sprites on that line that appear
-first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
-displaying only those 10 sprites on that line.
-To keep unused sprites from affecting onscreen sprites, set their Y
-coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note: Y \<= 8 also works
-if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
-X \>= 168 (160 + 8) on a sprite will hide it, but it will still count
-towards the 10 sprite limit per scanline, possibly causing another sprite
-that appears later in OAM to be left undisplayed.
+There are two kinds of "priorities" as far as objects are concerned.
+The first one is which objects are ignored when there are more than 10 on a
+given scanline. The second one is which object is displayed on top when some
+overlap (the Game Boy being a 2D console, there is no Z coordinate).
 
-If using BGB, in the VRAM viewer - OAM tab, hover your
-mouse over the small screen to highlight the sprites on a line. Sprites
-hidden due to the limitation will be highlighted in red.
+### Selection priority
 
-When these 10 sprites overlap, the highest priority one will appear
-above all others, etc. (Thus, no Z-fighting.) In Non-CGB mode, the smaller the X
-coordinate, the higher the priority. When X coordinates are the same, sprites located
-first in OAM have a higher priority. In CGB mode, only the sprite's location in OAM
-determines its priority.
+During each scanline's OAM scan, the PPU compares [`LY`](<#FF44 - LY (LCD Y Coordinate) (R)>)
+([using `LCDC` bit 2 to determine their size](<#LCDC.2 - OBJ size>)) to each
+object's Y position to select up to 10 objects to be drawn on that line.
+The PPU scans OAM linearly (from $FE00 to $FE9F), and stops as soon as 10
+objects were found, ignoring the rest.
 
-::: tip NOTE
+Therefore, objects earlier in OAM will be dropped less frequently than later
+ones; in particular, the first 10 objects will never be dropped.
 
-Priority among opaque pixels that overlap is determined using the rules explained
-above. After the pixel with the highest priority has been determined,
-the "BG and Window over OBJ" attribute of *only* that pixel is honored (or disregarded if
-this is a transparent pixel, i.e. a pixel with color ID zero). Thus if a sprite with a
-higher priority but with "BG and Window over OBJ" toggled on
-overlaps a sprite with a lower priority and a nonzero background
-pixel, the background pixel is displayed regardless of the
-lower-priority sprite's "BG and Window over OBJ" attribute.
+Since the PPU only checks the Y coordinate to select objects, this means that
+even off-screen objects count towards this 10-object-per-scanline limit.
+Just setting an object's X coordinate to X&nbsp;=&nbsp;0 or X&nbsp;≥&nbsp;168
+(160&nbsp;+&nbsp;8) will hide it, but it will still count towards the
+limit, possibly causing another object later in OAM not
+to be drawn. To keep off-screen objects from affecting on-screen ones, make
+sure to set their Y coordinate to Y&nbsp;=&nbsp;0 or Y&nbsp;≥&nbsp;160
+(144&nbsp;+&nbsp;16).
+(Y&nbsp;≤&nbsp;8 also works if [object size](<#LCDC.2 - OBJ size>) is set to 8x8.)
+
+### Drawing priority
+
+When some of these 10 objects overlap, the highest-priority one will appear
+above all others, etc. However, this priority is determined differently when in
+CGB mode.
+
+- **In Non-CGB mode**, the smaller the X coordinate, the higher the priority.
+  When X coordinates are identical, the object located first in OAM has higher
+  priority.
+- **In CGB mode**, only the object's location in OAM determines its priority.
+
+::: tip Interaction with "BG over OBJ" flag
+
+Object drawing priority and "BG over OBJ" interact in a non-intuitive way.
+
+What really happens is that the PPU first resolves priority between objects to
+pick an "object pixel", which is the first non-transparent pixel encountered
+when iterating over objects sorted by their drawing priority.
+However, the "BG over OBJ" attribute is never considered in this process!
+
+Only *after* object priority is resolved, the "object pixel" has the "BG over
+OBJ" attribute of its object checked to determine whether it should be drawn
+over the background.
+This means that an object with a higher priority but with "BG over OBJ" enabled
+will sort of "mask" lower-priority objects, even if those have "BG over OBJ"
+disabled.
+
+This can be exploited to only hide parts of an object behind the background ([video demonstration](https://youtu.be/B8sJGgCVvnk), [discussion of the same behavior for NES](https://forums.nesdev.com/viewtopic.php?f=10&t=16861)).
 
 :::
 
-## Writing Data to OAM Memory
+## Writing Data to OAM
 
 The recommended method is to write the data to normal RAM first, and to
 copy that RAM to OAM by using the DMA transfer function, initiated
