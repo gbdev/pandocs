@@ -68,7 +68,7 @@ impl Renderer for Pandocs {
                     path.set_file_name(page_name);
                     path.set_extension("html");
                     render(&mut path, &chapter.name, i)
-                        .context(format!("Failed to render {}", &chapter.name))?;
+                        .with_context(|| format!("Failed to render {}", &chapter.name))?;
                 }
 
                 _ => (),
@@ -95,14 +95,16 @@ impl Renderer for Pandocs {
                 .stdout(output)
                 .status()
                 .with_context(|| format!("Failed to generate \"{}\"", file_name.display()))?;
-            if !status.success() {
-                return Err(Error::msg(format!(
+
+            if status.success() {
+                Ok(())
+            } else {
+                Err(Error::msg(format!(
                     "Generating \"{}\" failed with {}",
                     file_name.display(),
                     status,
-                )));
+                )))
             }
-            Ok(())
         };
         render("MBC5_Rumble_Mild.svg", "Mild Rumble")?;
         render("MBC5_Rumble_Strong.svg", "Strong Rumble")?;
@@ -113,7 +115,10 @@ impl Renderer for Pandocs {
             .file_type(FileType::FILE)
             .build()?
         {
-            fs::remove_file(path?.path())?;
+            let path = path?;
+            let path = path.path();
+            fs::remove_file(path)
+                .with_context(|| format!("Failed to remove {}", path.display()))?;
         }
 
         Ok(())
