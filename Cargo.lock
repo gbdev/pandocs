@@ -691,10 +691,13 @@ dependencies = [
 name = "pandocs-preproc"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "clap 2.34.0",
+ "lazy_static",
  "mdbook",
  "pulldown-cmark 0.8.0",
  "pulldown-cmark-to-cmark",
+ "regex",
  "serde_json",
  "termcolor",
 ]

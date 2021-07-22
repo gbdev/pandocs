@@ -7,10 +7,13 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
+use anyhow::{bail, Context};
+use lazy_static::lazy_static;
 use mdbook::book::{Book, BookItem, Chapter};
 use mdbook::errors::Error;
 use mdbook::preprocess::{Preprocessor, PreprocessorContext};
 use pulldown_cmark::{CowStr, Event, LinkType, Options, Parser, Tag};
+use regex::Regex;
 use std::collections::HashMap;
 use std::io::Write;
 use std::process::{Command, Stdio};
@@ -35,24 +38,75 @@ impl Preprocessor for Pandocs {
     }
 
     fn run(&self, _: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
+        let mut sections = HashMap::new();
+        for item in book.iter() {
+            if let BookItem::Chapter(ref chapter) = item {
+                self.list_chapter_sections(&mut sections, chapter);
+            }
+        }
+
+        let mut res = Ok(());
+
+        book.for_each_mut(|item| {
+            macro_rules! abort_if_err {
+                ($expr:expr) => {
+                    match $expr {
+                        Err(e) => {
+                            res = Err(e);
+                            return;
+                        }
+                        Ok(ret) => ret,
+                    }
+                };
+            }
+
+            if res.is_err() {
+                return;
+            }
+
+            if let BookItem::Chapter(ref mut chapter) = item {
+                abort_if_err!(self.process_internal_anchor_links(chapter, &sections));
+                abort_if_err!(self.process_bit_descrs(chapter).context(format!("While processing chapter \"{}\"", chapter.name)));
+
+                if chapter.name == "Foreword" {
+                    let commit = abort_if_err!(Commit::rev_parse("HEAD"));
+                    chapter.content.push_str(&format!(
+                        "<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}). </small>",
+                        commit.short_hash(), commit.hash(), commit.timestamp(),
+                    ));
+                }
+            }
+        });
+
+        res.map(|_| book)
+    }
+}
+
+#[derive(Debug)]
+struct Commit {
+    hash: String,
+    short_hash: String,
+    timestamp: String,
+}
+
+impl Commit {
+    fn rev_parse(what: &str) -> Result<Self, Error> {
         let output = Command::new("git")
-            .args(&["rev-parse", "HEAD"])
+            .args(["rev-parse", what])
             .stderr(Stdio::inherit())
             .stdin(Stdio::null())
             .output()
             .expect("Failed to get commit hash");
         if !output.status.success() {
             return Err(Error::msg(format!(
-                "Git exited with status {} while getting commit hash",
+                "Git exited with {} while getting commit hash",
                 output.status
             )));
         }
-        let commit_hash = str::from_utf8(&output.stdout)
-            .expect("Commit hash is not valid UTF-8??")
-            .trim();
+        let hash = String::from_utf8(output.stdout).expect("Commit hash is not valid UTF-8??");
 
         let output = Command::new("git")
-            .args(&["rev-parse", "--short", "HEAD"])
+            .args(["rev-parse", "--short", what])
             .stderr(Stdio::inherit())
             .stdin(Stdio::null())
             .output()
@@ -63,12 +117,11 @@ impl Preprocessor for Pandocs {
                 output.status
             )));
         }
-        let commit_short_hash = str::from_utf8(&output.stdout)
-            .expect("Commit hash is not valid UTF-8??")
-            .trim();
+        let short_hash =
+            String::from_utf8(output.stdout).expect("Commit hash is not valid UTF-8??");
 
         let output = Command::new("git")
-            .args(&["show", "-s", "--format=%ci", "HEAD"])
+            .args(["show", "-s", "--format=%ci", what])
             .stderr(Stdio::inherit())
             .stdin(Stdio::null())
             .output()
@@ -79,36 +132,25 @@ impl Preprocessor for Pandocs {
                 output.status
             )));
         }
-        let commit_timestamp = str::from_utf8(&output.stdout)
-            .expect("Commit hash is not valid UTF-8??")
-            .trim();
+        let timestamp = String::from_utf8(output.stdout).expect("Commit hash is not valid UTF-8??");
 
-        let mut sections = HashMap::new();
-        for item in book.iter() {
-            if let BookItem::Chapter(ref chapter) = item {
-                self.list_chapter_sections(&mut sections, &chapter);
-            }
-        }
+        Ok(Self {
+            hash,
+            short_hash,
+            timestamp,
+        })
+    }
 
-        let mut res = Ok(());
+    fn hash(&self) -> &str {
+        self.hash.trim()
+    }
 
-        book.for_each_mut(|item| {
-            if res.is_err() {
-                return;
-            }
+    fn short_hash(&self) -> &str {
+        self.short_hash.trim()
+    }
 
-            if let BookItem::Chapter(ref mut chapter) = item {
-                if let Err(e) = self.process_chapter(chapter, &sections) {
-                    res = Err(e);
-                }
-
-                if chapter.name == "Foreword" {
-                    chapter.content.push_str(&format!("<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}). </small>", commit_short_hash, commit_hash,commit_timestamp));
-                }
-            }
-        });
-
-        res.map(|_| book)
+    fn timestamp(&self) -> &str {
+        self.timestamp.trim()
     }
 }
 
@@ -157,16 +199,14 @@ impl Pandocs {
         }
     }
 
-    fn process_chapter(
+    fn process_internal_anchor_links(
         &self,
         chapter: &mut Chapter,
         sections: &HashMap<String, (String, bool)>,
     ) -> Result<(), Error> {
         let mut buf = String::with_capacity(chapter.content.len());
-        let extensions = Options::ENABLE_TABLES
-            | Options::ENABLE_FOOTNOTES
-            | Options::ENABLE_STRIKETHROUGH
-            | Options::ENABLE_SMART_PUNCTUATION;
+        let extensions =
+            Options::ENABLE_TABLES | Options::ENABLE_FOOTNOTES | Options::ENABLE_STRIKETHROUGH;
 
         let events = Parser::new_ext(&chapter.content, extensions).map(|event| match event {
             Event::Start(Tag::Link(link_type, url, title)) if url.starts_with('#') => {
@@ -274,4 +314,183 @@ fn id_from_name(name: &str) -> String {
             }
         })
         .collect::<String>()
+}
+
+impl Pandocs {
+    fn process_bit_descrs(&self, chapter: &mut Chapter) -> Result<(), Error> {
+        // When replacing one thing in a string by something with a different length,
+        // the indices after that will not correspond,
+        // we therefore have to store the difference to correct this
+        let mut previous_end_index = 0;
+        let mut replaced = String::with_capacity(chapter.content.len());
+
+        for result in find_bit_descrs(&chapter.content) {
+            let (start, end, attrs) = result?;
+
+            replaced.push_str(&chapter.content[previous_end_index..start]);
+            replaced.push_str("<table><thead><tr><th></th>");
+            for i in (0..attrs.width).rev() {
+                replaced.push_str(&format!("<th>{}</th>", i));
+            }
+            replaced.push_str("</tr></thead><tbody>");
+
+            for (name, row) in &attrs.rows {
+                replaced.push_str(&format!("<tr><td><strong>{}</strong></td>", name));
+                let mut pos = attrs.width;
+                let mut fields = row.iter().peekable();
+                while pos != 0 {
+                    let (start, unused, name) = match fields.peek() {
+                        // If we are at the edge of a "used" field, use it
+                        Some(field) if field.end == pos - 1 => (field.start, false, field.name),
+                        // If in an unused field, end at the next field, or the width if none such
+                        res => (res.map_or(0, |field| field.end + 1), true, ""),
+                    };
+                    replaced.push_str(&format!(
+                        "<td colspan=\"{}\"{}>{}</td>",
+                        pos - start,
+                        if unused {
+                            " class=\"unused-field\""
+                        } else {
+                            ""
+                        },
+                        name
+                    ));
+
+                    if !unused {
+                        fields.next();
+                    }
+                    pos = start;
+                }
+                replaced.push_str("</tr>");
+            }
+            replaced.push_str("</tbody></table>");
+
+            previous_end_index = end;
+        }
+
+        replaced.push_str(&chapter.content[previous_end_index..]);
+
+        chapter.content = replaced;
+        Ok(())
+    }
+}
+
+fn find_bit_descrs(
+    contents: &str,
+) -> impl Iterator<Item = Result<(usize, usize, BitDescrAttrs<'_>), Error>> {
+    lazy_static! {
+        static ref RE: Regex = Regex::new(
+            r"(?x)             # Allow comments in the regex
+            \\\{\{\#.*\}\}     # Escaped tag (will be ignored)
+            |                  # ...or...
+            \{\{\s*\#bits\s+   # tag opening braces, whitespace, type, and separating whitespace
+            ([^}]+)            # tag contents
+            \}\}               # closing braces"
+        )
+        .unwrap();
+    }
+    RE.captures_iter(contents)
+        .filter(|caps| caps.len() != 1)
+        .map(|caps| {
+            // Must use `.get()`, as indexing ties the returned value's lifetime to `caps`'s.
+            let contents = caps.get(1).unwrap().as_str();
+            BitDescrAttrs::from_str(contents).map(|attrs| {
+                let all = caps.get(0).unwrap(); // There is always a 0th capture.
+                (all.start(), all.end(), attrs)
+            })
+        })
+}
+
+#[derive(Debug)]
+struct BitDescrAttrs<'input> {
+    width: usize,
+    rows: Vec<(&'input str, Vec<BitDescrField<'input>>)>,
+}
+
+impl<'input> BitDescrAttrs<'input> {
+    fn from_str(contents: &'input str) -> Result<Self, Error> {
+        // First, parse the width.
+        let contents = contents.trim();
+        let width_len = contents
+            .find(|c: char| c.is_ascii_whitespace())
+            .ok_or_else(|| Error::msg("{{#bits}} descriptions must describe at least one thing"))?;
+        let width_str = &contents[..width_len];
+        let width = width_str.parse().context(format!(
+            "Expected bits description to start with width, got \"{}\"",
+            width_str
+        ))?;
+        let s = contents[width_len..].trim_start();
+
+        // Next, parse the rows!
+        let mut rows = Vec::new();
+        for row_str in s.split_terminator(';') {
+            let row_str = row_str.trim();
+
+            fn parse_name(row_str: &str) -> Option<usize> {
+                if !row_str.starts_with('"') {
+                    return None;
+                }
+
+                row_str[1..] // Skip the leading quote.
+                    .find('"')
+            }
+            let Some(name_len) = parse_name(row_str) else {
+                bail!("Expected row to begin by its name (did you forget to put quotes around it?)");
+            };
+            let name = &row_str[1..(name_len + 1)];
+            let mut row_str = row_str[(name_len + 2)..].trim_start(); // The end is already trimmed.
+
+            // Then, the fields!
+            let mut fields: Vec<BitDescrField> = Vec::new();
+            while !row_str.is_empty() {
+                lazy_static! {
+                    // Since mdBook has "smart quotes", be lenient about them.
+                    static ref RE: Regex =
+                        Regex::new(r#"^(\d+)(?:\s*-\s*(\d+))?\s*:\s*"([^"]*)""#).unwrap();
+                }
+
+                let Some(cap) = RE.captures(row_str) else {
+                    bail!("Failed to parse field for \"{}\"", row_str);
+                };
+                let end = cap[1].parse().unwrap();
+                let start = cap
+                    .get(2)
+                    .map_or(end, |end_match| end_match.as_str().parse().unwrap());
+                let name = &cap.get(3).unwrap().as_str();
+
+                // Perform sanity checks.
+                if start > end {
+                    bail!(
+                        "Field must end after it started (expected {} <= {})",
+                        start,
+                        end,
+                    );
+                }
+                if let Some(field) = fields.last() {
+                    if field.end <= start {
+                        bail!(
+                            "Field must start after previous ended (expected {} > {})",
+                            field.end,
+                            start,
+                        );
+                    }
+                }
+
+                fields.push(BitDescrField { start, end, name });
+                // Advance by the match's length, plus any whitespace after it.
+                row_str = row_str[cap[0].len()..].trim_start();
+            }
+
+            rows.push((name, fields));
+        }
+
+        Ok(BitDescrAttrs { width, rows })
+    }
+}
+
+#[derive(Debug)]
+struct BitDescrField<'a> {
+    start: usize,
+    end: usize,
+    name: &'a str,
 }
