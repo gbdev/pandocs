@@ -57,8 +57,8 @@ tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
 ## Object Priority and Conflicts
 
 There are two kinds of "priorities" as far as objects are concerned.
-The first one is which objects are ignored when there are more than 10 on a
-given scanline. The second one is which object is displayed on top when some
+The first one defines which objects are ignored when there are more than 10 on a
+given scanline. The second one decides which object is displayed on top when some
 overlap (the Game Boy being a 2D console, there is no Z coordinate).
 
 ### Selection priority
@@ -66,15 +66,15 @@ overlap (the Game Boy being a 2D console, there is no Z coordinate).
 During each scanline's OAM scan, the PPU compares [`LY`](<#FF44 - LY (LCD Y Coordinate) (R)>)
 ([using `LCDC` bit 2 to determine their size](<#LCDC.2 - OBJ size>)) to each
 object's Y position to select up to 10 objects to be drawn on that line.
-The PPU scans OAM linearly (from $FE00 to $FE9F), and stops as soon as 10
-objects were found, ignoring the rest.
+The PPU scans OAM sequentially (from $FE00 to $FE9F), and stops as soon as 10
+objects are found, ignoring the rest.
 
 Therefore, objects earlier in OAM will be dropped less frequently than later
 ones; in particular, the first 10 objects will never be dropped.
 
-Since the PPU only checks the Y coordinate to select objects, this means that
-even off-screen objects count towards this 10-object-per-scanline limit.
-Just setting an object's X coordinate to X&nbsp;=&nbsp;0 or X&nbsp;≥&nbsp;168
+Since the PPU only checks the Y coordinate to select objects, even
+off-screen objects count towards the 10-objects-per-scanline limit.
+Merely setting an object's X coordinate to X&nbsp;=&nbsp;0 or X&nbsp;≥&nbsp;168
 (160&nbsp;+&nbsp;8) will hide it, but it will still count towards the
 limit, possibly causing another object later in OAM not
 to be drawn. To keep off-screen objects from affecting on-screen ones, make
@@ -97,10 +97,10 @@ CGB mode.
 
 Object drawing priority and "BG over OBJ" interact in a non-intuitive way.
 
-What really happens is that the PPU first resolves priority between objects to
+Internally, the PPU first resolves priority between objects to
 pick an "object pixel", which is the first non-transparent pixel encountered
 when iterating over objects sorted by their drawing priority.
-However, the "BG over OBJ" attribute is never considered in this process!
+The "BG over OBJ" attribute is **never** considered in this process.
 
 Only *after* object priority is resolved, the "object pixel" has the "BG over
 OBJ" attribute of its object checked to determine whether it should be drawn
@@ -109,7 +109,9 @@ This means that an object with a higher priority but with "BG over OBJ" enabled
 will sort of "mask" lower-priority objects, even if those have "BG over OBJ"
 disabled.
 
-This can be exploited to only hide parts of an object behind the background ([video demonstration](https://youtu.be/B8sJGgCVvnk), [discussion of the same behavior for NES](https://forums.nesdev.com/viewtopic.php?f=10&t=16861)).
+This can be exploited to only hide parts of an object behind the background
+([video demonstration](https://youtu.be/B8sJGgCVvnk)).
+A similar behaviour [can be seen on the NES](https://forums.nesdev.com/viewtopic.php?f=10&t=16861)).
 
 :::
 
