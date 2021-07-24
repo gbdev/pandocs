@@ -43,8 +43,6 @@ If either verification fails, the screen is made to blink while the boot ROM loc
 
 The DMG0 boot ROM also lacks the ® symbol next to the Nintendo logo.
 
-Like the DMG, the DMG0 boot ROM writes $01 to $FF50.
-
 ## Super Game Boy (SGB, SGB2)
 
 These boot ROMs are fairly unique in that they do *not* perform header checks.
@@ -58,21 +56,25 @@ If either verification fails, the BIOS itself locks up, repeatedly resetting the
 As the DMG and MGB boot ROMs, the SGB and SGB2 boot ROMs write $01 and $FF respectively to $FF50, and this is also the only difference between these two boot ROMs.
 
 The way the packet-sending routine works makes transferring a set bit *one cycle* faster than transferring a reset bit.
-This means that the time taken by the SGB boot ROMs *depends on the cartridge's header*!
+This means that the time taken by the SGB boot ROMs *depends on the cartridge's header*.
 The complexity of this is compounded by the fact that the boot ROM waits for 4 VBlanks after transferring each packet, mostly but not entirely grouping the timings.
 
 ## Color models (CGB0, CGB, AGB)
 
 The color boot ROMs are much more complicated, notably because of the compatibility behavior.
 
-First, the boot ROM is larger, as indicated above: 2048 bytes total.
+### Size
+
+The boot ROM is larger, as indicated in the table at the top: 2048 bytes total.
 It still has to be mapped starting at $0000, since this is where the CPU starts, but it must also access the cartridge header at $0100-014F.
 Thus, the boot ROM is actually split in two parts, a $0000-00FF one, and a $0200-08FF one.
+
+### Behavior
 
 First, the boot ROMs unpack the Nintendo logo to VRAM like the monochrome models, likely for compatibility, and copies the logo to a buffer in HRAM at the same time.
 (It is speculated that HRAM was used due to it being embedded within the CPU, unlike WRAM, so that it couldn't be tampered with.)
 
-Then, the logo is read *again*, but this time, it is decompressed with no resizing, yielding the much smaller logo placed below the big "GAME BOY" one.
+Then, the logo is read and decompressed *again*, but with no resizing, yielding the much smaller logo placed below the big "GAME BOY" one.
 The boot ROM then sets up compatibility palettes, as described further below, and plays the logo animation with the "ba-ding!" sound.
 
 During the logo animation, and if bit 7 of [the CGB compatibility byte](<#0143 - CGB Flag>) is reset (indicating a monochrome-only game), the user is allowed to pick a palette to override the one chosen for compatibility.
@@ -100,8 +102,7 @@ It is speculated that this may be debug remnants.
 
 ### Compatibility palettes
 
-It is fairly well-known that the Game Boy Color automatically colorizes monochrome-only games.
-The boot ROM is mostly responsible for this.
+The boot ROM is responsible for the automatic colorization of monochrome-only games when run on a GBC.
 
 When in DMG compatibility mode, the [CGB palettes](<#LCD Color Palettes (CGB only)>) are still being used: the background uses BG palette 0 (likely because the entire [attribute map](<#BG Map Attributes (CGB Mode only)>) is set to all zeros), and objects use OBJ palette 0 or 1 depending on bit 4 of [their attribute](<#Byte3 - Attributes/Flags:>).
 [`BGP`, `OBP0`, and `OBP1`](<#LCD Monochrome Palettes>) actually index into the CGB palettes instead of the DMG's shades of grey.
@@ -154,7 +155,7 @@ Further, the boot ROM contains a valid header, which is mostly blank save for th
 
 ## Logo check
 
-While it may make sense for the boot ROM to at least partially verify the ROM's integrity via the header check, why does it check the logo's integrity separately?
+While it may make sense for the boot ROM to at least partially verify the ROM's integrity via the header check, one may wonder why the logo is checked more stringently.
 
 ### Legal implications
 
