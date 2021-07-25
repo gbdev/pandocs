@@ -1,7 +1,9 @@
 # Power-Up Sequence
 
-When the Game Boy is powered up, the CPU starts executing instuctions at address $0000—**not** $0100!
-A program called the *boot ROM*, burned inside the CPU, is mapped "over" the cartridge ROM at first, which is responsible for the boot-up animation played before control is handed over to the cartridge's ROM.
+When the Game Boy is powered up, the CPU actually does not start executing instructions at $0100, but actually at $0000.
+A program called the *boot ROM*, burned inside the CPU, is mapped "over" the cartridge ROM at first.
+This program is responsible for the boot-up animation played before control is handed over to the cartridge's ROM.
+Since the boot ROM hands off control to the game ROM at address $0100, and developers typically need not care about the boot ROM, the "start address" is usually documented as $0100 and not $0000.
 
 8 different known official boot ROMs are known to exist:
 
@@ -55,9 +57,8 @@ If either verification fails, the BIOS itself locks up, repeatedly resetting the
 
 As the DMG and MGB boot ROMs, the SGB and SGB2 boot ROMs write $01 and $FF respectively to $FF50, and this is also the only difference between these two boot ROMs.
 
-The way the packet-sending routine works makes transferring a set bit *one cycle* faster than transferring a reset bit.
-This means that the time taken by the SGB boot ROMs *depends on the cartridge's header*.
-The complexity of this is compounded by the fact that the boot ROM waits for 4 VBlanks after transferring each packet, mostly but not entirely grouping the timings.
+The way the packet-sending routine works makes transferring a set bit *one cycle* faster than transferring a reset bit; this means that the time taken by the SGB boot ROMs *depends on the cartridge's header*.
+The relationship between the header and the time taken is made more complex by the fact that the boot ROM waits for 4 VBlanks after transferring each packet, mostly but not entirely grouping the timings.
 
 ## Color models (CGB0, CGB, AGB)
 
@@ -147,7 +148,7 @@ Remnants of a functionality designed to allow switching the CGB palettes while t
 ## Stadium 2
 
 Pokémon Stadium 2's "GB Tower" emulator contains a very peculiar boot ROM.
-It can be found at offset $015995F0 in the US release, and is $3F0 bytes long.
+It can be found at offset $015995F0 in the US release, and is only 1008 bytes long.
 Its purpose is unknown.
 
 This boot ROM does roughly the same setup as a regular CGB boot ROM, but writes to $FF50 very early, and said write is followed by a lock-up loop.
