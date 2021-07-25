@@ -29,6 +29,9 @@ SGB     | $01        | $14
 MGB     | $FF        | $13
 SGB2    | $FF        | $14
 
+For initial register values on all systems, see the table of all [CPU
+registers after power-up](<#CPU registers>).
+
 The SGB2 doesn't have any extra features which'd require separate SGB2
 detection except for curiosity purposes, for example, the game "Tetris
 DX" chooses to display an alternate SGB border on SGB2s.
