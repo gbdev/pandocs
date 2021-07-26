@@ -28,6 +28,8 @@ DMG     | $01        | $13
 SGB     | $01        | $14
 MGB     | $FF        | $13
 SGB2    | $FF        | $14
+CGB     | $11        | $00
+AGB     | $11        | $00
 
 For initial register values on all systems, see the table of all [CPU
 registers after power-up](<#CPU registers>).
