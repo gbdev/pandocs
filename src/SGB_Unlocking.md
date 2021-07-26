@@ -16,11 +16,11 @@ SGB functions.
 ## Detecting SGB hardware
 
 SGB hardware can be detected by examining the initial value of the C
-register directly after startup. A value of $14 indicates SGB or SGB2
-hardware. It is also possible to separate between SGB and SGB2 models by
+register directly after startup: a value of $14 indicates SGB or SGB2
+hardware. It is also possible to separate between SGB and SGB2 by
 examining the initial value of the A register directly after startup.
 Note that the DMG and MGB share initial A register values with the SGB
-and SGB2.
+and SGB2 respectively.
 
 Console | A Register | C Register
 --------|------------|------------
@@ -38,16 +38,16 @@ DX" chooses to display an alternate SGB border on SGB2s.
 
 Only the SGB2 contains a link port.
 
-SGB hardware can also be detected by sending MLT_REQ commands, but this
+SGB hardware has traditionally been detected by sending [`MLT_REQ` commands](<#SGB Command 11h - MLT_REQ>), but this
 method is more complicated and slower than checking the value of the A
-and C registers after startup. The MLT_REQ command enables two (or four)
+and C registers after startup. The `MLT_REQ` command enables two (or four)
 joypads; a normal handheld Game Boy will ignore this command, but an SGB
 will return incrementing joypad IDs each time when deselecting keypad
-lines (see MLT_REQ description for details). The joypad state/IDs can
+lines ([see `MLT_REQ` description](<#Reading Multiple Controllers (Joypads)>)). The joypad state/IDs can
 then be read out several times, and if the IDs are changing, then it is
 an SGB (a normal Game Boy would typically always return $0F as the ID).
 Finally, when not intending to use more than one joypad, send another
-MLT_REQ command in order to re-disable the multi-controller mode.
+`MLT_REQ` command in order to disable the multi-controller mode.
 Detection works regardless of how many joypads are physically connected
-to the SNES. However, detection works only when having unlocked SGB
-functions in the cartridge header, as described above.
+to the SNES. However, unlike the C register method, this detection works only when
+SGB functions [are unlocked from the cartridge header](<#Cartridge Header>).
