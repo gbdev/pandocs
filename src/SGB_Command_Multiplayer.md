@@ -4,7 +4,7 @@
 
 Used to request multiplayer mode (that is, input from more than one joypad).
 Because this function provides feedback from the SGB/SNES to the Game
-Boy program, it is also used to detect SGB hardware.
+Boy program, it can also be used to detect SGB hardware.
 
 ```
  Byte  Content
