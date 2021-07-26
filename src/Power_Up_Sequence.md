@@ -86,19 +86,19 @@ For unknown reasons, however, only the first half of the logo is checked, despit
 
 Finally, the boot ROM fades all BG palettes to white, and sets the hardware to compatibility mode.
 If [the CGB compatibility byte](<#0143 - CGB Flag>) indicates CGB compatibility, the byte is written directly to `KEY0` ($FF4C), potentially enabling PGB mode; otherwise, $04 is written to `KEY0` (enabling DMG compatibility mode in the CPU), $01 is written to [`OPRI`](<#FF6C - OPRI - CGB Mode Only - Object Priority Mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
-Additionally, the DMG logo tilemap is written if the compatibility requests it.
+Additionally, the DMG logo tilemap is written [if the compatibility requests it](<#Compatibility palettes>).
 
 Like all other boot ROMs, the last thing the color boot ROMs do is hand off execution at the same time as they unmap themselves, though they write $11 instead of $01 or $FF.
 
 ### CGB0
 
 Like the DMG0 boot ROM, some early CGBs contain a different boot ROM.
-Unlike DMG0 and DMG, the differences between the CGB0 and CGB boot ROM, are very minor, with no change in the layout of the ROM.
+Unlike DMG0 and DMG, the differences between the CGB0 and CGB boot ROM are very minor, with no change in the layout of the ROM.
 
 The most notable change is that the CGB0 boot ROM does *not* init [wave RAM](<#FF30-FF3F - Wave Pattern RAM>).
 This is known to cause, for example, a different title screen music in the game *R-Type*.
 
-The CGB0 boot ROM also writes copies of other variables to some locations in WRAM that are not otherwise run from anywhere.
+The CGB0 boot ROM also writes copies of other variables to some locations in WRAM that are not otherwise read anywhere.
 It is speculated that this may be debug remnants.
 
 ### Compatibility palettes
@@ -299,7 +299,7 @@ Name          | Address | DMG0 | DMG / MGB | SGB / SGB2 | CGB / AGB
 [`NR50`]      | $FF24   | $77  | $77       | $77        | $77
 [`NR51`]      | $FF25   | $F3  | $F3       | $F3        | $F3
 [`NR52`]      | $FF26   | $F1  | $F1       | $F0        | $F1
-[`LCDC`]      | $FF40   | $91  | $91       | $91        | $??
+[`LCDC`]      | $FF40   | $91  | $91       | $91        | $91
 [`STAT`]      | $FF41   | $81  | $85       | ??[^unk]   | ??[^unk_pad]
 [`SCY`]       | $FF42   | $00  | $00       | $00        | $00
 [`SCX`]       | $FF43   | $00  | $00       | $00        | $00
