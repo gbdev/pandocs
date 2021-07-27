@@ -31,7 +31,7 @@ jobs:
     - name: Install mdbook
       uses: peaceiris/actions-mdbook@v1
       with:
-        mdbook-version: 0.4.10
+        mdbook-version: 0.4.11
 
     # FIXME: Keep this up to date
     - name: Install mdbook-linkcheck
