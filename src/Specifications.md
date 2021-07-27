@@ -20,7 +20,7 @@ td:first-child {
       <td>CPU</td><td colspan="4">8-bit 8080-like Sharp CPU (speculated to be a SM83 core)</td>
     </tr>
     <tr>
-      <td>CPU freq</td><td colspan="2">4.194304&nbsp;MHz</td><td>Depends on model<sup class="footnote-reference"><a href="#sgb_clk">1</a></sup></td><td>Up to 8.388608&nbsp;MHz</td>
+      <td>CPU freq</td><td colspan="2">4.194304&nbsp;MHz</td><td>Depends on revision<sup class="footnote-reference"><a href="#sgb_clk">1</a></sup></td><td>Up to 8.388608&nbsp;MHz</td>
     </tr>
     <tr>
         <td>Work RAM</td><td colspan="3">8&nbsp;KiB</td><td>32&nbsp;KiB<sup class="footnote-reference"><a href="#compat">2</a></sup> (4&nbsp;+&nbsp;7&nbsp;×&nbsp;4&nbsp;KiB)</td>
