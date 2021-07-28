@@ -41,7 +41,7 @@ td:first-child {
         <td>Palettes</td><td colspan="2">BG: 1&nbsp;×&nbsp;4, OBJ: 2&nbsp;×&nbsp;3</td><td>BG/OBJ: 1&nbsp;+&nbsp;4&nbsp;×&nbsp;3, border: 4&nbsp;×&nbsp;15</td><td>BG: 8&nbsp;×&nbsp;4, OBJ: 8&nbsp;×&nbsp;3<sup class="footnote-reference"><a href="#compat">2</a></sup></td>
     </tr>
     <tr>
-        <td>Colors</td><td>4 shades of green</td><td>4 shades of gray</td><td colspan="2">32768 colors (RGB555)</td>
+        <td>Colors</td><td>4 shades of green</td><td>4 shades of gray</td><td colspan="2">32768 colors (15-bit RGB)</td>
     </tr>
     <tr>
         <td>Horizontal sync</td><td colspan="2">9.198&nbsp;KHz</td><td>Complicated<sup class="footnote-reference"><a href="#sgb_vid">3</a></sup></td><td>9.198&nbsp;KHz</td>
