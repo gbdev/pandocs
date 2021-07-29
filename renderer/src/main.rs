@@ -309,7 +309,7 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
 
             // Discard lines until the end of the script.
             // Also, check if this does discard lines; if this discards none, we have a problem.
-            let mut auto_printer_script_lines = lines.by_ref().take_while(|line| {
+            let auto_printer_script_lines = lines.by_ref().take_while(|line| {
                 line.as_ref().map_or(true, |line| {
                     // HACK: this relies on the exact formatting of the auto-printer's script end tag
                     line.trim_start() != "</script>"
