@@ -376,8 +376,8 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`LYC`]: <#FF45 - LYC (LY Compare) (R/W)>
 [`DMA`]: <#FF46 - DMA (DMA Transfer and Start Address) (R/W)>
 [`BGP`]: <#FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only>
-[`OBP0`]: <#FF48 - OBP0 (Object Palette 0 Data) (R/W) - Non CGB Mode Only>
-[`OBP1`]: <#FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only>
+[`OBP0`]: <#FF48 - OBP0 (OBJ Palette 0 Data) (R/W), FF49 - OBP1 (OBJ Palette 1 Data) (R/W) - Both Non CGB Mode Only>
+[`OBP1`]: <#FF48 - OBP0 (OBJ Palette 0 Data) (R/W), FF49 - OBP1 (OBJ Palette 1 Data) (R/W) - Both Non CGB Mode Only>
 [`WY`]: <#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>
 [`WX`]: <#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>
 [`KEY1`]: <#FF4D - KEY1 - CGB Mode Only - Prepare Speed Switch>
@@ -390,8 +390,8 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`RP`]: <#FF56 - RP - CGB Mode Only - Infrared Communications Port>
 [`BCPS`]: <#FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only>
 [`BCPD`]: <#FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only>
-[`OCPS`]: <#FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only>
-[`OCPD`]: <#FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only>
+[`OCPS`]: <#FF6A - OCPS/OBPI (OBJ Color Palette Specification / OBJ Palette Index), FF6B - OCPD/OBPD (OBJ Color Palette Data / OBJ Palette Data) - Both CGB Mode Only>
+[`OCPD`]: <#FF6A - OCPS/OBPI (OBJ Color Palette Specification / OBJ Palette Index), FF6B - OCPD/OBPD (OBJ Color Palette Data / OBJ Palette Data) - Both CGB Mode Only>
 [`OPRI`]: <#FF6C - OPRI - CGB Mode Only - Object Priority Mode>
 [`SVBK`]: <#FF70 - SVBK - CGB Mode Only - WRAM Bank>
 [FF72]: <#FF72 - Bits 0-7 (Read/Write), FF73 - Bits 0-7 (Read/Write)>
