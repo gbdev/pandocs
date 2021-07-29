@@ -315,7 +315,7 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
                     line.trim_start() != "</script>"
                 })
             });
-            if auto_printer_script_lines.next().is_none() {
+            if auto_printer_script_lines.count() == 0 {
                 panic!("Warning: unterminated auto-printer script tag??");
             }
         }
