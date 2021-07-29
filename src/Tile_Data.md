@@ -94,12 +94,8 @@ numbers are translated into real colors (or gray shades) depending on
 the current palettes, except that when the tile is used in a OBJ the
 color ID 0 means transparent. The palettes are defined through registers
 [BGP](<#FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only>),
-[OBP0](<#FF48 - OBP0 (Object Palette 0 Data) (R/W) - Non CGB Mode Only>)
-and
-[OBP1](<#FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only>)
-(Non CGB Mode), and
+[OBP0 and OBP1](<#FF48 - OBP0 (OBJ Palette 0 Data) (R/W), FF49 - OBP1 (OBJ Palette 1 Data) (R/W) - Both Non CGB Mode Only>), and
 [BCPS/BGPI](<#FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only>),
 [BCPD/BGPD](<#FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only>),
-[OCPS/OBPI and
-OCPD/OBPD](<#FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only>)
+[OCPS/OBPI and OCPD/OBPD](<#FF6A - OCPS/OBPI (OBJ Color Palette Specification / OBJ Palette Index), FF6B - OCPD/OBPD (OBJ Color Palette Data / OBJ Palette Data) - Both CGB Mode Only>)
 (CGB Mode).
