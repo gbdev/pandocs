@@ -534,9 +534,11 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "globwalk",
+ "lazy_static",
  "mdbook",
  "regex",
  "termcolor",
+ "url",
 ]
 
 [[package]]

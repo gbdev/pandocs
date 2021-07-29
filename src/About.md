@@ -11,7 +11,7 @@ Emulator developers may be also interested in the [Game Boy: Complete Technical 
 
 :::
 
-### Contributing
+## Contributing
 
 This project is open source, released under the [CC0 license](https://raw.githubusercontent.com/gbdev/pandocs/master/LICENSE). Everyone is welcome to help, provide feedback and propose additions or improvements. The git repository is hosted at [github.com/gbdev/pandocs](https://github.com/gbdev/pandocs), where you can learn more about how you can [contribute](https://github.com/gbdev/pandocs/blob/master/README.MD), find detailed contribution guidelines and procedures, file Issues and send Pull Requests. 
 
@@ -20,7 +20,7 @@ There is a [Discord chat](https://gbdev.io/chat) dedicated to the gbdev communit
 Finally, you can also contact us and send patches via email: `pandocs (at) gbdev.io`.
 
 
-### Using this document
+## Using this document
 
 In the top navigation bar, you will find a series of icons.
 
@@ -32,6 +32,6 @@ You can search anywhere by pressing <kbd>s</kbd> on your keyboard or clicking th
 
 The <i class="fa fa-edit"></i> icon allows you to suggest an edit on the current page by directly opening the source file in the git repository.
 
-You can find a one-page printable version of Pan Docs [here](https://gbdev.io/pandocs/print.html). 
+Also available are [one-page](single.html) and [printable](print.html) versions of this document.
 
 <br><br>

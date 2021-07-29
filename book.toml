@@ -35,7 +35,8 @@ site-url = "/pandocs/"
 follow-web-links = true
 traverse-parent-directories = false
 optional = true
-# Do not check the "this was generated from commit N" link, as the commit may not have been pushed yet
 exclude = [
-	'https://github\.com/gbdev/pandocs/tree/'
+	'https://github\.com/gbdev/pandocs/tree/', # Do not check the "this was generated from commit N" link, as the commit may not have been pushed yet
+  'print.html', # Do not check the print page, as it is generated separately
+  'single.html', # Do not check the single page, as it is generated separately
 ]
