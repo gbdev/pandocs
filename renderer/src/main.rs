@@ -321,5 +321,6 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
         }
     }
 
+    single_page.flush()?;
     Ok(())
 }
