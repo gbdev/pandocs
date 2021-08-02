@@ -31,6 +31,7 @@
   - [Timer Obscure Behaviour](./Timer_Obscure_Behaviour.md)
 - [Interrupts](./Interrupts.md)
   - [Interrupt Sources](./Interrupt_Sources.md)
+  - [HALT](./halt.md)
 - [CGB Registers](./CGB_Registers.md)
 - [SGB Functions](./SGB_Functions.md)
   - [Unlocking and Detecting SGB Functions](./SGB_Unlocking.md)
