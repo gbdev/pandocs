@@ -152,10 +152,10 @@ square wave. This channel doesn't have a volume envelope register.
 Bit 7 - Sound Channel 3 Off  (0=Stop, 1=Playback)  (Read/Write)
 ```
 
-### FF1B - NR31 - Channel 3 Sound Length (R/W)
+### FF1B - NR31 - Channel 3 Sound Length (W)
 
 ```
-Bit 7-0 - Sound length (t1: 0 - 255)
+Bit 7-0 - Sound length (Write only) (t1: 0 - 255)
 ```
 
 Sound Length = (256-t1)\*(1/256) seconds This value is used only if Bit
@@ -215,10 +215,10 @@ It is also possible to influence the function of the random generator,
 so the that the output becomes more regular, resulting in a limited
 ability to output Tone instead of Noise.
 
-### FF20 - NR41 - Channel 4 Sound Length (R/W)
+### FF20 - NR41 - Channel 4 Sound Length (W)
 
 ```
-Bit 5-0 - Sound length data (t1: 0-63)
+Bit 5-0 - Sound length data (Write only) (t1: 0-63)
 ```
 
 Sound Length = (64-t1)\*(1/256) seconds The Length value is used only if
