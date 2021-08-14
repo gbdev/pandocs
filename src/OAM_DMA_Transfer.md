@@ -55,8 +55,6 @@ run_dma_hrampart:
     dec b
     jr nz, .wait
     ret
-
-    db _NARG, WRAM0
 ```
 
 This saves 5 bytes of HRAM, but is slightly slower in most cases due to
