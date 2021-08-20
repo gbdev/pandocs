@@ -13,7 +13,7 @@ four bytes with the following meanings:
 
 ## Byte0 - Y Position
 
-Y = Sprite's vertical position on the screen + 16. So for example,
+Y = Sprite's vertical position on the screen - 16. So for example,
 Y=0 hides a sprite,
 Y=2 hides a 8x8 sprite but displays the last two rows of a 8x16 sprite,
 Y=16 displays a sprite at the top of the screen,
@@ -24,7 +24,7 @@ Y=160 hides a sprite.
 
 ## Byte1 - X Position
 
-X = Sprite's horizontal position on the screen + 8. This works similarly
+X = Sprite's horizontal position on the screen - 8. This works similarly
 to the examples above, except that the width of a sprite is always 8. An
 off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
 affects the priority ordering, thus other sprites with lower priority may be
