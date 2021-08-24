@@ -357,11 +357,11 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`NR23`]: <#FF18 - NR23 - Channel 2 Frequency lo data (W)>
 [`NR24`]: <#FF19 - NR24 - Channel 2 Frequency hi data (R/W)>
 [`NR30`]: <#FF1A - NR30 - Channel 3 Sound on/off (R/W)>
-[`NR31`]: <#FF1B - NR31 - Channel 3 Sound Length (R/W)>
+[`NR31`]: <#FF1B - NR31 - Channel 3 Sound Length (W)>
 [`NR32`]: <#FF1C - NR32 - Channel 3 Select output level (R/W)>
 [`NR33`]: <#FF1D - NR33 - Channel 3 Frequency's lower data (W)>
 [`NR34`]: <#FF1E - NR34 - Channel 3 Frequency's higher data (R/W)>
-[`NR41`]: <#FF20 - NR41 - Channel 4 Sound Length (R/W)>
+[`NR41`]: <#FF20 - NR41 - Channel 4 Sound Length (W)>
 [`NR42`]: <#FF21 - NR42 - Channel 4 Volume Envelope (R/W)>
 [`NR43`]: <#FF22 - NR43 - Channel 4 Polynomial Counter (R/W)>
 [`NR44`]: <#FF23 - NR44 - Channel 4 Counter/consecutive; Inital (R/W)>
