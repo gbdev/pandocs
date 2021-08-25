@@ -11,7 +11,7 @@ Sprite attributes reside in the Sprite Attribute Table (OAM - Object
 Attribute Memory) at \$FE00-FE9F. Each of the 40 entries consists of
 four bytes with the following meanings:
 
-## Byte0 - Y Position
+## Byte 0 - Y Position
 
 Y = Sprite's vertical position on the screen + 16. So for example,
 Y=0 hides a sprite,
@@ -22,7 +22,7 @@ Y=152 displays a 8x8 sprite aligned with the bottom of the screen,
 Y=154 displays the first six rows of a sprite at the bottom of the screen,
 Y=160 hides a sprite.
 
-## Byte1 - X Position
+## Byte 1 - X Position
 
 X = Sprite's horizontal position on the screen + 8. This works similarly
 to the examples above, except that the width of a sprite is always 8. An
@@ -43,7 +43,7 @@ specifies the index of the first (top) tile of the sprite. This is enforced by t
 hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
 tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
 
-## Byte3 - Attributes/Flags:
+## Byte 3 - Attributes/Flags:
 
 ```
  Bit7   BG and Window over OBJ (0=No, 1=BG and Window colors 1-3 over the OBJ)
