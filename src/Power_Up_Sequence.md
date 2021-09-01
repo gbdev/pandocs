@@ -354,24 +354,24 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`TAC`]: <#FF07 — TAC: Timer control>
 [`IF`]: <#FF0F — IF: Interrupt flag>
 [`NR10`]: <#FF10 — NR10: Channel 1 sweep>
-[`NR11`]: <#FF11 — NR11: Channel 1 sound length & wave pattern duty>
-[`NR12`]: <#FF12 — NR12: Channel 1 volume envelope>
-[`NR13`]: <#FF13 — NR13: Channel 1 frequency low \[write-only\]>
-[`NR14`]: <#FF14 — NR14: Channel 1 frequency high & control>
-[`NR21`]: <#FF16 — NR21: Channel 2 sound length & wave pattern duty>
-[`NR22`]: <#FF17 — NR22: Channel 2 volume envelope>
-[`NR23`]: <#FF18 — NR23: Channel 2 frequency low \[write-only\]>
-[`NR24`]: <#FF19 — NR24: Channel 2 frequency high & control>
-[`NR30`]: <#FF1A — NR30: Channel 3 sound on/off>
-[`NR31`]: <#FF1B — NR31: Channel 3 sound length \[write-only\]>
-[`NR32`]: <#FF1C — NR32: Channel 3 select output level>
-[`NR33`]: <#FF1D — NR33: Channel 3 frequency low \[write-only\]>
-[`NR34`]: <#FF1E — NR34: Channel 3 frequency high & control>
-[`NR41`]: <#FF20 — NR41: Channel 4 sound length \[write-only\]>
-[`NR42`]: <#FF21 — NR42: Channel 4 volume envelope>
-[`NR43`]: <#FF22 — NR43: Channel 4 polynomial counter>
+[`NR11`]: <#FF11 — NR11: Channel 1 length timer & duty cycle>
+[`NR12`]: <#FF12 — NR12: Channel 1 volume & envelope>
+[`NR13`]: <#FF13 — NR13: Channel 1 wavelength low \[write-only\]>
+[`NR14`]: <#FF14 — NR14: Channel 1 wavelength high & control>
+[`NR21`]: <#Sound Channel 2 — Pulse>
+[`NR22`]: <#Sound Channel 2 — Pulse>
+[`NR23`]: <#Sound Channel 2 — Pulse>
+[`NR24`]: <#Sound Channel 2 — Pulse>
+[`NR30`]: <#FF1A — NR30: Channel 3 DAC enable>
+[`NR31`]: <#FF1B — NR31: Channel 3 length timer \[write-only\]>
+[`NR32`]: <#FF1C — NR32: Channel 3 output level>
+[`NR33`]: <#FF1D — NR33: Channel 3 wavelength low \[write-only\]>
+[`NR34`]: <#FF1E — NR34: Channel 3 wavelength high & control>
+[`NR41`]: <#FF20 — NR41: Channel 4 length timer \[write-only\]>
+[`NR42`]: <#FF21 — NR42: Channel 4 volume & envelope>
+[`NR43`]: <#FF22 — NR43: Channel 4 frequency & randomness>
 [`NR44`]: <#FF23 — NR44: Channel 4 control>
-[`NR50`]: <#FF24 — NR50: Sound volume>
+[`NR50`]: <#FF24 — NR50: Master volume & VIN panning>
 [`NR51`]: <#FF25 — NR51: Sound panning>
 [`NR52`]: <#FF26 — NR52: Sound on/off>
 [`LCDC`]: <#FF40 — LCDC: LCD control>

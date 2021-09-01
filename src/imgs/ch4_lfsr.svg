@@ -1,0 +1,44 @@
+<!-- Do not put any blank lines, or all hell will break loose! -->
+<svg viewBox="0 0 322 60" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M 0,-5
+             v 10
+             l 10,-5
+             z" id="arrow-head"/>
+  </defs>
+  <rect x="1" y="10" width="20" height="20" class="unfilled"/> <text x="11" y="5" class="centered">15</text>
+  <rect x="21" y="10" width="20" height="20" class="unfilled"/> <text x="31" y="5" class="centered">14</text>
+  <rect x="41" y="10" width="20" height="20" class="unfilled"/> <text x="51" y="5" class="centered">13</text>
+  <rect x="61" y="10" width="20" height="20" class="unfilled"/> <text x="71" y="5" class="centered">12</text>
+  <rect x="81" y="10" width="20" height="20" class="unfilled"/> <text x="91" y="5" class="centered">11</text>
+  <rect x="101" y="10" width="20" height="20" class="unfilled"/> <text x="111" y="5" class="centered">10</text>
+  <rect x="121" y="10" width="20" height="20" class="unfilled"/> <text x="131" y="5" class="centered">9</text>
+  <rect x="141" y="10" width="20" height="20" class="unfilled"/> <text x="151" y="5" class="centered">8</text>
+  <rect x="161" y="10" width="20" height="20" class="unfilled"/> <text x="171" y="5" class="centered">7</text>
+  <rect x="181" y="10" width="20" height="20" class="unfilled"/> <text x="191" y="5" class="centered">6</text>
+  <rect x="201" y="10" width="20" height="20" class="unfilled"/> <text x="211" y="5" class="centered">5</text>
+  <rect x="221" y="10" width="20" height="20" class="unfilled"/> <text x="231" y="5" class="centered">4</text>
+  <rect x="241" y="10" width="20" height="20" class="unfilled"/> <text x="251" y="5" class="centered">3</text>
+  <rect x="261" y="10" width="20" height="20" class="unfilled"/> <text x="271" y="5" class="centered">2</text>
+  <rect x="281" y="10" width="20" height="20" class="unfilled"/> <text x="291" y="5" class="centered">1</text>
+  <rect x="301" y="10" width="20" height="20" class="unfilled"/> <text x="311" y="5" class="centered">0</text>
+  <path d="M 311,30
+           v 21
+           h -30"/>
+  <path d="M 291,30
+           v 15
+           h -10"/>
+  <path d="M 267,38
+           c 0,0 -10,0 -17,10  7,10 17,10 17,10
+           h 13
+           c -5,-5 -5,-15 0,-20
+           z
+           m 17,20
+           c -5,-5 -5,-15 0,-20"/>
+  <circle cx="248" cy="48" r="2"/>
+  <path d="M 246,48
+           h -235
+           v -13"/> <use x="11" y="35" href="#arrow-head" transform="rotate(-90,11,35)"/>
+  <path d="M 171,48
+           v -13" class="dashed"/> <use x="171" y="35" href="#arrow-head" transform="rotate(-90,171,35)"/>
+</svg>
