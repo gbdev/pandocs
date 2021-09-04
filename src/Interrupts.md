@@ -22,8 +22,9 @@ RETI   ;Enables interrupts and returns (same as the instruction sequence EI, RET
 where \<INT\> means the operation which is automatically executed by the
 CPU when it executes an interrupt.
 
-The effect of EI is delayed by one instruction. This means that EI
+The effect of `ei` is delayed by one instruction. This means that `ei`
 followed immediately by DI does not allow any interrupts between them.
+This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 
 ## FFFF - IE - Interrupt Enable (R/W)
 
