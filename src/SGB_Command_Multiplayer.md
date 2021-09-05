@@ -45,4 +45,5 @@ Byte | Player \#
  $xD | 3
  $xC | 4
 
-Next, read joypad state normally. The joypad number count is automatically incremented (or restarted if the last joypad is reached) by P15 going LOW to HIGH, so you can simply repeat reading the joypad state normally until all two (or four) joypads have been read out.
+Next, read joypad state normally.
+The next joypad is automatically selected when P15 goes from LOW (0) to HIGH (1), so you can simply repeat reading the joypad state normally until all two (or four) joypads have been read out.
