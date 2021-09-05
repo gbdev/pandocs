@@ -46,4 +46,4 @@ Byte | Player \#
  $xC | 4
 
 Next, read joypad state normally.
-The next joypad is automatically selected when P15 goes from LOW (0) to HIGH (1), so you can simply repeat reading the joypad state normally until all two (or four) joypads have been read out.
+The next joypad is automatically selected when P15 goes from LOW (0) to HIGH (1) ([source](https://github.com/CasualPokePlayer/test-roms/blob/sgb-mlt-test/src/intro.asm)), so you can simply repeat reading the joypad state normally until all two (or four) joypads have been read out.
