@@ -45,15 +45,5 @@ Byte | Player \#
  $xD | 3
  $xC | 4
 
-Next, read joypad state normally. When completed, set both P14 and P15
-back HIGH, this automatically increments the joypad number (or restarts
-counting once the last joypad is reached). Repeat the procedure until
-you have read out all two (or four) joypads.
-
-If for whatever reason you want to increment the joypad number without
-reading the joypad state you only need to set P15 to LOW before setting
-it back to HIGH. Adjusting P14 does not affect whether or not the joypad
-number will advance, However, if you set P15 to LOW then HIGH then LOW
-again without bringing both P14 and P15 HIGH at any point, it cancels
-the increment until P15 is lowered again. There are games, such as
-Pokémon Yellow, which rely on this cancelling when detecting the SGB.
+Next, read joypad state normally.
+The next joypad is automatically selected when P15 goes from LOW (0) to HIGH (1) ([source](https://github.com/CasualPokePlayer/test-roms/blob/sgb-mlt-test/src/intro.asm)), so you can simply repeat reading the joypad state normally until all two (or four) joypads have been read out.
