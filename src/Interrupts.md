@@ -13,10 +13,10 @@ using a I/O address. IME can be modified by
 the following instructions/events only:
 
 ```
-EI     ;Enables interrupts  (that is, IME=1)
-DI     ;Disables interrupts (that is, IME=0)
-RETI   ;Enables interrupts and returns (same as the instruction sequence EI, RET)
-<INT>  ;Disables interrupts and calls interrupt vector
+EI     ; Enables interrupts  (that is, IME=1)
+DI     ; Disables interrupts (that is, IME=0)
+RETI   ; Enables interrupts and returns (same as the instruction sequence EI, RET)
+<INT>  ; Disables interrupts and calls interrupt vector
 ```
 
 where \<INT\> means the operation which is automatically executed by the
@@ -29,21 +29,21 @@ This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 ## FFFF - IE - Interrupt Enable (R/W)
 
 ```
-Bit 0: VBlank   Interrupt Enable  (INT 40h)  (1=Enable)
-Bit 1: LCD STAT Interrupt Enable  (INT 48h)  (1=Enable)
-Bit 2: Timer    Interrupt Enable  (INT 50h)  (1=Enable)
-Bit 3: Serial   Interrupt Enable  (INT 58h)  (1=Enable)
-Bit 4: Joypad   Interrupt Enable  (INT 60h)  (1=Enable)
+Bit 0: VBlank   Interrupt Enable  (INT $40)  (1=Enable)
+Bit 1: LCD STAT Interrupt Enable  (INT $48)  (1=Enable)
+Bit 2: Timer    Interrupt Enable  (INT $50)  (1=Enable)
+Bit 3: Serial   Interrupt Enable  (INT $58)  (1=Enable)
+Bit 4: Joypad   Interrupt Enable  (INT $60)  (1=Enable)
 ```
 
 ## FF0F - IF - Interrupt Flag (R/W)
 
 ```
-Bit 0: VBlank   Interrupt Request (INT 40h)  (1=Request)
-Bit 1: LCD STAT Interrupt Request (INT 48h)  (1=Request)
-Bit 2: Timer    Interrupt Request (INT 50h)  (1=Request)
-Bit 3: Serial   Interrupt Request (INT 58h)  (1=Request)
-Bit 4: Joypad   Interrupt Request (INT 60h)  (1=Request)
+Bit 0: VBlank   Interrupt Request (INT $40)  (1=Request)
+Bit 1: LCD STAT Interrupt Request (INT $48)  (1=Request)
+Bit 2: Timer    Interrupt Request (INT $50)  (1=Request)
+Bit 3: Serial   Interrupt Request (INT $58)  (1=Request)
+Bit 4: Joypad   Interrupt Request (INT $60)  (1=Request)
 ```
 
 When an interrupt signal changes from low to high, the
@@ -70,19 +70,16 @@ from being handled until the program re-enables them, typically by using the `re
 called by the CPU. This is a regular call, exactly like what would be performed by a `call <vector>` instruction (the current PC is pushed on the stack
 and then set to the address of the interrupt vector).
 
-According to Z80 datasheets, the following occurs when control is being
-transferred to an interrupt handler:
+The following occurs when control is being transferred to an interrupt handler:
 
-1. Two wait states are executed (2 machine cycles pass while nothing
-occurs, presumably the CPU is executing NOPs during this time).
-2. The current PC is pushed onto the stack, this process consumes 2 more
-machine cycles.
-3. The high byte of the PC is set to 0, the low byte is set to the
-address of the handler ($40,$48,$50,$58,$60). This consumes one
-last machine cycle.
+1. Two wait states are executed (2 M-cycles pass while nothing
+occurs, presumably the CPU is executing `nop`s during this time).
+2. The current PC is pushed onto the stack, consuming 2 more M-cycles.
+3. The PC register is set to the address of the handler ($40, $48, $50, $58, $60).
+This consumes one last M-cycle.
 
-The entire ISR **should** consume a total of 5 machine cycles. This has
-yet to be tested, but is what the Z80 datasheet implies.
+The entire ISR **should** consume a total of 5 M-cycles.
+This has yet to be tested, but is what the Z80 datasheet implies.
 
 ## Interrupt Priorities
 
