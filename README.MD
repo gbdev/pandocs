@@ -1,28 +1,56 @@
 # Pan Docs
 
-> The single, most comprehensive technical reference to Game Boy available to the public.
+"Pan Docs" is a document started in early 1995, considered the single most comprehensive technical reference to Game Boy available to the public. 
 
-Go to https://gbdev.io/pandocs/ to read the document.
+This git repository hosts a renewed version of it, mantained in the Markdown format and enjoying renewed community attention.
+
+Go to [gbdev.io/pandocs](https://gbdev.io/pandocs) to read the document.
 
 ## Contributing 
 
-[This](https://github.com/gbdev/awesome-gbdev/issues/153) is the RFC proposing the change. You're welcome to discuss the development of this project in the Issues and in our various community channels found [here](https://gbdev.io/chat.html).
+Everyone is welcome to contribute opening issues, expressing feedback, adding and improving content or share new findings.
 
-Contributing is really easy, fork this repo and edit the files in the **src** directory. Then, you can send your PR.
+Here are some places you should take a look to:
+
+- The [Wiki](https://github.com/gbdev/pandocs/wiki), containing various rules and contribuition guidelines you'll need to follow when proposing changes. Some RFCs and discussions detailing the document scope are linked there too.
+- The project [board](https://github.com/gbdev/pandocs/projects/1), for a general picture of the roadmap and the ongoing efforts.
+- [Issues](https://github.com/gbdev/pandocs/issues), where we discuss about what needs to be worked on and how.
+- The various community channels found [here](https://gbdev.io/chat.html) where we you can chat directly with maintainers and other contributors.
+
+Once you feel confortable, fork this repository, make your modifications and send a Pull Request.
+
+### Deploy
 
 To deploy Pan Docs locally:
 
 1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads).
-  mdBook powers the book itself, Rust is used for some custom plugins and Python scripts are used to render some images.
-2. [Install](https://packaging.python.org/tutorials/installing-packages/#requirements-files) the Python prerequisites (`pip3 install -r requirements.txt`)
-   If you're doing that in a Python virtual environment, be sure to activate it in the shell that will run the `mdbook` commands.
+  mdBook is the tool rendering the documentation, Rust is used for some custom plugins and Python scripts are used to render some images. E.g.:
+  ```sh
+  # Install Rust using rustup
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  # Install mdbook using cargo
+  cargo install mdbook
+  # Remember to add cargo bin directory to your path
+  # Install python3 (on Debian systems)
+  apt install python3
+  ```
+2. [Install](https://packaging.python.org/tutorials/installing-packages/#requirements-files) the Python prerequisites. E.g.:
+```sh
+# Create and activate a virtualenv
+python -m venv env
+source env/bin/activate
+# Install python dependencies
+pip install -r requirements.txt
+# Be sure to keep this virtual env activated for the following steps
+```
 3. Clone this repository and run `mdBook` in the root folder with one of:
 ```bash
 # Produce a build
 mdbook build
 # Watch your files and trigger a build automatically whenever you modify a file.
 mdbook watch
-# Watches the book's src directory for changes, rebuild the book, serve it on localhost:3000 and refresh clients for each change.
+# Watches the book's src directory for changes, rebuild the book, serve it on localhost:3000
+#  and refresh clients for each change.
 mdbook serve
 ```
 4. The final HTML files are in `docs/pandocs/`.
@@ -104,13 +132,13 @@ Steps:
 E.g.
 
 ```bash
-$ git clone git@github.com:highlightjs/highlight.js.git
-$ cd highlight.js
-$ git checkout 10.7.2
-$ npm install
-$ git clone git@github.com:gbdev/highlightjs-rgbasm.git extra/rgbasm
-$ node tools/build.js -t browser rgbasm c
-$ cp build/highlight.min.js ../pandocs/theme/highlight.js
+git clone git@github.com:highlightjs/highlight.js.git
+cd highlight.js
+git checkout 10.7.2
+npm install
+git clone git@github.com:gbdev/highlightjs-rgbasm.git extra/rgbasm
+node tools/build.js -t browser rgbasm c
+cp build/highlight.min.js ../pandocs/theme/highlight.js
 ```
 
 ### Folder structure
@@ -148,13 +176,13 @@ $ cp build/highlight.min.js ../pandocs/theme/highlight.js
 └── requirements.txt
 ```
 
-- `.github/` - Metadata files related to GitHub.
+- `.github/` - Metadata files related to the GitHub repository.
   - `workflows/` - [CI workflow description](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions) files.
 - `custom/` - Custom files added to the build.
 - `historical/` - Archive of legacy Pan Docs versions.
 - `mediawiki-exporter/` - A script (and support files) to generate this repo's Git history from a MediaWiki export.
 - `preproc/`, `renderer/` - Our custom mdBook [preprocessor](https://rust-lang.github.io/mdBook/for_developers/preprocessors) and [back-end](https://rust-lang.github.io/mdBook/for_developers/backends), respectively. Both are standard Rust project folders (though see `Cargo.toml` below).
-- `src/` - The bulk of this repo.
+- `src/` - Markdown text sources for the document. **You are probably interested in this folder.**
   - `imgs/` - Images should go in this folder, for organization purposes.
   - Any `.md` file mentioned in `SUMMARY.md` will be rendered to HTML to the output directory.
   - All other files are output verbatim, at the same relative location to `src/` (so, for example, images will be output in `docs/custom/imgs/`).
