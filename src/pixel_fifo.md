@@ -2,9 +2,10 @@
 
 ::: tip TERMINOLOGY
 
-All references to a cycle or dot are meant as T-cycles (4.19 MHz) and cycle
-counts are doubled on CGB in double speed mode. Dots are the terminology used 
-for cycles in the context of rendering, and are synonymous with a T-cycle. 
+All references to a cycle are meant as T-cycles (4.19 MHz) and cycle counts are doubled 
+on CGB in double speed mode. On DMG, a dot is equal to a single T-cycle. However, for CGB 
+in double speed a dot is 2 T-cycles as to keep the amount of dots perscanline and frame similar
+regardless of processor speeds.
 When it is stated that a certain action *lengthens mode 3* it means that mode 0 (hblank) is
 shortened to make up for the additional time in mode 3, as shown in the following diagram.
 
