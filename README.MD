@@ -10,7 +10,7 @@ Go to [gbdev.io/pandocs](https://gbdev.io/pandocs) to read the document.
 
 Everyone is welcome to contribute opening issues, expressing feedback, adding and improving content or share new findings.
 
-Here are some places you should take a look to:
+Here are some resources you should take a look at:
 
 - The [Wiki](https://github.com/gbdev/pandocs/wiki), containing various rules and contribuition guidelines you'll need to follow when proposing changes. Some RFCs and discussions detailing the document scope are linked there too.
 - The project [board](https://github.com/gbdev/pandocs/projects/1), for a general picture of the roadmap and the ongoing efforts.
