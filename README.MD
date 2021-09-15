@@ -12,7 +12,7 @@ Everyone is welcome to contribute opening issues, expressing feedback, adding an
 
 Here are some resources you should take a look at:
 
-- The [Wiki](https://github.com/gbdev/pandocs/wiki), containing various rules and contribuition guidelines you'll need to follow when proposing changes. Some RFCs and discussions detailing the document scope are linked there too.
+- [The wiki](https://github.com/gbdev/pandocs/wiki), containing various rules and contribution guidelines you will have to follow when proposing changes. Some RFCs and discussions detailing the document scope are linked there as well.
 - The project [board](https://github.com/gbdev/pandocs/projects/1), for a general picture of the roadmap and the ongoing efforts.
 - [Issues](https://github.com/gbdev/pandocs/issues), where we discuss about what needs to be worked on and how.
 - The various community channels found [here](https://gbdev.io/chat.html) where we you can chat directly with maintainers and other contributors.
