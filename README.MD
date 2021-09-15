@@ -1,6 +1,6 @@
 # Pan Docs
 
-"Pan Docs" is a document started in early 1995, considered the single most comprehensive technical reference to Game Boy available to the public. 
+"Pan Docs" is a document started in early 1995, considered the single most comprehensive technical reference to Game Boy available to the public.
 
 This git repository hosts a renewed version of it, mantained in the Markdown format and enjoying renewed community attention.
 
