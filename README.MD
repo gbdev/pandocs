@@ -34,7 +34,7 @@ To deploy Pan Docs locally:
   # Install python3 (on Debian systems)
   apt install python3
   ```
-2. [Install](https://packaging.python.org/tutorials/installing-packages/#requirements-files) the Python prerequisites. E.g.:
+2. [Install the Python prerequisites](https://packaging.python.org/tutorials/installing-packages/#requirements-files).
 ```sh
 # Create and activate a virtualenv
 python -m venv env
