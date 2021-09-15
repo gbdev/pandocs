@@ -17,7 +17,7 @@ Here are some resources you should take a look at:
 - [The issues](https://github.com/gbdev/pandocs/issues), where we discuss what needs to be worked on, and how.
 - [The various community channels](https://gbdev.io/chat.html) where we you can chat directly with maintainers and other contributors.
 
-Once you feel confortable, fork this repository, make your modifications and send a Pull Request.
+Once you feel comfortable, fork this repository, make your modifications, and [send a Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
 
 ### Deploy
 
