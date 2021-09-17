@@ -74,11 +74,11 @@ The following occurs when control is being transferred to an interrupt handler:
 
 1. Two wait states are executed (2 M-cycles pass while nothing
 occurs, presumably the CPU is executing `nop`s during this time).
-2. The current PC is pushed onto the stack, consuming 2 more M-cycles.
+2. The current PC is pushed to the stack, consuming 2 more M-cycles.
 3. The PC register is set to the address of the handler ($40, $48, $50, $58, $60).
 This consumes one last M-cycle.
 
-The entire ISR **should** consume a total of 5 M-cycles.
+The entire ISR **should** last a total of 5 M-cycles.
 This has yet to be tested, but is what the Z80 datasheet implies.
 
 ## Interrupt Priorities
