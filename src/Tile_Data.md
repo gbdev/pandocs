@@ -40,7 +40,7 @@ There are three "blocks" of 128 tiles each:
       <td>128&ndash;255</td>
       <td>
         128&ndash;255 <br />
-        (or -127&ndash;0)
+        (or -128&ndash;-1)
       </td>
     </tr>
     <tr>
