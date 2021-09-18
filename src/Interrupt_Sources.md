@@ -43,7 +43,7 @@ the STAT interrupt line won't have a chance to go low between them).
 One very popular use is to indicate to the user when the video
 hardware is about to redraw a given LCD line. This can be useful for
 dynamically controlling the SCX/SCY registers ($FF43/$FF42) to [perform
-special video effects](https://github.com/BlitterObjectBob/DeadCScroll).
+special video effects](https://github.com/gb-archive/DeadCScroll).
 
 Example application: set LYC to WY, enable LY=LYC interrupt, and have
 the handler disable sprites. This can be used if you use the window for
