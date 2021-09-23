@@ -168,7 +168,7 @@ If necessary (e.g. commercial releases with logos on the boxes), consult a lawye
 :::
 
 The logo check was meant to deter piracy using trademark law.
-Unlike nowadays, the Game Boy's technology was not sufficient to require Nintendo's approval to make a game run on it, and Nintendo decided against hardware protection like the NES' [lockout chip](https://wiki.nesdev.com/w/index.php/CIC_lockout_chip) likely for cost and/or power consumption reasons.
+Unlike nowadays, the Game Boy's technology was not sufficient to require Nintendo's approval to make a game run on it, and Nintendo decided against hardware protection like the NES' [lockout chip](https://wiki.nesdev.org/w/index.php/CIC_lockout_chip) likely for cost and/or power consumption reasons.
 
 Instead, the boot ROM's logo check forces each ROM intended to run on the system to contain an (encoded) copy of the Nintendo logo, which is displayed on startup.
 Nintendo's strategy was to threaten pirate developers with suing for trademark infringement.

@@ -120,6 +120,6 @@ disabled.
 
 This can be exploited to only hide parts of an object behind the background
 ([video demonstration](https://youtu.be/B8sJGgCVvnk)).
-A similar behaviour [can be seen on the NES](https://forums.nesdev.com/viewtopic.php?f=10&t=16861)).
+A similar behaviour [can be seen on the NES](https://forums.nesdev.org/viewtopic.php?f=10&t=16861)).
 
 :::
