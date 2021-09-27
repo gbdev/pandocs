@@ -268,63 +268,63 @@ The tables above were obtained from analysis of [the boot ROM's disassemblies](h
 
 As far as timing-sensitive values are concerned, these values are recorded at PC = $0100.
 
-Name          | Address | DMG0 | DMG / MGB | SGB / SGB2 | CGB / AGB
--------------:|:-------:|:----:|:---------:|:----------:|:-----------:
-[`P1`]        | $FF00   | $CF  | $CF       | $C7 or $CF | $C7 or $CF
-[`SB`]        | $FF01   | $00  | $00       | $00        | $00
-[`SC`]        | $FF02   | $7E  | $7E       | $7E        | $7F
-[`DIV`]       | $FF04   | $18  | $AB       | ??[^unk]   | ??[^unk_pad]
-[`TIMA`]      | $FF05   | $00  | $00       | $00        | $00
-[`TMA`]       | $FF06   | $00  | $00       | $00        | $00
-[`TAC`]       | $FF07   | $F8  | $F8       | $F8        | $F8
-[`IF`]        | $FF0F   | $E1  | $E1       | $E1        | $E1
-[`NR10`]      | $FF10   | $80  | $80       | $80        | $80
-[`NR11`]      | $FF11   | $BF  | $BF       | $BF        | $BF
-[`NR12`]      | $FF12   | $F3  | $F3       | $F3        | $F3
-[`NR13`]      | $FF13   | $FF  | $FF       | $FF        | $FF
-[`NR14`]      | $FF14   | $BF  | $BF       | $BF        | $BF
-[`NR21`]      | $FF16   | $3F  | $3F       | $3F        | $3F
-[`NR22`]      | $FF17   | $00  | $00       | $00        | $00
-[`NR23`]      | $FF18   | $FF  | $FF       | $FF        | $FF
-[`NR24`]      | $FF19   | $BF  | $BF       | $BF        | $BF
-[`NR30`]      | $FF1A   | $7F  | $7F       | $7F        | $7F
-[`NR31`]      | $FF1B   | $FF  | $FF       | $FF        | $FF
-[`NR32`]      | $FF1C   | $9F  | $9F       | $9F        | $9F
-[`NR33`]      | $FF1D   | $FF  | $FF       | $FF        | $FF
-[`NR34`]      | $FF1E   | $BF  | $BF       | $BF        | $BF
-[`NR41`]      | $FF20   | $FF  | $FF       | $FF        | $FF
-[`NR42`]      | $FF21   | $00  | $00       | $00        | $00
-[`NR43`]      | $FF22   | $00  | $00       | $00        | $00
-[`NR44`]      | $FF23   | $BF  | $BF       | $BF        | $BF
-[`NR50`]      | $FF24   | $77  | $77       | $77        | $77
-[`NR51`]      | $FF25   | $F3  | $F3       | $F3        | $F3
-[`NR52`]      | $FF26   | $F1  | $F1       | $F0        | $F1
-[`LCDC`]      | $FF40   | $91  | $91       | $91        | $91
-[`STAT`]      | $FF41   | $81  | $85       | ??[^unk]   | ??[^unk_pad]
-[`SCY`]       | $FF42   | $00  | $00       | $00        | $00
-[`SCX`]       | $FF43   | $00  | $00       | $00        | $00
-[`LY`]        | $FF44   | $91  | $00       | ??[^unk]   | ??[^unk_pad]
-[`LYC`]       | $FF45   | $00  | $00       | $00        | $00
-[`DMA`]       | $FF46   | $FF  | $FF       | $FF        | $00
-[`BGP`]       | $FF47   | $FC  | $FC       | $FC        | $FC
-[`OBP0`]      | $FF48   | $FF  | $FF       | $FF        | $00
-[`OBP1`]      | $FF49   | $FF  | $FF       | $FF        | $00
-[`WY`]        | $FF4A   | $00  | $00       | $00        | $00
-[`WX`]        | $FF4B   | $00  | $00       | $00        | $00
-[`KEY1`]      | $FF4D   | $FF  | $FF       | $FF        | $FF
-[`VBK`]       | $FF4F   | $FF  | $FF       | $FF        | $FF
-[`HDMA1`]     | $FF51   | $FF  | $FF       | $FF        | $FF
-[`HDMA2`]     | $FF52   | $FF  | $FF       | $FF        | $FF
-[`HDMA3`]     | $FF53   | $FF  | $FF       | $FF        | $FF
-[`HDMA4`]     | $FF54   | $FF  | $FF       | $FF        | $FF
-[`HDMA5`]     | $FF55   | $FF  | $FF       | $FF        | $FF
-[`RP`]        | $FF56   | $FF  | $FF       | $FF        | $FF
-[`BCPS`]      | $FF68   | $FF  | $FF       | $FF        | ??[^compat]
-[`BCPD`]      | $FF69   | $FF  | $FF       | $FF        | ??[^compat]
-[`OCPS`]      | $FF6A   | $FF  | $FF       | $FF        | ??[^compat]
-[`OCPD`]      | $FF6B   | $FF  | $FF       | $FF        | ??[^compat]
-[`SVBK`]      | $FF70   | $FF  | $FF       | $FF        | $FF
-[`IE`]        | $FFFF   | $00  | $00       | $00        | $00
+Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
+-------------:|:-------:|:--------:|:---------:|:----------:|:-----------:
+[`P1`]        | $FF00   | $CF      | $CF       | $C7 or $CF | $C7 or $CF
+[`SB`]        | $FF01   | $00      | $00       | $00        | $00
+[`SC`]        | $FF02   | $7E      | $7E       | $7E        | $7F
+[`DIV`]       | $FF04   | $18      | $AB       | ??[^unk]   | ??[^unk_pad]
+[`TIMA`]      | $FF05   | $00      | $00       | $00        | $00
+[`TMA`]       | $FF06   | $00      | $00       | $00        | $00
+[`TAC`]       | $FF07   | $F8      | $F8       | $F8        | $F8
+[`IF`]        | $FF0F   | $E1      | $E1       | $E1        | $E1
+[`NR10`]      | $FF10   | $80      | $80       | $80        | $80
+[`NR11`]      | $FF11   | $BF      | $BF       | $BF        | $BF
+[`NR12`]      | $FF12   | $F3      | $F3       | $F3        | $F3
+[`NR13`]      | $FF13   | $FF      | $FF       | $FF        | $FF
+[`NR14`]      | $FF14   | $BF      | $BF       | $BF        | $BF
+[`NR21`]      | $FF16   | $3F      | $3F       | $3F        | $3F
+[`NR22`]      | $FF17   | $00      | $00       | $00        | $00
+[`NR23`]      | $FF18   | $FF      | $FF       | $FF        | $FF
+[`NR24`]      | $FF19   | $BF      | $BF       | $BF        | $BF
+[`NR30`]      | $FF1A   | $7F      | $7F       | $7F        | $7F
+[`NR31`]      | $FF1B   | $FF      | $FF       | $FF        | $FF
+[`NR32`]      | $FF1C   | $9F      | $9F       | $9F        | $9F
+[`NR33`]      | $FF1D   | $FF      | $FF       | $FF        | $FF
+[`NR34`]      | $FF1E   | $BF      | $BF       | $BF        | $BF
+[`NR41`]      | $FF20   | $FF      | $FF       | $FF        | $FF
+[`NR42`]      | $FF21   | $00      | $00       | $00        | $00
+[`NR43`]      | $FF22   | $00      | $00       | $00        | $00
+[`NR44`]      | $FF23   | $BF      | $BF       | $BF        | $BF
+[`NR50`]      | $FF24   | $77      | $77       | $77        | $77
+[`NR51`]      | $FF25   | $F3      | $F3       | $F3        | $F3
+[`NR52`]      | $FF26   | $F1      | $F1       | $F0        | $F1
+[`LCDC`]      | $FF40   | $91      | $91       | $91        | $91
+[`STAT`]      | $FF41   | $81      | $85       | ??[^unk]   | ??[^unk_pad]
+[`SCY`]       | $FF42   | $00      | $00       | $00        | $00
+[`SCX`]       | $FF43   | $00      | $00       | $00        | $00
+[`LY`]        | $FF44   | $91      | $00       | ??[^unk]   | ??[^unk_pad]
+[`LYC`]       | $FF45   | $00      | $00       | $00        | $00
+[`DMA`]       | $FF46   | $FF      | $FF       | $FF        | $00
+[`BGP`]       | $FF47   | $FC      | $FC       | $FC        | $FC
+[`OBP0`]      | $FF48   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
+[`OBP1`]      | $FF49   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
+[`WY`]        | $FF4A   | $00      | $00       | $00        | $00
+[`WX`]        | $FF4B   | $00      | $00       | $00        | $00
+[`KEY1`]      | $FF4D   | $FF      | $FF       | $FF        | $FF
+[`VBK`]       | $FF4F   | $FF      | $FF       | $FF        | $FF
+[`HDMA1`]     | $FF51   | $FF      | $FF       | $FF        | $FF
+[`HDMA2`]     | $FF52   | $FF      | $FF       | $FF        | $FF
+[`HDMA3`]     | $FF53   | $FF      | $FF       | $FF        | $FF
+[`HDMA4`]     | $FF54   | $FF      | $FF       | $FF        | $FF
+[`HDMA5`]     | $FF55   | $FF      | $FF       | $FF        | $FF
+[`RP`]        | $FF56   | $FF      | $FF       | $FF        | $FF
+[`BCPS`]      | $FF68   | $FF      | $FF       | $FF        | ??[^compat]
+[`BCPD`]      | $FF69   | $FF      | $FF       | $FF        | ??[^compat]
+[`OCPS`]      | $FF6A   | $FF      | $FF       | $FF        | ??[^compat]
+[`OCPD`]      | $FF6B   | $FF      | $FF       | $FF        | ??[^compat]
+[`SVBK`]      | $FF70   | $FF      | $FF       | $FF        | $FF
+[`IE`]        | $FFFF   | $00      | $00       | $00        | $00
 
 [^unk]:
 Since this boot ROM's duration depends on the header's contents, a general answer can't be given.
@@ -333,6 +333,11 @@ The value should be static for a given header, though.
 [^unk_pad]:
 Since this boot ROM's duration depends on the header's contents (and the player's inputs in compatibility mode), an answer can't be given.
 Just don't rely on these.
+
+[^obp]:
+These registers are left entirely uninitialized.
+Their value tends to be most often $00 or $FF, but the value is especially not reliable if your software runs after e.g. a flashcart or multicart selection menu.
+Make sure to always set those before displaying objects for the first time.
 
 [^compat]:
 These depend on whether compatibility mode is enabled.
