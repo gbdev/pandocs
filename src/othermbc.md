@@ -16,7 +16,7 @@ outputs, but this appears not to have been done in licensed games.
 
 ### EMS
 
-::: warning
+::: warning VERIFICATION NEEDED
 
 Take the following with a grain of salt, as it hasn't been verified on authentic EMS hardware.
 
@@ -31,7 +31,7 @@ A [header](<#The Cartridge Header>) matching any of the following is detected as
 Registers:
 
 - $2000 write: Normal behavior, plus save written value in $2000 latch
-- $1000 write: $A5 enables configure mode, $98 disables, and other values have no known effect
+- $1000 write: $A5 enables configure mode, $98 disables it, and other values have no known effect
 - $7000 write while configure mode is on: Copy $2000 latch to OR mask
 
 After the OR mask has been set, all reads from ROM will OR A21-A14 (the
@@ -59,10 +59,10 @@ two unusual properties:
 First, unlike a usual MBC, it switches the whole 32 KiB ROM area instead
 of just the $4000-$7FFF area. Therefore, if you want to use [the interrupt vectors](<#Interrupt Handling>)
 with this cart, you should duplicate them across all banks.
-Additionally, since the initial state of the '377 can't be guaranteed,
+Additionally, since the 74LS377's contents can't be guaranteed when powering on,
 the ROM header and some code for switching to a known bank should also
 be included in every bank. This also means that the Wisdom Tree mapper
-could be used as a multicart mapper for 32 KiB ROMs, assuming there was
+could be used as a multicart mapper for 32 KiB ROMs, assuming there is
 enough ROM space in each bank for some small initialization code, and
 none of the ROMs wrote to the $0000-$7FFF area. For example, if the
 last 5 bytes of all banks are unused, games can be patched as follows:
@@ -79,7 +79,7 @@ last 5 bytes of all banks are unused, games can be patched as follows:
     jp hl
 ```
 
-Second, because the '377 latches data on the *positive* write pulse edge,
+Second, because the 74LS377 latches data on the [*positive* write pulse edge](https://www.allaboutcircuits.com/textbook/digital/chpt-10/edge-triggered-latches-flip-flops/),
 and the value on the Game Boy data bus is no longer valid when the
 positive edge arrives, the designer of this mapper chose to use the
 A7-A0 address lines for selecting a bank instead of the data lines.
