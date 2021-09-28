@@ -68,7 +68,7 @@ Pan Docs uses a custom mdBook preprocessor & renderer to enable some special mar
 
 #### Custom Containers 
 
-Those mimick Vuepress' [custom containers](https://vuepress.vuejs.org/guide/markdown.html#custom-containers)) functionality.
+Those mimick Vuepress' [custom containers](https://vuepress.vuejs.org/guide/markdown.html#custom-containers) functionality.
 
 ```markdown
   ::: type HEADING
