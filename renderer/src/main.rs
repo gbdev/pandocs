@@ -180,7 +180,7 @@ fn render(path: &mut PathBuf, name: &str, index: usize) -> Result<()> {
                     }
                     in_box = true;
 
-                    let box_type = if ["tip", "warning"].contains(&box_type) {
+                    let box_type = if ["tip", "warning", "danger"].contains(&box_type) {
                         box_type
                     } else {
                         let mut stderr = StandardStream::stderr(ColorChoice::Auto);
