@@ -88,14 +88,14 @@ to Bit 7 of FF55. In that case reading from FF55 will return how many
 \$10 "blocks" remained (minus 1) in the lower 7 bits, but Bit 7 will
 be read as "1". Stopping the transfer doesn't set HDMA1-4 to \$FF.
 
-::: warning
+::: warning WARNING
 
 HBlank DMA should not be started (write to FF55) during a HBlank
 period (STAT mode 0).
 
 If the transfer's destination address overflows, the transfer stops
-prematurely. \[Note: what's the state of the registers if this happens
-?\]
+prematurely.
+The status of the registers if this happens still needs to be [investigated](https://github.com/gbdev/pandocs/issues/364).
 
 :::
 
