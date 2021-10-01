@@ -33,6 +33,7 @@
   - [Interrupt Sources](./Interrupt_Sources.md)
   - [HALT](./halt.md)
 - [CGB Registers](./CGB_Registers.md)
+- [Infrared Communication](./IR.md)
 - [SGB Functions](./SGB_Functions.md)
   - [Unlocking and Detecting SGB Functions](./SGB_Unlocking.md)
   - [Command Packet Transfers](./SGB_Command_Packet.md)
