@@ -4,7 +4,7 @@
 The Game Boy outputs graphics to a 160x144 pixel LCD, using a quite complex
 mechanism to facilitate rendering.
 
-::: warning
+::: warning Terminology
 
 Sprites/graphics terminology can vary a lot among different platforms, consoles, 
 users and communities. You may be familiar with slightly different definitions.

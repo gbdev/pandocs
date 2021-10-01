@@ -132,7 +132,7 @@ The boot ROM picks a compatibility palette using an ID computed using the follow
 The resulting palettes ID is used to pick 3 palettes out of a table via a fairly complex mechanism.
 The user can override this choice using certain button combinations during the logo animation; some of these manual choices are identical to auto-colorizations, [but others are unique](https://tcrf.net/Notes:Game_Boy_Color_Bootstrap_ROM#Manual_Select_Palette_Configurations).
 
-::: tip
+::: tip Available palettes
 
 A table of checksums (and tie-breaker fourth letters when applicable) and the corresponding palettes can be found [on TCRF](https://tcrf.net/Notes:Game_Boy_Color_Bootstrap_ROM#Assigned_Palette_Configurations).
 
@@ -196,7 +196,7 @@ Strangely, despite correcting the TOCTTOU vulnerability, the CGB-AGB boot ROM do
 Regardless of the console you intend for your game to run on, it is prudent to rely on as little of the following as possible, barring what is mentioned elsewhere in this documentation to detect which system you are running on.
 This ensures maximum compatibility, both across consoles and cartridges (especially flashcarts, which typically run their own menu code before your game), increases reliability, and is generally considered good practice.
 
-::: warning
+::: warning Use it at your own risk
 
 Some of the information below is highly volatile, due to the complexity of some of the boot ROM behaviors; thus, some of it may contain errors.
 Rely on it at your own risk.
