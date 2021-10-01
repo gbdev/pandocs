@@ -14,7 +14,7 @@ Here are some resources you should take a look at:
 
 - [The wiki](https://github.com/gbdev/pandocs/wiki), containing various rules and contribution guidelines you will have to follow when proposing changes. Some RFCs and discussions detailing the document scope are linked there as well.
 - [The project board](https://github.com/gbdev/pandocs/projects/1), for a general picture of the roadmap and the ongoing efforts.
-- [The issues](https://github.com/gbdev/pandocs/issues), where we discuss what needs to be worked on, and how.
+- [The issues](https://github.com/gbdev/pandocs/issues), where we discuss what needs to be worked on, and how. If you are looking into investigating Game Boy unknown behaviours, check the Issues labeled with ["research"](https://github.com/gbdev/pandocs/issues?q=is%3Aissue+is%3Aopen+label%3Aresearch).
 - [The various community channels](https://gbdev.io/chat.html) where we you can chat directly with maintainers and other contributors.
 
 Once you feel comfortable, fork this repository, make your modifications, and [send a Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
@@ -57,8 +57,9 @@ mdbook serve
 
 Be aware of the following caveats:
 
-- `docs/html/` contains only partially processed files and it's also the folder that gets served by `mdbook serve`, so you will see some unprocessed custom markup if you visit the endpoint exposed by mdbook's development web server.
-As a workaround, you can manually serve the file in the `docs/pandocs/` with any web server (e.g. you can just run `npx http-server` in the `docs/pandocs` folder).
+- `docs/html/` contains only partially processed files and it's also the folder that gets served by `mdbook serve`, so you will see some unprocessed custom markup if you visit the endpoint exposed by mdbook's development web server (:3000).
+
+As a workaround, you can manually serve the file in the `docs/pandocs/` with the web server of your choice (e.g. you can run `python3 -m http.server` from the `docs/pandocs` folder).
 
 - `mdbook watch` and `mdbook serve` do *not* watch for changes to files in the `theme/` or `custom/` directories (e.g. highlight.js builds, CSS style overrides). You must trigger the build by either restarting the command, or manually changing one of the watched files.
 
@@ -81,7 +82,7 @@ Those mimick Vuepress' [custom containers](https://vuepress.vuejs.org/guide/mark
 These are rendered as "info boxes".
 
 - `type` must be `tip`, or `warning`.
-- `HEADING` can contain spaces and can be omitted entirely.
+- `HEADING` can contain spaces and will be the title of the box. It can be "Warning", "Tip" or something illustrative of the phenomenon described in the box.
 - Both `:::` lines **must** be surrounded by empty lines, otherwise they won't be processed.
 
 E.g.
