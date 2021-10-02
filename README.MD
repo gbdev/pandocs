@@ -58,8 +58,8 @@ mdbook serve
 Be aware of the following caveats:
 
 - `docs/html/` contains only partially processed files and it's also the folder that gets served by `mdbook serve`, so you will see some unprocessed custom markup if you visit the endpoint exposed by mdbook's development web server (:3000).
-
-As a workaround, you can manually serve the file in the `docs/pandocs/` with the web server of your choice (e.g. you can run `python3 -m http.server` from the `docs/pandocs` folder).
+  
+  As a workaround, you can manually serve the file in the `docs/pandocs/` with the web server of your choice (e.g. you can run `python3 -m http.server` from the `docs/pandocs` folder).
 
 - `mdbook watch` and `mdbook serve` do *not* watch for changes to files in the `theme/` or `custom/` directories (e.g. highlight.js builds, CSS style overrides). You must trigger the build by either restarting the command, or manually changing one of the watched files.
 
