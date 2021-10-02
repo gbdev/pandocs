@@ -43,7 +43,7 @@ specifies the index of the first (top) tile of the sprite. This is enforced by t
 hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
 tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
 
-## Byte 3 - Attributes/Flags:
+## Byte 3 - Attributes/Flags
 
 ```
  Bit7   BG and Window over OBJ (0=No, 1=BG and Window colors 1-3 over the OBJ)
