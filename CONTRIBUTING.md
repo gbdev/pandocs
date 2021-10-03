@@ -73,7 +73,7 @@ Discussion:
 
 ### 6. Horizontal Blanking Interval, Vertical Blanking Interval
 
-- VBlank, HBlank
+- VBlank, HBlank, not V-Blank/H-Blank or Vblank/Hblank
 
 Discussion:
 - [#94](https://github.com/gbdev/pandocs/issues/94)
