@@ -85,7 +85,7 @@ We use the console codenames, so:
 - DMG
 - SGB
 - MGB (Game Boy Pocket)
-- SGB2
+- SGB2 (Super Game Boy 2)
 - CGB (Game Boy Color)
 - AGB (Game Boy Advance)
 
