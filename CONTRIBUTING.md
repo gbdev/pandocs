@@ -86,7 +86,7 @@ We use the console codenames, so:
 - SGB
 - MGB (Game Boy Pocket)
 - SGB2
-- CGB
+- CGB (Game Boy Color)
 - AGB
 
 ### 8. Spacing and hyphenation of some terms
