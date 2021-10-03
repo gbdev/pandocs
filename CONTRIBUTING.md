@@ -51,7 +51,7 @@ Use Binary Prefixes (Ki, Mi) for Bytes. E.g.:
 ```
 
 - Abbreviate bytes as "B" when used with a prefix. Spell out bits as "bits", even when used with a prefix, to avoid ambiguity. When used as a unit suffix, unit names are always singular, so it should be "20 kbit", not "20 kbits". (Also, "bytes" as a word is fine, just like "30 meters" is a valid way of talking about that length. But "Mbyte" and the like should go away.)
-- Hexadecimal values are uppercase and prefixed with `$`. E.g. `$ABCD`. To prevent clutter, don't use a prefix for hex numbers when it's clear from the context that a number is hexadecimal. For example addresses and lists of opcodes. In those cases, zero pad, even for smaller number. (Eg: 0000-3FFF instead of 0-3FFF.
+- Hexadecimal values are uppercase and prefixed with `$`: e.g. `$ABCD`. To prevent clutter, don't use a prefix for hex numbers when it's clear from the context that a number is hexadecimal. For example, addresses and lists of opcodes. In those cases, zero-pad, even for smaller numbers: `0000-3FFF` instead of `0-3FFF`.
 - Put a space between numbers and their unit (ISO).
 - Decimal numbers must be written with a decimal point instead of a comma.
 - Binary numbers must be accompanied by the "binary" word.
