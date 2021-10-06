@@ -81,7 +81,7 @@ Those mimick Vuepress' [custom containers](https://vuepress.vuejs.org/guide/mark
 
 These are rendered as "info boxes".
 
-- `type` must be `tip`, or `warning`.
+- `type` must be `tip`, `warning`, or `danger`.
 - `HEADING` can contain spaces and will be the title of the box. It should be `Warning`, `Tip`, or something illustrative of what the box contains.
 - Both `:::` lines **must** be surrounded by empty lines, otherwise they won't be processed.
 
