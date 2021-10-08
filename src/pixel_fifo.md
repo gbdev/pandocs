@@ -2,9 +2,9 @@
 
 ::: tip TERMINOLOGY
 
-All references to a cycle are meant as T-cycles (4.19 MHz) and cycle
-counts are doubled on CGB in double speed mode. When it is stated that a
-certain action *lengthens mode 3* it means that mode 0 (hblank) is
+All references to a dot are meant as dots (4.19 MHz). Dots remain the same regardless of 
+CGB double speed.
+When it is stated that a certain action *lengthens mode 3* it means that mode 0 (HBlank) is
 shortened to make up for the additional time in mode 3, as shown in the following diagram.
 
 :::
@@ -37,8 +37,8 @@ Each pixel in the FIFO has four properties:
 
 The fetcher fetches a row of 8 background or window pixels and queues
 them up to be mixed with sprite pixels. The pixel fetcher has 5 steps.
-The first four steps take 2 cycles each and the fifth step is attempted
-every cycle until it succeeds. The order of the steps are as follows:
+The first four steps take 2 dots each and the fifth step is attempted
+every dot until it succeeds. The order of the steps are as follows:
 
 - Get tile
 - Get tile data low
@@ -75,7 +75,7 @@ VRAM. However, if the PPU's access to VRAM is [blocked](<#VRAM Access>)
 then the value for the tile is read as $FF.
 
 CGB can access both tile index and the attributes in the same clock
-cycle.
+dot.
 
 ### Get Tile Data Low
 
@@ -143,7 +143,7 @@ are cleared.
 
 When rendering the window the background FIFO is cleared and the fetcher
 is reset to step 1. When WX is 0 and the SCX & 7 > 0 mode 3 is shortened
-by 1 cycle.
+by 1 dot.
 
 When the window has already started rendering there is a bug that occurs
 when WX is changed mid-scanline. When the value of WX changes after the
@@ -160,26 +160,26 @@ met then sprite fetching is [aborted](<#Sprite Fetch Abortion>).
 
 At this point the [fetcher](<#FIFO Pixel Fetcher>) is advanced one step
 until it's at step 5 or until the background FIFO is not empty. Advancing
-the fetcher one step here lengthens mode 3 by 1 cycle. This process may
+the fetcher one step here lengthens mode 3 by 1 dot. This process may
 be [aborted](<#Sprite Fetch Abortion>) after the fetcher has advanced a
 step.
 
 When SCX & 7 > 0 and there is a sprite at X coordinate 0 of the current
-scanline then mode 3 is lengthened. The amount of cycles this lengthens
+scanline then mode 3 is lengthened. The amount of dots this lengthens
 mode 3 by is whatever the lower 3 bits of SCX are. After this penalty is
 applied object fetching may be aborted. Note that the timing of the
 penalty is not confirmed. It may happen before or after waiting for the
 fetcher. More research needs to be done.
 
 After checking for sprites at X coordinate 0 the fetcher is advanced two
-steps. The first advancement lengthens mode 3 by 1 cycle and the second
-advancement lengthens mode 3 by 3 cycles. After each fetcher advancement
+steps. The first advancement lengthens mode 3 by 1 dot and the second
+advancement lengthens mode 3 by 3 dots. After each fetcher advancement
 there is a chance for a sprite fetch abortion to occur.
 
 The lower address for the row of pixels of the target object tile is now
-retrieved and lengthens mode 3 by 1 cycle. Once the address is retrieved
+retrieved and lengthens mode 3 by 1 dot. Once the address is retrieved
 this is the last chance for sprite fetch abortion to occur. Exiting
-object fetch lengthens mode 3 by 1 cycle. The upper address for the
+object fetch lengthens mode 3 by 1 dot. The upper address for the
 target object tile is now retrieved and does not shorten mode 3.
 
 At this point [VRAM Access](<#VRAM Access>) is checked for the lower and
@@ -195,7 +195,7 @@ is replaced with the target object's properties.
 Now it's time to [render a pixel](<#Pixel Rendering>)! The same process
 described in Sprite Fetch Abortion is performed: a pixel is rendered and
 the fetcher is advanced one step. This advancement lengthens mode 3 by 1
-cycle if the X coordinate of the current scanline is not 160. If the X
+dot if the X coordinate of the current scanline is not 160. If the X
 coordinate is 160 the PPU stops processing sprites (because they won't be
 visible).
 
@@ -245,12 +245,12 @@ blocked and a black pixel pushed to the LCD when rendering pixels:
 - First HBlank of the frame
 - When searching OAM and index 37 is reached
 - After switching from mode 2 (oam search) to mode 3 (pixel transfer)
-- When entering HBlank (mode 0) and not in double speed mode, blocked 2 cycles later no matter what
+- When entering HBlank (mode 0) and not in double speed mode, blocked 2 dots later no matter what
 
 At various times during PPU operation read access to the CGB palette is
 restored and pixels are pushed to the LCD normally when rendering pixels:
 - At the end of mode 2 (oam search)
-- For only 2 cycles when entering HBlank (mode 0) and in double speed mode
+- For only 2 dots when entering HBlank (mode 0) and in double speed mode
 
 ::: tip Note
 
@@ -263,9 +263,9 @@ PPU's access to CGB palettes is always restored upon leaving STOP mode.
 
 Sprite fetching may be aborted if LCDC.1 is disabled while the PPU is
 fetching an object from OAM. This abortion lengthens mode 3 by the amount
-of cycles the previous instruction took plus the residual cycles left for
+of dots the previous instruction took plus the residual dots left for
 the PPU to process. When OAM fetching is aborted a pixel is [rendered](<#Pixel Rendering>),
 the [fetcher](<#FIFO Pixel Fetcher>) is advanced one step. This advancement
-lengthens mode 3 by 1 cycle if the current pixel is not 160. If the
+lengthens mode 3 by 1 dot if the current pixel is not 160. If the
 current pixel is 160 the PPU stops processing sprites because they won't
 be visible.
