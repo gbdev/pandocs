@@ -35,15 +35,8 @@ In any case, maintainers will chime in, reviewing what you changed and if necess
 
 ## Document Style
 
-### 1. Conventions documentation
 
-A short paragraph introducing and clarifying the conventions used in the document must be placed (and kept updated) in the top of the document.
-
-### 2. Monospaced text, code snippets, code boxes
-
-- No ligatures
-
-### 3. Pseudocode
+### 1. Pseudocode
 
 - Assignment: :=
 - Comparison: =, ≠, <, >, ≤, ≥
@@ -58,7 +51,7 @@ References:
 3. https://cs.wmich.edu/gupta/teaching/cs3310/sp18cs3310web/lecture%20notes%20cs3310/PseudocodeBasics.pdf
 4. https://en.wikipedia.org/wiki/Pseudocode#Mathematical_style_pseudocode
 
-### 4. Units and prefixes:
+### 2. Units and prefixes:
 
 Use Binary Prefixes (Ki, Mi) for Bytes. E.g.:
 
@@ -81,21 +74,21 @@ Discussion:
 - [#76](https://github.com/gbdev/pandocs/issues/76), [#55](https://github.com/gbdev/pandocs/issues/55)
 
 
-### 5. 8 bits / 8-bit
+### 3. 8 bits / 8-bit
 
 - "8 bits" and "8-bit" have different usages in the English language. The former is used when talking about the quantity ("a byte has 8 bits"), while the latter is used as an adjective ("8-bit bytes are nowadays standard"). "8bit" is obviously wrong, and "8 bit" is likewise incorrect.
 
 Discussion:
 - [#102](https://github.com/gbdev/pandocs/issues/102)
 
-### 6. Horizontal Blanking Interval, Vertical Blanking Interval
+### 4. Horizontal Blanking Interval, Vertical Blanking Interval
 
 - VBlank, HBlank, not V-Blank/H-Blank or Vblank/Hblank
 
 Discussion:
 - [#94](https://github.com/gbdev/pandocs/issues/94)
 
-### 7. Mentioning models
+### 5. Mentioning models
 
 We use the console codenames, so:
 
@@ -106,12 +99,12 @@ We use the console codenames, so:
 - CGB (Game Boy Color)
 - AGB (Game Boy Advance)
 
-### 8. Spacing and hyphenation of some terms
+### 6. Spacing and hyphenation of some terms
 
 - "tile map", not "tilemap"
 - "wavelength", not "wave length" ([#350 (comment)](https://github.com/gbdev/pandocs/pull/350#discussion_r709713631))
 
-### 9. Numerical ranges
+### 7. Numerical ranges
 
 Those should either be written out (1 to 42), or use an "n-dash" `–` (can also be written as the HTML entity `&ndash;`).
 
