@@ -1,20 +1,37 @@
 # Contributing
 
-First of all, read how to deploy a local copy of Pan Docs in the [README](https://github.com/gbdev/pandocs#contributing).
+Everyone is welcome to contribute opening issues, expressing feedback, adding and improving content or share new findings. In this document you'll find a series of guidelines on how to do so.
+
+## Issues
+
+The issue tracker is where we discuss what needs to be worked on, and how. You can also browse them [by label](https://github.com/gbdev/pandocs/labels).
+
+### [Board](https://github.com/gbdev/pandocs/projects/1)
+
+We use a "Kanban" board on the Project tab of this repository to organize and prioritize the issues.
+
+Some notes on how the task are organised:
+
+**Triage**: the issues here are still in the "request for comments" phase. The discussion is on-going or not enough information is available to progress. You're welcome to join the discussion, provide references and propose solutions.
+
+**To Do**: stuff here is ready to be worked on. There should be all the information needed to work on a PR to implement a solution for those issues. Anyone can take on those issues and send a PR for those tasks.
+
+## Deploy
+
+Check the [DEPLOY](DEPLOY.MD) document to learn how to run a local copy of Pan Docs.
+
+## Community
+
+There are [various community channels](https://gbdev.io/chat.html) where we you can chat directly with maintainers and other contributors.
 
 ## Git
 
-- Commit messages must be meaningful, avoid "Update XXX.md". Please describe what you changed, how, and **why**.
-- If it is desirable to squash a PR, but not into a single commit, keep in mind that most of the time, maintainers have push access to branches being PR'd ("Allow edits and access to secrets by maintainers" checkbox in the right sidebar).
+Try to follow these guidelines:
+
+- Commit messages should be meaningful, avoid "Update XXX.md". Please describe what you changed, how, and **why**. You can also use the PR message to add details.
 - Maintainers: rebase or squash PRs, please do not create merge commits. Avoid leaving formatting/typos/etc. commits in `master`'s history.
 
-## [Board](https://github.com/gbdev/pandocs/projects/1)
-
-Some notes on how we use the Project board:
-
-**Triage**: the issues here are still in the RFC phase. The discussion is on-going or not enough information is available to progress. You're welcome to join the discussion, provide references and propose solutions.
-
-**To Do**: stuff here is ready to be worked on. You should have all the information you have to work on a PR to implement the solution required by the issues.
+In any case, maintainers will chime in, reviewing what you changed and if necessary commit on your branch to help you through the process of preparing the PR.
 
 ## Document Style
 
@@ -30,7 +47,7 @@ A short paragraph introducing and clarifying the conventions used in the documen
 
 - Assignment: :=
 - Comparison: =, ≠, <, >, ≤, ≥
-- Arithmetic: +, −, ×, /, mod
+- Arithmetic: +, −, ×, ∕, mod
 - Floor/ceiling: ⌊, ⌋, ⌈, ⌉.     a :=    ⌊b⌋    + ⌈c⌉
 - Logical: and, or, not
 - Sums, products: Σ Π
