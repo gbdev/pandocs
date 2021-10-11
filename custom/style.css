@@ -20,13 +20,6 @@ html {
     }
 }
 
-/* Override global variables */
-:root {
-    /* workaround to get hover+active sidebar links on normal links blue */
-    --sidebar-active: var(--links);
-}
-
-
 body {
     font-family: "Inter";
     /* Enable some font features for Inter (https://rsms.me/inter/#features/calt) */
@@ -76,12 +69,13 @@ code {
 .box {
     margin: 20px 0;
     padding: 1.6px 20px;
-    border-left-width: .5rem;
+    border-left-width: .75rem;
     border-left-style: solid;
 }
 
 .box>.box-title {
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .box.tip {
@@ -90,12 +84,51 @@ code {
 }
 
 .box.warning {
-    border-left-color: #e7c000;
+    border-left-color: var(--c-warning);
     background-color: rgba(255, 229, 100, .2);
+    color: var(--c-warning-text);
+}
+
+.box.warning>.box-title{
+    color: var(--c-warning-title);
 }
 
 .spacer {
     width: 100%;
     height: 3px;
     margin: 25px 0px 25px 0px;
+}
+
+
+/* Global CSS variables */
+
+:root {
+    /* (Override) workaround to get hover+active sidebar links on normal links blue */
+    --sidebar-active: var(--links);
+    /* Warning boxes base styling */
+    --c-warning: #e7c000;
+    --c-warning-bg: #fffae3;
+    --c-warning-title: #ad9000;
+}
+
+/* Theme-wide CSS variables */
+
+.ayu {
+    --c-warning-text: #eac100;
+}
+
+.coal {
+    --c-warning-text: #eac100;
+}
+
+.light {
+    --c-warning-text: #746000;
+}
+
+.navy {
+    --c-warning-text: #eac100;
+}
+
+.rust {
+    --c-warning-text: #ad8e00;
 }

@@ -1,7 +1,7 @@
 
 # Accessing VRAM and OAM
 
-::: warning
+::: warning Warning
 
 When the PPU is drawing the screen it is directly reading
 from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).

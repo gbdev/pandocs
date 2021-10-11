@@ -2,7 +2,6 @@
 
 This document will explain you how to run a local copy of Pan Docs. 
 
-
 1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads).
   mdBook is the tool rendering the documentation, Rust is used for some custom plugins and Python scripts are used to render some images. E.g.:
   ```sh
@@ -37,8 +36,9 @@ mdbook serve
 
 Be aware of the following caveats:
 
-- `docs/html/` contains only partially processed files and it's also the folder that gets served by `mdbook serve`, so you will see some unprocessed custom markup if you visit the endpoint exposed by mdbook's development web server.
-As a workaround, you can manually serve the file in the `docs/pandocs/` with any web server (e.g. you can just run `npx http-server` in the `docs/pandocs` folder).
+- `docs/html/` contains only partially processed files and it's also the folder that gets served by `mdbook serve`, so you will see some unprocessed custom markup if you visit the endpoint exposed by mdbook's development web server (:3000).
+  
+  As a workaround, you can manually serve the file in the `docs/pandocs/` with the web server of your choice (e.g. you can run `python3 -m http.server` from the `docs/pandocs` folder).
 
 - `mdbook watch` and `mdbook serve` do *not* watch for changes to files in the `theme/` or `custom/` directories (e.g. highlight.js builds, CSS style overrides). You must trigger the build by either restarting the command, or manually changing one of the watched files.
 
@@ -61,7 +61,7 @@ Those mimick Vuepress' [custom containers](https://vuepress.vuejs.org/guide/mark
 These are rendered as "info boxes".
 
 - `type` must be `tip`, or `warning`.
-- `HEADING` can contain spaces and can be omitted entirely.
+- `HEADING` can contain spaces and will be the title of the box. It should be `Warning`, `Tip`, or something illustrative of what the box contains.
 - Both `:::` lines **must** be surrounded by empty lines, otherwise they won't be processed.
 
 E.g.

@@ -55,17 +55,14 @@
 	<text class="centered mode-id" x="100" y="25">Mode 2</text>
 	<text class="centered mode-descr" x="100" y="45">OAM scan</text>
 	<text class="centered small" x="100" y="75">80 dots</text>
-	<text class="centered small" x="100" y="90">(= 20 cycles)</text>
 	<rect class="mode-box m3" x="145" y="0" width="172"/>
 	<text class="centered mode-id" x="231" y="25">Mode 3</text>
 	<text class="centered mode-descr" x="231" y="45">Drawing pixels</text>
 	<text class="centered small" x="231" y="75">172–289 dots</text>
-	<text class="centered small" x="231" y="90">(= 43–72 cycles)</text>
 	<rect class="mode-box m0" x="322" y="0" width="204"/>
 	<text class="centered mode-id" x="424" y="25">Mode 0</text>
 	<text class="centered mode-descr" x="424" y="45">Horizontal blank</text>
 	<text class="centered small" x="424" y="75">87–204 dots</text>
-	<text class="centered small" x="424" y="90">(= 22–51 cycles)</text>
 	<rect class="mode-box m1" x="130" y="490" width="230"/>
 	<text class="centered mode-id" x="245" y="515">Mode 1</text>
 	<text class="centered mode-descr" x="245" y="535">Vertical blank</text>
@@ -94,14 +91,14 @@
 	<rect class="scanline m0" y="210" x="322" width="204"/>
 	<text class="middle-baseline darken" y="222" x="150">SHORTEST</text>
 	<text class="middle-baseline darken right" y="222" x="525">LONGEST</text>
-	<text class="middle-baseline small" x="535" y="222">456 dots (= 114 cycles)</text>
+	<text class="middle-baseline small" x="535" y="222">456 dots</text>
 	<text class="middle-baseline right" x="55" y="247">1</text>
 	<rect class="scanline m2" y="235" x="60" width="80"/>
 	<rect class="scanline m3" y="235" x="145" width="289"/>
 	<rect class="scanline m0" y="235" x="439" width="87"/>
 	<text class="middle-baseline darken" y="247" x="150">LONGEST</text>
 	<text class="middle-baseline darken right" y="247" x="525">SHORTEST</text>
-	<text class="middle-baseline small" x="535" y="247">456 dots (= 114 cycles)</text>
+	<text class="middle-baseline small" x="535" y="247">456 dots</text>
 	<text class="middle-baseline right" x="55" y="272">2</text>
 	<rect class="scanline m2" y="260" x="60" width="80"/>
 	<rect class="scanline m3" y="260" x="145" width="172"/>
@@ -143,10 +140,9 @@
 	<rect class="scanline m1" y="560" x="60" width="466"/>
 	<rect class="m1" y="435" x="533" height="145" width="2"/>
 	<text class="middle-baseline small" x="540" y="490">10 "scanlines"</text>
-	<text class="middle-baseline small" x="540" y="510">4560 dots (= 1140 cycles)</text>
+	<text class="middle-baseline small" x="540" y="510">4560 dots</text>
 	<!-- Totals -->
 	<text class="centered" y="20" x="613">One frame:</text>
 	<text class="centered" y="45" x="613">70224 dots</text>
-	<text class="centered" y="70" x="613">(= 17556 cycles)</text>
-	<text class="centered" y="95" x="613">@ 59.7 fps</text>
+	<text class="centered" y="70" x="613">@ 59.7 fps</text>
 </svg>
