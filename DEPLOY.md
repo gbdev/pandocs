@@ -1,27 +1,6 @@
-# Pan Docs
+## Deploy
 
-"Pan Docs" is a document started in early 1995, considered the single most comprehensive technical reference to Game Boy available to the public.
-
-This git repository hosts a renewed version of it, mantained in the Markdown format and enjoying renewed community attention.
-
-Go to [gbdev.io/pandocs](https://gbdev.io/pandocs) to read the document.
-
-## Contributing 
-
-Everyone is welcome to contribute opening issues, expressing feedback, adding and improving content or share new findings.
-
-Here are some resources you should take a look at:
-
-- [The wiki](https://github.com/gbdev/pandocs/wiki), containing various rules and contribution guidelines you will have to follow when proposing changes. Some RFCs and discussions detailing the document scope are linked there as well.
-- [The project board](https://github.com/gbdev/pandocs/projects/1), for a general picture of the roadmap and the ongoing efforts.
-- [The issues](https://github.com/gbdev/pandocs/issues), where we discuss what needs to be worked on, and how. If you are looking into investigating Game Boy unknown behaviours, check the Issues labeled with ["research"](https://github.com/gbdev/pandocs/issues?q=is%3Aissue+is%3Aopen+label%3Aresearch).
-- [The various community channels](https://gbdev.io/chat.html) where we you can chat directly with maintainers and other contributors.
-
-Once you feel comfortable, fork this repository, make your modifications, and [send a Pull Request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
-
-### Deploy
-
-To deploy Pan Docs locally:
+This document will explain you how to run a local copy of Pan Docs. 
 
 1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads).
   mdBook is the tool rendering the documentation, Rust is used for some custom plugins and Python scripts are used to render some images. E.g.:
@@ -191,7 +170,3 @@ cp build/highlight.min.js ../pandocs/theme/highlight.js
 - `Cargo.lock`, `Cargo.toml` - Since `preproc/` and `renderer/` share most dependencies (transitively through `mdbook`), this folder is set up as a Cargo workspace. This creates a single `target/` directory in the repo's root, containing both crates' dependencies.
 - `book.toml` - The [mdBook configuration file](https://rust-lang.github.io/mdBook/format/configuration).
 - `requirements.txt` - The Python package requirements; [see above](#contributing).
-
-## License
-
-We assume the content to be in the [public domain](LICENSE).
