@@ -151,7 +151,7 @@ cp build/highlight.min.js ../pandocs/theme/highlight.js
 ├── Cargo.lock
 ├── Cargo.toml
 ├── LICENSE
-├── README.MD
+├── README.md
 ├── book.toml
 └── requirements.txt
 ```

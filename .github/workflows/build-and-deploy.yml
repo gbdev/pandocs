@@ -5,13 +5,13 @@ on:
     paths-ignore:
       - 'historical/**'
       - 'mediawiki-exporter/**'
-      - 'README.MD'
+      - 'README.md'
       - 'LICENSE'
   pull_request:
     paths-ignore:
       - 'historical/**'
       - 'mediawiki-exporter/**'
-      - 'README.MD'
+      - 'README.md'
       - 'LICENSE'
   schedule:
     - cron: '42 16 1/7 * *'
