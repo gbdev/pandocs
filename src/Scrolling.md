@@ -62,5 +62,5 @@ For the window to be displayed on a scanline, the following conditions must be m
 - **WX condition was triggered**: i.e. the current X coordinate being rendered + 7 was equal to WX
 - Window enable bit in LCDC is set
 
-If the WY condition has already been triggered and at the the start of a row the window enable bit was set,
+If the WY condition has already been triggered and at the start of a row the window enable bit was set,
 then resetting that bit before the WX condition gets triggered on that row yields a nice window glitch pixel where the window would have been activated.
