@@ -29,7 +29,7 @@ ID 0 means transparent.
 
 ## Palettes
 
-A palette consists of a array of colors, 4 in the Game Boy's case.
+A palette consists of an array of colors, 4 in the Game Boy's case.
 Palettes are stored differently in monochrome and color versions of the console.
 
 Modifying palettes enables graphical effects such as quickly flashing some graphics (damage,
