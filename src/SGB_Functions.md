@@ -3,7 +3,7 @@
 ## General Description
 
 Basically, the SGB (Super Game Boy) is an adapter cartridge that allows
-to play Game Boy games on a SNES (Super Nintendo Entertainment System)
+to play Game Boy games on an SNES (Super Nintendo Entertainment System)
 gaming console. In detail, you plug the Game Boy cartridge into the SGB
 cartridge, then plug the SGB cartridge into the SNES, and then connect
 the SNES to your TV Set. In result, games can be played and viewed on

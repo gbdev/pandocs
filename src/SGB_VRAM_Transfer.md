@@ -38,6 +38,6 @@ multiple chunks.
 The display will contain "garbage" during the transfer, this
 dirt-effect can be avoided by freezing the screen (in the state which
 has been displayed before the transfer) by using the MASK_EN command.
-Of course, this works only when actually executing the game on a SGB
+Of course, this works only when actually executing the game on an SGB
 (and not on handheld Game Boy systems), it'd be thus required to detect
 the presence of SGB hardware before blindly sending VRAM data.
