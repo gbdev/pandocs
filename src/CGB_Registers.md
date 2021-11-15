@@ -90,7 +90,7 @@ be read as "1". Stopping the transfer doesn't set HDMA1-4 to \$FF.
 
 ::: warning WARNING
 
-HBlank DMA should not be started (write to FF55) during an HBlank
+HBlank DMA should not be started (write to FF55) during a HBlank
 period (STAT mode 0).
 
 If the transfer's destination address overflows, the transfer stops
@@ -104,7 +104,7 @@ The status of the registers if this happens still needs to be [investigated](htt
 Reading Bit 7 of FF55 can be used to confirm if the DMA transfer is
 active (1=Not Active, 0=Active). This works under any circumstances -
 after completion of General Purpose, or HBlank Transfer, and after
-manually terminating an HBlank Transfer.
+manually terminating a HBlank Transfer.
 
 #### Transfer Timings
 
