@@ -31,7 +31,7 @@ Then, it also computes the header checksum, and compares it to [the checksum sto
 If either of these checks fail, the boot ROM **locks up**, and control is never passed to the cartridge ROM.
 
 Finally, the boot ROM writes to the `BANK` register at $FF50, which unmaps the boot ROM.
-The `ldh [$FF50]`, an instruction being located at $00FE (and being two bytes long), [the first instruction executed from the cartridge ROM is at $0100](<#0100-0103 - Entry Point>).
+The `ldh [$FF50], a` instruction being located at $00FE (and being two bytes long), [the first instruction executed from the cartridge ROM is at $0100](<#0100-0103 - Entry Point>).
 
 Since the A register is used to write to $FF50, its value is passed to the cartridge ROM; the only difference between the DMG and MGB boot ROMs is that the former writes $01, and the latter uses $FF.
 
