@@ -8,7 +8,7 @@ leaves undocumented commands $19 to $1D inclusive.
 
 ## Stubbed commands
 
-Commands $1A to $1F (inclusive)'s handlers are stubs (only contain a
+Commands $1A to $1F (inclusive)'s handlers are stubs (only contain an
 `RTS`). This is interesting, since the command-processing function
 explicitly ignores commands $1E and $1F.
 

@@ -9,7 +9,7 @@
 
 The IME flag is used to disable all interrupts, overriding any enabled
 bits in the IE register. It isn't possible to access the IME flag by
-using a I/O address. IME can be modified by
+using an I/O address. IME can be modified by
 the following instructions/events only:
 
 ```

@@ -53,7 +53,7 @@ There are three "blocks" of 128 tiles each:
 </table>
 
 
-Tiles are always indexed using a 8-bit integer, but the addressing
+Tiles are always indexed using an 8-bit integer, but the addressing
 method may differ. The "$8000 method" uses \$8000 as its base pointer
 and uses an unsigned addressing, meaning that tiles 0-127 are in block
 0, and tiles 128-255 are in block 1. The "$8800 method" uses \$9000 as
@@ -91,7 +91,7 @@ A more visual explanation can be found
 
 So, each pixel has a color ID of 0 to 3. The color
 numbers are translated into real colors (or gray shades) depending on
-the current palettes, except that when the tile is used in a OBJ the
+the current palettes, except that when the tile is used in an OBJ the
 color ID 0 means transparent. The palettes are defined through registers
 [BGP](<#FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only>),
 [OBP0 and OBP1](<#FF48 - OBP0 (OBJ Palette 0 Data) (R/W), FF49 - OBP1 (OBJ Palette 1 Data) (R/W) - Both Non CGB Mode Only>), and

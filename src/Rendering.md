@@ -24,12 +24,12 @@ A tile does not encode color information. Instead, a tile assigns a
 *color ID* to each of its pixels, ranging from 0 to 3. For this reason,
 Game Boy graphics are also called *2bpp* (2 bits per pixel). When a tile is used
 in the Background or Window, these color IDs are associated with a *palette*. When
-a tile is used in a OBJ, the IDs 1 to 3 are associated with a palette, but
+a tile is used in an OBJ, the IDs 1 to 3 are associated with a palette, but
 ID 0 means transparent.
 
 ## Palettes
 
-A palette consists of a array of colors, 4 in the Game Boy's case.
+A palette consists of an array of colors, 4 in the Game Boy's case.
 Palettes are stored differently in monochrome and color versions of the console.
 
 Modifying palettes enables graphical effects such as quickly flashing some graphics (damage,

@@ -33,7 +33,7 @@ This bit is set if and only if the result of an operation is zero. Used by condi
 ## The Carry Flag (C, or Cy)
 
 Is set in these cases:
-- When the result of a 8-bit addition is higher than $FF.
+- When the result of an 8-bit addition is higher than $FF.
 - When the result of a 16-bit addition is higher than $FFFF.
 - When the result of a subtraction or comparison
 is lower than zero (like in Z80 and 80x86 CPUs, but unlike in
