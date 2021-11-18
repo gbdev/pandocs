@@ -129,10 +129,14 @@ code {
 
 .ayu {
     --c-warning-text: #eac100;
+    --c-danger-text: #ff2929;
+    --c-danger-title: #dc0000;
 }
 
 .coal {
     --c-warning-text: #eac100;
+    --c-danger-text: #ff2929;
+    --c-danger-title: #dc0000;
 }
 
 .light {
@@ -141,6 +145,8 @@ code {
 
 .navy {
     --c-warning-text: #eac100;
+    --c-danger-text: #ff2929;
+    --c-danger-title: #dc0000;
 }
 
 .rust {
