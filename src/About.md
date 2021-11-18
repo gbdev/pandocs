@@ -13,7 +13,7 @@ Emulator developers may be also interested in the [Game Boy: Complete Technical 
 
 ## Contributing
 
-This project is open source, released under the [CC0 license](https://raw.githubusercontent.com/gbdev/pandocs/master/LICENSE). Everyone is welcome to help, provide feedback and propose additions or improvements. The git repository is hosted at [github.com/gbdev/pandocs](https://github.com/gbdev/pandocs), where you can learn more about how you can [contribute](https://github.com/gbdev/pandocs/blob/master/README.MD), find detailed contribution guidelines and procedures, file Issues and send Pull Requests. 
+This project is open source, released under the [CC0 license](https://raw.githubusercontent.com/gbdev/pandocs/master/LICENSE). Everyone is welcome to help, provide feedback and propose additions or improvements. The git repository is hosted at [github.com/gbdev/pandocs](https://github.com/gbdev/pandocs), where you can learn more about how you can [contribute](https://github.com/gbdev/pandocs/blob/master/CONTRIBUTING.md), find detailed contribution guidelines and procedures, file Issues and send Pull Requests.
 
 There is a [Discord chat](https://gbdev.io/chat) dedicated to the gbdev community.
 

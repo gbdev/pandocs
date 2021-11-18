@@ -5,13 +5,13 @@ on:
     paths-ignore:
       - 'historical/**'
       - 'mediawiki-exporter/**'
-      - 'README.MD'
+      - 'README.md'
       - 'LICENSE'
   pull_request:
     paths-ignore:
       - 'historical/**'
       - 'mediawiki-exporter/**'
-      - 'README.MD'
+      - 'README.md'
       - 'LICENSE'
   schedule:
     - cron: '42 16 1/7 * *'
@@ -71,8 +71,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    # Do not run this unless *pushing* (`heads`) to `master`
-    if: github.ref == 'refs/heads/master'
+    # Do not run this unless *pushing* to `master`
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
     - name: Checkout pandocs/gh-pages
       uses: actions/checkout@v2
