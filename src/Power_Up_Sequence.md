@@ -160,7 +160,7 @@ While it may make sense for the boot ROM to at least partially verify the ROM's 
 
 ### Legal implications
 
-::: warning Caution
+::: danger Caution
 
 The following is advisory, but **is not legal advice**.
 If necessary (e.g. commercial releases with logos on the boxes), consult a lawyer.
