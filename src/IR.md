@@ -1,6 +1,6 @@
 # GBC Infrared Communication
 
-<small>This section was originally compiled by Shonumi in the "Dan Docs". Upstream source can be found [here](https://shonumi.github.io/dandocs.html).</small>
+{{#include partials/dandocs_notice.md}}
 
 The Game Boy Color came with an infrared port on the very top of the handheld. Previously, where IR communications had to be done with special cartridges (like the HuC-1 variants), the Game Boy itself now had the hardware built-in. Unfortunately, the feature was never popular outside of a few games and accessories. The IR port essentially sends out signals and is also capable of receiving them, allowing for fast, wireless, line-of-sight transmission.
 
