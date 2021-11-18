@@ -18,7 +18,7 @@ Some notes on how the task are organised:
 
 ## Deploy
 
-Check the [DEPLOY](DEPLOY.MD) document to learn how to run a local copy of Pan Docs.
+Check the [DEPLOY](DEPLOY.md) document to learn how to run a local copy of Pan Docs.
 
 ## Community
 

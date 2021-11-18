@@ -8,7 +8,7 @@ Go to [gbdev.io/pandocs](https://gbdev.io/pandocs) to read the document.
 
 ## Contributing 
 
-Everyone is welcome to contribute opening issues, expressing feedback, adding and improving content or share new findings. Please, check [CONTRIBUTING](CONTRIBUTING.md) for a complete view on how to contribute to this project.
+Everyone is welcome to contribute opening issues, expressing feedback, adding and improving content or share new findings. Please, check the [contributing](CONTRIBUTING.md) guidelines for a complete view on how to contribute to this project or read the [deploy](DEPLOY.md) instructions to run a local copy of Pan Docs.
 
 ## License
 
