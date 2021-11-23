@@ -40,7 +40,7 @@ area are required to be specified correctly.
 
 ## External Memory and Hardware
 
-The areas from 0000-7FFF and A000-BFFF address external hardware on
+The areas from 4000-7FFF and A000-BFFF address external hardware on
 the cartridge, which is essentially an expansion board.  Typically this
 is a ROM and SRAM or, more often, a [Memory Bank Controller
 (MBC)](#MBCs). The RAM area can be read
