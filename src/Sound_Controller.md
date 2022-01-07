@@ -45,7 +45,7 @@ Value (binary) | Description
 The change of frequency (NR13,NR14) at each shift is calculated by the
 following formula where X(0) is initial freq & X(t-1) is last freq:
 
-X(t) = X(t-1) +/- X(t-1)/2^n
+X(t) = X(0) +/- X(t-1)/2^n
 
 ### FF11 - NR11 - Channel 1 Sound length/Wave pattern duty (R/W)
 
