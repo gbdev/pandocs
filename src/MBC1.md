@@ -7,7 +7,10 @@ work similarly, so it is relatively easy to upgrade a program from one
 MBC chip to another - or to make it compatible with several different
 types of MBCs.
 
-In its default configuration MBC1 supports up to 512 kiBytes ROM with up to 32 kiBytes of banked RAM. Some cartridges utilize an alternative wiring where the 2-bit RAM banking register is wired as an extension of the ROM banking register (instead of to RAM) in order to support up to 2 MiB ROM, at the cost of only supporting a fixed 8 kiB of cartridge RAM. All MBC1 cartridges with 1+ MiB of ROM use this alternate wiring. Also see the note on MBC1M multi-game compilation carts below.
+In its default configuration, MBC1 supports up to 512 KiB ROM with up to 32 KiB of banked RAM.
+Some cartridges wire the MBC differently, where the 2-bit RAM banking register is wired as an extension of the ROM banking register (instead of to RAM) in order to support up to 2 MiB ROM, at the cost of only supporting a fixed 8 kiB of cartridge RAM.
+All MBC1 cartridges with 1 MiB of ROM or more use this alternate wiring.
+Also see the note on MBC1M multi-game compilation carts below.
 
 Note that the memory in range 0000-7FFF is used both for reading from
 ROM and writing to the MBCs Control Registers.
