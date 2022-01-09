@@ -70,8 +70,8 @@
 
 - [Game Boy Printer](./Gameboy_Printer.md)
 - [Game Boy Camera](./Gameboy_Camera.md)
-- [Game Genie/Shark Cheats](./Shark_Cheats.md)
 - [4-Player Adapter](./Four_Player_Adapter.md)
+- [Game Genie/Shark Cheats](./Shark_Cheats.md)
 
 # Other
 

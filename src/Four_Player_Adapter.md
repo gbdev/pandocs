@@ -116,9 +116,9 @@ just the number of bytes in each packet. It probably shouldn't be set to zero.
 ### Transmission Phase
 
 When the master Game Boy (Player 1) is ready, it should send 4 bytes
-(`0xAA 0xAA 0xAA 0xAA`). (TODO: Are 4 bytes actually required?) This alerts
-the DMG-07 to start the transmission phase. The RATE and SIZE parameters are
-applied at this point. The protocol is simple: Each Game Boy sends a packet to
+(`0xAA 0xAA 0xAA 0xAA`, if those are actually required should be investigated further).
+This alerts the DMG-07 to start the transmission phase. The RATE and SIZE parameters 
+are applied at this point. The protocol is simple: Each Game Boy sends a packet to
 the DMG-07 simultaneously, then the DMG-07 outputs each packet to all connected
 Game Boys. All data is buffered, so there is a 4 packet delay after each Game
 Boy submits their data (the delay is still 4 packets long even if some Game Boys
@@ -190,8 +190,8 @@ buffer.
 
 It's possible to restart the ping phase while operating in the transmission
 phase. To do so, the master Game Boy should send 4 or more bytes
-(`0xFF 0xFF 0xFF 0xFF`). (TODO: It's possible fewer 0xFF bytes need to be sent,
-but this has not been extensively investigated yet.) The bytes alert the DMG-07
+(`0xFF 0xFF 0xFF 0xFF`, it's possible fewer 0xFF bytes need to be sent,
+but this has not been extensively investigated yet). The bytes alert the DMG-07
 that the ping phase should begin again, after which it sends ping packets after
 a brief delay. During this delay, the transmission protocol is still working as
 intended until the switch happens.
