@@ -74,19 +74,22 @@ Byte 2-3  Second Line
 etc.
 ```
 
-For each line, the first byte specifies the least significant bit of the
-color ID of each pixel, and the second byte specifies the most significant bit.
-In both bytes, bit 7 represents the leftmost pixel, and
-bit 0 the rightmost. For example: let's say you have \$57 \$36 (in
-this order in memory), which in binary are 01010111 and 00110110.
-To obtain the color ID for the leftmost pixel,
-you take bit 7 of both bytes: 0, and 0. Thus the index is binary 00 = 0. For
-the second pixel, repeat with bit 6: 1, and 0. Thus the index is binary 01 =
-1 (remember to flip the order of the bits!). If you repeat the
-operation you'll find that the IDs for the eight pixels are 0 1 2 3 0 3
-3 1.
+For each line, the first byte specifies the least significant bit of the color
+ID of each pixel, and the second byte specifies the most significant bit. In
+both bytes, bit 7 represents the leftmost pixel, and bit 0 the rightmost. For
+example, the sprite \$3C \$7E \$42 \$42 \$42 \$42 \$42 \$42 \$7E \$5E \$7E \$0A
+\$7C \$56 \$38 \$7C appears as follows:
 
-A more visual explanation can be found
+<div align="center">
+{{#include imgs/sprite.svg:2:}}
+</div>
+
+In the first row, the values \$3C \$7E in binary are 00111100 and 01111110. The
+leftmost bits are 0 and 0, thus the color ID is binary 00, or 0. The next bits
+are 0 and 1, thus the color ID is binary 10, or 2 (remember to flip the order
+of the bits!). The full eight-pixel row evaluates to 0 2 3 3 3 3 2 0.
+
+A tool for viewing tiles can be found
 [here](https://www.huderlem.com/demos/gameboy2bpp.html).
 
 So, each pixel has a color ID of 0 to 3. The color

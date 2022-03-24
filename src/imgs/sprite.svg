@@ -1,0 +1,285 @@
+<!-- no blank lines, or the #include will break -->
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="200" viewBox="0 0 480 200">
+  <defs>
+    <style>
+      text {
+        font-family: monospace;
+        font-size: 13px;
+        text-anchor: middle;
+        dominant-baseline: central;
+        fill: var(--fg)
+      }
+      .c0 { fill: #081820 }
+      .c1 { fill: #346856 }
+      .c2 { fill: #88c070 }
+      .c3 { fill: #e0f8d0 }
+    </style>
+  </defs>
+  <g transform="translate(40, 100)">
+    <text y="-70">$3C $7E</text>
+    <text y="-50">$42 $42</text>
+    <text y="-30">$42 $42</text>
+    <text y="-10">$42 $42</text>
+    <text y="10">$7E $5E</text>
+    <text y="30">$7E $0A</text>
+    <text y="50">$7C $56</text>
+    <text y="70">$38 $7C</text>
+  </g>
+  <text x="85" y="100">=</text>
+  <g transform="translate(140, 100)">
+    <rect class="c0" x="-40" y="-80" width="80" height="160"/>
+    <path class="c1" d="M-20,-80h40v20h10v100h-10v20h-10v20h-30v-20h-10v-120h10v60h40v-60h-40z"/>
+    <text x="-35" y="-90">a</text>
+    <text x="-25" y="-90">b</text>
+    <text x="-15" y="-90">c</text>
+    <text x="-5" y="-90">d</text>
+    <text x="5" y="-90">e</text>
+    <text x="15" y="-90">f</text>
+    <text x="25" y="-90">g</text>
+    <text x="35" y="-90">h</text>
+    <text class="c3" x="-35" y="-70">0</text>
+    <text class="c3" x="-25" y="-70">0</text>
+    <text class="c3" x="-15" y="-70">1</text>
+    <text class="c3" x="-5" y="-70">1</text>
+    <text class="c3" x="5" y="-70">1</text>
+    <text class="c3" x="15" y="-70">1</text>
+    <text class="c3" x="25" y="-70">0</text>
+    <text class="c3" x="35" y="-70">0</text>
+    <text class="c3" x="-35" y="-50">0</text>
+    <text class="c3" x="-25" y="-50">1</text>
+    <text class="c3" x="-15" y="-50">0</text>
+    <text class="c3" x="-5" y="-50">0</text>
+    <text class="c3" x="5" y="-50">0</text>
+    <text class="c3" x="15" y="-50">0</text>
+    <text class="c3" x="25" y="-50">1</text>
+    <text class="c3" x="35" y="-50">0</text>
+    <text class="c3" x="-35" y="-30">0</text>
+    <text class="c3" x="-25" y="-30">1</text>
+    <text class="c3" x="-15" y="-30">0</text>
+    <text class="c3" x="-5" y="-30">0</text>
+    <text class="c3" x="5" y="-30">0</text>
+    <text class="c3" x="15" y="-30">0</text>
+    <text class="c3" x="25" y="-30">1</text>
+    <text class="c3" x="35" y="-30">0</text>
+    <text class="c3" x="-35" y="-10">0</text>
+    <text class="c3" x="-25" y="-10">1</text>
+    <text class="c3" x="-15" y="-10">0</text>
+    <text class="c3" x="-5" y="-10">0</text>
+    <text class="c3" x="5" y="-10">0</text>
+    <text class="c3" x="15" y="-10">0</text>
+    <text class="c3" x="25" y="-10">1</text>
+    <text class="c3" x="35" y="-10">0</text>
+    <text class="c3" x="-35" y="10">0</text>
+    <text class="c3" x="-25" y="10">1</text>
+    <text class="c3" x="-15" y="10">1</text>
+    <text class="c3" x="-5" y="10">1</text>
+    <text class="c3" x="5" y="10">1</text>
+    <text class="c3" x="15" y="10">1</text>
+    <text class="c3" x="25" y="10">1</text>
+    <text class="c3" x="35" y="10">0</text>
+    <text class="c3" x="-35" y="30">0</text>
+    <text class="c3" x="-25" y="30">1</text>
+    <text class="c3" x="-15" y="30">1</text>
+    <text class="c3" x="-5" y="30">1</text>
+    <text class="c3" x="5" y="30">1</text>
+    <text class="c3" x="15" y="30">1</text>
+    <text class="c3" x="25" y="30">1</text>
+    <text class="c3" x="35" y="30">0</text>
+    <text class="c3" x="-35" y="50">0</text>
+    <text class="c3" x="-25" y="50">1</text>
+    <text class="c3" x="-15" y="50">1</text>
+    <text class="c3" x="-5" y="50">1</text>
+    <text class="c3" x="5" y="50">1</text>
+    <text class="c3" x="15" y="50">1</text>
+    <text class="c3" x="25" y="50">0</text>
+    <text class="c3" x="35" y="50">0</text>
+    <text class="c3" x="-35" y="70">0</text>
+    <text class="c3" x="-25" y="70">0</text>
+    <text class="c3" x="-15" y="70">1</text>
+    <text class="c3" x="-5" y="70">1</text>
+    <text class="c3" x="5" y="70">1</text>
+    <text class="c3" x="15" y="70">0</text>
+    <text class="c3" x="25" y="70">0</text>
+    <text class="c3" x="35" y="70">0</text>
+    <text x="-35" y="90">a</text>
+    <text x="-25" y="90">b</text>
+    <text x="-15" y="90">c</text>
+    <text x="-5" y="90">d</text>
+    <text x="5" y="90">e</text>
+    <text x="15" y="90">f</text>
+    <text x="25" y="90">g</text>
+    <text x="35" y="90">h</text>
+  </g>
+  <text x="190" y="100">+</text>
+  <g transform="translate(240, 100)">
+    <rect class="c0" x="-40" y="-80" width="80" height="160"/>
+    <path class="c2" d="M-30,-80h60v140h-10v20h-50v-40h10v20h10v-20h10v20h10v-20h10v-20h-10v20h-10v-20h-10v-20h30v-60h-40v80h-10z"/>
+    <text x="-35" y="-90">i</text>
+    <text x="-25" y="-90">j</text>
+    <text x="-15" y="-90">k</text>
+    <text x="-5" y="-90">l</text>
+    <text x="5" y="-90">m</text>
+    <text x="15" y="-90">n</text>
+    <text x="25" y="-90">o</text>
+    <text x="35" y="-90">p</text>
+    <text class="c3" x="-35" y="-70">0</text>
+    <text class="c0" x="-25" y="-70">1</text>
+    <text class="c0" x="-15" y="-70">1</text>
+    <text class="c0" x="-5" y="-70">1</text>
+    <text class="c0" x="5" y="-70">1</text>
+    <text class="c0" x="15" y="-70">1</text>
+    <text class="c0" x="25" y="-70">1</text>
+    <text class="c3" x="35" y="-70">0</text>
+    <text class="c3" x="-35" y="-50">0</text>
+    <text class="c0" x="-25" y="-50">1</text>
+    <text class="c3" x="-15" y="-50">0</text>
+    <text class="c3" x="-5" y="-50">0</text>
+    <text class="c3" x="5" y="-50">0</text>
+    <text class="c3" x="15" y="-50">0</text>
+    <text class="c0" x="25" y="-50">1</text>
+    <text class="c3" x="35" y="-50">0</text>
+    <text class="c3" x="-35" y="-30">0</text>
+    <text class="c0" x="-25" y="-30">1</text>
+    <text class="c3" x="-15" y="-30">0</text>
+    <text class="c3" x="-5" y="-30">0</text>
+    <text class="c3" x="5" y="-30">0</text>
+    <text class="c3" x="15" y="-30">0</text>
+    <text class="c0" x="25" y="-30">1</text>
+    <text class="c3" x="35" y="-30">0</text>
+    <text class="c3" x="-35" y="-10">0</text>
+    <text class="c0" x="-25" y="-10">1</text>
+    <text class="c3" x="-15" y="-10">0</text>
+    <text class="c3" x="-5" y="-10">0</text>
+    <text class="c3" x="5" y="-10">0</text>
+    <text class="c3" x="15" y="-10">0</text>
+    <text class="c0" x="25" y="-10">1</text>
+    <text class="c3" x="35" y="-10">0</text>
+    <text class="c3" x="-35" y="10">0</text>
+    <text class="c0" x="-25" y="10">1</text>
+    <text class="c3" x="-15" y="10">0</text>
+    <text class="c0" x="-5" y="10">1</text>
+    <text class="c0" x="5" y="10">1</text>
+    <text class="c0" x="15" y="10">1</text>
+    <text class="c0" x="25" y="10">1</text>
+    <text class="c3" x="35" y="10">0</text>
+    <text class="c3" x="-35" y="30">0</text>
+    <text class="c3" x="-25" y="30">0</text>
+    <text class="c3" x="-15" y="30">0</text>
+    <text class="c3" x="-5" y="30">0</text>
+    <text class="c0" x="5" y="30">1</text>
+    <text class="c3" x="15" y="30">0</text>
+    <text class="c0" x="25" y="30">1</text>
+    <text class="c3" x="35" y="30">0</text>
+    <text class="c3" x="-35" y="50">0</text>
+    <text class="c0" x="-25" y="50">1</text>
+    <text class="c3" x="-15" y="50">0</text>
+    <text class="c0" x="-5" y="50">1</text>
+    <text class="c3" x="5" y="50">0</text>
+    <text class="c0" x="15" y="50">1</text>
+    <text class="c0" x="25" y="50">1</text>
+    <text class="c3" x="35" y="50">0</text>
+    <text class="c3" x="-35" y="70">0</text>
+    <text class="c0" x="-25" y="70">1</text>
+    <text class="c0" x="-15" y="70">1</text>
+    <text class="c0" x="-5" y="70">1</text>
+    <text class="c0" x="5" y="70">1</text>
+    <text class="c0" x="15" y="70">1</text>
+    <text class="c3" x="25" y="70">0</text>
+    <text class="c3" x="35" y="70">0</text>
+    <text x="-35" y="90">i</text>
+    <text x="-25" y="90">j</text>
+    <text x="-15" y="90">k</text>
+    <text x="-5" y="90">l</text>
+    <text x="5" y="90">m</text>
+    <text x="15" y="90">n</text>
+    <text x="25" y="90">o</text>
+    <text x="35" y="90">p</text>
+  </g>
+  <text x="295" y="100">=</text>
+  <g transform="translate(390, 100)">
+    <rect class="c0" x="-80" y="-80" width="160" height="160"/>
+    <path class="c1" d="M-40,0h20v20h20v20h20v-20h20v20h-20v20h-20v-20h-20v20h-20v-20h-20v-20h20z"/>
+    <path class="c2" d="M-60,-80h20v20h-20zM40-80h20v20h-20zM40,40h20v20h-20v20h-20v-20h20zM-60,60h20v20h-20z"/>
+    <path class="c3" d="M-40,-80h80v20h20v100h-20v20h-20v20h-60v-20h-20v-20h20v20h20v-20h20v20h20v-20h20v-20h-20v20h-20v-20h-20v-20h60v-60h-80v80h-20v-80h20z"/>
+    <text x="-70" y="-90">ia</text>
+    <text x="-50" y="-90">jb</text>
+    <text x="-30" y="-90">kc</text>
+    <text x="-10" y="-90">ld</text>
+    <text x="10" y="-90">me</text>
+    <text x="30" y="-90">nf</text>
+    <text x="50" y="-90">og</text>
+    <text x="70" y="-90">ph</text>
+    <text class="c3" x="-70" y="-70">00</text>
+    <text class="c0" x="-50" y="-70">10</text>
+    <text class="c0" x="-30" y="-70">11</text>
+    <text class="c0" x="-10" y="-70">11</text>
+    <text class="c0" x="10" y="-70">11</text>
+    <text class="c0" x="30" y="-70">11</text>
+    <text class="c0" x="50" y="-70">10</text>
+    <text class="c3" x="70" y="-70">00</text>
+    <text class="c3" x="-70" y="-50">00</text>
+    <text class="c0" x="-50" y="-50">11</text>
+    <text class="c3" x="-30" y="-50">00</text>
+    <text class="c3" x="-10" y="-50">00</text>
+    <text class="c3" x="10" y="-50">00</text>
+    <text class="c3" x="30" y="-50">00</text>
+    <text class="c0" x="50" y="-50">11</text>
+    <text class="c3" x="70" y="-50">00</text>
+    <text class="c3" x="-70" y="-30">00</text>
+    <text class="c0" x="-50" y="-30">11</text>
+    <text class="c3" x="-30" y="-30">00</text>
+    <text class="c3" x="-10" y="-30">00</text>
+    <text class="c3" x="10" y="-30">00</text>
+    <text class="c3" x="30" y="-30">00</text>
+    <text class="c0" x="50" y="-30">11</text>
+    <text class="c3" x="70" y="-30">00</text>
+    <text class="c3" x="-70" y="-10">00</text>
+    <text class="c0" x="-50" y="-10">11</text>
+    <text class="c3" x="-30" y="-10">00</text>
+    <text class="c3" x="-10" y="-10">00</text>
+    <text class="c3" x="10" y="-10">00</text>
+    <text class="c3" x="30" y="-10">00</text>
+    <text class="c0" x="50" y="-10">11</text>
+    <text class="c3" x="70" y="-10">00</text>
+    <text class="c3" x="-70" y="10">00</text>
+    <text class="c0" x="-50" y="10">11</text>
+    <text class="c3" x="-30" y="10">01</text>
+    <text class="c0" x="-10" y="10">11</text>
+    <text class="c0" x="10" y="10">11</text>
+    <text class="c0" x="30" y="10">11</text>
+    <text class="c0" x="50" y="10">11</text>
+    <text class="c3" x="70" y="10">00</text>
+    <text class="c3" x="-70" y="30">00</text>
+    <text class="c3" x="-50" y="30">01</text>
+    <text class="c3" x="-30" y="30">01</text>
+    <text class="c3" x="-10" y="30">01</text>
+    <text class="c0" x="10" y="30">11</text>
+    <text class="c3" x="30" y="30">01</text>
+    <text class="c0" x="50" y="30">11</text>
+    <text class="c3" x="70" y="30">00</text>
+    <text class="c3" x="-70" y="50">00</text>
+    <text class="c0" x="-50" y="50">11</text>
+    <text class="c3" x="-30" y="50">01</text>
+    <text class="c0" x="-10" y="50">11</text>
+    <text class="c3" x="10" y="50">01</text>
+    <text class="c0" x="30" y="50">11</text>
+    <text class="c0" x="50" y="50">10</text>
+    <text class="c3" x="70" y="50">00</text>
+    <text class="c3" x="-70" y="70">00</text>
+    <text class="c0" x="-50" y="70">10</text>
+    <text class="c0" x="-30" y="70">11</text>
+    <text class="c0" x="-10" y="70">11</text>
+    <text class="c0" x="10" y="70">11</text>
+    <text class="c0" x="30" y="70">10</text>
+    <text class="c3" x="50" y="70">00</text>
+    <text class="c3" x="70" y="70">00</text>
+    <text x="-70" y="90">ia</text>
+    <text x="-50" y="90">jb</text>
+    <text x="-30" y="90">kc</text>
+    <text x="-10" y="90">ld</text>
+    <text x="10" y="90">me</text>
+    <text x="30" y="90">nf</text>
+    <text x="50" y="90">og</text>
+    <text x="70" y="90">ph</text>
+  </g>
+</svg>
