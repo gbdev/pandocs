@@ -24,7 +24,7 @@ Finally, you can also contact us and send patches via email: `pandocs (at) gbdev
 
 In the top navigation bar, you will find a series of icons.
 
-By clicking on the <i class="fa fa-bars"></i> icon you will toggle an interactive table of contents to navigate the document. You can also use -> and <- keyboard buttons to go to the following and previous page.
+By clicking on the <i class="fa fa-bars"></i> icon you will toggle an interactive table of contents to navigate the document. You can also use <kbd>→</kbd> and <kbd>←</kbd> keys on your keyboard to go to the following and previous page.
 
 The <i class="fa fa-paint-brush"></i> lets you choose among 5 different themes and color schemes to please your reading experience.
 
