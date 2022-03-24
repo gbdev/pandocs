@@ -36,7 +36,7 @@ jobs:
     # FIXME: Keep this up to date
     - name: Install mdbook-linkcheck
       run: | # `-L` because GitHub performs a redirection
-        curl -L -o mdbook-linkcheck.zip "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v${MDBOOK_LINKCHECK_VER}/mdbook-linkcheck.v${MDBOOK_LINKCHECK_VER}.x86_64-unknown-linux-gnu.zip"
+        curl -L -o mdbook-linkcheck.zip "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v${MDBOOK_LINKCHECK_VER}/mdbook-linkcheck.x86_64-unknown-linux-gnu.zip"
         unzip mdbook-linkcheck.zip mdbook-linkcheck
         chmod +x mdbook-linkcheck
 
