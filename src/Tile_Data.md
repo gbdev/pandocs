@@ -77,17 +77,17 @@ etc.
 For each line, the first byte specifies the least significant bit of the color
 ID of each pixel, and the second byte specifies the most significant bit. In
 both bytes, bit 7 represents the leftmost pixel, and bit 0 the rightmost. For
-example, the sprite \$3C \$7E \$42 \$42 \$42 \$42 \$42 \$42 \$7E \$5E \$7E \$0A
-\$7C \$56 \$38 \$7C appears as follows:
+example, the tile data `$3C $7E $42 $42 $42 $42 $42 $42 $7E $5E $7E $0A $7C $56
+$38 $7C` appears as follows:
 
 <div align="center">
 {{#include imgs/sprite.svg:2:}}
 </div>
 
-In the first row, the values \$3C \$7E in binary are 00111100 and 01111110. The
-leftmost bits are 0 and 0, thus the color ID is binary 00, or 0. The next bits
-are 0 and 1, thus the color ID is binary 10, or 2 (remember to flip the order
-of the bits!). The full eight-pixel row evaluates to 0 2 3 3 3 3 2 0.
+In the first row, the values `$3C $7E` in binary are `00111100` and `01111110`.
+The leftmost bits are 0 and 0, thus the color ID is binary `00`, or 0. The next
+bits are 0 and 1, thus the color ID is binary `10`, or 2 (remember to flip the
+order of the bits!). The full eight-pixel row evaluates to 0 2 3 3 3 3 2 0.
 
 A tool for viewing tiles can be found
 [here](https://www.huderlem.com/demos/gameboy2bpp.html).
