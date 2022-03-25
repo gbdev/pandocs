@@ -85,10 +85,11 @@ $38 $7C` appears as follows:
 <figcaption>Sample tile data</figcaption>
 </figure>
 
-In the first row, the values `$3C $7E` in binary are `00111100` and `01111110`.
-The leftmost bits are 0 and 0, thus the color ID is binary `00`, or 0. The next
-bits are 0 and 1, thus the color ID is binary `10`, or 2 (remember to flip the
-order of the bits!). The full eight-pixel row evaluates to 0 2 3 3 3 3 2 0.
+For the first row, the values `$3C $7E` are `00111100` and `01111110` in
+binary. The leftmost bits are 0 and 0, thus the color ID is binary `00`, or 0.
+The next bits are 0 and 1, thus the color ID is binary `10`, or 2 (remember to
+flip the order of the bits!). The full eight-pixel row evaluates to 0 2 3 3 3 3
+2 0.
 
 A tool for viewing tiles can be found
 [here](https://www.huderlem.com/demos/gameboy2bpp.html).
