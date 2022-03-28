@@ -80,7 +80,7 @@ both bytes, bit 7 represents the leftmost pixel, and bit 0 the rightmost. For
 example, the tile data `$3C $7E $42 $42 $42 $42 $42 $42 $7E $5E $7E $0A $7C $56
 $38 $7C` appears as follows:
 
-<figure align="center">
+<figure>
 {{#include imgs/sprite.svg:2:}}
 <figcaption>Sample tile data</figcaption>
 </figure>
