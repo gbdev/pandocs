@@ -11,9 +11,9 @@ A000        | BFFF      | 8 KiB External RAM                                    
 C000        | CFFF      | 4 KiB Work RAM (WRAM)                                            |
 D000        | DFFF      | 4 KiB Work RAM (WRAM)                                            | In CGB mode, switchable bank 1\~7
 E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                  | Nintendo says use of this area is prohibited.
-FE00        | FE9F      | Sprite attribute table ([OAM](<#VRAM Sprite Attribute Table (OAM)>)) |
+FE00        | FE9F      | [Sprite attribute table (OAM)](<#VRAM Sprite Attribute Table (OAM)>) |
 FEA0        | FEFF      | Not Usable                                                       | Nintendo says use of this area is prohibited
-FF00        | FF7F      | I/O Registers                                                    |
+FF00        | FF7F      | [I/O Registers](<#I/O Ranges>)                                   |
 FF80        | FFFE      | High RAM (HRAM)                                                  |
 FFFF        | FFFF      | [Interrupt](#Interrupts) Enable register (IE)                   |
 
@@ -50,8 +50,8 @@ way.
 
 Cartridge RAM is often battery buffered to hold saved game positions,
 high score tables, and other information when the Game Boy is turned
-off.  For specific information read the chapter about Memory Bank
-Controllers.
+off.  For specific information read the chapter about [Memory Bank
+Controllers](<#MBCs>).
 
 ## Echo RAM
 
@@ -74,17 +74,17 @@ The Game Boy uses the following I/O ranges:
 
 Start   | End     | First appeared | Purpose
 --------|---------|----------------|-------------
-$FF00   |         |       DMG      | Controller
-$FF01   |  $FF02  |       DMG      | Communication
-$FF04   |  $FF07  |       DMG      | Divider and Timer
-$FF10   |  $FF26  |       DMG      | Sound
-$FF30   |  $FF3F  |       DMG      | Waveform RAM
-$FF40   |  $FF4B  |       DMG      | LCD
-$FF4F   |         |       CGB      | VRAM Bank Select
+$FF00   |         |       DMG      | [Joypad input](<#FF00 - P1/JOYP - Joypad (R/W)>)
+$FF01   |  $FF02  |       DMG      | [Serial transfer](<#FF01 - SB - Serial transfer data (R/W)>)
+$FF04   |  $FF07  |       DMG      | [Timer and divider](<#Timer and Divider Registers>)
+$FF10   |  $FF26  |       DMG      | [Sound](<#Sound Controller>)
+$FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30-FF3F - Wave Pattern RAM>)
+$FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 - LCDC (LCD Control) (R/W)>), [Status](<#FF41 - STAT (LCD Status) (R/W)>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
+$FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F - VBK - CGB Mode Only - VRAM Bank (R/W)>)
 $FF50   |         |       DMG      | Set to non-zero to disable boot ROM
 $FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
 $FF68   |  $FF69  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
-$FF70   |         |       CGB      | WRAM Bank Select
+$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 - SVBK - CGB Mode Only - WRAM Bank>)
 
 ## FEA0-FEFF range
 
