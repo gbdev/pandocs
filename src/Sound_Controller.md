@@ -304,7 +304,7 @@ If your GB programs don't use sound then write 00h to this register to
 save 16% or more on GB power consumption. Disabling the sound
 controller by clearing Bit 7 destroys the contents of all sound
 registers. Also, it is not possible to access any sound registers
-(execpt FF26) while the sound controller is disabled.
+(except FF26) while the sound controller is disabled.
 
 ```
  Bit 7 - All sound on/off  (0: stop all sound circuits) (Read/Write)
@@ -318,7 +318,7 @@ Bits 0-3 of this register are read only status bits, writing to these
 bits does NOT enable/disable sound. The flags get set when sound output
 is restarted by setting the Initial flag (Bit 7 in NR14-NR44), the flag
 remains set until the sound length has expired (if enabled). A volume
-envelopes which has decreased to zero volume will NOT cause the sound
+envelope which has decreased to zero volume will NOT cause the sound
 flag to go off.
 
 ## Pitfalls
