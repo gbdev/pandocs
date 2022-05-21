@@ -70,7 +70,7 @@ Clock freq | Transfer speed | Conditions
 The external clock is typically supplied by another Game Boy, but might
 be supplied by another computer (for example if connected to a PC's
 parallel port), in that case the external clock may have any speed. Even
-the old/monochrome Game Boy is reported to recognizes external clocks of
+the old/monochrome Game Boy is reported to recognize external clocks of
 up to 500 kHz. And there is no limitation into the other direction - even
 when suppling an external clock speed of "1 bit per month", then the
 Game Boy will still eagerly wait for the next bit(s) to be transferred.
