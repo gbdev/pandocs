@@ -35,7 +35,7 @@ td:first-child {
         <td>Resolution</td><td colspan="2">160&nbsp;×&nbsp;144</td><td>160&nbsp;×&nbsp;144 within 256&nbsp;×&nbsp;224 border</td><td>160&nbsp;×&nbsp;144</td>
     </tr>
     <tr>
-        <td>OBJ ("sprites")</td><td colspan="4">8&nbsp;×&nbsp;8 or 8&nbsp;×16 ; max 40 per screen, 10 per line</td>
+        <td>OBJ ("sprites")</td><td colspan="4">8&nbsp;×&nbsp;8 or 8&nbsp;×&nbsp;16 ; max 40 per screen, 10 per line</td>
     </tr>
     <tr>
         <td>Palettes</td><td colspan="2">BG: 1&nbsp;×&nbsp;4, OBJ: 2&nbsp;×&nbsp;3</td><td>BG/OBJ: 1&nbsp;+&nbsp;4&nbsp;×&nbsp;3, border: 4&nbsp;×&nbsp;15</td><td>BG: 8&nbsp;×&nbsp;4, OBJ: 8&nbsp;×&nbsp;3<sup class="footnote-reference"><a href="#compat">2</a></sup></td>
