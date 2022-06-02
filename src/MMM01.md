@@ -2,8 +2,8 @@
 
 The MMM01 is a mapper specific to multi-game compilation cartridges. It emulates an MBC1 for the contained games, and supports containing a mix of games from 32 KiB ROMs with no RAM, up to the same maximum memory _per game_ as the MBC1:
 
-* max 512 KiB ROM with banked 8, 16, or 32 KiB RAM (default configuration)
-* max 2 MiB ROM with unbanked 8 KiB RAM ("multiplex" mode, never used commercially)
+- max 512 KiB ROM with banked 8, 16, or 32 KiB RAM (default configuration)
+- max 2 MiB ROM with unbanked 8 KiB RAM ("multiplex" mode, never used commercially)
 
 Regardless of the size or number of the games in the compilation, the maximum total cartridge size supported by the MMM01 is the same: up to 8 MiB ROM and 128 KiB RAM.
 
@@ -13,9 +13,9 @@ This allows up to 255x 32 KiB games, plus a 32 KiB menu, in an 8 MiB ROM.
 RAM is more limited at only up to 16x 8 KiB RAM banks.
 However, despite these generous capabilities, no MMM01 cartridge was released with more than 4 games, and only _one_ contains any RAM at all.
 
-The ROM and RAM "game select" banking bits do not have to be set to the same value—this allows an MMM01 cartridge to not waste RAM space on games that do not have RAM, or mix and match games that have differently-sized ROM or RAM by packing them in tightly in the overall ROM/RAM of the cartridge.
+The ROM and RAM "game select" banking bits do not have to be set to the same value, this allows an MMM01 cartridge to not waste RAM space on games that do not have RAM, or mix and match games that have differently-sized ROM or RAM by packing them in tightly in the overall ROM/RAM of the cartridge.
 
-::: warning 
+::: warning
 
 The MMM01 can't completely block access to RAM for a game, so if the cartridge contains RAM it's recommended to assign any no-RAM games to the same single RAM bank to prevent no-RAM games from accessing or corrupting other games' save RAM.
 
@@ -161,7 +161,7 @@ Bits: X 6 5 4 3 2 1 0
 #### Bits 0-3: RAM Enable
 
 As per MBC1, writing $Ah to the lower 4 bits enables the external RAM, and any other value disables it.
-The external RAM is automatically disabled when the gameboy is powered off or the cartridge is removed.
+The external RAM is automatically disabled when the Game Boy is powered off or the cartridge is removed.
 
 #### Bits 4-5: RAM Bank Mask
 
@@ -174,20 +174,20 @@ Writes to masked bits are prevented even in "unmapped" mode.
 The purpose of the mask is to lock some RAM banking bits as "game selection", instead of letting games freely toggle them.
 Setting these bits effectively reduces the size of the ram available to the game that's about to be booted:
 
-Mask | Game RAM
------|---------
- 00  | 32 KiB
- 10  | 16 KiB
- 11  | 8 KiB
+| Mask | Game RAM |
+| ---- | -------- |
+| 00   | 32 KiB   |
+| 10   | 16 KiB   |
+| 11   | 8 KiB    |
 
 If [multiplex is enabled[(<#Multiplex Enable>)], this mask still applies to the RAM Bank Low register, even though that register is used as part of the **ROM** bank number in multiplex mode.
 This has the effect of reducing the ROM size instead of the RAM size, as follows:
 
-Mask | Game ROM
------|---------
- 00  | 2 MiB
- 10  | 1 MiB
- 11  | 512 KiB*
+| Mask | Game ROM  |
+| ---- | --------- |
+| 00   | 2 MiB     |
+| 10   | 1 MiB     |
+| 11   | 512 KiB\* |
 
 Setting the RAM Bank Mask to 11 when multiplex is enabled is pointless - the whole point of multiplex mode is to support 1 MiB or larger MBC1 games.
 
@@ -212,10 +212,10 @@ Bits: X 6 5 4 3 2 1 0
 #### Bits 0-4: ROM Bank Low
 
 This is equivalent to the MBC1 ROM Bank register, and primarily selects which bank of the game ROM is visible in the 4000-7FFF region.
-It can be masked to reduce its size, reserving some of the bits for game select (see [ROM Bank Mask](<#Bits 1-5: ROM Bank Mask>)).
+It can be masked to reduce its size, reserving some bits for game select (see [ROM Bank Mask](<#Bits 1-5: ROM Bank Mask>)).
 
 If the _unmasked_ bits are all 0, it behaves as if the lowest bit is set to 1 (as per MBC1 behaviour, attempting to map bank $00 of the game ROM maps bank $01 instead).
-However the actual value of the register doesn't change, as changes to [ROM Bank Mask](<#Bits 1-5: ROM Bank Mask>) can undo this remapping.
+However, the actual value of the register doesn't change, as changes to [ROM Bank Mask](<#Bits 1-5: ROM Bank Mask>) can undo this remapping.
 
 #### Bits 5-6: ROM Bank Mid
 
@@ -241,7 +241,7 @@ Bits: X 6 5 4 3 2 1 0
 #### Bits 0-1: RAM Bank Low
 
 This is equivalent to the MBC1 RAM Bank register.
-It can be masked to reduce its size, reserving some of the bits for game select (see [RAM Bank Mask](<#Bits 4-5: RAM Bank Mask>)).
+It can be masked to reduce its size, reserving some bits for game select (see [RAM Bank Mask](<#Bits 4-5: RAM Bank Mask>)).
 
 If [multiplex is enabled[(<#Multiplex Enable>)], functionality is swapped with [ROM Bank Mid](<#Bits 5-6: ROM Bank Mid>) allowing for larger game ROM.
 
@@ -286,8 +286,8 @@ The behaviour varies depending on whether multiplex is enabled or disabled.
 
 **Multiplex disabled**
 
-* 0 = RAM Banking Disabled (default)
-* 1 = RAM Banking Enabled
+- 0 = RAM Banking Disabled (default)
+- 1 = RAM Banking Enabled
 
 In mode 0, the A000-BFFF region is locked to bank 0 of the game RAM.
 The unmasked bits of [RAM Bank Low](<#Bits 0-1: RAM Bank Low>) are treated as 0.
@@ -296,8 +296,8 @@ In mode 1, the A000-BFFF region can be bank-switched by the game as the full RAM
 
 **Multiplex enabled**
 
-* 0 = Simple ROM Banking Mode (default)
-* 1 = Advanced ROM Banking Mode
+- 0 = Simple ROM Banking Mode (default)
+- 1 = Advanced ROM Banking Mode
 
 In mode 0, the 0000-3FFF region is locked to bank 0 of the game ROM.
 The unmasked bits of [RAM Bank Low](<#Bits 0-1: RAM Bank Low>) are treated as 0 for accesses to the 0000-3FFF region, matching the behaviour of [ROM Bank Low](<#Bits 0-4: ROM Bank Low>).
@@ -318,13 +318,13 @@ As a result, the lowest bit of ROM Bank Low is always writeable.
 The purpose of the mask is to lock some ROM banking bits as "game selection", instead of letting games freely toggle them.
 Setting these bits effectively reduces the size of the ROM accessible to the game that's about to be booted:
 
- Mask | Game ROM
-------|---------
-00000 | 512 KiB
-10000 | 256 KiB
-11000 | 128 KiB
-11100 | 64 KiB
-11110 | 32 KiB
+| Mask  | Game ROM |
+| ----- | -------- |
+| 00000 | 512 KiB  |
+| 10000 | 256 KiB  |
+| 11000 | 128 KiB  |
+| 11100 | 64 KiB   |
+| 11110 | 32 KiB   |
 
 Note: changing the mask can alter which bank would be mapped.
 Only the _unmasked_ bits of [ROM Bank Low](<#Bits 0-4: ROM Bank Low>) are used for the "[attempting to map bank 0 maps bank 1](<#4000-7FFF - ROM Bank $01-7F (Read Only)>)" logic, and it updates live if the ROM Bank Mask changes.
@@ -404,8 +404,8 @@ Bits: 16 15 14 13 12 .. 01 00
 Because the MMM01 has registers which disable write access to other registers, it is optimal to set the value of certain registers before others. The optimal order is:
 
 1. ROM Bank Register ($2000) — contains ROM Bank
-2. Mode Register ($6000)     — contains ROM Bank Mask, and Mode
-3. RAM Register ($4000)      — contains Mode Write Disable, and RAM Bank
-4. RAM Enable ($0000)        — contains RAM Bank Mask, and Mapping Enable
+2. Mode Register ($6000) — contains ROM Bank Mask, and Mode
+3. RAM Register ($4000) — contains Mode Write Disable, and RAM Bank
+4. RAM Enable ($0000) — contains RAM Bank Mask, and Mapping Enable
 
 The majority of released MMM01 cartridges stick to this order.
