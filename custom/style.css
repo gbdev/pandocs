@@ -1,134 +1,122 @@
-/* Import Inter font */
-@import url('https://rsms.me/inter/inter.css');
+/* Import Fira Code font */
+@import "../fonts/fira_code.css"; /* Import Inter font */
+@import url("https://rsms.me/inter/inter.css");
 
 html {
-    font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
-    html {
-        font-family: 'Inter var', sans-serif;
-    }
+  html {
+    font-family: "Inter var", sans-serif;
+  }
 }
 
-/* Import Fira Code font */
-@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css);
-
 @supports (font-variation-settings: normal) {
-    code {
-        font-family: 'Fira Code VF', monospace;
-    }
+  code {
+    font-family: "Fira Code", monospace;
+  }
 }
 
 body {
-    font-family: "Inter";
-    /* Enable some font features for Inter (https://rsms.me/inter/#features/calt) */
-    font-feature-settings: "ss01",
-        /* Alternate (Open) digits */
-        "ss02",
-        /* Disambiguation gliphs */
-        "case";
-    /* Case alternates */
-    letter-spacing: -0.005em;
-    /* equals -0.5% */
+  font-family: "Inter";
+  /* Enable some font features for Inter (https://rsms.me/inter/#features/calt) */
+  font-feature-settings: "ss01", /* Alternate (Open) digits */ "ss02",
+    /* Disambiguation gliphs */ "case";
+  /* Case alternates */
+  letter-spacing: -0.005em;
+  /* equals -0.5% */
 }
 
 button {
-    font-family: inherit;
+  font-family: inherit;
 }
 
 table {
-    font-feature-settings: "tnum",
-        /* Tabular numbers */
-        "ss01",
-        /* Alternate (Open) digits */
-        "ss02",
-        /* Disambiguation gliphs */
-        "case";
-    		/* Case alternates */
+  font-feature-settings: "tnum", /* Tabular numbers */ "ss01",
+    /* Alternate (Open) digits */ "ss02", /* Disambiguation gliphs */ "case";
+  /* Case alternates */
 }
 
 code {
-    /* "!important" needed because https://github.com/rust-lang/mdBook/issues/1552 */
-    font-family: 'Fira Code', monospace !important;
-    font-size: 0.85em;
+  /* "!important" needed because https://github.com/rust-lang/mdBook/issues/1552 */
+  font-family: "Iosevka", monospace !important;
+  font-size: 0.85em;
 }
 
-
 .header {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .menu-title {
-    font-weight: 400;
-    font-size: 2.75rem;
-    letter-spacing: -0.02em;
-    /* equals -2% */
+  font-weight: 400;
+  font-size: 2.75rem;
+  letter-spacing: -0.02em;
+  /* equals -2% */
 }
 
 .box {
-    margin: 20px 0;
-    padding: 1.6px 20px;
-    border-left-width: .75rem;
-    border-left-style: solid;
+  margin: 20px 0;
+  padding: 1.6px 20px;
+  border-left-width: 0.75rem;
+  border-left-style: solid;
 }
 
-.box>.box-title {
-    font-weight: 600;
-    text-transform: uppercase;
+.box > .box-title {
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .box.tip {
-    border-color: #42b983;
-    background-color: var(--quote-bg);
+  border-color: #42b983;
+  background-color: var(--quote-bg);
 }
 
 .box.warning {
-    border-left-color: var(--c-warning);
-    background-color: rgba(255, 229, 100, .2);
-    color: var(--c-warning-text);
+  border-left-color: var(--c-warning);
+  background-color: rgba(255, 229, 100, 0.2);
+  color: var(--c-warning-text);
 }
 
-.box.warning>.box-title{
-    color: var(--c-warning-title);
+.box.warning > .box-title {
+  color: var(--c-warning-title);
 }
 
 .spacer {
-    width: 100%;
-    height: 3px;
-    margin: 25px 0px 25px 0px;
+  width: 100%;
+  height: 3px;
+  margin: 25px 0px 25px 0px;
 }
-
 
 /* Global CSS variables */
 
 :root {
-    /* (Override) workaround to get hover+active sidebar links on normal links blue */
-    --sidebar-active: var(--links);
-    /* Warning boxes base styling */
-    --c-warning: #e7c000;
-    --c-warning-bg: #fffae3;
-    --c-warning-title: #ad9000;
+  /* (Override) workaround to get hover+active sidebar links on normal links blue */
+  --sidebar-active: var(--links);
+  /* Warning boxes base styling */
+  --c-warning: #e7c000;
+  --c-warning-bg: #fffae3;
+  --c-warning-title: #ad9000;
 }
 
 /* Theme-wide CSS variables */
 
 .ayu {
-    --c-warning-text: #eac100;
+  --c-warning-text: #eac100;
 }
 
 .coal {
-    --c-warning-text: #eac100;
+  --c-warning-text: #eac100;
 }
 
 .light {
-    --c-warning-text: #746000;
+  --c-warning-text: #746000;
 }
 
 .navy {
-    --c-warning-text: #eac100;
+  --c-warning-text: #eac100;
 }
 
 .rust {
-    --c-warning-text: #ad8e00;
+  --c-warning-text: #ad8e00;
 }
