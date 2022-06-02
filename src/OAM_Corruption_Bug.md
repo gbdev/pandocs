@@ -1,6 +1,6 @@
 # OAM Corruption Bug
 
-There is a flaw in the Game Boy hardware that causes trash to be written
+There is a flaw in the Game Boy hardware that causes rubbish data to be written
 to OAM RAM if the following instructions are used while their 16-bit content
 (before the operation) is in the range $FE00&ndash;$FEFF and the PPU is in mode 2:
 
@@ -64,20 +64,20 @@ operations are on 16-bit words.
 
 ### Write Corruption
 
-A write corruption corrupts the currently access row in the following
+A "write corruption" corrupts the currently access row in the following
 manner, as long as it's not the first row (containing the first two
 sprites):
 
--   The first word in the row is replaced with this bitwise expression:
-    `((a ^ c) & (b ^ c)) ^ c`, where `a` is the original value of that
-    word, `b` is the first word in the preceding row, and `c` is the
-    third word in the preceding row.
--   The last three words are copied from the last three words in the
-    preceding row.
+- The first word in the row is replaced with this bitwise expression:
+  `((a ^ c) & (b ^ c)) ^ c`, where `a` is the original value of that
+  word, `b` is the first word in the preceding row, and `c` is the
+  third word in the preceding row.
+- The last three words are copied from the last three words in the
+  preceding row.
 
 ### Read Corruption
 
-A read corruption works similarly to a write corruption, except the
+A "read corruption" works similarly to a write corruption, except the
 bitwise expression is `b | (a & c)`.
 
 ### Write During Increase/Decrease
@@ -92,18 +92,17 @@ If a register is increased or decreased in the same M-cycle of a write,
 this will effectively trigger both a read **and** a write in a single
 M-cycle, resulting in a more complex corruption pattern:
 
--   This corruption will not happen if the accessed row is one of the
-    first four, as well as if it's the last row:
-    -   The first word in the row preceding the currently accessed row
-        is replaced with the following bitwise expression:
-        `(b & (a | c | d)) | (a & c & d)` where `a` is the first word
-        two rows before the currently accessed row, `b` is the first
-        word in the preceding row (the word being corrupted), `c` is the
-        first word in the currently accessed row, and `d` is the third
-        word in the preceding row.
-    -   The contents of the preceding row is copied (after the
-        corruption of the first word in it) both to the currently
-        accessed row and to two rows before the currently accessed row
--   Regardless of wether the previous corruption occurred or not, a
-    normal read corruption is then applied.
-
+- This corruption will not happen if the accessed row is one of the
+  first four, as well as if it's the last row:
+  - The first word in the row preceding the currently accessed row
+    is replaced with the following bitwise expression:
+    `(b & (a | c | d)) | (a & c & d)` where `a` is the first word
+    two rows before the currently accessed row, `b` is the first
+    word in the preceding row (the word being corrupted), `c` is the
+    first word in the currently accessed row, and `d` is the third
+    word in the preceding row.
+  - The contents of the preceding row is copied (after the
+    corruption of the first word in it) both to the currently
+    accessed row and to two rows before the currently accessed row
+- Regardless of whether the previous corruption occurred or not, a
+  normal read corruption is then applied.

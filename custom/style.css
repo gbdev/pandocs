@@ -83,6 +83,16 @@ code {
   color: var(--c-warning-title);
 }
 
+.box.danger {
+    border-left-color: var(--c-danger);
+    background-color: rgba(255, 0, 0, .15);
+    color: var(--c-danger-text);
+}
+
+.box.danger > .box-title {
+    color: var(--c-danger-title);
+}
+
 .spacer {
   width: 100%;
   height: 3px;
@@ -92,22 +102,30 @@ code {
 /* Global CSS variables */
 
 :root {
-  /* (Override) workaround to get hover+active sidebar links on normal links blue */
-  --sidebar-active: var(--links);
-  /* Warning boxes base styling */
-  --c-warning: #e7c000;
-  --c-warning-bg: #fffae3;
-  --c-warning-title: #ad9000;
+    /* (Override) workaround to get hover+active sidebar links on normal links blue */
+    --sidebar-active: var(--links);
+    /* Warning boxes base styling */
+    --c-warning: #e7c000;
+    --c-warning-bg: #fffae3;
+    --c-warning-title: #ad9000;
+    /* Danger boxes base styling */
+    --c-danger: #cc0000;
+    --c-danger-text: #660000;
+    --c-danger-title: #990000;
 }
 
 /* Theme-wide CSS variables */
 
 .ayu {
-  --c-warning-text: #eac100;
+    --c-warning-text: #eac100;
+    --c-danger-text: #ff2929;
+    --c-danger-title: #dc0000;
 }
 
 .coal {
-  --c-warning-text: #eac100;
+    --c-warning-text: #eac100;
+    --c-danger-text: #ff2929;
+    --c-danger-title: #dc0000;
 }
 
 .light {
@@ -115,7 +133,9 @@ code {
 }
 
 .navy {
-  --c-warning-text: #eac100;
+    --c-warning-text: #eac100;
+    --c-danger-text: #ff2929;
+    --c-danger-title: #dc0000;
 }
 
 .rust {

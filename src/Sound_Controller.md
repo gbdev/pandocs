@@ -45,7 +45,7 @@ Value (binary) | Description
 The change of frequency (NR13,NR14) at each shift is calculated by the
 following formula where X(0) is initial freq & X(t-1) is last freq:
 
-X(t) = X(t-1) +/- X(t-1)/2^n`
+X(t) = X(t-1) +/- X(t-1)/2^n
 
 ### FF11 - NR11 - Channel 1 Sound length/Wave pattern duty (R/W)
 
@@ -82,10 +82,10 @@ Lower 8 bits of 11 bit frequency (x). Next 3 bit are in NR14 ($FF14)
 ### FF14 - NR14 - Channel 1 Frequency hi (R/W)
 
 ```
-Bit 7   - Initial (1=Restart Sound)     (Write Only)`
-Bit 6   - Counter/consecutive selection (Read/Write)`
-          (1=Stop output when length in NR11 expires)`
-Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)`
+Bit 7   - Initial (1=Restart Sound)     (Write Only)
+Bit 6   - Counter/consecutive selection (Read/Write)
+          (1=Stop output when length in NR11 expires)
+Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)
 ```
 
 Frequency = 131072/(2048-x) Hz
@@ -98,8 +98,8 @@ have a Tone Envelope/Sweep Register.
 ### FF16 - NR21 - Channel 2 Sound Length/Wave Pattern Duty (R/W)
 
 ```
-Bit 7-6 - Wave Pattern Duty (Read/Write)`
-Bit 5-0 - Sound length data (Write Only) (t1: 0-63)`
+Bit 7-6 - Wave Pattern Duty (Read/Write)
+Bit 5-0 - Sound length data (Write Only) (t1: 0-63)
 ```
 
 Bits 7-6 | Wave duty
@@ -115,10 +115,10 @@ Bit 6 in NR24 is set.
 ### FF17 - NR22 - Channel 2 Volume Envelope (R/W)
 
 ```
-Bit 7-4 - Initial Volume of envelope (0-0Fh) (0=No Sound)`
-Bit 3   - Envelope Direction (0=Decrease, 1=Increase)`
-Bit 2-0 - Number of envelope sweep (n: 0-7)`
-          (If zero, stop envelope operation.)`
+Bit 7-4 - Initial Volume of envelope (0-0Fh) (0=No Sound)
+Bit 3   - Envelope Direction (0=Decrease, 1=Increase)
+Bit 2-0 - Number of envelope sweep (n: 0-7)
+          (If zero, stop envelope operation.)
 ```
 
 Length of 1 step = n\*(1/64) seconds
@@ -131,10 +131,10 @@ Frequency's lower 8 bits of 11 bit data (x). Next 3 bits are in NR24
 ### FF19 - NR24 - Channel 2 Frequency hi data (R/W)
 
 ```
-Bit 7   - Initial (1=Restart Sound)     (Write Only)`
-Bit 6   - Counter/consecutive selection (Read/Write)`
-          (1=Stop output when length in NR21 expires)`
-Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)`
+Bit 7   - Initial (1=Restart Sound)     (Write Only)
+Bit 6   - Counter/consecutive selection (Read/Write)
+          (1=Stop output when length in NR21 expires)
+Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)
 ```
 
 Frequency = 131072/(2048-x) Hz
@@ -181,10 +181,10 @@ Lower 8 bits of an 11 bit frequency (x).
 ### FF1E - NR34 - Channel 3 Frequency's higher data (R/W)
 
 ```
-Bit 7   - Initial (1=Restart Sound)     (Write Only)`
-Bit 6   - Counter/consecutive selection (Read/Write)`
-          (1=Stop output when length in NR31 expires)`
-Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)`
+Bit 7   - Initial (1=Restart Sound)     (Write Only)
+Bit 6   - Counter/consecutive selection (Read/Write)
+          (1=Stop output when length in NR31 expires)
+Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)
 ```
 
 Frequency = 4194304/(64\*(2048-x)) Hz = 65536/(2048-x) Hz
@@ -229,7 +229,7 @@ Bit 6 in NR44 is set.
 ```
  Bit 7-4 - Initial Volume of envelope (0-0Fh) (0=No Sound)
  Bit 3   - Envelope Direction (0=Decrease, 1=Increase)
- Bit 2-0 - Number of envelope sweep (n: 0-7)`
+ Bit 2-0 - Number of envelope sweep (n: 0-7)
            (If zero, stop envelope operation.)
 ```
 

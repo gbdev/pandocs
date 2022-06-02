@@ -13,6 +13,7 @@ use-default-preprocessors = false
 # Custom preprocessor for internal links processing
 [preprocessor.pandocs]
 command = "cargo run -p pandocs-preproc --locked --release --"
+after = [ "links" ]
 
 # `{{#include }}` etc. resolution
 [preprocessor.links]

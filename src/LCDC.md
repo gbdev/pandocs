@@ -22,7 +22,7 @@ This bit controls whether the LCD is on and the PPU is active. Setting
 it to 0 turns both off, which grants immediate and full access to VRAM,
 OAM, etc.
 
-::: warning
+::: danger CAUTION
 
 Stopping LCD operation (Bit 7 from 1 to 0) may be performed
 during VBlank ONLY, disabling the display outside

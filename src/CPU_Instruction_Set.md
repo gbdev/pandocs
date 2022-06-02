@@ -83,8 +83,8 @@ Mnemonic         | Encoding | Clock cycles | Flags | Description
  add  HL,rr      | x9       |       8      | -0hc  | HL = HL+rr     ; rr may be BC,DE,HL,SP
  inc  rr         | x3       |       8      | ----  | rr = rr+1      ; rr may be BC,DE,HL,SP
  dec  rr         | xB       |       8      | ----  | rr = rr-1      ; rr may be BC,DE,HL,SP
- add  SP,dd      | E8       |      16      | 00hc  | SP = SP +/- dd ; dd is 8-bit signed number
- ld   HL,SP+dd   | F8       |      12      | 00hc  | HL = SP +/- dd ; dd is 8-bit signed number
+ add  SP,dd      | E8 dd    |      16      | 00hc  | SP = SP +/- dd ; dd is 8-bit signed number
+ ld   HL,SP+dd   | F8 dd    |      12      | 00hc  | HL = SP +/- dd ; dd is 8-bit signed number
 
 ## Rotate and Shift instructions
 

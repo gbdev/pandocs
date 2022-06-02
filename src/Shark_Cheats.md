@@ -28,8 +28,8 @@ Check the [Game Genie manual](http://www.digitpress.com/library/manuals/gameboy/
 Game Shark codes consist of eight-digit hex numbers, formatted as
 ABCDEFGH, the meaning of the separate digits is:
 
-` AB    External RAM bank number`
-` CD    New Data`
+` AB    External RAM bank number` \
+` CD    New Data` \
 ` GHEF  Memory Address (internal or external RAM, A000-DFFF)`
 
 As far as it is understood, patching is implemented by hooking the original
