@@ -1,5 +1,5 @@
 /* Import Fira Code font */
-@import "../fonts/fira_code.css"; /* Import Inter font */
+@import "/fonts/fira_code.css"; /* Import Inter font */
 @import url("https://rsms.me/inter/inter.css");
 
 html {
@@ -40,8 +40,9 @@ table {
 
 code {
   /* "!important" needed because https://github.com/rust-lang/mdBook/issues/1552 */
-  font-family: "Iosevka", monospace !important;
+  font-family: "Fira Code", monospace !important;
   font-size: 0.85em;
+  font-weight: 500;
 }
 
 .header {
