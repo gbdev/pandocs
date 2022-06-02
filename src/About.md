@@ -1,8 +1,8 @@
 # Foreword
 
-This document, started in early 1995, is considered the single most comprehensive technical reference to Game Boy available to the public. 
+This document, started in early 1995, is considered the single most comprehensive technical reference to Game Boy available to the public.
 
-You are reading a new version of it, mantained in the Markdown format and enjoying renewed [community](https://gbdev.io) attention, correcting and updating it with recent findings. To learn more about the legacy and the mission of this initiative, check [History](./History.md).
+You are reading a new version of it, maintained in the Markdown format and enjoying renewed [community](https://gbdev.io) attention, correcting and updating it with recent findings. To learn more about the legacy and the mission of this initiative, check [History](./History.md).
 
 ::: tip SCOPE
 
@@ -19,7 +19,6 @@ There is a [Discord chat](https://gbdev.io/chat) dedicated to the gbdev communit
 
 Finally, you can also contact us and send patches via email: `pandocs (at) gbdev.io`.
 
-
 ## Using this document
 
 In the top navigation bar, you will find a series of icons.
@@ -32,6 +31,6 @@ You can search anywhere by pressing <kbd>s</kbd> on your keyboard or clicking th
 
 The <i class="fa fa-edit"></i> icon allows you to suggest an edit on the current page by directly opening the source file in the git repository.
 
-Also available are [one-page](single.html) and [printable](print.html) versions of this document.
+[One-page](single.html) and [printable](print.html) versions of this document are also available.
 
 <br><br>
