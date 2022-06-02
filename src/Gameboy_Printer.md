@@ -82,7 +82,7 @@ byte.
 
 #### Status byte
 
-A nonzero value for the higher nibble indicates something went wrong.
+A non-zero value for the higher nibble indicates something went wrong.
 
 Bit \# | Name                | Description
 -------|---------------------|---------------
@@ -133,4 +133,3 @@ Some sort of RLE? The GB Camera doesn't use it.
 
 ([Details and pictures](http://furrtek.free.fr/?a=gbprinter&i=2), need
 to be copied here)
-

@@ -2,10 +2,10 @@
 
 Game Boy Color hardware applies automatic colorization to monochrome
 games, with one 4-color palette for backgrounds and two 3-color
-palettes for sprites.  Because of past underuse of Super Game Boy
+palettes for sprites.  Because of past under utilization of Super Game Boy
 features even in first-party games (as explained in an article by
 Christine Love), Nintendo required Game Boy Color games to appear
-more colorful than this automatic colorization.  Thus Nintendo
+more colorful than this automatic colorization. Thus, Nintendo
 required publishers to keep Nintendo in the loop at three points in
 development.  The Mario Club division evaluated games on whether
 color was being used appropriately.  Some things Mario Club looked at

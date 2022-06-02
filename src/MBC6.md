@@ -5,7 +5,7 @@ separately switchable ROM banks ($4000 and $6000) and RAM banks
 ($A000 and $B000), SRAM and an 8 Mbit Macronix MX29F008TC-14 flash
 memory chip. It is only used in one game, Net de Get: Minigame @ 100,
 which uses the Mobile Adapter to connect to
-the web to download minigames onto the local flash. Both ROM banks and
+the web to download mini-games onto the local flash. Both ROM banks and
 both RAM banks are views into the same ROM and RAM, but with separately
 adjustable offsets. Since the banked regions are smaller the effective
 number of banks is twice what it usually would be; 8 kB ROM banks
@@ -20,21 +20,21 @@ Contains the first 16 KiB of the ROM.
 ### 4000-5FFF - ROM/Flash Bank A 00-7F (Read/Write for flash, Read Only for ROM)
 
 Read-only access to ROM and flash banks 00-7F, switchable independently
-from ROM/Flash Bank B.
+of ROM/Flash Bank B.
 
 ### 6000-7FFF - ROM/Flash Bank B 00-7F (Read/Write for flash, Read Only for ROM)
 
 Read-only access to ROM and flash banks 00-7F, switchable independently
-from ROM/Flash Bank A.
+of ROM/Flash Bank A.
 
 ### A000-AFFF - RAM Bank A 00-07 (Read/Write)
 
-Read/write access to RAM banks 00-07, switchable independently from RAM
+Read/write access to RAM banks 00-07, switchable independently of RAM
 Bank B.
 
 ### B000-BFFF - RAM Bank B 00-07 (Read/Write)
 
-Read/write access to RAM banks 00-07, switchable independently from RAM
+Read/write access to RAM banks 00-07, switchable independently of RAM
 Bank A.
 
 ## Registers
@@ -62,7 +62,7 @@ change this.
 
 Enable or disable write mode for the flash chip. Only the lowest bit (0
 for disable, 1 for enable) is used. Note that this maps to the /WE pin
-on the flash chip, not whether or not writing to the bus is enabled;
+on the flash chip, not whether writing to the bus is enabled;
 some flash commands (e.g. JEDEC ID query) still work with this off so
 long as Flash Enable is on.
 
@@ -129,4 +129,3 @@ Flash Write Enable should be set to 0.
 ## External links
 
 - Source: [GBDev Forums thread by endrift](http://gbdev.gg8.se/forums/viewtopic.php?id=544)
-

@@ -4,11 +4,11 @@
 
 This is the first MBC chip for the Game Boy. Any newer MBC chips
 work similarly, so it is relatively easy to upgrade a program from one
-MBC chip to another - or to make it compatible with several different
+MBC chip to another - or to make it compatible with several
 types of MBCs.
 
 In its default configuration, MBC1 supports up to 512 KiB ROM with up to 32 KiB of banked RAM.
-Some cartridges wire the MBC differently, where the 2-bit RAM banking register is wired as an extension of the ROM banking register (instead of to RAM) in order to support up to 2 MiB ROM, at the cost of only supporting a fixed 8 kiB of cartridge RAM.
+Some cartridges wire the MBC differently, where the 2-bit RAM banking register is wired as an extension of the ROM banking register (instead of to RAM) in order to support up to 2 MiB ROM, at the cost of only supporting a fixed 8 KiB of cartridge RAM.
 All MBC1 cartridges with 1 MiB of ROM or more use this alternate wiring.
 Also see the note on MBC1M multi-game compilation carts below.
 
@@ -35,7 +35,7 @@ higher ($01/$21/$41/$61 or $01/$11/$21/$31 respectively).
 
 This area is used to address external RAM in the cartridge (if any). The RAM is only accessible if RAM is enabled, otherwise reads return open bus values (often $FF, but not guaranteed) and writes are ignored.
 
-Available RAM sizes are 8 KiB (at $A000-$BFFF) and 32 KiB (in form of four 8K banks at $A000-$BFFF). 32 kiB is only available in cartridges with ROM <= 512 kiB.
+Available RAM sizes are 8 KiB (at $A000-$BFFF) and 32 KiB (in form of four 8K banks at $A000-$BFFF). 32 KiB is only available in cartridges with ROM <= 512 KiB.
 
 External RAM is often battery-backed, allowing for the storage of game data while the Game Boy is turned off, or if the cartridge is removed from the Game Boy. External RAM is no slower than the Game Boy's internal RAM, so many games use part of the external RAM as extra working RAM, even if they use another part of it for battery-backed saves.
 
@@ -73,7 +73,7 @@ e.g. a 256 KiB cart only needs a 4-bit bank number to address all of its
 16 banks, so this register is masked to 4 bits. The upper bit would be
 ignored for bank selection.
 
-Even with smaller ROMs that use less than 5 bits for bank selection, the full 5-bit register is still compared for the bank 00->01 translation logic. As a result if the ROM is 256 kiB or smaller, it _is_ possible to map bank 0 to the 4000-7FFF region - by setting the 5th bit to 1 it will prevent the 00->01 translation (which looks at the full 5-bit register, and sees the value $10, not $00), while the bits actually used for bank selection (4, in this example) are all 0, so bank $00 is selected.
+Even with smaller ROMs that use less than 5 bits for bank selection, the full 5-bit register is still compared for the bank 00->01 translation logic. As a result if the ROM is 256 KiB or smaller, it _is_ possible to map bank 0 to the 4000-7FFF region - by setting the 5th bit to 1 it will prevent the 00->01 translation (which looks at the full 5-bit register, and sees the value $10, not $00), while the bits actually used for bank selection (4, in this example) are all 0, so bank $00 is selected.
 
 On larger carts which need a >5 bit bank number, the secondary banking
 register at 4000-5FFF is used to supply an additional 2 bits for the
@@ -115,9 +115,9 @@ between the two modes at any time.
      0000-3FFF and A000-BFFF can be bank-switched via the 4000-5FFF bank register
 ```
 
-Technically, the MBC1 has AND gates between the both bank registers and the second highest bit of the address. This is intended to cause accesses to the 0000-3FFF region (which has that addess bit set to 0) to treat both registers as always 0, so that only bank 0 is accessible through this address.
+Technically, the MBC1 has AND gates between the both bank registers and the second-highest bit of the address. This is intended to cause accesses to the 0000-3FFF region (which has that address bit set to 0) to treat both registers as always 0, so that only bank 0 is accessible through this address.
 
-However, when the second bank register is connected to RAM, this has the side effect of also locking RAM to bank 0, as the RAM address space (A000-BFFF) _also_ has the second highest address bit set to 0.
+However, when the second bank register is connected to RAM, this has the side effect of also locking RAM to bank 0, as the RAM address space (A000-BFFF) _also_ has the second-highest address bit set to 0.
 
 Setting the mode to 1 disables these AND gates, allowing the two-bit register to switch the selected bank in both these regions.
 
@@ -192,7 +192,7 @@ banks $00, $10, $20, or $30, rather than the usual $00, $20, $40 or $60.
 
 These carts make use of the fact that mode 1 remaps the 0000-3FFF area
 to switch games. The 2-bit register is used to select the game - switching
-the zero bank and the region of banks that the 4000-7FFF rom area can
+the zero bank and the region of banks that the 4000-7FFF ROM area can
 access to those for the selected game and then the game only changes the
 main ROM banking register. As far as the selected game knows, it's running
 from a 256 KiB cart!
@@ -204,7 +204,7 @@ having duplicate content in banks $10-$1F (dupe of $00-$0F) and banks $30-$3F
 There is a known bad dump of the Mortal Kombat I & II collection around.
 
 An "MBC1M" compilation cart ROM can be converted into a regular MBC1 ROM
-by increasing the ROM size to 2 MiB and duplicating each sub-rom - $00-$0F
+by increasing the ROM size to 2 MiB and duplicating each sub-ROM - $00-$0F
 duplicated into $10-$1F, the original $10-$1F placed in $20-$2F and
 duplicated into $30-$3F and so on.
 

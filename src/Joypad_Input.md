@@ -27,7 +27,7 @@ and only the value from the last read is actually used).
 
 ## Usage in SGB software
 
-Beside for normal joypad input, SGB games mis-use the joypad register to
+Beside for normal joypad input, SGB games misuse the joypad register to
 output SGB command packets to the SNES, also, SGB programs may read out
 gamepad states from up to four different joypads which can be connected
 to the SNES. See SGB description for details.

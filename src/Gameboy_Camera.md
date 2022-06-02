@@ -18,7 +18,7 @@ U1         | MAC-GBD Nintendo 9807 SA             | I/O, memory control. |
 U2         | GBD-PCAX-0 F M538011-E - 08 8145507  | 1MB ROM              |
 U3         | 52CV1000SF85LL SHARP JAPAN 9805 5 0A | 128KB RAM            |
 
-The U1 is the only one connected to the GB cartridge pins (besides some of the address pins of the ROM IC). The U2 and U3 (ROM and RAM) are connected to U1. The M64282FP "retina" chip is in a separate PCB, and is connected to the U1.
+The U1 is the only one connected to the GB cartridge pins (besides some address pins of the ROM IC). The U2 and U3 (ROM and RAM) are connected to U1. The M64282FP "retina" chip is in a separate PCB, and is connected to the U1.
 The M64282FP handles most of the configuration of the capturing process. The U1 transforms the commands from the Game Boy CPU into the correct signals needed for the M64282FP. The detailed timings are described below.
 It is a good idea to have the datasheet of the M64282FP, but it is very poorly explained, so this document will try to explain everything about it (except from limits like voltage or signal timings). There are datasheets of similar sensors (M64283FP and M64285FP) that can be very useful to understand some things about the sensor of the GB Camera.
 
@@ -54,7 +54,7 @@ Writing a value in range for 00h-0Fh maps the corresponding external RAM Bank to
 
 ::: tip NOTE
 
-Unlike most games, the GB Camera RAM can only be written when PHI pin = '1'. It's an enable signal for the RAM chip. Most cartridge readers and writers can't handle PHI pin so they can't restore a saved backup. It isn't needed to change ROM banks.
+Unlike most games, the GB Camera RAM can only be written when PHI pin = '1'. It's an enable signal for the RAM chip. Most cartridge readers and writers can't handle PHI pin, so they can't restore a saved backup. It isn't needed to change ROM banks.
 
 :::
 
@@ -82,7 +82,7 @@ This register is mapped to register 1 of M64282FP. It controls the output gain a
 
 ### Register A002, A003
 
-This registers are mapped to registers 2 and 3 of M64282FP. They control the exposure time. Register 2 is the MSB, register 3 is the LSB.
+These registers are mapped to registers 2 and 3 of M64282FP. They control the exposure time. Register 2 is the MSB, register 3 is the LSB.
 
 ```
 u16 exposure_steps = [A003] | ([A002]<<8);
@@ -90,7 +90,7 @@ u16 exposure_steps = [A003] | ([A002]<<8);
 
 ### Register A004
 
-This register is mapped to register 7 of M64282FP. It sets the output voltage reference, the edge enhancement ratio and it can invert the image.
+This register is mapped to register 7 of M64282FP. It sets the output voltage reference, the edge enhancement ratio, and it can invert the image.
 
 ### Register A005
 
@@ -174,7 +174,7 @@ Those registers form a 4×4 matrix with 3 bytes per element. They handle ditheri
 
 ## Sample code for emulators
 
-The following code is used to convert a greyscale image to the Game Boy Camera format. GB_CameraTakePicture() should be called when bit 0 of A000 register is st to '1'. The emulator should wait CAM_CLOCKS_LEFT until the bit 0 is cleared. The gain and level control are not needed to emulate the Game Boy Camera because webcams do that automatically. In fact, trying to emulate that will probably break the image. The code is not very clean because it has been extracted from [GiiBiiAdvance](https://github.com/AntonioND/giibiiadvance), but it seems to handle all used configurations of edge handling.
+The following code is used to convert a greyscale image to the Game Boy Camera format. `GB_CameraTakePicture()` should be called when bit 0 of A000 register is st to '1'. The emulator should wait CAM_CLOCKS_LEFT until the bit 0 is cleared. The gain and level control are not needed to emulate the Game Boy Camera because webcams do that automatically. In fact, trying to emulate that will probably break the image. The code is not very clean because it has been extracted from [GiiBiiAdvance](https://github.com/AntonioND/giibiiadvance), but it seems to handle all used configurations of edge handling.
 
 Note that the actual Game Boy Camera sensor is affected by infrared so the emulation can't be perfect anyway. A good way of converting a RGB image into grayscale is to do:
 

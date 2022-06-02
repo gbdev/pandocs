@@ -37,7 +37,7 @@ Byte | Value | Description
 
 3 "STAT" bytes are sent indicating the current connection status of the other
 Game Boys. Each byte is usually the same, however, sometimes the status can
-change mid-way through a ping, typically on STAT2 or STAT3. Each STAT byte
+change midway through a ping, typically on STAT2 or STAT3. Each STAT byte
 looks like such:
 
 Bit | Name
@@ -74,7 +74,7 @@ Packet                | Description
 
 It's possible to have situations where some players are connected but others
 are not; the gaps don't matter. For example, Player 1 and Player 4 can be
-connected, while Player 2 and Player 3 can be disconnected (or non-existant,
+connected, while Player 2 and Player 3 can be disconnected (or non-existent,
 same thing); most games do not care so long as Player 1 is active, as that
 Game Boy acts as master and orchestrates the multiplayer session from a
 software point of view. Because of the way the DMG-07 hardcodes player IDs
@@ -99,7 +99,7 @@ STAT3	<-->	(SIZE) = Packet Size
 ```
 
 The new clock rate is only applied when entering the transmission phase; the
-ping phase runs at a constant 2048 bits-per-second. The formula for the ne
+ping phase runs at a constant 2048 bits-per-second. The formula for the new
 clock rate is as follows:
 
 ```

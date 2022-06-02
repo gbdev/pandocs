@@ -80,13 +80,13 @@ Registers.
 
 ### The Day Counter
 
-The total 9 bits of the Day Counter allow to count days in range from
+The total 9 bits of the Day Counter allow counting days in range from
 0-511 (0-1FFh). The Day Counter Carry Bit becomes set when this value
 overflows. In that case the Carry Bit remains set until the program does
 reset it. Note that you can store an offset to the Day Counter in
 battery RAM. For example, every time you read a non-zero Day Counter,
 add this Counter to the offset in RAM, and reset the Counter to zero.
-This method allows to count any number of days, making your program
+This method allows counting any number of days, making your program
 Year-10000-Proof, provided that the cartridge gets used at least every
 511 days.
 
@@ -94,4 +94,3 @@ Year-10000-Proof, provided that the cartridge gets used at least every
 
 When accessing the RTC Registers it is recommended to execute a 4ms
 delay (4 Cycles in Normal Speed Mode) between the separate accesses.
-

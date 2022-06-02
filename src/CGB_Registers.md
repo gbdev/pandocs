@@ -10,14 +10,14 @@ a changed bit is noted in the chapter about the Serial/Link port.
 
 When using any CGB registers (including those in the Video/Link
 chapters), you must first unlock CGB features by changing byte 0143h in
-the cartridge header. Typically use a value of 80h for games which
+the cartridge header. Typically, use a value of 80h for games which
 support both CGB and monochrome Game Boy systems, and C0h for games which work
 on CGBs only. Otherwise, the CGB will operate in monochrome "Non CGB"
 compatibility mode.
 
 ## Detecting CGB (and GBA) functions
 
-CGB hardware can be detected by examing the CPU accumulator (A-register)
+CGB hardware can be detected by examining the CPU accumulator (A-register)
 directly after startup. A value of 11h indicates CGB (or GBA) hardware,
 if so, CGB functions can be used (if unlocked, see above). When A=11h,
 you may also examine Bit 0 of the CPUs B-Register to separate between
@@ -124,7 +124,7 @@ has a different purpose.
 
 #### FF4F - VBK - CGB Mode Only - VRAM Bank (R/W)
 
-This register can be written to to change VRAM banks. Only bit 0
+This register can be written to change VRAM banks. Only bit 0
 matters, all other bits are ignored.
 
 #### VRAM bank 1
@@ -149,7 +149,7 @@ Double Speed Mode and Normal Speed Mode. The actual speed switch is
 performed by executing a `stop` instruction after Bit 0 has been set. After
 that, Bit 0 will be cleared automatically, and the Game Boy will operate
 at the "other" speed. The recommended speed switching procedure in
-pseudo code would be:
+pseudocode would be:
 
 ```
 IF KEY1_BIT7 != DESIRED_SPEED THEN
@@ -182,7 +182,7 @@ executed. During this time, the CPU is in a strange state. `DIV` does not tick, 
 *some* audio events are not processed. Additionally, VRAM/OAM/... locking is "frozen", yielding
 different results depending on the [STAT mode](<#FF41 - STAT (LCD Status) (R/W)>) it's started in:
 
-- HBlank / VBlank (Mode 0 / Mode 1): The PPU cannot access any videomemory, and produces black pixels
+- HBlank / VBlank (Mode 0 / Mode 1): The PPU cannot access any video memory, and produces black pixels
 - OAM scan (Mode 2): The PPU can access VRAM just fine, but not OAM, leading to rendering background, but not sprites
 - Rendering (Mode 3): The PPU can access everything correctly, and so rendering is not affected
 
@@ -274,4 +274,3 @@ This register is read-only. The low nibble is a copy of sound channel
 ### FF77 - PCM34 - PCM amplitudes 3 & 4 (Read Only)
 
 Same, but with channels 3 and 4.
-
