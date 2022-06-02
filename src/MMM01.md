@@ -409,3 +409,7 @@ Because the MMM01 has registers which disable write access to other registers, i
 4. RAM Enable ($0000) — contains RAM Bank Mask, and Mapping Enable
 
 The majority of released MMM01 cartridges stick to this order.
+
+### References
+
+- Source: [MMM01](https://wiki.tauwasser.eu/view/MMM01) on tauwasser wiki
