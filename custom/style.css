@@ -1,5 +1,6 @@
 /* Import Fira Code font */
-@import "/fonts/fira_code.css"; /* Import Inter font */
+@import "/pandocs/fonts/fira_code.css";
+/* Import Inter font */
 @import url("https://rsms.me/inter/inter.css");
 
 html {
