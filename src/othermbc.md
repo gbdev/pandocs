@@ -11,7 +11,7 @@ outputs, but this appears not to have been done in licensed games.
 
 **Bung** and **EMS** MBCs are reported to exist.
 
-### EMS
+## EMS
 
 ::: warning To be verified
 
@@ -86,10 +86,9 @@ address is used. For example, to select bank $XX, you would write any
 value to address $YYXX, where $YY is in the range $00-$7F.
 
 
-
 ## Magic values for detection of multicarts in emulators
 
-::: info proposal
+::: tip proposal
 
 The following information should not be considered a universally adopted
 standard, but it's instead just a proposed solution. Actual adoption may vary.
@@ -103,7 +102,7 @@ multicart hardware.
 Emulator authors who are interested in supporting the other multicart
 mappers are also encouraged to support detection of the following values.
 
-- Wisdom Tree mapper
+- Detect as Wisdom Tree mapper
   - [ROM title](<#0134-0143 - Title>) is "WISDOM TREE" (the space may be a
   $00 NUL character instead), $0147 = $00, $0148 = $00, size \> 32k.
   This method works for the games released by Wisdom Tree, Inc.
