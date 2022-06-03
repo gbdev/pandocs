@@ -9,14 +9,11 @@ four games is switched in. In theory, a MBC1M board could be made for 1
 Mbit or 512 kbit games by additionally not connecting A17 and A16
 outputs, but this appears not to have been done in licensed games.
 
-**MMM01** is a more complex that allows for games of different sizes.
-[Docs on Tauwasser.eu](https://wiki.tauwasser.eu/view/MMM01)
-
 **Bung** and **EMS** MBCs are reported to exist.
 
 ### EMS
 
-::: warning VERIFICATION NEEDED
+::: warning To be verified
 
 Take the following with a grain of salt, as it hasn't been verified on authentic EMS hardware.
 
@@ -41,7 +38,8 @@ nonsensical.
 
 The mapper does not support an outer bank for battery SRAM.
 
-To start a game, do the following with code run from RAM:
+To start a game, perform the following steps with code running from RAM:
+
 1. Write $A5 to $1000
 2. Write game's first bank number to $2000
 3. Write any value to $7000
@@ -87,29 +85,30 @@ Thus, the value you write is ignored, and the lower 8 bits of the
 address is used. For example, to select bank $XX, you would write any
 value to address $YYXX, where $YY is in the range $00-$7F.
 
-An emulator can detect a ROM designed for the Wisdom Tree mapper in one of
-two ways:
 
-- [ROM title](<#0134-0143 - Title>) is "WISDOM TREE" (the space may be a
-  $00 NUL character instead), $0147 = $00, $0148 = $00, size \> 32k.
-  This method works for the games released by Wisdom Tree, Inc.
-- $0147 = $C0, $014A = $D1. These are the values recommended by
-  beware for 3rd party developers to indicate that the ROM is
-  targeting Wisdom Tree mapper hardware. (See below.)
 
 ## Magic values for detection of multicarts in emulators
 
+::: info proposal
+
+The following information should not be considered a universally adopted
+standard, but it's instead just a proposed solution. Actual adoption may vary.
+
+:::
+
 Sometimes it may be useful to allow a ROM to be detected as a multicart
 in emulator, for example for development of a menu for physical
-multicart hardware. These are values suggested by beware, and supported
-in at least BGB, for signaling that your ROM is supposed to interface a multicart
-mapper. Emulator authors who are interested in supporting multicart
-mappers are encouraged to support detection of these values in addition
-to the values described in each section, which are heuristics based on
-ROMs in the wild, and thus may not always be suitable for newly produced
-software. The values are deliberately chosen to be high-entropy
-("random") such that an accidental false positive is unlikely.
+multicart hardware. 
 
-- $0147 = $c0, $014a = $d1 → Detect as Wisdom Tree
-- $0147 = $1b, $014a = $e1 → Detect as EMS multicart
-- $0147 = $be → Detect as Bung multicart
+Emulator authors who are interested in supporting the other multicart
+mappers are also encouraged to support detection of the following values.
+
+- Wisdom Tree mapper
+  - [ROM title](<#0134-0143 - Title>) is "WISDOM TREE" (the space may be a
+  $00 NUL character instead), $0147 = $00, $0148 = $00, size \> 32k.
+  This method works for the games released by Wisdom Tree, Inc.
+  - $0147 = $C0, $014A = $D1.
+- Detect as EMS multicart
+  - $0147 = $1b, $014a = $e1
+- Detect as Bung multicart
+  - $0147 = $be
