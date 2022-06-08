@@ -23,7 +23,7 @@ Where \<INT\> means the operation which is automatically executed by the
 CPU when it executes an interrupt.
 
 The effect of `ei` is delayed by one instruction. This means that `ei`
-followed immediately by DI does not allow any interrupts between them.
+followed immediately by `di` does not allow any interrupts between them.
 This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 
 ## FFFF - IE - Interrupt Enable (R/W)
@@ -99,8 +99,8 @@ and IF registers: Bit 0 (VBlank) has the highest priority, and Bit 4
 
 The CPU automatically disables all the other interrupts by setting IME=0
 when it executes an interrupt. Usually IME remains zero until the
-interrupt handler returns (and sets IME=1 by means of the RETI instruction).
+interrupt handler returns (and sets IME=1 by means of the `reti` instruction).
 However, if you want any other interrupts (of any priority)
 to be allowed to be executed from inside the interrupt
-handler, then you can use the EI instruction in the interrupt
+handler, then you can use the `ei` instruction in the interrupt
 handler.
