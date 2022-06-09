@@ -19,7 +19,7 @@ RETI   ; Enables interrupts and returns (same as the instruction sequence EI, RE
 <ISR>  ; Disables interrupts and calls the interrupt handler
 ```
 
-Where \<ISR\> is the interrupt service routine that is automatically executed
+Where \<ISR\> is the Interrupt Service Routine that is automatically executed
 by the CPU when it services an interrupt request.
 
 The effect of `ei` is delayed by one instruction. This means that `ei`
