@@ -32,4 +32,4 @@ References:
 
 * ["F the Super Game Boy: Kirby's Dream Land 2"](https://loveconquersallgam.es/post/2487450388/fuck-the-super-game-boy-kirbys-dream-land-2) by Christine Love
 * ["The Making of Snoopy Tennis"](https://sidequestions.medium.com/making-snoopy-tennis-nintendo-gameboy-color-infogrames-mermaid-11bed971526d) by Alexander Hughes
-* ["License Agreement for Game Boy (Western Hemisphere)"](https://contracts.onecle.com/thq/nintendo.lic.1999.03.09.shtml)
+* ["License Agreement for Game Boy (Western Hemisphere)"](https://web.archive.org/web/20220323183905/https://contracts.onecle.com/thq/nintendo.lic.1999.03.09.shtml)
