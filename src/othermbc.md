@@ -15,7 +15,7 @@ outputs, but this appears not to have been done in licensed games.
 
 ::: warning To be verified
 
-Take the following with a grain of salt, as it hasn't been verified on authentic EMS hardware.
+Take the following with a grain of salt, as it hasn't been verified on authentic EMS hardware. See related github issue to contribute: [#423]( https://github.com/gbdev/pandocs/issues/423).
 
 :::
 
