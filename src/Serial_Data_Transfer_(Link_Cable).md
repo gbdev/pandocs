@@ -74,7 +74,7 @@ the old/monochrome Game Boy is reported to recognize external clocks of
 up to 500 kHz. And there is no limitation in the other direction, even
 when suppling an external clock speed of "1 bit per month," the Game Boy
 will eagerly wait for the next bit to be transferred. It isn't required
-that the clock pulses are sent at an regular interval either.
+that the clock pulses are sent at a regular interval either.
 
 ## Timeouts
 
