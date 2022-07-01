@@ -1,6 +1,6 @@
 # The Cartridge Header
 
-Each cartridge contains a header, located at the addresses `$0100`-`$014F`.
+Each cartridge contains a header, located at the address range `$0100`-`$014F`.
 The cartridge header contains the following information:
 
 ## 0100-0103 – Entry Point
