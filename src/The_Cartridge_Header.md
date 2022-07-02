@@ -26,7 +26,7 @@ its contents. If the contents do not match the values above, the boot
 ROM **locks itself up**.
 
 A CGB verifies only the first half (`$18` bytes) of the bitmap, but other models
-(the Game Boy Pocket, for example) verify all `$30` bytes, as does the
+(e.g. the Game Boy Pocket) verify all `$30` bytes, as does the
 Game Boy Advance.
 
 ## 0134-0143 – Title
