@@ -31,7 +31,7 @@ Game Boy Advance.
 
 ## 0134-0143 – Title
 
-These bytes contain the title of the game in UPPER CASE ASCII.
+These bytes contain the title of the game in upper case ASCII.
 If the title is less than 16 characters long, the remaining bytes all have the
 value `$00`.
 
@@ -44,7 +44,7 @@ described below.
 
 In older cartridges these bytes were part of the Title (see above).
 In newer cartridges they contain a 4-character manufacturer code
-(uppercase). The exact purpose of the code is unknown.
+(uppercase). The purpose is unknown.
 
 ## 0143 – CGB Flag
 
@@ -68,7 +68,7 @@ TODO: research and document PGB modes...
 
 These bytes specify a two-character ASCII licensee code indicating the
 developer/publisher of the game. The New Licensee Code is present in newer
-cartridges only (those released after the SGB was invented).
+cartridges only (those released after the SGB was released).
 Older cartridges use the Old Licensee Code at `$014B` instead.
 
 Sample licensee codes:
