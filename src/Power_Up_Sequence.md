@@ -5,7 +5,7 @@ A program called the *boot ROM*, burned inside the CPU, is mapped "over" the car
 This program is responsible for the boot-up animation played before control is handed over to the cartridge's ROM.
 Since the boot ROM hands off control to the game ROM at address $0100, and developers typically need not care about the boot ROM, the "start address" is usually documented as $0100 and not $0000.
 
-8 different known official boot ROMs are known to exist:
+9 different known official boot ROMs are known to exist:
 
 Name | Size (bytes) | Notes
 -----|--------------|------------------------------------------------------------
@@ -16,6 +16,7 @@ SGB  | 256          | Only forwards logo to SGB BIOS, performs no checks
 SGB2 | 256          | Same difference to SGB than between MGB and DMG
 CGB0 | 256 + 1792   | Does not init [wave RAM](<#FF30-FF3F - Wave Pattern RAM>)
 CGB  | 256 + 1792   | Split in two parts, with the cartridge header in the middle
+AGB0 | 256 + 1792   | Increments B register for GBA identification
 AGB  | 256 + 1792   | Fixes ["logo TOCTTOU"](<#Bypass>)
 
 [A disassembly of all of them is available online.](https://github.com/ISSOtm/gb-bootroms)
@@ -60,7 +61,7 @@ As the DMG and MGB boot ROMs, the SGB and SGB2 boot ROMs write $01 and $FF respe
 The way the packet-sending routine works makes transferring a set bit *one cycle* faster than transferring a reset bit; this means that the time taken by the SGB boot ROMs *depends on the cartridge's header*.
 The relationship between the header and the time taken is made more complex by the fact that the boot ROM waits for 4 VBlanks after transferring each packet, mostly but not entirely grouping the timings.
 
-## Color models (CGB0, CGB, AGB)
+## Color models (CGB0, CGB, AGB0, AGB)
 
 The color boot ROMs are much more complicated, notably because of the compatibility behavior.
 
@@ -183,13 +184,13 @@ That said, if you want to explicitly mark the lack of licensing from Nintendo, y
 
 The Nintendo logo check has been [circumvented many times](http://fuji.drillspirits.net/?post=87), be it to avoid legal action from Nintendo or for the swag, and there are basically two ways of doing so.
 
-One is to exploit a [TOCTTOU](https://en.wikipedia.org/wiki/TOCTTOU) vulnerability in the way the console reads the logo (doing so once to draw it, and the other time to check it), which has however been patched on the AGB.
+One is to exploit a [TOCTTOU](https://en.wikipedia.org/wiki/TOCTTOU) vulnerability in the way the console reads the logo (doing so once to draw it, and the other time to check it), which has however been patched on later revisons of the AGB.
 This requires custom hardware in the cartridge, however, and is made difficult by the timing and order of the reads varying greatly between boot ROMs.
 Some implementations use a custom mapper, others use a capacitor holding some of the address lines to redirect reads to a separate region of ROM containing the modified logo.
 
 The other way is Game Boy Color (and Advance) exclusive: for some reason, the boot ROM copies the full logo into HRAM, but only compares the first half.
 Thus, a logo whose top half is correct but not the bottom half will get a pass from the CGB boot ROM.
-Strangely, despite correcting the TOCTTOU vulnerability, the CGB-AGB boot ROM does *not* fix this mistake.
+Strangely, despite correcting the TOCTTOU vulnerability in its later revision, the CGB-AGB boot ROM does *not* fix this mistake.
 
 ## Console state after boot ROM hand-off
 
