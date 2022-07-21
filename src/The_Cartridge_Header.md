@@ -1,19 +1,19 @@
 # The Cartridge Header
 
 Each cartridge contains a header, located at the address range `$0100`-`$014F`.
-The cartridge header contains the following information:
+The cartridge header provides the following information about the game itself and the hardware it expects to run on:
 
 ## 0100-0103 – Entry Point
 
-After displaying the Nintendo logo, the built-in boot procedure jumps to
-this address (`$0100`), which should then jump to the actual main program
-in the cartridge. Usually (but not always) this 4-byte area contains a `nop`
-instruction followed by a `jp $0150` instruction.
+After displaying the Nintendo logo, the built-in [boot ROM](<#Power-Up Sequence>) jumps to
+to address `$0100`, which should then jump to the actual main program
+in the cartridge.
+Most commercial games fill this 4-byte area with a [`nop` instruction](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7/#NOP) followed by a [`jp $0150`](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7/#JP_n16).
 
 ## 0104-0133 – Nintendo Logo
 
-These bytes contain a bitmap of the Nintendo logo that is displayed
-when the Game Boy is powered on. The hex dump of this bitmap is:
+These bytes contain a bitmap that is displayed when the Game Boy is powered on.
+They must match the following (hexadecimal) dump, otherwise [the boot ROM](<#Power-Up Sequence>) won't allow the game to run:
 
 ```
 CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D
@@ -25,51 +25,47 @@ The Game Boy's boot procedure **first displays** the logo and **then verifies**
 its contents. If the contents do not match the values above, the boot
 ROM **locks itself up**.
 
-A CGB verifies only the first half (`$18` bytes) of the bitmap, but other models
-(e.g. the Game Boy Pocket) verify all `$30` bytes, as does the
-Game Boy Advance.
+CGBs and later devices [only check the top half of the logo](Power_Up_Sequence.html?highlight=half#behavior) (the first $18 bytes).
 
 ## 0134-0143 – Title
 
 These bytes contain the title of the game in upper case ASCII.
-If the title is less than 16 characters long, the remaining bytes all have the
-value `$00`.
+If the title is less than 16 characters long, the remaining bytes should be padded with `$00`s.
 
-While developing the CGB, Nintendo reduced the length of this area
-to 15 characters, and some months later they had the fantastic idea to reduce it
-further to just 11 characters. The new meanings of the bytes `$013F`-`$0143` are
-described below.
+Parts of this area actually have a different meaning on later cartridges, reducing the actual title size to 15 ($0134–$0142) or 11 characters ($0134–$013E); see below.
 
 ## 013F-0142 – Manufacturer Code
 
 In older cartridges these bytes were part of the Title (see above).
-In newer cartridges they contain a 4-character manufacturer code
-(uppercase). The purpose is unknown.
+In newer cartridges they contain a 4-character manufacturer code (in uppercase ASCII).
+Its purpose is unknown.
 
 ## 0143 – CGB Flag
 
-In older cartridges this byte was part of the Title (see above). In
-CGB cartridges the most significant bit is used to enable CGB functions. This is
-required; otherwise the CGB switches itself into Non-CGB-Mode.
+In older cartridges this byte was part of the Title (see above).
+CGBs and later models interpret this byte to decide whether to enable Color mode ("CGB Mode"), or to fall back to monochrome compatibility mode ("Non-CGB Mode").
 
 Typical values are:
 
-Code  | CGB support
+Value | Meaning
 ------|------------------------------------------------------------------
-`$80` | The game supports CGB functions (but also works on old Game Boys)
-`$C0` | The game works on CGB only (physically the same as `$80`)
+`$80` | The game supports CGB enhancements, but is backwards compatible with monochrome Game Boys
+`$C0` | The game works on CGB only (the hardware ignores bit 6, so this really functions the same as `$80`)
 
 Values with bit 7 set, and either bit 2 or 3 set, will switch the
 Game Boy into a special non-CGB-mode called "PGB mode".
 
-TODO: research and document PGB modes...
+::: tip Research needed
+
+PGB modes are not well researched or documented yet.
+Help is welcome!
+
+:::
 
 ## 0144-0145 – New Licensee Code
 
-These bytes specify a two-character ASCII licensee code indicating the
-developer/publisher of the game. The New Licensee Code is present in newer
-cartridges only (those released after the SGB was released).
-Older cartridges use the Old Licensee Code at `$014B` instead.
+This area contains a two-character ASCII "licensee code" indicating the game's publisher.
+It is only meaningful if the [Old Licensee Code](<#014B – Old Licensee Code>) is exactly $33 (which is essentially all games made after the SGB was released); otherwise, the old code must be considered.
 
 Sample licensee codes:
 
@@ -140,20 +136,11 @@ Code | Publisher
 ## 0146 – SGB Flag
 
 This byte specifies whether the game supports SGB functions.
-
-Common values are:
-
-Code  | SGB support
-------|-----------------------------------------------------
-`$00` | No SGB functions (regular Game Boy or CGB-only game)
-`$03` | The game supports SGB functions
-
-The SGB disables its SGB functions if this byte is set to a value other than `$03`.
+The SGB will ignore any [packets](<#Command Packet Transfers>) if this byte is set to a value other than $03 (which is typically $00).
 
 ## 0147 – Cartridge Type
 
-This byte indicates what kind of Memory Bank Controller (and other hardware)
-the cartridge contains.
+This byte indicates what kind of hardware is present on the cartridge, notably its [mapper](#MBCs).
 
 Code  | Type
 ------|------
@@ -190,9 +177,7 @@ Code  | Type
 No licensed cartridge makes use of this option. The exact behavior is unknown.
 
 [^mbc30]:
-MBC3 with a 64 KiB RAM refers to MBC30, used only in
-_Pocket Monsters: Crystal Version_ (the Japanese version of
-_Pokémon Crystal Version_).
+MBC3 with 64 KiB of SRAM refers to MBC30, used only in _Pocket Monsters: Crystal Version_ (the Japanese version of _Pokémon Crystal Version_).
 
 ## 0148 – ROM Size
 
@@ -221,16 +206,19 @@ values is unknown.
 
 ## 0149 – RAM Size
 
-This byte specifies the size of the RAM on the cartridge (if any).
+This byte indicates how large the RAM chip on the cartridge is, if any.
 
-Code  | RAM size | Comment
+If the [cartridge type](<#0147 – Cartridge Type>) does not include "RAM" in its name, this should be set to 0.
+This includes MBC2, since its 512 × 4 bits of memory are built directly into the mapper.
+
+Code  | SRAM size | Comment
 ------|----------|---------
-`$00` |   0      | No RAM [^mbc2]
-`$01` |   –      | Unused [^2kib_sram]
-`$02` |   8 KiB  |  1 bank
-`$03` |  32 KiB  |  4 banks of 8 KiB each
-`$04` | 128 KiB  | 16 banks of 8 KiB each
-`$05` |  64 KiB  |  8 banks of 8 KiB each
+`$00` |   0       | No RAM [^mbc2]
+`$01` |   –       | Unused [^2kib_sram]
+`$02` |   8 KiB   |  1 bank
+`$03` |  32 KiB   |  4 banks of 8 KiB each
+`$04` | 128 KiB   | 16 banks of 8 KiB each
+`$05` |  64 KiB   |  8 banks of 8 KiB each
 
 [^mbc2]:
 When using a MBC2 chip, `$00` must be specified as the RAM Size, even though
@@ -242,7 +230,7 @@ The source of this value is unknown.
 
 Various "PD" ROMs ("Public Domain" homebrew ROMs, generally tagged with `(PD)`
 in the filename) are known to use the `$01` RAM Size tag, but this is believed
-to have been a mistake with early homebrew tools and the PD ROMs often don't use
+to have been a mistake with early homebrew tools, and the PD ROMs often don't use
 cartridge RAM at all.
 
 ## 014A – Destination Code
@@ -254,22 +242,21 @@ Only two values are defined:
 
 Code  | Destination
 ------|------------
-`$00` | Japan
-`$01` | Other
+`$00` | Japan (and possibly overseas)
+`$01` | Overseas only
 
 ## 014B – Old Licensee Code
 
-This byte is used in older (pre-SGB) cartridges to specify the developer/publisher
-of the game. The value `$33` indicates that the New Licensee Code (in header bytes
-`$0144`-`$0145`) is used instead. (Super Game Boy functions will only work if the
-value is `$33`.)
+This byte is used in older (pre-SGB) cartridges to specify the game's publisher.
+However, the value $33 indicates that the [New Licensee Code](<#0144-0145 – New Licensee Code>) must be considered instead.
+(The Super Game Boy will ignore packets unless this value is $33.)
 
-A list of Old Licensee Codes can be found
-[here](https://raw.githubusercontent.com/gb-archive/salvage/master/txt-files/gbrom.txt).
+Here is [a list of Old Licensee Codes](https://raw.githubusercontent.com/gb-archive/salvage/master/txt-files/gbrom.txt).
 
 ## 014C – Mask ROM Version number
 
-This byte specifies the version number of the game. The value is usually `$00`.
+This byte specifies the version number of the game.
+It is usually $00.
 
 ## 014D – Header Checksum
 
@@ -277,11 +264,10 @@ This byte contains an 8-bit checksum computed from the cartridge header bytes
 `$0134`-`$014C`. The boot ROM computes the checksum as follows:
 
 ```c
-checksum := 0
-address  := 0x0134
-while address <= 0x014C:
-	checksum := checksum - [address] - 1
-	address  := address + 1
+uint8_t checksum = 0;
+for (uint16_t address = 0x0134; address < 0x014C; address++) {
+    checksum = checksum - rom[address] - 1;
+}
 ```
 
 The boot ROM verifies this checksum. If the byte at `$014D` does not match the
