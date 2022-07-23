@@ -5,14 +5,12 @@ The cartridge header provides the following information about the game itself an
 
 ## 0100-0103 – Entry Point
 
-After displaying the Nintendo logo, the built-in [boot ROM](<#Power-Up Sequence>) jumps to
-to address `$0100`, which should then jump to the actual main program
-in the cartridge.
+After displaying the Nintendo logo, the built-in [boot ROM](<#Power-Up Sequence>) jumps to address `$0100`, which should then jump to the actual main program in the cartridge.
 Most commercial games fill this 4-byte area with a [`nop` instruction](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7/#NOP) followed by a [`jp $0150`](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7/#JP_n16).
 
 ## 0104-0133 – Nintendo Logo
 
-These bytes contain a bitmap that is displayed when the Game Boy is powered on.
+This area contains a bitmap that is displayed when the Game Boy is powered on.
 They must match the following (hexadecimal) dump, otherwise [the boot ROM](<#Power-Up Sequence>) won't allow the game to run:
 
 ```
@@ -21,9 +19,8 @@ CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D
 BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E
 ```
 
-The Game Boy's boot procedure **first displays** the logo and **then verifies**
-its contents. If the contents do not match the values above, the boot
-ROM **locks itself up**.
+The Game Boy's boot procedure [first displays the logo and then checks](<#bypass>) that it matches the dump above.
+If it doesn't, the boot ROM **locks itself up**.
 
 CGBs and later devices [only check the top half of the logo](Power_Up_Sequence.html?highlight=half#behavior) (the first $18 bytes).
 
@@ -52,8 +49,7 @@ Value | Meaning
 `$80` | The game supports CGB enhancements, but is backwards compatible with monochrome Game Boys
 `$C0` | The game works on CGB only (the hardware ignores bit 6, so this really functions the same as `$80`)
 
-Values with bit 7 set, and either bit 2 or 3 set, will switch the
-Game Boy into a special non-CGB-mode called "PGB mode".
+Values with bit 7 set, and either bit 2 or 3 set, will switch the Game Boy into a special non-CGB-mode called "PGB mode".
 
 ::: tip Research needed
 
@@ -201,42 +197,36 @@ Code  | ROM size  | Number of ROM banks
 
 [^weird_rom_sizes]:
 Only listed in unofficial docs. No cartridges or ROM files using these sizes are known.
-As the other ROM sizes are all powers of 2, these are likely inaccurate. The source of these
-values is unknown.
+As the other ROM sizes are all powers of 2, these are likely inaccurate.
+The source of these values is unknown.
 
 ## 0149 – RAM Size
 
-This byte indicates how large the RAM chip on the cartridge is, if any.
+This byte indicates how much RAM is present on the cartridge, if any.
 
 If the [cartridge type](<#0147 – Cartridge Type>) does not include "RAM" in its name, this should be set to 0.
 This includes MBC2, since its 512 × 4 bits of memory are built directly into the mapper.
 
 Code  | SRAM size | Comment
 ------|----------|---------
-`$00` |   0       | No RAM [^mbc2]
+`$00` |   0       | No RAM
 `$01` |   –       | Unused [^2kib_sram]
 `$02` |   8 KiB   |  1 bank
 `$03` |  32 KiB   |  4 banks of 8 KiB each
 `$04` | 128 KiB   | 16 banks of 8 KiB each
 `$05` |  64 KiB   |  8 banks of 8 KiB each
 
-[^mbc2]:
-When using a MBC2 chip, `$00` must be specified as the RAM Size, even though
-MBC2 cartridges contain an on-chip RAM of 512 x 4 bits.
 
 [^2kib_sram]:
-Listed in various unofficial docs as 2 KiB. However, a 2 KiB RAM chip was never used in a cartridge.
+Listed in various unofficial docs as 2 KiB.
+However, a 2 KiB RAM chip was never used in a cartridge.
 The source of this value is unknown.
 
-Various "PD" ROMs ("Public Domain" homebrew ROMs, generally tagged with `(PD)`
-in the filename) are known to use the `$01` RAM Size tag, but this is believed
-to have been a mistake with early homebrew tools, and the PD ROMs often don't use
-cartridge RAM at all.
+Various "PD" ROMs ("Public Domain" homebrew ROMs, generally tagged with `(PD)` in the filename) are known to use the `$01` RAM Size tag, but this is believed to have been a mistake with early homebrew tools, and the PD ROMs often don't use cartridge RAM at all.
 
 ## 014A – Destination Code
 
-This byte specifies whether this version of the game is intended to be sold in
-Japan or elsewhere.
+This byte specifies whether this version of the game is intended to be sold in Japan or elsewhere.
 
 Only two values are defined:
 
@@ -260,18 +250,18 @@ It is usually $00.
 
 ## 014D – Header Checksum
 
-This byte contains an 8-bit checksum computed from the cartridge header bytes
-`$0134`-`$014C`. The boot ROM computes the checksum as follows:
+This byte contains an 8-bit checksum computed from the cartridge header bytes `$0134`-`$014C`.
+The boot ROM computes the checksum as follows:
 
 ```c
 uint8_t checksum = 0;
-for (uint16_t address = 0x0134; address < 0x014C; address++) {
+for (uint16_t address = 0x0134; address <= 0x014C; address++) {
     checksum = checksum - rom[address] - 1;
 }
 ```
 
-The boot ROM verifies this checksum. If the byte at `$014D` does not match the
-lower 8 bits of `checksum`, the boot ROM will lock up, and the program on the
+The boot ROM verifies this checksum.
+If the byte at `$014D` does not match the lower 8 bits of `checksum`, the boot ROM will lock up, and the program in the
 cartridge **won't run**.
 
 ## 014E-014F – ROM Checksum
