@@ -53,13 +53,11 @@ References:
 
 ### 2. Units and prefixes:
 
-Use Binary Prefixes (Ki, Mi) for Bytes. E.g.:
-
-```
-1 MiB = 2^20 bytes = 1,048,576 bytes
-1 KiB = 2^10 bytes = 1,024 bytes
-```
-
+- Use binary prefixes (Ki, Mi) for Bytes. E.g.:
+  ```
+  1 MiB = 2^20 bytes = 1,048,576 bytes
+  1 KiB = 2^10 bytes = 1,024 bytes
+  ```
 - Abbreviate bytes as "B" when used with a prefix. Spell out bits as "bits", even when used with a prefix, to avoid ambiguity. When used as a unit suffix, unit names are always singular, so it should be "20 kbit", not "20 kbits". (Also, "bytes" as a word is fine, just like "30 meters" is a valid way of talking about that length. But "Mbyte" and the like should go away.)
 - Hexadecimal values are uppercase and prefixed with `$`: e.g. `$ABCD`. To prevent clutter, don't use a prefix for hex numbers when it's clear from the context that a number is hexadecimal. For example, addresses and lists of opcodes. In those cases, zero-pad, even for smaller numbers: `0000-3FFF` instead of `0-3FFF`.
 - Put a space between numbers and their unit (ISO).
@@ -111,6 +109,35 @@ Those should either be written out (1 to 42), or use an "n-dash" `–` (can also
 Discussion:
 - [#341 (comment)](https://github.com/gbdev/pandocs/pull/341#discussion_r708681099)
 
+### 8. Section titles
+
+Section titles should not use Title Case.
+
+Section titles for memory descriptions (typically, registers) should additionally respect the following rules for consistency.
+
+The format is the following: `Address{–range} — {REG_NAME {(When)}:} Description {[read-only]|[write-only]}`.
+All parts between braces are optional, as needed.
+Note that the second dash is an em-dash `&mdash;`, not a regular dash/hyphen `-`.
+
+Examples:
+- 014D — Header Checksum
+- 014E–014F — ROM Checksum
+- FF47 — BGP (Non-CGB Mode Only): BG Palette Data
+- FF51 — HDMA1 (CGB Mode Only): New DMA Source (High) \[write-only\]
+
+Multiple registers must be handled as a memory range, and the `REG_NAME` and `Description` must be comma-separated lists as necessary.
+(It is expected that `When` and `rd-o/wr-o` are identical for all described registers.)
+
+Examples:
+- 0104–0133 — Nintendo Logo
+- FF51–FF52 — HDMA1, HDMA2 (CGB Mode Only): New DMA Source (High, Low) \[write-only\]
+
+It also follows that descriptions should not use commas outside of acting as separators for the aforementioned lists.
+
+A convenience feature is provided for linking to sections, even across files: any link whose URL is only an anchor will be converted into an actual link to the section.
+For example, `[sample link text](<#014B — Old licensee code>)` will automatically be turned into `[sample link text](The_Cartridge_Header.html#014b--old-licensee-code)`.
+References to missing sections will be left as-is, and ambiguous references resolved arbitrarily (this should eventually change).
+(Note that the use of angle brackets `<>` here is [a CommonMark feature](https://spec.commonmark.org/0.30/#link-destination) to allow spaces in the link destination.)
 
 ## SVG 
 
