@@ -184,8 +184,8 @@ MBC3 with 64 KiB of SRAM refers to MBC30, used only in _Pocket Monsters: Crystal
 
 ## 0148 – ROM Size
 
-This byte specifies the size of the ROM on the cartridge. In most cases the ROM size
-is given by `32 KiB x (2 ^ <value>)`:
+This byte indicates how much ROM is present on the cartridge.
+In most cases, the ROM size is given by `32 KiB × (1 << <size>)`:
 
 Code  | ROM size  | Number of ROM banks
 ------|-----------|-----------------
