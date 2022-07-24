@@ -19,6 +19,13 @@ CE ED 66 66 CC 0D 00 0B 03 73 00 83 00 0C 00 0D
 BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E
 ```
 
+The way pixels are encoded is as follows: ([more visual aid](https://github.com/ISSOtm/gb-bootroms/blob/2dce25910043ce2ad1d1d3691436f2c7aabbda00/src/dmg.asm#L259-L269))
+
+- $0104–011B encode the top half of the logo, $011C–0133 encode the bottom half of it.
+- For each half, each nibble encodes 4 pixels (the MSB corresponds to the leftmost pixel, the LSB to the rightmost); a pixel is lit if its bit is set.
+- The 4-pixel "groups" are laid out top to bottom, left to right.
+- And finally, the monochrome models upscale the entire thing by a factor of 2 (leading to somewhat chunky pixels).
+
 The Game Boy's boot procedure [first displays the logo and then checks](<#bypass>) that it matches the dump above.
 If it doesn't, the boot ROM **locks itself up**.
 
