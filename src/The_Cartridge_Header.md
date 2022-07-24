@@ -3,12 +3,12 @@
 Each cartridge contains a header, located at the address range `$0100`-`$014F`.
 The cartridge header provides the following information about the game itself and the hardware it expects to run on:
 
-## 0100-0103 – Entry Point
+## 0100-0103 — Entry Point
 
 After displaying the Nintendo logo, the built-in [boot ROM](<#Power-Up Sequence>) jumps to address `$0100`, which should then jump to the actual main program in the cartridge.
 Most commercial games fill this 4-byte area with a [`nop` instruction](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7/#NOP) followed by a [`jp $0150`](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7/#JP_n16).
 
-## 0104-0133 – Nintendo Logo
+## 0104-0133 — Nintendo Logo
 
 This area contains a bitmap that is displayed when the Game Boy is powered on.
 They must match the following (hexadecimal) dump, otherwise [the boot ROM](<#Power-Up Sequence>) won't allow the game to run:
@@ -26,25 +26,25 @@ The way pixels are encoded is as follows: ([more visual aid](https://github.com/
 - The 4-pixel "groups" are laid out top to bottom, left to right.
 - And finally, the monochrome models upscale the entire thing by a factor of 2 (leading to somewhat chunky pixels).
 
-The Game Boy's boot procedure [first displays the logo and then checks](<#bypass>) that it matches the dump above.
+The Game Boy's boot procedure [first displays the logo and then checks](<#Bypass>) that it matches the dump above.
 If it doesn't, the boot ROM **locks itself up**.
 
 CGBs and later devices [only check the top half of the logo](Power_Up_Sequence.html?highlight=half#behavior) (the first $18 bytes).
 
-## 0134-0143 – Title
+## 0134-0143 — Title
 
 These bytes contain the title of the game in upper case ASCII.
 If the title is less than 16 characters long, the remaining bytes should be padded with `$00`s.
 
 Parts of this area actually have a different meaning on later cartridges, reducing the actual title size to 15 ($0134–$0142) or 11 characters ($0134–$013E); see below.
 
-## 013F-0142 – Manufacturer Code
+## 013F-0142 — Manufacturer Code
 
 In older cartridges these bytes were part of the Title (see above).
 In newer cartridges they contain a 4-character manufacturer code (in uppercase ASCII).
 Its purpose is unknown.
 
-## 0143 – CGB Flag
+## 0143 — CGB Flag
 
 In older cartridges this byte was part of the Title (see above).
 CGBs and later models interpret this byte to decide whether to enable Color mode ("CGB Mode"), or to fall back to monochrome compatibility mode ("Non-CGB Mode").
@@ -65,10 +65,10 @@ Help is welcome!
 
 :::
 
-## 0144-0145 – New Licensee Code
+## 0144-0145 — New Licensee Code
 
 This area contains a two-character ASCII "licensee code" indicating the game's publisher.
-It is only meaningful if the [Old Licensee Code](<#014B – Old Licensee Code>) is exactly $33 (which is essentially all games made after the SGB was released); otherwise, the old code must be considered.
+It is only meaningful if the [Old Licensee Code](<#014B — Old Licensee Code>) is exactly $33 (which is essentially all games made after the SGB was released); otherwise, the old code must be considered.
 
 Sample licensee codes:
 
@@ -136,12 +136,12 @@ Code | Publisher
 `99` | Pack in soft
 `A4` | Konami (Yu-Gi-Oh!)
 
-## 0146 – SGB Flag
+## 0146 — SGB Flag
 
 This byte specifies whether the game supports SGB functions.
 The SGB will ignore any [packets](<#Command Packet Transfers>) if this byte is set to a value other than $03 (which is typically $00).
 
-## 0147 – Cartridge Type
+## 0147 — Cartridge Type
 
 This byte indicates what kind of hardware is present on the cartridge, notably its [mapper](#MBCs).
 
@@ -182,7 +182,7 @@ No licensed cartridge makes use of this option. The exact behavior is unknown.
 [^mbc30]:
 MBC3 with 64 KiB of SRAM refers to MBC30, used only in _Pocket Monsters: Crystal Version_ (the Japanese version of _Pokémon Crystal Version_).
 
-## 0148 – ROM Size
+## 0148 — ROM Size
 
 This byte indicates how much ROM is present on the cartridge.
 In most cases, the ROM size is given by `32 KiB × (1 << <size>)`:
@@ -207,11 +207,11 @@ Only listed in unofficial docs. No cartridges or ROM files using these sizes are
 As the other ROM sizes are all powers of 2, these are likely inaccurate.
 The source of these values is unknown.
 
-## 0149 – RAM Size
+## 0149 — RAM Size
 
 This byte indicates how much RAM is present on the cartridge, if any.
 
-If the [cartridge type](<#0147 – Cartridge Type>) does not include "RAM" in its name, this should be set to 0.
+If the [cartridge type](<#0147 — Cartridge Type>) does not include "RAM" in its name, this should be set to 0.
 This includes MBC2, since its 512 × 4 bits of memory are built directly into the mapper.
 
 Code  | SRAM size | Comment
@@ -231,7 +231,7 @@ The source of this value is unknown.
 
 Various "PD" ROMs ("Public Domain" homebrew ROMs, generally tagged with `(PD)` in the filename) are known to use the `$01` RAM Size tag, but this is believed to have been a mistake with early homebrew tools, and the PD ROMs often don't use cartridge RAM at all.
 
-## 014A – Destination Code
+## 014A — Destination Code
 
 This byte specifies whether this version of the game is intended to be sold in Japan or elsewhere.
 
@@ -242,20 +242,20 @@ Code  | Destination
 `$00` | Japan (and possibly overseas)
 `$01` | Overseas only
 
-## 014B – Old Licensee Code
+## 014B — Old Licensee Code
 
 This byte is used in older (pre-SGB) cartridges to specify the game's publisher.
-However, the value $33 indicates that the [New Licensee Code](<#0144-0145 – New Licensee Code>) must be considered instead.
+However, the value $33 indicates that the [New Licensee Code](<#0144-0145 — New Licensee Code>) must be considered instead.
 (The Super Game Boy will ignore packets unless this value is $33.)
 
 Here is [a list of Old Licensee Codes](https://raw.githubusercontent.com/gb-archive/salvage/master/txt-files/gbrom.txt).
 
-## 014C – Mask ROM Version number
+## 014C — Mask ROM Version number
 
 This byte specifies the version number of the game.
 It is usually $00.
 
-## 014D – Header Checksum
+## 014D — Header Checksum
 
 This byte contains an 8-bit checksum computed from the cartridge header bytes `$0134`-`$014C`.
 The boot ROM computes the checksum as follows:
@@ -271,7 +271,7 @@ The boot ROM verifies this checksum.
 If the byte at `$014D` does not match the lower 8 bits of `checksum`, the boot ROM will lock up, and the program in the
 cartridge **won't run**.
 
-## 014E-014F – ROM Checksum
+## 014E-014F — ROM Checksum
 
 These bytes contain a 16-bit (big-endian) checksum simply computed as the sum of
 all the bytes of the cartridge ROM (except these two checksum bytes).

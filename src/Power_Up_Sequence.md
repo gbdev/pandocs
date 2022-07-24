@@ -22,16 +22,16 @@ AGB  | 256 + 1792   | Fixes ["logo TOCTTOU"](<#Bypass>)
 
 ## Monochrome models (DMG0, DMG, MGB)
 
-The monochrome boot ROMs read [the logo from the header](<#0104-0133 - Nintendo Logo>), unpack it into VRAM, and then start slowly scrolling it down.
+The monochrome boot ROMs read [the logo from the header](<#0104-0133 — Nintendo Logo>), unpack it into VRAM, and then start slowly scrolling it down.
 Since reads from an absent cartridge usually return $FF, this explains why powering the console on without a cartridge scrolls a black box.
 Additionally, fauly or dirty connections can cause the data read to be corrupted, resulting in a jumbled-up logo.
 
 *Once the logo has finished scrolling*, the boot ROM plays the famous "ba-ding!" sound, and reads the logo **again**, this time comparing it to a copy it stores.
-Then, it also computes the header checksum, and compares it to [the checksum stored in the header](<#014D - Header Checksum>).
+Then, it also computes the header checksum, and compares it to [the checksum stored in the header](<#014D — Header Checksum>).
 If either of these checks fail, the boot ROM **locks up**, and control is never passed to the cartridge ROM.
 
 Finally, the boot ROM writes to the `BANK` register at $FF50, which unmaps the boot ROM.
-The `ldh [$FF50], a` instruction being located at $00FE (and being two bytes long), [the first instruction executed from the cartridge ROM is at $0100](<#0100-0103 - Entry Point>).
+The `ldh [$FF50], a` instruction being located at $00FE (and being two bytes long), [the first instruction executed from the cartridge ROM is at $0100](<#0100-0103 — Entry Point>).
 
 Since the A register is used to write to $FF50, its value is passed to the cartridge ROM; the only difference between the DMG and MGB boot ROMs is that the former writes $01, and the latter uses $FF.
 
@@ -78,14 +78,14 @@ First, the boot ROMs unpack the Nintendo logo to VRAM like the monochrome models
 Then, the logo is read and decompressed *again*, but with no resizing, yielding the much smaller logo placed below the big "GAME BOY" one.
 The boot ROM then sets up compatibility palettes, as described further below, and plays the logo animation with the "ba-ding!" sound.
 
-During the logo animation, and if bit 7 of [the CGB compatibility byte](<#0143 - CGB Flag>) is reset (indicating a monochrome-only game), the user is allowed to pick a palette to override the one chosen for compatibility.
+During the logo animation, and if bit 7 of [the CGB compatibility byte](<#0143 — CGB Flag>) is reset (indicating a monochrome-only game), the user is allowed to pick a palette to override the one chosen for compatibility.
 Each new choice prevents the animation from ending for 30 frames, potentially delaying the checks and fade-out.
 
 Then, like the monochrome boot ROMs, the header logo is checked *from the buffer in HRAM*, and the header checksum is verified.
 For unknown reasons, however, only the first half of the logo is checked, despite the full logo being present in the HRAM buffer.
 
 Finally, the boot ROM fades all BG palettes to white, and sets the hardware to compatibility mode.
-If [the CGB compatibility byte](<#0143 - CGB Flag>) indicates CGB compatibility, the byte is written directly to `KEY0` ($FF4C), potentially enabling PGB mode; otherwise, $04 is written to `KEY0` (enabling DMG compatibility mode in the CPU), $01 is written to [`OPRI`](<#FF6C - OPRI - CGB Mode Only - Object Priority Mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
+If [the CGB compatibility byte](<#0143 — CGB Flag>) indicates CGB compatibility, the byte is written directly to `KEY0` ($FF4C), potentially enabling PGB mode; otherwise, $04 is written to `KEY0` (enabling DMG compatibility mode in the CPU), $01 is written to [`OPRI`](<#FF6C — OPRI - CGB Mode Only - Object Priority Mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
 Additionally, the DMG logo tilemap is written [if the compatibility requests it](<#Compatibility palettes>).
 
 Like all other boot ROMs, the last thing the color boot ROMs do is hand off execution at the same time as they unmap themselves, though they write $11 instead of $01 or $FF.
@@ -206,7 +206,7 @@ Rely on it at your own risk.
 ### Common remarks
 
 The console's WRAM and HRAM are random on power-up.
-[Different models tend to exhibit different patterns](https://twitter.com/CasualPkPlayer/status/1409752977812852736?s=19), but they are random nonetheless, even depending on factors such as the ambient teperature.
+[Different models tend to exhibit different patterns](https://twitter.com/CasualPkPlayer/status/1409752977812852736), but they are random nonetheless, even depending on factors such as the ambient teperature.
 Besides, turning the system off and on again has proven reliable enough [to carry over RAM from one game to another](https://www.youtube.com/watch?v=xayxmTLljr8), so it's not a good idea to rely on it at all.
 
 Emulation of uninitialized RAM is inconsistent: some emulators fill RAM with a constant on startup (typically $00 or $FF), some emulators fully randomize RAM, and others attempt to reproduce the patterns observed on hardware.
