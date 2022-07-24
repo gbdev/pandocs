@@ -276,4 +276,4 @@ cartridge **won't run**.
 These bytes contain a 16-bit (big-endian) checksum simply computed as the sum of
 all the bytes of the cartridge ROM (except these two checksum bytes).
 
-The boot ROM does not verify this checksum.
+This checksum is not verified, except by Pokémon Staduim's "GB Tower" emulator (presumably to detect Transfer Pak errors).
