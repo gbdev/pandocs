@@ -206,7 +206,7 @@ Rely on it at your own risk.
 ### Common remarks
 
 The console's WRAM and HRAM are random on power-up.
-[Different models tend to exhibit different patterns](https://twitter.com/CasualPkPlayer/status/1409752977812852736?s=19), but they are random nonetheless, even depending on factors such as the ambient teperature.
+[Different models tend to exhibit different patterns](https://twitter.com/CasualPkPlayer/status/1409752977812852736), but they are random nonetheless, even depending on factors such as the ambient temperature.
 Besides, turning the system off and on again has proven reliable enough [to carry over RAM from one game to another](https://www.youtube.com/watch?v=xayxmTLljr8), so it's not a good idea to rely on it at all.
 
 Emulation of uninitialized RAM is inconsistent: some emulators fill RAM with a constant on startup (typically $00 or $FF), some emulators fully randomize RAM, and others attempt to reproduce the patterns observed on hardware.
