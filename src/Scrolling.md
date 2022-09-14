@@ -23,10 +23,7 @@ is set, and (if enabled) a STAT interrupt is requested.
 
 ## FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)
 
-Specify the top-left coordinates of the Window. (The Window is an
-alternate background area which can be displayed above of the normal
-background. OBJs (sprites) may be still displayed above or behind the
-Window, just as for normal BG.)
+Specify the top-left coordinates of [the Window](#Window).
 
 The Window is visible (if enabled) when both coordinates are in the ranges
 WX=0..166, WY=0..143 respectively. Values WX=7, WY=0 place the Window at the
