@@ -247,7 +247,157 @@ This byte is used in older (pre-SGB) cartridges to specify the game's publisher.
 However, the value `$33` indicates that the [New Licensee Code](<#0144-0145 - New Licensee Code>) must be considered instead.
 (The SGB will ignore any [command packets](<#Command Packet Transfers>) unless this value is `$33`.)
 
-Here is [a list of known Old Licensee Codes](https://raw.githubusercontent.com/gb-archive/salvage/master/txt-files/gbrom.txt).
+Here is a list of known Old Licensee Codes.
+
+HEX   | Licensee
+------|------------
+00    | None               
+01    | Nintendo           
+08    | Capcom
+09    | Hot-B              
+0A    | Jaleco             
+0B    | Coconuts
+0C    | Elite Systems      
+13    | EA (Electronic Arts)    
+18    | Hudsonsoft
+19    | ITC Entertainment  
+1A    | Yanoman            
+1D    | Clary
+1F    | Virgin Interactive             
+24    | PCM Complete       
+25    | San-X
+28    | Kotobuki Systems   
+29    | Seta               
+30    | Infogrames
+31    | Nintendo           
+32    | Bandai             
+33    | "see above"
+34    | Konami             
+35    | Hector             
+38    | Capcom
+39    | Banpresto          
+3C    | .Entertainment i   
+3E    | Gremlin
+41    | Ubisoft           
+42    | Atlus              
+44    | Malibu
+46    | Angel              
+47    | Spectrum Holoby    
+49    | Irem
+4A    | Virgin Interactive            
+4D    | Malibu             
+4F    | US gold
+50    | Absolute           
+51    | Acclaim            
+52    | Activision
+53    | American Sammy     
+54    | Gametek           
+55    | Park Place
+56    | LJN                
+57    | Matchbox           
+59    | Milton Bradley
+5A    | Mindscape          
+5B    | Romstar            
+5C    | Naxat Soft
+5D    | Tradewest          
+60    | Titus              
+61    | Virgin Interactive
+67    | Ocean Interactive              
+69    | EA (Electronic Arts)    
+6E    | Elite Systems
+6F    | Electro Brain      
+70    | Infogrames         
+71    | Interplay
+72    | Broderbund         
+73    | Sculptered Soft   
+75    | The Sales Curve
+78    | t.hq               
+79    | Accolade           
+7A    | Triffix Entertainment
+7C    | Microprose         
+7F    | Kemco              
+80    | Misawa Entertainment
+83    | Lozc               
+86    | .tokuma Shoten i   
+8B    | Bullet-Proof Software
+8C    | Vic Tokai          
+8E    | Ape                
+8F    | I'Max
+91    | Chun Soft          
+92    | Video System       
+93    | Tsuburava
+95    | Varie              
+96    | Yonezawa/S'Pal     
+97    | Kaneko
+99    | Arc                
+9A    | Nihon Bussan       
+9B    | Tecmo
+9C    | Imagineer          
+9D    | Banpresto          
+9F    | Nova
+A1    | Hori Electric      
+A2    | Bandai             
+A4    | Konami
+A6    | Kawada             
+A7    | Takara             
+A9    | Technos Japan
+AA    | Broderbund         
+AC    | Toei Animation    
+AD    | Toho
+AF    | Namco             
+B0    | acclaim           
+B1    | ASCII or Nexsoft
+B2    | Bandai             
+B4    | Square Enix               
+B6    | HAL
+B7    | SNK                
+B9    | Pony Canyon        
+BA    | .Culture Brain o
+BB    | Sunsoft            
+BD    | Sony Imagesoft    
+BF    | Sammy
+C0    | Taito             
+C2    | Kemco              
+C3    | Squaresoft
+C4    | .tokuma Shoten i   
+C5    | Data East          
+C6    | Tonkin House
+C8    | Koei               
+C9    | UFL                
+CA    | Ultra
+CB    | Vap                
+CC    | Use                
+CD    | Meldac
+CE    | .Pony Canyon or    
+CF    | Angel              
+D0    | Taito
+D1    | Sofel              
+D2    | Quest              
+D3    | Sigma Enterprises
+D4    | Ask Kodansha       
+D6    | Naxat Soft         
+D7    | Copya Systems
+D9    | Banpresto          
+DA    | Tomy               
+DB    | LJN
+DD    | NCS                
+DE    | Human              
+DF    | Altron
+E0    | Jaleco             
+E1    | Towachiki          
+E2    | Uutaka
+E3    | Varie              
+E5    | Epcoh              
+E7    | Athena
+E8    | Asmik              
+E9    | Natsume            
+EA    | King Records
+EB    | Atlus              
+EC    | Epic/Sony Records  
+EE    | IGS
+F0    | A Wave         
+F3    | Extreme Entertainment  
+FF    | LJN
 
 ## 014C - Mask ROM Version number
 
