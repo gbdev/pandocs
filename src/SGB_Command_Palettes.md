@@ -1,6 +1,6 @@
 # Palette Commands
 
-## SGB Command 00h - PAL01
+## SGB Command $00 — PAL01
 
 Transmit color data for SGB palette 0, color 0-3, and for SGB palette 1,
 color 1-3 (without separate color 0).
@@ -21,19 +21,19 @@ entry](<#LCD Color Palettes (CGB only)>), though
 without the LCD correction. The value transferred as color 0 will be
 applied for all four palettes.
 
-## SGB Command 01h - PAL23
+## SGB Command $01 — PAL23
 
 Same as above PAL01, but for Palettes 2 and 3 respectively.
 
-## SGB Command 02h - PAL03
+## SGB Command $02 — PAL03
 
 Same as above PAL01, but for Palettes 0 and 3 respectively.
 
-## SGB Command 03h - PAL12
+## SGB Command $03 — PAL12
 
 Same as above PAL01, but for Palettes 1 and 2 respectively.
 
-## SGB Command 0Ah - PAL_SET
+## SGB Command $0A — PAL_SET
 
 Used to copy pre-defined palette data from SGB system color palettes to
 actual SNES palettes.
@@ -58,7 +58,7 @@ Before using this function, System Palette data should be initialized by
 PAL_TRN command, and (when used) Attribute File data should be
 initialized by ATTR_TRN.
 
-## SGB Command 0Bh - PAL_TRN
+## SGB Command $0B — PAL_TRN
 
 Used to initialize SGB system color palettes in SNES RAM. System color
 palette memory contains 512 pre-defined palettes, these palettes do not

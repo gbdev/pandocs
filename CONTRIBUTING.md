@@ -130,7 +130,7 @@ Multiple registers must be handled as a memory range, and the `REG_NAME` and `De
 
 Examples:
 - 0104–0133 — Nintendo Logo
-- FF51–FF52 — HDMA1, HDMA2 (CGB Mode Only): New DMA Source (High, Low) \[write-only\]
+- FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): New DMA Source (High, Low) \[write-only\]
 
 It also follows that descriptions should not use commas outside of acting as separators for the aforementioned lists.
 

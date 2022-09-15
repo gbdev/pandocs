@@ -74,17 +74,17 @@ The Game Boy uses the following I/O ranges:
 
 Start   | End     | First appeared | Purpose
 --------|---------|----------------|-------------
-$FF00   |         |       DMG      | [Joypad input](<#FF00 - P1/JOYP - Joypad (R/W)>)
-$FF01   |  $FF02  |       DMG      | [Serial transfer](<#FF01 - SB - Serial transfer data (R/W)>)
+$FF00   |         |       DMG      | [Joypad input](<#FF00 — P1/JOYP: Joypad>)
+$FF01   |  $FF02  |       DMG      | [Serial transfer](<#Serial Data Transfer (Link Cable)>)
 $FF04   |  $FF07  |       DMG      | [Timer and divider](<#Timer and Divider Registers>)
 $FF10   |  $FF26  |       DMG      | [Sound](<#Sound Controller>)
-$FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30-FF3F - Wave Pattern RAM>)
-$FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 - LCDC (LCD Control) (R/W)>), [Status](<#FF41 - STAT (LCD Status) (R/W)>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
-$FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F - VBK - CGB Mode Only - VRAM Bank (R/W)>)
+$FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30–FF3F — Wave pattern RAM>)
+$FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 — LCDC: LCD control>), [Status](<#FF41 — STAT: LCD status>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
+$FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F — VBK (CGB Mode only): VRAM bank>)
 $FF50   |         |       DMG      | Set to non-zero to disable boot ROM
 $FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
 $FF68   |  $FF69  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
-$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 - SVBK - CGB Mode Only - WRAM Bank>)
+$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mode only): WRAM bank>)
 
 ## FEA0-FEFF range
 

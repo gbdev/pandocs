@@ -1,7 +1,7 @@
 
 # OAM DMA Transfer
 
-## FF46 - DMA (DMA Transfer and Start Address) (R/W)
+## FF46 — DMA: OAM DMA source address & start
 
 Writing to this register launches a DMA transfer from ROM or RAM to OAM
 (Object Attribute Memory). The written value specifies the

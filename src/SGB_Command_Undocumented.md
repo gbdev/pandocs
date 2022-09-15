@@ -12,7 +12,7 @@ Commands $1A to $1F (inclusive)'s handlers are stubs (only contain an
 `RTS`). This is interesting, since the command-processing function
 explicitly ignores commands $1E and $1F.
 
-## SGB command 19h
+## SGB command $19
 
 The game _Donkey Kong_ (1994) appears to send this command, and it appears
 to set a flag in the SGB's memory. It's not known yet what it does,

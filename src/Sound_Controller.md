@@ -1,7 +1,7 @@
 # Sound Controller
 
-There are two sound channels connected to the output terminals SO1 and
-SO2. There is also an input terminal Vin connected to the cartridge. It
+There are two sound channels connected to the output terminals right output and
+left output. There is also an input terminal Vin connected to the cartridge. It
 can be routed to either of both output terminals. Game Boy circuitry
 allows producing sound in four different ways:
 
@@ -17,9 +17,9 @@ Sound registers may be set at all times while producing sound.
 
 (Sounds will have a 2.4% higher frequency on Super GB.)
 
-## Sound Channel 1 - Tone & Sweep
+## Sound Channel 1: Tone & Sweep
 
-### FF10 - NR10 - Channel 1 Sweep register (R/W)
+### FF10 — NR10: Channel 1 sweep
 
 ```
  Bit 6-4 - Sweep Time
@@ -47,7 +47,7 @@ following formula where X(0) is initial freq & X(t-1) is last freq:
 
 X(t) = X(t-1) +/- X(t-1)/2^n
 
-### FF11 - NR11 - Channel 1 Sound length/Wave pattern duty (R/W)
+### FF11 — NR11: Channel 1 sound length & wave pattern duty
 
 ```
 Bit 7-6 - Wave Pattern Duty (Read/Write)
@@ -64,7 +64,7 @@ Bits 7-6 | Wave duty
 Sound Length = (64-t1)\*(1/256) seconds. The Length value is used only if
 Bit 6 in NR14 is set.
 
-### FF12 - NR12 - Channel 1 Volume Envelope (R/W)
+### FF12 — NR12: Channel 1 volume envelope
 
 ```
  Bit 7-4 - Initial Volume of envelope (0-0Fh) (0=No Sound)
@@ -75,11 +75,11 @@ Bit 6 in NR14 is set.
 
 Length of 1 step = n\*(1/64) seconds
 
-### FF13 - NR13 - Channel 1 Frequency lo (Write Only)
+### FF13 — NR13: Channel 1 frequency low \[write-only\]
 
 Lower 8 bits of 11 bit frequency (x). Next 3 bit are in NR14 ($FF14)
 
-### FF14 - NR14 - Channel 1 Frequency hi (R/W)
+### FF14 — NR14: Channel 1 frequency high & control
 
 ```
 Bit 7   - Initial (1=Restart Sound)     (Write Only)
@@ -90,12 +90,12 @@ Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)
 
 Frequency = 131072/(2048-x) Hz
 
-## Sound Channel 2 - Tone
+## Sound Channel 2: Tone
 
 This sound channel works exactly as channel 1, except that it doesn't
 have a Tone Envelope/Sweep Register.
 
-### FF16 - NR21 - Channel 2 Sound Length/Wave Pattern Duty (R/W)
+### FF16 — NR21: Channel 2 sound length & wave pattern duty
 
 ```
 Bit 7-6 - Wave Pattern Duty (Read/Write)
@@ -112,7 +112,7 @@ Bits 7-6 | Wave duty
 Sound Length = (64-t1)\*(1/256) seconds. The Length value is used only if
 Bit 6 in NR24 is set.
 
-### FF17 - NR22 - Channel 2 Volume Envelope (R/W)
+### FF17 — NR22: Channel 2 volume envelope
 
 ```
 Bit 7-4 - Initial Volume of envelope (0-0Fh) (0=No Sound)
@@ -123,12 +123,12 @@ Bit 2-0 - Number of envelope sweep (n: 0-7)
 
 Length of 1 step = n\*(1/64) seconds
 
-### FF18 - NR23 - Channel 2 Frequency lo data (W)
+### FF18 — NR23: Channel 2 frequency low \[write-only\]
 
 Frequency's lower 8 bits of 11 bit data (x). Next 3 bits are in NR24
 ($FF19).
 
-### FF19 - NR24 - Channel 2 Frequency hi data (R/W)
+### FF19 — NR24: Channel 2 frequency high & control
 
 ```
 Bit 7   - Initial (1=Restart Sound)     (Write Only)
@@ -139,20 +139,20 @@ Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)
 
 Frequency = 131072/(2048-x) Hz
 
-## Sound Channel 3 - Wave Output
+## Sound Channel 3: Wave Output
 
 This channel can be used to output digital sound, the length of the
 sample buffer (Wave RAM) is limited to 32 digits. This sound channel can
 be also used to output normal tones when initializing the Wave RAM by a
 square wave. This channel doesn't have a volume envelope register.
 
-### FF1A - NR30 - Channel 3 Sound on/off (R/W)
+### FF1A — NR30: Channel 3 sound on/off
 
 ```
 Bit 7 - Sound Channel 3 Off  (0=Stop, 1=Playback)  (Read/Write)
 ```
 
-### FF1B - NR31 - Channel 3 Sound Length (W)
+### FF1B — NR31: Channel 3 sound length \[write-only\]
 
 ```
 Bit 7-0 - Sound length (Write only) (t1: 0 - 255)
@@ -161,7 +161,7 @@ Bit 7-0 - Sound length (Write only) (t1: 0 - 255)
 Sound Length = (256-t1)\*(1/256) seconds This value is used only if Bit
 6 in NR34 is set.
 
-### FF1C - NR32 - Channel 3 Select output level (R/W)
+### FF1C — NR32: Channel 3 select output level
 
 ```
 Bits 6-5 - Select output level (Read/Write)
@@ -174,11 +174,11 @@ Bits 6-5 | Output level
   %10    |  50% volume (Produce Wave Pattern RAM data shifted once to the right)
   %11    |  25% volume (Produce Wave Pattern RAM data shifted twice to the right)
 
-### FF1D - NR33 - Channel 3 Frequency's lower data (W)
+### FF1D — NR33: Channel 3 frequency low \[write-only\]
 
 Lower 8 bits of an 11 bit frequency (x).
 
-### FF1E - NR34 - Channel 3 Frequency's higher data (R/W)
+### FF1E — NR34: Channel 3 frequency high & control
 
 ```
 Bit 7   - Initial (1=Restart Sound)     (Write Only)
@@ -189,7 +189,7 @@ Bit 2-0 - Frequency's higher 3 bits (x) (Write Only)
 
 Frequency = 4194304/(64\*(2048-x)) Hz = 65536/(2048-x) Hz
 
-### FF30-FF3F - Wave Pattern RAM
+### FF30–FF3F — Wave pattern RAM
 
 ```
 Contents - Waveform storage for arbitrary sound data
@@ -204,7 +204,7 @@ reset), otherwise accesses will behave weirdly.
 On almost all models, the byte will be written at the offset CH3 is
 currently reading. On GBA, the write will simply be ignored.
 
-## Sound Channel 4 - Noise
+## Sound Channel 4: Noise
 
 This channel is used to output white noise. This is done by randomly
 switching the amplitude between high and low at a given frequency.
@@ -215,7 +215,7 @@ It is also possible to influence the function of the random generator,
 so the that the output becomes more regular, resulting in a limited
 ability to output Tone instead of Noise.
 
-### FF20 - NR41 - Channel 4 Sound Length (W)
+### FF20 — NR41: Channel 4 sound length \[write-only\]
 
 ```
 Bit 5-0 - Sound length data (Write only) (t1: 0-63)
@@ -224,7 +224,7 @@ Bit 5-0 - Sound length data (Write only) (t1: 0-63)
 Sound Length = (64-t1)\*(1/256) seconds The Length value is used only if
 Bit 6 in NR44 is set.
 
-### FF21 - NR42 - Channel 4 Volume Envelope (R/W)
+### FF21 — NR42: Channel 4 volume envelope
 
 ```
  Bit 7-4 - Initial Volume of envelope (0-0Fh) (0=No Sound)
@@ -235,7 +235,7 @@ Bit 6 in NR44 is set.
 
 Length of 1 step = n\*(1/64) seconds
 
-### FF22 - NR43 - Channel 4 Polynomial Counter (R/W)
+### FF22 — NR43: Channel 4 polynomial counter
 
 The amplitude is randomly switched between high and low at the given
 frequency. A higher frequency will make the noise to appear "softer".
@@ -250,7 +250,7 @@ Bit 2-0 - Dividing Ratio of Frequencies (r)
 
 Frequency = 524288 Hz / r / 2\^(s+1) ;For r=0 assume r=0.5 instead
 
-### FF23 - NR44 - Channel 4 Counter/consecutive; Inital (R/W)
+### FF23 — NR44: Channel 4 control
 
 ```
 Bit 7   - Initial (1=Restart Sound)     (Write Only)
@@ -261,16 +261,16 @@ Bit 6   - Counter/consecutive selection (Read/Write)
 ## Sound Control Registers
 
 
-### FF24 - NR50 - Channel control / ON-OFF / Volume (R/W)
+### FF24 — NR50: Sound volume
 
 The volume bits specify the "Master Volume" for Left/Right sound
-output. SO2 goes to the left headphone, and SO1 goes to the right.
+output. left output goes to the left headphone, and right output goes to the right.
 
 ```
-Bit 7   - Output Vin to SO2 terminal (1=Enable)
-Bit 6-4 - SO2 output level (volume)  (0-7)
-Bit 3   - Output Vin to SO1 terminal (1=Enable)
-Bit 2-0 - SO1 output level (volume)  (0-7)
+Bit 7   - Enable Vin into left output (1=Enable)
+Bit 6-4 - Left output volume  (0-7)
+Bit 3   - Enable Vin into right output (1=Enable)
+Bit 2-0 - Right output volume  (0-7)
 ```
 
 The Vin signal is an analog signal received from the game cartridge bus,
@@ -283,22 +283,22 @@ Advance.
 GBA for a different reason: the developer couldn't figure out how to
 silence buzzing associated with the wave channel's DAC.)
 
-### FF25 - NR51 - Selection of Sound output terminal (R/W)
+### FF25 — NR51: Sound panning
 
 Each channel can be panned hard left, center, or hard right.
 
 ```
-Bit 7 - Output sound 4 to SO2 terminal
-Bit 6 - Output sound 3 to SO2 terminal
-Bit 5 - Output sound 2 to SO2 terminal
-Bit 4 - Output sound 1 to SO2 terminal
-Bit 3 - Output sound 4 to SO1 terminal
-Bit 2 - Output sound 3 to SO1 terminal
-Bit 1 - Output sound 2 to SO1 terminal
-Bit 0 - Output sound 1 to SO1 terminal
+Bit 7 - Enable channel 4 into left output
+Bit 6 - Enable channel 3 into left output
+Bit 5 - Enable channel 2 into left output
+Bit 4 - Enable channel 1 into left output
+Bit 3 - Enable channel 4 into right output
+Bit 2 - Enable channel 3 into right output
+Bit 1 - Enable channel 2 into right output
+Bit 0 - Enable channel 1 into right output
 ```
 
-### FF26 - NR52 - Sound on/off
+### FF26 — NR52: Sound on/off
 
 If your GB programs don't use sound then write 00h to this register to
 save 16% or more on GB power consumption. Disabling the sound

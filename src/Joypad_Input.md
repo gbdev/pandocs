@@ -1,6 +1,6 @@
 # Joypad Input
 
-## FF00 - P1/JOYP - Joypad (R/W)
+## FF00 — P1/JOYP: Joypad
 
 The eight Game Boy action/direction buttons are arranged as a 2x4
 matrix. Select either action or direction buttons by writing to this

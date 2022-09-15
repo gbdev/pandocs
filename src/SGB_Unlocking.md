@@ -2,12 +2,12 @@
 
 ## Cartridge Header
 
-SGB games are required to have a cartridge header with Nintendo and
+SGB games are required to have a cartridge header with Nintendo logo and
 proper checksum just as normal Game Boy games. Also, two special entries
 must be set in order to unlock SGB functions:
 
-- 146h - SGB Flag - Must be set to 03h for SGB games
-- 14Bh - Old Licensee Code - Must be set 33h for SGB games
+- [SGB flag](<#0146 — SGB flag>): Must be set to $03 for SGB games
+- [Old licensee code](<#014B — Old licensee code>): Must be set to $33 for SGB games
 
 When these entries aren't set, the game will still work just like all
 "monochrome" Game Boy games, but it cannot access any of the special
@@ -40,7 +40,7 @@ DX" chooses to display an alternate SGB border on SGB2s.
 
 Only the SGB2 contains a link port.
 
-SGB hardware has traditionally been detected by sending [`MLT_REQ` commands](<#SGB Command 11h - MLT_REQ>), but this
+SGB hardware has traditionally been detected by sending [`MLT_REQ` commands](<#SGB Command $11 — MLT_REQ>), but this
 method is more complicated and slower than checking the value of the A
 and C registers after startup. The `MLT_REQ` command enables two (or four)
 joypads; a normal handheld Game Boy will ignore this command, but an SGB

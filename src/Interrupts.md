@@ -1,6 +1,6 @@
 # Interrupts
 
-## IME - Interrupt Master Enable Flag (Write Only)
+## IME: Interrupt master enable flag \[write only\]
 
 ```
 0 - Disable all interrupts
@@ -26,7 +26,7 @@ The effect of `ei` is delayed by one instruction. This means that `ei`
 followed immediately by `di` does not allow any interrupts between them.
 This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 
-## FFFF - IE - Interrupt Enable (R/W)
+## FFFF — IE: Interrupt enable
 
 ```
 Bit 0: VBlank   Interrupt Enable  (INT $40)  (1=Enable)
@@ -36,7 +36,7 @@ Bit 3: Serial   Interrupt Enable  (INT $58)  (1=Enable)
 Bit 4: Joypad   Interrupt Enable  (INT $60)  (1=Enable)
 ```
 
-## FF0F - IF - Interrupt Flag (R/W)
+## FF0F — IF: Interrupt flag
 
 ```
 Bit 0: VBlank   Interrupt Request (INT $40)  (1=Request)
@@ -66,7 +66,7 @@ unless/until IME and IE allow it.
 1. The IF bit corresponding to this interrupt and the IME flag are reset by the CPU.
 The former "acknowledges" the interrupt, while the latter prevents any further interrupts
 from being handled until the program re-enables them, typically by using the `reti` instruction.
-2. The corresponding interrupt handler (see the IE and IF register descriptions [above](<#FFFF - IE - Interrupt Enable (R/W)>)) is
+2. The corresponding interrupt handler (see the IE and IF register descriptions [above](<#FFFF — IE: Interrupt enable>)) is
 called by the CPU. This is a regular call, exactly like what would be performed by a `call <address>` instruction (the current PC is pushed onto the stack
 and then set to the address of the interrupt handler).
 

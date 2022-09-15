@@ -1,6 +1,6 @@
 # Sound Functions
 
-## SGB Command 08h - SOUND
+## SGB Command $08 — SOUND
 
 Used to start/stop internal sound effect, start/stop sound using
 internal tone data.
@@ -33,7 +33,7 @@ Notes:
     does not exist by itself. When mute flag is set, volume and pitch of
     Sound Effect A (port 1) and Sound Effect B (port 2) must be set.
 
-## SGB Command 09h - SOU_TRN
+## SGB Command $09 — SOU_TRN
 
 Used to transfer sound code or data to SNES Audio Processing Unit memory
 (APU-RAM).

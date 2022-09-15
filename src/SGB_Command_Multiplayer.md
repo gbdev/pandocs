@@ -1,6 +1,6 @@
 # Multiplayer Command
 
-## SGB Command 11h - MLT_REQ
+## SGB Command $11 — MLT_REQ
 
 Used to request multiplayer mode (that is, input from more than one joypad).
 Because this function provides feedback from the SGB/SNES to the Game
@@ -33,7 +33,7 @@ active.
 ## Reading Multiple Controllers (Joypads)
 
 When having enabled multiple controllers by `MLT_REQ`, data for each
-joypad can be read out through [the `P1` register](<#FF00 - P1/JOYP - Joypad (R/W)>) as follows: First
+joypad can be read out through [the `P1` register](<#FF00 — P1/JOYP: Joypad>) as follows: First
 set P14 and P15 both HIGH (deselect both Buttons and Cursor keys), you
 can now read the lower 4 bits of `P1`, which indicate the joypad ID for
 the following joypad input:

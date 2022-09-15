@@ -103,7 +103,7 @@ Emulator authors who are interested in supporting the other multicart
 mappers are also encouraged to support detection of the following values.
 
 - Detect as Wisdom Tree mapper
-  - [ROM title](<#0134-0143 - Title>) is "WISDOM TREE" (the space may be a
+  - [ROM title](<#0134-0143 — Title>) is "WISDOM TREE" (the space may be a
   $00 NUL character instead), $0147 = $00, $0148 = $00, size \> 32k.
   This method works for the games released by Wisdom Tree, Inc.
   - $0147 = $C0, $014A = $D1.

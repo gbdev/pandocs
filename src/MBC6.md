@@ -13,52 +13,52 @@ instead of 16 kB and 4 kB RAM banks instead of 8 kB.
 
 ## Memory
 
-### 0000-3FFF - ROM Bank 00 (Read Only)
+### 0000-3FFF — ROM Bank 00 (Read Only)
 
 Contains the first 16 KiB of the ROM.
 
-### 4000-5FFF - ROM/Flash Bank A 00-7F (Read/Write for flash, Read Only for ROM)
+### 4000-5FFF — ROM/Flash Bank A 00-7F (Read/Write for flash, Read Only for ROM)
 
 Read-only access to ROM and flash banks 00-7F, switchable independently
 of ROM/Flash Bank B.
 
-### 6000-7FFF - ROM/Flash Bank B 00-7F (Read/Write for flash, Read Only for ROM)
+### 6000-7FFF — ROM/Flash Bank B 00-7F (Read/Write for flash, Read Only for ROM)
 
 Read-only access to ROM and flash banks 00-7F, switchable independently
 of ROM/Flash Bank A.
 
-### A000-AFFF - RAM Bank A 00-07 (Read/Write)
+### A000-AFFF — RAM Bank A 00-07 (Read/Write)
 
 Read/write access to RAM banks 00-07, switchable independently of RAM
 Bank B.
 
-### B000-BFFF - RAM Bank B 00-07 (Read/Write)
+### B000-BFFF — RAM Bank B 00-07 (Read/Write)
 
 Read/write access to RAM banks 00-07, switchable independently of RAM
 Bank A.
 
 ## Registers
 
-### 0000-03FF - RAM Enable (Write Only)
+### 0000-03FF — RAM Enable (Write Only)
 
 Mostly the same as for MBC1, a value of 0Ah will enable reading and
 writing to external RAM. A value of 00h will disable it.
 
-### 0400-07FF - RAM Bank A Number (Write Only)
+### 0400-07FF — RAM Bank A Number (Write Only)
 
 Select the active RAM Bank A (A000-AFFF)
 
-### 0800-0BFF - RAM Bank B Number (Write Only)
+### 0800-0BFF — RAM Bank B Number (Write Only)
 
 Select the active RAM Bank B (B000-BFFF)
 
-### 0C00-0FFF - Flash Enable (Write Only)
+### 0C00-0FFF — Flash Enable (Write Only)
 
 Enable or disable access to the flash chip. Only the lowest bit (0 for
 disable, 1 for enable) is used. Flash Write Enable must be active to
 change this.
 
-### 1000 - Flash Write Enable (Write Only)
+### 1000 — Flash Write Enable (Write Only)
 
 Enable or disable write mode for the flash chip. Only the lowest bit (0
 for disable, 1 for enable) is used. Note that this maps to the /WE pin
@@ -66,20 +66,20 @@ on the flash chip, not whether writing to the bus is enabled;
 some flash commands (e.g. JEDEC ID query) still work with this off so
 long as Flash Enable is on.
 
-### 2000-27FF - ROM/Flash Bank A Number (Write Only)
+### 2000-27FF — ROM/Flash Bank A Number (Write Only)
 
 The number for the active bank in ROM/Flash Bank A.
 
-### 2800-2FFF - ROM/Flash Bank A Select (Write Only)
+### 2800-2FFF — ROM/Flash Bank A Select (Write Only)
 
 Selects whether the ROM or the Flash is mapped into ROM/Flash Bank A. A
 value of 00 selects the ROM and 08 selects the flash.
 
-### 3000-37FF - ROM/Flash Bank B Number (Write Only)
+### 3000-37FF — ROM/Flash Bank B Number (Write Only)
 
 The number for the active bank in ROM/Flash Bank B.
 
-### 3800-3FFF - ROM/Flash Bank B Select (Write Only)
+### 3800-3FFF — ROM/Flash Bank B Select (Write Only)
 
 Selects whether the ROM or the Flash is mapped into ROM/Flash Bank B. A
 value of 00 selects the ROM and 08 selects the flash.

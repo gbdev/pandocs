@@ -2,10 +2,10 @@
 
 `halt` is an instruction that pauses the CPU (during which less power is
 consumed) when executed. The CPU wakes up as soon as an interrupt is pending,
-that is, when the bitwise AND of [`IE`](<#FFFF - IE - Interrupt Enable (R/W)>)
-and [`IF`](<#FF0F - IF - Interrupt Flag (R/W)>) is non-zero.
+that is, when the bitwise AND of [`IE`](<#FFFF — IE: Interrupt enable>)
+and [`IF`](<#FF0F — IF: Interrupt flag>) is non-zero.
 
-Most commonly, [`IME`](<#IME - Interrupt Master Enable Flag (Write Only)>) is
+Most commonly, [`IME`](<#IME: Interrupt master enable flag \[write only\]>) is
 set. In this case, the CPU simply wakes up, and before executing the instruction
 after the `halt`, the [interrupt handler is called](<#Interrupt Handling>)
 normally.
