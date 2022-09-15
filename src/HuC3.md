@@ -9,7 +9,6 @@ The HuC-3 is poorly understood. Observed behavior suggests the
 real-time clock and tone generator are implemented using a 4-bit
 microcontroller core with internal program ROM.
 
-
 ## Memory
 
 ### 0000–3FFF — ROM Bank 00 [read-only]
@@ -26,7 +25,6 @@ unknown whether bank $00 can be selected here.
 Depending on the current register selection and RAM Bank Number (see
 below), this memory space is used to access an 8 KiB external RAM Bank,
 or a single I/O Register.
-
 
 ## Memory Control Registers
 
@@ -59,7 +57,6 @@ HuC-3 can accept a bank number of at least 2 bits here.
 
 Games write $01 here on startup, but it doesn’t seem to have any
 observable effect.
-
 
 ## I/O Registers
 
@@ -97,7 +94,6 @@ execute the last command written to register $B.
 
 Similar to the equivalent register of the HuC-1. The least significant
 bit is used for infrared communication.
-
 
 ## RTC Communication Protocol
 
@@ -164,7 +160,6 @@ Location | Purpose
   $27    | Tone generator enabled if value is 1 (all bits checked)
   $58–5A | Event time minutes
   $5B–5D | Event time days
-
 
 ## External links
 
