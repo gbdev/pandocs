@@ -70,19 +70,19 @@ ignored.
 
 The RTC MCU communication protocol is described below.
 
-### B — RTC Command/Argument [write]
+### $B — RTC Command/Argument [write]
 
 The value written consists of a command in bits 6-4, and an argument
 value in bits 4–0. For example the value $62 is command $6 with argument
 value $2. Writing to this register just sets the values in the mailbox
 registers – it does not cause the command to be executed.
 
-### C — RTC Command/Response [read]
+### $C — RTC Command/Response [read]
 
 When read, bits 6–4 return the last command written to register $B, and
 bits 3–0 contain the result from the last command executed.
 
-### D — RTC Semaphore [read/write]
+### $D — RTC Semaphore [read/write]
 
 When reading, the least significant bit is high when the RTC MCU is
 ready to receive a command, or low when the RTC MCU is busy.
@@ -90,9 +90,9 @@ ready to receive a command, or low when the RTC MCU is busy.
 Writing with the least significant bit clear requests that the RTC MCU
 execute the last command written to register $B.
 
-### E — IR [read/write]
+### $E — IR [read/write]
 
-Similar to the equivalent register of the HuC-1. The least significant
+Similar to the equivalent register of the HuC1. The least significant
 bit is used for infrared communication.
 
 ## RTC Communication Protocol
@@ -105,10 +105,10 @@ values, and a few higher-level operations.
 
 Games use the following sequence to execute a command:
 
-* Write $0D to 0000 (select RTC Semaphore register)
+* Write $0D to $0000 (select RTC Semaphore register)
 * Poll $A000 until least significant bit is set (wait until ready)
 * Write $0B to $0000 (select RTC Command/Argument register)
-* Write command and argument to A000
+* Write command and argument to $A000
 * Write $0D to $0000 (select RTC semaphore register)
 * Write $FE to $A000 (clear semaphore, requesting MCU execute command)
 * Poll $A000 until least significant bit is set (wait for completion)
