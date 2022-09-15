@@ -7,11 +7,11 @@ can be displayed per scan line. Sprite tiles have the same format as
 BG tiles, but they are taken from the Sprite Tiles Table located at
 $8000-8FFF and have unsigned numbering.
 
-Sprite attributes reside in the Sprite Attribute Table (OAM - Object
+Sprite attributes reside in the Sprite Attribute Table (OAM: Object
 Attribute Memory) at \$FE00-FE9F. Each of the 40 entries consists of
 four bytes with the following meanings:
 
-## Byte 0 - Y Position
+## Byte 0 — Y Position
 
 Y = Sprite's vertical position on the screen + 16. So for example,
 Y=0 hides a sprite,
@@ -22,7 +22,7 @@ Y=152 displays an 8×8 sprite aligned with the bottom of the screen,
 Y=154 displays the first six rows of a sprite at the bottom of the screen,
 Y=160 hides a sprite.
 
-## Byte 1 - X Position
+## Byte 1 — X Position
 
 X = Sprite's horizontal position on the screen + 8. This works similarly
 to the examples above, except that the width of a sprite is always 8. An
@@ -31,7 +31,7 @@ affects the priority ordering, thus other sprites with lower priority may be
 left out due to the ten sprites limit per scan-line.
 A better way to hide a sprite is to set its Y-coordinate off-screen.
 
-## Byte 2 - Tile Index
+## Byte 2 — Tile Index
 
 In 8x8 mode (LCDC bit 2 = 0), this byte specifies the sprite's only tile index ($00-$FF).
 This unsigned value selects a tile from the memory area at $8000-$8FFF.
@@ -43,7 +43,7 @@ specifies the index of the first (top) tile of the sprite. This is enforced by t
 hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
 tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
 
-## Byte 3 - Attributes/Flags
+## Byte 3 — Attributes/Flags
 
 ```
  Bit7   BG and Window over OBJ (0=No, 1=BG and Window colors 1-3 over the OBJ)
@@ -73,8 +73,8 @@ overlap (the Game Boy being a 2D console, there is no Z coordinate).
 
 ### Selection priority
 
-During each scanline's OAM scan, the PPU compares [`LY`](<#FF44 - LY (LCD Y Coordinate) (R)>)
-([using `LCDC` bit 2 to determine their size](<#LCDC.2 - OBJ size>)) to each
+During each scanline's OAM scan, the PPU compares [`LY`](<#FF44 — LY: LCD Y coordinate \[read-only\]>)
+([using `LCDC` bit 2 to determine their size](<#LCDC.2 — OBJ size>)) to each
 object's Y position to select up to 10 objects to be drawn on that line.
 The PPU scans OAM sequentially (from $FE00 to $FE9F), selecting the first (up to)
 10 suitably-positioned objects.
@@ -87,7 +87,7 @@ limit, possibly causing another object later in OAM not
 to be drawn. To keep off-screen objects from affecting on-screen ones, make
 sure to set their Y coordinate to Y&nbsp;=&nbsp;0 or Y&nbsp;≥&nbsp;160
 (144&nbsp;+&nbsp;16).
-(Y&nbsp;≤&nbsp;8 also works if [object size](<#LCDC.2 - OBJ size>) is set to 8x8.)
+(Y&nbsp;≤&nbsp;8 also works if [object size](<#LCDC.2 — OBJ size>) is set to 8x8.)
 
 ### Drawing priority
 

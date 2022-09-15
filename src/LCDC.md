@@ -1,6 +1,6 @@
 # LCD Control
 
-## FF40 - LCDC (LCD Control) (R/W)
+## FF40 — LCDC: LCD control
 
 **LCDC** is the main **LCD C**ontrol register. Its bits toggle what
 elements are displayed on the screen, and how.
@@ -16,7 +16,7 @@ Bit | Name                           | Usage notes
  1  | OBJ enable                     | 0=Off, 1=On
  0  | BG and Window enable/priority  | 0=Off, 1=On
 
-### LCDC.7 - LCD enable
+### LCDC.7 — LCD enable
 
 This bit controls whether the LCD is on and the PPU is active. Setting
 it to 0 turns both off, which grants immediate and full access to VRAM,
@@ -42,25 +42,25 @@ picture sticks to the screen. (TODO: research this more.)
 When re-enabling the LCD, the PPU will immediately start drawing again,
 but the screen will stay blank during the first frame.
 
-### LCDC.6 - Window tile map area
+### LCDC.6 — Window tile map area
 
 This bit controls which background map the Window uses for rendering.
 When it's reset, the \$9800 tilemap is used, otherwise it's the \$9C00
 one.
 
-### LCDC.5 - Window enable
+### LCDC.5 — Window enable
 
 This bit controls whether the window shall be displayed or not.
-This bit is overridden on DMG by [bit 0](<#LCDC.0 - BG and Window enable/priority>)
+This bit is overridden on DMG by [bit 0](<#LCDC.0 — BG and Window enable/priority>)
 if that bit is reset.
 
 Changing the value of this register mid-frame triggers a more complex behaviour:
-[see further below](<#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>).
+[see further below](<#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>).
 
 Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
 may cause the second write to be ignored. (TODO: test this.)
 
-### LCDC.4 - BG and Window tile data area
+### LCDC.4 — BG and Window tile data area
 
 This bit controls which [addressing
 mode](<#VRAM Tile Data>) the BG and Window use to
@@ -69,13 +69,13 @@ pick tiles.
 Sprites aren't affected by this, and will always use \$8000 addressing
 mode.
 
-### LCDC.3 - BG tile map area
+### LCDC.3 — BG tile map area
 
-This bit works similarly to [LCDC bit 6](<#LCDC.6 - Window tile map area>):
+This bit works similarly to [LCDC bit 6](<#LCDC.6 — Window tile map area>):
 if the bit is reset, the BG uses tilemap $9800, otherwise tilemap $9C00.
 
 
-### LCDC.2 - OBJ size
+### LCDC.2 — OBJ size
 
 This bit controls the sprite size (1 tile or 2 stacked vertically).
 
@@ -83,7 +83,7 @@ Be cautious when changing this mid-frame from 8x8 to 8x16: "remnants"
 of the sprites intended for 8x8 could "leak" into the 8x16 zone and
 cause artifacts.
 
-### LCDC.1 - OBJ enable
+### LCDC.1 — OBJ enable
 
 This bit toggles whether sprites are displayed or not.
 
@@ -93,18 +93,18 @@ displayed on top of a status bar or text box.
 (Note: toggling mid-scanline might have funky results on DMG?
 Investigation needed.)
 
-### LCDC.0 - BG and Window enable/priority
+### LCDC.0 — BG and Window enable/priority
 
 LCDC.0 has different meanings depending on Game Boy type and Mode:
 
-#### Non-CGB Mode (DMG, SGB and CGB in compatibility mode): BG and Window Display
+#### Non-CGB Mode (DMG, SGB and CGB in compatibility mode): BG and Window display
 
 When Bit 0 is cleared, both background and window become blank (white),
-and the [Window Display Bit](<#LCDC.5 - Window enable>)
+and the [Window Display Bit](<#LCDC.5 — Window enable>)
 is ignored in that case. Only Sprites may still be displayed (if enabled
 in Bit 1).
 
-#### CGB Mode: BG and Window Master Priority
+#### CGB Mode: BG and Window master priority
 
 When Bit 0 is cleared, the background and window lose their priority -
 the sprites will be always displayed on top of background and window,

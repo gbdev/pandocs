@@ -8,7 +8,7 @@ the Game Boy itself).
 
 In each cartridge, the required (or preferred) MBC type should be
 specified in the byte at $0147 of the ROM, as described
-[in the cartridge header](<#0147 - Cartridge Type>).  Several MBC
+[in the cartridge header](<#0147 — Cartridge type>).  Several MBC
 types are available:
 
 ## MBC Timing Issues

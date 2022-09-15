@@ -6,7 +6,7 @@ A *dot* is the shortest period over which the PPU can output one pixel: is it eq
 
 :::
 
-## FF41 - STAT (LCD Status) (R/W)
+## FF41 — STAT: LCD status
 
 ```
 Bit 6 - LYC=LY STAT Interrupt source         (1=Enable) (Read/Write)
@@ -23,10 +23,10 @@ Bit 1-0 - Mode Flag                          (Mode 0-3, see below) (Read Only)
 
 The two lower STAT bits show the current status of the PPU.
 
-Bit 2 is set when [LY](<#FF44 - LY (LCD Y Coordinate) (R)>) contains the same value as [LYC](<#FF45 - LYC (LY Compare) (R/W)>).
+Bit 2 is set when [LY](<#FF44 — LY: LCD Y coordinate \[read-only\]>) contains the same value as [LYC](<#FF45 — LYC: LY compare>).
 It is constantly updated.
 
-Bits 3-6 select which sources are used for [the STAT interrupt](<#INT 48 - STAT Interrupt>).
+Bits 3-6 select which sources are used for [the STAT interrupt](<#INT $48 — STAT interrupt>).
 
 The LCD controller operates on a 2^22 Hz = 4.194 MHz dot clock. An
 entire frame is 154 scanlines = 70224 dots = 16.74 ms. On scanlines 0
@@ -46,7 +46,7 @@ When the PPU is accessing some video-related memory, that memory is inaccessible
 to the CPU: writes are ignored, and reads return garbage values (usually $FF).
 
 - During modes 2 and 3, the CPU cannot access [OAM](<#VRAM Sprite Attribute Table (OAM)>) ($FE00-FE9F).
-- During mode 3, the CPU cannot access VRAM or [CGB palette data registers](<#FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only>)
+- During mode 3, the CPU cannot access VRAM or [CGB palette data registers](<#LCD Color Palettes (CGB only)>)
   ($FF69,$FF6B).
 
 Mode | Action                                                      | Duration                                                           | Accessible video memory
@@ -61,7 +61,7 @@ Mode | Action                                                      | Duration   
 Unlike most game consoles, the Game Boy can pause the dot clock briefly,
 making Mode 3 longer and Mode 0 shorter. It routinely takes a 6 to 11 dot
 break to fetch an OBJ's tile between background tile pattern fetches.
-On DMG and GBC in DMG mode, mid-scanline writes to [`BGP`](<#FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only>)
+On DMG and GBC in DMG mode, mid-scanline writes to [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette data>)
 allow observing this behavior, as the delay from drawing an OBJ shifts the
 write's effect to the left by that many dots.
 

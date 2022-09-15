@@ -3,7 +3,7 @@
 
 ## LCD Monochrome Palettes
 
-### FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only
+### FF47 — BGP (Non-CGB Mode only): BG palette data
 
 This register assigns gray shades to the color indexes of the BG and
 Window tiles.
@@ -25,7 +25,7 @@ Value | Color
 In CGB Mode the color palettes are taken from [CGB palette memory](<#LCD Color Palettes (CGB only)>)
 instead.
 
-### FF48 - OBP0 (OBJ Palette 0 Data) (R/W), FF49 - OBP1 (OBJ Palette 1 Data) (R/W) - Both Non CGB Mode Only
+### FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data
 
 These registers assigns gray shades to the color indexes of the OBJs that use the corresponding palette.
 They work exactly like BGP, except that the lower two bits are ignored because color index 0 is transparent for OBJs.
@@ -36,7 +36,7 @@ The CGB has a small amount of RAM used to store its color palettes. Unlike most
 of the hardware interface, palette RAM (or *CRAM* for *Color RAM*) is not
 accessed directly, but instead through the following registers:
 
-### FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only
+### FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index
 
 This register is used to address a byte in the CGB's background palette RAM.
 Since there are 8 palettes, 8 palettes × 4 colors/palette × 2 bytes/color = 64 bytes
@@ -51,7 +51,7 @@ First comes BGP0 color number 0, then BGP0 color number 1, BGP0 color number 2, 
 BGP1 color number 0, and so on. Thus, address $03 allows accessing the second (upper)
 byte of BGP0 color #1 via BCPD, which contains the color's blue and upper green bits.
 
-Data can be read from or written to the specified CRAM address through
+data can be read from or written to the specified CRAM address through
 BCPD/BGPD. If the Auto Increment bit is set, the index gets
 incremented after each **write** to BCPD. Auto Increment has
 no effect when **reading** from BCPD, so the index must be manually
@@ -60,7 +60,7 @@ auto-increment to occur, despite the write being blocked.
 
 Unlike BCPD, this register can be accessed outside VBlank and HBlank.
 
-### FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only
+### FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data
 
 This register allows to read/write data to the CGBs background palette memory,
 addressed through BCPS/BGPI. Each color is stored as little-endian RGB555:
@@ -82,7 +82,7 @@ a soft-reset mechanic.
 
 :::
 
-### FF6A - OCPS/OBPI (OBJ Color Palette Specification / OBJ Palette Index), FF6B - OCPD/OBPD (OBJ Color Palette Data / OBJ Palette Data) - Both CGB Mode Only
+### FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data
 
 These registers function exactly like BCPS and BCPD respectively; the 64 bytes
 of OBJ palette memory are entirely separate from Background palette memory, but

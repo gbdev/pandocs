@@ -14,7 +14,7 @@ DMG  | 256          | |
 MGB  | 256          | One-byte difference to DMG
 SGB  | 256          | Only forwards logo to SGB BIOS, performs no checks
 SGB2 | 256          | Same difference to SGB than between MGB and DMG
-CGB0 | 256 + 1792   | Does not init [wave RAM](<#FF30-FF3F - Wave Pattern RAM>)
+CGB0 | 256 + 1792   | Does not init [wave RAM](<#FF30–FF3F — Wave pattern RAM>)
 CGB  | 256 + 1792   | Split in two parts, with the cartridge header in the middle
 AGB0 | 256 + 1792   | Increments B register for GBA identification
 AGB  | 256 + 1792   | Fixes ["logo TOCTTOU"](<#Bypass>)
@@ -23,16 +23,16 @@ AGB  | 256 + 1792   | Fixes ["logo TOCTTOU"](<#Bypass>)
 
 ## Monochrome models (DMG0, DMG, MGB)
 
-The monochrome boot ROMs read [the logo from the header](<#0104-0133 - Nintendo Logo>), unpack it into VRAM, and then start slowly scrolling it down.
+The monochrome boot ROMs read [the logo from the header](<#0104-0133 — Nintendo logo>), unpack it into VRAM, and then start slowly scrolling it down.
 Since reads from an absent cartridge usually return $FF, this explains why powering the console on without a cartridge scrolls a black box.
 Additionally, fauly or dirty connections can cause the data read to be corrupted, resulting in a jumbled-up logo.
 
 *Once the logo has finished scrolling*, the boot ROM plays the famous "ba-ding!" sound, and reads the logo **again**, this time comparing it to a copy it stores.
-Then, it also computes the header checksum, and compares it to [the checksum stored in the header](<#014D - Header Checksum>).
+Then, it also computes the header checksum, and compares it to [the checksum stored in the header](<#014D — Header checksum>).
 If either of these checks fail, the boot ROM **locks up**, and control is never passed to the cartridge ROM.
 
 Finally, the boot ROM writes to the `BANK` register at $FF50, which unmaps the boot ROM.
-The `ldh [$FF50], a` instruction being located at $00FE (and being two bytes long), [the first instruction executed from the cartridge ROM is at $0100](<#0100-0103 - Entry Point>).
+The `ldh [$FF50], a` instruction being located at $00FE (and being two bytes long), [the first instruction executed from the cartridge ROM is at $0100](<#0100-0103 — Entry point>).
 
 Since the A register is used to write to $FF50, its value is passed to the cartridge ROM; the only difference between the DMG and MGB boot ROMs is that the former writes $01, and the latter uses $FF.
 
@@ -79,14 +79,14 @@ First, the boot ROMs unpack the Nintendo logo to VRAM like the monochrome models
 Then, the logo is read and decompressed *again*, but with no resizing, yielding the much smaller logo placed below the big "GAME BOY" one.
 The boot ROM then sets up compatibility palettes, as described further below, and plays the logo animation with the "ba-ding!" sound.
 
-During the logo animation, and if bit 7 of [the CGB compatibility byte](<#0143 - CGB Flag>) is reset (indicating a monochrome-only game), the user is allowed to pick a palette to override the one chosen for compatibility.
+During the logo animation, and if bit 7 of [the CGB compatibility byte](<#0143 — CGB flag>) is reset (indicating a monochrome-only game), the user is allowed to pick a palette to override the one chosen for compatibility.
 Each new choice prevents the animation from ending for 30 frames, potentially delaying the checks and fade-out.
 
 Then, like the monochrome boot ROMs, the header logo is checked *from the buffer in HRAM*, and the header checksum is verified.
 For unknown reasons, however, only the first half of the logo is checked, despite the full logo being present in the HRAM buffer.
 
 Finally, the boot ROM fades all BG palettes to white, and sets the hardware to compatibility mode.
-If [the CGB compatibility byte](<#0143 - CGB Flag>) indicates CGB compatibility, the byte is written directly to `KEY0` ($FF4C), potentially enabling PGB mode; otherwise, $04 is written to `KEY0` (enabling DMG compatibility mode in the CPU), $01 is written to [`OPRI`](<#FF6C - OPRI - CGB Mode Only - Object Priority Mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
+If [the CGB compatibility byte](<#0143 — CGB flag>) indicates CGB compatibility, the byte is written directly to `KEY0` ($FF4C), potentially enabling PGB mode; otherwise, $04 is written to `KEY0` (enabling DMG compatibility mode in the CPU), $01 is written to [`OPRI`](<#FF6C — OPRI (CGB Mode only): Object priority mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
 Additionally, the DMG logo tilemap is written [if the compatibility requests it](<#Compatibility palettes>).
 
 Like all other boot ROMs, the last thing the color boot ROMs do is hand off execution at the same time as they unmap themselves, though they write $11 instead of $01 or $FF.
@@ -96,7 +96,7 @@ Like all other boot ROMs, the last thing the color boot ROMs do is hand off exec
 Like the DMG0 boot ROM, some early CGBs contain a different boot ROM.
 Unlike DMG0 and DMG, the differences between the CGB0 and CGB boot ROM are very minor, with no change in the layout of the ROM.
 
-The most notable change is that the CGB0 boot ROM does *not* init [wave RAM](<#FF30-FF3F - Wave Pattern RAM>).
+The most notable change is that the CGB0 boot ROM does *not* init [wave RAM](<#FF30–FF3F — Wave pattern RAM>).
 This is known to cause, for example, a different title screen music in the game *R-Type*.
 
 The CGB0 boot ROM also writes copies of other variables to some locations in WRAM that are not otherwise read anywhere.
@@ -106,19 +106,19 @@ It is speculated that this may be debug remnants.
 
 The boot ROM is responsible for the automatic colorization of monochrome-only games when run on a GBC.
 
-When in DMG compatibility mode, the [CGB palettes](<#LCD Color Palettes (CGB only)>) are still being used: the background uses BG palette 0 (likely because the entire [attribute map](<#BG Map Attributes (CGB Mode only)>) is set to all zeros), and objects use OBJ palette 0 or 1 depending on bit 4 of [their attribute](<#Byte 3 - Attributes/Flags>).
+When in DMG compatibility mode, the [CGB palettes](<#LCD Color Palettes (CGB only)>) are still being used: the background uses BG palette 0 (likely because the entire [attribute map](<#BG Map Attributes (CGB Mode only)>) is set to all zeros), and objects use OBJ palette 0 or 1 depending on bit 4 of [their attribute](<#Byte 3 — Attributes/Flags>).
 [`BGP`, `OBP0`, and `OBP1`](<#LCD Monochrome Palettes>) actually index into the CGB palettes instead of the DMG's shades of grey.
 
 The boot ROM picks a compatibility palette using an ID computed using the following algorithm:
-1. Check if the [old licensee code](<#014B - Old Licensee Code>) is $33.
-   * If yes, the [new licensee code](<#0144-0145 - New Licensee Code>) must be used. Check that it equals the ASCII string `"01"`.
+1. Check if the [old licensee code](<#014B — Old licensee code>) is $33.
+   * If yes, the [new licensee code](<#0144-0145 — New licensee code>) must be used. Check that it equals the ASCII string `"01"`.
    * If not, check that it equals $01.
 
    <p>In effect, this checks that the licensee in the header is Nintendo.</p>
 
    * If this check fails, palettes ID $00 is used.
    * Otherwise, the algorithm proceeds.
-1. Compute the sum of all 16 [game title](<#0134-0143 - Title>) bytes, storing this as the "title checksum".
+1. Compute the sum of all 16 [game title](<#0134-0143 — Title>) bytes, storing this as the "title checksum".
 1. Find the title checksum [in a table](https://github.com/ISSOtm/gb-bootroms/blob/443d7f057ae06e8d1d76fa8083650cf0be2cd0ae/src/cgb.asm#L1221-L1230), and record its index within the table.
 
    An almost-complete list of titles corresponding to the different checksums can be found in [Liji's free CGB boot ROM reimplementation](https://github.com/LIJI32/SameBoy/blob/1d7692cff5552e296be5e1ab075c4f187f57132c/BootROMs/cgb_boot.asm#L230-L328).
@@ -232,7 +232,7 @@ Register | DMG0            | DMG                     | MGB                     |
 **SP**   | $FFFE           | $FFFE                   | $FFFE                   | $FFFE           | $FFFE
 
 [^dmg_c]:
-If the [header checksum](<#014D - Header Checksum>) is $00, then the carry and half-carry flags are clear; otherwise, they are both set.
+If the [header checksum](<#014D — Header checksum>) is $00, then the carry and half-carry flags are clear; otherwise, they are both set.
 
 Register | CGB (DMG mode)  | AGB (DMG mode)             | CGB             | AGB
 --------:|:---------------:|:--------------------------:|:---------------:|:---------------:
@@ -253,7 +253,7 @@ To determine the flags, take the B register you would have gotten on CGB[^cgbdmg
 The carry and direction flags are always clear, though.
 
 [^cgbdmg_b]:
-If the [old licensee code](<#014B - Old Licensee Code>) is $01, or the old licensee code is $33 and the [new licensee code](<#0144-0145 - New Licensee Code>) is `"01"` ($30 $31), then B is the sum of all 16 [title](<#0134-0143 - Title>) bytes.
+If the [old licensee code](<#014B — Old licensee code>) is $01, or the old licensee code is $33 and the [new licensee code](<#0144-0145 — New licensee code>) is `"01"` ($30 $31), then B is the sum of all 16 [title](<#0134-0143 — Title>) bytes.
 Otherwise, B is $00.
 As indicated by the "+ 1" in the "AGB (DMG mode)" column, if on AGB, that value is increased by 1[^agbdmg_f].
 
@@ -345,65 +345,65 @@ These depend on whether compatibility mode is enabled.
 
 The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-dmg0.s), [`acceptance/boot_hwio-dmgABCmgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-dmgABCmgb.s), [`acceptance/boot_hwio-S`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-S.s), and [`misc/boot_hwio-C`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_hwio-C.s), plus some extra testing.
 
-[`P1`]: <#FF00 - P1/JOYP - Joypad (R/W)>
-[`SB`]: <#FF01 - SB - Serial transfer data (R/W)>
-[`SC`]: <#FF02 - SC - Serial Transfer Control (R/W)>
-[`DIV`]: <#FF04 - DIV - Divider Register (R/W)>
-[`TIMA`]: <#FF05 - TIMA - Timer counter (R/W)>
-[`TMA`]: <#FF06 - TMA - Timer Modulo (R/W)>
-[`TAC`]: <#FF07 - TAC - Timer Control (R/W)>
-[`IF`]: <#FF0F - IF - Interrupt Flag (R/W)>
-[`NR10`]: <#FF10 - NR10 - Channel 1 Sweep register (R/W)>
-[`NR11`]: <#FF11 - NR11 - Channel 1 Sound length/Wave pattern duty (R/W)>
-[`NR12`]: <#FF12 - NR12 - Channel 1 Volume Envelope (R/W)>
-[`NR13`]: <#FF13 - NR13 - Channel 1 Frequency lo (Write Only)>
-[`NR14`]: <#FF14 - NR14 - Channel 1 Frequency hi (R/W)>
-[`NR21`]: <#FF16 - NR21 - Channel 2 Sound Length/Wave Pattern Duty (R/W)>
-[`NR22`]: <#FF17 - NR22 - Channel 2 Volume Envelope (R/W)>
-[`NR23`]: <#FF18 - NR23 - Channel 2 Frequency lo data (W)>
-[`NR24`]: <#FF19 - NR24 - Channel 2 Frequency hi data (R/W)>
-[`NR30`]: <#FF1A - NR30 - Channel 3 Sound on/off (R/W)>
-[`NR31`]: <#FF1B - NR31 - Channel 3 Sound Length (W)>
-[`NR32`]: <#FF1C - NR32 - Channel 3 Select output level (R/W)>
-[`NR33`]: <#FF1D - NR33 - Channel 3 Frequency's lower data (W)>
-[`NR34`]: <#FF1E - NR34 - Channel 3 Frequency's higher data (R/W)>
-[`NR41`]: <#FF20 - NR41 - Channel 4 Sound Length (W)>
-[`NR42`]: <#FF21 - NR42 - Channel 4 Volume Envelope (R/W)>
-[`NR43`]: <#FF22 - NR43 - Channel 4 Polynomial Counter (R/W)>
-[`NR44`]: <#FF23 - NR44 - Channel 4 Counter/consecutive; Inital (R/W)>
-[`NR50`]: <#FF24 - NR50 - Channel control / ON-OFF / Volume (R/W)>
-[`NR51`]: <#FF25 - NR51 - Selection of Sound output terminal (R/W)>
-[`NR52`]: <#FF26 - NR52 - Sound on/off>
-[`LCDC`]: <#FF40 - LCDC (LCD Control) (R/W)>
-[`STAT`]: <#FF41 - STAT (LCD Status) (R/W)>
-[`SCY`]: <#FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)>
-[`SCX`]: <#FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)>
-[`LY`]: <#FF44 - LY (LCD Y Coordinate) (R)>
-[`LYC`]: <#FF45 - LYC (LY Compare) (R/W)>
-[`DMA`]: <#FF46 - DMA (DMA Transfer and Start Address) (R/W)>
-[`BGP`]: <#FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only>
-[`OBP0`]: <#FF48 - OBP0 (OBJ Palette 0 Data) (R/W), FF49 - OBP1 (OBJ Palette 1 Data) (R/W) - Both Non CGB Mode Only>
-[`OBP1`]: <#FF48 - OBP0 (OBJ Palette 0 Data) (R/W), FF49 - OBP1 (OBJ Palette 1 Data) (R/W) - Both Non CGB Mode Only>
-[`WY`]: <#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>
-[`WX`]: <#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>
-[`KEY1`]: <#FF4D - KEY1 - CGB Mode Only - Prepare Speed Switch>
-[`VBK`]: <#FF4F - VBK - CGB Mode Only - VRAM Bank (R/W)>
-[`HDMA1`]: <#FF51 - HDMA1 (New DMA Source, High) (W), FF52 - HDMA2 (New DMA Source, Low) (W) - CGB Mode Only>
-[`HDMA2`]: <#FF51 - HDMA1 (New DMA Source, High) (W), FF52 - HDMA2 (New DMA Source, Low) (W) - CGB Mode Only>
-[`HDMA3`]: <#FF53 - HDMA3 (New DMA Destination, High) (W), FF54 - HDMA4 (New DMA Destination, Low) (W) - CGB Mode Only>
-[`HDMA4`]: <#FF53 - HDMA3 (New DMA Destination, High) (W), FF54 - HDMA4 (New DMA Destination, Low) (W) - CGB Mode Only>
-[`HDMA5`]: <#FF55 - HDMA5 (New DMA Length/Mode/Start) (W) - CGB Mode Only>
-[`RP`]: <#FF56 - RP - CGB Mode Only - Infrared Communications Port>
-[`BCPS`]: <#FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only>
-[`BCPD`]: <#FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only>
-[`OCPS`]: <#FF6A - OCPS/OBPI (OBJ Color Palette Specification / OBJ Palette Index), FF6B - OCPD/OBPD (OBJ Color Palette Data / OBJ Palette Data) - Both CGB Mode Only>
-[`OCPD`]: <#FF6A - OCPS/OBPI (OBJ Color Palette Specification / OBJ Palette Index), FF6B - OCPD/OBPD (OBJ Color Palette Data / OBJ Palette Data) - Both CGB Mode Only>
-[`OPRI`]: <#FF6C - OPRI - CGB Mode Only - Object Priority Mode>
-[`SVBK`]: <#FF70 - SVBK - CGB Mode Only - WRAM Bank>
-[FF72]: <#FF72 - Bits 0-7 (Read/Write), FF73 - Bits 0-7 (Read/Write)>
-[FF73]: <#FF72 - Bits 0-7 (Read/Write), FF73 - Bits 0-7 (Read/Write)>
-[FF74]: <#FF74 - Bits 0-7 (Read/Write) - CGB Mode Only>
-[FF75]: <#FF75 - Bits 4-6 (Read/Write)>
-[`PCM12`]: <#FF76 - PCM12 - PCM amplitudes 1 & 2 (Read Only)>
-[`PCM34`]: <#FF77 - PCM34 - PCM amplitudes 3 & 4 (Read Only)>
-[`IE`]: <#FFFF - IE - Interrupt Enable (R/W)>
+[`P1`]: <#FF00 — P1/JOYP: Joypad>
+[`SB`]: <#FF01 — SB: Serial transfer data>
+[`SC`]: <#FF02 — SC: Serial transfer control>
+[`DIV`]: <#FF04 — DIV: Divider register>
+[`TIMA`]: <#FF05 — TIMA: Timer counter>
+[`TMA`]: <#FF06 — TMA: Timer modulo>
+[`TAC`]: <#FF07 — TAC: Timer control>
+[`IF`]: <#FF0F — IF: Interrupt flag>
+[`NR10`]: <#FF10 — NR10: Channel 1 sweep>
+[`NR11`]: <#FF11 — NR11: Channel 1 sound length & wave pattern duty>
+[`NR12`]: <#FF12 — NR12: Channel 1 volume envelope>
+[`NR13`]: <#FF13 — NR13: Channel 1 frequency low \[write-only\]>
+[`NR14`]: <#FF14 — NR14: Channel 1 frequency high & control>
+[`NR21`]: <#FF16 — NR21: Channel 2 sound length & wave pattern duty>
+[`NR22`]: <#FF17 — NR22: Channel 2 volume envelope>
+[`NR23`]: <#FF18 — NR23: Channel 2 frequency low \[write-only\]>
+[`NR24`]: <#FF19 — NR24: Channel 2 frequency high & control>
+[`NR30`]: <#FF1A — NR30: Channel 3 sound on/off>
+[`NR31`]: <#FF1B — NR31: Channel 3 sound length \[write-only\]>
+[`NR32`]: <#FF1C — NR32: Channel 3 select output level>
+[`NR33`]: <#FF1D — NR33: Channel 3 frequency low \[write-only\]>
+[`NR34`]: <#FF1E — NR34: Channel 3 frequency high & control>
+[`NR41`]: <#FF20 — NR41: Channel 4 sound length \[write-only\]>
+[`NR42`]: <#FF21 — NR42: Channel 4 volume envelope>
+[`NR43`]: <#FF22 — NR43: Channel 4 polynomial counter>
+[`NR44`]: <#FF23 — NR44: Channel 4 control>
+[`NR50`]: <#FF24 — NR50: Sound volume>
+[`NR51`]: <#FF25 — NR51: Sound panning>
+[`NR52`]: <#FF26 — NR52: Sound on/off>
+[`LCDC`]: <#FF40 — LCDC: LCD control>
+[`STAT`]: <#FF41 — STAT: LCD status>
+[`SCY`]: <#FF42–FF43 — SCY, SCX: Viewport Y position, X position>
+[`SCX`]: <#FF42–FF43 — SCY, SCX: Viewport Y position, X position>
+[`LY`]: <#FF44 — LY: LCD Y coordinate \[read-only\]>
+[`LYC`]: <#FF45 — LYC: LY compare>
+[`DMA`]: <#FF46 — DMA: OAM DMA source address & start>
+[`BGP`]: <#FF47 — BGP (Non-CGB Mode only): BG palette data>
+[`OBP0`]: <#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>
+[`OBP1`]: <#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>
+[`WY`]: <#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>
+[`WX`]: <#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>
+[`KEY1`]: <#FF4D — KEY1 (CGB Mode only): Prepare speed switch>
+[`VBK`]: <#FF4F — VBK (CGB Mode only): VRAM bank>
+[`HDMA1`]: <#FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]>
+[`HDMA2`]: <#FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]>
+[`HDMA3`]: <#FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]>
+[`HDMA4`]: <#FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]>
+[`HDMA5`]: <#FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start>
+[`RP`]: <#FF56 — RP (CGB Mode only): Infrared communications port>
+[`BCPS`]: <#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>
+[`BCPD`]: <#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>
+[`OCPS`]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
+[`OCPD`]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
+[`OPRI`]: <#FF6C — OPRI (CGB Mode only): Object priority mode>
+[`SVBK`]: <#FF70 — SVBK (CGB Mode only): WRAM bank>
+[FF72]: <#FF72–FF73 — Bits 0–7 (CGB Mode only)>
+[FF73]: <#FF72–FF73 — Bits 0–7 (CGB Mode only)>
+[FF74]: <#FF74 — Bits 0-7 (CGB Mode only)>
+[FF75]: <#FF75 — Bits 0-6>
+[`PCM12`]: <#FF76 — PCM12: PCM amplitudes 1 & 2 \[read-only\]>
+[`PCM34`]: <#FF77 — PCM34: PCM amplitudes 3 & 4 \[read-only\]>
+[`IE`]: <#FFFF — IE: Interrupt enable>

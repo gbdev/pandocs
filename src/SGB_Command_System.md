@@ -1,6 +1,6 @@
 # System Control Commands
 
-## SGB Command 17h - MASK_EN
+## SGB Command $17 — MASK_EN
 
 Used to mask the Game Boy window, among others this can be used to freeze
 the Game Boy screen before transferring data through VRAM (the SNES then
@@ -24,7 +24,7 @@ after having displayed the picture). The Cancel Mask function may be
 also invoked (optionally) by completion of PAL_SET and ATTR_SET
 commands.
 
-## SGB Command 0Ch - ATRC_EN
+## SGB Command $0C — ATRC_EN
 
 Used to enable/disable Attraction mode, which is enabled by default.
 
@@ -42,7 +42,7 @@ Attraction Disable disables this animation.
  2-F   Not used (zero)
 ```
 
-## SGB Command 0Dh - TEST_EN
+## SGB Command $0D — TEST_EN
 
 Used to enable/disable test mode for "SGB-CPU variable clock speed
 function". This function is disabled by default.
@@ -61,7 +61,7 @@ Maybe intended to determine whether SNES operates at 50Hz or 60Hz
 display refresh rate ??? Possibly result can be read-out from joypad
 register ???
 
-## SGB Command 0Eh - ICON_EN
+## SGB Command $0E — ICON_EN
 
 Used to enable/disable ICON function. Possibly meant to enable/disable
 SGB/SNES popup menues which might otherwise activated during Game Boy
@@ -83,7 +83,7 @@ might be useful when starting a monochrome game from inside of the
 SGB-menu of a multi-gamepak which contains a collection of different
 games.
 
-## SGB Command 0Fh - DATA_SND
+## SGB Command $0F — DATA_SND
 
 Used to write one or more bytes directly into SNES Work RAM.
 
@@ -105,7 +105,7 @@ function is restricted to a single packet, so that not more than 11
 bytes can be defined at once. Free Addresses in SNES memory are Bank 0
 1800h-1FFFh, Bank 7Fh 0000h-FFFFh.
 
-## SGB Command 10h - DATA_TRN
+## SGB Command $10 — DATA_TRN
 
 Used to transfer binary code or data directly into SNES RAM.
 
@@ -129,7 +129,7 @@ Free Addresses in SNES memory are Bank 0 1800h-1FFFh, Bank 7Fh
 directly writing to the free 2KBytes at 0:1800h would be a not so good
 idea ???
 
-## SGB Command 12h - JUMP
+## SGB Command $12 — JUMP
 
 Used to set the SNES program counter and NMI (vblank interrupt) handler
 to specific addresses.

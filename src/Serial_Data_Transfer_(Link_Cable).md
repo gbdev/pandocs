@@ -10,7 +10,7 @@ data byte at the time the transfer begins, the last one will go out
 again. Alternately, if it's ready to send the next byte but the last
 one hasn't gone out yet, it has no choice but to wait.
 
-## FF01 - SB - Serial transfer data (R/W)
+## FF01 — SB: Serial transfer data
 
 Before a transfer, it holds the next byte that will go out.
 
@@ -30,7 +30,7 @@ o0 i7 i6 i5 i4 i3 i2 i1
 i7 i6 i5 i4 i3 i2 i1 i0
 ```
 
-## FF02 - SC - Serial Transfer Control (R/W)
+## FF02 — SC: Serial transfer control
 
 ```
 Bit 7 - Transfer Start Flag (0=No transfer is in progress or requested, 1=Transfer in progress, or requested)
@@ -41,14 +41,14 @@ Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
 The master Game Boy will load up a data byte in SB and then set
 SC to 0x81 (Transfer requested, use internal clock). It will be notified
 that the transfer is complete in two ways: SC's Bit 7 will be cleared
-(that is, SC will be set up 0x01), and also the [Serial Interrupt handler](<#INT 58 - Serial Interrupt>)
+(that is, SC will be set up 0x01), and also the [Serial Interrupt handler](<#INT $58 — Serial interrupt>)
 will be called (that is, the CPU will jump to 0x0058).
 
 The other Game Boy will load up a data byte and can optionally set SC's
 Bit 7 (that is, SC=0x80). Regardless of whether or not it has done this, if
 and when the master wants to conduct a transfer, it will happen
 (pulling whatever happens to be in SB at that time). The externally clocked
-Game Boy will have its [serial interrupt handler](<#INT 58 - Serial Interrupt>) called at the end of the
+Game Boy will have its [serial interrupt handler](<#INT $58 — Serial interrupt>) called at the end of the
 transfer, and if it bothered to set SC's Bit 7, it will be cleared.
 
 ### Internal Clock

@@ -1,6 +1,6 @@
 # Border and OBJ Commands
 
-## SGB Command 13h - CHR_TRN
+## SGB Command $13 — CHR_TRN
 
 Used to transfer tile data (characters) to SNES Tile memory in VRAM.
 This normally used to define BG tiles for the SGB Border (see PCT_TRN),
@@ -31,7 +31,7 @@ OBJ ???
 
 TODO: explain tile format
 
-## SGB Command 14h - PCT_TRN
+## SGB Command $14 — PCT_TRN
 
 Used to transfer tile map data and palette data to SNES BG Map memory in
 VRAM to be used for the SGB border. The actual tiles must be separately
@@ -81,7 +81,7 @@ But the CHR RAM allocated by SGB for border holds only 256 tiles. This
 means a fullscreen border must repeat at least 281 tiles and a
 widescreen border at least 90.
 
-## SGB Command 18h - OBJ_TRN
+## SGB Command $18 — OBJ_TRN
 
 Used to transfer OBJ attributes to SNES OAM memory. Unlike all other
 functions with the ending \_TRN, this function does not use the usual

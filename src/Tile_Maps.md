@@ -12,7 +12,7 @@ tiles to be displayed.
 
 Tiles are obtained from the Tile Data Table using either of the two
 addressing modes (described in [VRAM Tile Data](<#VRAM Tile Data>)), which
-can be selected via [the LCDC register](<#FF40 - LCDC (LCD Control) (R/W)>).
+can be selected via [the LCDC register](<#FF40 — LCDC: LCD control>).
 
 Since one tile has 8x8 pixels, each map holds a 256x256 pixels picture.
 Only 160x144 of those pixels are displayed on the LCD at any given time.
@@ -44,14 +44,14 @@ the one at `0:9800`!
 
 ## Background (BG)
 
-The [SCY and SCX](<#FF42 - SCY (Scroll Y) (R/W), FF43 - SCX (Scroll X) (R/W)>)
+The [SCY and SCX](<#FF42–FF43 — SCY, SCX: Viewport Y position, X position>)
 registers can be used to scroll the Background, specifying the origin of the visible
 160x144 pixel area within the total 256x256 pixel Background map.
 The visible area of the Background wraps around the Background map (that is, when part of
 the visible area goes beyond the map edge, it starts displaying the opposite side of the map).
 
 In Non-CGB mode, the Background (and the Window) can be disabled using
-[LCDC bit 0](<#LCDC.0 - BG and Window enable/priority>).
+[LCDC bit 0](<#LCDC.0 — BG and Window enable/priority>).
 
 ## Window
 
@@ -64,16 +64,16 @@ for the Window are stored in the Tile Data Table. Both the Background
 and the Window share the same Tile Data Table.
 
 Whether the Window is displayed can be toggled using
-[LCDC bit 5](<#LCDC.5 - Window enable>). But in Non-CGB mode this bit is only
-functional as long as [LCDC bit 0](<#LCDC.0 - BG and Window enable/priority>) is set.
+[LCDC bit 5](<#LCDC.5 — Window enable>). But in Non-CGB mode this bit is only
+functional as long as [LCDC bit 0](<#LCDC.0 — BG and Window enable/priority>) is set.
 Enabling the Window makes
 [Mode 3](<#LCD Status Register>) slightly longer on scanlines where it's visible.
-(See [WX and WY](<#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>)
+(See [WX and WY](<#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>)
 for the definition of "Window visibility".)
 
 ::: tip Window Internal Line Counter
 
-The window keeps an internal line counter that's functionally similar to `LY`, and increments alongside it. However, it only gets incremented when the window is visible, as described [here](<#FF4A - WY (Window Y Position) (R/W), FF4B - WX (Window X Position + 7) (R/W)>).
+The window keeps an internal line counter that's functionally similar to `LY`, and increments alongside it. However, it only gets incremented when the window is visible, as described [here](<#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>).
 
 This line counter determines what window line is to be rendered on the current scanline.
 

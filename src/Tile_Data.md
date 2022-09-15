@@ -64,7 +64,7 @@ and tiles 128-255 from block 1. (You can notice that block 1 is shared
 by both addressing methods)
 
 Sprites always use "$8000 addressing", but the BG and Window can use either
-mode, controlled by [LCDC bit 4](<#LCDC.4 - BG and Window tile data area>).
+mode, controlled by [LCDC bit 4](<#LCDC.4 — BG and Window tile data area>).
 
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
@@ -98,9 +98,9 @@ So, each pixel has a color ID of 0 to 3. The color
 numbers are translated into real colors (or gray shades) depending on
 the current palettes, except that when the tile is used in an OBJ the
 color ID 0 means transparent. The palettes are defined through registers
-[BGP](<#FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only>),
-[OBP0 and OBP1](<#FF48 - OBP0 (OBJ Palette 0 Data) (R/W), FF49 - OBP1 (OBJ Palette 1 Data) (R/W) - Both Non CGB Mode Only>), and
-[BCPS/BGPI](<#FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only>),
-[BCPD/BGPD](<#FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only>),
-[OCPS/OBPI and OCPD/OBPD](<#FF6A - OCPS/OBPI (OBJ Color Palette Specification / OBJ Palette Index), FF6B - OCPD/OBPD (OBJ Color Palette Data / OBJ Palette Data) - Both CGB Mode Only>)
+[BGP](<#FF47 — BGP (Non-CGB Mode only): BG palette data>),
+[OBP0 and OBP1](<#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>), and
+[BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>),
+[BCPD/BGPD](<#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>),
+[OCPS/OBPI and OCPD/OBPD](<#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>)
 (CGB Mode).

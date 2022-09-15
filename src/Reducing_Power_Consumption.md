@@ -9,7 +9,7 @@ batteries.
 The HALT instruction should be used whenever possible to reduce power
 consumption.
 
-The CPU will remain halted until an interrupt *enabled by [the IE register ($FFFF)](<#FFFF - IE - Interrupt Enable (R/W)>)* is
+The CPU will remain halted until an interrupt *enabled by [the IE register ($FFFF)](<#FFFF — IE: Interrupt enable>)* is
 flagged in IF, at which point the interrupt is serviced if IME is enabled,
 and then execution continues at the instruction immediately following the
 HALT.

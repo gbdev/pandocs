@@ -1,8 +1,8 @@
 # Interrupt Sources
 
-## INT 40 - VBlank Interrupt
+## INT $40 — VBlank interrupt
 
-This interrupt is requested every time the Game Boy enters VBlank ([Mode 1](<#FF41 - STAT (LCD Status) (R/W)>)).
+This interrupt is requested every time the Game Boy enters VBlank ([Mode 1](<#FF41 — STAT: LCD status>)).
 
 The VBlank interrupt occurs ca. 59.7 times a second on a handheld Game
 Boy (DMG or CGB) or Game Boy Player and ca. 61.1 times a second on a
@@ -11,10 +11,10 @@ VBlank period (LY=144). During this period video hardware is not using
 VRAM so it may be freely accessed. This period lasts approximately 1.1
 milliseconds.
 
-## INT 48 - STAT Interrupt
+## INT $48 — STAT interrupt
 
 There are various sources which can trigger this interrupt to occur as
-described in [STAT register (\$FF41)](<#FF41 - STAT (LCD Status) (R/W)>).
+described in [STAT register (\$FF41)](<#FF41 — STAT: LCD status>).
 
 The various STAT interrupt sources (modes 0-2 and LYC=LY) have their 
 state (inactive=low and active=high) logically ORed into a shared
@@ -30,7 +30,7 @@ If a STAT interrupt source logically ORs the interrupt line high while
 there will be no low-to-high transition and so no interrupt will occur. 
 This phenomenon is known as "STAT blocking" ([test ROM example](https://github.com/Gekkio/mooneye-gb/blob/2d52008228557f9e713545e702d5b7aa233d09bb/tests/acceptance/ppu/stat_irq_blocking.s#L21-L22)).
 
-As mentioned in the description of the [STAT register](<#FF41 - STAT (LCD Status) (R/W)>),
+As mentioned in the description of the [STAT register](<#FF41 — STAT: LCD status>),
 the PPU cycles through the different modes in a fixed order. So for 
 example, if interrupts are enabled for two consecutive modes such as 
 Mode 0 and Mode 1, then no interrupt will trigger for Mode 1 (since 
@@ -50,14 +50,14 @@ the handler disable sprites. This can be used if you use the window for
 a text box (at the bottom of the screen), and you want sprites to be
 hidden by the text box.
 
-## INT 50 - Timer Interrupt
+## INT $50 — Timer interrupt
 
-Every time that the timer overflows (that is, when [TIMA](<#FF05 - TIMA - Timer counter (R/W)>) exceeds $FF),
+Every time that the timer overflows (that is, when [TIMA](<#FF05 — TIMA: Timer counter>) exceeds $FF),
 an interrupt is requested by setting bit 2 in the IF register
 ($FF0F). As soon as that interrupt is enabled, the CPU will execute it by
 calling the timer interrupt vector at $0050.
 
-## INT 58 - Serial Interrupt
+## INT $58 — Serial interrupt
 
 **XXXXXX\...**
 
@@ -96,15 +96,15 @@ port and a byte to be shifted into \$FF01:
 The Game Boy does not support wake-on-LAN. Completion of an externally
 clocked serial transfer does not exit STOP mode.
 
-## INT 60 - Joypad Interrupt
+## INT $60 — Joypad interrupt
 
-The Joypad interrupt is requested when any of [`P1`](<#FF00 - P1/JOYP - Joypad (R/W)>) bits 0-3 change
+The Joypad interrupt is requested when any of [`P1`](<#FF00 — P1/JOYP: Joypad>) bits 0-3 change
 from High to Low. This happens when a button is
 pressed (provided that the action/direction buttons are enabled by
 bit 5/4, respectively), however, due to switch bounce, one or more High to Low
 transitions are usually produced when pressing a button.
 
-### Using the Joypad Interrupt
+### Using the joypad interrupt
 
 This interrupt is useful to identify button presses if we have only selected
 either action (bit 5) or direction (bit 4), but not both.
