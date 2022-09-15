@@ -63,7 +63,7 @@ observable effect.
 
 ## I/O Registers
 
-These registers are accessed by reading or writing int the $A000–BFFF
+These registers are accessed by reading or writing in the $A000–BFFF
 range after setting the RAM/RTC/IR Select register. Address lines
 A12–A0 are not connected to the HuC-3 chip, so the offset within the
 range is ignored. Data line D7 is not connected to the HuC-3 chip, so
