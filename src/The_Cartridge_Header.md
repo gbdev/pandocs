@@ -271,7 +271,7 @@ HEX   | Licensee
 30    | Infogrames
 31    | Nintendo           
 32    | Bandai             
-33    | "see above"
+33    | Indicates that the [New Licensee Code](<#0144-0145 - New Licensee Code>) should be used instead.
 34    | Konami             
 35    | HectorSoft            
 38    | Capcom
