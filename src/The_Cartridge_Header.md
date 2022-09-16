@@ -256,13 +256,13 @@ HEX   | Licensee
 08    | Capcom
 09    | Hot-B              
 0A    | Jaleco             
-0B    | Coconuts
+0B    | Coconuts Japan
 0C    | Elite Systems      
 13    | EA (Electronic Arts)    
 18    | Hudsonsoft
 19    | ITC Entertainment  
 1A    | Yanoman            
-1D    | Clary
+1D    | Japan Clary
 1F    | Virgin Interactive             
 24    | PCM Complete       
 25    | San-X
@@ -273,7 +273,7 @@ HEX   | Licensee
 32    | Bandai             
 33    | "see above"
 34    | Konami             
-35    | Hector             
+35    | HectorSoft            
 38    | Capcom
 39    | Banpresto          
 3C    | .Entertainment i   
@@ -286,7 +286,7 @@ HEX   | Licensee
 49    | Irem
 4A    | Virgin Interactive            
 4D    | Malibu             
-4F    | US gold
+4F    | U.S. Gold
 50    | Absolute           
 51    | Acclaim            
 52    | Activision
@@ -374,9 +374,9 @@ D0    | Taito
 D1    | Sofel              
 D2    | Quest              
 D3    | Sigma Enterprises
-D4    | Ask Kodansha       
+D4    | ASK Kodansha Co.       
 D6    | Naxat Soft         
-D7    | Copya Systems
+D7    | Copya System
 D9    | Banpresto          
 DA    | Tomy               
 DB    | LJN
@@ -384,12 +384,12 @@ DD    | NCS
 DE    | Human              
 DF    | Altron
 E0    | Jaleco             
-E1    | Towachiki          
-E2    | Uutaka
+E1    | Towa Chiki          
+E2    | Yutaka
 E3    | Varie              
 E5    | Epcoh              
 E7    | Athena
-E8    | Asmik              
+E8    | Asmik ACE Entertainment             
 E9    | Natsume            
 EA    | King Records
 EB    | Atlus              
