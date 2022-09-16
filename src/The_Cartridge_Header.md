@@ -247,7 +247,7 @@ This byte is used in older (pre-SGB) cartridges to specify the game's publisher.
 However, the value `$33` indicates that the [New Licensee Code](<#0144-0145 - New Licensee Code>) must be considered instead.
 (The SGB will ignore any [command packets](<#Command Packet Transfers>) unless this value is `$33`.)
 
-Here is a list of known Old Licensee Codes.
+Here is a list of known Old Licensee Codes ([source](https://raw.githubusercontent.com/gb-archive/salvage/master/txt-files/gbrom.txt)).
 
 HEX   | Licensee
 ------|------------
