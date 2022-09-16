@@ -1,10 +1,9 @@
 # HuC1
 
-HuC1 is an MBC used by some Game Boy games which, besides doing the
-usual MBC stuff, also provides infrared communication. A lot of sources
-on the internet said that HuC1 was “similar to MBC1”, but they didn’t
-provide any detail. I took a look, and it turns out that HuC1 differs
-from MBC1 quite a lot.
+HuC1 is an MBC developed by Hudson Soft. It implements ROM and RAM
+banking, and also provides infrared communication. Many sources on the
+internet said that HuC1 was “similar to MBC1”, without providing any
+detail. However, the HuC1 differs from MBC1 significantly.
 
 ## Memory Map
 
@@ -18,12 +17,13 @@ Address range | Feature
 
 ### 0000–1FFF — IR Select [write-only]
 
-Most MBCs let you disable the cartridge RAM to prevent accidental
-writes. HuC1 doesn’t do this, instead you use this register to switch
-the A000–BFFF region between “RAM mode” and “IR mode” (described
-below). Write $0E to switch to IR mode, and anything else to switch to
-RAM mode. Nevertheless some HuC1 games attempt to write $0A and $00 to
-this region as if it would enable/disable cart RAM.
+Most MBCs can disable the cartridge RAM to prevent accidental writes.
+HuC1 doesn’t do this. Instead, this register swtiches the $A000–BFFF
+region between “RAM mode” and “IR mode” (described below). Write $0E to
+switch to IR mode, or anything else to switch to RAM mode.
+
+Some HuC1 games still write $0A and $00 to this region as if it would
+enable/disable cart RAM.
 
 ### 2000–3FFF — ROM Bank Number [write-only]
 
@@ -44,9 +44,10 @@ safely ignore these writes.
 When in “IR mode” (wrote $0E to $0000), the IR register is visible
 here. Write to this region to control the IR transmitter. $01 turns it
 on, $00 turns it off. Read from this region to see either $C1 (saw
-light) or $C0 (did not see light). When in “RAM mode” (wrote
-something other than $0E to $0000) this region behaves like normal cart
-RAM.
+light) or $C0 (did not see light).
+
+When in “RAM mode” (wrote something other than $0E to $0000) this region
+behaves like normal cart RAM.
 
 ## External links
 

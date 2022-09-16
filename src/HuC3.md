@@ -1,9 +1,9 @@
 # HuC-3
 
-HuC-3 is an MBC used by some Game Boy games which, besides doing the
-usual MBC stuff, also provides a real-time clock, speaker, and infrared
-communication. The CR2025 coin cell is user-replaceable. It is a
-successor to the [HuC1](./HuC1.md).
+HuC-3 is an MBC developed by Hudson Soft. Besides ROM and RAM banking,
+it also provides a real-time clock, speaker, and infrared communication.
+The CR2025 coin cell is user-replaceable. It is a successor to the
+[HuC1](./HuC1.md).
 
 The HuC-3 is poorly understood. Observed behavior suggests the
 real-time clock and tone generator are implemented using a 4-bit
