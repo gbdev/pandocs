@@ -291,7 +291,7 @@ HEX   | Licensee
 51    | Acclaim            
 52    | Activision
 53    | American Sammy     
-54    | Gametek           
+54    | GameTek           
 55    | Park Place
 56    | LJN                
 57    | Matchbox           
@@ -318,15 +318,15 @@ HEX   | Licensee
 7F    | Kemco              
 80    | Misawa Entertainment
 83    | Lozc               
-86    | .tokuma Shoten i   
+86    | Tokuma Shoten Intermedia   
 8B    | Bullet-Proof Software
 8C    | Vic Tokai          
 8E    | Ape                
 8F    | I'Max
-91    | Chun Soft          
+91    | Chunsoft Co.         
 92    | Video System       
-93    | Tsuburava
-95    | Varie              
+93    | Tsubaraya Productions Co.
+95    | Varie Corporation              
 96    | Yonezawa/S'Pal     
 97    | Kaneko
 99    | Arc                
@@ -349,24 +349,24 @@ B0    | acclaim
 B1    | ASCII or Nexsoft
 B2    | Bandai             
 B4    | Square Enix               
-B6    | HAL
+B6    | HAL Laboratory
 B7    | SNK                
 B9    | Pony Canyon        
-BA    | .Culture Brain o
+BA    | Culture Brain
 BB    | Sunsoft            
 BD    | Sony Imagesoft    
 BF    | Sammy
 C0    | Taito             
 C2    | Kemco              
 C3    | Squaresoft
-C4    | .tokuma Shoten i   
+C4    | Tokuma Shoten Intermedia   
 C5    | Data East          
-C6    | Tonkin House
+C6    | Tonkinhouse
 C8    | Koei               
 C9    | UFL                
 CA    | Ultra
 CB    | Vap                
-CC    | Use                
+CC    | Use Corporation               
 CD    | Meldac
 CE    | .Pony Canyon or    
 CF    | Angel              
