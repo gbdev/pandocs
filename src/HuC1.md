@@ -1,9 +1,8 @@
 # HuC1
 
 HuC1 is an MBC developed by Hudson Soft. It implements ROM and RAM
-banking, and also provides infrared communication. Many sources on the
-internet said that HuC1 was “similar to MBC1”, without providing any
-detail. However, the HuC1 differs from MBC1 significantly.
+banking, and also provides infrared communication.
+Despite many sources on the internet claiming that HuC1 is “similar to MBC1”, it actually differs from MBC1 significantly.
 
 ## Memory Map
 
