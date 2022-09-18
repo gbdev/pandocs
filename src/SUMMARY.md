@@ -68,6 +68,7 @@
   - [MMM01](./MMM01.md)
   - [M161](./M161.md)
   - [HuC1](./HuC1.md)
+  - [HuC-3](./HuC3.md)
   - [Other MBCs](./othermbc.md)
 
 # Accessories
