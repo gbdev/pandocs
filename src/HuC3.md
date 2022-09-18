@@ -17,8 +17,8 @@ Contains the first 16 KiB of the ROM.
 
 ### 4000–7FFF — ROM Bank 00–7F [read-only]
 
-This area may contain any of the further 16 KiB banks of the ROM. It is
-unknown whether bank $00 can be selected here.
+This area may contain any of the further 16 KiB banks of the ROM. Like the MBC5,
+bank $00 can also be mapped to this region.
 
 ### A000–BFFF — RAM Bank 00–03, or RTC/IR register [read/write]
 
