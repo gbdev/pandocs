@@ -29,7 +29,12 @@ tiles 00h-7Fh, and once for tiles 80h-FFh). Note: The BG/OBJ Bit seems
 to have no effect and writes to the same VRAM addresses for both BG and
 OBJ ???
 
-TODO: explain tile format
+Each tile is stored in 4-bit-per-pixel format consisting of bit planes
+0 and 1 interleaved by row, followed by bit planes 2 and 3 interleaved
+by row.  In effect, each tile consists of two Game Boy tiles, the first
+to determine bits 0 and 1 (choosing among color 0, 1, 2, or 3 within a
+4-color subpalette), and the second to determine bits 2 and 3 (choosing
+among colors 0-3, 4-7, 8-11, or 12-15).
 
 ## SGB Command $14 — PCT_TRN
 
@@ -48,8 +53,8 @@ The map data is sent by VRAM-Transfer (4 KBytes).
 ```
  000-6FF  BG Map 32x28 Entries of 16 bits each (1792 bytes)
  700-7FF  Not used, don't care
- 800-87F  BG Palette Data (Palettes 4-7, each 16 colors of 16 bits each)
- 880-FFF  Not used, don't care
+ 800-85F  BG Palette Data (Palettes 4-6, each 16 colors of 16 bits each)
+ 860-FFF  Not used, don't care
 ```
 
 Each BG Map Entry consists of a 16-bit value as such:
@@ -57,7 +62,7 @@ Each BG Map Entry consists of a 16-bit value as such:
 
 ```
  Bit 0-9   - Character Number (use only 00h-FFh, upper 2 bits zero)
- Bit 10-12 - Palette Number   (use only 4-7, officially use only 4-6)
+ Bit 10-12 - Palette Number   (use only 4-6)
  Bit 13    - BG Priority      (use only 0)
  Bit 14    - X-Flip           (0=Normal, 1=Mirror horizontally)
  Bit 15    - Y-Flip           (0=Normal, 1=Mirror vertically)
@@ -77,9 +82,15 @@ border defining all unique tiles would have to define this many tiles:
 -   (256\*224-160\*144)/64+1 = 537 tiles in fullscreen border
 -   (256\*176-160\*144)/64+2 = 346 tiles in widescreen border
 
-But the CHR RAM allocated by SGB for border holds only 256 tiles. This
-means a fullscreen border must repeat at least 281 tiles and a
-widescreen border at least 90.
+Because the CHR RAM allocated by SGB for border holds only 256 tiles,
+a fullscreen border must repeat at least 281 tiles and a widescreen
+border at least 90.
+
+The Super NES supports 8 background palettes.  The SGB system software
+(when run in Mesen-S) has been observed to use background palette 0
+for the GB screen, palettes 1, 2, 3, and 7 for the menus, and palettes
+4, 5, and 6 for the border.   Thus a border can use three 15-color
+palettes.
 
 ## SGB Command $18 — OBJ_TRN
 
