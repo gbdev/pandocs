@@ -71,14 +71,17 @@ window to be displayed inside. Non-transparent border data will cover
 the Game Boy window (for example, *Mario's Picross* does this, as does
 *WildSnake* to a lesser extent).
 
+A border designed for a modern (post-2006) widescreen television may use the center 256x176 pixels and leave the top and bottom 24 lines blank.
+Using letterbox allows more tile variety in the portion of the border that a widescreen TV's zoom mode does not cut off.
+
 All borders repeat tiles. Assuming that the blank space for the GB
-screen is a single tile, as is the letterbox in a widescreen border, a
+screen is a blank tile, and the letterbox (if any) is a solid tile, a
 border defining all unique tiles would have to define this many tiles:
 
--   (256\*224-160\*144)/64+1 = 537 tiles in fullscreen border
--   (256\*176-160\*144)/64+2 = 346 tiles in widescreen border
+-   (256\*224-160\*144)/64+1 = 537 tiles in full-screen border
+-   (256\*176-160\*144)/64+2 = 346 tiles in letterboxed border
 
-Because the CHR RAM allocated by SGB for border holds only 256 tiles, a full-screen border must repeat at least 281 tiles and a widescreen border at least 90.
+Because the CHR RAM allocated by SGB for border holds only 256 tiles, a full-screen border must repeat at least 281 tiles and a letterboxed border at least 90.
 
 The Super NES supports 8 background palettes.
 The SGB system software (when run in a LLE such as Mesen-S) has been observed to use background palette 0 for the GB screen, palettes 1, 2, 3, and 7 for the menus, and palettes 4, 5, and 6 for the border.
