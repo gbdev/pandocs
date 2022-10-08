@@ -49,7 +49,7 @@ The map data is sent by VRAM-Transfer (4 KBytes).
 ```
  000-6FF  BG Map 32x28 Entries of 16 bits each (1792 bytes)
  700-7FF  Not used, don't care
- 800-85F  BG Palette Data (Palettes 4-6, each 16 colors of 16 bits each)
+ 800-85F  BG Palette Data (Palettes 4-6, 16 little-endian RGB555 colors each)
  860-FFF  Not used, don't care
 ```
 
@@ -71,7 +71,7 @@ window to be displayed inside. Non-transparent border data will cover
 the Game Boy window (for example, *Mario's Picross* does this, as does
 *WildSnake* to a lesser extent).
 
-A border designed for a modern (post-2006) widescreen television may use the center 256x176 pixels and leave the top and bottom 24 lines blank.
+A border designed for a modern (post-2006) widescreen television may use the center 256×176 pixels and leave the top and bottom 24 lines blank.
 Using letterbox allows more tile variety in the portion of the border that a widescreen TV's zoom mode does not cut off.
 
 All borders repeat tiles. Assuming that the blank space for the GB
