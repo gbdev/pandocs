@@ -89,7 +89,7 @@ border at least 90.
 The Super NES supports 8 background palettes.  The SGB system software
 (when run in Mesen-S) has been observed to use background palette 0
 for the GB screen, palettes 1, 2, 3, and 7 for the menus, and palettes
-4, 5, and 6 for the border.   Thus a border can use three 15-color
+4, 5, and 6 for the border. Thus a border can use three 15-color
 palettes.
 
 ## SGB Command $18 — OBJ_TRN
