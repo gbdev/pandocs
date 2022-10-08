@@ -29,12 +29,8 @@ tiles 00h-7Fh, and once for tiles 80h-FFh). Note: The BG/OBJ Bit seems
 to have no effect and writes to the same VRAM addresses for both BG and
 OBJ ???
 
-Each tile is stored in 4-bit-per-pixel format consisting of bit planes
-0 and 1 interleaved by row, followed by bit planes 2 and 3 interleaved
-by row.  In effect, each tile consists of two Game Boy tiles, the first
-to determine bits 0 and 1 (choosing among color 0, 1, 2, or 3 within a
-4-color subpalette), and the second to determine bits 2 and 3 (choosing
-among colors 0-3, 4-7, 8-11, or 12-15).
+Each tile is stored in 4-bit-per-pixel format consisting of bit planes 0 and 1 interleaved by row, followed by bit planes 2 and 3 interleaved by row.
+In effect, each tile consists of two Game Boy tiles, the first to determine bits 0 and 1 (choosing among color 0, 1, 2, or 3 within a 4-color subpalette), and the second to determine bits 2 and 3 (choosing among colors 0-3, 4-7, 8-11, or 12-15).
 
 ## SGB Command $14 — PCT_TRN
 
@@ -82,15 +78,11 @@ border defining all unique tiles would have to define this many tiles:
 -   (256\*224-160\*144)/64+1 = 537 tiles in fullscreen border
 -   (256\*176-160\*144)/64+2 = 346 tiles in widescreen border
 
-Because the CHR RAM allocated by SGB for border holds only 256 tiles,
-a fullscreen border must repeat at least 281 tiles and a widescreen
-border at least 90.
+Because the CHR RAM allocated by SGB for border holds only 256 tiles, a full-screen border must repeat at least 281 tiles and a widescreen border at least 90.
 
-The Super NES supports 8 background palettes.  The SGB system software
-(when run in Mesen-S) has been observed to use background palette 0
-for the GB screen, palettes 1, 2, 3, and 7 for the menus, and palettes
-4, 5, and 6 for the border. Thus a border can use three 15-color
-palettes.
+The Super NES supports 8 background palettes.
+The SGB system software (when run in a LLE such as Mesen-S) has been observed to use background palette 0 for the GB screen, palettes 1, 2, 3, and 7 for the menus, and palettes 4, 5, and 6 for the border.
+Thus a border can use three 15-color palettes.
 
 ## SGB Command $18 — OBJ_TRN
 
