@@ -68,7 +68,7 @@ Help is welcome!
 ## 0144-0145 — New licensee code
 
 This area contains a two-character ASCII "licensee code" indicating the game's publisher.
-It is only meaningful if the [Old licensee<#014B — Old licensee is exactly `$33` (which is the case for essentially all games made after the SGB was released); otherwise, the old code must be considered.
+It is only meaningful if the [Old licensee](<#014B — Old licensee code>) is exactly `$33` (which is the case for essentially all games made after the SGB was released); otherwise, the old code must be considered.
 
 Sample licensee codes:
 
@@ -244,10 +244,10 @@ Code  | Destination
 ## 014B — Old licensee code
 
 This byte is used in older (pre-SGB) cartridges to specify the game's publisher.
-However, the value `$33` indicates that the [New licensee<#0144-0145 — New licensee must be considered instead.
+However, the value `$33` indicates that the [New licensee codes](<#0144–0145 — New licensee code>) must be considered instead.
 (The SGB will ignore any [command packets](<#Command Packet Transfers>) unless this value is `$33`.)
 
-Here is a list of known Old licensee([source](https://raw.githubusercontent.com/gb-archive/salvage/master/txt-files/gbrom.txt)).
+Here is a list of known Old licensee codes ([source](https://raw.githubusercontent.com/gb-archive/salvage/master/txt-files/gbrom.txt)).
 
 HEX   | Licensee
 ------|------------
@@ -271,7 +271,7 @@ HEX   | Licensee
 30    | Infogrames
 31    | Nintendo           
 32    | Bandai             
-33    | Indicates that the [New licensee<#0144-0145 - New licensee should be used instead.
+33    | Indicates that the [New licensee code](<#0144–0145 — New licensee code>) should be used instead.
 34    | Konami             
 35    | HectorSoft            
 38    | Capcom
