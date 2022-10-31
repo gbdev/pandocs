@@ -103,7 +103,7 @@ Indicated values are under normal operation; the frequencies will obviously diff
 A high-pass filter (HPF) removes constant biases over time.
 The HPFs therefore remove the DC offset created by inactive channels with an enabled DAC, and off-center waveforms.
 
-Enabling or disabling a DAC ([see below](#DACs)), adding or removing it using NR51, or changing the volume in NR50, will cause an audio pop.
+Enabling or disabling a DAC ([see below](#DACs)), adding or removing it using NR51, or changing the volume in NR50, will cause an audio "pop".
 (All of these actions cause a change in DC offset, which is smoothed out by the HPFs over time, but still creates a pop.)
 
 The HPF is more aggressive on GBA than on GBC, which itself is more aggressive than on DMG.
