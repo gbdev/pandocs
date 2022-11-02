@@ -163,7 +163,7 @@ Bit 3   - Envelope direction (0=Decrease, 1=Increase)
 Bit 2-0 - Sweep pace (0=No Sweep)
 ```
 
-Setting bits 3-7 of this register all to 0 turns the DAC off (and thus, the channel as well).
+Setting bits 3-7 of this register all to 0 turns the DAC off (and thus, the channel as well), which [may cause an audio pop](<#Mixer>).
 
 The envelope ticks at 64 Hz, and the channel's envelope will be increased / decreased (depending on bit 3) every <var>Sweep pace</var> of those ticks.
 
@@ -217,14 +217,16 @@ Like other channels, turning the DAC off immediately turns the channel off as we
 Bit 7 - Sound Channel 3 DAC  (0=Off, 1=On)
 ```
 
-The channel is often turned off just before writing to [wave RAM](<#FF30–FF3F — Wave pattern RAM>) to avoid issues with accessing it; see there for more info.
+The DAC is often turned off just before writing to [wave RAM](<#FF30–FF3F — Wave pattern RAM>) to avoid issues with accessing it; see further below for more info.
+
+Turning the DAC off [may cause an audio pop](<#Mixer>).
 
 ### FF1B — NR31: Channel 3 length timer \[write-only\]
 
 This register controls the channel's [length timer](<#Length timer>).
 
 ```
-Bit 5-0 - length timer
+Bit 7-0 - length timer
 ```
 
 The higher the [length timer](<#Length timer>), the shorter the time before the channel is cut.
@@ -314,12 +316,15 @@ So, from the CPU's point of view, wave RAM reads out the same byte, regardless o
 
 ## Sound Channel 4 — Noise
 
-This channel is used to output white noise, which is done by randomly switching the amplitude between two levels fairly fast.
+This channel is used to output white noise[^not_white], which is done by randomly switching the amplitude between two levels fairly fast.
 
 The frequency can be adjusted in order to make the noise appear "harder" (lower frequency) or "softer" (higher frequency).
 
 The random function that switches the output level can also be manipulated.
 Certain settings can cause the wave to be more regular, sounding closer to a pulse than noise.
+
+[^not_white]:
+By default, the noise will sound close to white; but it can be manipulated to sound differently.
 
 ### FF20 — NR41: Channel 4 length timer \[write-only\]
 
@@ -341,7 +346,7 @@ Bit 3   - Envelope direction (0=Decrease, 1=Increase)
 Bit 2-0 - Sweep pace (0=No Sweep)
 ```
 
-Setting bits 3-7 of this register all to 0 turns the DAC off (and thus, the channel as well).
+Setting bits 3-7 of this register all to 0 turns the DAC off (and thus, the channel as well), which [may cause an audio pop](<#Mixer>).
 
 The envelope ticks at 64 Hz, and the channel's envelope will be increased / decreased (depending on bit 3) every <var>Sweep pace</var> of those ticks.
 

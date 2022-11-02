@@ -50,7 +50,7 @@ tl;dr:
 Each of the four "conceptual" channels is composed of a "generation" circuit (designated "channel" in the above diagram), and a [DAC](https://en.wikipedia.org/wiki/Digital-to-analog_converter).
 The digital value produced by the generator, which ranges between $0 and $F (0 and 15), is linearly translated by the DAC into an analog[^digital_analog] value between -1 and 1 (the unit is arbitrary).
 
-The four analog channel outputs are then fed into the mixer[^vin], which selectively adds them (depending on [`NR51`](<#FF25 — NR51: Sound panning>)) into two analog outputs (Left and Right).
+The four analog channel outputs are then fed into the mixer[^vin], which selectively adds them (depending on [`NR51`]) into two analog outputs (Left and Right).
 Thus, the analog range of those outputs is 4× that of each channel, -4 to 4.
 
 Then, both of these two get their respective volume scaled, once from [`NR50`](<#FF24 — NR50: Master volume & VIN panning>), and once from the volume knob (if the console has one).
@@ -103,11 +103,17 @@ Indicated values are under normal operation; the frequencies will obviously diff
 A high-pass filter (HPF) removes constant biases over time.
 The HPFs therefore remove the DC offset created by inactive channels with an enabled DAC, and off-center waveforms.
 
-Enabling or disabling a DAC ([see below](#DACs)), adding or removing it using NR51, or changing the volume in NR50, will cause an audio "pop".
+::: tip Avoiding audio pops
+
+Enabling or disabling a DAC ([see below](#DACs)), adding or removing it using NR51, or changing the volume in NR50, will cause an audio pop.
 (All of these actions cause a change in DC offset, which is smoothed out by the HPFs over time, but still creates a pop.)
 
+To avoid this, a sound driver should avoid turning the DACs off; this can be done by writing $08 to `NRx2` (silences the channel but keeps the DAC on) then $80 to `NRx4` to retrigger the channel and reload `NRx2`.
+
+:::
+
 The HPF is more aggressive on GBA than on GBC, which itself is more aggressive than on DMG.
-(The more "aggressive" a HPF, the faster it pulls the signal towards "analog 0"; this reduces the pops, but tends to also distort waveforms.)
+(The more "aggressive" a HPF, the faster it pulls the signal towards "analog 0"; this tends to also distort waveforms.)
 
 ### DACs
 
@@ -183,10 +189,12 @@ This does not happen under regular operation, but can be achieved by switching f
 ## Game Boy Advance audio
 
 The APU was reworked pretty heavily for the GBA, which introduces some slightly different behavior:
-- Instead of mixing being done analogically, it's instead done digitally; then, sound is converted to an analog signal and an offset is added (see `SOUNDBIAS` in [GBATEK](http://problemkaputt.de/gbatek.htm#gbasoundcontrolregisters) for more details).
+- Instead of mixing being done by analog circuitry, it's instead done digitally; then, sound is converted to an analog signal and an offset is added (see `SOUNDBIAS` in [GBATEK](http://problemkaputt.de/gbatek.htm#gbasoundcontrolregisters) for more details).
 - This also means that the GBA APU has no DACs.
   Instead, they are emulated digitally such that a disabled "DAC" behaves like an enabled DAC receiving 0 as its input.
 - Additionally, CH3's DAC has its output inverted.
   In particular, this causes the channel to emit a loud spike when disabled; therefore, it's a good idea to "disconnect" the channel using NR51 before accessing wave RAM.
 
 None of the additional features (more wave RAM, digital FIFOs, etc.) are available to CGB programs.
+
+[`NR51`]: <#FF25 — NR51: Sound panning>
