@@ -1,0 +1,258 @@
+<!-- Do not put any blank lines, or all hell will break loose! -->
+<svg viewBox="115 99 470 390" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <path d="M 0,-2
+             v 4
+             l 4,-2
+             z" id="arrow-head"/>
+  </defs>
+  <rect x="570" y="110" class="legend digital"/>
+  <text x="565" y="113" class="legend right">Digital waveform</text>
+  <rect x="570" y="125" class="legend analog"/>
+  <text x="565" y="128" class="legend right">Analog waveform</text>
+  <rect x="570" y="140" class="legend misc_data"/>
+  <text x="565" y="143" class="legend right">Misc. digital data</text>
+  <rect x="570" y="155" class="legend dac_ena"/>
+  <text x="565" y="158" class="legend right">DAC enable flag</text>
+  <rect x="570" y="170" class="legend ch_active"/>
+  <text x="565" y="173" class="legend right">Channel active flag</text>
+  <rect x="150" y="100" width="230" height="275" class="unfilled opa50"/>
+  <text x="265" y="118" id="dsg" class="centered">Digital Sound Generator</text>
+  <rect x="160" y="140" width="150" height="20" class="unfilled"/>
+  <text x="235" y="151" class="centered tabnum">Channel 1</text>
+  <rect x="160" y="160" width="30" height="20" class="unfilled"/>
+  <text x="175" y="172" class="centered tabnum">NR10</text>
+  <rect x="190" y="160" width="30" height="20" class="unfilled"/>
+  <text x="205" y="172" class="centered tabnum">NR11</text>
+  <rect x="220" y="160" width="30" height="20" class="unfilled"/>
+  <text x="235" y="172" class="centered tabnum">NR12</text>
+  <rect x="250" y="160" width="30" height="20" class="unfilled"/>
+  <text x="265" y="172" class="centered tabnum">NR13</text>
+  <rect x="280" y="160" width="30" height="20" class="unfilled"/>
+  <text x="295" y="172" class="centered tabnum">NR14</text>
+  <rect x="160" y="190" width="150" height="20" class="unfilled"/>
+  <text x="235" y="201" class="centered tabnum">Channel 2</text>
+  <rect x="160" y="210" width="30" height="20" class="fill50"/>
+  <rect x="190" y="210" width="30" height="20" class="unfilled"/>
+  <text x="205" y="222" class="centered tabnum">NR21</text>
+  <rect x="220" y="210" width="30" height="20" class="unfilled"/>
+  <text x="235" y="222" class="centered tabnum">NR22</text>
+  <rect x="250" y="210" width="30" height="20" class="unfilled"/>
+  <text x="265" y="222" class="centered tabnum">NR23</text>
+  <rect x="280" y="210" width="30" height="20" class="unfilled"/>
+  <text x="295" y="222" class="centered tabnum">NR24</text>
+  <rect x="160" y="240" width="150" height="20" class="unfilled"/>
+  <text x="235" y="251" class="centered tabnum">Channel 3</text>
+  <rect x="160" y="260" width="30" height="20" class="unfilled"/>
+  <text x="175" y="272" class="centered tabnum">NR30</text>
+  <rect x="190" y="260" width="30" height="20" class="unfilled"/>
+  <text x="205" y="272" class="centered tabnum">NR31</text>
+  <rect x="220" y="260" width="30" height="20" class="unfilled"/>
+  <text x="235" y="272" class="centered tabnum">NR32</text>
+  <rect x="250" y="260" width="30" height="20" class="unfilled"/>
+  <text x="265" y="272" class="centered tabnum">NR33</text>
+  <rect x="280" y="260" width="30" height="20" class="unfilled"/>
+  <text x="295" y="272" class="centered tabnum">NR34</text>
+  <rect x="160" y="290" width="150" height="20" class="unfilled"/>
+  <text x="235" y="301" class="centered tabnum">Channel 4</text>
+  <rect x="160" y="310" width="30" height="20" class="fill50"/>
+  <rect x="190" y="310" width="30" height="20" class="unfilled"/>
+  <text x="205" y="322" class="centered tabnum">NR41</text>
+  <rect x="220" y="310" width="30" height="20" class="unfilled"/>
+  <text x="235" y="322" class="centered tabnum">NR42</text>
+  <rect x="250" y="310" width="30" height="20" class="unfilled"/>
+  <text x="265" y="322" class="centered tabnum">NR43</text>
+  <rect x="280" y="310" width="30" height="20" class="unfilled"/>
+  <text x="295" y="322" class="centered tabnum">NR44</text>
+  <rect x="340" y="148" width="30" height="20" class="unfilled"/>
+  <text x="355" y="160" class="centered tabnum">NR50</text>
+  <rect x="340" y="183" width="30" height="20" class="unfilled"/>
+  <text x="355" y="195" class="centered tabnum">NR51</text>
+  <rect x="340" y="218" width="30" height="20" class="unfilled"/>
+  <text x="355" y="230" class="centered tabnum">NR52</text>
+  <rect x="185" y="350" width="40" height="20" class="unfilled"/>
+  <text x="205" y="362" class="centered tabnum">PCM12</text>
+  <rect x="245" y="350" width="40" height="20" class="unfilled"/>
+  <text x="265" y="362" class="centered tabnum">PCM34</text>
+  <rect x="140" y="430" width="40" height="30" class="unfilled"/>
+  <text x="160" y="446" class="centered tabnum">DAC 1</text>
+  <rect x="190" y="430" width="40" height="30" class="unfilled"/>
+  <text x="210" y="446" class="centered tabnum">DAC 2</text>
+  <rect x="240" y="430" width="40" height="30" class="unfilled"/>
+  <text x="260" y="446" class="centered tabnum">DAC 3</text>
+  <rect x="290" y="430" width="40" height="30" class="unfilled"/>
+  <text x="310" y="446" class="centered tabnum">DAC 4</text>
+  <rect x="370" y="430" width="40" height="30" class="unfilled"/>
+  <text x="390" y="446" class="centered tabnum">Mixer</text>
+  <rect x="430" y="430" width="40" height="30" class="unfilled"/>
+  <text x="450" y="446" class="centered tabnum">Volume</text>
+  <rect x="490" y="420" width="30" height="20" class="unfilled"/>
+  <text x="505" y="431" class="centered tabnum">HPF</text>
+  <rect x="490" y="450" width="30" height="20" class="unfilled"/>
+  <text x="505" y="461" class="centered tabnum">HPF</text>
+  <rect x="540" y="430" width="40" height="30" class="unfilled"/>
+  <text x="560" y="446" class="centered tabnum">Out</text>
+  <!-- Keep in mind that later things are drawn over earlier ones. Order matters! -->
+  <path d="M 235,180
+           v 5
+           h -115
+           v 230
+           h 30
+           v 11" class="dac_ena unfilled"/>
+  <use x="150" y="426" href="#arrow-head" class="dac_ena" transform="rotate(90,150,426)"/>
+  <path d="M 235,230
+           v 5
+           h -100
+           v 165
+           h 65
+           v 26" class="dac_ena unfilled"/>
+  <use x="200" y="426" href="#arrow-head" class="dac_ena" transform="rotate(90,200,426)"/>
+  <path d="M 175,280
+           v 5
+           h -20
+           v 100
+           h 95
+           v 41" class="dac_ena unfilled"/>
+  <use x="250" y="426" href="#arrow-head" class="dac_ena" transform="rotate(90,250,426)"/>
+  <path d="M 235,330
+           v 5
+           h 65
+           v 91" class="dac_ena unfilled"/>
+  <use x="300" y="426" href="#arrow-head" class="dac_ena" transform="rotate(90,300,426)"/>
+  <path d="M 160,150
+           h -35
+           v 32
+           a 8 4 0 0 1 0,6
+           v 222
+           h 45
+           v 16" class="digital unfilled"/>
+  <use x="170" y="426" href="#arrow-head" class="digital" transform="rotate(90,170,426)"/>
+  <path d="M 181,355
+           h -23
+           a 4 8 0 0 0 -6,0
+           h -14
+           a 4 8 0 0 0 -6,0
+           h -7" class="digital unfilled"/>
+  <use x="181" y="355" href="#arrow-head" class="digital"/>
+  <path d="M 160,200
+           h -20
+           v 32
+           a 8 4 0 0 1 0,6
+           v 114
+           a 8 4 0 0 1 0,6
+           v 37
+           h 80
+           v 31" class="digital unfilled"/>
+  <use x="220" y="426" href="#arrow-head" class="digital" transform="rotate(90,220,426)"/>
+  <path d="M 181,365
+           h -23
+           a 4 8 0 0 0 -6,0
+           h -12" class="digital unfilled"/>
+  <use x="181" y="365" href="#arrow-head" class="digital"/>
+  <path d="M 310,254
+           h 25
+           v 131
+           h -12
+           a 4 8 0 0 0 -6,0
+           h -14
+           a 4 8 0 0 0 -6,0
+           h -27
+           v 41" class="digital unfilled"/>
+  <use x="270" y="426" href="#arrow-head" class="digital" transform="rotate(90,270,426)"/>
+  <path d="M 289,355
+           h 8
+           a 4 8 0 0 1 6,0
+           h 14
+           a 4 8 0 0 1 6,0
+           h 12" class="digital unfilled"/>
+  <use x="289" y="355" href="#arrow-head" class="digital" transform="rotate(-180,289,355)"/>
+  <path d="M 310,304
+           h 10
+           v 122" class="digital unfilled"/>
+  <use x="320" y="426" href="#arrow-head" class="digital" transform="rotate(90,320,426)"/>
+  <path d="M 289,365
+           h 8
+           a 4 8 0 0 1 6,0
+           h 17" class="digital unfilled"/>
+  <use x="289" y="365" href="#arrow-head" class="digital" transform="rotate(-180,289,365)"/>
+  <path d="M 310,150
+           h 18
+           v 73
+           h 8" class="ch_active unfilled"/>
+  <use x="336" y="223" href="#arrow-head" class="ch_active"/>
+  <path d="M 310,200
+           h 8
+           v 33
+           h 18" class="ch_active unfilled"/>
+  <use x="336" y="233" href="#arrow-head" class="ch_active"/>
+  <path d="M 310,246
+           h 40
+           v -3" class="ch_active unfilled"/>
+  <use x="350" y="243" href="#arrow-head" class="ch_active" transform="rotate(-90,350,243)"/>
+  <path d="M 310,296
+           h 22
+           a 4 8 0 0 1 6,0
+           h 22
+           v -53" class="ch_active unfilled"/>
+  <use x="360" y="243" href="#arrow-head" class="ch_active" transform="rotate(-90,360,243)"/>
+  <path d="M 310,460
+           v 10
+           h 31
+           v -37
+           h 25" class="analog unfilled"/>
+  <use x="366" y="433" href="#arrow-head" class="analog"/>
+  <path d="M 260,460
+           v 15
+           h 86
+           v -34
+           h 20" class="analog unfilled"/>
+  <use x="366" y="441" href="#arrow-head" class="analog"/>
+  <path d="M 210,460
+           v 20
+           h 141
+           v -31
+           h 15" class="analog unfilled"/>
+  <use x="366" y="449" href="#arrow-head" class="analog"/>
+  <path d="M 160,460
+           v 25
+           h 196
+           v -28
+           h 10" class="analog unfilled"/>
+  <use x="366" y="457" href="#arrow-head" class="analog"/>
+  <path d="M 410,438
+           h 16" class="analog unfilled"/>
+  <use x="426" y="438" href="#arrow-head" class="analog"/>
+  <path d="M 410,452
+           h 16" class="analog unfilled"/>
+  <use x="426" y="452" href="#arrow-head" class="analog"/>
+  <path d="M 470,438
+           h 8
+           v -8
+           h 8" class="analog unfilled"/>
+  <use x="486" y="430" href="#arrow-head" class="analog"/>
+  <path d="M 470,452
+           h 8
+           v 8
+           h 8" class="analog unfilled"/>
+  <use x="486" y="460" href="#arrow-head" class="analog"/>
+  <path d="M 520,430
+           h 8
+           v 8
+           h 8" class="analog unfilled"/>
+  <use x="536" y="438" href="#arrow-head" class="analog"/>
+  <path d="M 520,460
+           h 8
+           v -8
+           h 8" class="analog unfilled"/>
+  <use x="536" y="452" href="#arrow-head" class="analog"/>
+  <path d="M 370,193
+           h 20
+           v 233" class="misc_data unfilled"/>
+  <use x="390" y="426" href="#arrow-head" class="misc_data" transform="rotate(90,390,426)"/>
+  <path d="M 370,158
+           h 30
+           v 248
+           h 50
+           v 20" class="misc_data unfilled"/>
+  <use x="450" y="426" href="#arrow-head" class="misc_data" transform="rotate(90,450,426)"/>
+</svg>

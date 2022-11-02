@@ -142,3 +142,11 @@ code {
 .rust {
   --c-warning-text: #ad8e00;
 }
+
+/* Avoid text being squished too much in fractions */
+math[display="block"], mfrac {
+  font-size: 2rem;
+}
+mfrac msup :not(:first-child) {
+  font-size: 1.8rem;
+}
