@@ -1,78 +1,97 @@
-import pygal
-from pygal.style import Style
-import math
 from sys import argv, stderr
 
-# ------------------------------------------------------------------------------------------------
-# Configuration Constants
-# ------------------------------------------------------------------------------------------------
+import lxml
+import matplotlib.pyplot as plt
+import pandas as pd
+from bs4 import BeautifulSoup
 
-# Rotation of X-Axis labels in degrees
-x_label_rotation = 0.01
-
-# Number of labels to be displayed on the X-Axis
-x_label_count = 10
-
-# ------------------------------------------------------------------------------------------------
-# The first line of the file must contain the X- and Y-Axis labels seperated by commas.
-# The following lines are expected to contain the graph data in a comma-separated format
-#  and in the same order as the Axis labels.
-# ------------------------------------------------------------------------------------------------
 
 def gen_graph(in_path, title):
-    custom_style = Style(
-        font_family="Inter",
-        label_font_size=12,
-        major_label_font_size=12,
-        title_font_size=16
+
+    ## Let's draw the plot
+
+    plt.rcParams["figure.figsize"] = [7.50, 3.50]
+    plt.rcParams["figure.autolayout"] = True
+    plt.rcParams["font.family"] = "Inter"
+    # Assume fonts are installed on the machine where the SVG will be viewed
+    #  (we load Inter with the webpage so it should be there)
+    plt.rcParams["svg.fonttype"] = "none"
+
+    # Those are just used to "fingerprint" the resulting elements in the SVG export,
+    #  they will be replaced by CSS variables
+    COLOR_BASE = "#FFCD01".lower()
+    COLOR_LINE = "#FFCD02".lower()
+
+    # Set everything to the base color
+    plt.rcParams["text.color"] = COLOR_BASE
+    plt.rcParams["axes.labelcolor"] = COLOR_BASE
+    plt.rcParams["xtick.color"] = COLOR_BASE
+    plt.rcParams["ytick.color"] = COLOR_BASE
+
+    # Read the values to plot from the input CSV
+    df = pd.read_csv(in_path)
+
+    # Set the color of the actual plot line to the secondary color
+    plot = df.set_index("Time (ms)").plot(
+        legend=None, gid="fitted_curve", color=COLOR_LINE
     )
 
-    # Create Line Chart Object and Open File
-    chart = pygal.Line(
-        height=450,
-        show_dots=False,
-        show_legend=False,
-        show_minor_x_labels=False,
-        x_label_rotation=x_label_rotation,
-        style=custom_style
+    # Add grid lines on the y values
+    plot.yaxis.grid(True)
+
+    # Set the color of the plot box to the base color too
+    plt.setp(plot.spines.values(), color=COLOR_BASE)
+
+    # Add title at the top
+    plt.title(title)
+    plt.ylabel(df.columns[1])
+    plt.savefig("test.svg", transparent=True)
+
+    ## Manipulate the SVG render of the plot to replace colors with CSS variables
+    with open("test.svg", "r") as f:
+        contents = f.read()
+        # It's an SVG, so let's use the XML parser
+        soup = BeautifulSoup(contents, "xml")
+
+        replace_style_property(soup, "path", "stroke", COLOR_BASE, "var(--fg)")
+
+        replace_style_property(soup, "path", "stroke", COLOR_LINE, "var(--inline-code-color)")
+
+        replace_style_property(soup, "text", "fill", COLOR_BASE, "var(--fg)")
+
+        # Write the altered SVG file
+        with open("output.svg", "wb") as f_output:
+            f_output.write(soup.prettify("utf-8"))
+            print(soup)
+
+
+def replace_style_property(
+    soup, element_name, css_property, value_to_replace, new_value
+):
+    """
+    Given a `Soup`, a CSS `property` applied inline, replace the a `specific value`
+    this property can assume with `another` one in all the elements with the specified `name`
+
+    E.g. the style of all the "path" elements whith a CSS property "fill" of
+    "#ffcd01" will change to "var(--fg):
+
+    `fill: #ffcd01; font: 12px 'Inter'; text-anchor: middle`
+    to
+    `fill: var(--fg); font: 12px 'Inter'; text-anchor: middle`
+
+    Soup and soup ResultSet are modified in-place
+    """
+    found_elements = soup.find_all(
+        element_name,
+        style=lambda value: value and f"{css_property}: {value_to_replace}" in value,
     )
-    csv = open(in_path, "r").readlines()
+    # Replace the color magic value with the CSS variable
+    for element in found_elements:
+        element["style"] = element["style"].replace(
+            f"{css_property}: {value_to_replace}", f"{css_property}: {new_value}"
+        )
 
-    # Set Chart and Axis Titles
-    chart.title = title
-    headers = csv.pop(0).split(",")
-    chart.x_title = headers[0]
-    chart.y_title = headers[1]
-
-    # Generate label spacing variables
-    min_x_val = float(csv[0].split(",")[0])
-    max_x_val = float(csv[len(csv) - 1].split(",")[0])
-    x_mod_val = (max_x_val - min_x_val) / x_label_count
-
-    # Generate graph data arrays
-    x_labels = []
-    x_labels_major = []
-    y_data = []
-    last_x = None
-    for line in csv:
-        # Add data to label arrays
-        data = line.split(",")
-        x_labels.append(data[0])
-        y_data.append(float(data[1]))
-
-        # Check if current X-Label should be Major Label
-        xval_float = float(data[0])
-        if last_x is not None and ((last_x % x_mod_val) > (xval_float % x_mod_val)):
-            x_labels_major.append(math.floor(xval_float))
-            x_labels.append(math.floor(xval_float))
-        last_x = xval_float
-
-    # Load graph data into chart object and save to file
-    chart.x_labels = x_labels
-    chart.x_labels_major = x_labels_major
-
-    chart.add("", y_data)
-    print(chart.render(is_unicode=True))
+    return
 
 
 if len(argv) != 3:
