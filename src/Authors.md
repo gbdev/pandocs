@@ -1,13 +1,11 @@
 # Acknowledgements
 
-This resource wouldn't be possible without all the passionate hackers and researchers who contributed on this document in the last three decades.
+The maintenance and expansion of this project wouldn't be possible without the continued commitment and support of:
 
-We would like to thank:
-
-- The gbdev community, for providing precious feedback, content, support and invaluable knowledge.
-- [DigitalOcean](https://www.digitalocean.com/), for sponsoring this initiative and lifting us from any hosting and infrastructural cost in the last few years.
-- Everyone who [donated](https://gbdev.io/contribute.html#donations), allowing us to push this community further and spread open culture while staying independent and free.
+- The [gbdev community](https://gbdev.io), for providing precious feedback, content, support and invaluable knowledge.
 - [Contributors](https://github.com/gbdev/pandocs/graphs/contributors) of code and content on the Pan Docs project.
+- [DigitalOcean](https://www.digitalocean.com/), for sponsoring this initiative and lifting us from any hosting and infrastructural cost in the last few years.
+- [Backers](https://opencollective.com/gbdev), for allowing us to push the community projects further and spread open culture while staying independent and free.
 
 ## Authors
 
