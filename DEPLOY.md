@@ -10,7 +10,7 @@ This document will explain you how to run a local copy of Pan Docs.
   # Install mdbook using cargo
   cargo install mdbook
   # Remember to add cargo bin directory to your path
-  # Install python3 (on Debian systems)
+  # Install Python 3.9 or earlier; for example, on APT-based systems (Ubuntu, Debian...):
   apt install python3
   ```
 2. [Install the Python prerequisites](https://packaging.python.org/tutorials/installing-packages/#requirements-files).

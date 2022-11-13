@@ -88,7 +88,7 @@ impl Renderer for Pandocs {
         // Generate the graphs in `imgs/src/` by shelling out to Python
         let working_dir = ctx.destination.join("imgs");
         let src_dir = working_dir.join("src");
-        let python = if cfg!(windows) { "py3" } else { "python3" };
+        let python = if cfg!(windows) { "python" } else { "python3" };
         let gen_graph = |file_name, title| {
             let mut file_name = PathBuf::from_str(file_name).unwrap(); // Can't fail
             let output = File::create(working_dir.join(&file_name))?;
