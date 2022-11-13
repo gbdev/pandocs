@@ -122,4 +122,6 @@ This can be exploited to only hide parts of an object behind the background
 ([video demonstration](https://youtu.be/B8sJGgCVvnk)).
 A similar behaviour [can be seen on the NES](https://forums.nesdev.org/viewtopic.php?f=10&t=16861).
 
+**In CGB Mode**, BG vs. OBJ priority is declared in more than one register, [please see this page](Tile_Maps.md#bg-to-obj-priority-in-cgb-mode) for more details.
+
 :::

@@ -110,6 +110,8 @@ When Bit 0 is cleared, the background and window lose their priority -
 the sprites will be always displayed on top of background and window,
 independently of the priority flags in OAM and BG Map attributes.
 
+When Bit 0 is set [see background and window to obj priority](Tile_Maps.md#bg-to-obj-priority-in-cgb-mode).
+
 ## Using LCDC
 
 LCDC is a powerful tool: each bit controls a lot of behavior, and can be
