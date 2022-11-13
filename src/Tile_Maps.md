@@ -33,14 +33,42 @@ Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)
 Bit 2-0  Background Palette number  (BGP0-7)
 ```
 
-When Bit 7 is set, the corresponding BG tile will have priority above
-all OBJs (regardless of the priority bits in OAM memory). There's also
-a Master Priority flag in LCDC register Bit 0 which overrides all other
-priority bits when cleared.
-
 Note that, if the map entry at `0:9800` is tile \$2A, the attribute at
 `1:9800` doesn't define properties for ALL tiles \$2A on-screen, but only
 the one at `0:9800`!
+
+### BG-to-OBJ Priority in CGB Mode
+
+In CGB Mode, the priority between the BG (and window) layer and the OBJ layer is declared in three different places:
+1. [BG Map Attribute bit 7](#bg-map-attributes-cgb-mode-only) - BG-to-OAM Priority (CGB Mode)
+2. [LCDC bit 0](LCDC.md#lcdc0--bg-and-window-enablepriority) - BG and Window Priority (CGB Mode)
+3. [OAM Attributes bit 7](OAM.md#byte-3--attributesflags) - BG and Window over OBJ
+
+We can infer the following rules from the table below:
+* When the BG color is 0 the OBJ will always have priority (ignoring the flags)
+* When LCDC bit 0 is clear OBJ will always have priority (ignoring the rest of the flags)
+* In order to grant the BG priority (color 1-3) LCDC bit 0 must be set and if OAM attributes bit 7 is clear BG Map attributes bit 7 must be set to override it
+
+::: tip NOTE
+
+OAM Attributes bit 7 will grant OBJ priority when clear and not when set
+
+:::
+
+The following table visualize the relations between the 3 flags
+
+LCDC bit 0 | OAM attr bit 7 | BG attr bit 7 | Priority
+:---------:|:--------------:|:-------------:|---------
+0          | 0              | 0             | OBJ
+0          | 0              | 1             | OBJ
+0          | 1              | 0             | OBJ
+0          | 1              | 1             | OBJ
+1          | 0              | 0             | OBJ
+1          | 0              | 1             | BG color 1–3, otherwise OBJ
+1          | 1              | 0             | BG color 1–3, otherwise OBJ
+1          | 1              | 1             | BG color 1–3, otherwise OBJ
+
+[This test ROM](https://github.com/alloncm/MagenTests) can be used to observe the above.
 
 ## Background (BG)
 
