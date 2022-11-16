@@ -2,7 +2,7 @@
 
 This document will explain you how to run a local copy of Pan Docs. 
 
-1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads).
+1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads) (3.9 or an earlier version).
   mdBook is the tool rendering the documentation, Rust is used for some custom plugins and Python scripts are used to render some images. E.g.:
   ```sh
   # Install Rust using rustup
@@ -10,7 +10,7 @@ This document will explain you how to run a local copy of Pan Docs.
   # Install mdbook using cargo
   cargo install mdbook
   # Remember to add cargo bin directory to your path
-  # Install Python 3.9 or earlier; for example, on APT-based systems (Ubuntu, Debian...):
+  # Install Python; e.g. on Debian-based systems:
   apt install python3
   ```
 2. [Install the Python prerequisites](https://packaging.python.org/tutorials/installing-packages/#requirements-files).
