@@ -40,9 +40,9 @@ the one at `0:9800`!
 ### BG-to-OBJ Priority in CGB Mode
 
 In CGB Mode, the priority between the BG (and window) layer and the OBJ layer is declared in three different places:
-1. [BG Map Attribute bit 7](#bg-map-attributes-cgb-mode-only) - BG-to-OAM Priority (CGB Mode)
-2. [LCDC bit 0](LCDC.md#lcdc0--bg-and-window-enablepriority) - BG and Window Priority (CGB Mode)
-3. [OAM Attributes bit 7](OAM.md#byte-3--attributesflags) - BG and Window over OBJ
+- [BG Map Attribute bit 7](<#BG Map Attributes (CGB Mode only)>)
+- [LCDC bit 0](<#LCDC.0 — BG and Window enable/priority>)
+- [OAM Attributes bit 7](<#[Byte 3 — Attributes/Flags](https://gbdev.io/pandocs/OAM.html#byte-3--attributesflags)>)
 
 We can infer the following rules from the table below:
 * When the BG color is 0 the OBJ will always have priority (ignoring the flags)
@@ -51,7 +51,7 @@ We can infer the following rules from the table below:
 
 ::: tip NOTE
 
-OAM Attributes bit 7 will grant OBJ priority when clear and not when set
+OAM Attributes bit 7 will grant OBJ priority when *clear*, not when *set*.
 
 :::
 
