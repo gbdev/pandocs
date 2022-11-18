@@ -49,12 +49,6 @@ We can infer the following rules from the table below:
 * When LCDC bit 0 is clear OBJ will always have priority (ignoring the rest of the flags)
 * In order to grant the BG priority (color 1-3) LCDC bit 0 must be set and if OAM attributes bit 7 is clear BG Map attributes bit 7 must be set to override it
 
-::: tip NOTE
-
-OAM Attributes bit 7 will grant OBJ priority when *clear*, not when *set*.
-
-:::
-
 The following table visualize the relations between the 3 flags
 
 LCDC bit 0 | OAM attr bit 7 | BG attr bit 7 | Priority
@@ -69,6 +63,15 @@ LCDC bit 0 | OAM attr bit 7 | BG attr bit 7 | Priority
 1          | 1              | 1             | BG color 1–3, otherwise OBJ
 
 [This test ROM](https://github.com/alloncm/MagenTests) can be used to observe the above.
+
+::: warning
+
+Keep in mind that:
+* OAM Attributes bit 7 will grant OBJ priority when **clear**, not when **set**.
+* priority between all OBJs is resolved **before** priority with the BG layer is considered.
+Please refer [to this page](<#Drawing priority>) for more details.
+
+:::
 
 ## Background (BG)
 
