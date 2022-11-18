@@ -45,9 +45,16 @@ In CGB Mode, the priority between the BG (and window) layer and the OBJ layer is
 - [OAM Attributes bit 7](<#[Byte 3 — Attributes/Flags](https://gbdev.io/pandocs/OAM.html#byte-3--attributesflags)>)
 
 We can infer the following rules from the table below:
-* When the BG color is 0 the OBJ will always have priority (ignoring the flags)
-* When LCDC bit 0 is clear OBJ will always have priority (ignoring the rest of the flags)
-* In order to grant the BG priority (color 1-3) LCDC bit 0 must be set and if OAM attributes bit 7 is clear BG Map attributes bit 7 must be set to override it
+* If the BG color index is 0, the OBJ will always have priority;
+* Otherwise, if LCDC bit 0 is clear, the OBJ will always have priority;
+* Otherwise, if both the BG Attributes and the OAM Attributes bit 7 is clear, the OBJ will have priority;
+* Otherwise, BG will have priority.
+
+::: tip
+
+BG Map attributes bit 7 is used to override OAM attributes bit 7
+
+:::
 
 The following table visualize the relations between the 3 flags
 
