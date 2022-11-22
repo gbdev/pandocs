@@ -42,12 +42,12 @@ the one at `0:9800`!
 In CGB Mode, the priority between the BG (and window) layer and the OBJ layer is declared in three different places:
 - [BG Map Attribute bit 7](<#BG Map Attributes (CGB Mode only)>)
 - [LCDC bit 0](<#LCDC.0 — BG and Window enable/priority>)
-- [OAM Attributes bit 7](<#[Byte 3 — Attributes/Flags](https://gbdev.io/pandocs/OAM.html#byte-3--attributesflags)>)
+- [OAM Attributes bit 7](<#Byte 3 — Attributes/Flags>)
 
 We can infer the following rules from the table below:
 * If the BG color index is 0, the OBJ will always have priority;
 * Otherwise, if LCDC bit 0 is clear, the OBJ will always have priority;
-* Otherwise, if both the BG Attributes and the OAM Attributes bit 7 is clear, the OBJ will have priority;
+* Otherwise, if both the BG Attributes and the OAM Attributes have bit 7 clear, the OBJ will have priority;
 * Otherwise, BG will have priority.
 
 ::: tip
@@ -56,7 +56,7 @@ BG Map attributes bit 7 is used to override OAM attributes bit 7
 
 :::
 
-The following table visualize the relations between the 3 flags
+The following table shows the relations between the 3 flags:
 
 LCDC bit 0 | OAM attr bit 7 | BG attr bit 7 | Priority
 :---------:|:--------------:|:-------------:|---------
@@ -75,8 +75,8 @@ LCDC bit 0 | OAM attr bit 7 | BG attr bit 7 | Priority
 
 Keep in mind that:
 * OAM Attributes bit 7 will grant OBJ priority when **clear**, not when **set**.
-* priority between all OBJs is resolved **before** priority with the BG layer is considered.
-Please refer [to this page](<#Drawing priority>) for more details.
+* Priority between all OBJs is resolved **before** priority with the BG layer is considered.
+  Please refer [to this page](<#Drawing priority>) for more details.
 
 :::
 
