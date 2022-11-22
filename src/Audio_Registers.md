@@ -194,10 +194,10 @@ Bit 6 takes effect immediately upon writing to this register.
 
 This sound channel works exactly like channel 1, except that it lacks a wavelength sweep (and thus an equivalent to [`NR10`](<#FF10 — NR10: Channel 1 sweep>)).
 Please refer to the corresponding CH1 register:
-- `NR21` → [`NR11`](<#FF11 — NR11: Channel 1 length timer & duty cycle>)
-- `NR22` → [`NR12`](<#FF12 — NR12: Channel 1 volume & envelope>)
-- `NR23` → [`NR13`](<#FF13 — NR13: Channel 1 wavelength low \[write-only\]>)
-- `NR24` → [`NR14`](<#FF14 — NR14: Channel 1 wavelength high & control>)
+- `NR21` (\$FF16) → [`NR11`](<#FF11 — NR11: Channel 1 length timer & duty cycle>)
+- `NR22` (\$FF17) → [`NR12`](<#FF12 — NR12: Channel 1 volume & envelope>)
+- `NR23` (\$FF18) → [`NR13`](<#FF13 — NR13: Channel 1 wavelength low \[write-only\]>)
+- `NR24` (\$FF19) → [`NR14`](<#FF14 — NR14: Channel 1 wavelength high & control>)
 
 ## Sound Channel 3 — Wave output
 
