@@ -50,12 +50,6 @@ We can infer the following rules from the table below:
 * Otherwise, if both the BG Attributes and the OAM Attributes have bit 7 clear, the OBJ will have priority;
 * Otherwise, BG will have priority.
 
-::: tip
-
-BG Map attributes bit 7 is used to override OAM attributes bit 7
-
-:::
-
 The following table shows the relations between the 3 flags:
 
 LCDC bit 0 | OAM attr bit 7 | BG attr bit 7 | Priority
