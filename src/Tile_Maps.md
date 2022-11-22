@@ -33,14 +33,46 @@ Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)
 Bit 2-0  Background Palette number  (BGP0-7)
 ```
 
-When Bit 7 is set, the corresponding BG tile will have priority above
-all OBJs (regardless of the priority bits in OAM memory). There's also
-a Master Priority flag in LCDC register Bit 0 which overrides all other
-priority bits when cleared.
-
 Note that, if the map entry at `0:9800` is tile \$2A, the attribute at
 `1:9800` doesn't define properties for ALL tiles \$2A on-screen, but only
 the one at `0:9800`!
+
+### BG-to-OBJ Priority in CGB Mode
+
+In CGB Mode, the priority between the BG (and window) layer and the OBJ layer is declared in three different places:
+- [BG Map Attribute bit 7](<#BG Map Attributes (CGB Mode only)>)
+- [LCDC bit 0](<#LCDC.0 — BG and Window enable/priority>)
+- [OAM Attributes bit 7](<#Byte 3 — Attributes/Flags>)
+
+We can infer the following rules from the table below:
+* If the BG color index is 0, the OBJ will always have priority;
+* Otherwise, if LCDC bit 0 is clear, the OBJ will always have priority;
+* Otherwise, if both the BG Attributes and the OAM Attributes have bit 7 clear, the OBJ will have priority;
+* Otherwise, BG will have priority.
+
+The following table shows the relations between the 3 flags:
+
+LCDC bit 0 | OAM attr bit 7 | BG attr bit 7 | Priority
+:---------:|:--------------:|:-------------:|---------
+0          | 0              | 0             | OBJ
+0          | 0              | 1             | OBJ
+0          | 1              | 0             | OBJ
+0          | 1              | 1             | OBJ
+1          | 0              | 0             | OBJ
+1          | 0              | 1             | BG color 1–3, otherwise OBJ
+1          | 1              | 0             | BG color 1–3, otherwise OBJ
+1          | 1              | 1             | BG color 1–3, otherwise OBJ
+
+[This test ROM](https://github.com/alloncm/MagenTests) can be used to observe the above.
+
+::: warning
+
+Keep in mind that:
+* OAM Attributes bit 7 will grant OBJ priority when **clear**, not when **set**.
+* Priority between all OBJs is resolved **before** priority with the BG layer is considered.
+  Please refer [to this page](<#Drawing priority>) for more details.
+
+:::
 
 ## Background (BG)
 
