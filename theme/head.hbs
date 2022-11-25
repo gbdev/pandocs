@@ -1,7 +1,7 @@
 <!-- Open Graph tags-->
-<meta name="og:site_name" content="summary" />
+<meta name="og:site_name" content="{{ book_title }}" />
 <meta name="og:image" content="https://gbdev.io/pandocs/favicon.png" />
-<meta name="og:title" content="{{ title }}" />
+<meta name="og:title" content="{{#if chapter_title}}{{ chapter_title }}{{else}}{{ book_title }}{{/if}}" />
 <meta name="og:description" content="{{ description }}" />
 
 <!-- Twitter meta tags -->
