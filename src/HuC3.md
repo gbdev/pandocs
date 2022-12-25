@@ -73,7 +73,7 @@ The RTC MCU communication protocol is described below.
 ### $B — RTC Command/Argument [write]
 
 The value written consists of a command in bits 6-4, and an argument
-value in bits 4–0. For example the value $62 is command $6 with argument
+value in bits 3–0. For example the value $62 is command $6 with argument
 value $2. Writing to this register just sets the values in the mailbox
 registers – it does not cause the command to be executed.
 
