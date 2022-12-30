@@ -8,7 +8,7 @@ Game Boy keyboard matrix (which still works).
 ## Transferring Bits
 
 A command packet transfer must be initiated by setting both P14 and P15
-to LOW, this will reset and start the SNES packet receiving program.
+to LOW; this will reset and start the ICD2 packet receiving circuit.
 Data is then transferred (LSB first), setting P14=LOW will indicate a
 "0" bit, and setting P15=LOW will indicate a "1" bit. For example:
 
@@ -18,13 +18,15 @@ P14  --_---_---_-----------_-------_--...
 P15  --_-----------_---_-------_------...
 ```
 
-Data and reset pulses must be kept LOW for at least 5us. P14 and P15
-must be kept both HIGH for at least 15us between any pulses. Obviously,
-it'd be no good idea to access the JOYPAD register during the transfer,
+Licensed software keeps data and reset pulses LOW for at least 5 μs and leaves P14 and P15 HIGH for at least 15 μs after each pulse,
+though the hardware is capable of receiving pulses and spaces as short as 2 μs (as tested using [sgb-speedtest]).
+Obviously, it'd be no good idea to access the JOYPAD register during the transfer,
 for example, in case that your VBlank interrupt procedure reads-out
-joypad states each frame, be sure to disable that interrupt during the
+joypad states each frame, so be sure to disable that interrupt during the
 transfer (or disable only the joypad procedure by using a software
 flag).
+
+[sgb-speedtest]: https://github.com/zlago/sgb-speedtest/
 
 ## Transferring Packets
 
@@ -47,5 +49,6 @@ parameter bytes are used, then further packet(s) will follow, as such:
 3. 1 bit: Stop Bit (0)
 
 By using all 7 packets, up to 111 data bytes (15+16\*6) may be sent.
-Unused bytes at the end of the last packet don't matter. A 60ms (4
-frames) delay should be invoked between each packet transfer.
+Unused bytes at the end of the last packet don't matter.
+The GB program should wait 60 ms (4 frames) between each packet transfer and the next,
+as the "bomb" tool to erase a custom border can cause the SGB system software not to look for packets for 4 frames.
