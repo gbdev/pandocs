@@ -16,10 +16,12 @@ Data is then transferred (LSB first), setting P14=LOW will indicate a
     RESET  0   0   1   1   0   1   0
 P14  --_---_---_-----------_-------_--...
 P15  --_-----------_---_-------_------...
+Time   0        50        100       150
 ```
 
-Licensed software keeps data and reset pulses LOW for at least 5 μs and leaves P14 and P15 HIGH for at least 15 μs after each pulse,
-though the hardware is capable of receiving pulses and spaces as short as 2 μs (as tested using [sgb-speedtest]).
+The boot ROM and licensed software keep data and reset pulses LOW for at least 5 μs and leave P14 and P15 HIGH for at least 15 μs after each pulse.
+Though the hardware is capable of receiving pulses and spaces as short as 2 μs (as tested using [sgb-speedtest]),
+following the common practice of 5-cycle pulses and 15-cycle spaces may improve reliability in some corner case that the community has not yet discovered.
 Obviously, it'd be no good idea to access the JOYPAD register during the transfer,
 for example, in case that your VBlank interrupt procedure reads-out
 joypad states each frame, so be sure to disable that interrupt during the
@@ -32,8 +34,10 @@ flag).
 
 Each packet is invoked by a RESET pulse, then 128 bits of data are
 transferred (16 bytes, LSB of first byte first), and finally, a
-"0" bit must be transferred as stop bit. The structure of normal
-packets thus is:
+"0" bit must be transferred as stop bit.
+These 130 bit periods correspond to at least 2600 cycles at the recommended rate.
+
+The structure of the first packet in a transmission is:
 
 1. 1 pulse: Start signal
 2. 1 byte: Header byte (Command Code \* 8 + Length)
@@ -51,4 +55,4 @@ parameter bytes are used, then further packet(s) will follow, as such:
 By using all 7 packets, up to 111 data bytes (15+16\*6) may be sent.
 Unused bytes at the end of the last packet don't matter.
 The GB program should wait 60 ms (4 frames) between each packet transfer and the next,
-as the "bomb" tool to erase a custom border can cause the SGB system software not to look for packets for 4 frames.
+as the "bomb" tool to erase a user-drawn border can cause the SGB system software not to check for packets for 4 frames.
