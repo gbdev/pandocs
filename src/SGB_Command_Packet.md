@@ -16,10 +16,11 @@ Data is then transferred (LSB first), setting P14=LOW will indicate a
     RESET  0   0   1   1   0   1   0
 P14  --_---_---_-----------_-------_--...
 P15  --_-----------_---_-------_------...
-Time   0        50        100       150
+       ↑         ↑         ↑         ↑
+Time   0       50         100       150
 ```
 
-The boot ROM and licensed software keep data and reset pulses LOW for at least 5 μs and leave P14 and P15 HIGH for at least 15 μs after each pulse.
+[The boot ROM](<#Super Game Boy (SGB, SGB2)>) and licensed software keep data and reset pulses LOW for at least 5 μs and leave P14 and P15 HIGH for at least 15 μs after each pulse.
 Though the hardware is capable of receiving pulses and spaces as short as 2 μs (as tested using [sgb-speedtest]),
 following the common practice of 5-cycle pulses and 15-cycle spaces may improve reliability in some corner case that the community has not yet discovered.
 Obviously, it'd be no good idea to access [the joypad register](<#FF00 — P1/JOYP: Joypad>) during the transfer,
