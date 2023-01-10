@@ -22,7 +22,7 @@ Time   0        50        100       150
 The boot ROM and licensed software keep data and reset pulses LOW for at least 5 μs and leave P14 and P15 HIGH for at least 15 μs after each pulse.
 Though the hardware is capable of receiving pulses and spaces as short as 2 μs (as tested using [sgb-speedtest]),
 following the common practice of 5-cycle pulses and 15-cycle spaces may improve reliability in some corner case that the community has not yet discovered.
-Obviously, it'd be no good idea to access the JOYPAD register during the transfer,
+Obviously, it'd be no good idea to access [the joypad register](<#FF00 — P1/JOYP: Joypad>) during the transfer,
 for example, in case that your VBlank interrupt procedure reads-out
 joypad states each frame, so be sure to disable that interrupt during the
 transfer (or disable only the joypad procedure by using a software
@@ -34,7 +34,7 @@ flag).
 
 Each packet is invoked by a RESET pulse, then 128 bits of data are
 transferred (16 bytes, LSB of first byte first), and finally, a
-"0" bit must be transferred as stop bit.
+"0" bit must be transferred as a stop bit.
 These 130 bit periods correspond to at least 2600 cycles at the recommended rate.
 
 The structure of the first packet in a transmission is:
