@@ -17,7 +17,7 @@ Data is then transferred (LSB first), setting P14=LOW will indicate a
 P14  --_---_---_-----------_-------_--...
 P15  --_-----------_---_-------_------...
        ↑         ↑         ↑         ↑
-Time   0       50         100       150
+Time   0         50       100       150
 ```
 
 [The boot ROM](<#Super Game Boy (SGB, SGB2)>) and licensed software keep data and reset pulses LOW for at least 5 μs and leave P14 and P15 HIGH for at least 15 μs after each pulse.
