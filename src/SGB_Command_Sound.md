@@ -44,7 +44,7 @@ Used to transfer sound code or data to SNES Audio Processing Unit memory
  1-F   Not used (zero)
 ```
 
-The sound code/data is sent by VRAM-Transfer (4 KBytes), by optionally specifying some `data transfer` packets from the SNES to its APU, and ending with a `jump` packet.
+The sound code/data is sent by [VRAM transfer](<#VRAM Transfers>) as a contiguous list of "packets".
 
 All 16-bit values are little-endian.
 
