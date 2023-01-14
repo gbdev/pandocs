@@ -57,8 +57,8 @@ Data transfer packet format:
 
 Jump packet format:
 ```
- 000-001  Should be $0000
- 002-003  S-APU jump address, should be $0400 to safely restart the built-in SGB BIOS' N-SPC sound engine
+ 00-01  Must be $0000
+ 02-03  S-APU jump address, use $0400 to safely restart the built-in SGB BIOS' N-SPC sound engine
 ```
 
 Possible destinations in APU-RAM are:
