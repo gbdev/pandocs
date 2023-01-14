@@ -2,7 +2,7 @@
 
 MBC7 (Memory Bank Controller 7) is an MBC containing a 2-axis
 accelerometer (ADXL202E) and a 256 byte EEPROM
-([93LC56](http://www.microchip.com/wwwproducts/en/en010904)). A000-BFFF
+([93LC56](https://www.microchip.com/en-us/product/93LC56)). A000-BFFF
 does not directly address the EEPROM, as most MBCs do, but rather
 contains several registers that can be read or written one at a time.
 This makes EEPROM access very slow due to needing multiple writes per
