@@ -50,9 +50,9 @@ All 16-bit values are little-endian.
 
 Data transfer packet format:
 ```
- 00-01  Size of data below (XX); if zero, this is instead a jump packet
- 02-03  Destination address in S-APU RAM (typically $2B00, see below)
- 04-N+4  Data to be transferred
+ 0-1    Size of data below (N); if zero, this is instead a jump packet
+ 2-3    Destination address in S-APU RAM (typically $2B00, see below)
+ 4-N+4  Data to be transferred
 ```
 
 Jump packet format:
