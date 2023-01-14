@@ -52,7 +52,7 @@ Data transfer packet format:
 ```
  00-01  Size of data below (XX); if zero, this is instead a jump packet
  02-03  Destination address in S-APU RAM (typically $2B00, see below)
- 04-XX  Data to be transferred
+ 04-N+4  Data to be transferred
 ```
 
 Jump packet format:
