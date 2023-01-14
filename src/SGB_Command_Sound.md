@@ -44,16 +44,21 @@ Used to transfer sound code or data to SNES Audio Processing Unit memory
  1-F   Not used (zero)
 ```
 
-The sound code/data is sent by VRAM-Transfer (4 KBytes).
+The sound code/data is sent by VRAM-Transfer (4 KBytes), by optionally specifying some `data transfer` packets from the SNES to its APU, and ending with a `jump` packet.
+
 All 16-bit values are little-endian.
 
+Data transfer packet format:
 ```
  000-001  Size of transfer data
  002-003  Destination address in S-APU RAM (typically $2B00, see below)
  004-XXX  Data to be transferred
- X+1-X+2  "End marker" (???), should be $0000
- X+3-X+4  S-APU jump address, should be $0400
- X+5-FFF  Remaining bytes ignored
+```
+
+Jump packet format:
+```
+ 000-001  Should be $0000
+ 002-003  S-APU jump address, should be $0400 to safely restart the built-in SGB BIOS' N-SPC sound engine
 ```
 
 Possible destinations in APU-RAM are:
