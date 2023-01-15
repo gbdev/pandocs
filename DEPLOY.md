@@ -1,4 +1,16 @@
-## Deploy
+# Deploy
+
+## Docker setup
+
+1. Install the docker engine based on your OS: [Docker Engine installation overview](https://docs.docker.com/engine/install/)
+2. Run the following to be able to access the built docs locally at `http://localhost:8001`
+
+```sh
+docker build -t pandocs .
+docker run -p 8001:8000 --mount "type=bind,source=$(pwd)/src,target=/code/src" pandocs
+```
+
+## Local setup
 
 This document will explain you how to run a local copy of Pan Docs. 
 
