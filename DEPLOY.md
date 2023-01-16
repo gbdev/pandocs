@@ -10,6 +10,11 @@ docker build -t pandocs .
 docker run -p 8001:8000 --mount "type=bind,source=$(pwd)/src,target=/code/src" pandocs
 ```
 
+To stop and remove the docker container, run:
+```sh
+docker rm $(docker stop $(docker ps -a -q --filter ancestor=pandocs --format="{{.ID}}"))
+```
+
 Be aware of the following caveat:
 
 - The locally running site will not update from changes to files in the `theme/` or `custom/` directories (e.g. highlight.js builds, CSS style overrides). You must trigger the build by manually changing a file in the `src/` directory.
