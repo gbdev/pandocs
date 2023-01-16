@@ -3,10 +3,12 @@
 ## Docker setup
 
 1. Install the docker engine based on your OS: [Docker Engine installation overview](https://docs.docker.com/engine/install/)
-2. Run the following to be able to access the built docs locally at `http://localhost:8001`
-
+2. Run the following whenever you need to build the docker image, for example, if it hasn't been built before, or if the `Dockerfile` has changed.
 ```sh
 docker build -t pandocs .
+```
+3. Run the following to access the built docs locally at `http://localhost:8001`.
+```sh
 docker run -p 8001:8000 \
   --mount "type=bind,source=$(pwd)/custom,target=/code/custom" \
   --mount "type=bind,source=$(pwd)/preproc,target=/code/preproc" \
