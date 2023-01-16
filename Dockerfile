@@ -6,7 +6,7 @@ RUN apt install curl -y
 
 # Install rust and mdbook
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-RUN apt install build-essential -y
+RUN apt install gcc -y
 RUN source "$HOME/.cargo/env"
 RUN cargo install mdbook
 

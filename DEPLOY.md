@@ -7,7 +7,13 @@
 
 ```sh
 docker build -t pandocs .
-docker run -p 8001:8000 --mount "type=bind,source=$(pwd)/src,target=/code/src" pandocs
+docker run -p 8001:8000 \
+  --mount "type=bind,source=$(pwd)/custom,target=/code/custom" \
+  --mount "type=bind,source=$(pwd)/preproc,target=/code/preproc" \
+  --mount "type=bind,source=$(pwd)/renderer,target=/code/renderer" \
+  --mount "type=bind,source=$(pwd)/src,target=/code/src" \
+  --mount "type=bind,source=$(pwd)/theme,target=/code/theme" \
+  pandocs
 ```
 
 To stop and remove the docker container, run:
