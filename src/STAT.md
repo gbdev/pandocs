@@ -52,7 +52,7 @@ to the CPU: writes are ignored, and reads return garbage values (usually $FF).
 Mode | Action                                                      | Duration                                                           | Accessible video memory
 -----|------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------
   2  | Searching OAM for OBJs whose Y coordinate overlap this line | 80 dots (19 µs)                                                    | VRAM, CGB palettes
-  3  | Reading OAM and VRAM to generate the picture                | 168 to 291 dots (40 to 60 µs) depending on sprite count            | None
+  3  | Reading OAM and VRAM to generate the picture                | 168 to 291 dots (40 to 69 µs) depending on sprite count            | None
   0  | Nothing (HBlank)                               | 85 to 208 dots (20 to 49 µs) depending on previous mode 3 duration | VRAM, OAM, CGB palettes
   1  | Nothing (VBlank)                                 | 4560 dots (1087 µs, 10 scanlines)                                  | VRAM, OAM, CGB palettes
 
