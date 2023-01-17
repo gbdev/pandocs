@@ -89,6 +89,8 @@ This command can set a flag that will let the game clear and prevent use of
 the user's SGB palette choice, when it sends 1 of the above commands, except 
 PAL_TRN.
 
+_Donkey Kong_ (1994) is 1 known game that appears to use this.
+
 ```
  Byte  Content
  0     Command*8+Length (fixed length=1)
