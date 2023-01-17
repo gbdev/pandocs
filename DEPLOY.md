@@ -15,12 +15,7 @@ docker run -p 8001:8000 \
   --mount "type=bind,source=$(pwd)/renderer,target=/code/renderer" \
   --mount "type=bind,source=$(pwd)/src,target=/code/src" \
   --mount "type=bind,source=$(pwd)/theme,target=/code/theme" \
-  pandocs
-```
-
-To stop and remove the docker container, run:
-```sh
-docker rm $(docker stop $(docker ps -a -q --filter ancestor=pandocs --format="{{.ID}}"))
+  -it pandocs
 ```
 
 Be aware of the following caveat:

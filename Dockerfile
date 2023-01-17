@@ -1,5 +1,5 @@
 # Get a python 3.10 image with curl
-FROM revolutionsystems/python:3.10.0-wee-optimized-lto
+FROM python:3.10.9
 SHELL ["bash", "-lc"]
 RUN apt update
 RUN apt install curl -y
