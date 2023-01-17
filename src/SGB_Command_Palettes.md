@@ -82,3 +82,18 @@ The palette data is sent by VRAM-Transfer (4 KBytes).
 
 Each Palette consists of four 16-bit color definitions (8 bytes). Note:
 The data is stored at 3000h-3FFFh in SNES memory.
+
+## SGB Command $19 — PAL_PRI
+
+This command can set a flag that will let the game clear and prevent use of 
+the user's SGB palette choice, when it sends 1 of the above commands, except 
+PAL_TRN.
+
+```
+ Byte  Content
+ 0     Command*8+Length (fixed length=1)
+ 1     Palette priority when a palette packet is sent (0-1)
+         0  User
+         1  Software
+ 2-F   Not used (zero)
+```
