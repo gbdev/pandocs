@@ -1,13 +1,18 @@
 # Deploy
 
-## Docker setup
+This document will explain you how to set up a local copy of Pan Docs.
 
-1. Install the docker engine based on your OS: [Docker Engine installation overview](https://docs.docker.com/engine/install/)
-2. Run the following whenever you need to build the docker image, for example, if it hasn't been built before, or if the `Dockerfile` has changed.
 ```sh
-docker build -t pandocs .
+# Start by cloning the repository
+git clone https://github.com/gbdev/pandocs.git
+# and moving to the pandocs directory
+cd pandocs
 ```
-3. Run the following to access the built docs locally at `http://localhost:8001`.
+
+## Docker
+
+If you have [Docker installed](https://docs.docker.com/engine/install/), you can pull and use the provided image by running:
+
 ```sh
 docker run -p 8001:8000 \
   --mount "type=bind,source=$(pwd)/custom,target=/code/custom" \
@@ -15,16 +20,26 @@ docker run -p 8001:8000 \
   --mount "type=bind,source=$(pwd)/renderer,target=/code/renderer" \
   --mount "type=bind,source=$(pwd)/src,target=/code/src" \
   --mount "type=bind,source=$(pwd)/theme,target=/code/theme" \
-  -it pandocs
+  -it ghcr.io/gbdev/pandocs
 ```
+
+That's it! Pan Docs is live at [localhost:8001](https://localhost:8001).
 
 Be aware of the following caveat:
 
 - The locally running site will not update from changes to files in the `theme/` or `custom/` directories (e.g. highlight.js builds, CSS style overrides). You must trigger the build by manually changing a file in the `src/` directory.
 
-## Local setup
+### Building the image
 
-This document will explain you how to run a local copy of Pan Docs. 
+If you prefer to build the image yourself:
+
+```sh
+docker build -t pandocs .
+```
+
+## Local
+
+If you prefer to install every dependency locally:
 
 1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads) (3.9 or an earlier version).
   mdBook is the tool rendering the documentation, Rust is used for some custom plugins and Python scripts are used to render some images. E.g.:

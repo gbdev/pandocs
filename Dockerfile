@@ -1,5 +1,6 @@
-# Get a python 3.10 image with curl
+# Get a python 3.10 image
 FROM python:3.10.9
+LABEL org.opencontainers.image.source=https://github.com/gbdev/pandocs
 SHELL ["bash", "-lc"]
 RUN apt update
 RUN apt install curl -y
