@@ -94,8 +94,7 @@ _Donkey Kong_ (1994) is one known game that appears to use this.
 ```
  Byte  Content
  0     Command*8+Length (fixed length=1)
- 1     Palette priority when a palette packet is sent (0-1)
-         0  User
-         1  Software
+ 1     Palette priority when a palette packet is sent
+         Bit 0 - Priority (0=User, 1=Software)
  2-F   Not used (zero)
 ```
