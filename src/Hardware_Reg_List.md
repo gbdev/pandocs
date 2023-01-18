@@ -1,67 +1,67 @@
 
 # Hardware Registers
 
-| Addr       | Name                                                   | Description                                                       | R/W |
-|:-----------|--------------------------------------------------------|-------------------------------------------------------------------|-----|
-| $FF00      | [P1/JOYP][P1/JOYP]                                     | Joypad                                                            | R/W |
-| $FF01      | [SB][SB]                                               | Serial transfer data                                              | R/W |
-| $FF02      | [SC][SC]                                               | Serial transfer control                                           | R/W |
-| $FF04      | [DIV][DIV]                                             | Divider register                                                  | R/W |
-| $FF05      | [TIMA][TIMA]                                           | Timer counter                                                     | R/W |
-| $FF06      | [TMA][TMA]                                             | Timer modulo                                                      | R/W |
-| $FF07      | [TAC][TAC]                                             | Timer control                                                     | R/W |
-| $FF0F      | [IF][IF]                                               | Interrupt flag                                                    | R/W |
-| $FF10      | [NR10][NR10]                                           | Channel 1 sweep                                                   | R/W |
-| $FF11      | [NR11][NR11]                                           | Channel 1 length timer & duty cycle                               | R/W |
-| $FF12      | [NR12][NR12]                                           | Channel 1 volume & envelope                                       | R/W |
-| $FF13      | [NR13][NR13]                                           | Channel 1 wavelength low                                          | W   |
-| $FF14      | [NR14][NR14]                                           | Channel 1 wavelength high & control                               | R/W |
-| $FF16      | [NR21][NR21]                                           | Channel 2 length timer & duty cycle                               | R/W |
-| $FF17      | [NR22][NR22]                                           | Channel 2 volume & envelope                                       | R/W |
-| $FF18      | [NR23][NR23]                                           | Channel 2 wavelength low                                          | W   |
-| $FF19      | [NR24][NR24]                                           | Channel 2 wavelength high & control                               | R/W |
-| $FF1A      | [NR30][NR30]                                           | Channel 3 DAC enable                                              | R/W |
-| $FF1B      | [NR31][NR31]                                           | Channel 3 length timer                                            | W   |
-| $FF1C      | [NR32][NR32]                                           | Channel 3 output level                                            | R/W |
-| $FF1D      | [NR33][NR33]                                           | Channel 3 wavelength low                                          | W   |
-| $FF1E      | [NR34][NR34]                                           | Channel 3 wavelength high & control                               | R/W |
-| $FF20      | [NR41][NR41]                                           | Channel 4 length timer                                            | W   |
-| $FF21      | [NR42][NR42]                                           | Channel 4 volume & envelope                                       | R/W |
-| $FF22      | [NR43][NR43]                                           | Channel 4 frequency & randomness                                  | R/W |
-| $FF23      | [NR44][NR44]                                           | Channel 4 control                                                 | R/W |
-| $FF24      | [NR50][NR50]                                           | Master volume & VIN panning                                       | R/W |
-| $FF25      | [NR51][NR51]                                           | Sound panning                                                     | R/W |
-| $FF26      | [NR52][NR52]                                           | Sound on/off                                                      | R/W |
-| $FF30-FF3F | [Wave pattern ram][Wave pattern ram]                   | Wave pattern RAM                                                  | R/W |
-| $FF40      | [LCDC][LCDC]                                           | LCD control                                                       | R/W |
-| $FF41      | [STAT][STAT]                                           | LCD status                                                        | R/W |
-| $FF42      | [SCY][SCY]                                             | Viewport Y position                                               | R/W |
-| $FF43      | [SCX][SCX]                                             | Viewport X position                                               | R/W |
-| $FF44      | [LY][LY]                                               | LCD Y coordinate                                                  | R   |
-| $FF45      | [LYC][LYC]                                             | LY compare                                                        | R/W |
-| $FF46      | [DMA][DMA]                                             | OAM DMA source address & start                                    | R/W |
-| $FF47      | [BGP (Non-CGB Mode only)][BGP (Non-CGB Mode only)]     | BG palette data                                                   | R/W |
-| $FF48      | [OBP0 (Non-CGB Mode only)][OBP0 (Non-CGB Mode only)]   | OBJ palette 0 data                                                | R/W |
-| $FF49      | [OBP1 (Non-CGB Mode only)][OBP1 (Non-CGB Mode only)]   | OBJ palette 1 data                                                | R/W |
-| $FF4A      | [WY][WY]                                               | Window Y position                                                 | R/W |
-| $FF4B      | [WX][WX]                                               | Window X position plus 7                                          | R/W |
-| $FF4D      | [KEY1 (CGB Mode only)][KEY1 (CGB Mode only)]           | Prepare speed switch                                              | R/W |
-| $FF4F      | [VBK (CGB Mode only)][VBK (CGB Mode only)]             | VRAM bank                                                         | R/W |
-| $FF51      | [HDMA1 (CGB Mode only)][HDMA1 (CGB Mode only)]         | VRAM DMA source high                                              | W   |
-| $FF52      | [HDMA2 (CGB Mode only)][HDMA2 (CGB Mode only)]         | VRAM DMA source low                                               | W   |
-| $FF53      | [HDMA3 (CGB Mode only)][HDMA3 (CGB Mode only)]         | VRAM DMA destination high                                         | W   |
-| $FF54      | [HDMA4 (CGB Mode only)][HDMA4 (CGB Mode only)]         | VRAM DMA destination low                                          | W   |
-| $FF55      | [HDMA5 (CGB Mode only)][HDMA5 (CGB Mode only)]         | VRAM DMA length/mode/start                                        | R/W |
-| $FF56      | [RP (CGB Mode only)][RP (CGB Mode only)]               | Infrared communications port                                      | R/W |
-| $FF68      | [BCPS/BGPI (CGB Mode only)][BCPS/BGPI (CGB Mode only)] | Background color palette specification / Background palette index | R/W |
-| $FF69      | [BCPD/BGPD (CGB Mode only)][BCPD/BGPD (CGB Mode only)] | Background color palette data / Background palette data           | R/W |
-| $FF6A      | [OCPS/OBPI (CGB Mode only)][OCPS/OBPI (CGB Mode only)] | OBJ color palette specification / OBJ palette index               | R/W |
-| $FF6B      | [OCPD/OBPD (CGB Mode only)][OCPD/OBPD (CGB Mode only)] | OBJ color palette data / OBJ palette data                         | R/W |
-| $FF6C      | [OPRI (CGB Mode only)][OPRI (CGB Mode only)]           | Object priority mode                                              | R/W |
-| $FF70      | [SVBK (CGB Mode only)][SVBK (CGB Mode only)]           | WRAM bank                                                         | R/W |
-| $FF76      | [PCM12 (CGB Mode only)][PCM12 (CGB Mode only)]         | Digital outputs 1 & 2                                             | R   |
-| $FF77      | [PCM34 (CGB Mode only)][PCM34 (CGB Mode only)]         | Digital outputs 3 & 4                                             | R   |
-| $FFFF      | [IE][IE]                                               | Interrupt enable                                                  | R/W |
+Address    | Name                        | Description                                                       | Readable / Writable
+:----------|-----------------------------|-------------------------------------------------------------------|----
+$FF00      | [P1/JOYP]                   | Joypad                                                            | R/W
+$FF01      | [SB]                        | Serial transfer data                                              | R/W
+$FF02      | [SC]                        | Serial transfer control                                           | R/W
+$FF04      | [DIV]                       | Divider register                                                  | R/W
+$FF05      | [TIMA]                      | Timer counter                                                     | R/W
+$FF06      | [TMA]                       | Timer modulo                                                      | R/W
+$FF07      | [TAC]                       | Timer control                                                     | R/W
+$FF0F      | [IF]                        | Interrupt flag                                                    | R/W
+$FF10      | [NR10]                      | Channel 1 sweep                                                   | R/W
+$FF11      | [NR11]                      | Channel 1 length timer & duty cycle                               | R/W
+$FF12      | [NR12]                      | Channel 1 volume & envelope                                       | R/W
+$FF13      | [NR13]                      | Channel 1 wavelength low                                          | W  
+$FF14      | [NR14]                      | Channel 1 wavelength high & control                               | R/W
+$FF16      | [NR21]                      | Channel 2 length timer & duty cycle                               | R/W
+$FF17      | [NR22]                      | Channel 2 volume & envelope                                       | R/W
+$FF18      | [NR23]                      | Channel 2 wavelength low                                          | W  
+$FF19      | [NR24]                      | Channel 2 wavelength high & control                               | R/W
+$FF1A      | [NR30]                      | Channel 3 DAC enable                                              | R/W
+$FF1B      | [NR31]                      | Channel 3 length timer                                            | W  
+$FF1C      | [NR32]                      | Channel 3 output level                                            | R/W
+$FF1D      | [NR33]                      | Channel 3 wavelength low                                          | W  
+$FF1E      | [NR34]                      | Channel 3 wavelength high & control                               | R/W
+$FF20      | [NR41]                      | Channel 4 length timer                                            | W  
+$FF21      | [NR42]                      | Channel 4 volume & envelope                                       | R/W
+$FF22      | [NR43]                      | Channel 4 frequency & randomness                                  | R/W
+$FF23      | [NR44]                      | Channel 4 control                                                 | R/W
+$FF24      | [NR50]                      | Master volume & VIN panning                                       | R/W
+$FF25      | [NR51]                      | Sound panning                                                     | R/W
+$FF26      | [NR52]                      | Sound on/off                                                      | R/W
+$FF30-FF3F | [Wave pattern ram]          | Wave pattern RAM                                                  | R/W
+$FF40      | [LCDC]                      | LCD control                                                       | R/W
+$FF41      | [STAT]                      | LCD status                                                        | R/W
+$FF42      | [SCY]                       | Viewport Y position                                               | R/W
+$FF43      | [SCX]                       | Viewport X position                                               | R/W
+$FF44      | [LY]                        | LCD Y coordinate                                                  | R  
+$FF45      | [LYC]                       | LY compare                                                        | R/W
+$FF46      | [DMA]                       | OAM DMA source address & start                                    | R/W
+$FF47      | [BGP (Non-CGB Mode only)]   | BG palette data                                                   | R/W
+$FF48      | [OBP0 (Non-CGB Mode only)]  | OBJ palette 0 data                                                | R/W
+$FF49      | [OBP1 (Non-CGB Mode only)]  | OBJ palette 1 data                                                | R/W
+$FF4A      | [WY]                        | Window Y position                                                 | R/W
+$FF4B      | [WX]                        | Window X position plus 7                                          | R/W
+$FF4D      | [KEY1 (CGB Mode only)]      | Prepare speed switch                                              | R/W
+$FF4F      | [VBK (CGB Mode only)]       | VRAM bank                                                         | R/W
+$FF51      | [HDMA1 (CGB Mode only)]     | VRAM DMA source high                                              | W  
+$FF52      | [HDMA2 (CGB Mode only)]     | VRAM DMA source low                                               | W  
+$FF53      | [HDMA3 (CGB Mode only)]     | VRAM DMA destination high                                         | W  
+$FF54      | [HDMA4 (CGB Mode only)]     | VRAM DMA destination low                                          | W  
+$FF55      | [HDMA5 (CGB Mode only)]     | VRAM DMA length/mode/start                                        | R/W
+$FF56      | [RP (CGB Mode only)]        | Infrared communications port                                      | R/W
+$FF68      | [BCPS/BGPI (CGB Mode only)] | Background color palette specification / Background palette index | R/W
+$FF69      | [BCPD/BGPD (CGB Mode only)] | Background color palette data / Background palette data           | R/W
+$FF6A      | [OCPS/OBPI (CGB Mode only)] | OBJ color palette specification / OBJ palette index               | R/W
+$FF6B      | [OCPD/OBPD (CGB Mode only)] | OBJ color palette data / OBJ palette data                         | R/W
+$FF6C      | [OPRI (CGB Mode only)]      | Object priority mode                                              | R/W
+$FF70      | [SVBK (CGB Mode only)]      | WRAM bank                                                         | R/W
+$FF76      | [PCM12 (CGB Mode only)]     | Digital outputs 1 & 2                                             | R  
+$FF77      | [PCM34 (CGB Mode only)]     | Digital outputs 3 & 4                                             | R  
+$FFFF      | [IE]                        | Interrupt enable                                                  | R/W
 
 [P1/JOYP]: <#FF00 — P1/JOYP: Joypad>
 [SB]: <#FF01 — SB: Serial transfer data>
