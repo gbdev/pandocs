@@ -2,7 +2,7 @@
 # Hardware Registers
 
 Address    | Name               | Description                                                       | Readable / Writable | Models
-:----------|--------------------|-------------------------------------------------------------------|---------------------|-------
+-----------|--------------------|-------------------------------------------------------------------|---------------------|-------
 $FF00      | [P1/JOYP]          | Joypad                                                            | Mixed               | All
 $FF01      | [SB]               | Serial transfer data                                              | R/W                 | All
 $FF02      | [SC]               | Serial transfer control                                           | R/W                 | Mixed
