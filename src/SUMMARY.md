@@ -14,7 +14,7 @@
 
 # I/O Ports
 
-- [Hardware Registers](./Hardware_Reg_List.md)
+- [Summary](./Hardware_Reg_List.md)
 - [Rendering](./Rendering.md)
   - [Tile Data](./Tile_Data.md)
   - [Tile Maps](./Tile_Maps.md)
