@@ -3,6 +3,7 @@
 
 | Addr       | Name                                                       | Description                                                       | R/W |
 |:-----------|------------------------------------------------------------|-------------------------------------------------------------------|-----|
+| $FF00      | [P1/JOYP][linkP1/JOYP]                                     | Joypad                                                            | R/W |
 | $FF01      | [SB][linkSB]                                               | Serial transfer data                                              | R/W |
 | $FF02      | [SC][linkSC]                                               | Serial transfer control                                           | R/W |
 | $FF04      | [DIV][linkDIV]                                             | Divider register                                                  | R/W |
