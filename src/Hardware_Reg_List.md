@@ -59,8 +59,8 @@ $FF6A      | [OCPS/OBPI]        | OBJ color palette specification / OBJ palette 
 $FF6B      | [OCPD/OBPD]        | OBJ color palette data / OBJ palette data                         | R/W                 | CGB
 $FF6C      | [OPRI]             | Object priority mode                                              | R/W                 | CGB
 $FF70      | [SVBK]             | WRAM bank                                                         | R/W                 | CGB
-$FF76      | [PCM12]            | Digital outputs 1 & 2                                             | R                   | CGB
-$FF77      | [PCM34]            | Digital outputs 3 & 4                                             | R                   | CGB
+$FF76      | [PCM12]            | Audio digital outputs 1 & 2                                       | R                   | CGB
+$FF77      | [PCM34]            | Audio digital outputs 3 & 4                                       | R                   | CGB
 $FFFF      | [IE]               | Interrupt enable                                                  | R/W                 | All
 
 [P1/JOYP]: <#FF00 — P1/JOYP: Joypad>
