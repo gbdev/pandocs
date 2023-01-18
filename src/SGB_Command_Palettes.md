@@ -85,9 +85,9 @@ The data is stored at 3000h-3FFFh in SNES memory.
 
 ## SGB Command $19 — PAL_PRI
 
-This command can set a flag that will let the game clear and prevent use of 
-the user's SGB palette choice, when it sends 1 of the above commands, except 
-PAL_TRN.
+If the player overrides the active palette set (a pre-defined or the custom one), it stays in effect until the smiley face is selected again, or the player presses the X button on their SNES controller.
+
+However, if `PAL_PRI` is enabled, then changing the palette set (via any of the above commands except `PAL_TRN`) will switch back to the game's newly-modified palette set, if it wasn't already active.
 
 _Donkey Kong_ (1994) is one known game that appears to use this.
 
