@@ -63,7 +63,7 @@
 | $FF77      | [PCM34 (CGB Mode only)][linkPCM34 (CGB Mode only)]         | Digital outputs 3 & 4                                             | R   |
 | $FFFF      | [IE][linkIE]                                               | Interrupt enable                                                  | R/W |
 
-
+[linkP1/JOYP]: ./Joypad_Input.html#ff00--p1joyp-joypad
 [linkSB]: ./Serial_Data_Transfer_(Link_Cable).html#ff01--sb-serial-transfer-data
 [linkSC]: ./Serial_Data_Transfer_(Link_Cable).html#ff02--sc-serial-transfer-control
 [linkDIV]: ./Timer_and_Divider_Registers.html#ff04--div-divider-register
