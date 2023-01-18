@@ -32,7 +32,7 @@ $FF23      | [NR44]             | Sound channel 4 control                       
 $FF24      | [NR50]             | Master volume & VIN panning                                       | R/W                 | All
 $FF25      | [NR51]             | Sound panning                                                     | R/W                 | All
 $FF26      | [NR52]             | Sound on/off                                                      | Mixed               | All
-$FF30-FF3F | [Wave pattern ram] | Wave pattern RAM                                                  | R/W                 | All
+$FF30-FF3F | [Wave RAM] | Storage for one of the sound channels' waveform | R/W                 | All
 $FF40      | [LCDC]             | LCD control                                                       | R/W                 | All
 $FF41      | [STAT]             | LCD status                                                        | Mixed               | All
 $FF42      | [SCY]              | Viewport Y position                                               | R/W                 | All
