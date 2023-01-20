@@ -29,3 +29,5 @@ Code | Name                                      | Explanation
  $16 | [ATTR_SET](<#SGB Command $16 — ATTR_SET>) | Set Data to ATF
  $17 | [MASK_EN](<#SGB Command $17 — MASK_EN>)   | Game Boy Window Mask
  $18 | [OBJ_TRN](<#SGB Command $18 — OBJ_TRN>)   | Super NES OBJ Mode
+ $19 | [PAL_PRI](<#SGB Command $19 — PAL_PRI>)   | System palette priority
+ 

@@ -82,3 +82,19 @@ The palette data is sent by VRAM-Transfer (4 KBytes).
 
 Each Palette consists of four 16-bit color definitions (8 bytes). Note:
 The data is stored at 3000h-3FFFh in SNES memory.
+
+## SGB Command $19 — PAL_PRI
+
+If the player overrides the active palette set (a pre-defined or the custom one), it stays in effect until the smiley face is selected again, or the player presses the X button on their SNES controller.
+
+However, if `PAL_PRI` is enabled, then changing the palette set (via any of the above commands except `PAL_TRN`) will switch back to the game's newly-modified palette set, if it wasn't already active.
+
+_Donkey Kong_ (1994) is one known game that appears to use this.
+
+```
+ Byte  Content
+ 0     Command*8+Length (fixed length=1)
+ 1     Palette priority when a palette packet is sent
+         Bit 0 - Priority (0=User, 1=Software)
+ 2-F   Not used (zero)
+```
