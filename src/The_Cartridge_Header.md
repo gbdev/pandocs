@@ -42,7 +42,7 @@ Parts of this area actually have a different meaning on later cartridges, reduci
 
 In older cartridges these bytes were part of the Title (see above).
 In newer cartridges they contain a 4-character manufacturer code (in uppercase ASCII).
-The purpose of the manufactorer code is unknown.
+The purpose of the manufacturer code is unknown.
 
 ## 0143 — CGB flag
 
