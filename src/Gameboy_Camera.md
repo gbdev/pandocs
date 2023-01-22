@@ -171,6 +171,97 @@ Those registers form a 4×4 matrix with 3 bytes per element. They handle ditheri
   <figcaption>Edge extraction.</figcaption>
 </figure> 
 
+## Game Boy Camera Timings
+The capture process is started when the A000 register of the Game Boy Camera cartridge is written with any value with bit 0 set to "1".
+The Game Boy Camera cartridge is one of the few cartridges that use the PHI signal (clock from the GB). That signal is a 1MHz clock (1047567 Hz). the M6438FP chip needs a clock input too, which is half the frequency of the PHI pin (0.5Mhz, 524288Hz). The reason for that is that the sensor chip sometimes handles hte signals on the rising edge of the clock, but other times on the falling edge.
+::: tip NOTE
+    This means that the GB Camrea shouldn't be used in GBC double speed mode!
+:::
+
+The time needed to capture and process an image depends on the exposure time and the value of N bit of the register 1 of the M64282FP chip.
+In GAME BOY CYLCES (1MHz):
+```
+    N_bit    = ([A001] & BIT(7)) ? 0 : 512
+    exposure = ([A002]<<8) | [A003]
+    CYCLES   = 32446 + N_bit + 16 * exposure
+```
+Divide those values by 2 to get the sensor clocks.
+### Capture process timings
+The next values are in sensor clocks. Multiply by 2 to get Game Boy cycles
+```
+    - Reset pulse.
+    - Configure sensor registers.     (11 x 8 CLKs)
+    - Wait                                  (1 CLK)
+    - Start pulse                           (1 CLK)
+    - Exposure time       (exposure_steps x 8 CLKs)
+    - Wait                                 (2 CLKs)
+    - Read start
+    - Read period        (N=1 ? 16128 : 16384 CLKs)
+    - Read end
+    - Wait                                 (3 CLKs)
+    - Reset pulse to stop the sensor
+
+    (88 + 1 + 1 + 2 + 16128 + 3 = 16223)
+
+    CLKs = 16223 + ( N_bit ? 0 : 256 ) + 8 * exposure
+```    
+Above is the previous result divided by 2.
+During the read process, every pixel is written when it is read from the sensor. If the read process is stopped,(by shutting the GB off, for example) the RAM will have contents of the current picture until the read was stopped. From there, it will have the data from the image captured before that one. The sensor transfers are 128x128 pixels, but the upper and lower rows are corrupted. the Game Boy Camera controller uses the medium rows of the sensor image. this means that it ignores the first 8 rows and the last 8 rows.
+
+The clock signal during read perioud must be the same as the one used during the exposure time, but if the clock during the read period is too slow, the sensor will continue increasing the charg values of each pixel so the image will appear to be taken with a higher exposure time. The brightness doesn't always seem to increase, however. there appears to be some kind of limit.
+
+## The Game Boy Camera sensor (M64282FP)
+the M64282FP does some processing to the captured image. First, it performs an edge control, then it does gain controll, and lastly, it deas level control. the resulting analog value is the one that can be read in the Vout pin. The sensor can capture infrared radiation, so the images can be a bit strange compared to others captured by better sensors.
+## The M64282FP registers
+
+### Register 1
+This corresponds to the register A001 of the Game Boy Camera. When shooting, the values change based on how much light there is.
+
+| Symbol      | Bits | Operation                                         |
+| ----------- | ---- | ------------------------------------------------- |
+| N           | 7    | Exclusively set vertical edge enhancement mode.   |
+| VH          | 5-6  | Select vertical/horizontal edge enhancement mode. |  
+| G           | 0-4  | Analog output gain.                               |
+
+<break><break>
+<break><break>
+
+|G3  | G2 | G1 | G0 | Gain |
+| -- | -- | -- | -- | ---- |
+| 0  | 0  | 0  | 1  | 14.0 |
+| 0  | 0  | 0  | 1  | 15.5 |
+| 0  | 0  | 1  | 0  | 17.0 |
+| 0  | 0  | 1  | 1  | 18.5 |
+| 0  | 1  | 0  | 0  | 20.0 |
+| 0  | 1  | 0  | 1  | 21.5 |
+| 0  | 1  | 1  | 0  | 23.0 |
+| 0  | 1  | 1  | 1  | 24.5 |
+| 1  | 0  | 0  | 0  | 26.0 |
+| 1  | 0  | 0  | 1  | 29.0 |
+| 1  | 0  | 1  | 0  | 32.0 |
+| 1  | 0  | 1  | 1  | 35.0 |
+| 1  | 1  | 0  | 0  | 38.0 |
+| 1  | 1  | 0  | 1  | 41.0 |
+| 1  | 1  | 1  | 0  | 45.5 |
+| 1  | 1  | 1  | 1  | 51.5 |
+
+If G4 = "1", the total gain is the previous one plus 6dB. The Game Boy Camera uses 00h, 04h, 08h, and 0Ah at 14.0dB, 20.0dB, 26.0dB, and 32dB respectively, which translate to a gain of 5.01, 10.00, 19.95, and 39.81. The Game Boy Camera seems to like to duplicate the game in each step.
+## Registers 2 and 3
+Registers 2 and 3 contain the exposure time(a 16 bit unsigned value). According to the M64282FP datasheet, each step is 16 µs. the GB needs 16 PHI clocks for every step. However, if N = "1", exposure_steps should be greater than or equal to 0030h.
+```
+    u16 exposure_steps ((Reg2)<<8) | [Reg3]
+    Step time = 1 / 1048576 Hz * 16 = 0,954 µs* 16 = 15,259 µs
+``` 
+It's a bit less than the 16 µs the datasheet says, but it's close enough. below are some example values to get acceptable pictures under various light conditions
+
+| Value | Conditions                                            |
+| ----- | ----------------------------------------------------- |
+| 0030h | Objects under direct sunlight.                        |
+| 0300h | Objects not under direct sunlight.                    |
+| 0800h | Room during the day with good light.                  |
+| 2C00h | Room at night with no light.                          |
+| 5000h | Room at night with no light, only a reading lamp .    |
+| F000h | Room at night with only a TV on in the background.    |
 
 ## Sample code for emulators
 
