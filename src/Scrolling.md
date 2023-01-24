@@ -9,18 +9,6 @@ effect immediately (see further below).
 Those specify the top-left coordinates of the visible 160×144 pixel area within the
 256×256 pixels BG map. Values in the range 0–255 may be used.
 
-## FF44 — LY: LCD Y coordinate \[read-only\]
-
-LY indicates the current horizontal line, which might be about to be drawn,
-being drawn, or just been drawn. LY can hold any value from 0 to 153, with
-values from 144 to 153 indicating the VBlank period.
-
-## FF45 — LYC: LY compare
-
-The Game Boy permanently compares the value of the LYC and LY registers.
-When both values are identical, the "LYC=LY" flag in the STAT register
-is set, and (if enabled) a STAT interrupt is requested.
-
 ## FF4A–FF4B — WY, WX: Window Y position, X position plus 7
 
 Specify the top-left coordinates of [the Window](#Window).
