@@ -1,4 +1,4 @@
-# LCD Status Registers
+# LCD Status Register
 
 ## FF44 — LY: LCD Y coordinate \[read-only\]
 
