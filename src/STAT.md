@@ -1,4 +1,4 @@
-# LCD Status Register
+# LCD Status Registers
 
 ::: tip TERMINOLOGY
 
