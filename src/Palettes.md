@@ -72,7 +72,7 @@ Bit 10-14 Blue Intensity  ($00-1F)
 ```
 
 Much like VRAM, data in palette memory cannot be read or written during the time
-when the PPU is reading from it, that is, [Mode 3](<#FF41 — STAT: LCD status>).
+when the PPU is reading from it, that is, [Mode 3](<#STAT modes>).
 
 ::: tip NOTE
 

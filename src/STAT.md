@@ -40,6 +40,8 @@ It is constantly updated.
 
 Bits 3-6 select which sources are used for [the STAT interrupt](<#INT $48 — STAT interrupt>).
 
+## STAT modes
+
 The LCD controller operates on a 2^22 Hz = 4.194 MHz dot clock. An
 entire frame is 154 scanlines = 70224 dots = 16.74 ms. On scanlines 0
 through 143, the PPU cycles through modes 2, 3, and 0 once

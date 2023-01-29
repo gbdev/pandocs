@@ -99,7 +99,7 @@ Whether the Window is displayed can be toggled using
 [LCDC bit 5](<#LCDC.5 — Window enable>). But in Non-CGB mode this bit is only
 functional as long as [LCDC bit 0](<#LCDC.0 — BG and Window enable/priority>) is set.
 Enabling the Window makes
-[Mode 3](<#FF41 — STAT: LCD status>) slightly longer on scanlines where it's visible.
+[Mode 3](<#STAT modes>) slightly longer on scanlines where it's visible.
 (See [WX and WY](<#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>)
 for the definition of "Window visibility".)
 
