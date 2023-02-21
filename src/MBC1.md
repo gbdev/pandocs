@@ -28,7 +28,7 @@ In 1 MiB and larger cartridges (that use the 2-bit second banking register for e
 
 This area may contain any of the further 16 KiB banks of the ROM. If the main 5-bit ROM banking register is 0, it reads the bank as if it was set to 1.
 
-For 1 MiB+ ROM, this means any bank that is possible to accessible via the 0000–3FFF region is not accessible in this region. i.e. banks $00/$20/$40/$60 in regular large ROM carts, or banks $00/$01/$20/$30 in MBC1m multi-game compilation carts. Instead, it automatically maps to 1 bank
+For 1 MiB+ ROM, this means any bank that is possible to accessible via the 0000–3FFF region is not accessible in this region. i.e. banks $00/$20/$40/$60 in regular large ROM carts, or banks $00/$10/$20/$30 in MBC1M multi-game compilation carts. Instead, it automatically maps to 1 bank
 higher ($01/$21/$41/$61 or $01/$11/$21/$31 respectively).
 
 ### A000–BFFF — RAM Bank 00–03, if any
