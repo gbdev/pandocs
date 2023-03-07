@@ -40,9 +40,9 @@ disable either.
 
 ### 2000-3FFF - ROM Bank Number (Write Only)
 
-Same as for MBC1, except that the whole 7 bits of the RAM Bank Number
+Same as for MBC1, except that the whole 7 bits of the ROM Bank Number
 are written directly to this address. As for the MBC1, writing a value
-of 00h, will select Bank 01h instead. All other values 01-7Fh select the
+of 00h will select Bank 01h instead. All other values 01-7Fh select the
 corresponding ROM Banks.
 
 ### 4000-5FFF - RAM Bank Number - or - RTC Register Select (Write Only)
