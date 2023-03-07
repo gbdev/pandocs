@@ -2,7 +2,7 @@
 
 Command packets (aka Register Files) are transferred from the Game Boy to
 the SNES by using P14 and P15 output lines of the JOYPAD register
-(FF00h).  These same lines are also used to select the two rows in the
+(FF00).  These same lines are also used to select the two rows in the
 Game Boy keyboard matrix (which still works).
 
 ## Transferring Bits

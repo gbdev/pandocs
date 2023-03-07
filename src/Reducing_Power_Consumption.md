@@ -89,8 +89,8 @@ buttons you want to terminate the STOP on).
 ## Disabling the Sound Controller
 
 If your program doesn't use sound at all (or during some periods) then
-write 00h to register FF26 to save 16% or more on GB power consumption.
-Sound can be turned back on by writing 80h to the same register, all
+write $00 to register FF26 to save 16% or more on GB power consumption.
+Sound can be turned back on by writing $80 to the same register, all
 sound registers must be then re-initialized. When the Game Boy is turned
 on, sound is enabled by default, and must be turned off manually when
 not used.

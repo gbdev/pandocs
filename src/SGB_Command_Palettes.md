@@ -7,13 +7,13 @@ color 1-3 (without separate color 0).
 
 ```
  Byte  Content
- 0     Command*8+Length (fixed length=01h)
+ 0     Command*8+Length (fixed length=$01)
  1-E   Color Data for 7 colors of 2 bytes (16 bits) each:
          Bit 0-4   - Red Intensity   (0-31)
          Bit 5-9   - Green Intensity (0-31)
          Bit 10-14 - Blue Intensity  (0-31)
          Bit 15    - Not used (zero)
- F     Not used (00h)
+ F     Not used ($00)
 ```
 
 This is the same RGB5 format as [Game Boy Color palette
@@ -48,7 +48,7 @@ Note: all palette numbers are little-endian.
  5-6   System Palette number for SGB Color Palette 2 (0-511)
  7-8   System Palette number for SGB Color Palette 3 (0-511)
  9     Attribute File
-         Bit 0-5 - Attribute File Number (00h-2Ch) (Used only if Bit7=1)
+         Bit 0-5 - Attribute File Number ($00-$2C) (Used only if Bit7=1)
          Bit 6   - Cancel Mask           (0=No change, 1=Yes)
          Bit 7   - Use Attribute File    (0=No, 1=Apply above ATF Number)
  A-F   Not used (zero)
@@ -81,7 +81,7 @@ The palette data is sent by VRAM-Transfer (4 KBytes).
 ```
 
 Each Palette consists of four 16-bit color definitions (8 bytes). Note:
-The data is stored at 3000h-3FFFh in SNES memory.
+The data is stored at 3000-3FFF in SNES memory.
 
 ## SGB Command $19 — PAL_PRI
 

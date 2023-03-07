@@ -160,7 +160,7 @@ Bits: X 6 5 4 3 2 1 0
 
 #### Bits 0-3: RAM Enable
 
-As per MBC1, writing $Ah to the lower 4 bits enables the external RAM, and any other value disables it.
+As per MBC1, writing $A to the lower 4 bits enables the external RAM, and any other value disables it.
 The external RAM is automatically disabled when the Game Boy is powered off or the cartridge is removed.
 
 #### Bits 4-5: RAM Bank Mask

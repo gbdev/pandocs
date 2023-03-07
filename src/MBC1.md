@@ -41,7 +41,7 @@ External RAM is often battery-backed, allowing for the storage of game data whil
 
 ## Registers
 
-All of the MBC1 registers default to 00h on power-up, which for the "ROM Bank Number" register is _treated as_ 01h.
+All of the MBC1 registers default to $00 on power-up, which for the "ROM Bank Number" register is _treated as_ $01.
 
 ### 0000–1FFF — RAM Enable (Write Only)
 
@@ -82,7 +82,7 @@ effective bank number:
 
 [^MBC1M_banking]: MBC1M has a different formula, see below
 
-These additional two bits are ignored for the bank 00→01 translation. This causes a problem — attempting to access banks 20h, 40h, and 60h only set bits in the upper 2-bit register, with the lower 5-bit register set to 00. As a result, any
+These additional two bits are ignored for the bank 00→01 translation. This causes a problem — attempting to access banks $20, $40, and $60 only set bits in the upper 2-bit register, with the lower 5-bit register set to 00. As a result, any
 attempt to address these ROM Banks will select Bank $21, $41 and $61
 instead. The only way to access banks $20, $40 or $60 at all is to enter mode 1,
 which remaps the 0000–3FFF range. This has its own problems for game

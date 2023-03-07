@@ -93,7 +93,7 @@ Used to write one or more bytes directly into SNES Work RAM.
  1     SNES Destination Address, low
  2     SNES Destination Address, high
  3     SNES Destination Address, bank number
- 4     Number of bytes to write (01h-0Bh)
+ 4     Number of bytes to write ($01-$0B)
  5     Data Byte #1
  6     Data Byte #2 (if any)
  7     Data Byte #3 (if any)
@@ -103,7 +103,7 @@ Used to write one or more bytes directly into SNES Work RAM.
 Unused bytes at the end of the packet should be set to zero, this
 function is restricted to a single packet, so that not more than 11
 bytes can be defined at once. Free Addresses in SNES memory are Bank 0
-1800h-1FFFh, Bank 7Fh 0000h-FFFFh.
+1800-1FFF, Bank $7F 0000-FFFF.
 
 ## SGB Command $10 — DATA_TRN
 
@@ -124,9 +124,9 @@ The data is sent by VRAM-Transfer (4 KBytes).
  000-FFF  Data
 ```
 
-Free Addresses in SNES memory are Bank 0 1800h-1FFFh, Bank 7Fh
-0000h-FFFFh. The transfer length is fixed at 4KBytes ???, so that
-directly writing to the free 2KBytes at 0:1800h would be a not so good
+Free Addresses in SNES memory are Bank 0 1800-1FFF, Bank $7F
+0000-FFFF. The transfer length is fixed at 4KBytes ???, so that
+directly writing to the free 2KBytes at 0:1800 would be a not so good
 idea ???
 
 ## SGB Command $12 — JUMP
