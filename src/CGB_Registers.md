@@ -82,7 +82,7 @@ bankable memory) until the transfer has completed! (The transfer should
 be paused as described below while the banks are switched)
 
 Reading from Register FF55 returns the remaining length (divided by $10,
-minus 1), a value of $0FF indicates that the transfer has completed. It
+minus 1), a value of $FF indicates that the transfer has completed. It
 is also possible to terminate an active HBlank transfer by writing zero
 to Bit 7 of FF55. In that case reading from FF55 will return how many
 \$10 "blocks" remained (minus 1) in the lower 7 bits, but Bit 7 will
