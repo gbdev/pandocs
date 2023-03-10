@@ -13,7 +13,7 @@ Game Genie codes consist of nine-digit hex numbers, formatted as
 - `H`, Unknown, maybe checksum and/or else
 
 
-The address should be located in ROM area 0000-7FFF, the adapter
+The address should be located in ROM area $0000-7FFF, the adapter
 permanently compares address/old data with address/data being read by
 the game, and replaces that data by new data if necessary. That method
 (more or less) prohibits unwanted patching of wrong memory banks.
