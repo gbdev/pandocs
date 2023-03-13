@@ -38,19 +38,19 @@ This area may contain any ROM bank (0 included). The initial mapped bank is 01.
 
 ### A000-BFFF - CAM Registers (Read/Write)
 
-Depending on the current RAM Bank Number, this memory space is used to access the cartridge RAM or the CAM registers. RAM can only be read if the capture unit is not working, it returns 00h otherwise.
+Depending on the current RAM Bank Number, this memory space is used to access the cartridge RAM or the CAM registers. RAM can only be read if the capture unit is not working, it returns $00 otherwise.
 
 ### 0000-1FFF - RAM Enable (Write Only)
 
-A value of 0Ah will enable writing to RAM, 00h will disable it. Reading from RAM or registers is always enabled. Writing to registers is always enabled. Disabled on reset.
+A value of $0A will enable writing to RAM, $00 will disable it. Reading from RAM or registers is always enabled. Writing to registers is always enabled. Disabled on reset.
 
 ### 2000-3FFF - ROM Bank Number (Write Only)
 
-Writing a value of 00-3Fh selects the corresponding ROM Bank for area 4000-7FFF.
+Writing a value of $00-$3F selects the corresponding ROM Bank for area 4000-7FFF.
 
 ### 4000-5FFF - RAM Bank Number/CAM Registers Select (Write Only)
 
-Writing a value in range for 00h-0Fh maps the corresponding external RAM Bank to memory at A000-BFFF. Writing any value with bit 4 set to '1' will select CAM registers. Usually bank 10h is used to select the registers. All registers are mirrored every 80h bytes. RAM bank 0 selected on reset.
+Writing a value in range for $00-$0F maps the corresponding external RAM Bank to memory at A000-BFFF. Writing any value with bit 4 set to '1' will select CAM registers. Usually bank $10 is used to select the registers. All registers are mirrored every $80 bytes. RAM bank 0 selected on reset.
 
 ::: tip NOTE
 
@@ -60,20 +60,20 @@ Unlike most games, the GB Camera RAM can only be written when PHI pin = '1'. It'
 
 ## I/O Registers
 
-The Game Boy Camera I/O registers are mapped to all banks with bit 4 set to '1'. The GB Camera ROM usually changes to bank 16 (10h) to use the registers.
+The Game Boy Camera I/O registers are mapped to all banks with bit 4 set to '1'. The GB Camera ROM usually changes to bank 16 ($10) to use the registers.
 
 There are 3 groups of registers:
 - The first group is composed by the trigger register A000. This register starts the capture process and returns the current status (working/capture finished).
 - The second group is composed by registers A001-A005, used to configure most parameters of the M64282FP sensor.
 - The third group is composed by 48 registers that form a 4×4 matrix. Each element of the matrix is formed by 3 bytes. This matrix is used by the controller for contrast and dithering.
 
-All registers are write-only, except the register A000. The others return 00h when read. The initial values of all registers on reset is 00h.
+All registers are write-only, except the register A000. The others return $00 when read. The initial values of all registers on reset is $00.
 
 ### Register A000
 
 The lower 3 bits of this register can be read and write. The other bits return '0'. Writing any value with bit 0 set to '1' will start the capturing process. Any write with bit 0 set to '0' is a normal write and won't trigger the capture. The value of bits 1 and 2 affects the value written to registers 4, 5 and 6 of the M64282FP, which are used in 1-D filtering mode (effects described in following chapters).
 Bit 0 of this register is also used to verify if the capturing process is finished. It returns '1' when the hardware is working and '0' if the capturing process is over.
-When the capture process is active all RAM banks will return 00h when read (and writes are ignored), but the register A000 can still be read to know when the transfer is finished.
+When the capture process is active all RAM banks will return $00 when read (and writes are ignored), but the register A000 can still be read to know when the transfer is finished.
 The capturing process can be stopped by writing a '0' to bit 0. When a '1' is written again it will continue the previous capture process with the old capture parameters, even if the registers are changed in between. If the process is stopped RAM can be read again.
 
 ### Register A001

@@ -41,8 +41,8 @@ Bank A.
 
 ### 0000-03FF — RAM Enable (Write Only)
 
-Mostly the same as for MBC1, a value of 0Ah will enable reading and
-writing to external RAM. A value of 00h will disable it.
+Mostly the same as for MBC1, a value of $0A will enable reading and
+writing to external RAM. A value of $00 will disable it.
 
 ### 0400-07FF — RAM Bank A Number (Write Only)
 

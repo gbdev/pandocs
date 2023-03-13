@@ -15,7 +15,7 @@ Contains the first 16 KiB of the ROM.
 
 ### 4000-7FFF - ROM Bank 01-7F (Read Only)
 
-Same as for MBC1, except that accessing banks 20h, 40h, and 60h is
+Same as for MBC1, except that accessing banks $20, $40, and $60 is
 supported now.
 
 ### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
@@ -34,42 +34,42 @@ single RTC Register.
 
 ### 0000-1FFF - RAM and Timer Enable (Write Only)
 
-Mostly the same as for MBC1, a value of 0Ah will enable reading and
-writing to external RAM - and to the RTC Registers! A value of 00h will
+Mostly the same as for MBC1, a value of $0A will enable reading and
+writing to external RAM - and to the RTC Registers! A value of $00 will
 disable either.
 
 ### 2000-3FFF - ROM Bank Number (Write Only)
 
 Same as for MBC1, except that the whole 7 bits of the ROM Bank Number
 are written directly to this address. As for the MBC1, writing a value
-of 00h will select Bank 01h instead. All other values 01-7Fh select the
+of $00 will select Bank $01 instead. All other values $01-$7F select the
 corresponding ROM Banks.
 
 ### 4000-5FFF - RAM Bank Number - or - RTC Register Select (Write Only)
 
-As for the MBC1s RAM Banking Mode, writing a value in range for 00h-03h
+As for the MBC1s RAM Banking Mode, writing a value in range for $00-$03
 maps the corresponding external RAM Bank (if any) into memory at
-A000-BFFF. When writing a value of 08h-0Ch, this will map the
+A000-BFFF. When writing a value of $08-$0C, this will map the
 corresponding RTC register into memory at A000-BFFF. That register could
 then be read/written by accessing any address in that area, typically
 that is done by using address A000.
 
 ### 6000-7FFF - Latch Clock Data (Write Only)
 
-When writing 00h, and then 01h to this register, the current time
+When writing $00, and then $01 to this register, the current time
 becomes latched into the RTC registers. The latched data will not change
-until it becomes latched again, by repeating the write 00h-\>01h
+until it becomes latched again, by repeating the write $00-\>$01
 procedure. This provides a way to read the RTC registers while the
 clock keeps ticking.
 
 ### The Clock Counter Registers
 
 ```
-08h  RTC S   Seconds   0-59 (0-3Bh)
-09h  RTC M   Minutes   0-59 (0-3Bh)
-0Ah  RTC H   Hours     0-23 (0-17h)
-0Bh  RTC DL  Lower 8 bits of Day Counter (0-FFh)
-0Ch  RTC DH  Upper 1 bit of Day Counter, Carry Bit, Halt Flag
+$08  RTC S   Seconds   0-59 ($00-$3B)
+$09  RTC M   Minutes   0-59 ($00-$3B)
+$0A  RTC H   Hours     0-23 ($00-$17)
+$0B  RTC DL  Lower 8 bits of Day Counter ($00-$FF)
+$0C  RTC DH  Upper 1 bit of Day Counter, Carry Bit, Halt Flag
       Bit 0  Most significant bit of Day Counter (Bit 8)
       Bit 6  Halt (0=Active, 1=Stop Timer)
       Bit 7  Day Counter Carry Bit (1=Counter Overflow)
@@ -81,7 +81,7 @@ Registers.
 ### The Day Counter
 
 The total 9 bits of the Day Counter allow counting days in range from
-0-511 (0-1FFh). The Day Counter Carry Bit becomes set when this value
+0-511 ($000-$1FF). The Day Counter Carry Bit becomes set when this value
 overflows. In that case the Carry Bit remains set until the program does
 reset it. Note that you can store an offset to the Day Counter in
 battery RAM. For example, every time you read a non-zero Day Counter,

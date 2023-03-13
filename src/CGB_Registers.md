@@ -9,17 +9,17 @@ a changed bit is noted in the chapter about the Serial/Link port.
 ## Unlocking CGB functions
 
 When using any CGB registers (including those in the Video/Link
-chapters), you must first unlock CGB features by changing byte 0143h in
-the cartridge header. Typically, use a value of 80h for games which
-support both CGB and monochrome Game Boy systems, and C0h for games which work
+chapters), you must first unlock CGB features by changing byte 0143 in
+the cartridge header. Typically, use a value of $80 for games which
+support both CGB and monochrome Game Boy systems, and $C0 for games which work
 on CGBs only. Otherwise, the CGB will operate in monochrome "Non CGB"
 compatibility mode.
 
 ## Detecting CGB (and GBA) functions
 
 CGB hardware can be detected by examining the CPU accumulator (A-register)
-directly after startup. A value of 11h indicates CGB (or GBA) hardware,
-if so, CGB functions can be used (if unlocked, see above). When A=11h,
+directly after startup. A value of $11 indicates CGB (or GBA) hardware,
+if so, CGB functions can be used (if unlocked, see above). When A=$11,
 you may also examine Bit 0 of the CPUs B-Register to separate between
 CGB (bit cleared) and GBA (bit set), by that detection it is possible to
 use "repaired" color palette data matching for GBA displays.
@@ -54,8 +54,8 @@ bits of the address are ignored (treated as zero), the upper 3 bits are
 ignored either (destination is always in VRAM).
 
 Writing to this register starts the transfer, the lower 7 bits of which
-specify the Transfer Length (divided by 10h, minus 1), that is, lengths of
-10h-800h bytes can be defined by the values 00h-7Fh. The upper bit
+specify the Transfer Length (divided by $10, minus 1), that is, lengths of
+$10-$800 bytes can be defined by the values $00-$7F. The upper bit
 indicates the Transfer Mode:
 
 ##### Bit 7 = 0 — General-Purpose DMA
@@ -67,11 +67,11 @@ blindly attempts to copy the data, even if the LCD controller is
 currently accessing VRAM. So General Purpose DMA should be used only if
 the Display is disabled, or during VBlank, or (for rather short blocks)
 during HBlank. The execution of the program continues when the transfer
-has been completed, and FF55 then contains a value of FFh.
+has been completed, and FF55 then contains a value of $FF.
 
 ##### Bit 7 = 1 — HBlank DMA
 
-The HBlank DMA transfers 10h bytes of
+The HBlank DMA transfers $10 bytes of
 data during each HBlank, that is, at LY=0-143, no data is transferred during
 VBlank (LY=144-153), but the transfer will then continue at LY=00. The
 execution of the program is halted during the separate transfers, but
@@ -81,8 +81,8 @@ block. Note that the program should not change the Destination VRAM bank
 bankable memory) until the transfer has completed! (The transfer should
 be paused as described below while the banks are switched)
 
-Reading from Register FF55 returns the remaining length (divided by 10h,
-minus 1), a value of 0FFh indicates that the transfer has completed. It
+Reading from Register FF55 returns the remaining length (divided by $10,
+minus 1), a value of $FF indicates that the transfer has completed. It
 is also possible to terminate an active HBlank transfer by writing zero
 to Bit 7 of FF55. In that case reading from FF55 will return how many
 \$10 "blocks" remained (minus 1) in the lower 7 bits, but Bit 7 will
@@ -194,7 +194,7 @@ This register allows to input and output data through the CGBs built-in
 Infrared Port. When reading data, bit 6 and 7 must be set (and obviously
 Bit 0 must be cleared — if you don't want to receive your own Game Boy's
 IR signal). After sending or receiving data you should reset the
-register to 00h to reduce battery power consumption again.
+register to $00 to reduce battery power consumption again.
 
 ```
  Bit 0:   Write Data   (0=LED Off, 1=LED On)             (Read/Write)
@@ -239,7 +239,7 @@ C000-CFFF, Bank 1-7 can be selected into the address space at D000-DFFF.
  Bit 0-2  Select WRAM Bank (Read/Write)
 ```
 
-Writing a value of 01h-07h will select Bank 1-7, writing a value of 00h
+Writing a value of $01-$07 will select Bank 1-7, writing a value of $00
 will select Bank 1 too.
 
 ## Undocumented registers

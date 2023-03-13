@@ -8,7 +8,7 @@ more rectangular screen regions.
 ```
  Byte  Content
  0     Command*8+Length (length=1..7)
- 1     Number of Data Sets (01h..12h)
+ 1     Number of Data Sets ($01..$12)
  2-7   Data Set #1
          Byte 0 - Control Code (0-7)
            Bit 0 - Change Colors inside of surrounded area     (1=Yes)
@@ -43,7 +43,7 @@ character lines.
 ```
  Byte  Content
  0     Command*8+Length (length=1..7)
- 1     Number of Data Sets (01h..6Eh) (one byte each)
+ 1     Number of Data Sets ($01..$6E) (one byte each)
  2     Data Set #1
          Bit 0-4 - Line Number    (X- or Y-coordinate, depending on bit 7)
          Bit 5-6 - Palette Number (0-3)
@@ -135,7 +135,7 @@ Used to transfer attributes from Attribute File (ATF) to Game Boy window.
 ```
  Byte  Content
  0     Command*8+Length (fixed length=1)
- 1     Attribute File Number (00-2Ch), Bit 6=Cancel Mask
+ 1     Attribute File Number ($00-$2C), Bit 6=Cancel Mask
  2-F   Not used (zero)
 ```
 

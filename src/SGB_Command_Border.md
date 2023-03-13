@@ -11,7 +11,7 @@ OBJ_TRN).
  Byte  Content
  0     Command*8+Length    (fixed length=1)
  1     Tile Transfer Destination
-         Bit 0   - Tile Numbers   (0=Tiles 00h-7Fh, 1=Tiles 80h-FFh)
+         Bit 0   - Tile Numbers   (0=Tiles $00-$7F, 1=Tiles $80-$FF)
          Bit 1   - Tile Type      (0=BG Tiles, 1=OBJ Tiles)
          Bit 2-7 - Not used (zero)
  2-F   Not used (zero)
@@ -25,7 +25,7 @@ The tile data is sent by VRAM-Transfer (4 KBytes).
 
 Each tile occupies 32 bytes (8x8 pixels, 16 colors each). When intending
 to transfer more than 128 tiles, call this function twice (once for
-tiles 00h-7Fh, and once for tiles 80h-FFh). Note: The BG/OBJ Bit seems
+tiles $00-$7F, and once for tiles $80-$FF). Note: The BG/OBJ Bit seems
 to have no effect and writes to the same VRAM addresses for both BG and
 OBJ ???
 
@@ -57,7 +57,7 @@ Each BG Map Entry consists of a 16-bit value as such:
 `VH01 PP00 NNNN NNNN```
 
 ```
- Bit 0-9   - Character Number (use only 00h-FFh, upper 2 bits zero)
+ Bit 0-9   - Character Number (use only $00-$FF, upper 2 bits zero)
  Bit 10-12 - Palette Number   (use only 4-6)
  Bit 13    - BG Priority      (use only 0)
  Bit 14    - X-Flip           (0=Normal, 1=Mirror horizontally)
@@ -123,12 +123,12 @@ This command does nothing on some SGB revisions. (SGBv2, SGB2?)
  A-F   Not used (zero)
 ```
 
-The recommended method is to "display" Game Boy BG tiles F9h..FFh from
+The recommended method is to "display" Game Boy BG tiles $F9..$FF from
 left to right as first 7 characters of the bottom-most character line of
 the Game Boy screen. As for normal 4KByte VRAM transfers, this area
 should not be scrolled, should not be overlapped by Game Boy OBJs, and
 the Game Boy BGP palette register should be set up properly. By following
-that method, SNES OAM data can be defined in the 70h bytes of the
+that method, SNES OAM data can be defined in the $70 bytes of the
 Game Boy BG tile memory at following addresses:
 
 ```
@@ -143,7 +143,7 @@ The format of SNES OAM Entries is:
   Byte 0  OBJ X-Position (0-511, MSB is separately stored, see below)
   Byte 1  OBJ Y-Position (0-255)
   Byte 2-3  Attributes (16bit)
-    Bit 0-8    Tile Number     (use only 00h-FFh, upper bit zero)
+    Bit 0-8    Tile Number     (use only $00-$FF, upper bit zero)
     Bit 9-11   Palette Number  (use only 4-7)
     Bit 12-13  OBJ Priority    (use only 3)
     Bit 14     X-Flip          (0=Normal, 1=Mirror horizontally)
