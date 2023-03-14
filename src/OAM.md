@@ -62,7 +62,7 @@ The recommended method is to write the data to a buffer in normal RAM
 
 While it is also possible to write data directly to the OAM area
 [by accessing it normally](<#OAM (memory area at $FE00-$FE9F) is accessible during Modes 0-1>),
-this only works [during the HBlank and VBlank periods](<#LCD Status Register>).
+this only works [during the HBlank and VBlank periods](<#STAT modes>).
 
 ## Object Priority and Conflicts
 

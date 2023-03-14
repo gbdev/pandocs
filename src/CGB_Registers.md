@@ -180,7 +180,7 @@ And the following will keep operating as usual:
 The CPU stops for 2050 cycles (= 8200 clocks) after the `stop` instruction is
 executed. During this time, the CPU is in a strange state. `DIV` does not tick, so
 *some* audio events are not processed. Additionally, VRAM/OAM/... locking is "frozen", yielding
-different results depending on the [STAT mode](<#FF41 — STAT: LCD status>) it's started in:
+different results depending on the [STAT mode](<#STAT modes>) it's started in:
 
 - HBlank / VBlank (Mode 0 / Mode 1): The PPU cannot access any video memory, and produces black pixels
 - OAM scan (Mode 2): The PPU can access VRAM just fine, but not OAM, leading to rendering background, but not sprites

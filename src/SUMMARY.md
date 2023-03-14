@@ -21,7 +21,7 @@
   - [OAM](./OAM.md)
     - [OAM DMA Transfer](./OAM_DMA_Transfer.md)
   - [LCD Control](./LCDC.md)
-  - [LCD Status](./STAT.md)
+  - [LCD Status Registers](./STAT.md)
   - [Scrolling](./Scrolling.md)
   - [Palettes](./Palettes.md)
   - [Pixel FIFO](./pixel_fifo.md)

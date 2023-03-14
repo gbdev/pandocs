@@ -1,10 +1,22 @@
-# LCD Status Register
+# LCD Status Registers
 
 ::: tip TERMINOLOGY
 
 A *dot* is the shortest period over which the PPU can output one pixel: is it equivalent to 1 T-state on DMG or on CGB single-speed mode or 2 T-states on CGB double-speed mode. On each dot during mode 3, either the PPU outputs a pixel or the fetcher is stalling the [FIFOs](<#Pixel FIFO>).
 
 :::
+
+## FF44 — LY: LCD Y coordinate \[read-only\]
+
+LY indicates the current horizontal line, which might be about to be drawn,
+being drawn, or just been drawn. LY can hold any value from 0 to 153, with
+values from 144 to 153 indicating the VBlank period.
+
+## FF45 — LYC: LY compare
+
+The Game Boy constantly compares the value of the LYC and LY registers.
+When both values are identical, the "LYC=LY" flag in the STAT register
+is set, and (if enabled) a STAT interrupt is requested.
 
 ## FF41 — STAT: LCD status
 
@@ -27,6 +39,8 @@ Bit 2 is set when [LY](<#FF44 — LY: LCD Y coordinate \[read-only\]>) contains 
 It is constantly updated.
 
 Bits 3-6 select which sources are used for [the STAT interrupt](<#INT $48 — STAT interrupt>).
+
+## STAT modes
 
 The LCD controller operates on a 2^22 Hz = 4.194 MHz dot clock. An
 entire frame is 154 scanlines = 70224 dots = 16.74 ms. On scanlines 0
