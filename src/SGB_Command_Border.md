@@ -48,7 +48,8 @@ The map data is sent by VRAM-Transfer (4 KBytes).
 
 ```
  000-6FF  BG Map 32x28 Entries of 16 bits each (1792 bytes)
- 700-7FF  Not used, don't care
+ 700-73F  BG Map 1x28 extra row, 32 entries of 16 bits each (64 bytes)
+ 740-7FF  Not used, don't care
  800-85F  BG Palette Data (Palettes 4-6, 16 little-endian RGB555 colors each)
  860-FFF  Not used, don't care
 ```
@@ -83,8 +84,18 @@ border defining all unique tiles would have to define this many tiles:
 
 Because the CHR RAM allocated by SGB for border holds only 256 tiles, a full-screen border must repeat at least 281 tiles and a letterboxed border at least 90.
 
+It turns out that 29 rows of the border tilemap sent through PCT_TRN are at least partly visible in some situations.
+The SGB system software sets the border layer's vertical scroll position (BG1VOFS) to 0.
+Because the S-PPU normally displays lines BGxVOFS+1 through BGxVOFS+224 of each layer, this hides the first scanline of the top row of tiles and adds one scanline of the nominally invisible 29th row at the bottom.
+Most of the time, SGB hides this extra line with forced blanking (writing $80 to INIDISP at address $012100).
+While SGB is busy doing some things, such as fading out the border's palette, it neglects to force blanking, making the line flicker on some TVs.
+
+To fully eliminate flicker, write a row of all-black tilemap entries after the bottom row of the border ($8700-$873F in VRAM in a PCT_TRN), or at least a row of tiles whose top row of pixels is blank.
+If that is not convenient, such as if a border data format doesn't guarantee an all-black tile ID, you can make the flicker less objectionable by repeating the last scanline.
+Take the bottommost row (at $86C0-$86FF in VRAM) and copy it to the extra row, flipped vertically (XOR with $8000).
+
 The Super NES supports 8 background palettes.
-The SGB system software (when run in a LLE such as Mesen-S) has been observed to use background palette 0 for the GB screen, palettes 1, 2, 3, and 7 for the menus, and palettes 4, 5, and 6 for the border.
+The SGB system software (when run in a LLE such as Mesen 2) has been observed to use background palette 0 for the GB screen, palettes 1, 2, 3, and 7 for the menus, and palettes 4, 5, and 6 for the border.
 Thus a border can use three 15-color palettes.
 
 ## SGB Command $18 — OBJ_TRN
@@ -95,10 +106,9 @@ one-shot 4KBytes VRAM transfer method. Instead, when enabled (below
 execute bit set), data is permanently (each frame) read out from the
 lower character line of the Game Boy screen. To suppress garbage on the
 display, the lower line is masked, and only the upper 20x17 characters
-of the Game Boy window are used - the masking method is unknwon - frozen,
+of the Game Boy window are used - the masking method is unknown - frozen,
 black, or recommended to be covered by the SGB border, or else ??? Also,
-when the function is enabled, "system attract mode is not performed" -
-whatever that means ???
+when the function is enabled, attract mode (built-in borders' screen saver on idle) is not performed.
 
 This command does nothing on some SGB revisions. (SGBv2, SGB2?)
 
