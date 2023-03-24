@@ -91,7 +91,7 @@ Most of the time, SGB hides this extra line with forced blanking (writing $80 to
 While SGB is busy doing some things, such as fading out the border's palette, it neglects to force blanking, making the line flicker on some TVs.
 
 To fully eliminate flicker, write a row of all-black tilemap entries after the bottom row of the border ($8700-$873F in VRAM in a PCT_TRN), or at least a row of tiles whose top row of pixels is blank.
-If that is not convenient, such as if a border data format doesn't guarantee an all-black tile ID, you can make the flicker less objectionable by repeating the last scanline.
+If that is not convenient, such as if a border data format doesn't guarantee an all-black tile ID, you can make the flicker less noticeable by repeating the last scanline.
 Take the bottommost row (at $86C0-$86FF in VRAM) and copy it to the extra row, flipped vertically (XOR with $8000).
 
 The Super NES supports 8 background palettes.
