@@ -88,7 +88,8 @@ It turns out that 29 rows of the border tilemap sent through PCT_TRN are at leas
 The SGB system software sets the border layer's vertical scroll position (BG1VOFS) to 0.
 Because the S-PPU normally displays lines BGxVOFS+1 through BGxVOFS+224 of each layer, this hides the first scanline of the top row of tiles and adds one scanline of the nominally invisible 29th row at the bottom.
 Most of the time, SGB hides this extra line with forced blanking (writing $80 to INIDISP at address $012100).
-While SGB is busy doing some things, such as fading out the border's palette, it neglects to force blanking, making the line flicker on some TVs.
+While SGB is busy processing some packets, such as fading out the border's palette or loading a new scene's palette and attributes, it neglects to force blanking, making the line flicker on some TVs.
+This can be seen even with some built-in borders.
 
 To fully eliminate flicker, write a row of all-black tilemap entries after the bottom row of the border ($8700-$873F in VRAM in a PCT_TRN), or at least a row of tiles whose top row of pixels is blank.
 If that is not convenient, such as if a border data format doesn't guarantee an all-black tile ID, you can make the flicker less noticeable by repeating the last scanline.
