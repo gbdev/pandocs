@@ -20,13 +20,13 @@ td:first-child {
       <td>CPU</td><td colspan="4">8-bit 8080-like Sharp CPU (speculated to be a SM83 core)</td>
     </tr>
     <tr>
-      <td>CPU freq</td><td colspan="2">4.194304&nbsp;MHz</td><td>Depends on revision<sup class="footnote-reference"><a href="#sgb_clk">1</a></sup></td><td>Up to 8.388608&nbsp;MHz</td>
+      <td>CPU freq</td><td colspan="2">4.194304&nbsp;MHz<sup class="footnote-reference"><a href="#dmg_clk">1</a></sup></td><td>Depends on revision<sup class="footnote-reference"><a href="#sgb_clk">2</a></sup></td><td>Up to 8.388608&nbsp;MHz</td>
     </tr>
     <tr>
-        <td>Work RAM</td><td colspan="3">8&nbsp;KiB</td><td>32&nbsp;KiB<sup class="footnote-reference"><a href="#compat">2</a></sup> (4&nbsp;+&nbsp;7&nbsp;×&nbsp;4&nbsp;KiB)</td>
+        <td>Work RAM</td><td colspan="3">8&nbsp;KiB</td><td>32&nbsp;KiB<sup class="footnote-reference"><a href="#compat">3</a></sup> (4&nbsp;+&nbsp;7&nbsp;×&nbsp;4&nbsp;KiB)</td>
     </tr>
     <tr>
-        <td>Video RAM</td><td colspan="3">8&nbsp;KiB</td><td>16&nbsp;KiB<sup class="footnote-reference"><a href="#compat">2</a></sup> (2&nbsp;×&nbsp;8&nbsp;KiB)</td>
+        <td>Video RAM</td><td colspan="3">8&nbsp;KiB</td><td>16&nbsp;KiB<sup class="footnote-reference"><a href="#compat">3</a></sup> (2&nbsp;×&nbsp;8&nbsp;KiB)</td>
     </tr>
     <tr>
         <td>Screen</td><td>LCD 4.7&nbsp;×&nbsp;4.3&nbsp;cm</td><td>LCD 4.8&nbsp;×&nbsp;4.4&nbsp;cm</td><td>CRT TV</td><td>TFT 4.4&nbsp;×&nbsp;4&nbsp;cm</td>
@@ -38,16 +38,16 @@ td:first-child {
         <td>OBJ ("sprites")</td><td colspan="4">8&nbsp;×&nbsp;8 or 8&nbsp;×&nbsp;16 ; max 40 per screen, 10 per line</td>
     </tr>
     <tr>
-        <td>Palettes</td><td colspan="2">BG: 1&nbsp;×&nbsp;4, OBJ: 2&nbsp;×&nbsp;3</td><td>BG/OBJ: 1&nbsp;+&nbsp;4&nbsp;×&nbsp;3, border: 4&nbsp;×&nbsp;15</td><td>BG: 8&nbsp;×&nbsp;4, OBJ: 8&nbsp;×&nbsp;3<sup class="footnote-reference"><a href="#compat">2</a></sup></td>
+        <td>Palettes</td><td colspan="2">BG: 1&nbsp;×&nbsp;4, OBJ: 2&nbsp;×&nbsp;3</td><td>BG/OBJ: 1&nbsp;+&nbsp;4&nbsp;×&nbsp;3, border: 4&nbsp;×&nbsp;15</td><td>BG: 8&nbsp;×&nbsp;4, OBJ: 8&nbsp;×&nbsp;3<sup class="footnote-reference"><a href="#compat">3</a></sup></td>
     </tr>
     <tr>
         <td>Colors</td><td>4 shades of green</td><td>4 shades of gray</td><td colspan="2">32768 colors (15-bit RGB)</td>
     </tr>
     <tr>
-        <td>Horizontal sync</td><td colspan="2">9.198&nbsp;KHz</td><td>Complicated<sup class="footnote-reference"><a href="#sgb_vid">3</a></sup></td><td>9.198&nbsp;KHz</td>
+        <td>Horizontal sync</td><td colspan="2">9.198&nbsp;KHz</td><td>Complicated<sup class="footnote-reference"><a href="#sgb_vid">4</a></sup></td><td>9.198&nbsp;KHz</td>
     </tr>
     <tr>
-        <td>Vertical sync</td><td colspan="2">59.73&nbsp;Hz</td><td>Complicated<sup class="footnote-reference"><a href="#sgb_vid">3</a></sup></td><td>59.73&nbsp;Hz</td>
+        <td>Vertical sync</td><td colspan="2">59.73&nbsp;Hz</td><td>Complicated<sup class="footnote-reference"><a href="#sgb_vid">4</a></sup></td><td>59.73&nbsp;Hz</td>
     </tr>
     <tr>
         <td>Sound</td><td colspan="2">4 channels with stereo output</td><td>4 GB channels + SNES audio</td><td>4 channels with stereo output</td>
@@ -57,6 +57,9 @@ td:first-child {
     </tr>
   </tbody>
 </table>
+
+[^dmg_clk]:
+DMG typically runs 50-70 PPM slower than specified. [See this page](https://github.com/jkotlinski/gbchrono) for more details.
 
 [^sgb_clk]:
 SGB1 cartridges derive the GB CPU clock from the SNES' clock, [yielding a clock speed a bit higher](<#SGB System Clock>), which differs slightly between NTSC and PAL systems.
