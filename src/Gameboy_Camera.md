@@ -178,8 +178,11 @@ The Game Boy Camera cartridge is one of the few cartridges that use the PHI sign
 That signal is a 1 MiHz clock (1047567 Hz).
 The M6438FP chip needs a clock input too, which is half the frequency of the PHI pin (0.5 Mihz, 524288Hz).
 The reason for that is that the sensor chip sometimes handles the signals on the rising edge of the clock, but other times on the falling edge.
+
 ::: tip NOTE
-    This means that the GB Camrea shouldn't be used in GBC double speed mode!
+
+This means that the GB Camera shouldn't be used in GBC double speed mode!
+
 :::
 
 The time needed to capture and process an image depends on the exposure time and the value of N bit of the register 1 of the M64282FP chip.
