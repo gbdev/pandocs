@@ -186,7 +186,8 @@ This means that the GB Camera shouldn't be used in GBC double speed mode!
 :::
 
 The time needed to capture and process an image depends on the exposure time and the value of N bit of the register 1 of the M64282FP chip.
-In GAME BOY CYLCES (1MHz):
+In GAME BOY CYCLES (1 MiHz):
+
 ```
     N_bit    = ([A001] & BIT(7)) ? 0 : 512
     exposure = ([A002]<<8) | [A003]
