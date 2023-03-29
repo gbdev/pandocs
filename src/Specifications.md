@@ -59,7 +59,7 @@ td:first-child {
 </table>
 
 [^dmg_clk]:
-Real DMG units tend to run 50-70 PPM slow. Accuracy of other models is unknown. [See this page](https://github.com/jkotlinski/gbchrono) for more details.
+Real DMG units tend to run about 50-70 PPM slow. Accuracy of other models is unknown. [See this page](https://github.com/jkotlinski/gbchrono) for more details.
 
 [^sgb_clk]:
 SGB1 cartridges derive the GB CPU clock from the SNES' clock, [yielding a clock speed a bit higher](<#SGB System Clock>), which differs slightly between NTSC and PAL systems.
