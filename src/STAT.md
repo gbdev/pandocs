@@ -68,7 +68,7 @@ Mode | Action                                                      | Duration   
   2  | Searching OAM for OBJs whose Y coordinate overlap this line | 80 dots                                               | VRAM, CGB palettes
   3  | Reading OAM and VRAM to generate the picture                | 168 to 291 dots, depending on sprite count            | None
   0  | Nothing (HBlank)                                            | 85 to 208 dots, depending on previous mode 3 duration | VRAM, OAM, CGB palettes
-  1  | Nothing (VBlank)                                            | 4560 dots (10 scanlines)                              | VRAM, OAM, CGB palettes
+  1  | Nothing (VBlank)                                            | 456 dots (10 scanlines)                               | VRAM, OAM, CGB palettes
 
 ## Properties of STAT modes
 
