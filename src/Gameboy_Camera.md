@@ -189,9 +189,9 @@ The time needed to capture and process an image depends on the exposure time and
 In GAME BOY CYCLES (1 MiHz):
 
 ```
-    N_bit    = ([A001] & BIT(7)) ? 0 : 512
-    exposure = ([A002]<<8) | [A003]
-    CYCLES   = 32446 + N_bit + 16 * exposure
+N_bit    = ([A001] & BIT(7)) ? 0 : 512
+exposure = ([A002]<<8) | [A003]
+CYCLES   = 32446 + N_bit + 16 * exposure
 ```
 Divide those values by 2 to get the sensor clocks.
 ### Capture process timings
