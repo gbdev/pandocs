@@ -264,12 +264,12 @@ It's a bit less than the 16 µs the datasheet says, but it's close enough. below
 
 | Value | Conditions                                            |
 | ----- | ----------------------------------------------------- |
-| 0030h | Objects under direct sunlight.                        |
-| 0300h | Objects not under direct sunlight.                    |
-| 0800h | Room during the day with good light.                  |
-| 2C00h | Room at night with no light.                          |
-| 5000h | Room at night with no light, only a reading lamp .    |
-| F000h | Room at night with only a TV on in the background.    |
+| $0030 | Objects under direct sunlight.                        |
+| $0300 | Objects not under direct sunlight.                    |
+| $0800 | Room during the day with good light.                  |
+| $2C00 | Room at night with no light.                          |
+| $5000 | Room at night with no light, only a reading lamp .    |
+| $F000 | Room at night with only a TV on in the background.    |
 
 ## Sample code for emulators
 
