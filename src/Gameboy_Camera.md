@@ -193,9 +193,14 @@ N_bit    = ([A001] & BIT(7)) ? 0 : 512
 exposure = ([A002]<<8) | [A003]
 CYCLES   = 32446 + N_bit + 16 * exposure
 ```
+
 Divide those values by 2 to get the sensor clocks.
+
 ### Capture process timings
-The next values are in sensor clocks. Multiply by 2 to get Game Boy cycles
+
+The next values are in sensor clocks.
+Multiply by 2 to get Game Boy cycles:
+
 ```
     - Reset pulse.
     - Configure sensor registers.     (11 x 8 CLKs)
