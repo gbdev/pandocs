@@ -21,14 +21,15 @@ interrupt is pending as the `halt` instruction is first executed.
 
 ## `halt` bug
 
-Under some circumstances, `pc` fails to be normally incremented.
+When a `halt` instruction is executed with `IME = 0` and `[IE] & [IF] != 0`, the `halt` instruction ends immediately, but [`pc` fails to be normally incremented](https://github.com/nitro2k01/little-things-gb/tree/main/double-halt-cancel).
 
-The most typical trigger, `halt` with `IME`=0 and `[IE] & [IF] != 0`, causes
-the byte after the `halt` to be read twice.
+Under most circumstances, this causes the byte after the `halt` to be read a second time (and this behaviour can repeat if said byte executes another `halt` instruction).
+But, if the `halt` is immediately followed by a jump to elsewhere, then the behaviour will be slightly different; this is possible in only one of two ways:
 
-The behavior is different when `ei` (whose effect is typically delayed by one
-instruction) is followed immediately by a `halt`, and an interrupt is pending
-as the `halt` is executed. The interrupt is serviced and the handler called,
-but the interrupt returns to the `halt`, which is executed again, and thus
+- The `halt` comes immediately after a `ei` instruction (whose effect is typically delayed by one instruction, hence `IME` still being zero for the `halt`): the interrupt is serviced and the handler called, but the interrupt returns to the `halt`, which is executed again, and thus
 waits for another interrupt.
 ([Source](https://github.com/LIJI32/SameSuite/blob/master/interrupt/ei_delay_halt.asm))
+- The `halt` is immediately followed by a `rst` instruction: the `rst` instruction's return address will point at the `rst` itself, instead of the byte after it.
+  Notably, a `ret` would return to the `rst` an execute it again.
+
+If the bugged `halt` is preceded by a `ei` and followed by a `rst`, the former "wins".
