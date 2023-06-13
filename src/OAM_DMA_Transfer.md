@@ -21,7 +21,44 @@ This is much faster than a CPU-driven copy.
 On DMG, during OAM DMA, the CPU can access only HRAM (memory at $FF80-$FFFE).
 For this reason, the programmer must copy a short procedure into HRAM, and use
 this procedure to start the transfer from inside HRAM, and wait until
-the transfer has finished:
+the transfer has finished.
+
+On CGB, the cartridge and WRAM are on separate buses.
+This means that the CPU can access ROM or cartridge SRAM during OAM DMA from WRAM, or WRAM during OAM DMA from ROM or SRAM.
+However, because a `call` writes a return address to the stack, and the stack and variables are usually in WRAM,
+it's still recommended to busy-wait in HRAM for DMA to finish even on CGB.
+
+::: warning Interrupts
+
+An interrupt writes a return address to the stack and fetches the interrupt handler's instructions from ROM.
+Thus, it's critical to prevent interrupts during OAM DMA, especially in a program that uses timer, serial, or joypad interrupts, since they are not synchronized to the LCD.
+This can be done by executing DMA within the VBlank interrupt handler or through the `di` instruction.
+
+:::
+
+While an OAM DMA is in progress, the PPU cannot read OAM properly either.
+Thus most programs execute DMA during [Mode 1](<#STAT modes>), inside or immediately after their VBlank handler.
+But it is also possible to execute it during display redraw (Modes 2 and 3),
+allowing to display more than 40 objects on the screen (that is, for
+example 40 objects in the top half, and other 40 objects in the bottom half of
+the screen), at the cost of a couple lines that lack objects.
+If the transfer is started during Mode 3, graphical glitches may happen.
+
+The details:
+
+* If OAM DMA is active during OAM scan (mode 2), most PPU revisions read each object
+  as being off-screen and thus hidden on that line.
+* If OAM DMA is active during rendering (mode 3), the PPU reads whatever 16-bit word
+  the DMA unit is writing to OAM when the object is fetched.
+  This causes an incorrect tile number and attributes for objects already determined to be in range.
+
+<!-- TODO: find Hacktix test ROM -->
+<!-- TODO: keep working on "Red from OAM", a reproducer that races the beam to overwrite tile number and attributes of objects previously seen in Mode 2 -->
+
+## Best practices
+
+This 10-byte routine starts a transfer and waits for it to finish.
+Many games copy a routine like it into HRAM and call it during Mode 1.
 
 ```rgbasm
 run_dma:
@@ -51,35 +88,6 @@ run_dma_tail:     ; This part is in HRAM
     ret
 ```
 
-On CGB, the cartridge and WRAM are on separate buses.
-This means that the CPU can access ROM or cartridge SRAM during OAM DMA from WRAM, or WRAM during OAM DMA from ROM or SRAM.
-However, because a `call` writes a return address to the stack, and the stack and variables are usually in WRAM,
-it's still recommended to busy-wait in HRAM for DMA to finish even on CGB.
-
-::: warning Interrupts
-
-An interrupt writes a return address to the stack and fetches the interrupt handler's instructions from ROM.
-Thus, it's critical to prevent interrupts during OAM DMA, especially in a program that uses timer, serial, or joypad interrupts, since they are not synchronized to the LCD.
-This can be done by executing DMA within the VBlank interrupt handler or through the `di` instruction.
-
-:::
-
-While an OAM DMA is in progress, the PPU cannot read OAM properly either.
-Thus most programs execute DMA during [Mode 1](<#STAT modes>), inside or immediately after their VBlank handler.
-But it is also possible to execute it during display redraw (Modes 2 and 3),
-allowing to display more than 40 objects on the screen (that is, for
-example 40 objects in the top half, and other 40 objects in the bottom half of
-the screen), at the cost of a couple lines that lack objects.
-It's best to start a mid-screen transfer in Mode 0 because
-if the transfer is started during Mode 3, graphical glitches may happen.
-
-The details:
-
-* If OAM DMA is active during OAM scan (mode 2), most PPU revisions read each object
-  as being off-screen and thus hidden on that line.
-* If OAM DMA is active during rendering (mode 3), the PPU reads whatever 16-bit word
-  the DMA unit is writing to OAM when the object is fetched.
-  This causes an incorrect tile number and attributes for objects already determined to be in range.
-
-<!-- TODO: find Hacktix test ROM -->
-<!-- TODO: keep working on "Red from OAM", a reproducer that races the beam to overwrite tile number and attributes of objects previously seen in Mode 2 -->
+If starting a mid-screen transfer, wait for Mode 0 first
+so that the transfer cleanly overlaps Mode 2 on the next two lines,
+making objects invisible on those lines.
