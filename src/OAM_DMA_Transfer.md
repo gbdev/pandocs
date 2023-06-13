@@ -19,8 +19,8 @@ This is much faster than a CPU-driven copy.
 ## OAM DMA bus conflicts
 
 On DMG, during OAM DMA, the CPU can access only HRAM (memory at $FF80-$FFFE).
-For this reason, the programmer must copy a short procedure into HRAM, and use
-this procedure to start the transfer from inside HRAM, and wait until
+For this reason, the programmer must copy a short procedure (see below) into HRAM, and use
+this procedure to start the transfer **from inside HRAM**, and wait until
 the transfer has finished.
 
 On CGB, the cartridge and WRAM are on separate buses.
@@ -37,7 +37,7 @@ This can be done by executing DMA within the VBlank interrupt handler or through
 :::
 
 While an OAM DMA is in progress, the PPU cannot read OAM properly either.
-Thus most programs execute DMA during [Mode 1](<#STAT modes>), inside or immediately after their VBlank handler.
+Thus, most programs execute DMA during [Mode 1](<#STAT modes>), inside or immediately after their VBlank handler.
 But it is also possible to execute it during display redraw (Modes 2 and 3),
 allowing to display more than 40 objects on the screen (that is, for
 example 40 objects in the top half, and other 40 objects in the bottom half of
@@ -88,6 +88,6 @@ run_dma_tail:     ; This part is in HRAM
     ret
 ```
 
-If starting a mid-screen transfer, wait for Mode 0 first
+If starting a mid-frame transfer, wait for Mode 0 first
 so that the transfer cleanly overlaps Mode 2 on the next two lines,
 making objects invisible on those lines.
