@@ -36,13 +36,16 @@ This means that the CPU can access ROM or cartridge SRAM during OAM DMA from WRA
 However, because a `call` writes a return address to the stack, and the stack and variables are usually in WRAM,
 it's still recommended to busy-wait in HRAM for DMA to finish even on CGB.
 
-Caution: An interrupt writes a return address to the stack and fetches the interrupt handler's instructions from ROM.
-This means it's critical to prevent interrupts during OAM DMA,
-especially in a program that uses timer, serial, or joypad interrupts, which are not synchronized to the LCD.
+::: warning Interrupts
+
+An interrupt writes a return address to the stack and fetches the interrupt handler's instructions from ROM.
+Thus, it's critical to prevent interrupts during OAM DMA, especially in a program that uses timer, serial, or joypad interrupts, since they are not synchronized to the LCD.
 This can be done by executing DMA within the VBlank interrupt handler or through the `di` instruction.
 
+:::
+
 While an OAM DMA is in progress, the PPU cannot read OAM properly either.
-Thus most programs execute DMA in Mode 1, inside or immediately after their VBlank handler.
+Thus most programs execute DMA during [Mode 1](<#STAT modes>), inside or immediately after their VBlank handler.
 But it is also possible to execute it during display redraw (Modes 2 and 3),
 allowing to display more than 40 objects on the screen (that is, for
 example 40 objects in the top half, and other 40 objects in the bottom half of
