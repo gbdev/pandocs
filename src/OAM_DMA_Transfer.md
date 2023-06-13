@@ -41,17 +41,14 @@ This means it's critical to prevent interrupts during OAM DMA,
 especially in a program that uses timer, serial, or joypad interrupts, which are not synchronized to the LCD.
 This can be done by executing DMA within the VBlank interrupt handler or through the `di` instruction.
 
-While an OAM DMA is in progress, the PPU reads $FF from OAM.
-This corresponds to an object that is both vertically and horizontally out of range,
-causing objects not to be displayed while the transfer is in progress.
-Thus most programs execute DMA in Mode 1, inside or immediately after their VBlank
-handler. But it is also possible to execute it during display redraw (Modes 2 and 3),
+While an OAM DMA is in progress, the PPU cannot read OAM properly either.
+Thus most programs execute DMA in Mode 1, inside or immediately after their VBlank handler.
+But it is also possible to execute it during display redraw (Modes 2 and 3),
 allowing to display more than 40 objects on the screen (that is, for
 example 40 objects in the top half, and other 40 objects in the bottom half of
 the screen), at the cost of a couple lines that lack objects.
 It's best to start a mid-screen transfer in Mode 0 because
 if the transfer is started during Mode 3, graphical glitches may happen.
-<!-- TODO: reproducer for glitches being related to the PPU reading tile $FF for objects previously seen in Mode 2 -->
 
 A more compact procedure is
 
@@ -70,4 +67,14 @@ run_dma_tail:     ; This part is in HRAM
 ```
 
 This saves 5 bytes of HRAM, but is slightly slower in most cases due to
-the jump into the HRAM part.
+the jump to the tail in HRAM.
+
+The details:
+
+* If OAM DMA is active during OAM scan (mode 2), most PPU revisions read each object
+  as being off-screen and thus hidden on that line.
+* If OAM DMA is active during rendering (mode 3), the PPU reads whatever 16-bit word
+  the DMA unit is writing to OAM when the object is fetched.
+  This causes an incorrect tile number and attributes for objects already determined to be in range.
+
+<!-- TODO: keep working on "Red from OAM", a reproducer that races the beam to overwrite tile number and attributes of objects previously seen in Mode 2 -->
