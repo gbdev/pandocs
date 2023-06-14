@@ -46,8 +46,8 @@ dynamically controlling the SCX/SCY registers ($FF43/$FF42) to [perform
 special video effects](https://github.com/gb-archive/DeadCScroll).
 
 Example application: set LYC to WY, enable LY=LYC interrupt, and have
-the handler disable sprites. This can be used if you use the window for
-a text box (at the bottom of the screen), and you want sprites to be
+the handler disable objects. This can be used if you use the window for
+a text box (at the bottom of the screen), and you want objects (sprites) to be
 hidden by the text box.
 
 ## INT $50 — Timer interrupt

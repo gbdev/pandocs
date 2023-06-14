@@ -20,7 +20,7 @@ being originally stored at 8000-8FFF in Game Boy memory.
 The above method works only when recursing the following things: BG Map
 must display unsigned characters $00-$FF on the screen; $00..$13 in
 first line, $14..$27 in next line, etc. The Game Boy display must be
-enabled, the display may not be scrolled, OBJ sprites should not overlap
+enabled, the display may not be scrolled, objects (sprites) should not overlap
 the background tiles, the BGP palette register must be set to $E4.
 
 ## Transfer Time

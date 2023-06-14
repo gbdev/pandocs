@@ -11,11 +11,11 @@ A000        | BFFF      | 8 KiB External RAM                                    
 C000        | CFFF      | 4 KiB Work RAM (WRAM)                                            |
 D000        | DFFF      | 4 KiB Work RAM (WRAM)                                            | In CGB mode, switchable bank 1\~7
 E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                  | Nintendo says use of this area is prohibited.
-FE00        | FE9F      | [Sprite attribute table (OAM)](<#VRAM Sprite Attribute Table (OAM)>) |
+FE00        | FE9F      | [Object attribute memory (OAM)](<#VRAM Sprite Attribute Table (OAM)>) |
 FEA0        | FEFF      | Not Usable                                                       | Nintendo says use of this area is prohibited
 FF00        | FF7F      | [I/O Registers](<#I/O Ranges>)                                   |
 FF80        | FFFE      | High RAM (HRAM)                                                  |
-FFFF        | FFFF      | [Interrupt](#Interrupts) Enable register (IE)                   |
+FFFF        | FFFF      | [Interrupt](#Interrupts) Enable register (IE)                    |
 
 ## Jump Vectors in first ROM bank
 

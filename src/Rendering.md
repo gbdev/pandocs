@@ -16,14 +16,14 @@ and some others to higher abstractions concepts.
 
 Similarly to other retro systems, pixels are not manipulated
 individually, as this would be expensive CPU-wise. Instead, pixels are grouped
-in 8x8 squares, called _tiles_ (or sometimes "patterns"), often considered as
+in 8x8 squares, called _tiles_ (or sometimes "patterns" or "characters"), often considered as
 the base unit in Game Boy graphics.
 
 A tile does not encode color information. Instead, a tile assigns a
 _color ID_ to each of its pixels, ranging from 0 to 3. For this reason,
 Game Boy graphics are also called _2bpp_ (2 bits per pixel). When a tile is used
 in the Background or Window, these color IDs are associated with a _palette_. When
-a tile is used in an OBJ, the IDs 1 to 3 are associated with a palette, but
+a tile is used in an object, the IDs 1 to 3 are associated with a palette, but
 ID 0 means transparent.
 
 ## Palettes
@@ -59,7 +59,7 @@ It is fairly limited: it has no transparency, it's always a
 rectangle and only the position of the top-left pixel can be controlled.
 
 Possible usage include a fixed status bar in an otherwise scrolling game (e.g.
-_Super Mario Bros. 3_).
+_Super Mario Land 2_).
 
 ### Objects
 
@@ -82,4 +82,4 @@ To summarise:
 
 - **Tile**, an 8x8-pixel chunk of graphics.
 - **Object**, an entry in object attribute memory, composed of 1 or 2
-  tiles. Independent of the background.
+  tiles. Can be moved independently of the background.

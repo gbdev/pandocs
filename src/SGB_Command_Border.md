@@ -17,7 +17,7 @@ OBJ_TRN).
  2-F   Not used (zero)
 ```
 
-The tile data is sent by VRAM-Transfer (4 KBytes).
+The tile data is sent by VRAM transfer (4 KiB).
 
 ```
  000-FFF  Bitmap data for 128 Tiles
@@ -44,7 +44,7 @@ transferred by using the CHR_TRN function.
  1-F   Not used (zero)
 ```
 
-The map data is sent by VRAM-Transfer (4 KBytes).
+The map data is sent by VRAM transfer (4 KiB).
 
 ```
  000-6FF  BG Map 32x28 Entries of 16 bits each (1792 bytes)
@@ -101,13 +101,13 @@ Thus a border can use three 15-color palettes.
 
 ## SGB Command $18 — OBJ_TRN
 
-Used to transfer OBJ attributes to SNES OAM memory. Unlike all other
+Used to start transferring object attributes to SNES object attribute memory (OAM). Unlike all other
 functions with the ending \_TRN, this function does not use the usual
-one-shot 4KBytes VRAM transfer method. Instead, when enabled (below
-execute bit set), data is permanently (each frame) read out from the
+one-time 4 KiB VRAM transfer method. Instead, when enabled (below
+execute bit set to 1), data is continuously (each frame) read out from the
 lower character line of the Game Boy screen. To suppress garbage on the
 display, the lower line is masked, and only the upper 20x17 characters
-of the Game Boy window are used - the masking method is unknown - frozen,
+of the Game Boy screen are used - the masking method is unknown - frozen,
 black, or recommended to be covered by the SGB border, or else ??? Also,
 when the function is enabled, attract mode (built-in borders' screen saver on idle) is not performed.
 
@@ -136,8 +136,8 @@ This command does nothing on some SGB revisions. (SGBv2, SGB2?)
 
 The recommended method is to "display" Game Boy BG tiles $F9..$FF from
 left to right as first 7 characters of the bottom-most character line of
-the Game Boy screen. As for normal 4KByte VRAM transfers, this area
-should not be scrolled, should not be overlapped by Game Boy OBJs, and
+the Game Boy screen. As for normal 4 KiB VRAM transfers, this area
+should not be scrolled, should not be overlapped by Game Boy objects, and
 the Game Boy BGP palette register should be set up properly. By following
 that method, SNES OAM data can be defined in the $70 bytes of the
 Game Boy BG tile memory at following addresses:
@@ -148,21 +148,33 @@ Game Boy BG tile memory at following addresses:
  8FF6-8FFF  Not used, don't care (10 bytes)
 ```
 
-The format of SNES OAM Entries is:
+The format of SNES OAM entries is that of the SNES PPU, as described in
+the [OAM section of Fullsnes](https://problemkaputt.de/fullsnes.htm#snesppuspritesobjs).
+Notice that X and Y are swapped compared to GB PPU OAM entries,
+and byte 3 is shifted left by 1 bit compared to GB and GBC OAM.
 
 ```
   Byte 0  OBJ X-Position (0-511, MSB is separately stored, see below)
   Byte 1  OBJ Y-Position (0-255)
-  Byte 2-3  Attributes (16bit)
-    Bit 0-8    Tile Number     (use only $00-$FF, upper bit zero)
-    Bit 9-11   Palette Number  (use only 4-7)
-    Bit 12-13  OBJ Priority    (use only 3)
-    Bit 14     X-Flip          (0=Normal, 1=Mirror horizontally)
-    Bit 15     Y-Flip          (0=Normal, 1=Mirror vertically)
+  Byte 2  Tile Number
+  Byte 3  Attributes
+    Bit 7    Y-Flip (0=Normal, 1=Mirror Vertically)
+    Bit 6    X-Flip (0=Normal, 1=Mirror Horizontally)
+    Bit 5-4  Priority relative to BG (use only 3 on SGB)
+    Bit 3-1  Palette Number (4-7)
+    Bit 0    Tile Page (use only 0 on SGB)
 ```
 
-The format of SNES OAM MSB Entries is:
+The format of SNES OAM MSB Entries packs 2 bits for each of 4 objects
+into one byte.
 
-Actually, the format is unknown ??? However, 2 bits are used per entry:
-One bit is the most significant bit of the OBJ X-Position.
-The other bit specifies the OBJ size (8x8 or 16x16 pixels).
+```
+  Bit7    OBJ 3 OBJ Size     (0=Small, 1=Large)
+  Bit6    OBJ 3 X-Coordinate (upper 1bit)
+  Bit5    OBJ 2 OBJ Size     (0=Small, 1=Large)
+  Bit4    OBJ 2 X-Coordinate (upper 1bit)
+  Bit3    OBJ 1 OBJ Size     (0=Small, 1=Large)
+  Bit2    OBJ 1 X-Coordinate (upper 1bit)
+  Bit1    OBJ 0 OBJ Size     (0=Small, 1=Large)
+  Bit0    OBJ 0 X-Coordinate (upper 1bit)
+```

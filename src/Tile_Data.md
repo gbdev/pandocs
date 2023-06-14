@@ -5,10 +5,12 @@ Tile data is stored in VRAM in the memory area at \$8000-$97FF; with each tile
 taking 16 bytes, this area defines data for 384 tiles. In CGB Mode,
 this is doubled (768 tiles) because of the two VRAM banks.
 
-Each tile has 8x8 pixels and has a color depth of 4 colors/gray
+Each tile (or character) has 8x8 pixels and has a color depth of
+2 bits per pixel, allowing each pixel to use one of 4 colors or gray
 shades. Tiles can be displayed as part of the Background/Window maps,
-and/or as OBJ tiles (foreground sprites). Note that OBJs
-don't use color 0 - it's transparent instead.
+and/or as objects (movable sprites).  Color 0 has a special meaning
+in objects - it's transparent, allowing the background or other
+objects behind it to show through.
 
 There are three "blocks" of 128 tiles each:
 
@@ -20,7 +22,7 @@ There are three "blocks" of 128 tiles each:
       <th colspan="3">Corresponding Tile IDs</th>
     </tr>
     <tr>
-      <td>OBJs</td>
+      <td>Objects</td>
       <td>BG/Win if LCDC.4=1</td>
       <td>BG/Win if LCDC.4=0</td>
     </tr>
@@ -63,7 +65,7 @@ are in block 2, and tiles -128 to -1 are in block 1, or to put it differently,
 and tiles 128-255 from block 1. (You can notice that block 1 is shared
 by both addressing methods)
 
-Sprites always use "$8000 addressing", but the BG and Window can use either
+Objects always use "$8000 addressing", but the BG and Window can use either
 mode, controlled by [LCDC bit 4](<#LCDC.4 — BG and Window tile data area>).
 
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
