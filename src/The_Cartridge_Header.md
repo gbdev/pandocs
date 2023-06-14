@@ -134,6 +134,7 @@ Code | Publisher
 `96` | Yonezawa/s'pal
 `97` | Kaneko
 `99` | Pack in soft
+`9H` | Bottom Up
 `A4` | Konami (Yu-Gi-Oh!)
 
 ## 0146 — SGB flag
