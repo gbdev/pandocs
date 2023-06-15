@@ -14,17 +14,17 @@ $FF0F      | [IF]        | Interrupt flag                                       
 $FF10      | [NR10]      | Sound channel 1 sweep                                             | R/W                 | All
 $FF11      | [NR11]      | Sound channel 1 length timer & duty cycle                         | Mixed               | All
 $FF12      | [NR12]      | Sound channel 1 volume & envelope                                 | R/W                 | All
-$FF13      | [NR13]      | Sound channel 1 wavelength low                                    | W                   | All
-$FF14      | [NR14]      | Sound channel 1 wavelength high & control                         | Mixed               | All
+$FF13      | [NR13]      | Sound channel 1 period low                                        | W                   | All
+$FF14      | [NR14]      | Sound channel 1 period high & control                             | Mixed               | All
 $FF16      | [NR21]      | Sound channel 2 length timer & duty cycle                         | Mixed               | All
 $FF17      | [NR22]      | Sound channel 2 volume & envelope                                 | R/W                 | All
-$FF18      | [NR23]      | Sound channel 2 wavelength low                                    | W                   | All
-$FF19      | [NR24]      | Sound channel 2 wavelength high & control                         | Mixed               | All
+$FF18      | [NR23]      | Sound channel 2 period low                                        | W                   | All
+$FF19      | [NR24]      | Sound channel 2 period high & control                             | Mixed               | All
 $FF1A      | [NR30]      | Sound channel 3 DAC enable                                        | R/W                 | All
 $FF1B      | [NR31]      | Sound channel 3 length timer                                      | W                   | All
 $FF1C      | [NR32]      | Sound channel 3 output level                                      | R/W                 | All
-$FF1D      | [NR33]      | Sound channel 3 wavelength low                                    | W                   | All
-$FF1E      | [NR34]      | Sound channel 3 wavelength high & control                         | Mixed               | All
+$FF1D      | [NR33]      | Sound channel 3 period low                                        | W                   | All
+$FF1E      | [NR34]      | Sound channel 3 period high & control                             | Mixed               | All
 $FF20      | [NR41]      | Sound channel 4 length timer                                      | W                   | All
 $FF21      | [NR42]      | Sound channel 4 volume & envelope                                 | R/W                 | All
 $FF22      | [NR43]      | Sound channel 4 frequency & randomness                            | R/W                 | All
@@ -74,8 +74,8 @@ $FFFF      | [IE]        | Interrupt enable                                     
 [NR10]: <#FF10 — NR10: Channel 1 sweep>
 [NR11]: <#FF11 — NR11: Channel 1 length timer & duty cycle>
 [NR12]: <#FF12 — NR12: Channel 1 volume & envelope>
-[NR13]: <#FF13 — NR13: Channel 1 wavelength low \[write-only\]>
-[NR14]: <#FF14 — NR14: Channel 1 wavelength high & control>
+[NR13]: <#FF13 — NR13: Channel 1 period low \[write-only\]>
+[NR14]: <#FF14 — NR14: Channel 1 period high & control>
 [NR21]: <#Sound Channel 2 — Pulse>
 [NR22]: <#Sound Channel 2 — Pulse>
 [NR23]: <#Sound Channel 2 — Pulse>
@@ -83,8 +83,8 @@ $FFFF      | [IE]        | Interrupt enable                                     
 [NR30]: <#FF1A — NR30: Channel 3 DAC enable>
 [NR31]: <#FF1B — NR31: Channel 3 length timer \[write-only\]>
 [NR32]: <#FF1C — NR32: Channel 3 output level>
-[NR33]: <#FF1D — NR33: Channel 3 wavelength low \[write-only\]>
-[NR34]: <#FF1E — NR34: Channel 3 wavelength high & control>
+[NR33]: <#FF1D — NR33: Channel 3 period low \[write-only\]>
+[NR34]: <#FF1E — NR34: Channel 3 period high & control>
 [NR41]: <#FF20 — NR41: Channel 4 length timer \[write-only\]>
 [NR42]: <#FF21 — NR42: Channel 4 volume & envelope>
 [NR43]: <#FF22 — NR43: Channel 4 frequency & randomness>

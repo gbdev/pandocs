@@ -123,7 +123,7 @@ Note that the envelope functionality changes the volume, but not the value store
 If a DAC is enabled, the digital range $0 to $F is linearly translated to the analog range -1 to 1, in arbitrary units.
 Importantly, the slope is negative: "digital 0" maps to "analog 1", not "analog -1".
 
-If a DAC is disabled, it fades to an analog value of 0.
+If a DAC is disabled, it fades to an analog value of 0, which corresponds to "digital 7.5".
 The nature of this fade is not entirely deterministic and varies between models.
 
 NR52's low 4 bits report whether the channels are turned on, not their DACs.
@@ -141,7 +141,7 @@ A channel can be deactivated in one of the following ways:
 ### Pulse channels (CH1, CH2)
 
 Each pulse channel has an internal "duty step" counter, which is used to index into [the selected waveform](<#FF11 — NR11: Channel 1 length timer & duty cycle>) (each background stripe corresponds to one "duty step")[^pulse_lut].
-The "duty step" increments at 8 times [the channel's frequency](<#FF13 — NR13: Channel 1 wavelength low \[write-only\]>)).
+The "duty step" increments at the channel's sample rate, which is 8 times [the channel's frequency](<#FF13 — NR13: Channel 1 period low \[write-only\]>)).
 
 The "duty step" counter cannot be reset, except by turning the APU off, which sets both back to 0.
 Retriggering a pulse channel causes its "duty step timer" to reset, thus retriggering a pulse channel often enough will cause its "duty step" to never advance.
@@ -154,7 +154,8 @@ Actually, there is not LUT, but the manipulations done to the counter's bits are
 ### Wave channel (CH3)
 
 CH3 has an internal "sample index" counter.
-Each time it is ticked (as determined by the "wavelength" in NR33/NR34), that "sample index" is incremented, and then the corresponding "sample" (nibble) is read from wave RAM.
+The "sample index" increments at the channel's sample rate, which is 32 times [the channel's frequency](<#FF1D — NR33: Channel 3 period low \[write-only\]>
+Each time it increments, the corresponding "sample" (nibble) is read from wave RAM.
 (This means that sample #0 is skipped when first starting up CH3.)
 
 CH3 does not emit samples directly, but stores every sample read into a buffer, and emits that continuously; (re)triggering the channel does *not* clear nor refresh this buffer, so the last sample ever read will be emitted again.
@@ -169,7 +170,7 @@ This only matters when changing the setting mid-playback: the digital values bei
 {{#include imgs/ch4_lfsr.svg:2:}}
 
 CH4 revolves around a [LFSR](https://en.wikipedia.org/wiki/Linear-feedback_shift_register), pictured above.
-The LFSR is 16-bit internally, but really acts as if it was 15-bit.
+The LFSR has 16 bits: 15 bits for its current state and 1 bit to temporarily store the next bit to shift in.
 
 When CH4 is ticked (at the frequency specified via [`NR43`](<#FF22 — NR43: Channel 4 frequency & randomness>)):
 1. The result of <math><menclose notation="top"><msub><mi>LFSR</mi><mn>0</mn></msub> <mo>⊕</mo> <msub><mi>LFSR</mi><mn>1</mn></msub></menclose></math> (`1` if bit 0 and bit 1 are identical, `0` otherwise) is written to bit 15.
