@@ -75,11 +75,11 @@ When the length timer reaches 64, the channel is turned off.
 ### Frequency
 
 Music notes and audio waves are typically manipulated in terms of **frequency**[^pitch], i.e. how often the signal repeats per second.
-However, as explained above, the Game Boy APU primarily works with durations; thus, **wavelengths** will be used instead of frequency.[^len_raw]
+However, as explained above, the Game Boy APU primarily works with durations; thus, **periods** will be used instead of frequency.[^len_raw]
 
 ::: warning
 
-The term "wavelength" throughout this document does *not* designate the inverse of the frequency, but instead a quantity akin to it.
+The terms "period" and "period value" throughout this document refer to a parameter that has a somewhat nonintuitive relationship with frequency.
 See the description of each NRx3 register for more information.
 
 :::
@@ -105,4 +105,4 @@ There is also **pitch**, which is merely a measure of how we perceive frequency.
 The higher the frequency, the higher the pitch; therefore, pitch will be omitted from the rest of the document.
 
 [^len_raw]:
-Actually, the APU interfaces don't work with any wavelengths either, but with values that are more akin to wavelengths than frequencies.
+Actually, the APU interfaces don't work strictly with periods, but with values that can be thought of as *negative* periods.

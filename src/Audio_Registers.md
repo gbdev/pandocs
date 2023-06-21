@@ -7,8 +7,8 @@ As a rule of thumb, for any `x` in `1`, `2`, `3`, `4`:
 - `NRx0` is some channel-specific feature (if present),
 - `NRx1` controls the length timer,
 - `NRx2` controls the volume and envelope,
-- `NRx3` controls the wavelength (maybe only partially),
-- `NRx4` has the channel's trigger and length timer enable bits;
+- `NRx3` controls the period (maybe only partially),
+- `NRx4` has the channel's trigger and length timer enable bits, as well as any leftover bits of period;
 
 ...but there are some exceptions.
 
@@ -35,7 +35,7 @@ Writing to those does NOT enable or disable the channels, despite many emulators
 A channel is turned on by triggering it (i.e. setting bit 7 of `NRx4`)[^dac_off].
 A channel is turned off when any of the following occurs:
 - The channel's length timer, if enabled in `NRx4`, expires
-- For CH1: when the wavelength sweep overflows[^freq_sweep_underflow]
+- For CH1: when the period sweep overflows[^freq_sweep_underflow]
 - [The channel's DAC](#DACs) is turned off
 
 The envelope reaching a volume of 0 does NOT turn the channel off!
@@ -50,7 +50,7 @@ Actually, the low nibble of NR52 only reports whether the channels' *generation*
 If [the DAC](#DACs) is off, then the write to NRx4 will be ineffective and won't turn the channel on.
 
 [^freq_sweep_underflow]:
-The wavelength sweep cannot normally underflow, so a "decreasing" sweep (`NR10` bit 3 set) won't turn the channel off.
+The period sweep cannot normally underflow, so a "decreasing" sweep (`NR10` bit 3 set) won't turn the channel off.
 
 ### FF25 — NR51: Sound panning
 
@@ -82,38 +82,38 @@ Bit 3   - Mix VIN into right output (1=Enable)
 Bit 2-0 - Right output volume       (0-7)
 ```
 
-## Sound Channel 1 — Pulse with wavelength sweep
+## Sound Channel 1 — Pulse with period sweep
 
 ### FF10 — NR10: Channel 1 sweep
 
-This register controls CH1's wavelength sweep functionality.
+This register controls CH1's period sweep functionality.
 
 ```
 Bit 6-4 - Sweep pace
 Bit 3   - Sweep increase/decrease
-           0: Addition    (wavelength increases)
-           1: Subtraction (wavelength decreases)
+           0: Addition    (period increases)
+           1: Subtraction (period decreases)
 Bit 2-0 - Sweep slope control (n: 0-7)
 ```
 
-The <var>sweep pace</var> dictates how often the wavelength gets changed, in units of 128 Hz ticks[^div_apu] (7.8 ms).
+The <var>sweep pace</var> dictates how often the period gets changed, in units of 128 Hz ticks[^div_apu] (7.8 ms).
 The pace is only reloaded after the following sweep iteration, or when (re)triggering the channel.
 However, if bits 4–6 are all set to 0, then iterations are instantly disabled, and the pace will be reloaded immediately if it's set to something else.
 
-On each sweep iteration, the wavelength in [`NR13`](<#FF13 — NR13: Channel 1 wavelength low \[write-only\]>) and [`NR14`](<#FF14 — NR14: Channel 1 wavelength high & control>) is modified and written back.
+On each sweep iteration, the period in [`NR13`](<#FF13 — NR13: Channel 1 period low \[write-only\]>) and [`NR14`](<#FF14 — NR14: Channel 1 period high & control>) is modified and written back.
 That is, unless <var>n</var> (the slope) is 0, in which case iterations do nothing (in this case, subtraction mode should be set, see below).
 
-On each tick, the new wavelength <math><msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></math> is computed from the current one <math><msub><mi>L</mi><mi>t</mi></msub></math> as follows:
+On each tick, the new period <math><msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></math> is computed from the current one <math><msub><mi>L</mi><mi>t</mi></msub></math> as follows:
 
 <math display="block">
   <msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub> <mo>=</mo> <msub><mi>L</mi><mi>t</mi></msub> <mo>±</mo> <mfrac><msub><mi>L</mi><mi>t</mi></msub><msup><mn>2</mn><mi>n</mi></msup></mfrac>
 </math>
 
-In addition mode, if the wavelength would overflow (i.e. <math><msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></math> is strictly more than $7FF), the channel is turned off instead.
+In addition mode, if the period value would overflow (i.e. <math><msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></math> is strictly more than $7FF), the channel is turned off instead.
 **This occurs even if sweep iterations are disabled** by <var>n</var> = 0.
 
-Note that if the wavelength ever becomes 0, the wavelength sweep will never be able to change it.
-For the same reason, the wavelength sweep cannot underflow the wavelength (which would turn the channel off).
+Note that if the period ever becomes 0, the period sweep will never be able to change it.
+For the same reason, the period sweep cannot underflow the period (which would turn the channel off).
 
 [^div_apu]:
 [As long as `DIV` is not written to](#DIV-APU).
@@ -121,7 +121,7 @@ For the same reason, the wavelength sweep cannot underflow the wavelength (which
 ### FF11 — NR11: Channel 1 length timer & duty cycle
 
 This register controls both the channel's [length timer](<#Length timer>) and [duty cycle](https://en.wikipedia.org/wiki/Duty_cycle) (the ratio of the time spent low vs. high).
-However, the selected duty cycle also alters the phase, although the effect is hardly noticeable.
+The selected duty cycle also alters the phase, although the effect is hardly noticeable except in combination with other channels.
 
 ```
 Bit 7-6 - Wave duty            (Read/Write)
@@ -169,21 +169,44 @@ The envelope ticks at 64 Hz, and the channel's envelope will be increased / decr
 
 Writes to this register while the channel is on require retriggering it afterwards.
 
-### FF13 — NR13: Channel 1 wavelength low \[write-only\]
+### FF13 — NR13: Channel 1 period low \[write-only\]
 
-This register stores the low 8 bits of the channel's 11-bit "[wavelength](<#Frequency>)".
+This register stores the low 8 bits of the channel's 11-bit "[period value](<#Frequency>)".
 The upper 3 bits are stored in the low 3 bits of `NR14`.
 
-The actual signal frequency is <math><mfrac><mn>131072</mn><mrow><mn>2048</mn><mo>-</mo><mi>wavelen</mi></mrow></mfrac></math> Hz: the higher the value, the higher the frequency.
-This is the whole wave's frequency; the rate at which the channel steps through the 8 "steps" in its wave form is 8× that, i.e. <math><mfrac><mn>1048576</mn><mrow><mn>2048</mn><mo>-</mo><mi>wavelen</mi></mrow></mfrac></math> Hz = <math><mfrac><mn>1</mn><mrow><mn>2048</mn><mo>-</mo><mn>wavelen</mn></mrow></mfrac></math> MiHz.
+The period divider of pulse and wave channels is an up counter.
+It adds one to the counter value each time it is clocked.
+When the value reaches the maximum (2048 or $800), it reloads the counter value from the channel's period register.
+This means it treats the value in the period as a *negative* number in 11-bit two's complement.
+The higher the period value in the register, the lower the period, and the higher the frequency.
+For example:
 
-### FF14 — NR14: Channel 1 wavelength high & control
+- Period value $500 means -$300, or 1 sample per 768 input cycles
+- Period value $740 means -$C0, or 1 sample per 192 input cycles
+
+The pulse channels' period dividers are clocked at 1048576 Hz, once per four dots, and their waveform is 8 samples long.
+This makes their sample rate equal to <math><mfrac><mn>1048576</mn><mrow><mn>2048</mn><mo>-</mo><mi>period_value</mi></mrow></mfrac></math> Hz.
+with a resulting tone frequency equal to <math><mfrac><mn>131072</mn><mrow><mn>2048</mn><mo>-</mo><mi>period_value</mi></mrow></mfrac></math> Hz.
+
+- Period value $500 means -$300, or 1 sample per 768 input cycles  
+  or (1048576 ÷ 768) = 1365.3 Hz sample rate  
+  or (1048576 ÷ 768 ÷ 8) = 170.67 Hz tone frequency
+- Period value $740 means -$C0, or 1 sample per 192 input cycles  
+  or (1048576 ÷ 192) = 5461.3 Hz sample rate  
+  or (1048576 ÷ 192 ÷ 8) = 682.67 Hz tone frequency
+
+Period value $740 produces a higher frequency than $500.
+Even though the period value $740 is not four times $500, $740 produces a frequency that is four times that of $500, or two octaves higher, because ($800 - $740) or 192 is one-quarter of ($800 - $500) or 768.
+
+Period changes take 
+
+### FF14 — NR14: Channel 1 period high & control
 
 ```
 Bit 7   - Trigger (1=Restart channel)  (Write Only)
 Bit 6   - Sound Length enable          (Read/Write)
           (1=Stop output when length in NR11 expires)
-Bit 2-0 - "Wavelength"'s higher 3 bits (Write Only)
+Bit 2-0 - Period value's higher 3 bits (Write Only)
 ```
 
 Writing a value here with bit 7 set [triggers](<#Triggering>) the channel.
@@ -192,12 +215,12 @@ Bit 6 takes effect immediately upon writing to this register.
 
 ## Sound Channel 2 — Pulse
 
-This sound channel works exactly like channel 1, except that it lacks a wavelength sweep (and thus an equivalent to [`NR10`](<#FF10 — NR10: Channel 1 sweep>)).
+This sound channel works exactly like channel 1, except that it lacks a period sweep (and thus an equivalent to [`NR10`](<#FF10 — NR10: Channel 1 sweep>)).
 Please refer to the corresponding CH1 register:
 - `NR21` (\$FF16) → [`NR11`](<#FF11 — NR11: Channel 1 length timer & duty cycle>)
 - `NR22` (\$FF17) → [`NR12`](<#FF12 — NR12: Channel 1 volume & envelope>)
-- `NR23` (\$FF18) → [`NR13`](<#FF13 — NR13: Channel 1 wavelength low \[write-only\]>)
-- `NR24` (\$FF19) → [`NR14`](<#FF14 — NR14: Channel 1 wavelength high & control>)
+- `NR23` (\$FF18) → [`NR13`](<#FF13 — NR13: Channel 1 period low \[write-only\]>)
+- `NR24` (\$FF19) → [`NR14`](<#FF14 — NR14: Channel 1 period high & control>)
 
 ## Sound Channel 3 — Wave output
 
@@ -246,28 +269,38 @@ Bits 6-5 (binary) | Output level
   %10             |  50% volume (shift samples read from Wave RAM right once)
   %11             |  25% volume (shift samples read from Wave RAM right twice)
 
-### FF1D — NR33: Channel 3 wavelength low \[write-only\]
+### FF1D — NR33: Channel 3 period low \[write-only\]
 
-This register stores the low 8 bits of the channel's 11-bit "[wavelength](<#Frequency>)".
+This register stores the low 8 bits of the channel's 11-bit "[period value](<#Frequency>)".
 The upper 3 bits are stored in the low 3 bits of `NR34`.
 
-The actual signal frequency is <math><mfrac><mn>65536</mn><mrow><mn>2048</mn><mo>-</mo><mi>wavelen</mi></mrow></mfrac></math> Hz: the higher the value, the higher the frequency.
-This is the whole wave's frequency; the rate at which the channel steps through the 8 "indices" in its wave form is 32 times that, i.e. <math><mfrac><mn>2097152</mn><mrow><mn>2048</mn><mo>-</mo><mi>wavelen</mi></mrow></mfrac></math>) Hz = <math><mfrac><mn>2</mn><mrow><mn>2048</mn><mo>-</mo><mi>wavelen</mi></mrow></mfrac></math> MiHz.
+The wave channel's period divider is clocked at 2097152 Hz, once per two dots, and its waveform is 32 samples long.
+This makes their sample rate equal to <math><mfrac><mn>2097152</mn><mrow><mn>2048</mn><mo>-</mo><mi>period_value</mi></mrow></mfrac></math> Hz.
+with a resulting tone frequency equal to <math><mfrac><mn>65536</mn><mrow><mn>2048</mn><mo>-</mo><mi>period_value</mi></mrow></mfrac></math> Hz.
+
+- Period value $500 means -$300, or 1 sample per 768 input cycles  
+  or (2097152 ÷ 768) = 2730.7 Hz sample rate  
+  or (2097152 ÷ 768 ÷ 32) = 85.333 Hz tone frequency
+- Period value $740 means -$C0, or 1 sample per 192 input cycles  
+  or (2097152 ÷ 192) = 10923 Hz sample rate  
+  or (2097152 ÷ 192 ÷ 32) = 341.33 Hz tone frequency
+
+Given the same period value, the tone frequency of the wave channel is generally half that of a pulse channel, or one octave lower.
 
 ::: warning DELAY
 
-Wavelength changes (written to `NR33` or `NR34`) only take effect after the following time wave RAM is read.
+Period changes (written to `NR33` or `NR34`) only take effect after the following time wave RAM is read.
 ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_freq_change_delay.asm))
 
 :::
 
-### FF1E — NR34: Channel 3 wavelength high & control
+### FF1E — NR34: Channel 3 period high & control
 
 ```
 Bit 7   - Trigger (1=Restart Sound)    (Write Only)
 Bit 6   - Sound Length enable          (Read/Write)
           (1=Stop output when length in NR31 expires)
-Bit 2-0 - "Wavelength"'s higher 3 bits (Write Only)
+Bit 2-0 - Period value's higher 3 bits (Write Only)
 ```
 
 Writing a value here with bit 7 set [triggers](<#Triggering>) the channel.
@@ -308,7 +341,7 @@ Accessing wave RAM while CH3 is **active** (i.e. playing) causes accesses to mis
 - On other consoles, the byte accessed will be the one CH3 is currently reading[^wave_access]; that is, if CH3 is currently reading one of the first two samples, the CPU will really access $FF30, regardless of the address being used. ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_wave_ram_locked_write.asm))
 
 Wave RAM *can* be accessed normally even if the DAC is on, as long as the channel is not active. ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_wave_ram_dac_on_rw.asm))
-This is especially relevant on GBA, since ["DACs" are always enabled there](<#Game Boy Advance audio>).
+This is especially relevant on GBA, whose [mixer behaves as if DACs are always enabled](<#Game Boy Advance audio>).
 
 [^wave_access]:
 The way it works is that wave RAM is a 16-byte memory buffer, and while it's playing, CH3 has priority over the CPU when choosing which of those 16 bytes is accessed.
