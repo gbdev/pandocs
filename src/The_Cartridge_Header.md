@@ -65,7 +65,7 @@ Help is welcome!
 
 :::
 
-## 0144-0145 — New licensee code
+## 0144–0145 — New licensee code
 
 This area contains a two-character ASCII "licensee code" indicating the game's publisher.
 It is only meaningful if the [Old licensee](<#014B — Old licensee code>) is exactly `$33` (which is the case for essentially all games made after the SGB was released); otherwise, the old code must be considered.

@@ -111,7 +111,7 @@ When in DMG compatibility mode, the [CGB palettes](<#LCD Color Palettes (CGB onl
 
 The boot ROM picks a compatibility palette using an ID computed using the following algorithm:
 1. Check if the [old licensee code](<#014B — Old licensee code>) is $33.
-   * If yes, the [new licensee code](<#0144-0145 — New licensee code>) must be used. Check that it equals the ASCII string `"01"`.
+   * If yes, the [new licensee code](<#0144–0145 — New licensee code>) must be used. Check that it equals the ASCII string `"01"`.
    * If not, check that it equals $01.
 
    <p>In effect, this checks that the licensee in the header is Nintendo.</p>
@@ -253,7 +253,7 @@ To determine the flags, take the B register you would have gotten on CGB[^cgbdmg
 The carry and direction flags are always clear, though.
 
 [^cgbdmg_b]:
-If the [old licensee code](<#014B — Old licensee code>) is $01, or the old licensee code is $33 and the [new licensee code](<#0144-0145 — New licensee code>) is `"01"` ($30 $31), then B is the sum of all 16 [title](<#0134-0143 — Title>) bytes.
+If the [old licensee code](<#014B — Old licensee code>) is $01, or the old licensee code is $33 and the [new licensee code](<#0144–0145 — New licensee code>) is `"01"` ($30 $31), then B is the sum of all 16 [title](<#0134-0143 — Title>) bytes.
 Otherwise, B is $00.
 As indicated by the "+ 1" in the "AGB (DMG mode)" column, if on AGB, that value is increased by 1[^agbdmg_f].
 
