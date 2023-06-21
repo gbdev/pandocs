@@ -1,5 +1,5 @@
 
-# VRAM Sprite Attribute Table (OAM)
+# Object Attribute Memory (OAM)
 
 The Game Boy PPU can display up to 40 movable objects (or sprites), each 8x8 or
 8x16 pixels. Because of a limitation of hardware, only ten objects
@@ -14,14 +14,17 @@ four bytes with the following meanings:
 
 ## Byte 0 — Y Position
 
-Y = Object's vertical position on the screen + 16. So for example,
-Y=0 hides an object,
-Y=2 hides an 8×8 object but displays the last two rows of an 8×16 object,
-Y=16 displays an object at the top of the screen,
-Y=144 displays an 8×16 object aligned with the bottom of the screen,
-Y=152 displays an 8×8 object aligned with the bottom of the screen,
-Y=154 displays the first six rows of an object at the bottom of the screen,
-Y=160 hides an object.
+![Interpretation of object Y coordinates](imgs/Objects_vertical_position.png)
+
+Y = Object's vertical position on the screen + 16. So for example:
+
+- Y=0 hides an object,
+- Y=2 hides an 8×8 object but displays the last two rows of an 8×16 object,
+- Y=16 displays an object at the top of the screen,
+- Y=144 displays an 8×16 object aligned with the bottom of the screen,
+- Y=152 displays an 8×8 object aligned with the bottom of the screen,
+- Y=154 displays the first six rows of an object at the bottom of the screen,
+- Y=160 hides an object.
 
 ## Byte 1 — X Position
 
