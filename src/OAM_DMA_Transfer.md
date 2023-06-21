@@ -75,17 +75,19 @@ If HRAM is tight, this more compact procedure saves 5 bytes of HRAM
 at the cost of a few cycles spent jumping to the tail in HRAM.
 
 ```rgbasm
-run_dma:          ; This part is in ROM
+run_dma:          ; This part must be in ROM.
     ld a, HIGH(start address)
     ld bc, $2846  ; B: wait time; C: LOW($FF46)
     jp run_dma_tail
 
-run_dma_tail:     ; This part is in HRAM
+
+run_dma_tail:     ; This part must be in HRAM.
     ldh [c], a
 .wait
     dec b
     jr nz, .wait
-    ret
+    ret z         ; Conditional `ret` is 1 cycle slower, which avoids
+                  ; reading from the stack on the last cycle of DMA.
 ```
 
 If starting a mid-frame transfer, wait for Mode 0 first
