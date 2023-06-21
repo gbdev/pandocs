@@ -299,7 +299,7 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
                 .take_while(|line| {
                     line.as_ref().map_or(true, |line| {
                         // HACK: this relies on the exact formatting of the auto-printer's script tag
-                        line.trim_start() != "<script type=\"text/javascript\">"
+                        line.trim_start() != "<script>"
                     })
                 })
                 .try_for_each(|line| {
