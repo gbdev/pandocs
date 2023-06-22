@@ -73,8 +73,10 @@ the same display screen.
 Alongside normal Game Boy sound, a number of digital sound effects is
 pre-defined in the SNES BIOS, these effects may be accessed quite
 easily. Programmers whom are familiar with SNES sounds may also access
-the SNES sound chip, or use the SNES "Kankichi" sequencer engine
+the SNES sound chip, or use the SNES "[Kankichi]" sequencer engine
 directly in order to produce other sound effects or music.
+
+[Kankichi]: https://sneslab.net/wiki/N-SPC_Engine
 
 ## Taking Control of the SNES CPU
 
@@ -89,7 +91,8 @@ Game Boy CPU, video controller, timers, and sound frequencies will be all
 operated approx 2.4% faster than handheld systems. Basically, this
 should be no problem, and the game will just run a little bit faster.
 However sensitive musicians may notice that sound frequencies are a bit
-too high, programs that support SGB functions may avoid this effect by
+too high, particularly in programs that use GB sound alongside Kankichi.
+Programs that support SGB functions may avoid this effect by
 reducing frequencies of Game Boy sounds when having detected SGB
 hardware. Also, "PAL version" SNES models which use a
 50Hz display refresh rate (rather than 60Hz) result in

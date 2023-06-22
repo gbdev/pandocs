@@ -12,7 +12,7 @@ Bit | Name                           | Usage notes
  5  | Window enable                  | 0=Off, 1=On
  4  | BG and Window tile data area   | 0=8800-97FF, 1=8000-8FFF
  3  | BG tile map area               | 0=9800-9BFF, 1=9C00-9FFF
- 2  | OBJ size                       | 0=8x8, 1=8x16
+ 2  | OBJ size                       | 0=8×8, 1=8×16
  1  | OBJ enable                     | 0=Off, 1=On
  0  | BG and Window enable/priority  | 0=Off, 1=On
 
@@ -79,6 +79,8 @@ if the bit is clear (0), the BG uses tilemap $9800, otherwise tilemap $9C00.
 This bit controls the size of all objects (1 tile or 2 stacked vertically).
 
 Be cautious when changing object size mid-frame.
+Changing from 8×8 to 8×16 pixels mid-frame within 8 scanlines of the bottom of an object
+causes the object's second tile to be visible for the rest of those 8 lines.
 If the size is changed during mode 2 or 3,
 remnants of objects in range could "leak" into the other tile and
 cause artifacts.

@@ -31,21 +31,21 @@ Y = Object's vertical position on the screen + 16. So for example:
 X = Object's horizontal position on the screen + 8. This works similarly
 to the examples above, except that the width of an object is always 8. An
 off-screen value (X=0 or X\>=168) hides the object, but the object still
-affects the priority ordering, thus other objects with lower priority may be
-left out due to the limit of ten objects per scanline.
+contributes to the limit of ten objects per scanline.
+This can cause objects later in OAM not to be drawn on that line.
 A better way to hide an object is to set its Y-coordinate off-screen.
 
 ## Byte 2 — Tile Index
 
-In 8x8 mode (LCDC bit 2 = 0), this byte specifies the object's only tile index ($00-$FF).
-This unsigned value selects a tile from the memory area at $8000-$8FFF.
+In 8×8 mode (LCDC bit 2 = 0), this byte specifies the object's only tile index (\$00-\$FF).
+This unsigned value selects a tile from the memory area at \$8000-\$8FFF.
 In CGB Mode this could be either in
 VRAM bank 0 or 1, depending on bit 3 of the following byte.
-In 8×16 mode (LCDC bit 2 = 1), the memory area at $8000-$8FFF is still interpreted
-as a series of 8x8 tiles, where every 2 tiles form an object. In this mode, this byte
+In 8×16 mode (LCDC bit 2 = 1), the memory area at \$8000-\$8FFF is still interpreted
+as a series of 8×8 tiles, where every 2 tiles form an object. In this mode, this byte
 specifies the index of the first (top) tile of the object. This is enforced by the
-hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
-tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
+hardware: the least significant bit of the tile index is ignored; that is, the top 8×8
+tile is "NN & \$FE", and the bottom 8×8 tile is "NN | \$01".
 
 ## Byte 3 — Attributes/Flags
 
@@ -91,7 +91,7 @@ limit, possibly causing another object later in OAM not
 to be drawn. To keep off-screen objects from affecting on-screen ones, make
 sure to set their Y coordinate to Y&nbsp;=&nbsp;0 or Y&nbsp;≥&nbsp;160
 (144&nbsp;+&nbsp;16).
-(Y&nbsp;≤&nbsp;8 also works if [object size](<#LCDC.2 — OBJ size>) is set to 8x8.)
+(Y&nbsp;≤&nbsp;8 also works if [object size](<#LCDC.2 — OBJ size>) is set to 8×8.)
 
 ### Drawing priority
 
