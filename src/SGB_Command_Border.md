@@ -102,7 +102,7 @@ Thus a border can use three 15-color palettes.
 ## SGB Command $18 — OBJ_TRN
 
 Used to start transferring object attributes to SNES object attribute memory (OAM). Unlike all other
-functions with the ending \_TRN, this function does not use the usual
+functions with names ending in "\_TRN", this function does not use the usual
 one-time 4 KiB VRAM transfer method. Instead, when enabled (below
 execute bit set to 1), data is continuously (each frame) read out from the
 lower character line of the Game Boy screen. To suppress garbage on the

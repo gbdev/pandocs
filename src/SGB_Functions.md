@@ -2,7 +2,7 @@
 
 ## General Description
 
-Super Game Boy (SGB) is an adapter cartridge that allows
+The Super Game Boy (SGB) is an adapter cartridge that allows
 to play Game Boy games on a SNES (Super Nintendo Entertainment System)
 gaming console. In detail, you plug the Game Boy cartridge into the SGB
 cartridge, then plug the SGB cartridge into the SNES, and then connect
@@ -12,7 +12,7 @@ the TV Set, and are controlled by using the SNES joypad(s).
 ## More Technical Description
 
 The SGB cartridge contains a Game Boy system on chip, with its normal
-CPU and video and sound controller. It also has a bridge circuit to
+CPU and video and sound controller. It also has a bridge circuit, the ICD2, to
 translate joypad input, video signal, and control packets between the
 SNES and GB as well as a system software ROM that runs on the SNES.
 The system software forwards button presses from the controllers and
@@ -24,8 +24,8 @@ game a small amount of control over the appearance.
 Any Game Boy games which have been designed for monochrome handheld
 Game Boy systems will work with the SGB hardware as well. The SGB will
 apply a four color palette to these games by replacing the normal four
-grayshades. The 160x144 pixel game screen is displayed in the middle of
-the 256x224 pixel SNES screen (the unused area is filled by a screen
+shades of gray. The 160×144 pixel game screen is displayed in the middle of
+the 256×224 pixel SNES screen (the unused area is filled by a screen
 border bitmap). The user may access built-in menus, allowing to change
 color palette data, to select between several pre-defined borders, etc.
 
@@ -35,16 +35,16 @@ the following additional features:
 ## Colorized Game Screen
 
 There's limited ability to colorize the game screen by assigning custom
-color palettes to each 20x18 display characters, however, this works
+color palettes to each 20×18 display characters, however, this works
 mainly for static display data such like title screens or status bars,
-the 20x18 color attribute map is non-scrollable, and it is not possible
+the 20×18 color attribute map cannot be scrolled, and it is not possible
 to assign separate colors to moveable foreground objects (sprites), so that
 animated screen regions will be typically restricted to using a single
 palette of four colors only.
 
 ## SNES Foreground Sprites
 
-Up to 24 additional objects of 8x8 or 16x16 pixels, 16 colors can
+Up to 24 additional 16-color objects of 8×8 or 16×16 pixels, can
 be displayed. When replacing (or just overlaying) the normal Game Boy
 objects by SNES objects it'd be thus possible to display objects with other
 colors than normal background area. This method doesn't appear to be

@@ -23,7 +23,7 @@ The OAM Corruption Bug (or OAM Bug) actually consists of two different bugs:
   region) while the PPU is in mode 2 (OAM scan) will corrupt it.
 - Performing an increase or decrease operation on any 16-bit register
   (BC, DE, HL, SP or PC) while that register is in the OAM range
-  ($FE00 - $FEFF) will trigger an access to OAM, causing a corruption.
+  ($FE00–$FEFF) will trigger an access to OAM, causing a corruption.
   This happens because the CPU's increment and decrement unit (IDU)
   for 16-bit numbers is directly tied to the address bus.
   During IDU operation, the value is output as an address,

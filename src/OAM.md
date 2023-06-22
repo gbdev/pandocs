@@ -1,8 +1,8 @@
 
 # Object Attribute Memory (OAM)
 
-The Game Boy PPU can display up to 40 movable objects (or sprites), each 8x8 or
-8x16 pixels. Because of a limitation of hardware, only ten objects
+The Game Boy PPU can display up to 40 movable objects (or sprites), each 8×8 or
+8×16 pixels. Because of a limitation of hardware, only ten objects
 can be displayed per scanline. Object tiles have the same format as
 BG tiles, but they are taken from tile blocks 0 and 1 located at
 $8000-8FFF and have unsigned numbering.
@@ -41,7 +41,7 @@ In 8x8 mode (LCDC bit 2 = 0), this byte specifies the object's only tile index (
 This unsigned value selects a tile from the memory area at $8000-$8FFF.
 In CGB Mode this could be either in
 VRAM bank 0 or 1, depending on bit 3 of the following byte.
-In 8x16 mode (LCDC bit 2 = 1), the memory area at $8000-$8FFF is still interpreted
+In 8×16 mode (LCDC bit 2 = 1), the memory area at $8000-$8FFF is still interpreted
 as a series of 8x8 tiles, where every 2 tiles form an object. In this mode, this byte
 specifies the index of the first (top) tile of the object. This is enforced by the
 hardware: the least significant bit of the tile index is ignored; that is, the top 8x8

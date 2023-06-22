@@ -66,8 +66,7 @@ This bit controls which [addressing
 mode](<#VRAM Tile Data>) the BG and Window use to
 pick tiles.
 
-Objects (sprites) aren't affected by this, and will always use \$8000 addressing
-mode.
+Objects (sprites) aren't affected by this, and will always use the \$8000 addressing mode.
 
 ### LCDC.3 — BG tile map area
 
@@ -131,5 +130,5 @@ the textbox/status bar is "alone" on its scanlines:
 -   Set LCDC.1 to 0 for textbox/status bar scanlines
 
 Usually, these bars are either at the top or bottom of the screen, so
-the bit can be set by the VBlank and STAT handlers.
+the bit can be set by the VBlank and/or STAT handlers.
 Hiding objects behind a right-side window is more challenging.
