@@ -69,8 +69,8 @@ $280 bytes, multiple \"command 4 packets\" have to be sent.
 
 The graphics are organized in the normal tile format (16 bytes per
 tile), and the tiles are sent in the same order they occur on your
-tilemap (do keep in mind though that the printer does \*not\* have 32x32
-tiles space for a map, but only 20x18).
+tilemap (do keep in mind though that the printer does \*not\* have 32×32
+tiles space for a map, but only 20×18).
 
 An empty data packet must be sent before sending command 2 to print the
 data, otherwise the print command will be ignored.
@@ -122,7 +122,7 @@ Bit \# | Name                | Description
   packet. It's best to send a packet completely or with very little
   delay between the individual bytes, otherwise the packet may not be
   accepted.**
-- To print things larger than 20x18 (like GB Camera images with big
+- To print things larger than 20×18 (like GB Camera images with big
   borders), multiple data packets with a following print command need
   to be sent. The print command should be set to no linefeed (neither
   before nor after) to allow for continuous printing.

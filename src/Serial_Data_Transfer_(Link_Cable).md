@@ -39,13 +39,13 @@ Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
 ```
 
 The master Game Boy will load up a data byte in SB and then set
-SC to 0x81 (Transfer requested, use internal clock). It will be notified
+SC to \$81 (Transfer requested, use internal clock). It will be notified
 that the transfer is complete in two ways: SC's Bit 7 will be cleared
-(that is, SC will be set up 0x01), and also the [Serial Interrupt handler](<#INT $58 — Serial interrupt>)
-will be called (that is, the CPU will jump to 0x0058).
+(that is, SC will be set up \$01), and also the [Serial Interrupt handler](<#INT $58 — Serial interrupt>)
+will be called (that is, the CPU will jump to \$0058).
 
 The other Game Boy will load up a data byte and can optionally set SC's
-Bit 7 (that is, SC=0x80). Regardless of whether or not it has done this, if
+Bit 7 (that is, SC=\$80). Regardless of whether or not it has done this, if
 and when the master wants to conduct a transfer, it will happen
 (pulling whatever happens to be in SB at that time). The externally clocked
 Game Boy will have its [serial interrupt handler](<#INT $58 — Serial interrupt>) called at the end of the

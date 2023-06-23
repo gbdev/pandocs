@@ -1,6 +1,6 @@
 # MBC2
 
-(max 256 KiB ROM and 512x4 bits RAM)
+(max 256 KiB ROM and 512×4 bits RAM)
 
 ## Memory
 

@@ -30,10 +30,10 @@ run 1/4 as fast as the clock used for normal serial transfers on the DMG
 
 Byte | Value | Description
 -----|-------|-------------
-  1  | 0xFE  | ID Byte
-  2  | 0x??  | STAT1
-  3  | 0x??  | STAT2
-  4  | 0x??  | STAT3
+  1  | \$FE  | ID Byte
+  2  |   ??  | STAT1
+  3  |   ??  | STAT2
+  4  |   ??  | STAT3
 
 3 "STAT" bytes are sent indicating the current connection status of the other
 Game Boys. Each byte is usually the same, however, sometimes the status can
@@ -57,7 +57,7 @@ the DMG-07. In this way, the Game Boy broadcasts across the Link Cable network
 that it is an active participant in communications. It also acts as a sort of
 acknowledgement signal, where software can drop a Game Boy if the DMG-07
 detects an improper response during a ping, or a Game Boy simply quits the
-network. The proper response is to send 0x88 *after* receiving the ID Byte and
+network. The proper response is to send \$88 *after* receiving the ID Byte and
 STAT1, in which case the upper-half of STAT1, STAT2, and STAT3 are updated to
 show that a Game Boy is "connected". If for whatever reason, the
 acknowledgement codes are not sent, the above bits are unset.
@@ -66,11 +66,11 @@ Some examples of ping packets are shown below:
 
 Packet                | Description
 ----------------------|-------------------------------------------------------
-`0xFE 0x01 0x01 0x01` | Ping packet received by Player 1 with no other Game Boys connected.
-`0xFE 0x11 0x11 0x11` | Ping packet received by Player 1 when Player 1 has connected.
-`0xFE 0x31 0x31 0x31` | Ping packet received by Player 1 when Players 1 & 2 have connected.
-`0xFE 0x71 0x71 0x71` | Ping packet received by Player 1 when Players 1, 2, & 3 have connected.
-`0xFE 0x62 0x62 0x62` | Ping packet received by Player 2 when Players 2 & 3 are connected (but not Player 1).
+`FE 01 01 01` | Ping packet received by Player 1 with no other Game Boys connected.
+`FE 11 11 11` | Ping packet received by Player 1 when Player 1 has connected.
+`FE 31 31 31` | Ping packet received by Player 1 when Players 1 & 2 have connected.
+`FE 71 71 71` | Ping packet received by Player 1 when Players 1, 2, & 3 have connected.
+`FE 62 62 62` | Ping packet received by Player 2 when Players 2 & 3 are connected (but not Player 1).
 
 It's possible to have situations where some players are connected but others
 are not; the gaps don't matter. For example, Player 1 and Player 4 can be
@@ -92,8 +92,8 @@ should respond to all bytes in a ping packet:
 ----------------------------
 DMG-07		Game Boy
 ----------------------------
-0xFE	<-->	(ACK1) = 0x88
-STAT1	<-->	(ACK2) = 0x88	
+\$FE	<-->	(ACK1) = \$88
+STAT1	<-->	(ACK2) = \$88	
 STAT2	<-->	(RATE) = Link Cable Speed 
 STAT3	<-->	(SIZE) = Packet Size
 ```
@@ -107,7 +107,7 @@ DMG-07 Bits-Per-Second --> 4194304 / ((6 * RATE) + 512)
 ```
 
 The lowest setting (RATE = 0) runs the DMG-07 at the normal speed DMGs usually
-transfer data (1KB/s), while setting it to 0xFF runs it close to the slowest
+transfer data (1KB/s), while setting it to \$FF runs it close to the slowest
 speed (2042 bits-per-second).
 
 SIZE sets the length of packets exchanged between all Game Boys. Nothing fancy,
@@ -116,7 +116,7 @@ just the number of bytes in each packet. It probably shouldn't be set to zero.
 ### Transmission Phase
 
 When the master Game Boy (Player 1) is ready, it should send 4 bytes
-(`0xAA 0xAA 0xAA 0xAA`, if those are actually required should be investigated further).
+(`AA AA AA AA`, if those are actually required should be investigated further).
 This alerts the DMG-07 to start the transmission phase. The RATE and SIZE parameters 
 are applied at this point. The protocol is simple: Each Game Boy sends a packet to
 the DMG-07 simultaneously, then the DMG-07 outputs each packet to all connected
@@ -190,7 +190,7 @@ buffer.
 
 It's possible to restart the ping phase while operating in the transmission
 phase. To do so, the master Game Boy should send 4 or more bytes
-(`0xFF 0xFF 0xFF 0xFF`, it's possible fewer 0xFF bytes need to be sent,
+(`FF FF FF FF`, it's possible fewer \$FF bytes need to be sent,
 but this has not been extensively investigated yet). The bytes alert the DMG-07
 that the ping phase should begin again, after which it sends ping packets after
 a brief delay. During this delay, the transmission protocol is still working as

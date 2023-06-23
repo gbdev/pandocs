@@ -1,6 +1,6 @@
 # Rendering Overview
 
-The Game Boy outputs graphics to a 160x144 pixel LCD, using a quite complex
+The Game Boy outputs graphics to a 160×144 pixel LCD, using a quite complex
 mechanism to facilitate rendering.
 
 ::: warning Terminology
@@ -16,7 +16,7 @@ and some others to higher abstractions concepts.
 
 Similarly to other retro systems, pixels are not manipulated
 individually, as this would be expensive CPU-wise. Instead, pixels are grouped
-in 8x8 squares, called _tiles_ (or sometimes "patterns" or "characters"), often considered as
+in 8×8 squares, called _tiles_ (or sometimes "patterns" or "characters"), often considered as
 the base unit in Game Boy graphics.
 
 A tile does not encode color information. Instead, a tile assigns a
@@ -66,7 +66,7 @@ _Super Mario Land 2_).
 The background layer is useful for elements scrolling as a whole, but
 it's impractical for objects that need to move separately, such as the player.
 
-The _objects_ layer is designed to fill this gap: _objects_ are made of 1 or 2 stacked tiles (8x8 or 8x16 pixels)
+The _objects_ layer is designed to fill this gap: _objects_ are made of 1 or 2 stacked tiles (8×8 or 8×16 pixels)
 and can be displayed anywhere on the screen.
 
 ::: tip NOTE
@@ -80,6 +80,6 @@ Use of the term has since become more general.
 
 To summarise:
 
-- **Tile**, an 8x8-pixel chunk of graphics.
+- **Tile**, an 8×8-pixel chunk of graphics.
 - **Object**, an entry in object attribute memory, composed of 1 or 2
   tiles. Can be moved independently of the background.
