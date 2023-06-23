@@ -1,7 +1,7 @@
 # OAM Corruption Bug
 
 There is a flaw in the Game Boy hardware that causes rubbish data to be written
-to OAM RAM if the following instructions are used while their 16-bit content
+to object attribute memory (OAM) if the following instructions are used while their 16-bit content
 (before the operation) is in the range $FE00&ndash;$FEFF and the PPU is in mode 2:
 
 ```rgbasm
@@ -10,7 +10,7 @@ to OAM RAM if the following instructions are used while their 16-bit content
  ld [hli], a    ld [hld], a
 ```
 
-Sprites 1 & 2 ($FE00 & $FE04) are not affected by this bug.
+Objects 0 and 1 ($FE00 & $FE04) are not affected by this bug.
 
 Game Boy Color and Advance are not affected by this bug, even when
 running monochrome software.
@@ -20,11 +20,14 @@ running monochrome software.
 The OAM Corruption Bug (or OAM Bug) actually consists of two different bugs:
 
 - Attempting to read or write from OAM (Including the $FEA0-$FEFF
-  region) while the PPU is in mode 2 (OAM mode) will corrupt it.
+  region) while the PPU is in mode 2 (OAM scan) will corrupt it.
 - Performing an increase or decrease operation on any 16-bit register
   (BC, DE, HL, SP or PC) while that register is in the OAM range
-  ($FE00 - $FEFF) will trigger a memory write to OAM, causing a
-  corruption.
+  ($FE00–$FEFF) will trigger an access to OAM, causing a corruption.
+  This happens because the CPU's increment and decrement unit (IDU)
+  for 16-bit numbers is directly tied to the address bus.
+  During IDU operation, the value is output as an address,
+  even if a read or write is not asserted.
 
 ## Affected Operations
 
@@ -66,7 +69,7 @@ operations are on 16-bit words.
 
 A "write corruption" corrupts the currently access row in the following
 manner, as long as it's not the first row (containing the first two
-sprites):
+objects):
 
 - The first word in the row is replaced with this bitwise expression:
   `((a ^ c) & (b ^ c)) ^ c`, where `a` is the original value of that

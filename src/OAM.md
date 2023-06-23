@@ -1,47 +1,51 @@
 
-# VRAM Sprite Attribute Table (OAM)
+# Object Attribute Memory (OAM)
 
-The Game Boy PPU can display up to 40 sprites either in 8x8 or
-in 8x16 pixels. Because of a limitation of hardware, only ten sprites
-can be displayed per scan line. Sprite tiles have the same format as
-BG tiles, but they are taken from the Sprite Tiles Table located at
+The Game Boy PPU can display up to 40 movable objects (or sprites), each 8×8 or
+8×16 pixels. Because of a limitation of hardware, only ten objects
+can be displayed per scanline. Object tiles have the same format as
+BG tiles, but they are taken from tile blocks 0 and 1 located at
 $8000-8FFF and have unsigned numbering.
 
-Sprite attributes reside in the Sprite Attribute Table (OAM: Object
-Attribute Memory) at \$FE00-FE9F. Each of the 40 entries consists of
+Object attributes reside in the object attribute memory (OAM) at \$FE00-FE9F.
+(This corresponds to the sprite attribute table on a TMS9918 VDP.)
+Each of the 40 entries consists of
 four bytes with the following meanings:
 
 ## Byte 0 — Y Position
 
-Y = Sprite's vertical position on the screen + 16. So for example,
-Y=0 hides a sprite,
-Y=2 hides an 8×8 sprite but displays the last two rows of an 8×16 sprite,
-Y=16 displays a sprite at the top of the screen,
-Y=144 displays an 8×16 sprite aligned with the bottom of the screen,
-Y=152 displays an 8×8 sprite aligned with the bottom of the screen,
-Y=154 displays the first six rows of a sprite at the bottom of the screen,
-Y=160 hides a sprite.
+![Interpretation of object Y coordinates](imgs/Objects_vertical_position.png)
+
+Y = Object's vertical position on the screen + 16. So for example:
+
+- Y=0 hides an object,
+- Y=2 hides an 8×8 object but displays the last two rows of an 8×16 object,
+- Y=16 displays an object at the top of the screen,
+- Y=144 displays an 8×16 object aligned with the bottom of the screen,
+- Y=152 displays an 8×8 object aligned with the bottom of the screen,
+- Y=154 displays the first six rows of an object at the bottom of the screen,
+- Y=160 hides an object.
 
 ## Byte 1 — X Position
 
-X = Sprite's horizontal position on the screen + 8. This works similarly
-to the examples above, except that the width of a sprite is always 8. An
-off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
-affects the priority ordering, thus other sprites with lower priority may be
-left out due to the ten sprites limit per scan-line.
-A better way to hide a sprite is to set its Y-coordinate off-screen.
+X = Object's horizontal position on the screen + 8. This works similarly
+to the examples above, except that the width of an object is always 8. An
+off-screen value (X=0 or X\>=168) hides the object, but the object still
+contributes to the limit of ten objects per scanline.
+This can cause objects later in OAM not to be drawn on that line.
+A better way to hide an object is to set its Y-coordinate off-screen.
 
 ## Byte 2 — Tile Index
 
-In 8x8 mode (LCDC bit 2 = 0), this byte specifies the sprite's only tile index ($00-$FF).
-This unsigned value selects a tile from the memory area at $8000-$8FFF.
+In 8×8 mode (LCDC bit 2 = 0), this byte specifies the object's only tile index (\$00-\$FF).
+This unsigned value selects a tile from the memory area at \$8000-\$8FFF.
 In CGB Mode this could be either in
 VRAM bank 0 or 1, depending on bit 3 of the following byte.
-In 8x16 mode (LCDC bit 2 = 1), the memory area at $8000-$8FFF is still interpreted
-as a series of 8x8 tiles, where every 2 tiles form a sprite. In this mode, this byte
-specifies the index of the first (top) tile of the sprite. This is enforced by the
-hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
-tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
+In 8×16 mode (LCDC bit 2 = 1), the memory area at \$8000-\$8FFF is still interpreted
+as a series of 8×8 tiles, where every 2 tiles form an object. In this mode, this byte
+specifies the index of the first (top) tile of the object. This is enforced by the
+hardware: the least significant bit of the tile index is ignored; that is, the top 8×8
+tile is "NN & \$FE", and the bottom 8×8 tile is "NN | \$01".
 
 ## Byte 3 — Attributes/Flags
 
@@ -87,7 +91,7 @@ limit, possibly causing another object later in OAM not
 to be drawn. To keep off-screen objects from affecting on-screen ones, make
 sure to set their Y coordinate to Y&nbsp;=&nbsp;0 or Y&nbsp;≥&nbsp;160
 (144&nbsp;+&nbsp;16).
-(Y&nbsp;≤&nbsp;8 also works if [object size](<#LCDC.2 — OBJ size>) is set to 8x8.)
+(Y&nbsp;≤&nbsp;8 also works if [object size](<#LCDC.2 — OBJ size>) is set to 8×8.)
 
 ### Drawing priority
 

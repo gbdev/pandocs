@@ -183,7 +183,7 @@ executed. During this time, the CPU is in a strange state. `DIV` does not tick, 
 different results depending on the [STAT mode](<#STAT modes>) it's started in:
 
 - HBlank / VBlank (Mode 0 / Mode 1): The PPU cannot access any video memory, and produces black pixels
-- OAM scan (Mode 2): The PPU can access VRAM just fine, but not OAM, leading to rendering background, but not sprites
+- OAM scan (Mode 2): The PPU can access VRAM just fine, but not OAM, leading to rendering background, but not objects (sprites)
 - Rendering (Mode 3): The PPU can access everything correctly, and so rendering is not affected
 
 TODO: confirm whether interrupts can occur (just the joypad one?) during the pause, and consequences if so

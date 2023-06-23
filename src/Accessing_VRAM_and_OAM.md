@@ -4,7 +4,7 @@
 ::: warning Warning
 
 When the PPU is drawing the screen it is directly reading
-from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).
+from Video Memory (VRAM) and from the Object Attribute Memory (OAM).
 During these periods the Game Boy CPU may not access VRAM and OAM.
 That means that any attempts to write to VRAM or OAM are ignored (data
 remains unchanged). And any attempts to read from VRAM or OAM will return

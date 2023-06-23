@@ -66,7 +66,7 @@ to the CPU: writes are ignored, and reads return garbage values (usually $FF).
 Mode | Action                                                      | Duration                                                           | Accessible video memory
 -----|------------------------------------------------------------------|--------------------------------------------------------------------|-------------------------
   2  | Searching OAM for OBJs whose Y coordinate overlap this line | 80 dots                                               | VRAM, CGB palettes
-  3  | Reading OAM and VRAM to generate the picture                | 168 to 291 dots, depending on sprite count            | None
+  3  | Reading OAM and VRAM to generate the picture                | 168 to 291 dots, depending on object count            | None
   0  | Nothing (HBlank)                                            | 85 to 208 dots, depending on previous mode 3 duration | VRAM, OAM, CGB palettes
   1  | Nothing (VBlank)                                            | 4560 dots (10 scanlines)                              | VRAM, OAM, CGB palettes
 
@@ -83,13 +83,14 @@ Three things are known to pause the dot clock:
 
 - Background scrolling: If `SCX % 8` is not zero at the start of the scanline, rendering is paused for that many dots while the shifter discards that many pixels from the leftmost tile.
 - Window: An active window pauses for at least 6 dots, as the background fetching mechanism starts over at the left side of the window.
-- Sprites: Each sprite usually pauses for `11 - min(5, (x + SCX) % 8)` dots. Because sprite fetch waits for background fetch to finish, a sprite's cost depends on its position relative to the left side of the background tile under it. It's greater if a sprite is directly aligned over the background tile, less if the sprite is to the right. If the sprite's left side is over the window, use `255 - WX` instead of `SCX` in this formula.
+- Objects: Each object usually pauses for `11 - min(5, (x + SCX) % 8)` dots.
+  Because object fetch waits for background fetch to finish, an object's cost depends on its position relative to the left side of the background tile under it. It's greater if an object is directly aligned over the background tile, less if the object is to the right. If the object's left side is over the window, use `255 - WX` instead of `SCX` in this formula.
 
 ::: warning TO BE VERIFIED
 
 The exact pause duration for window start is
-not confirmed; it may have the same background fetch finish delay as a
-sprite. If two sprites' left sides are over the same background or
+not confirmed; it may have the same background fetch finish delay as
+an object. If two objects' left sides are over the same background or
 window tile, the second may pause for fewer dots.
 
 :::
