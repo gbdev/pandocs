@@ -64,8 +64,8 @@ acknowledgement codes are not sent, the above bits are unset.
 
 Some examples of ping packets are shown below:
 
-Packet                | Description
-----------------------|-------------------------------------------------------
+Packet        | Description
+--------------|-------------------------------------------------------
 `FE 01 01 01` | Ping packet received by Player 1 with no other Game Boys connected.
 `FE 11 11 11` | Ping packet received by Player 1 when Player 1 has connected.
 `FE 31 31 31` | Ping packet received by Player 1 when Players 1 & 2 have connected.
