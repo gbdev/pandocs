@@ -5,7 +5,7 @@ Tile data is stored in VRAM in the memory area at \$8000-$97FF; with each tile
 taking 16 bytes, this area defines data for 384 tiles. In CGB Mode,
 this is doubled (768 tiles) because of the two VRAM banks.
 
-Each tile (or character) has 8x8 pixels and has a color depth of
+Each tile (or character) has 8×8 pixels and has a color depth of
 2 bits per pixel, allowing each pixel to use one of 4 colors or gray
 shades. Tiles can be displayed as part of the Background/Window maps,
 and/or as objects (movable sprites).  Color 0 has a special meaning

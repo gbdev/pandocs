@@ -36,7 +36,7 @@ Is set in these cases:
 - When the result of an 8-bit addition is higher than $FF.
 - When the result of a 16-bit addition is higher than $FFFF.
 - When the result of a subtraction or comparison
-is lower than zero (like in Z80 and 80x86 CPUs, but unlike in
+is lower than zero (like in Z80 and x86 CPUs, but unlike in
 65XX and ARM CPUs).
 - When a rotate/shift operation shifts out a \"1\" bit.
 

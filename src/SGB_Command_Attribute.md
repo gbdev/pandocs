@@ -104,7 +104,7 @@ wraps to the next row/column when reaching the end of the screen.
 ## SGB Command $15 — ATTR_TRN
 
 Used to initialize Attribute Files (ATFs) in SNES RAM. Each ATF consists
-of 20x18 color attributes for the Game Boy screen. This function does not
+of 20×18 color attributes for the Game Boy screen. This function does not
 directly affect display attributes. Instead, one of the defined ATFs may
 be copied to actual display memory at a later time by using ATTR_SET or
 PAL_SET functions.
@@ -122,7 +122,7 @@ The ATF data is sent by VRAM-Transfer (4 KBytes).
  FD2-FFF  Not used
 ```
 
-Each ATF consists of 90 bytes, that are 5 bytes (20x2bits) for each of
+Each ATF consists of 90 bytes, that are 5 bytes (20×2 bits) for each of
 the 18 character lines of the Game Boy window. The two most significant
 bits of the first byte define the color attribute (0-3) for the first
 character of the first line, the next two bits the next character, and

@@ -23,7 +23,7 @@ The tile data is sent by VRAM transfer (4 KiB).
  000-FFF  Bitmap data for 128 Tiles
 ```
 
-Each tile occupies 32 bytes (8x8 pixels, 16 colors each). When intending
+Each tile occupies 32 bytes (8×8 pixels, 16 colors each). When intending
 to transfer more than 128 tiles, call this function twice (once for
 tiles $00-$7F, and once for tiles $80-$FF). Note: The BG/OBJ Bit seems
 to have no effect and writes to the same VRAM addresses for both BG and
@@ -47,8 +47,8 @@ transferred by using the CHR_TRN function.
 The map data is sent by VRAM transfer (4 KiB).
 
 ```
- 000-6FF  BG Map 32x28 Entries of 16 bits each (1792 bytes)
- 700-73F  BG Map 1x28 extra row, 32 entries of 16 bits each (64 bytes)
+ 000-6FF  BG Map 32×28 Entries of 16 bits each (1792 bytes)
+ 700-73F  BG Map 1×28 extra row, 32 entries of 16 bits each (64 bytes)
  740-7FF  Not used, don't care
  800-85F  BG Palette Data (Palettes 4-6, 16 little-endian RGB555 colors each)
  860-FFF  Not used, don't care
@@ -65,8 +65,8 @@ Each BG Map Entry consists of a 16-bit value as such:
  Bit 15    - Y-Flip           (0=Normal, 1=Mirror vertically)
 ```
 
-The 32x28 map entries correspond to 256x224 pixels of the Super NES
-screen. The 20x18 entries in the center of the 32x28 area should be set
+The 32×28 map entries correspond to 256×224 pixels of the Super NES
+screen. The 20×18 entries in the center of the 32×28 area should be set
 to a blank (solid color 0) tile as transparent space for the Game Boy
 window to be displayed inside. Non-transparent border data will cover
 the Game Boy window (for example, *Mario's Picross* does this, as does
@@ -106,7 +106,7 @@ functions with names ending in "\_TRN", this function does not use the usual
 one-time 4 KiB VRAM transfer method. Instead, when enabled (below
 execute bit set to 1), data is continuously (each frame) read out from the
 lower character line of the Game Boy screen. To suppress garbage on the
-display, the lower line is masked, and only the upper 20x17 characters
+display, the lower line is masked, and only the upper 20×17 characters
 of the Game Boy screen are used - the masking method is unknown - frozen,
 black, or recommended to be covered by the SGB border, or else ??? Also,
 when the function is enabled, attract mode (built-in borders' screen saver on idle) is not performed.

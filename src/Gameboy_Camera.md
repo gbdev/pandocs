@@ -204,10 +204,10 @@ Multiply by 2 to get Game Boy cycles:
 
 ```
     - Reset pulse.
-    - Configure sensor registers.     (11 x 8 CLKs)
+    - Configure sensor registers.     (11 × 8 CLKs)
     - Wait                                  (1 CLK)
     - Start pulse                           (1 CLK)
-    - Exposure time       (exposure_steps x 8 CLKs)
+    - Exposure time       (exposure_steps × 8 CLKs)
     - Wait                                 (2 CLKs)
     - Read start
     - Read period        (N=1 ? 16128 : 16384 CLKs)
@@ -224,7 +224,7 @@ Above is the previous result divided by 2.
 During the read process, every pixel is written when it is read from the sensor.
 If the read process is stopped, (by shutting the GB off, for example) the RAM will have contents of the current picture until the read was stopped.
 From there, it will have the data from the image captured before that one.
-The sensor transfers are 128x128 pixels, but the upper and lower rows are corrupted.
+The sensor transfers are 128×128 pixels, but the upper and lower rows are corrupted.
 The Game Boy Camera controller uses the medium rows of the sensor image.
 This means that it ignores the first 8 rows and the last 8 rows.
 
@@ -288,7 +288,7 @@ However, if N = "1", `exposure_steps` should be greater than or equal to $0030.
 
 ```
     u16 exposure_steps ((Reg2)<<8) | [Reg3]
-    Step time = 1 / 1048576 Hz * 16 = 0,954 µs* 16 = 15,259 µs
+    Step time = 1 / 1048576 Hz * 16 = 0,954 µs * 16 = 15,259 µs
 ```
 
 It's a bit less than the 16 µs the datasheet says, but it's close enough.

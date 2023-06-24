@@ -2,7 +2,7 @@
 
 ## FF00 — P1/JOYP: Joypad
 
-The eight Game Boy action/direction buttons are arranged as a 2x4
+The eight Game Boy action/direction buttons are arranged as a 2×4
 matrix. Select either action or direction buttons by writing to this
 register, then read out the bits 0-3.
 
