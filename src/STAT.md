@@ -21,7 +21,7 @@ is set, and (if enabled) a STAT interrupt is requested.
 ## FF41 — STAT: LCD status
 
 {{#bits 8 >
-  "" 6:"LYC int select" 5:"Mode 2 int select" 4:"Mode 1 int select" 3:"Mode 0 int select" 2:"LYC == LY" 1-0:"PPU mode";
+  ""  6:"LYC int select" 5:"Mode 2 int select" 4:"Mode 1 int select" 3:"Mode 0 int select" 2:"LYC == LY" 1-0:"PPU mode";
 }}
 
 - **LYC int select** (*Read/Write*): If set, selects the `LYC` == `LY` condition for [the STAT interrupt](<#INT $48 — STAT interrupt>).

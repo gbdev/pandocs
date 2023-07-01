@@ -24,7 +24,9 @@ In CGB Mode, an additional map of 32×32 bytes is stored in VRAM Bank 1
 entry in VRAM Bank 0, that is, 1:9800 defines the attributes for the tile at
 0:9800):
 
-{{#bits 8 > "BG attributes" 7:"Priority" 6:"Y flip" 5:"X flip" 3:"Bank" 2-0:"Color palette"}}
+{{#bits 8 > 
+  "BG attributes"  7:"Priority" 6:"Y flip" 5:"X flip" 3:"Bank" 2-0:"Color palette";
+}}
 
 - **Priority**: `0` = No; `1` = Colors 1–3 of the corresponding BG/Window tile are drawn over OBJ, regardless of [OBJ priority](<#Byte 3 — Attributes/Flags>)
 - **Y flip**: `0` = Normal; `1` = Tile is drawn vertically mirrored

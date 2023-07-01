@@ -8,7 +8,7 @@
 This register assigns gray shades to the [color IDs](./Tile_Data.md) of the BG and Window tiles.
 
 {{#bits 8 >
-  "Color for..." 7-6:"ID 3" 5-4:"ID 2" 3-2:"ID 1" 1-0:"ID 0";
+  "Color for..."  7-6:"ID 3" 5-4:"ID 2" 3-2:"ID 1" 1-0:"ID 0";
 }}
 
 Each of the two-bit values map to a color thusly:
@@ -45,7 +45,7 @@ BGP1 color number 0, and so on. Thus, address $03 allows accessing the second (u
 byte of BGP0 color #1 via BCPD, which contains the color's blue and upper green bits.
 
 {{#bits 8 >
-  "BCPS / OCPS" 7:"Auto-increment" 5-0:"Address";
+  "BCPS / OCPS"  7:"Auto-increment" 5-0:"Address";
 }}
 
 - **Auto-increment**: `0` = Disabled; `1` = Increment "Address" field after **writing** to
@@ -63,7 +63,7 @@ This register allows to read/write data to the CGBs background palette memory, a
 Each color is stored as little-endian RGB555:
 
 {{#bits 16 <
-  "One color" 0-4:"Red intensity" 5-9:"Green intensity" 10-14:"Blue intensity";
+  "One color"  0-4:"Red intensity" 5-9:"Green intensity" 10-14:"Blue intensity";
 }}
 
 Much like VRAM, data in palette memory cannot be read or written during the time

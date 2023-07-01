@@ -6,8 +6,8 @@
 elements are displayed on the screen, and how.
 
 {{#bits 8 >
-  "" 7:"LCD & PPU enable" 6:"Window tile map" 5:"Window enable" 4:"BG & Window tiles"
-     3:"BG tile map" 2:"OBJ size" 1:"OBJ enable" 0:"BG & Window enable / priority";
+  ""  7:"LCD & PPU enable" 6:"Window tile map" 5:"Window enable" 4:"BG & Window tiles"
+      3:"BG tile map" 2:"OBJ size" 1:"OBJ enable" 0:"BG & Window enable / priority";
 }}
 
 - **[LCD & PPU enable](<#LCDC.7 — LCD enable>)**: `0` = Off; `1` = On

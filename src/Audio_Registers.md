@@ -89,7 +89,7 @@ Bit 2-0 - Right output volume       (0-7)
 This register controls CH1's period sweep functionality.
 
 {{#bits 8 >
-  "NR10" 6-4:"Pace" 3:"Direction" 2-0:"Individual step";
+  "NR10"  6-4:"Pace" 3:"Direction" 2-0:"Individual step";
 }}
 
 - **Pace**: This dictates how often sweep "iterations" happen, in units of 128 Hz ticks[^div_apu] (7.8 ms).
