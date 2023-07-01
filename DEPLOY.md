@@ -130,6 +130,34 @@ Note that the angle brackets [are only required if there are spaces in the URL](
 
 In effect, this means that linking to a section is as simple as copy-pasting its name in the URL field, prepending a `#`, and wrapping everything in `<>` if the name contains a space.
 
+### Bit descriptions
+
+```markdown
+{{#bits 8 > SB 7-0:"Serial data"; SC 7:"Transfer start" 1:"Clock speed" 0:"Clock source"}}
+```
+
+Pan Docs describes a lot of hardware registers, and [it has been agreed upon that tables are the best format for this](https://github.com/gbdev/pandocs/issues/318).
+However, the best formatting requires `colspan`, which requires HTML tables, which are quite tedious to write; hence, a shorthand syntax was developed.
+This is typically used for bit descriptions (hence the name), but is generic enough to work e.g. for byte descriptions as well.
+
+The first argument is the number of columns (not counting the title one).
+
+The second argument is the direction of the indices: `<` for increasing, `>` for decreasing.
+Decreasing is preferred for bit descriptions, and increasing for byte descriptions.
+
+The following arguments can be repeated for as many rows as desired, separated by semicolons `;`:
+- One argument (which may not start with a digit) names the row; if exactly "\_", it will be ignored.
+- Any amount of arguments (even zero) name the individual fields, which must be ordered as in the example. Fields may span several bits, as shown above.
+
+Note: these are usually followed by more detailed descriptions of the fields.
+The format of those is documented [in the style guide](https://github.com/gbdev/pandocs/wiki/Document-Style#ANCHOR_FOR_ADDITION_BELOW).
+
+\[THIS WILL NOT BE ADDED TO THE PR, BUT TO THE STYLE GUIDE ON THE WIKI. IT'S MERELY HERE FOR REVIEW.\]
+
+The format of bit description lists is as follows: `- **Field name** [*Additional notes*] (*Read/Write*): Description`.
+Additional notes are, for example, to note CGB exclusivity; they are not required.
+The "Read/Write" part may be omitted if all fields within the byte are readable and writable; otherwise, it must be indicated for all fields, and both words must be fully spelled out, or spelled exactly "Read-only"/"Write-only".
+
 ## Syntax highlighting
 
 Syntax highlighting is provided within the browser, courtesy of [`highlight.js`](https://github.com/highlightjs/highlight.js).

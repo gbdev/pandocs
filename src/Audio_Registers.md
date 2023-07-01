@@ -88,29 +88,25 @@ Bit 2-0 - Right output volume       (0-7)
 
 This register controls CH1's period sweep functionality.
 
-```
-Bit 6-4 - Sweep pace
-Bit 3   - Sweep increase/decrease
-           0: Addition    (period increases)
-           1: Subtraction (period decreases)
-Bit 2-0 - Sweep slope control (n: 0-7)
-```
+{{#bits 8 >
+  "NR10" 6-4:"Pace" 3:"Direction" 2-0:"Individual step";
+}}
 
-The <var>sweep pace</var> dictates how often the period gets changed, in units of 128 Hz ticks[^div_apu] (7.8 ms).
-The pace is only reloaded after the following sweep iteration, or when (re)triggering the channel.
-However, if bits 4–6 are all set to 0, then iterations are instantly disabled, and the pace will be reloaded immediately if it's set to something else.
+- **Pace**: This dictates how often sweep "iterations" happen, in units of 128 Hz ticks[^div_apu] (7.8 ms).
+  Note that the value written to this field is not re-read by the hardware until a sweep iteration completes, or the channel is [(re)triggered](<#Triggering>).
+
+  However, if `0` is written to this field, then iterations are instantly disabled (but see below), and it will be reloaded as soon as it's set to something else.
+- **Direction**: `0` = Addition (period increases); `1` = Subtraction (period decreases)
+- **Individual step**: On each iteration, the new period <math><msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></math> is computed from the current one <math><msub><mi>L</mi><mi>t</mi></msub></math> as follows:
+
+  <math display="block">
+    <msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub> <mo>=</mo> <msub><mi>L</mi><mi>t</mi></msub> <mo>±</mo> <mfrac><msub><mi>L</mi><mi>t</mi></msub><msup><mn>2</mn><mi>step</mi></msup></mfrac>
+  </math>
 
 On each sweep iteration, the period in [`NR13`](<#FF13 — NR13: Channel 1 period low \[write-only\]>) and [`NR14`](<#FF14 — NR14: Channel 1 period high & control>) is modified and written back.
-That is, unless <var>n</var> (the slope) is 0, in which case iterations do nothing (in this case, subtraction mode should be set, see below).
-
-On each tick, the new period <math><msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></math> is computed from the current one <math><msub><mi>L</mi><mi>t</mi></msub></math> as follows:
-
-<math display="block">
-  <msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub> <mo>=</mo> <msub><mi>L</mi><mi>t</mi></msub> <mo>±</mo> <mfrac><msub><mi>L</mi><mi>t</mi></msub><msup><mn>2</mn><mi>n</mi></msup></mfrac>
-</math>
 
 In addition mode, if the period value would overflow (i.e. <math><msub><mi>L</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></math> is strictly more than $7FF), the channel is turned off instead.
-**This occurs even if sweep iterations are disabled** by <var>n</var> = 0.
+**This occurs even if sweep iterations are disabled** by the <var>pace</var> being 0.
 
 Note that if the period ever becomes 0, the period sweep will never be able to change it.
 For the same reason, the period sweep cannot underflow the period (which would turn the channel off).

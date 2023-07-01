@@ -14,8 +14,10 @@ use mdbook::errors::Error;
 use mdbook::preprocess::{Preprocessor, PreprocessorContext};
 use pulldown_cmark::{CowStr, Event, LinkType, Options, Parser, Tag};
 use regex::Regex;
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::io::Write;
+use std::iter;
 use std::process::{Command, Stdio};
 use std::str;
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
@@ -325,30 +327,52 @@ impl Pandocs {
         let mut replaced = String::with_capacity(chapter.content.len());
 
         for result in find_bit_descrs(&chapter.content) {
-            let (start, end, attrs) = result?;
+            let (cap_start, cap_end, attrs) = result?;
 
-            replaced.push_str(&chapter.content[previous_end_index..start]);
-            replaced.push_str("<table><thead><tr><th></th>");
-            for i in (0..attrs.width).rev() {
+            replaced.push_str(&chapter.content[previous_end_index..cap_start]);
+
+            let (start, end) = if attrs.increasing {
+                (0, attrs.width - 1)
+            } else {
+                (attrs.width - 1, 0)
+            };
+
+            // Generate the table head
+            if !attrs.rows[0].0.is_empty() {
+                // If names are present, add an empty cell for the name column
+                replaced.push_str("<table class=\"bit-descrs\"><thead><tr><th></th>");
+            } else {
+                // Otherwise, add a class to force correct styling of first column
+                replaced.push_str("<table class=\"bit-descrs nameless\"><thead><tr>");
+            }
+            // Start at `start`, and step each time
+            for i in iter::successors(Some(start), |i| {
+                (*i != end).then(|| if attrs.increasing { i + 1 } else { i - 1 })
+            }) {
                 replaced.push_str(&format!("<th>{}</th>", i));
             }
             replaced.push_str("</tr></thead><tbody>");
 
             for (name, row) in &attrs.rows {
-                replaced.push_str(&format!("<tr><td><strong>{}</strong></td>", name));
-                let mut pos = attrs.width;
+                replaced.push_str("<tr>");
+                // If a name is present, add it
+                if !name.is_empty() {
+                    replaced.push_str(&format!("<td><strong>{}</strong></td>", name));
+                }
+                let mut pos = 0;
                 let mut fields = row.iter().peekable();
-                while pos != 0 {
-                    let (start, unused, name) = match fields.peek() {
+                while pos < attrs.width {
+                    let (len, is_unused, name) = match fields.peek() {
                         // If we are at the edge of a "used" field, use it
-                        Some(field) if field.end == pos - 1 => (field.start, false, field.name),
+                        Some(field) if field.start == pos => (field.len, false, field.name),
                         // If in an unused field, end at the next field, or the width if none such
-                        res => (res.map_or(0, |field| field.end + 1), true, ""),
+                        res => (res.map_or(attrs.width, |field| field.start) - pos, true, ""),
                     };
+
                     replaced.push_str(&format!(
                         "<td colspan=\"{}\"{}>{}</td>",
-                        pos - start,
-                        if unused {
+                        len,
+                        if is_unused {
                             " class=\"unused-field\""
                         } else {
                             ""
@@ -356,16 +380,16 @@ impl Pandocs {
                         name
                     ));
 
-                    if !unused {
+                    if !is_unused {
                         fields.next();
                     }
-                    pos = start;
+                    pos += len;
                 }
                 replaced.push_str("</tr>");
             }
             replaced.push_str("</tbody></table>");
 
-            previous_end_index = end;
+            previous_end_index = cap_end;
         }
 
         replaced.push_str(&chapter.content[previous_end_index..]);
@@ -394,10 +418,12 @@ fn find_bit_descrs(
         .map(|caps| {
             // Must use `.get()`, as indexing ties the returned value's lifetime to `caps`'s.
             let contents = caps.get(1).unwrap().as_str();
-            BitDescrAttrs::from_str(contents).map(|attrs| {
-                let all = caps.get(0).unwrap(); // There is always a 0th capture.
-                (all.start(), all.end(), attrs)
-            })
+            BitDescrAttrs::from_str(contents)
+                .map(|attrs| {
+                    let all = caps.get(0).unwrap(); // There is always a 0th capture.
+                    (all.start(), all.end(), attrs)
+                })
+                .context(format!("Failed to parse \"{contents}\""))
         })
 }
 
@@ -405,6 +431,7 @@ fn find_bit_descrs(
 struct BitDescrAttrs<'input> {
     width: usize,
     rows: Vec<(&'input str, Vec<BitDescrField<'input>>)>,
+    increasing: bool,
 }
 
 impl<'input> BitDescrAttrs<'input> {
@@ -421,8 +448,34 @@ impl<'input> BitDescrAttrs<'input> {
         ))?;
         let s = contents[width_len..].trim_start();
 
+        // Then, parse the direction
+        let mut chars = s.chars();
+        // Angle brackets have a tendency to get escaped, so account for that
+        let (base_len, next) = match chars.next() {
+            Some('\\') => ('\\'.len_utf8(), chars.next()),
+            c => (0, c),
+        };
+        let increasing = match next {
+            Some('<') => true,
+            Some('>') => false,
+            c => {
+                bail!(
+                    "Expected width to be followed by '<' or '>' for direction, found {}",
+                    c.map_or(Cow::from("nothing"), |c| format!(
+                        "'{}'",
+                        &s[..base_len + c.len_utf8()]
+                    )
+                    .into()),
+                );
+            }
+        };
+        debug_assert_eq!('<'.len_utf8(), 1);
+        debug_assert_eq!('>'.len_utf8(), 1);
+        let s = s[base_len + 1..].trim_start();
+
         // Next, parse the rows!
         let mut rows = Vec::new();
+        let mut name_type = None;
         for row_str in s.split_terminator(';') {
             let row_str = row_str.trim();
 
@@ -452,45 +505,86 @@ impl<'input> BitDescrAttrs<'input> {
                 let Some(cap) = RE.captures(row_str) else {
                     bail!("Failed to parse field for \"{}\"", row_str);
                 };
-                let end = cap[1].parse().unwrap();
-                let start = cap
+                let left: usize = cap[1].parse().unwrap();
+                let right = cap
                     .get(2)
-                    .map_or(end, |end_match| end_match.as_str().parse().unwrap());
+                    .map_or(left, |end_match| end_match.as_str().parse().unwrap());
                 let name = &cap.get(3).unwrap().as_str();
 
-                // Perform sanity checks.
-                if start > end {
-                    bail!(
-                        "Field must end after it started (expected {} <= {})",
-                        start,
-                        end,
-                    );
+                // Perform some sanity checks.
+                let Some((mut start, len)) = if increasing {
+                    right.checked_sub(left)
+                } else {
+                    left.checked_sub(right)
                 }
+                .map(|len| (left, len + 1)) else {
+                    bail!(
+                        "Field must end after it started ({}-{})",
+                        left, right
+                    )};
+
                 if let Some(field) = fields.last() {
-                    if field.end <= start {
+                    if !increasing {
+                        // Cancel the massaging to get back what was input
+                        let prev_end = width - field.end();
+
+                        if prev_end < start {
+                            bail!(
+                                "Field must start after previous ended (expected {} > {})",
+                                prev_end - 1,
+                                start
+                            );
+                        }
+                    } else if field.end() > start {
                         bail!(
-                            "Field must start after previous ended (expected {} > {})",
-                            field.end,
-                            start,
+                            "Field must start after previous ended (expected {} < {})",
+                            field.end() - 1,
+                            start
                         );
                     }
                 }
 
-                fields.push(BitDescrField { start, end, name });
+                // If in decreasing order, still store positions in increasing order to simplify processing.
+                if !increasing {
+                    start = width - 1 - start;
+                }
+
+                fields.push(BitDescrField { start, len, name });
+
                 // Advance by the match's length, plus any whitespace after it.
                 row_str = row_str[cap[0].len()..].trim_start();
+            }
+
+            // Check the name type.
+            let new_name_type = name.is_empty();
+            if let Some(name_type) = name_type {
+                if new_name_type != name_type {
+                    return Err(Error::msg("Row names must all be omitted, or none may be"));
+                }
+            } else {
+                name_type = Some(new_name_type);
             }
 
             rows.push((name, fields));
         }
 
-        Ok(BitDescrAttrs { width, rows })
+        Ok(BitDescrAttrs {
+            width,
+            rows,
+            increasing,
+        })
     }
 }
 
 #[derive(Debug)]
 struct BitDescrField<'a> {
     start: usize,
-    end: usize,
+    len: usize,
     name: &'a str,
+}
+
+impl BitDescrField<'_> {
+    fn end(&self) -> usize {
+        self.start + self.len
+    }
 }

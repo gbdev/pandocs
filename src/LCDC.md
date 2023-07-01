@@ -5,16 +5,19 @@
 **LCDC** is the main **LCD C**ontrol register. Its bits toggle what
 elements are displayed on the screen, and how.
 
-Bit | Name                           | Usage notes
-----|--------------------------------|-------------------------
- 7  | LCD and PPU enable             | 0=Off, 1=On
- 6  | Window tile map area           | 0=9800-9BFF, 1=9C00-9FFF
- 5  | Window enable                  | 0=Off, 1=On
- 4  | BG and Window tile data area   | 0=8800-97FF, 1=8000-8FFF
- 3  | BG tile map area               | 0=9800-9BFF, 1=9C00-9FFF
- 2  | OBJ size                       | 0=8×8, 1=8×16
- 1  | OBJ enable                     | 0=Off, 1=On
- 0  | BG and Window enable/priority  | 0=Off, 1=On
+{{#bits 8 >
+  "" 7:"LCD & PPU enable" 6:"Window tile map" 5:"Window enable" 4:"BG & Window tiles"
+     3:"BG tile map" 2:"OBJ size" 1:"OBJ enable" 0:"BG & Window enable / priority";
+}}
+
+- **[LCD & PPU enable](<#LCDC.7 — LCD enable>)**: `0` = Off; `1` = On
+- **[Window tile map area](<#LCDC.6 — Window tile map area>)**: `0` = 9800–9BFF; `1` = 9C00–9FFF
+- **[Window enable](<#LCDC.5 — Window enable>)**: `0` = Off; `1` = On
+- **[BG & Window tile data area](<#LCDC.4 — BG and Window tile data area>)**: `0` = 8800–97FF; `1` = 8000–8FFF
+- **[BG tile map area](<#LCDC.3 — BG tile map area>)**: `0` = 9800–9BFF; `1` = 9C00–9FFF
+- **[OBJ size](<#LCDC.2 — OBJ size>)**: `0` = 8×8; `1` = 8×16
+- **[OBJ enable](<#LCDC.1 — OBJ enable>)**: `0` = Off; `1` = On
+- **[BG & Window enable / priority](<#LCDC.0 — BG and Window enable/priority>)** *\[Different meaning in CGB Mode\]*: `0` = Off; `1` = On
 
 ### LCDC.7 — LCD enable
 
@@ -73,7 +76,6 @@ Objects (sprites) aren't affected by this, and will always use the \$8000 addres
 This bit works similarly to [LCDC bit 6](<#LCDC.6 — Window tile map area>):
 if the bit is clear (0), the BG uses tilemap $9800, otherwise tilemap $9C00.
 
-
 ### LCDC.2 — OBJ size
 
 This bit controls the size of all objects (1 tile or 2 stacked vertically).
@@ -128,8 +130,8 @@ A problem often seen in 8-bit games is objects rendering on top
 of the textbox/status bar. It's possible to prevent this using LCDC if
 the textbox/status bar is "alone" on its scanlines:
 
--   Set LCDC.1 to 1 for gameplay scanlines
--   Set LCDC.1 to 0 for textbox/status bar scanlines
+- Set LCDC.1 to 1 for gameplay scanlines
+- Set LCDC.1 to 0 for textbox/status bar scanlines
 
 Usually, these bars are either at the top or bottom of the screen, so
 the bit can be set by the VBlank and/or STAT handlers.
