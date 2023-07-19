@@ -154,7 +154,7 @@ Actually, there is not LUT, but the manipulations done to the counter's bits are
 ### Wave channel (CH3)
 
 CH3 has an internal "sample index" counter.
-The "sample index" increments at the channel's sample rate, which is 32 times [the channel's frequency](<#FF1D — NR33: Channel 3 period low \[write-only\]>
+The "sample index" increments at the channel's sample rate, which is 32 times [the channel's frequency](<#FF1D — NR33: Channel 3 period low \[write-only\]>)
 Each time it increments, the corresponding "sample" (nibble) is read from wave RAM.
 (This means that sample #0 is skipped when first starting up CH3.)
 
