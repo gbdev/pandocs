@@ -83,7 +83,7 @@ $FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 — LCDC: LCD control>
 $FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F — VBK (CGB Mode only): VRAM bank>)
 $FF50   |         |       DMG      | Set to non-zero to disable boot ROM
 $FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
-$FF68   |  $FF69  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
+$FF68   |  $FF6B  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
 $FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mode only): WRAM bank>)
 
 ## FEA0-FEFF range
