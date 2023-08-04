@@ -62,7 +62,7 @@ power down of the Game Boy or removal of the cartridge. Once the cartridge has _
 ### 2000–3FFF — ROM Bank Number (Write Only)
 
 This 5-bit register (range $01-$1F) selects the ROM bank number for the 4000–7FFF region. Higher
-bits are discarded — writing $E1 (binary ~~111~~00001) to this register
+bits are discarded — writing $E1 (binary 111**00001**) to this register
 would select bank $01.
 
 If this register is set to $00, it behaves as if it is set to $01. This means you cannot duplicate bank $00 into both the 0000–3FFF and 4000–7FFF ranges by setting this register to $00.
