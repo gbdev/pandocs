@@ -39,3 +39,13 @@ Bit 2 is set when [LY](<#FF44 — LY: LCD Y coordinate \[read-only\]>) contains 
 It is constantly updated.
 
 Bits 3-6 select which sources are used for [the STAT interrupt](<#INT $48 — STAT interrupt>).
+
+### Spurious STAT interrupts
+
+A hardware quirk in the monochrome Game Boy makes the LCD interrupt
+sometimes trigger when writing to STAT (including writing \$00) during
+OAM scan, HBlank, VBlank, or LY=LYC. It behaves as if \$FF were
+written for one cycle, and then the written value were written the next
+cycle. Because the GBC in DMG mode does not have this quirk, two games
+that depend on this quirk (Ocean's *Road Rash* and Vic Tokai's *Xerd
+no Densetsu*) will not run on a GBC.
