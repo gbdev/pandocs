@@ -1,15 +1,27 @@
 # Rendering overview
 
-::: tip TERMINOLOGY
+## Terminology
 
-All references to a "dot" are meant as dots (one 4 MiHz time unit).
-Dots remain the same regardless of whether the CPU is in [double speed](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>).
+The entire frame is not drawn atomically; instead, the image is drawn by the **<abbr>PPU</abbr>** (Pixel-Processing Unit) progressively, **directly to the screen**.
+A frame consists of 154 **scanlines**; during the first 144, the screen is drawn top to bottom, left to right.
+
+The main implication of this rendering process is the existence of **raster effects**: modifying some rendering parameters in the middle of rendering.
+The most famous raster effect is modifying the [scrolling registers](<#LCD Position and Scrolling>) between scanlines to create a ["wavy" effect](https://gbdev.io/guides/deadcscroll#effects).
+
+A "**dot**" = one 2<sup>22</sup> Hz (≅ 4.194 MHz) time unit.
+Dots remain the same regardless of whether the CPU is in [double speed](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>), so there are 4 dots per single-speed CPU cycle, and 2 per double-speed CPU cycle.
+
+::: tip
+
+Note that a frame is not exactly one 60<sup>th</sup> of a second: the Game Boy runs slightly slower than 60 Hz, as one frame takes ~16.74 ms instead of ~16.67 (the error is 0.45%).
 
 :::
 
+## PPU modes
+
 <figure><figcaption>
 
-The following diagram shows how a Game Boy frame is decomposed:
+During a frame, the Game Boy's PPU cycles between four modes as follows:
 
 </figcaption>
 
@@ -17,25 +29,18 @@ The following diagram shows how a Game Boy frame is decomposed:
 
 </figure>
 
-TODO: high-level description of the above... and implications ("raster effects")
-
-## PPU modes
-
-The PPU operates on a 2<sup>22</sup> Hz = 4.194 MHz clock, called the "dot clock".
-An entire frame is 154 scanlines = 70224 dots = 16.74 ms. On scanlines 0
-through 143, the PPU cycles through modes 2, 3, and 0 once
-every 456 dots. Scanlines 144 through 153 are mode 1.
-
 While the PPU is accessing some video-related memory, [that memory is inaccessible to the CPU](<#Accessing VRAM and OAM>) (writes are ignored, and reads return garbage values, usually $FF).
 
 Mode | Action                                     | Duration                             | Accessible video memory
------|--------------------------------------------|--------------------------------------|-------------------------
+----:|--------------------------------------------|--------------------------------------|-------------------------
   2  | Searching for OBJs which overlap this line | 80 dots                              | VRAM, CGB palettes
   3  | Sending pixels to the LCD                  | Between 172 and 289 dots, see below  | None
   0  | Waiting until the end of the scanline      | 376 - mode 3's duration              | VRAM, OAM, CGB palettes
   1  | Waiting until the next frame               | 4560 dots (10 scanlines)             | VRAM, OAM, CGB palettes
 
 ## Mode 3 length
+
+During Mode 3, by default the PPU outputs one pixel to the screen per dot; the screen is 160 pixels wide, so the minimum Mode 3 length is 160 + 12[^first12] = 172 dots.
 
 Unlike most game consoles, the Game Boy does not always output pixels steadily[^crt]: some features cause the rendering process to stall for a couple dots.
 Any extra time spent stalling *lengthens* Mode 3; but since scanlines last for a fixed number of dots, Mode 0 is therefore shortened by that same amount of time.
@@ -46,9 +51,7 @@ Three things can cause Mode 3 "penalties":
 - **Window**: After the last non-window pixel is emitted, a 6-dot penalty is incurred while the BG fetcher is being set up for the window.
 - **Objects**: Each object drawn during the scanline (even partially) incurs a 6- to 11-dot penalty ([see below](<#OBJ penalty algorithm>)).
 
-On DMG and GBC in DMG mode, mid-scanline writes to [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette data>)
-allow observing this behavior, as the delay from drawing an OBJ shifts the
-write's effect to the left by that many dots.
+On DMG and GBC in DMG mode, mid-scanline writes to [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette data>) allow observing this behavior precisely, as any delay shifts the write's effect to the left by that many dots.
 
 ### OBJ penalty algorithm
 
@@ -63,6 +66,8 @@ Only the OBJ's leftmost pixel matters here, transparent or not; it is designated
 
 **Exception**: an OBJ with an OAM X position of 0 (thus, completely off the left side of the screen) always incurs a 11-cycle penalty, regardless of `SCX`.
 
-TODO: a diagram of some examples would probably help this be much clearer! \>_\<
+TODO: a diagram of some examples would probably help this be much clearer!
+
+[^first12]: The 12 extra cycles come from two tile fetches at the beginning of Mode 3. One is the first tile in the scanline (the one that gets shifted by `SCX` % 8 pixels), the other is simply discarded.
 
 [^crt]: The Game Boy can afford to "take pauses", because it writes to a LCD it fully controls; by contrast, home consoles like the NES or SNES are on a schedule imposed by the screen they are hooked up to. Taking pauses arguably simplified the PPU's design while allowing greater flexibility to game developers.
