@@ -40,7 +40,7 @@ Mode | Action                                     | Duration                    
 
 ## Mode 3 length
 
-During Mode 3, by default the PPU outputs one pixel to the screen per dot; the screen is 160 pixels wide, so the minimum Mode 3 length is 160 + 12[^first12] = 172 dots.
+During Mode 3, by default the PPU outputs one pixel to the screen per dot, from left to right; the screen is 160 pixels wide, so the minimum Mode 3 length is 160 + 12[^first12] = 172 dots.
 
 Unlike most game consoles, the Game Boy does not always output pixels steadily[^crt]: some features cause the rendering process to stall for a couple dots.
 Any extra time spent stalling *lengthens* Mode 3; but since scanlines last for a fixed number of dots, Mode 0 is therefore shortened by that same amount of time.
