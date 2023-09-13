@@ -36,7 +36,7 @@ The speaker merges back the two channels, losing the stereo aspect entirely.
 
 The Game Boy's sound chip is called the <abbr title="Audio Processing Unit">APU</abbr>.
 
-The APU runs off the same master clock as the rest of the Game Boy, which is to say, it is fully synced with the CPU and [PPU](<#Graphics Overview>).
+The APU runs off the same master clock as the rest of the Game Boy, which is to say, it is fully synced with the CPU and [PPU](<#Rendering Overview>).
 This also means that the APU runs about 2.4% faster on the SGB1, increasing frequencies by as much and thus sounding slightly higher-pitched.
 The SGB2 rectifies this issue.
 
