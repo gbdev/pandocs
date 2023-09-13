@@ -66,7 +66,6 @@ Only the OBJ's leftmost pixel matters here, transparent or not; it is designated
 
 **Exception**: an OBJ with an OAM X position of 0 (thus, completely off the left side of the screen) always incurs a 11-cycle penalty, regardless of `SCX`.
 
-TODO: a diagram of some examples would probably help this be much clearer!
 
 [^first12]: The 12 extra cycles come from two tile fetches at the beginning of Mode 3. One is the first tile in the scanline (the one that gets shifted by `SCX` % 8 pixels), the other is simply discarded.
 
