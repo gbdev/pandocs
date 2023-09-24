@@ -2,7 +2,7 @@
 
 ## INT $40 — VBlank interrupt
 
-This interrupt is requested every time the Game Boy enters VBlank ([Mode 1](<#STAT modes>)).
+This interrupt is requested every time the Game Boy enters VBlank ([Mode 1](<#PPU modes>)).
 
 The VBlank interrupt occurs ca. 59.7 times a second on a handheld Game
 Boy (DMG or CGB) or Game Boy Player and ca. 61.1 times a second on a

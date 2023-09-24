@@ -33,7 +33,7 @@ Bit 1-0 - Mode Flag                          (Mode 0-3, see below) (Read Only)
           3: Transferring Data to LCD Controller
 ```
 
-The two lower STAT bits show the current [status of the PPU](<#STAT modes>).
+The two lower STAT bits show the current [status of the PPU](<#PPU modes>).
 
 Bit 2 is set when [LY](<#FF44 — LY: LCD Y coordinate \[read-only\]>) contains the same value as [LYC](<#FF45 — LYC: LY compare>).
 It is constantly updated.

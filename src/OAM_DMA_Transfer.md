@@ -37,7 +37,7 @@ This can be done by executing DMA within the VBlank interrupt handler or through
 :::
 
 While an OAM DMA is in progress, the PPU cannot read OAM properly either.
-Thus, most programs execute DMA during [Mode 1](<#STAT modes>), inside or immediately after their VBlank handler.
+Thus, most programs execute DMA during [Mode 1](<#PPU modes>), inside or immediately after their VBlank handler.
 But it is also possible to execute it during display redraw (Modes 2 and 3),
 allowing to display more than 40 objects on the screen (that is, for
 example 40 objects in the top half, and other 40 objects in the bottom half of
