@@ -340,10 +340,14 @@ impl Pandocs {
             // Generate the table head
             if !attrs.rows[0].0.is_empty() {
                 // If names are present, add an empty cell for the name column
-                replaced.push_str("<table class=\"bit-descrs\"><thead><tr><th></th>");
+                replaced.push_str(
+                    "<div class=\"table-wrapper\"><table class=\"bit-descrs\"><thead><tr><th></th>",
+                );
             } else {
                 // Otherwise, add a class to force correct styling of first column
-                replaced.push_str("<table class=\"bit-descrs nameless\"><thead><tr>");
+                replaced.push_str(
+                    "<div class=\"table-wrapper\"><table class=\"bit-descrs nameless\"><thead><tr>",
+                );
             }
             // Start at `start`, and step each time
             for i in iter::successors(Some(start), |i| {
@@ -387,7 +391,7 @@ impl Pandocs {
                 }
                 replaced.push_str("</tr>");
             }
-            replaced.push_str("</tbody></table>");
+            replaced.push_str("</tbody></table></div>");
 
             previous_end_index = cap_end;
         }
@@ -488,7 +492,9 @@ impl<'input> BitDescrAttrs<'input> {
                     .find('"')
             }
             let Some(name_len) = parse_name(row_str) else {
-                bail!("Expected row to begin by its name (did you forget to put quotes around it?)");
+                bail!(
+                    "Expected row to begin by its name (did you forget to put quotes around it?)"
+                );
             };
             let name = &row_str[1..(name_len + 1)];
             let mut row_str = row_str[(name_len + 2)..].trim_start(); // The end is already trimmed.
@@ -518,10 +524,8 @@ impl<'input> BitDescrAttrs<'input> {
                     left.checked_sub(right)
                 }
                 .map(|len| (left, len + 1)) else {
-                    bail!(
-                        "Field must end after it started ({}-{})",
-                        left, right
-                    )};
+                    bail!("Field must end after it started ({}-{})", left, right)
+                };
 
                 if let Some(field) = fields.last() {
                     if !increasing {
