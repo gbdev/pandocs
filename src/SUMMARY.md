@@ -15,7 +15,7 @@
 # I/O Ports
 
 - [Summary](./Hardware_Reg_List.md)
-- [Rendering](./Rendering.md)
+- [Graphics](./Graphics.md)
   - [Tile Data](./Tile_Data.md)
   - [Tile Maps](./Tile_Maps.md)
   - [OAM](./OAM.md)
@@ -24,7 +24,8 @@
   - [LCD Status Registers](./STAT.md)
   - [Scrolling](./Scrolling.md)
   - [Palettes](./Palettes.md)
-  - [Pixel FIFO](./pixel_fifo.md)
+  - [Rendering](./Rendering.md)
+    - [Pixel FIFO](./pixel_fifo.md)
 - [Audio](./Audio.md)
   - [Audio Registers](./Audio_Registers.md)
   - [Audio Details](./Audio_details.md)

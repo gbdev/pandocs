@@ -1,16 +1,5 @@
 # Pixel FIFO
 
-::: tip TERMINOLOGY
-
-All references to a dot are meant as dots (4.19 MHz). Dots remain the same regardless of 
-CGB double speed.
-When it is stated that a certain action *lengthens mode 3* it means that mode 0 (HBlank) is
-shortened to make up for the additional time in mode 3, as shown in the following diagram.
-
-:::
-
-{{#include imgs/ppu_modes_timing.svg:2:}}
-
 ## Introduction
 
 FIFO stands for *First In, First Out*. The first pixel to be pushed to the
