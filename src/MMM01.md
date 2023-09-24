@@ -36,7 +36,7 @@ On startup (in "unmapped" mode), this is mapped to the first half of the menu pr
 
 When a game is mapped, this area normally contains the first 16 KiB (bank 00) of the game ROM.
 
-If [multiplex is enabled[(<#Multiplex Enable>)], entering mode 1 allows mapping game ROM banks $20, $40, and $60 to this region.
+If [multiplex is enabled](<#Multiplex Enable>), entering mode 1 allows mapping game ROM banks $20, $40, and $60 to this region.
 
 #### Addressing diagrams
 
@@ -75,7 +75,7 @@ i.e. in mapped mode, if `(ROM Bank Low) & ~(ROM Bank Mask)` is equal to $00 (ind
 As an example, if ROM Bank Low is set to $10, and the ROM Bank Mask is set to $30, then the bank within the game ROM would be `($10) & ~($30) = $00`.
 As game bank $00 is disallowed, the low bit is forced on, mapping bank $11 instead of $10.
 
-If [multiplex is enabled[(<#Multiplex Enable>)], the MMM01 has the same limitation as MBC1 regarding accessing game ROM banks $20, $40, and $60 - they can only be mapped to 0000-3FFF (in mode 1), and not to 4000-7FFF.
+If [multiplex is enabled](<#Multiplex Enable>), the MMM01 has the same limitation as MBC1 regarding accessing game ROM banks $20, $40, and $60 - they can only be mapped to 0000-3FFF (in mode 1), and not to 4000-7FFF.
 
 #### Addressing diagrams
 
@@ -180,7 +180,7 @@ Setting these bits effectively reduces the size of the ram available to the game
 | 10   | 16 KiB   |
 | 11   | 8 KiB    |
 
-If [multiplex is enabled[(<#Multiplex Enable>)], this mask still applies to the RAM Bank Low register, even though that register is used as part of the **ROM** bank number in multiplex mode.
+If [multiplex is enabled](<#Multiplex Enable>), this mask still applies to the RAM Bank Low register, even though that register is used as part of the **ROM** bank number in multiplex mode.
 This has the effect of reducing the ROM size instead of the RAM size, as follows:
 
 | Mask | Game ROM  |
@@ -225,7 +225,7 @@ This register represents an additional two bits of ROM bank number, for game sel
 Affects both the 0000-3FFF and 4000-7FFF region.
 Can only be used for game selection, as it's not writeable once entering a game (mapped mode).
 
-If [multiplex is enabled[(<#Multiplex Enable>)], functionality is swapped with [RAM Bank Low](<#Bits 0-1: RAM Bank Low>) allowing for larger game ROM.
+If [multiplex is enabled](<#Multiplex Enable>), functionality is swapped with [RAM Bank Low](<#Bits 0-1: RAM Bank Low>) allowing for larger game ROM.
 
 ### 4000-5FFF - RAM Bank Number (Write Only)
 
@@ -243,7 +243,7 @@ Bits: X 6 5 4 3 2 1 0
 This is equivalent to the MBC1 RAM Bank register.
 It can be masked to reduce its size, reserving some bits for game select (see [RAM Bank Mask](<#Bits 4-5: RAM Bank Mask>)).
 
-If [multiplex is enabled[(<#Multiplex Enable>)], functionality is swapped with [ROM Bank Mid](<#Bits 5-6: ROM Bank Mid>) allowing for larger game ROM.
+If [multiplex is enabled](<#Multiplex Enable>), functionality is swapped with [ROM Bank Mid](<#Bits 5-6: ROM Bank Mid>) allowing for larger game ROM.
 
 #### Bits 1-2: RAM Bank High
 
@@ -330,7 +330,7 @@ Note: changing the mask can alter which bank would be mapped.
 Only the _unmasked_ bits of [ROM Bank Low](<#Bits 0-4: ROM Bank Low>) are used for the "[attempting to map bank 0 maps bank 1](<#4000-7FFF - ROM Bank $01-7F (Read Only)>)" logic, and it updates live if the ROM Bank Mask changes.
 ROM Bank Low itself doesn't change when this happens — only the value used for calculating the bank number.
 
-If [multiplex is enabled[(<#Multiplex Enable>)], the [RAM Bank Mask](<#Bits 4-5: RAM Bank Mask>) affects ROM banking as well.
+If [multiplex is enabled](<#Multiplex Enable>), the [RAM Bank Mask](<#Bits 4-5: RAM Bank Mask>) affects ROM banking as well.
 In this case the ROM Bank Mask should be set to 00000 to avoid masking bits in the _middle_ of the full game ROM bank number.
 
 #### Multiplex Enable
@@ -344,7 +344,7 @@ This is equivalent to the ["large ROM" wiring of an MBC1 cartridge](#MBC1).
 
 ## Multiplex addressing diagrams
 
-If [multiplex is enabled[(<#Multiplex Enable>)], the addressing diagrams change as follows (changes marked with `*`):
+If [multiplex is enabled](<#Multiplex Enable>), the addressing diagrams change as follows (changes marked with `*`):
 
 ### 0000-3FFF - ROM Bank X0
 

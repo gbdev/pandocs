@@ -11,16 +11,16 @@ microcontroller core with internal program ROM.
 
 ## Memory
 
-### 0000–3FFF — ROM Bank 00 [read-only]
+### 0000–3FFF — ROM Bank 00 \[read-only\]
 
 Contains the first 16 KiB of the ROM.
 
-### 4000–7FFF — ROM Bank 00–7F [read-only]
+### 4000–7FFF — ROM Bank 00–7F \[read-only\]
 
 This area may contain any of the further 16 KiB banks of the ROM. Like the MBC5,
 bank $00 can also be mapped to this region.
 
-### A000–BFFF — RAM Bank 00–03, or RTC/IR register [read/write]
+### A000–BFFF — RAM Bank 00–03, or RTC/IR register \[read/write\]
 
 Depending on the current register selection and RAM Bank Number (see
 below), this memory space is used to access an 8 KiB external RAM Bank,
@@ -28,7 +28,7 @@ or a single I/O Register.
 
 ## Memory Control Registers
 
-### 0000–1FFF — RAM/RTC/IR Select [read/write]
+### 0000–1FFF — RAM/RTC/IR Select \[read/write\]
 
 Writing to this register maps cart RAM, RTC registers or IR registers
 into memory at $A000–BFFF. Only the lower 4 bits are significant.
@@ -70,19 +70,19 @@ ignored.
 
 The RTC MCU communication protocol is described below.
 
-### $B — RTC Command/Argument [write]
+### $B — RTC Command/Argument \[write\]
 
 The value written consists of a command in bits 6-4, and an argument
 value in bits 3–0. For example the value $62 is command $6 with argument
 value $2. Writing to this register just sets the values in the mailbox
 registers – it does not cause the command to be executed.
 
-### $C — RTC Command/Response [read]
+### $C — RTC Command/Response \[read\]
 
 When read, bits 6–4 return the last command written to register $B, and
 bits 3–0 contain the result from the last command executed.
 
-### $D — RTC Semaphore [read/write]
+### $D — RTC Semaphore \[read/write\]
 
 When reading, the least significant bit is high when the RTC MCU is
 ready to receive a command, or low when the RTC MCU is busy.
@@ -90,7 +90,7 @@ ready to receive a command, or low when the RTC MCU is busy.
 Writing with the least significant bit clear requests that the RTC MCU
 execute the last command written to register $B.
 
-### $E — IR [read/write]
+### $E — IR \[read/write\]
 
 Similar to the equivalent register of the HuC1. The least significant
 bit is used for infrared communication.
