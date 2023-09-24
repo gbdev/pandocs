@@ -58,9 +58,9 @@ On DMG and GBC in DMG mode, mid-scanline writes to [`BGP`](<#FF47 — BGP (Non-C
 Only the OBJ's leftmost pixel matters here, transparent or not; it is designated as "The Pixel" in the following.
 
 1. Determine the tile (background or window) that The Pixel is within. (This is affected by horizontal scrolling and/or the window!)
-2. If that tile has **not** been considered by a previous OBJ yet:
-   1. Count how many of that tile's pixels are to the right of The Pixel.
-   2. Subtract 3.
+2. If that tile has **not** been considered by a previous OBJ yet[^order]:
+   1. Count how many of that tile's pixels are strictly to the right of The Pixel.
+   2. Subtract 2.
    3. Incur this many dots of penalty, or zero if negative (from waiting for the BG fetch to finish).
 3. Incur a flat, 6-dot penalty (from fetching the OBJ's tile).
 
@@ -70,3 +70,5 @@ Only the OBJ's leftmost pixel matters here, transparent or not; it is designated
 [^first12]: The 12 extra cycles come from two tile fetches at the beginning of Mode 3. One is the first tile in the scanline (the one that gets shifted by `SCX` % 8 pixels), the other is simply discarded.
 
 [^crt]: The Game Boy can afford to "take pauses", because it writes to a LCD it fully controls; by contrast, home consoles like the NES or SNES are on a schedule imposed by the screen they are hooked up to. Taking pauses arguably simplified the PPU's design while allowing greater flexibility to game developers.
+
+[^order]: Since pixels are emitted from left to right, OBJs overlapping the scanline are considered from [leftmost](<#Byte 1 — X Position>) to rightmost, with ties broken by their index / OAM address (lowest first).
