@@ -139,10 +139,12 @@ loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
 ### FF4D — KEY1 (CGB Mode only): Prepare speed switch
 
-```
- Bit 7: Current Speed     (0=Normal, 1=Double) (Read Only)
- Bit 0: Prepare Speed Switch (0=No, 1=Prepare) (Read/Write)
-```
+{{#bits 8 >
+   "KEY1" 7:"Current speed" 0:"Switch armed"
+}}
+
+- **Current speed** (*Read-only*): `0` = Single-speed mode, `1` = Double-speed mode
+- **Switch armed** (*Read/Write*): `0` = No, `1` = Armed
 
 This register is used to prepare the Game Boy to switch between CGB
 Double Speed Mode and Normal Speed Mode. The actual speed switch is
@@ -196,11 +198,13 @@ Bit 0 must be cleared — if you don't want to receive your own Game Boy's
 IR signal). After sending or receiving data you should reset the
 register to $00 to reduce battery power consumption again.
 
-```
- Bit 0:   Write Data   (0=LED Off, 1=LED On)             (Read/Write)
- Bit 1:   Read Data    (0=Receiving IR Signal, 1=Normal) (Read Only)
- Bit 6-7: Data Read Enable (0=Disable, 3=Enable)         (Read/Write)
-```
+{{#bits 8 >
+   "RP" 7-6:"Read enable" 1:"Receiving" 0:"Emitting"
+}}
+
+- **Read enable** (*Read/Write*): `0` = Disable (bit 1 reads `1`), `3` = Enable
+- **Receiving** (*Read-only*): `0` = Receiving IR signal, `1` = Normal
+- **Emitting** (*Read/Write*): `0` = LED off, `1` = LED on
 
 Note that the receiver will adapt itself to the normal level of IR
 pollution in the air, so if you would send a LED ON signal for a longer
@@ -225,22 +229,23 @@ It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effec
 
 :::
 
-```
-Bit 0: OBJ Priority Mode (0=OAM Priority, 1=Coordinate Priority) (Read/Write)
-```
+{{#bits 8 >
+   "OPRI" 0:"Priority mode"
+}}
+
+- **Priority mode** (*Read/Write*): `0` = CGB-style priority, `1` = DMG-style priority
 
 ### FF70 — SVBK (CGB Mode only): WRAM bank
 
-In CGB Mode 32 KBytes internal RAM are available. This memory is divided
-into 8 banks of 4 KBytes each. Bank 0 is always available in memory at
-C000-CFFF, Bank 1-7 can be selected into the address space at D000-DFFF.
+In CGB Mode, 32 KiB of internal RAM are available.
+This memory is divided into 8 banks of 4 KiB each.
+Bank 0 is always available in memory at C000–CFFF, banks 1–7 can be selected into the address space at D000–DFFF.
 
-```
- Bit 0-2  Select WRAM Bank (Read/Write)
-```
+{{#bits 8 >
+"SVBK" 2-0:"WRAM bank"
+}}
 
-Writing a value of $01-$07 will select Bank 1-7, writing a value of $00
-will select Bank 1 too.
+- **WRAM bank** (*Read/Write*): Writing a value will map the corresponding bank to [D000–DFFF](<#Memory Map>), except 0, which maps bank 1 instead.
 
 ## Undocumented registers
 
