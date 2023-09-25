@@ -38,6 +38,9 @@ table {
     /* Alternate (Open) digits */ "ss02", /* Disambiguation gliphs */ "case";
   /* Case alternates */
 }
+th {
+  text-align: center;
+}
 
 code {
   /* "!important" needed because https://github.com/rust-lang/mdBook/issues/1552 */

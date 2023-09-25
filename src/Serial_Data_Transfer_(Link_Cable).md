@@ -18,37 +18,39 @@ During a transfer, it has a blend of the outgoing and incoming bytes.
 Each cycle, the leftmost bit is shifted out (and over the wire) and the
 incoming bit is shifted in from the other side:
 
-```
-o7 o6 o5 o4 o3 o2 o1 o0
-o6 o5 o4 o3 o2 o1 o0 i7
-o5 o4 o3 o2 o1 o0 i7 i6
-o4 o3 o2 o1 o0 i7 i6 i5
-o3 o2 o1 o0 i7 i6 i5 i4
-o2 o1 o0 i7 i6 i5 i4 i3
-o1 o0 i7 i6 i5 i4 i3 i2
-o0 i7 i6 i5 i4 i3 i2 i1
-i7 i6 i5 i4 i3 i2 i1 i0
-```
+{{#bits 8 >
+   "Initially" 7:"o.7" 6:"o.6" 5:"o.5" 4:"o.4" 3:"o.3" 2:"o.2" 1:"o.1" 0:"o.0" ;
+   "1 shift"  7:"o.6" 6:"o.5" 5:"o.4" 4:"o.3" 3:"o.2" 2:"o.1" 1:"o.0" 0:"i.7" ;
+   "2 shifts" 7:"o.5" 6:"o.4" 5:"o.3" 4:"o.2" 3:"o.1" 2:"o.0" 1:"i.7" 0:"i.6" ;
+   "3 shifts" 7:"o.4" 6:"o.3" 5:"o.2" 4:"o.1" 3:"o.0" 2:"i.7" 1:"i.6" 0:"i.5" ;
+   "4 shifts" 7:"o.3" 6:"o.2" 5:"o.1" 4:"o.0" 3:"i.7" 2:"i.6" 1:"i.5" 0:"i.4" ;
+   "5 shifts" 7:"o.2" 6:"o.1" 5:"o.0" 4:"i.7" 3:"i.6" 2:"i.5" 1:"i.4" 0:"i.3" ;
+   "6 shifts" 7:"o.1" 6:"o.0" 5:"i.7" 4:"i.6" 3:"i.5" 2:"i.4" 1:"i.3" 0:"i.2" ;
+   "7 shifts" 7:"o.0" 6:"i.7" 5:"i.6" 4:"i.5" 3:"i.4" 2:"i.3" 1:"i.2" 0:"i.1" ;
+   "8 shifts" 7:"i.7" 6:"i.6" 5:"i.5" 4:"i.4" 3:"i.3" 2:"i.2" 1:"i.1" 0:"i.0"
+}}
 
 ## FF02 — SC: Serial transfer control
 
-```
-Bit 7 - Transfer Start Flag (0=No transfer is in progress or requested, 1=Transfer in progress, or requested)
-Bit 1 - Clock Speed (0=Normal, 1=Fast) ** CGB Mode Only **
-Bit 0 - Shift Clock (0=External Clock, 1=Internal Clock)
-```
+{{#bits 8 >
+   "SC" 7:"Transfer enable" 1:"Clock speed" 0:"Clock select"
+}}
+
+- **Transfer enable** (*Read/Write*): If `1`, a transfer is either requested or in progress.
+- **Clock speed** \[*CGB Mode only*\] (*Read/Write*): If set to `1`, the internal clock's speed is doubled.
+- **Clock select** (*Read/Write*): `0` = External clock ("slave"), `1` = Internal clock ("master").
 
 The master Game Boy will load up a data byte in SB and then set
 SC to \$81 (Transfer requested, use internal clock). It will be notified
 that the transfer is complete in two ways: SC's Bit 7 will be cleared
-(that is, SC will be set up \$01), and also the [Serial Interrupt handler](<#INT $58 — Serial interrupt>)
-will be called (that is, the CPU will jump to \$0058).
+(that is, SC will be set up \$01), and also a [Serial interrupt](<#INT $58 — Serial interrupt>)
+will be requested.
 
 The other Game Boy will load up a data byte and can optionally set SC's
 Bit 7 (that is, SC=\$80). Regardless of whether or not it has done this, if
 and when the master wants to conduct a transfer, it will happen
 (pulling whatever happens to be in SB at that time). The externally clocked
-Game Boy will have its [serial interrupt handler](<#INT $58 — Serial interrupt>) called at the end of the
+Game Boy will have a [serial interrupt](<#INT $58 — Serial interrupt>) requested at the end of the
 transfer, and if it bothered to set SC's Bit 7, it will be cleared.
 
 ### Internal Clock
@@ -60,10 +62,10 @@ of the SC register, and on whether the CGB Double Speed Mode is used:
 
 Clock freq | Transfer speed | Conditions
 -----------|----------------|------------
-   8192Hz  |      1KB/s     | Bit 1 cleared, Normal speed
-  16384Hz  |      2KB/s     | Bit 1 cleared, Double-speed Mode
- 262144Hz  |     32KB/s     | Bit 1 set,     Normal speed
- 524288Hz  |     64KB/s     | Bit 1 set,     Double-speed Mode
+   8192 Hz |     1 KB/s     | Bit 1 cleared, Normal speed
+  16384 Hz |     2 KB/s     | Bit 1 cleared, Double-speed Mode
+ 262144 Hz |    32 KB/s     | Bit 1 set,     Normal speed
+ 524288 Hz |    64 KB/s     | Bit 1 set,     Double-speed Mode
 
 ### External Clock
 

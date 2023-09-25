@@ -46,14 +46,9 @@ All of the MBC1 registers default to $00 on power-up, which for the "ROM Bank Nu
 ### 0000–1FFF — RAM Enable (Write Only)
 
 Before external RAM can be read or written, it must be enabled by
-writing $A to this address space.
-Any value with $A in the lower 4 bits enables the RAM attached to the MBC and any
-other value disables the RAM. It is unknown why $A is the value used to enable RAM.
-
-```
-$00  Disable RAM (default)
-$0A  Enable RAM
-```
+writing `$A` to anywhere in this address space.
+Any value with `$A` in the lower 4 bits **enables** the RAM attached to the MBC, and any
+other value **disables** the RAM. It is unknown why `$A` is the value used to enable RAM.
 
 It is recommended to disable external RAM
 after accessing it, in order to protect its contents from corruption during
@@ -80,14 +75,14 @@ register at 4000–5FFF is used to supply an additional 2 bits for the
 effective bank number:
 `Selected ROM Bank = (Secondary Bank << 5) + ROM Bank`.[^MBC1M_banking]
 
-[^MBC1M_banking]: MBC1M has a different formula, see below
-
 These additional two bits are ignored for the bank 00→01 translation. This causes a problem — attempting to access banks $20, $40, and $60 only set bits in the upper 2-bit register, with the lower 5-bit register set to 00. As a result, any
 attempt to address these ROM Banks will select Bank $21, $41 and $61
 instead. The only way to access banks $20, $40 or $60 at all is to enter mode 1,
 which remaps the 0000–3FFF range. This has its own problems for game
 developers as that range contains interrupt handlers, so it's usually only
 used in multi-game compilation carts (see below).
+
+[^MBC1M_banking]: MBC1M has a different formula, see below.
 
 ### 4000–5FFF — RAM Bank Number — or — Upper Bits of ROM Bank Number (Write Only)
 
