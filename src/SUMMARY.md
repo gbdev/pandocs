@@ -47,10 +47,10 @@
     - [Palette Commands](./SGB_Command_Palettes.md)
     - [Color Attribute Commands](./SGB_Command_Attribute.md)
     - [Sound Functions](./SGB_Command_Sound.md)
-  - [System Control Commands](./SGB_Command_System.md)
-  - [Multiplayer Command](./SGB_Command_Multiplayer.md)
-  - [Border and OBJ Commands](./SGB_Command_Border.md)
-  - [Undocumented SGB commands](./SGB_Command_Undocumented.md)
+    - [System Control Commands](./SGB_Command_System.md)
+    - [Multiplayer Command](./SGB_Command_Multiplayer.md)
+    - [Border and OBJ Commands](./SGB_Command_Border.md)
+    - [Undocumented SGB commands](./SGB_Command_Undocumented.md)
 
 # CPU Specifications
 
