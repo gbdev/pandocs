@@ -22,6 +22,7 @@ Time   0         50       100       150
 [The boot ROM](<#Super Game Boy (SGB, SGB2)>) and licensed software keep data and reset pulses LOW for at least 5 μs and leave P14 and P15 HIGH for at least 15 μs after each pulse.
 Though the hardware is capable of receiving pulses and spaces as short as 2 μs (as tested using [sgb-speedtest]),
 following the common practice of 5-cycle pulses and 15-cycle spaces may improve reliability in some corner case that the community has not yet discovered.
+
 Obviously, it'd be no good idea to access [the joypad register](<#FF00 — P1/JOYP: Joypad>) during the transfer,
 for example, in case that your VBlank interrupt procedure reads-out
 joypad states each frame, so be sure to disable that interrupt during the
@@ -56,3 +57,10 @@ By using all 7 packets, up to 111 data bytes (15+16\*6) may be sent.
 Unused bytes at the end of the last packet don't matter.
 The GB program should wait 60 ms (4 frames) between each packet transfer and the next,
 as the "bomb" tool to erase a user-drawn border can cause the SGB system software not to check for packets for 4 frames.
+
+::: tip
+
+Bytes with no indicated purpose are simply ignored by the SGB BIOS.
+They can be set to any value (but they must still be transferred).
+
+:::
