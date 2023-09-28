@@ -25,12 +25,13 @@ Check the [Game Genie manual](http://www.digitpress.com/library/manuals/gameboy/
 
 ## Game Shark (RAM patches)
 
-Game Shark codes consist of eight-digit hex numbers, formatted as
-ABCDEFGH, the meaning of the separate digits is:
+Game Shark codes consist of eight hexadecimal digits, with the following meaning:
 
-` AB    External RAM bank number` \
-` CD    New Data` \
-` GHEF  Memory Address (internal or external RAM, A000-DFFF)`
+{{#bits 8 <
+  "" 0-1:"SRAM bank" 2-3:"New value" 4-7:"Address"
+}}
+
+So, for example, cheat code `010238CD` switches to SRAM bank $01, and writes $02 at address $CD38.
 
 As far as it is understood, patching is implemented by hooking the original
 VBlank interrupt handler, and re-writing RAM values each frame. The
