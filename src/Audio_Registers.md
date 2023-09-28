@@ -175,8 +175,7 @@ This register stores the low 8 bits of the channel's 11-bit "[period value](<#Fr
 The upper 3 bits are stored in the low 3 bits of `NR14`.
 
 The period divider of pulse and wave channels is an up counter.
-It adds one to the counter value each time it is clocked.
-When the value reaches the maximum (2048 or $800), it reloads the counter value from the channel's period register.
+Each time it is clocked, its value increases by 1; **when it overflows** (being clocked when it's already 2047, or $7FF), **its value is set from the contents of `NR13` and `NR14`**.
 This means it treats the value in the period as a *negative* number in 11-bit two's complement.
 The higher the period value in the register, the lower the period, and the higher the frequency.
 For example:
@@ -198,7 +197,12 @@ with a resulting tone frequency equal to <math><mfrac><mn>131072</mn><mrow><mn>2
 Period value $740 produces a higher frequency than $500.
 Even though the period value $740 is not four times $500, $740 produces a frequency that is four times that of $500, or two octaves higher, because ($800 - $740) or 192 is one-quarter of ($800 - $500) or 768.
 
-Period changes take 
+::: warning DELAY
+
+Period changes (written to `NR13` or `NR14`) only take effect after the current "sample" ends; see description above.
+([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_1/channel_1_freq_change.asm))
+
+:::
 
 ### FF14 — NR14: Channel 1 period high & control
 
