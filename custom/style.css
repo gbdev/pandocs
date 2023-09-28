@@ -155,11 +155,15 @@ mfrac msup :not(:first-child) {
 }
 
 
-table.bit-descrs th {
+.bit-descrs {
+  text-align: center;
+}
+
+.bit-descrs th {
     padding: 3px 10px;
 }
 
 /* mdBook aligns the first column, but this is not desirable for those tables */
-table.bit-descrs.nameless td:first-child {
+.bit-descrs.nameless td:first-child {
     text-align: center;
 }
