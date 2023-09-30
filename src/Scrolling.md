@@ -4,10 +4,18 @@
 These registers can be accessed even during Mode 3, but modifications may not take
 effect immediately (see further below).
 
-## FF42–FF43 — SCY, SCX: Viewport Y position, X position
+## FF42–FF43 — SCY, SCX: Background viewport Y position, X position
 
-Those specify the top-left coordinates of the visible 160×144 pixel area within the
+Specify the top-left coordinates of the visible 160×144 pixel area within the
 256×256 pixels BG map. Values in the range 0–255 may be used.
+
+In case the calculated bottom-right coordinates are larger than 255 it will wrap around towards the top-left corner.
+
+Pseudocode for the calculated bottom-right coordinates would be:
+```
+bottom  := (SCY + 144) & 255
+right   := (SCX + 160) & 255
+```
 
 ## FF4A–FF4B — WY, WX: Window Y position, X position plus 7
 
