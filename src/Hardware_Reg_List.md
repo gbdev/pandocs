@@ -95,8 +95,8 @@ $FFFF      | [IE]        | Interrupt enable                                     
 [Wave RAM]: <#FF30–FF3F — Wave pattern RAM>
 [LCDC]: <#FF40 — LCDC: LCD control>
 [STAT]: <#FF41 — STAT: LCD status>
-[SCY]: <#FF42–FF43 — SCY, SCX: Viewport Y position, X position>
-[SCX]: <#FF42–FF43 — SCY, SCX: Viewport Y position, X position>
+[SCY]: <#FF42–FF43 — SCY, SCX: Background viewport Y position, X position>
+[SCX]: <#FF42–FF43 — SCY, SCX: Background viewport Y position, X position>
 [LY]: <#FF44 — LY: LCD Y coordinate \[read-only\]>
 [LYC]: <#FF45 — LYC: LY compare>
 [DMA]: <#FF46 — DMA: OAM DMA source address & start>
