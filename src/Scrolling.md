@@ -6,20 +6,15 @@ effect immediately (see further below).
 
 ## FF42–FF43 — SCY, SCX: Background viewport Y position, X position
 
-Specify the top-left coordinates of the visible 160×144 pixel area within the
+These two registers specify the top-left coordinates of the visible 160×144 pixel area within the
 256×256 pixels BG map. Values in the range 0–255 may be used.
 
-In case the calculated bottom-right coordinates are larger than 255 it will wrap around towards the top-left corner.
-
-Pseudocode for the calculated bottom-right coordinates would be:
-```
-bottom  := (SCY + 144) & 255
-right   := (SCX + 160) & 255
-```
+The PPU calculates the bottom-right coordinates of the viewport with those formulas: `bottom := (SCY + 143) & 255` and `right := (SCX + 159) & 255`.
+As we can infer, in case the values are larger than 255 they will wrap around towards the top-left corner of the screen.
 
 ## FF4A–FF4B — WY, WX: Window Y position, X position plus 7
 
-Specify the top-left coordinates of [the Window](#Window).
+These two registers specify the top-left coordinates of [the Window](#Window).
 
 The Window is visible (if enabled) when both coordinates are in the ranges
 WX=0..166, WY=0..143 respectively. Values WX=7, WY=0 place the Window at the
