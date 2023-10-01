@@ -14,7 +14,7 @@ As we can infer, in case the values are larger than 255 they will wrap around to
 
 ## FF4A–FF4B — WY, WX: Window Y position, X position plus 7
 
-These two registers specify the top-left coordinates of [the Window](#Window).
+These two registers specify the on-screen coordinates of [the Window](#Window)'s top-left pixel.
 
 The Window is visible (if enabled) when both coordinates are in the ranges
 WX=0..166, WY=0..143 respectively. Values WX=7, WY=0 place the Window at the
