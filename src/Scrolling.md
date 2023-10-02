@@ -9,8 +9,11 @@ effect immediately (see further below).
 These two registers specify the top-left coordinates of the visible 160×144 pixel area within the
 256×256 pixels BG map. Values in the range 0–255 may be used.
 
-The PPU calculates the bottom-right coordinates of the viewport with those formulas: `bottom := (SCY + 143) & 255` and `right := (SCX + 159) & 255`.
-As we can infer, in case the values are larger than 255 they will wrap around towards the top-left corner of the tilemap.
+The PPU calculates the bottom-right coordinates of the viewport with those formulas: `bottom := (SCY + 143) % 256` and `right := (SCX + 159) % 256`.
+As suggested by the modulo operations, in case the values are larger than 255 they will "wrap around" towards the top-left corner of the tilemap.
+
+### Visual example:
+![VRAM view diagram](imgs/srcolling_diagram.png)
 
 ## FF4A–FF4B — WY, WX: Window Y position, X position plus 7
 
