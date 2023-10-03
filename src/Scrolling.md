@@ -12,8 +12,15 @@ These two registers specify the top-left coordinates of the visible 160×144 pix
 The PPU calculates the bottom-right coordinates of the viewport with those formulas: `bottom := (SCY + 143) % 256` and `right := (SCX + 159) % 256`.
 As suggested by the modulo operations, in case the values are larger than 255 they will "wrap around" towards the top-left corner of the tilemap.
 
-### Visual example:
-![VRAM view diagram](imgs/srcolling_diagram.png)
+<figure><figcaption>
+
+Example from the homebrew game *Mindy's Hike*:
+
+</figcaption>
+
+![VRAM view diagram](imgs/scrolling_diagram.png)
+
+</figure>
 
 ## FF4A–FF4B — WY, WX: Window Y position, X position plus 7
 
