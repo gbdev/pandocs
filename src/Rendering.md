@@ -47,7 +47,7 @@ Any extra time spent stalling *lengthens* Mode 3; but since scanlines last for a
 
 Three things can cause Mode 3 "penalties":
 
-- **Background scrolling**: At the very beginning of Mode 3, rendering is paused for [`SCX`](<#FF42–FF43 — SCY, SCX: Viewport Y position, X position>) % 8 dots while the same number of pixels are discarded from the leftmost tile.
+- **Background scrolling**: At the very beginning of Mode 3, rendering is paused for [`SCX`](<#FF42–FF43 — SCY, SCX: Background viewport Y position, X position>) % 8 dots while the same number of pixels are discarded from the leftmost tile.
 - **Window**: After the last non-window pixel is emitted, a 6-dot penalty is incurred while the BG fetcher is being set up for the window.
 - **Objects**: Each object drawn during the scanline (even partially) incurs a 6- to 11-dot penalty ([see below](<#OBJ penalty algorithm>)).
 

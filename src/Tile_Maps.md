@@ -76,7 +76,7 @@ Keep in mind that:
 
 ## Background (BG)
 
-The [SCY and SCX](<#FF42–FF43 — SCY, SCX: Viewport Y position, X position>)
+The [SCY and SCX](<#FF42–FF43 — SCY, SCX: Background viewport Y position, X position>)
 registers can be used to scroll the Background, specifying the origin of the visible
 160×144 pixel area within the total 256×256 pixel Background map.
 The visible area of the Background wraps around the Background map (that is, when part of

@@ -4,14 +4,27 @@
 These registers can be accessed even during Mode 3, but modifications may not take
 effect immediately (see further below).
 
-## FF42–FF43 — SCY, SCX: Viewport Y position, X position
+## FF42–FF43 — SCY, SCX: Background viewport Y position, X position
 
-Those specify the top-left coordinates of the visible 160×144 pixel area within the
+These two registers specify the top-left coordinates of the visible 160×144 pixel area within the
 256×256 pixels BG map. Values in the range 0–255 may be used.
+
+The PPU calculates the bottom-right coordinates of the viewport with those formulas: `bottom := (SCY + 143) % 256` and `right := (SCX + 159) % 256`.
+As suggested by the modulo operations, in case the values are larger than 255 they will "wrap around" towards the top-left corner of the tilemap.
+
+<figure><figcaption>
+
+Example from the homebrew game *Mindy's Hike*:
+
+</figcaption>
+
+![VRAM view diagram](imgs/scrolling_diagram.png)
+
+</figure>
 
 ## FF4A–FF4B — WY, WX: Window Y position, X position plus 7
 
-Specify the top-left coordinates of [the Window](#Window).
+These two registers specify the on-screen coordinates of [the Window](#Window)'s top-left pixel.
 
 The Window is visible (if enabled) when both coordinates are in the ranges
 WX=0..166, WY=0..143 respectively. Values WX=7, WY=0 place the Window at the
