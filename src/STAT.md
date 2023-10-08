@@ -20,26 +20,17 @@ is set, and (if enabled) a STAT interrupt is requested.
 
 ## FF41 — STAT: LCD status
 
-```
-Bit 6 - LYC=LY STAT Interrupt source         (1=Enable) (Read/Write)
-Bit 5 - Mode 2 OAM STAT Interrupt source     (1=Enable) (Read/Write)
-Bit 4 - Mode 1 VBlank STAT Interrupt source  (1=Enable) (Read/Write)
-Bit 3 - Mode 0 HBlank STAT Interrupt source  (1=Enable) (Read/Write)
-Bit 2 - LYC=LY Flag                          (0=Different, 1=Equal) (Read Only)
-Bit 1-0 - Mode Flag                          (Mode 0-3, see below) (Read Only)
-          0: HBlank
-          1: VBlank
-          2: Searching OAM
-          3: Transferring Data to LCD Controller
-```
+{{#bits 8 >
+  ""  6:"LYC int select" 5:"Mode 2 int select" 4:"Mode 1 int select" 3:"Mode 0 int select" 2:"LYC == LY" 1-0:"PPU mode";
+}}
 
-The two lower STAT bits show the current [status of the PPU](<#PPU modes>).
-
-Bit 2 is set when [LY](<#FF44 — LY: LCD Y coordinate \[read-only\]>) contains the same value as [LYC](<#FF45 — LYC: LY compare>).
-It is constantly updated.
-
-Bits 3-6 select which sources are used for [the STAT interrupt](<#INT $48 — STAT interrupt>).
-
+- **LYC int select** (*Read/Write*): If set, selects the `LYC` == `LY` condition for [the STAT interrupt](<#INT $48 — STAT interrupt>).
+- **Mode 2 int select** (*Read/Write*): If set, selects the Mode 2 condition for [the STAT interrupt](<#INT $48 — STAT interrupt>).
+- **Mode 1 int select** (*Read/Write*): If set, selects the Mode 1 condition for [the STAT interrupt](<#INT $48 — STAT interrupt>).
+- **Mode 0 int select** (*Read/Write*): If set, selects the Mode 0 condition for [the STAT interrupt](<#INT $48 — STAT interrupt>).
+- **LYC == LY** (*Read-only*): Set when [LY](<#FF44 — LY: LCD Y coordinate \[read-only\]>) contains the same value as [LYC](<#FF45 — LYC: LY compare>); it is constantly updated.
+- **PPU mode** (*Read-only*): Indicates [the PPU's current status](<#PPU modes>).
+  
 ### Spurious STAT interrupts
 
 A hardware quirk in the monochrome Game Boy makes the LCD interrupt

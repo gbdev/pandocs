@@ -130,6 +130,51 @@ Note that the angle brackets [are only required if there are spaces in the URL](
 
 In effect, this means that linking to a section is as simple as copy-pasting its name in the URL field, prepending a `#`, and wrapping everything in `<>` if the name contains a space.
 
+### Bit breakdown tables
+
+Quite often, a single byte's various bits, or various bytes in a collection, encode different information.
+(For example, the "attributes" byte in OAM, all APU registers, and so on.)
+To describe those cases, we use a mix of custom syntax and a list:
+
+```markdown
+{{#bits 8
+  "Attributes"  7:"Priority" 6:"Y flip" 5:"X flip" 4:"DMG palette" 3:"Bank" 2-0:"CGB palette";
+}}
+
+- **Priority**: `0` = No, `1` = BG and Window colors 1-3 over this OBJ
+- **Y flip**: `0` = Normal, `1` = Entire OBJ is vertically mirrored
+- **X flip**: `0` = Normal, `1` = Entire OBJ is horizontally mirrored
+- **DMG palette** *\[Non CGB Mode only\]*: `0` = OBP0, `1` = OBP1
+- **Bank** *\[CGB Mode Only\]*: `0` = Fetch tile in VRAM bank 0, `1` = Fetch tile in VRAM bank 1
+- **CGB palette** *\[CGB Mode Only\]*: Use OBP0-7
+```
+
+- The `{{#bits}}` tag can span several lines for readability.
+  It must begin with its "width", i.e. how many bits (columns) there should be, and "direction", i.e. whether columns should be in ascending `<` or descending `>` order.
+  Then is a list of *rows*, separated by semicolons `;` (a trailing one is allowed).
+
+  Each row begins by its name, which must be surrounded by double quotes (to allow whitespace in it).
+  If the name is empty, then all rows' names must be empty; this will remove the "heading" column entirely.
+
+  Then, there's a list of *fields*, separated by whitespace: first its bit range (where e.g. `3` is equivalent to `3-3`), then its name, also surrounded by double quotes.
+
+  Field names should be succinct, otherwise the table may overflow, particularly on phones.
+
+  (Note: the tag can be escaped by putting a backslash in front of the first brace: `\{{#bits ...}}`; this makes the tag not be processed.)
+
+- The list must document all of the fields with a name.
+  Each entry must first contain the name, then any "usage notes" (typically availability, or "ignored if ..." notes) between brackets `[]`, then the read/writability between parentheses.
+  Then a colon, and a description of the field.
+
+  Regarding the formatting:
+  - The name must be in **bold**, since it's really important information.
+  - Anything before the initial colon, except for the name, must be in *italics*.
+  - Any values for the field should be put in `monospace/code blocks`; this ensures they stand out.
+  - The usage notes can be omitted if there are none.
+  - For the sake of readability, if the read/writability of all fields is the same, then it must omitted in the list, but indicated e.g. in the section name, or in main text.
+
+Tables [were agreed upon](https://github.com/gbdev/pandocs/issues/318) as the best way to represent this, but Markdown does not support `colspan`, so a shorthand syntax was developed.
+
 ## Syntax highlighting
 
 Syntax highlighting is provided within the browser, courtesy of [`highlight.js`](https://github.com/highlightjs/highlight.js).

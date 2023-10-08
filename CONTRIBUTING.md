@@ -35,7 +35,6 @@ In any case, maintainers will chime in, reviewing what you changed and if necess
 
 ## Document Style
 
-
 ### 1. Pseudocode
 
 - Assignment: :=
@@ -70,7 +69,6 @@ References:
 
 Discussion:
 - [#76](https://github.com/gbdev/pandocs/issues/76), [#55](https://github.com/gbdev/pandocs/issues/55)
-
 
 ### 3. 8 bits / 8-bit
 

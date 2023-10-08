@@ -41,17 +41,24 @@ due to a timer overflow, the old value is transferred to TIMA.
 
 ## FF07 — TAC: Timer control
 
-```
-Bit  2   - Timer Enable
-Bits 1-0 - Input Clock Select
-           00: CPU Clock / 1024 (DMG, SGB2, CGB Single Speed Mode:   4096 Hz, SGB1:   ~4194 Hz, CGB Double Speed Mode:   8192 Hz)
-           01: CPU Clock / 16   (DMG, SGB2, CGB Single Speed Mode: 262144 Hz, SGB1: ~268400 Hz, CGB Double Speed Mode: 524288 Hz)
-           10: CPU Clock / 64   (DMG, SGB2, CGB Single Speed Mode:  65536 Hz, SGB1:  ~67110 Hz, CGB Double Speed Mode: 131072 Hz)
-           11: CPU Clock / 256  (DMG, SGB2, CGB Single Speed Mode:  16384 Hz, SGB1:  ~16780 Hz, CGB Double Speed Mode:  32768 Hz)
-```
+{{#bits 8 >
+  "TAC" 2:"Enable" 1-0:"Clock select"
+}}
 
-::: tip NOTE
+- **Enable**: Controls whether `TIMA` is incremented.
+  Note that `DIV` is **always** counting, regardless of this bit.
+- **Clock select**: Controls the frequency at which `TIMA` is incremented, as follows:
+  
+  <div class="table-wrapper"><table>
+    <thead>
+      <tr><th rowspan=2>Clock select</th><th rowspan=2>Base clock</th><th colspan=3>Frequency (Hz)</th></tr>
+      <tr><th>DMG, SGB2, CGB in single-speed mode</th><th>SGB1</th><th>CGB in double-speed mode</th></tr>
+    </thead><tbody>
+      <tr><td>00</td><td>CPU Clock / 1024</td><td>  4096</td><td>  ~4194</td><td>  8192</td></tr>
+      <tr><td>01</td><td>CPU Clock / 16  </td><td>262144</td><td>~268400</td><td>524288</td></tr>
+      <tr><td>10</td><td>CPU Clock / 64  </td><td> 65536</td><td> ~67110</td><td>131072</td></tr>
+      <tr><td>11</td><td>CPU Clock / 256 </td><td> 16384</td><td> ~16780</td><td> 32768</td></tr>
+    </tbody>
+  </table></div>
 
-The "Timer Enable" bit only affects the timer (TIMA). The divider (DIV) is **always** counting.
-
-:::
+Note that writing to this register [may increase `TIMA` once](<#Relation between Timer and Divider register>)!

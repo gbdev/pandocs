@@ -24,18 +24,19 @@ In CGB Mode, an additional map of 32×32 bytes is stored in VRAM Bank 1
 entry in VRAM Bank 0, that is, 1:9800 defines the attributes for the tile at
 0:9800):
 
-```
-Bit 7    BG-to-OAM Priority         (0=Use OAM Priority bit, 1=BG Priority)
-Bit 6    Vertical Flip              (0=Normal, 1=Mirror vertically)
-Bit 5    Horizontal Flip            (0=Normal, 1=Mirror horizontally)
-Bit 4    Not used
-Bit 3    Tile VRAM Bank number      (0=Bank 0, 1=Bank 1)
-Bit 2-0  Background Palette number  (BGP0-7)
-```
+{{#bits 8 > 
+  "BG attributes"  7:"Priority" 6:"Y flip" 5:"X flip" 3:"Bank" 2-0:"Color palette";
+}}
 
-Note that, if the map entry at `0:9800` is tile \$2A, the attribute at
-`1:9800` doesn't define properties for ALL tiles \$2A on-screen, but only
-the one at `0:9800`!
+- **Priority**: `0` = No; `1` = Colors 1–3 of the corresponding BG/Window tile are drawn over OBJ, regardless of [OBJ priority](<#Byte 3 — Attributes/Flags>)
+- **Y flip**: `0` = Normal; `1` = Tile is drawn vertically mirrored
+- **X flip**: `0` = Normal; `1` = Tile is drawn horizontally mirrored
+- **Bank**: `0` = Fetch tile from VRAM bank 0; `1` = Fetch tile from VRAM bank 1
+- **Color palette**: Which of BGP0–7 to use
+
+Bit 4 is ignored by the hardware, but can be written to and read from normally.
+
+Note that, for example, if the byte at `0:9800` is \$2A, the attribute at `1:9800` doesn't define properties for ALL tiles \$2A on-screen, but only the one at `0:9800`!
 
 ### BG-to-OBJ Priority in CGB Mode
 

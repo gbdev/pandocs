@@ -46,14 +46,9 @@ All of the MBC1 registers default to $00 on power-up, which for the "ROM Bank Nu
 ### 0000–1FFF — RAM Enable (Write Only)
 
 Before external RAM can be read or written, it must be enabled by
-writing $A to this address space.
-Any value with $A in the lower 4 bits enables the RAM attached to the MBC and any
-other value disables the RAM. It is unknown why $A is the value used to enable RAM.
-
-```
-$00  Disable RAM (default)
-$0A  Enable RAM
-```
+writing `$A` to anywhere in this address space.
+Any value with `$A` in the lower 4 bits **enables** the RAM attached to the MBC, and any
+other value **disables** the RAM. It is unknown why `$A` is the value used to enable RAM.
 
 It is recommended to disable external RAM
 after accessing it, in order to protect its contents from corruption during
@@ -80,14 +75,14 @@ register at 4000–5FFF is used to supply an additional 2 bits for the
 effective bank number:
 `Selected ROM Bank = (Secondary Bank << 5) + ROM Bank`.[^MBC1M_banking]
 
-[^MBC1M_banking]: MBC1M has a different formula, see below
-
 These additional two bits are ignored for the bank 00→01 translation. This causes a problem — attempting to access banks $20, $40, and $60 only set bits in the upper 2-bit register, with the lower 5-bit register set to 00. As a result, any
 attempt to address these ROM Banks will select Bank $21, $41 and $61
 instead. The only way to access banks $20, $40 or $60 at all is to enter mode 1,
 which remaps the 0000–3FFF range. This has its own problems for game
 developers as that range contains interrupt handlers, so it's usually only
 used in multi-game compilation carts (see below).
+
+[^MBC1M_banking]: MBC1M has a different formula, see below.
 
 ### 4000–5FFF — RAM Bank Number — or — Upper Bits of ROM Bank Number (Write Only)
 
@@ -104,16 +99,20 @@ applied to bits 4-5 of the ROM bank number and the top bit of the main
 
 This 1-bit register selects between the two MBC1 banking modes, controlling
 the behaviour of the secondary 2-bit banking register (above). If the cart
-is not large enough to use the 2-bit register (<= 8 KiB RAM and <= 512 KiB ROM)
+is not large enough to use the 2-bit register (≤ 8 KiB RAM and ≤ 512 KiB ROM)
 this mode select has no observable effect. The program may freely switch
 between the two modes at any time.
 
-```
-00 = Simple Banking Mode (default)
-     0000–3FFF and A000–BFFF locked to bank 0 of ROM/RAM
-01 = RAM Banking Mode / Advanced ROM Banking Mode
-     0000–3FFF and A000–BFFF can be bank-switched via the 4000–5FFF bank register
-```
+{{#bits 8 >
+  "Value written" 0:"Banking mode"
+}}
+
+The **banking mode** can be:
+- `0` = *simple* (default): 0000–3FFF and A000–BFFF are locked to bank 0 of ROM and SRAM respectively.
+- `1` = *advanced*: 0000–3FFF and A000-BFFF can be bank-switched via the [4000–5FFF register](<#4000–5FFF — RAM Bank Number — or — Upper Bits of ROM Bank Number (Write Only)>).
+
+
+::: tip
 
 Technically, the MBC1 has AND gates between the both bank registers and the second-highest bit of the address. This is intended to cause accesses to the 0000–3FFF region (which has that address bit set to 0) to treat both registers as always 0, so that only bank 0 is accessible through this address.
 
@@ -121,68 +120,48 @@ However, when the second bank register is connected to RAM, this has the side ef
 
 Setting the mode to 1 disables these AND gates, allowing the two-bit register to switch the selected bank in both these regions.
 
+:::
+
 ## Addressing diagrams
 
 The following diagrams show how the address within the ROM/RAM chips are calculated from the accessed address and banking registers
 
 ### 0000–3FFF
 
-In mode 0:
-
-```
-Bits: 20 19 18 17 16 15 14 13 12 .. 01 00
-      \___/ \____________/ \____________/
-        |          |            \----------- From Game Boy address
-        |          \------------------------ Always 0
-        \----------------------------------- Always 0
-```
-
-In mode 1:
-
-```
-Bits: 20 19 18 17 16 15 14 13 12 .. 01 00
-      \___/ \____________/ \____________/
-        |          |            \----------- From Game Boy address
-        |          \------------------------ Always 0
-        \----------------------------------- As 4000–5FFF bank register
-```
+<div class=table-wrapper><table class=bit-descrs><thead><tr>
+  <th></th><th>20</th><th>19</th><th>18</th><th>17</th><th>16</th><th>15</th><th>14</th><th>13</th><th>12</th><th>...</th><th>1</th><th>0</th>
+</tr></thead><tbody><tr>
+  <td><strong>Mode 0</strong></td><td colspan=2>0</td><td rowspan=2 colspan=5>0</td><td rowspan=2 colspan=5>From Game Boy address</td>
+</tr><tr>
+  <td><strong>Mode 1</strong></td><td colspan=2>From 4000–5FFF bank register</td>
+</tr></tbody></table></div>
 
 ### 4000–7FFF
 
-Regardless of mode:
+<div class=table-wrapper><table class=bit-descrs><thead><tr>
+  <th></th><th>20</th><th>19</th><th>18</th><th>17</th><th>16</th><th>15</th><th>14</th><th>13</th><th>12</th><th>...</th><th>1</th><th>0</th>
+</tr></thead><tbody><tr>
+  <td><strong>Mode 0 / Mode 1</strong></td><td colspan=2>From 4000–5FFF bank register</td><td colspan=5>From 2000–3FFF bank register</td><td colspan=5>From Game Boy address</td>
+</tr></tbody></table></div>
 
-```
-                              /------------- In a smaller cart, only the needed
-                              |              bits are used (e.g 128kiB uses 17)
-                  /---------------------\
-Bits: 20 19 18 17 16 15 14 13 12 .. 01 00
-      \___/ \____________/ \____________/
-        |          |            \----------- From Game Boy address
-        |          \------------------------ As 2000–3FFF bank register
-        \----------------------------------- As 4000–5FFF bank register
-```
+::: tip
+
+In a smaller cartridge, some of the upper bits are ignored.
+(For example, a 128 KiB = 2<sup>17</sup> bytes ROM only uses bits 0–16.)
+
+:::
 
 ### A000–BFFF
 
-In mode 0:
+<div class=table-wrapper><table class=bit-descrs><thead><tr>
+  <th></th><th>14</th><th>13</th><th>12</th><th>...</th><th>1</th><th>0</th>
+</tr></thead><tbody><tr>
+  <td><strong>Mode 0</strong></td><td colspan=2>0</td><td rowspan=2 colspan=4>From Game Boy address</td>
+</tr><tr>
+  <td><strong>Mode 1</strong></td><td colspan=2>From 4000–5FFF bank register</td>
+</tr></tbody></table></div>
 
-```
-Bits: 14 13 12 .. 01 00
-      \___/ \_________/
-        |        \-------- From Game Boy address
-        \----------------- Always 0
-```
-
-In mode 1:
-
-```
-Bits: 14 13 12 .. 01 00
-      \___/ \_________/
-        |        \-------- From Game Boy address
-        \----------------- As 4000–5FFF bank register
-```
-
-## "MBC1M" 1 MiB Multi-Game Compilation Carts
+## "MBC1M": 1 MiB Multi-Game Compilation Carts
 
 Known as MBC1M, these carts have an alternative wiring, that ignores
 the top bit of the main ROM banking register (making it effectively a 4-bit register for banking, though the full 5 bit register is still used for 00→01 translation)
@@ -208,29 +187,22 @@ by increasing the ROM size to 2 MiB and duplicating each sub-ROM — $00–$0F
 duplicated into $10-$1F, the original $10-$1F placed in $20-$2F and
 duplicated into $30-$3F and so on.
 
-## MBC1M addressing diagrams:
+### MBC1M addressing diagrams
 
-### 0000–3FFF
+#### 0000–3FFF
 
-(In mode 1)
+<div class=table-wrapper><table class=bit-descrs><thead><tr>
+  <th></th><th>19</th><th>18</th><th>17</th><th>16</th><th>15</th><th>14</th><th>13</th><th>12</th><th>..</th><th>1</th><th>0</th>
+</tr></thead><tbody><tr>
+  <td><strong>Mode 0</strong></td><td colspan=2>0</td><td colspan=4>0</td><td rowspan=2 colspan=5>From Game Boy address</td>
+</tr><tr>
+  <td><strong>Mode 1</strong></td><td colspan=2>From 4000–5FFF bank register</td><td colspan=4>From 2000–3FFF bank register (bit 4 unused)</td>
+</tr></tbody></table></div>
 
-```
-Bits: 19 18    17 16 15 14 13 12 .. 01 00
-      \___/ \____________/ \____________/
-        |          |            \----------- From Game Boy address
-        |          \------------------------ Always 0
-        \----------------------------------- As 4000–5FFF bank register
-```
+#### 4000–7FFF
 
-### 4000–7FFF
-
-Regardless of mode:
-
-```
-Bits: 19 18    17 16 15 14 13 12 .. 01 00
-      \___/ \____________/ \____________/
-        |          |            \----------- From Game Boy address
-        |          \------------------------ As 2000–3FFF bank register
-        |                                       (only 4 bits used)
-        \----------------------------------- As 4000–5FFF bank register
-```
+<div class=table-wrapper><table class=bit-descrs><thead><tr>
+  <th></th><th>19</th><th>18</th><th>17</th><th>16</th><th>15</th><th>14</th><th>13</th><th>12</th><th>..</th><th>1</th><th>0</th>
+</tr></thead><tbody><tr>
+  <td><strong>Mode 0 / Mode 1</strong></td><td colspan=2>From 4000–5FFF bank register</td><td colspan=4>From 2000–3FFF bank register (bit 4 unused)</td><td colspan=5>From Game Boy address</td>
+</tr></tbody></table></div>

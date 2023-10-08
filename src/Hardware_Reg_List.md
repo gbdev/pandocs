@@ -91,7 +91,7 @@ $FFFF      | [IE]        | Interrupt enable                                     
 [NR44]: <#FF23 — NR44: Channel 4 control>
 [NR50]: <#FF24 — NR50: Master volume & VIN panning>
 [NR51]: <#FF25 — NR51: Sound panning>
-[NR52]: <#FF26 — NR52: Sound on/off>
+[NR52]: <#FF26 — NR52: Audio master control>
 [Wave RAM]: <#FF30–FF3F — Wave pattern RAM>
 [LCDC]: <#FF40 — LCDC: LCD control>
 [STAT]: <#FF41 — STAT: LCD status>

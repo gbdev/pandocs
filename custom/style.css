@@ -38,6 +38,9 @@ table {
     /* Alternate (Open) digits */ "ss02", /* Disambiguation gliphs */ "case";
   /* Case alternates */
 }
+th {
+  text-align: center;
+}
 
 code {
   /* "!important" needed because https://github.com/rust-lang/mdBook/issues/1552 */
@@ -149,4 +152,18 @@ math[display="block"], mfrac {
 }
 mfrac msup :not(:first-child) {
   font-size: 1.8rem;
+}
+
+
+.bit-descrs {
+  text-align: center;
+}
+
+.bit-descrs th {
+    padding: 3px 10px;
+}
+
+/* mdBook aligns the first column, but this is not desirable for those tables */
+.bit-descrs.nameless td:first-child {
+    text-align: center;
 }

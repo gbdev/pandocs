@@ -70,11 +70,14 @@ mode, controlled by [LCDC bit 4](<#LCDC.4 — BG and Window tile data area>).
 
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
-```
-Byte 0-1  Topmost Line (Top 8 pixels)
-Byte 2-3  Second Line
-etc.
-```
+<table>
+  <thead>
+    <tr><th>Byte</th><th>1<sup>st</sup></th><th>2<sup>nd</sup></th><th>3<sup>rd</sup></th><th>4<sup>th</sup></th><th>...</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Explanation</td><td colspan="2">Topmost line (top 8 pixels)</td><td colspan="2">Second line</td><td>Etc.</td></tr>
+  </tbody>
+</table>
 
 For each line, the first byte specifies the least significant bit of the color
 ID of each pixel, and the second byte specifies the most significant bit. In
