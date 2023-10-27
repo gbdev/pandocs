@@ -45,6 +45,9 @@ jobs:
       uses: peaceiris/actions-mdbook@v1
       with:
         mdbook-version: 0.4.33
+    
+    - name: Install static-sitemap-cli
+      run: npm install static-sitemap-cli
 
     # FIXME: Keep this up to date
     - name: Install mdbook-linkcheck
@@ -73,6 +76,11 @@ jobs:
         MDBOOK_OUTPUT__LINKCHECK__COMMAND: "../mdbook-linkcheck"
       run: |
         mdbook build
+  
+    - name: Generate sitemap
+      run: |
+        cd pandocs/docs/pandocs/
+        npx sscli --no-clean --base https://gbdev.io/pandocs
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
