@@ -368,7 +368,9 @@ impl Pandocs {
                 while pos < attrs.width {
                     let (len, is_unused, name) = match fields.peek() {
                         // If we are at the edge of a "used" field, use it
-                        Some(field) if field.start == pos => (field.len, false, field.name),
+                        Some(field) if field.start == pos => {
+                            (field.len, false, field.name.as_ref())
+                        }
                         // If in an unused field, end at the next field, or the width if none such
                         res => (res.map_or(attrs.width, |field| field.start) - pos, true, ""),
                     };
@@ -434,7 +436,7 @@ fn find_bit_descrs(
 #[derive(Debug)]
 struct BitDescrAttrs<'input> {
     width: usize,
-    rows: Vec<(&'input str, Vec<BitDescrField<'input>>)>,
+    rows: Vec<(Cow<'input, str>, Vec<BitDescrField<'input>>)>,
     increasing: bool,
 }
 
@@ -483,6 +485,13 @@ impl<'input> BitDescrAttrs<'input> {
         for row_str in s.split_terminator(';') {
             let row_str = row_str.trim();
 
+            fn undo_escapes(escaped: &str) -> Cow<'_, str> {
+                lazy_static! {
+                    static ref RE: Regex = Regex::new(r#"\\(\[|\])"#).unwrap();
+                }
+                RE.replace_all(escaped, "$1")
+            }
+
             fn parse_name(row_str: &str) -> Option<usize> {
                 if !row_str.starts_with('"') {
                     return None;
@@ -496,7 +505,7 @@ impl<'input> BitDescrAttrs<'input> {
                     "Expected row to begin by its name (did you forget to put quotes around it?)"
                 );
             };
-            let name = &row_str[1..(name_len + 1)];
+            let name = undo_escapes(&row_str[1..(name_len + 1)]);
             let mut row_str = row_str[(name_len + 2)..].trim_start(); // The end is already trimmed.
 
             // Then, the fields!
@@ -515,7 +524,7 @@ impl<'input> BitDescrAttrs<'input> {
                 let right = cap
                     .get(2)
                     .map_or(left, |end_match| end_match.as_str().parse().unwrap());
-                let name = &cap.get(3).unwrap().as_str();
+                let name = undo_escapes(&cap.get(3).unwrap().as_str());
 
                 // Perform some sanity checks.
                 let Some((mut start, len)) = if increasing {
@@ -584,7 +593,7 @@ impl<'input> BitDescrAttrs<'input> {
 struct BitDescrField<'a> {
     start: usize,
     len: usize,
-    name: &'a str,
+    name: Cow<'a, str>,
 }
 
 impl BitDescrField<'_> {
