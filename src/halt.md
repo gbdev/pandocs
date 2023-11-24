@@ -1,7 +1,7 @@
 # `halt`
 
-`halt` is an instruction that pauses the CPU (during which less power is
-consumed) when executed. The CPU wakes up as soon as an interrupt is pending,
+`halt` is an instruction that pauses the CPU (during which [less power is
+consumed](<#Using the HALT Instruction>)) when executed. The CPU wakes up as soon as an interrupt is pending,
 that is, when the bitwise AND of [`IE`](<#FFFF — IE: Interrupt enable>)
 and [`IF`](<#FF0F — IF: Interrupt flag>) is non-zero.
 
