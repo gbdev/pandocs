@@ -3,7 +3,7 @@
 The Game Boy outputs graphics to a 160×144 pixel LCD, using a quite complex
 mechanism to facilitate rendering.
 
-::: warning Terminology
+:::warning Terminology
 
 Sprites/graphics terminology can vary a lot among different platforms, consoles,
 users and communities. You may be familiar with slightly different definitions.
@@ -69,7 +69,7 @@ it's impractical for objects that need to move separately, such as the player.
 The _objects_ layer is designed to fill this gap: _objects_ are made of 1 or 2 stacked tiles (8×8 or 8×16 pixels)
 and can be displayed anywhere on the screen.
 
-::: tip NOTE
+:::tip NOTE
 
 Several objects can be combined (they can be called _metasprites_) to draw
 a larger graphical element, usually called "sprite". Originally, the term "sprites"

@@ -19,7 +19,7 @@ Colors are encoded as 16-bit RGB numbers, in the following way:
 The palettes are encoded **little-endian**, thus, the Red+Green byte comes
 first in memory.
 
-::: tip
+:::tip
 
 This is the same format as [Game Boy Color palettes](<#LCD Color Palettes (CGB only)>).
 However, the same color will be displayed differently by SGB and CGB due to the different screen gamma!

@@ -37,12 +37,12 @@ In any case, maintainers will chime in, reviewing what you changed and if necess
 
 Pan Docs uses a custom mdBook preprocessor & renderer to enable some special markup:
 
-### Custom Containers 
+### Custom Containers
 
 Those mimick Vuepress' [custom containers](https://vuepress.vuejs.org/guide/markdown.html#custom-containers) functionality.
 
 ```markdown
-  ::: type HEADING
+  :::type HEADING
 
   Content
 
@@ -58,7 +58,7 @@ These are rendered as "info boxes".
 E.g.
 
 ```markdown
-::: tip SCOPE
+:::tip SCOPE
 
 The information here is targeted at homebrew development.
 Emulator developers may be also interested in the [Game Boy: Complete Technical Reference](https://gekkio.fi/files/gb-docs/gbctr.pdf) document.

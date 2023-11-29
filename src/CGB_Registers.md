@@ -88,7 +88,7 @@ to Bit 7 of FF55. In that case reading from FF55 will return how many
 \$10 "blocks" remained (minus 1) in the lower 7 bits, but Bit 7 will
 be read as "1". Stopping the transfer doesn't set HDMA1-4 to \$FF.
 
-::: warning WARNING
+:::warning WARNING
 
 HBlank DMA should not be started (write to FF55) during a HBlank
 period (STAT mode 0).
@@ -222,7 +222,7 @@ location in OAM. This flag is set by the CGB bios after checking the game's CGB 
 
 OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to KEY0 but STOP hasn't been executed yet, and the write takes effect instantly.
 
-::: warning TO BE VERIFIED
+:::warning TO BE VERIFIED
 
 It does not have an effect, at least not an instant effect, if written to during CGB or DMG mode after the boot ROM has been unmapped.
 It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effect on this register's behavior.

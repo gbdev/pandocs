@@ -28,7 +28,7 @@ This means that the CPU can access ROM or cartridge SRAM during OAM DMA from WRA
 However, because a `call` writes a return address to the stack, and the stack and variables are usually in WRAM,
 it's still recommended to busy-wait in HRAM for DMA to finish even on CGB.
 
-::: warning Interrupts
+:::warning Interrupts
 
 An interrupt writes a return address to the stack and fetches the interrupt handler's instructions from ROM.
 Thus, it's critical to prevent interrupts during OAM DMA, especially in a program that uses timer, serial, or joypad interrupts, since they are not synchronized to the LCD.

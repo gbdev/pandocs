@@ -23,7 +23,7 @@ state (inactive=low and active=high) logically ORed into a shared
 A STAT interrupt will be triggered by a rising edge (transition from 
 low to high) on the STAT interrupt line.
 
-::: warning STAT blocking
+:::warning STAT blocking
 
 If a STAT interrupt source logically ORs the interrupt line high while 
 (or immediately after) it's already set high by another source, then 

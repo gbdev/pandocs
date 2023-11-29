@@ -13,7 +13,7 @@ outputs, but this appears not to have been done in licensed games.
 
 ## EMS
 
-::: warning To be verified
+:::warning To be verified
 
 Take the following with a grain of salt, as it hasn't been verified on authentic EMS hardware. See related github issue to contribute: [#423]( https://github.com/gbdev/pandocs/issues/423).
 
@@ -88,7 +88,7 @@ value to address $YYXX, where $YY is in the range $00-$7F.
 
 ## Magic values for detection of multicarts in emulators
 
-::: tip proposal
+:::tip proposal
 
 The following information should not be considered a universally adopted
 standard, but it's instead just a proposed solution. Actual adoption may vary.

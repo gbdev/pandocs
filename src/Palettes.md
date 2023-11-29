@@ -69,7 +69,7 @@ Each color is stored as little-endian RGB555:
 Much like VRAM, data in palette memory cannot be read or written during the time
 when the PPU is reading from it, that is, [Mode 3](<#PPU modes>).
 
-::: tip NOTE
+:::tip NOTE
 
 All background colors are initialized as white by the boot ROM, however it is a
 good idea to initialize all colors yourself, e.g. if implementing
@@ -87,7 +87,7 @@ Note that while 4 colors are stored per OBJ palette, color #0 is never used, as
 it's always transparent. It's thus fine to write garbage values, or even leave
 color #0 uninitialized.
 
-::: tip NOTE
+:::tip NOTE
 
 The boot ROM leaves all object colors uninitialized (and thus somewhat random),
 aside from setting the first byte of OBJ0 color #0 to $00, which is unused.
@@ -124,7 +124,7 @@ the screen under obscure viewing angles), unfortunately, these
 intensities are regularly used by most existing CGB games for medium and
 darker colors.
 
-::: tip WORKAROUND
+:::tip WORKAROUND
 
 Newer CGB games may avoid this effect by changing palette data when
 detecting GBA hardware ([see how](<#Detecting CGB (and GBA) functions>)).

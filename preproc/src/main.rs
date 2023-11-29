@@ -127,6 +127,7 @@ impl Preprocessor for Pandocs {
             if let BookItem::Chapter(ref mut chapter) = item {
                 abort_if_err!(self.process_internal_anchor_links(chapter, &sections));
                 abort_if_err!(self.process_bit_descrs(chapter).context(format!("While processing chapter \"{}\"", chapter.name)));
+                abort_if_err!(self.process_admonitions(chapter));
 
                 if chapter.name == "Foreword" {
                     let commit = abort_if_err!(Commit::rev_parse("HEAD"));

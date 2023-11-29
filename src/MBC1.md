@@ -112,7 +112,7 @@ The **banking mode** can be:
 - `1` = *advanced*: 0000–3FFF and A000-BFFF can be bank-switched via the [4000–5FFF register](<#4000–5FFF — RAM Bank Number — or — Upper Bits of ROM Bank Number (Write Only)>).
 
 
-::: tip
+:::tip
 
 Technically, the MBC1 has AND gates between the both bank registers and the second-highest bit of the address. This is intended to cause accesses to the 0000–3FFF region (which has that address bit set to 0) to treat both registers as always 0, so that only bank 0 is accessible through this address.
 
@@ -144,7 +144,7 @@ The following diagrams show how the address within the ROM/RAM chips are calcula
   <td><strong>Mode 0 / Mode 1</strong></td><td colspan=2>From 4000–5FFF bank register</td><td colspan=5>From 2000–3FFF bank register</td><td colspan=5>From Game Boy address</td>
 </tr></tbody></table></div>
 
-::: tip
+:::tip
 
 In a smaller cartridge, some of the upper bits are ignored.
 (For example, a 128 KiB = 2<sup>17</sup> bytes ROM only uses bits 0–16.)

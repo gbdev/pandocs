@@ -241,7 +241,7 @@ restored and pixels are pushed to the LCD normally when rendering pixels:
 - At the end of mode 2 (oam search)
 - For only 2 dots when entering HBlank (mode 0) and in double speed mode
 
-::: tip Note
+:::tip Note
 
 These conditions are checked only when entering STOP mode and the
 PPU's access to CGB palettes is always restored upon leaving STOP mode.

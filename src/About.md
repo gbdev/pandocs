@@ -4,7 +4,7 @@ This document, started in early 1995, is considered the single most comprehensiv
 
 You are reading a new version of it, maintained in the Markdown format and enjoying renewed [community](https://gbdev.io) attention, correcting and updating it with recent findings. To learn more about the legacy and the mission of this initiative, check [History](./History.md).
 
-::: tip SCOPE
+:::tip SCOPE
 
 The information here is targeted at homebrew development.
 Emulator developers may be also interested in the [Game Boy: Complete Technical Reference](https://gekkio.fi/files/gb-docs/gbctr.pdf) document.
