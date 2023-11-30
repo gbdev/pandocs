@@ -58,7 +58,7 @@ Value | Meaning
 
 Values with bit 7 and either bit 2 or 3 set will switch the Game Boy into a special non-CGB-mode called "PGB mode".
 
-::: tip Research needed
+:::tip Research needed
 
 The PGB mode is not well researched or documented yet.
 Help is welcome!

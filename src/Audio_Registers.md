@@ -154,7 +154,7 @@ This register controls the digital amplitude of the "high" part of the pulse, an
 
 Setting bits 3-7 of this register all to 0 (initial volume = 0, envelope = decreasing) turns the DAC off (and thus, the channel as well), which [may cause an audio pop](<#Mixer>).
 
-::: warning
+:::warning
 
 Writes to this register while the channel is on require retriggering it afterwards.
 If the write turns the channel off, retriggering is not necessary (it would do nothing).
@@ -189,7 +189,7 @@ with a resulting tone frequency equal to <math><mfrac><mn>131072</mn><mrow><mn>2
 Period value $740 produces a higher frequency than $500.
 Even though the period value $740 is not four times $500, $740 produces a frequency that is four times that of $500, or two octaves higher, because ($800 - $740) or 192 is one-quarter of ($800 - $500) or 768.
 
-::: warning DELAY
+:::warning DELAY
 
 Period changes (written to `NR13` or `NR14`) only take effect after the current "sample" ends; see description above.
 ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_1/channel_1_freq_change.asm))
@@ -282,7 +282,7 @@ with a resulting tone frequency equal to <math><mfrac><mn>65536</mn><mrow><mn>20
 
 Given the same period value, the tone frequency of the wave channel is generally half that of a pulse channel, or one octave lower.
 
-::: warning DELAY
+:::warning DELAY
 
 Period changes (written to `NR33` or `NR34`) only take effect after the following time wave RAM is read.
 ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_freq_change_delay.asm))
@@ -297,13 +297,13 @@ Period changes (written to `NR33` or `NR34`) only take effect after the followin
 
 - **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel.
 
-  ::: warning RETRIGGERING CAUTION
+  :::warning RETRIGGERING CAUTION
 
   On monochrome consoles only, retriggering CH3 while it's about to read a byte from wave RAM causes wave RAM to be corrupted in a generally unpredictable manner.
 
   :::
 
-  ::: warning PLAYBACK DELAY
+  :::warning PLAYBACK DELAY
 
   Triggering the wave channel does not immediately start playing wave RAM; instead, the *last* sample ever read (which is reset to 0 when the APU is off) is output until the channel next reads a sample.
   ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_delay.asm))
@@ -319,7 +319,7 @@ Wave RAM is 16 bytes long; each byte holds two "samples", each 4 bits.
 As CH3 plays, it reads wave RAM left to right, upper nibble first.
 That is, $FF30's upper nibble, $FF30's lower nibble, $FF31's upper nibble, and so on.
 
-::: warning ACCESS ORDER
+:::warning ACCESS ORDER
 
 When CH3 is started, the first sample read is the one at index *1*, i.e. the lower nibble of the first byte, NOT the upper nibble.
 ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_first_sample.asm))
@@ -377,7 +377,7 @@ This register allows controlling the way the amplitude is randomly switched.
 - **Clock shift**: See the frequency formula below.
 - **[LFSR](<#Noise channel (CH4)>) width**: `0` = 15-bit, `1` = 7-bit (more regular output; some frequencies sound more like pulse than noise).
 
-  ::: warning LFSR lockup
+  :::warning LFSR lockup
 
   Switching from 15- to 7-bit mode when the LFSR [is in a certain state](<#Noise channel (CH4)>) can "lock it up", which essentially silences CH4; this can be avoided by retriggering CH4, which resets the LFSR.
 

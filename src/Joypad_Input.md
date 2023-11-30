@@ -17,7 +17,7 @@ register, then read out the bits 0-3.
   
   If neither buttons nor d-pad is selected (`$30` was written), then the low nibble reads `$F` (all buttons released).
 
-::: tip NOTE
+:::tip NOTE
 
 Most programs read from this port several times in a row
 (the first reads are used as a short delay, allowing the inputs to stabilize,

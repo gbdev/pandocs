@@ -103,7 +103,7 @@ Indicated values are under normal operation; the frequencies will obviously diff
 A high-pass filter (HPF) removes constant biases over time.
 The HPFs therefore remove the DC offset created by inactive channels with an enabled DAC, and off-center waveforms.
 
-::: tip Avoiding audio pops
+:::tip Avoiding audio pops
 
 Enabling or disabling a DAC ([see below](#DACs)), adding or removing it using NR51, or changing the volume in NR50, will cause an audio pop.
 (All of these actions cause a change in DC offset, which is smoothed out by the HPFs over time, but still creates a pop.)
@@ -179,7 +179,7 @@ When CH4 is ticked (at the frequency specified via [`NR43`](<#FF22 — NR43: Cha
 
 The LFSR is set to 0 when (re)triggering the channel.
 
-::: tip Lock-up
+:::tip Lock-up
 
 If the "active" portion of the LFSR only contains "1" bits, only "1" bits will be generated; this prevents CH4 from ever changing values (until retriggered), essentially silencing it.
 

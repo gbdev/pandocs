@@ -1,6 +1,6 @@
 # Game Boy Camera
 
-::: tip SOURCE
+:::tip SOURCE
 
 This section was originally compiled by Antonio Niño Díaz during his work on reverse engineering the Game Boy Camera. The upstream source can be found [here](https://github.com/AntonioND/gbcam-rev-engineer).
 
@@ -52,7 +52,7 @@ Writing a value of $00-$3F selects the corresponding ROM Bank for area 4000-7FFF
 
 Writing a value in range for $00-$0F maps the corresponding external RAM Bank to memory at A000-BFFF. Writing any value with bit 4 set to '1' will select CAM registers. Usually bank $10 is used to select the registers. All registers are mirrored every $80 bytes. RAM bank 0 selected on reset.
 
-::: tip NOTE
+:::tip NOTE
 
 Unlike most games, the GB Camera RAM can only be written when PHI pin = '1'. It's an enable signal for the RAM chip. Most cartridge readers and writers can't handle PHI pin, so they can't restore a saved backup. It isn't needed to change ROM banks.
 
@@ -180,7 +180,7 @@ That signal is a 1 MiHz clock (1047567 Hz).
 The M6438FP chip needs a clock input too, which is half the frequency of the PHI pin (0.5 Mihz, 524288Hz).
 The reason for that is that the sensor chip sometimes handles the signals on the rising edge of the clock, but other times on the falling edge.
 
-::: tip NOTE
+:::tip NOTE
 
 This means that the GB Camera shouldn't be used in GBC double speed mode!
 

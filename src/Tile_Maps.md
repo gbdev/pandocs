@@ -66,7 +66,7 @@ LCDC bit 0 | OAM attr bit 7 | BG attr bit 7 | Priority
 
 [This test ROM](https://github.com/alloncm/MagenTests) can be used to observe the above.
 
-::: warning
+:::warning
 
 Keep in mind that:
 * OAM Attributes bit 7 will grant OBJ priority when **clear**, not when **set**.
@@ -104,7 +104,7 @@ Enabling the Window makes
 (See [WX and WY](<#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>)
 for the definition of "Window visibility".)
 
-::: tip Window Internal Line Counter
+:::tip Window Internal Line Counter
 
 The window keeps an internal line counter that's functionally similar to `LY`, and increments alongside it. However, it only gets incremented when the window is visible, as described [here](<#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>).
 

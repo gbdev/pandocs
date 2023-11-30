@@ -1,6 +1,6 @@
 # LCD Status Registers
 
-::: tip TERMINOLOGY
+:::tip TERMINOLOGY
 
 A *dot* is the shortest period over which the PPU can output one pixel: is it equivalent to 1 T-state on DMG or on CGB single-speed mode or 2 T-states on CGB double-speed mode. On each dot during mode 3, either the PPU outputs a pixel or the fetcher is stalling the [FIFOs](<#Pixel FIFO>).
 

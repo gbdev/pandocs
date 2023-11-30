@@ -58,7 +58,7 @@ Unused bytes at the end of the last packet don't matter.
 The GB program should wait 60 ms (4 frames) between each packet transfer and the next,
 as the "bomb" tool to erase a user-drawn border can cause the SGB system software not to check for packets for 4 frames.
 
-::: tip
+:::tip
 
 Bytes with no indicated purpose are simply ignored by the SGB BIOS.
 They can be set to any value (but they must still be transferred).

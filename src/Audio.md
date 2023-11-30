@@ -20,7 +20,7 @@ Channel 4 is the "[noise](https://en.wikipedia.org/wiki/Noise_in_music)" channel
 The VIN channel is an analog signal received directly from the cartridge, allowing external hardware to supply a fifth sound channel.
 No licensed games used this feature, and it was omitted from the Game Boy Advance.
 
-::: tip POCKET MUSIC
+:::tip POCKET MUSIC
 
 Despite some online claims, *Pocket Music* does not use VIN.
 It refuses to run on the GBA for a different reason: the developer couldn't figure out how to silence buzzing associated with sample playback on the wave channel.
@@ -45,7 +45,7 @@ Thus, durations will be expressed from their frequencies: for example, a "256 Hz
 
 The length of APU ticks is not affected by [CGB double speed](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>), so the APU works just the same regardless of CPU speed.
 
-::: warning
+:::warning
 
 The Game Boy's APU is actually full of tricky details; this chapter will mostly describe the intended / common behavior, and often paper over bugs & quirks.
 Readers wishing to learn more should read the [APU details](<#Audio Details>) chapter.
@@ -77,7 +77,7 @@ When the length timer reaches 64, the channel is turned off.
 Music notes and audio waves are typically manipulated in terms of **frequency**[^pitch], i.e. how often the signal repeats per second.
 However, as explained above, the Game Boy APU primarily works with durations; thus, **periods** will be used instead of frequency.[^len_raw]
 
-::: warning
+:::warning
 
 The terms "period" and "period value" throughout this document refer to a parameter that has a somewhat nonintuitive relationship with frequency.
 See the description of each NRx3 register for more information.

@@ -15,7 +15,7 @@ However, despite these generous capabilities, no MMM01 cartridge was released wi
 
 The ROM and RAM "game select" banking bits do not have to be set to the same value, this allows an MMM01 cartridge to not waste RAM space on games that do not have RAM, or mix and match games that have differently-sized ROM or RAM by packing them in tightly in the overall ROM/RAM of the cartridge.
 
-::: warning
+:::warning
 
 The MMM01 can't completely block access to RAM for a game, so if the cartridge contains RAM it's recommended to assign any no-RAM games to the same single RAM bank to prevent no-RAM games from accessing or corrupting other games' save RAM.
 
@@ -89,7 +89,7 @@ Bits: 22 21 20 19 18 17 16 15 14 13 12 .. 01 00
                  \-------------------------------- Always 1
 ```
 
-::: warning TO BE VERIFIED
+:::warning TO BE VERIFIED
 
 It's suspected the lowest bit of ROM Bank Low (post $00 -> $01 remapping) still affects the bank mapped to the 4000-7FFF region in "unmapped" mode the same as it does in mapped mode.
 Most of the time this would still be a 1, but during game selection it could momentarily go to 0 in between setting the game select bits in [ROM Bank Low](<#Bits 0-4: ROM Bank Low>) and masking them as such in [ROM Bank Mask](<#Bits 1-5: ROM Bank Mask>).

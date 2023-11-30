@@ -34,7 +34,7 @@ The **header** byte is thus $19.
 Used to copy pre-defined palette data from SGB system color palettes to
 actual SNES palettes.
 
-::: warning
+:::warning
 
 Before using this feature, System Palette data should be initialized by
 [`PAL_TRN`](<#SGB Command $0B — PAL_TRN>) command, and (when used) Attribute File (ATF) data should be
@@ -92,7 +92,7 @@ The palette data is sent by [VRAM Transfer](<#VRAM Transfers>).
         <td>$8FF…</td><td colspan=2>Pal #510 color #0</td><td colspan=2>Pal #510 color #1</td><td colspan=2>Pal #510 color #2</td><td colspan=2>Pal #510 color #3</td><td colspan=2>Pal #511 color #0</td><td colspan=2>Pal #511 color #1</td><td colspan=2>Pal #511 color #2</td><td colspan=2>Pal #511 color #3</td>
 </tr></tbody></table></div>
 
-::: tip
+:::tip
 
 The data is stored at 3000-3FFF in SNES memory.
 

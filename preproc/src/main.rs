@@ -7,14 +7,22 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-use clap::{App, Arg, ArgMatches, SubCommand};
-use mdbook::errors::Error;
-use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
+use std::collections::HashMap;
 use std::io;
 use std::process;
 
-mod preproc;
-use preproc::Pandocs;
+use anyhow::Context;
+use clap::{App, Arg, ArgMatches, SubCommand};
+use mdbook::book::Book;
+use mdbook::errors::Error;
+use mdbook::preprocess::{CmdPreprocessor, Preprocessor, PreprocessorContext};
+use mdbook::BookItem;
+
+mod admonitions;
+mod anchors;
+mod bit_descrs;
+mod git;
+use git::Commit;
 
 pub fn make_app() -> App<'static, 'static> {
     App::new("pandocs-preproc")
@@ -69,5 +77,68 @@ fn handle_supports(pre: &dyn Preprocessor, sub_args: &ArgMatches) -> ! {
         process::exit(0);
     } else {
         process::exit(1);
+    }
+}
+
+struct Pandocs;
+
+impl Pandocs {
+    fn new() -> Pandocs {
+        Pandocs
+    }
+}
+
+impl Preprocessor for Pandocs {
+    fn name(&self) -> &str {
+        "pandocs-preproc"
+    }
+
+    fn supports_renderer(&self, renderer: &str) -> bool {
+        renderer != "not-supported"
+    }
+
+    fn run(&self, _: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
+        let mut sections = HashMap::new();
+        for item in book.iter() {
+            if let BookItem::Chapter(ref chapter) = item {
+                self.list_chapter_sections(&mut sections, chapter);
+            }
+        }
+
+        let mut res = Ok(());
+
+        book.for_each_mut(|item| {
+            macro_rules! abort_if_err {
+                ($expr:expr) => {
+                    match $expr {
+                        Err(e) => {
+                            res = Err(e);
+                            return;
+                        }
+                        Ok(ret) => ret,
+                    }
+                };
+            }
+
+            if res.is_err() {
+                return;
+            }
+
+            if let BookItem::Chapter(ref mut chapter) = item {
+                abort_if_err!(self.process_internal_anchor_links(chapter, &sections));
+                abort_if_err!(self.process_bit_descrs(chapter).context(format!("While processing chapter \"{}\"", chapter.name)));
+                abort_if_err!(self.process_admonitions(chapter));
+
+                if chapter.name == "Foreword" {
+                    let commit = abort_if_err!(Commit::rev_parse("HEAD"));
+                    chapter.content.push_str(&format!(
+                        "<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}). </small>",
+                        commit.short_hash(), commit.hash(), commit.timestamp(),
+                    ));
+                }
+            }
+        });
+
+        res.map(|_| book)
     }
 }
