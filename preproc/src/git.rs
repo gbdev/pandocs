@@ -13,72 +13,49 @@ use anyhow::Error;
 
 #[derive(Debug)]
 pub struct Commit {
-    hash: String,
-    short_hash: String,
-    timestamp: String,
+    info: String,
+    splits: [usize; 2],
 }
 
 impl Commit {
     pub fn rev_parse(what: &str) -> Result<Self, Error> {
         let output = Command::new("git")
-            .args(["rev-parse", what])
+            .args(["show", "-s", "--format=%H%x00%h%x00%ci", what])
             .stderr(Stdio::inherit())
             .stdin(Stdio::null())
             .output()
-            .expect("Failed to get commit hash");
+            .expect("Failed to get commit info");
         if !output.status.success() {
             return Err(Error::msg(format!(
-                "Git exited with {} while getting commit hash",
+                "Git exited with status {} while getting commit info",
                 output.status
             )));
         }
-        let hash = String::from_utf8(output.stdout).expect("Commit hash is not valid UTF-8??");
+        let info = String::from_utf8(output.stdout).expect("Commit info is not valid UTF-8??");
 
-        let output = Command::new("git")
-            .args(["rev-parse", "--short", what])
-            .stderr(Stdio::inherit())
-            .stdin(Stdio::null())
-            .output()
-            .expect("Failed to get short commit hash");
-        if !output.status.success() {
-            return Err(Error::msg(format!(
-                "Git exited with status {} while getting commit short hash",
-                output.status
-            )));
-        }
-        let short_hash =
-            String::from_utf8(output.stdout).expect("Commit hash is not valid UTF-8??");
-
-        let output = Command::new("git")
-            .args(["show", "-s", "--format=%ci", what])
-            .stderr(Stdio::inherit())
-            .stdin(Stdio::null())
-            .output()
-            .expect("Failed to get timestamp");
-        if !output.status.success() {
-            return Err(Error::msg(format!(
-                "Git exited with status {} while getting timestamp",
-                output.status
-            )));
-        }
-        let timestamp = String::from_utf8(output.stdout).expect("Commit hash is not valid UTF-8??");
+        let first_split = info
+            .find('\0')
+            .expect("Failed to split hash and short hash");
+        let second_split = info[first_split + 1..]
+            .find('\0')
+            .expect("Failed to split short hash and timestamp")
+            + first_split;
 
         Ok(Self {
-            hash,
-            short_hash,
-            timestamp,
+            info,
+            splits: [first_split, second_split],
         })
     }
 
     pub fn hash(&self) -> &str {
-        self.hash.trim()
+        &self.info[..self.splits[0]]
     }
 
     pub fn short_hash(&self) -> &str {
-        self.short_hash.trim()
+        &self.info[self.splits[0] + 1..self.splits[1]]
     }
 
     pub fn timestamp(&self) -> &str {
-        self.timestamp.trim()
+        &self.info[self.splits[1] + 1..]
     }
 }
