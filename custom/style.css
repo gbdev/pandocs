@@ -49,6 +49,12 @@ code {
   font-weight: 500;
 }
 
+.pixelated {
+  -ms-interpolation-mode: nearest-neighbor;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
 .header {
   font-weight: 600;
 }

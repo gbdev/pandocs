@@ -47,7 +47,7 @@ As for the MBC1s RAM Banking Mode, writing a value in the range $00-$0F
 maps the corresponding external RAM bank (if any) into the memory area at
 A000-BFFF.
 
-![](imgs/MBC5.png "imgs/MBC5.png")
+<img class="pixelated" src="imgs/MBC5.png">
 
 ### Rumble
 

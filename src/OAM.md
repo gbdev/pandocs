@@ -14,7 +14,7 @@ four bytes with the following meanings:
 
 ## Byte 0 — Y Position
 
-![Interpretation of object Y coordinates](imgs/Objects_vertical_position.png)
+<img class="pixelated" src="imgs/Objects_vertical_position.png" alt="Interpretation of object Y coordinates">
 
 Y = Object's vertical position on the screen + 16. So for example:
 
@@ -108,7 +108,7 @@ differently when in CGB mode.
 - **In CGB mode**, only the object's location in OAM determines its priority.
   The earlier the object, the higher its priority.
 
-:::tip Interaction with "BG over OBJ" flag
+::: tip Interaction with "BG over OBJ" flag
 
 Object drawing priority and ["BG over OBJ"](<#BG Map Attributes (CGB Mode only)>) interact in a non-intuitive way.
 

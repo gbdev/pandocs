@@ -30,7 +30,7 @@ The Window is visible (if enabled) when both coordinates are in the ranges
 WX=0..166, WY=0..143 respectively. Values WX=7, WY=0 place the Window at the
 top left of the screen, completely covering the background.
 
-:::warning Warning
+::: warning Warning
 
 WX values 0 and 166 are unreliable due to hardware bugs.
 

@@ -3,7 +3,7 @@
 Pan Docs - also known as `GAMEBOY.TXT` or `GBSPEC.TXT` - is an old document dating back to early 1995, originally written by *Pan of Anthrox*. It has been one of the most important references for Game Boy hackers, emulators and homebrew developers during the last 25 years.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/gbdev/pandocs/master/historical/1995-Jan-28-ATX-GBI/ADDRESS1.png">
+<img class="pixelated" src="https://raw.githubusercontent.com/gbdev/pandocs/master/historical/1995-Jan-28-ATX-GBI/ADDRESS1.png">
 <br>
   <i>ADDRESS1.PCX, one of the diagrams attached to the first version, released January 28th, 1995</i>
 </p>
