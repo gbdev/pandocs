@@ -310,7 +310,7 @@ Period changes (written to `NR33` or `NR34`) only take effect after the followin
 
   :::
 - **[Length](<#Length timer>) enable** (*Read/Write*): Takes effect immediately upon writing to this register.
-- **Period** (*Write-only*): The upper 3 bits of the period value; the lower 8 bits are stored in [`NR13`](<#FF13 — NR13: Channel 1 period low \[write-only\]>).
+- **Period** (*Write-only*): The upper 3 bits of the period value; the lower 8 bits are stored in [`NR33`](<#FF1D — NR33: Channel 3 period low \[write-only\]>).
 
 ### FF30–FF3F — Wave pattern RAM
 
