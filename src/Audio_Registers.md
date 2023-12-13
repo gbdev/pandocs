@@ -295,7 +295,7 @@ Period changes (written to `NR33` or `NR34`) only take effect after the followin
   "NR34" 7:"Trigger" 6:"Length enable" 2-0:"Period"
 }}
 
-- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel.
+- **Trigger** (*Write-only*): Writing any value to `NR34` with this bit set [triggers](<#Triggering>) the channel.
 
   :::warning RETRIGGERING CAUTION
 
