@@ -357,7 +357,7 @@ By default, the noise will sound close to white; but it can be manipulated to so
 This register controls the channel's [length timer](<#Length timer>).
 
 {{#bits 8 >
-  "NR41" 7-0:"Initial length timer"
+  "NR41" 5-0:"Initial length timer"
 }}
 
 The higher the [length timer](<#Length timer>), the shorter the time before the channel is cut.
