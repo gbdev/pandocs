@@ -161,7 +161,7 @@ While it may make sense for the boot ROM to at least partially verify the ROM's 
 
 ### Legal implications
 
-::: danger Caution
+:::danger Caution
 
 The following is advisory, but **is not legal advice**.
 If necessary (e.g. commercial releases with logos on the boxes), consult a lawyer.
@@ -197,7 +197,7 @@ Strangely, despite correcting the TOCTTOU vulnerability in its later revision, t
 Regardless of the console you intend for your game to run on, it is prudent to rely on as little of the following as possible, barring what is mentioned elsewhere in this documentation to detect which system you are running on.
 This ensures maximum compatibility, both across consoles and cartridges (especially flashcarts, which typically run their own menu code before your game), increases reliability, and is generally considered good practice.
 
-::: warning Use it at your own risk
+:::warning Use it at your own risk
 
 Some of the information below is highly volatile, due to the complexity of some of the boot ROM behaviors; thus, some of it may contain errors.
 Rely on it at your own risk.
