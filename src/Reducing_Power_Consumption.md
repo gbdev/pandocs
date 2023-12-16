@@ -80,11 +80,19 @@ reason, d-pad and/or button inputs should be enabled by writing $00,
 $10 or $20 to the `P1` register before entering STOP (depending on which
 buttons you want to terminate the STOP on).
 
+### The bizarre case of the Game Boy STOP instruction, before even considering timing.
+
+The Game Boy STOP instruction is weird. Normally, it should enter STOP mode, where the CPU sits idle until a button is pressed. The STOP instruction was reused on the Game Boy Color to trigger a CPU speed switch, so executing STOP after writing 1 to KEY1 normally causes a speed switch. STOP is normally a 2-byte instruction where the second byte is ignored.
+
+*But the Game Boy isn't normal. Depending on various factors, the STOP instruction might do different things. Will it actually enter STOP mode? Will it enter HALT mode instead? Will it just be a NOP? Will it perform the speed switch I requested? Will it magically become a 1-byte opcode and execute its second byte as another opcode? Will it glitch the CPU in a non-deterministic fashion? Follow the chart to figure out!*
+
 <p align="center">
-<img src="imgs/gb_stop.png">
+<img src="imgs/stop_diagram.svg">
 <br>
   <i>Source: Lior Halphon</i>
 </p>
+
+
 
 ## Disabling the Sound Controller
 
