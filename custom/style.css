@@ -1,7 +1,10 @@
-/* Import Fira Code font */
-@import "/pandocs/fonts/fira_code.css";
-/* Import Inter font */
-@import url("https://rsms.me/inter/inter.css");
+/*
+Import Fira Code and Inter main stylesheets
+This is broken when locally deploying with "mdbook serve"
+because site-url is not used. Remove "/pandocs" to make it work
+*/
+@import "../fonts/fira_code.css";
+@import "../fonts/inter.css";
 
 html {
   font-family: "Inter", sans-serif;
