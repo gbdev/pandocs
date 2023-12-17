@@ -2,7 +2,7 @@
 
 :::tip NOTE
 
-The Timer described below is the built-in timer in the gameboy. It has
+The Timer described below is the built-in timer in the Game Boy. It has
 nothing to do with the MBC3s battery buffered Real Time Clock - that\'s
 a completely different thing, described in
 [Memory Bank Controllers](#MBCs).

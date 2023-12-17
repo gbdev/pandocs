@@ -45,7 +45,7 @@ Thus, durations will be expressed from their frequencies: for example, a "256 Hz
 
 The length of APU ticks is not affected by [CGB double speed](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>), so the APU works just the same regardless of CPU speed.
 
-:::warning
+:::warning Terminology
 
 The Game Boy's APU is actually full of tricky details; this chapter will mostly describe the intended / common behavior, and often paper over bugs & quirks.
 Readers wishing to learn more should read the [APU details](<#Audio Details>) chapter.
