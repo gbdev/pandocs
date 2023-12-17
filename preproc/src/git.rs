@@ -20,7 +20,13 @@ pub struct Commit {
 impl Commit {
     pub fn rev_parse(what: &str) -> Result<Self, Error> {
         let output = Command::new("git")
-            .args(["show", "-s", "--format=%H%x00%h%x00%ci", what])
+            .args([
+                "--git-dir=.git",
+                "show",
+                "-s",
+                "--format=%H%x00%h%x00%ci",
+                what,
+            ])
             .stderr(Stdio::inherit())
             .stdin(Stdio::null())
             .output()
@@ -31,7 +37,9 @@ impl Commit {
                 output.status
             )));
         }
-        let info = String::from_utf8(output.stdout).expect("Commit info is not valid UTF-8??");
+        let mut info = String::from_utf8(output.stdout).expect("Commit info is not valid UTF-8??");
+        let trimmed_len = info.trim_end().len();
+        info.truncate(trimmed_len);
 
         let first_split = info
             .find('\0')
@@ -39,7 +47,8 @@ impl Commit {
         let second_split = info[first_split + 1..]
             .find('\0')
             .expect("Failed to split short hash and timestamp")
-            + first_split;
+            + first_split
+            + 1;
 
         Ok(Self {
             info,
