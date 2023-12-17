@@ -81,28 +81,28 @@ code {
   text-transform: uppercase;
 }
 
-.box.tip {
+.tip-box {
   border-color: #42b983;
   background-color: var(--quote-bg);
 }
 
-.box.warning {
+.warning-box {
   border-left-color: var(--c-warning);
   background-color: rgba(255, 229, 100, 0.2);
   color: var(--c-warning-text);
 }
 
-.box.warning > .box-title {
+.warning-box > .box-title {
   color: var(--c-warning-title);
 }
 
-.box.danger {
+.danger-box {
     border-left-color: var(--c-danger);
     background-color: rgba(255, 0, 0, .15);
     color: var(--c-danger-text);
 }
 
-.box.danger > .box-title {
+.danger-box > .box-title {
     color: var(--c-danger-title);
 }
 

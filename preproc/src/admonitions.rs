@@ -80,9 +80,9 @@ impl<'a, Iter: Iterator<Item = Event<'a>>> Iterator for AdmonitionsGenerator<'a,
 
                                 evt = Event::Html(
                                     if title.is_empty() {
-                                        format!("<div class=\"box {kind}\">")
+                                        format!("<div class=\"box {kind}-box\">")
                                     } else {
-                                        format!("<div class=\"box {kind}\"><p class=\"box-title\">{title}</p>")
+                                        format!("<div class=\"box {kind}-box\"><p class=\"box-title\">{title}</p>")
                                     }
                                     .into(),
                                 );
