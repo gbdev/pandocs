@@ -12,4 +12,4 @@ Everyone is welcome to contribute opening issues, expressing feedback, adding an
 
 ## License
 
-We assume the content to be in the [public domain](LICENSE).
+Pan Docs is released into the [public domain](LICENSE).
