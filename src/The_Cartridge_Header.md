@@ -6,7 +6,7 @@ The cartridge header provides the following information about the game itself an
 ## 0100-0103 — Entry point
 
 After displaying the Nintendo logo, the built-in [boot ROM](<#Power-Up Sequence>) jumps to the address `$0100`, which should then jump to the actual main program in the cartridge.
-Most commercial games fill this 4-byte area with a [`nop` instruction](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7/#NOP) followed by a [`jp $0150`](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7/#JP_n16).
+Most commercial games fill this 4-byte area with a [`nop` instruction](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7#NOP) followed by a [`jp $0150`](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7#JP_n16).
 
 ## 0104-0133 — Nintendo logo
 
