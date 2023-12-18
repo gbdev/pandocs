@@ -9,9 +9,10 @@
 
 use std::collections::HashMap;
 use std::io;
+use std::path::Path;
 use std::process;
 
-use anyhow::Context;
+use anyhow::{anyhow, Context};
 use clap::{App, Arg, ArgMatches, SubCommand};
 use mdbook::book::Book;
 use mdbook::errors::Error;
@@ -97,7 +98,9 @@ impl Preprocessor for Pandocs {
         renderer != "not-supported"
     }
 
-    fn run(&self, _: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
+    fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
+        let config = ctx.config.get_preprocessor("pandocs");
+
         let mut sections = HashMap::new();
         for item in book.iter() {
             if let BookItem::Chapter(ref chapter) = item {
@@ -130,11 +133,20 @@ impl Preprocessor for Pandocs {
                 abort_if_err!(self.process_admonitions(chapter));
 
                 if chapter.name == "Foreword" {
-                    let commit = abort_if_err!(Commit::rev_parse("HEAD"));
-                    chapter.content.push_str(&format!(
-                        "<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}). </small>",
-                        commit.short_hash(), commit.hash(), commit.timestamp(),
-                    ));
+                    // If the `.git` directory exists, we're very likely on a dev machine,
+                    // so it's safe to assume the command is installed.
+                    if Path::new(".git").exists() {
+                        let commit = abort_if_err!(Commit::rev_parse("HEAD"));
+                        chapter.content.push_str(&format!(
+                            "<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}).</small>",
+                            commit.short_hash(), commit.hash(), commit.timestamp(),
+                        ));
+                    } else if matches!(config.and_then(|config| config.get("out-of-repo")).and_then(|value| value.as_bool()), Some(true)) {
+                        // OK, just don't add anything.
+                    } else {
+                        res = Err(anyhow!("Git metadata is missing, but out-of-repo builds are not enabled!\n\tYou can enable them by setting `preprocessor.pandocs.out-of-repo` to `true`.\n\t(Consider using an environment variable for this:\n\t https://rust-lang.github.io/mdBook/format/configuration/environment-variables.html)"));
+                        return;
+                    }
                 }
             }
         });
