@@ -3,8 +3,6 @@
 [Acknowledgements](./Authors.md)
 [History](./History.md)
 
-<br>
-
 ---
 
 # Overview
@@ -94,3 +92,4 @@
 ---
 
 [References](./References.md)
+[Single-page version](./single.md)

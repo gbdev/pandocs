@@ -31,6 +31,4 @@ You can search anywhere by pressing <kbd>s</kbd> on your keyboard or clicking th
 
 The <i class="fa fa-edit"></i> icon allows you to suggest an edit on the current page by directly opening the source file in the git repository.
 
-[One-page](single.html) and [printable](print.html) versions of this document are also available.
-
 <br><br>
