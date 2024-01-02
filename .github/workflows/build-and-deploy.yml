@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout pandocs
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         path: pandocs
 
@@ -62,7 +62,7 @@ jobs:
         pip install -r pandocs/requirements.txt
 
     - name: Cache build dir
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: pandocs/target/
         key: ${{ runner.os }}-build-${{ hashFiles('pandocs/Cargo.lock') }}
