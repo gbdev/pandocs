@@ -2,7 +2,7 @@
 
 ## INT $40 — VBlank interrupt
 
-This interrupt is requested every time the Game Boy enters VBlank ([Mode 1](<#PPU modes>)).
+This interrupt [is requested] every time the Game Boy enters VBlank ([Mode 1](<#PPU modes>)).
 
 The VBlank interrupt occurs ca. 59.7 times a second on a handheld Game
 Boy (DMG or CGB) or Game Boy Player and ca. 61.1 times a second on a
@@ -20,7 +20,7 @@ The various STAT interrupt sources (modes 0-2 and LYC=LY) have their
 state (inactive=low and active=high) logically ORed into a shared
 "STAT interrupt line" if their respective enable bit is turned on.
 
-A STAT interrupt will be triggered by a rising edge (transition from 
+A STAT interrupt [will be triggered][is requested] by a rising edge (transition from 
 low to high) on the STAT interrupt line.
 
 :::warning STAT blocking
@@ -52,10 +52,7 @@ hidden by the text box.
 
 ## INT $50 — Timer interrupt
 
-Every time that the timer overflows (that is, when [TIMA](<#FF05 — TIMA: Timer counter>) exceeds $FF),
-an interrupt is requested by setting bit 2 in the IF register
-($FF0F). As soon as that interrupt is enabled, the CPU will execute it by
-calling the timer interrupt vector at $0050.
+The timer interrupt [is requested] every time that the timer overflows (that is, when [TIMA](<#FF05 — TIMA: Timer counter>) exceeds $FF).
 
 ## INT $58 — Serial interrupt
 
@@ -98,7 +95,7 @@ clocked serial transfer does not exit STOP mode.
 
 ## INT $60 — Joypad interrupt
 
-The Joypad interrupt is requested when any of [`P1`](<#FF00 — P1/JOYP: Joypad>) bits 0-3 change
+The Joypad interrupt [is requested] when any of [`P1`](<#FF00 — P1/JOYP: Joypad>) bits 0-3 change
 from High to Low. This happens when a button is
 pressed (provided that the action/direction buttons are enabled by
 bit 5/4, respectively), however, due to switch bounce, one or more High to Low
@@ -114,3 +111,5 @@ make no difference. The only meaningful purpose of the Joypad
 interrupt would be to terminate the STOP (low power) standby state. GBA SP,
 because of the different buttons used, seems to not be affected by
 switch bounce.
+
+[is requested]: <#FF0F — IF: Interrupt flag>
