@@ -4,10 +4,28 @@ import lxml
 import matplotlib.pyplot as plt
 import pandas as pd
 from bs4 import BeautifulSoup
+from dataclasses import dataclass
+from os import remove
+
+@dataclass
+class GraphData:
+    dataset_keys: [str]
+    file_path: str
+    title: str
 
 
-def gen_graph(in_path, title):
+# @[GraphData] graph_data_list: an array of GraphData structs
+def gen_graphs(graph_data_list: [GraphData]):
+    for data in graph_data_list:
+        gen_graph(data.dataset_keys, data.file_path, data.title)
 
+
+# @[string] dataset_keys:
+#   @see https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.set_index.html#pandas.DataFrame.set_index
+#       for more info on dataset keys.
+# @string in_path: path to CSV file to generate data from.
+# @string title: name for the graph.
+def gen_graph(dataset_keys, in_path, title):
     ## Let's draw the plot
 
     plt.rcParams["figure.figsize"] = [7.50, 3.50]
@@ -32,7 +50,7 @@ def gen_graph(in_path, title):
     df = pd.read_csv(in_path)
 
     # Set the color of the actual plot line to the secondary color
-    plot = df.set_index("Time (ms)").plot(
+    plot = df.set_index(dataset_keys).plot(
         legend=None, gid="fitted_curve", color=COLOR_LINE
     )
 
@@ -43,26 +61,29 @@ def gen_graph(in_path, title):
     plt.setp(plot.spines.values(), color=COLOR_BASE)
 
     # Add title at the top
+    title_filename = title.replace(' ', '_')
     plt.title(title)
     plt.ylabel(df.columns[1])
-    plt.savefig("test.svg", transparent=True)
+    plt.savefig(f"{title_filename}_temp.svg", transparent=True)
 
     ## Manipulate the SVG render of the plot to replace colors with CSS variables
-    with open("test.svg", "r") as f:
+    ## Writes to a temp SVG file to prepare writing the SVG "soup"
+    with open(f"{title_filename}_temp.svg", "r") as f:
         contents = f.read()
         # It's an SVG, so let's use the XML parser
         soup = BeautifulSoup(contents, "xml")
 
         replace_style_property(soup, "path", "stroke", COLOR_BASE, "var(--fg)")
-
         replace_style_property(soup, "path", "stroke", COLOR_LINE, "var(--inline-code-color)")
-
         replace_style_property(soup, "text", "fill", COLOR_BASE, "var(--fg)")
 
         # Write the altered SVG file
-        with open("output.svg", "wb") as f_output:
+        with open(f"{title_filename}.svg", "wb") as f_output:
             f_output.write(soup.prettify("utf-8"))
             print(soup)
+
+    # Remove temp SVG file
+    remove(f"{title_filename}_temp.svg")
 
 
 def replace_style_property(
@@ -93,9 +114,9 @@ def replace_style_property(
 
     return
 
+# uncomment if wish to be used from the command line
+# if len(argv) != 3:
+#     print("Usage: python3 graph_render.py <path/to.csv> <graph title>", file=stderr)
+#     exit(1)
 
-if len(argv) != 3:
-    print("Usage: python3 graph_render.py <path/to.csv> <graph title>", file=stderr)
-    exit(1)
-
-gen_graph(argv[1], argv[2])
+# gen_graph(argv[1], argv[2])
