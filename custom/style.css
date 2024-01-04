@@ -177,6 +177,11 @@ mfrac msup :not(:first-child) {
     text-align: center;
 }
 
+/* Improve contrast on bit-descrs borders */
+.bit-descrs {
+  --table-border-color: var(--table-header-bg);
+}
+
 p, .table-wrapper {
   margin-block-start: 1em;
   margin-block-end: 1em;
