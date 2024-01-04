@@ -178,24 +178,8 @@ mfrac msup :not(:first-child) {
 }
 
 /* Improve contrast on bit-descrs borders */
-.ayu .bit-descrs {
-  --table-border-color: hsl(210, 25%, 30%);
-}
-
-.coal .bit-descrs {
-  --table-border-color: hsl(200, 7%, 30%);
-}
-
-.light .bit-descrs {
-  --table-border-color: hsl(0, 0%, 70%);
-}
-
-.navy .bit-descrs {
-  --table-border-color: hsl(226, 23%, 40%);
-}
-
-.rust .bit-descrs {
-  --table-border-color: hsl(60, 9%, 60%);
+.bit-descrs {
+  --table-border-color: var(--table-header-bg);
 }
 
 p, .table-wrapper {
