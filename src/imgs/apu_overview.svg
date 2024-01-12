@@ -5,6 +5,7 @@
       text {
         fill: var(--fg);
         dominant-baseline: middle;
+        font-feature-settings: "tnum";
       }
       .centered { text-anchor: middle; }
       .right    { text-anchor: end; }
