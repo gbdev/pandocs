@@ -312,19 +312,19 @@ Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
 [`OBP1`]      | $FF49   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
 [`WY`]        | $FF4A   | $00      | $00       | $00        | $00
 [`WX`]        | $FF4B   | $00      | $00       | $00        | $00
-[`KEY1`]      | $FF4D   | $FF      | $FF       | $FF        | $FF
-[`VBK`]       | $FF4F   | $FF      | $FF       | $FF        | $FF
-[`HDMA1`]     | $FF51   | $FF      | $FF       | $FF        | $FF
-[`HDMA2`]     | $FF52   | $FF      | $FF       | $FF        | $FF
-[`HDMA3`]     | $FF53   | $FF      | $FF       | $FF        | $FF
-[`HDMA4`]     | $FF54   | $FF      | $FF       | $FF        | $FF
-[`HDMA5`]     | $FF55   | $FF      | $FF       | $FF        | $FF
-[`RP`]        | $FF56   | $FF      | $FF       | $FF        | $FF
-[`BCPS`]      | $FF68   | $FF      | $FF       | $FF        | ??[^compat]
-[`BCPD`]      | $FF69   | $FF      | $FF       | $FF        | ??[^compat]
-[`OCPS`]      | $FF6A   | $FF      | $FF       | $FF        | ??[^compat]
-[`OCPD`]      | $FF6B   | $FF      | $FF       | $FF        | ??[^compat]
-[`SVBK`]      | $FF70   | $FF      | $FF       | $FF        | $FF
+[`KEY1`]      | $FF4D   | ---      | ---       | ---        | N/A or $7E[^compat]
+[`VBK`]       | $FF4F   | ---      | ---       | ---        | N/A or $FE[^compat]
+[`HDMA1`]     | $FF51   | ---      | ---       | ---        | $FF
+[`HDMA2`]     | $FF52   | ---      | ---       | ---        | $FF
+[`HDMA3`]     | $FF53   | ---      | ---       | ---        | $FF
+[`HDMA4`]     | $FF54   | ---      | ---       | ---        | $FF
+[`HDMA5`]     | $FF55   | ---      | ---       | ---        | $FF
+[`RP`]        | $FF56   | ---      | ---       | ---        | N/A or $3E[^compat]
+[`BCPS`]      | $FF68   | ---      | ---       | ---        | ??[^compat]
+[`BCPD`]      | $FF69   | ---      | ---       | ---        | ??[^compat]
+[`OCPS`]      | $FF6A   | ---      | ---       | ---        | ??[^compat]
+[`OCPD`]      | $FF6B   | ---      | ---       | ---        | ??[^compat]
+[`SVBK`]      | $FF70   | ---      | ---       | ---        | $FF
 [`IE`]        | $FFFF   | $00      | $00       | $00        | $00
 
 [^unk]:
