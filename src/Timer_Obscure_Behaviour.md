@@ -1,26 +1,26 @@
 # Timer obscure behaviour
 
+<!-- TODO: fix the wording even more -->
+
+:::warning Use of names referring to DIV
+
+When detailing relations in the paragraphs below, 
+ DIV is just the visible part of the system counter.
+
+The system counter is constantly incrementing every M-cycle
+ while the CPU is not in STOP mode.
+
+:::
+
 <!-- TODO: actually fix the diagrams -->
 
 :::tip Notice about the diagrams
 
-The diagrams visualizing DIV are made with the assumption that
- it's increased every T-cycle.
+The diagrams visualizing the system counter are made with the assumption that
+ it's incremented every T-cycle.
 
-As DIV is incremented every M-cycle in clockstep with the CPU, 
- the lower 2 bits of DIV in the illustrations don't actually exist.
-
-:::
-
-<!-- TODO: fix the wording if necessary -->
-
-:::warning Use of names referring to DIV
-
-DIV is actually the entire internal counter which is incremented every M-cycle.
-
-When detailing relations in the paragraphs below, the entirety of DIV
- will be referred to as the internal counter, while the portion visible to the CPU
- will be referred to as DIV.
+As it's incremented every M-cycle in clockstep with the CPU, 
+ the lower 2 bits in the illustrations don't actually exist.
 
 :::
 
@@ -38,15 +38,15 @@ Notice how the values that are connected to the inputs of the
 multiplexer are the values of those bits, not the carry of those bits.
 This is the reason of a few things:
 
-- When writing to DIV, the whole internal counter is reset, so the timer is
+- When writing to DIV, the system counter is reset to zero, so the timer is
 also affected.
 
 - When writing to DIV, if the current output is 1 and timer is
-enabled, as the new value after reseting DIV will be 0, the falling
+enabled, as the new value after reseting the system counter will be 0, the falling
 edge detector will detect a falling edge and TIMA will increase.
 
 - When writing to TAC, if the previously selected multiplexer input was
-1 and the new input is 0, TIMA will increase too. This doesnt
+1 and the new input is 0, TIMA will increase too. This doesn't
 happen when the timer is disabled, but it also happens when disabling
 the timer (the same effect as writing to DIV). The following code explains the behavior in DMG and MGB.
 
@@ -59,7 +59,7 @@ the timer (the same effect as writing to DIV). The following code explains the b
     old_enable = old_TAC & BIT(2)
     new_enable = new_TAC & BIT(2)
 
-    sys_clocks = internal DIV
+    sys_clocks = system counter
 
     IF old_enable == 0 THEN
         glitch = 0 (*)
@@ -74,8 +74,8 @@ the timer (the same effect as writing to DIV). The following code explains the b
 
 The sentence marked with a (\*) has a different behaviour in GBC (AGB
 and AGS seem to have strange behaviour even in the other statements).
-When enabling the timer and maintaining the same frequency it doesnt
-glitch. When disabling the timer it doesnt glitch either. When another
+When enabling the timer and maintaining the same frequency it doesn't
+glitch. When disabling the timer it doesn't glitch either. When another
 change of value happens (so timer is enabled after the write), the
 behaviour depends on a race condition, so it cannot be predicted for
 every device.
@@ -90,7 +90,7 @@ in TIMA is $00, not TMA. This happens only when an overflow happens, not
 when the upper bit goes from 1 to 0, it can't be done manually writing
 to TIMA, the timer has to increment itself.
 
-For example (SYS is the low part of the internal DIV counter):
+For example (SYS here is the lower 8 bits of the system counter):
 
     Timer overflows:
 

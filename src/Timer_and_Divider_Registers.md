@@ -54,10 +54,10 @@ due to a timer overflow, the old value is transferred to TIMA.
       <tr><th rowspan=2>Clock select</th><th rowspan=2>Increment every</th><th colspan=3>Frequency (Hz)</th></tr>
       <tr><th>DMG, SGB2, CGB in single-speed mode</th><th>SGB1</th><th>CGB in double-speed mode</th></tr>
     </thead><tbody>
-      <tr><td>00</td><td>256 M-cycle  </td><td>  4096</td><td>  ~4194</td><td>  8192</td></tr>
-      <tr><td>01</td><td>4 M-cycle </td><td>262144</td><td>~268400</td><td>524288</td></tr>
-      <tr><td>10</td><td>16 M-cycle </td><td> 65536</td><td> ~67110</td><td>131072</td></tr>
-      <tr><td>11</td><td>64 M-cycle </td><td> 16384</td><td> ~16780</td><td> 32768</td></tr>
+      <tr><td>00</td><td>256 M-cycles </td><td>  4096</td><td>  ~4194</td><td>  8192</td></tr>
+      <tr><td>01</td><td>4 M-cycles   </td><td>262144</td><td>~268400</td><td>524288</td></tr>
+      <tr><td>10</td><td>16 M-cycles  </td><td> 65536</td><td> ~67110</td><td>131072</td></tr>
+      <tr><td>11</td><td>64 M-cycles  </td><td> 16384</td><td> ~16780</td><td> 32768</td></tr>
     </tbody>
   </table></div>
 

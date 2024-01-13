@@ -168,7 +168,7 @@ would be recommended to use Single Speed whenever possible.
 
 In Double Speed Mode the following will operate twice as fast as normal:
 
-- The CPU (2.10 MHz, so 1 T-cycle = approx. 0.5 µs)
+- The CPU (2.10 MHz, so 1 M-cycle = approx. 0.5 µs)
 - Timer and Divider Registers
 - Serial Port (Link Cable)
 - DMA Transfer to OAM
