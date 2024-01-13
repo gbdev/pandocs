@@ -22,6 +22,8 @@ When detailing relations in the paragraphs below, the entirety of DIV
  will be referred to as the internal counter, while the portion visible to the CPU
  will be referred to as DIV.
 
+:::
+
 ## Timer Global Circuit
 
 ![](imgs/timer_simplified.svg "imgs/timer_simplified.svg")
