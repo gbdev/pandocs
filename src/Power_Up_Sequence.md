@@ -324,7 +324,7 @@ Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
 [`BCPD`]      | $FF69   | ---      | ---       | ---        | ??[^compat]
 [`OCPS`]      | $FF6A   | ---      | ---       | ---        | ??[^compat]
 [`OCPD`]      | $FF6B   | ---      | ---       | ---        | ??[^compat]
-[`SVBK`]      | $FF70   | ---      | ---       | ---        | $FF
+[`SVBK`]      | $FF70   | ---      | ---       | ---        | N/A or $F8[^compat]
 [`IE`]        | $FFFF   | $00      | $00       | $00        | $00
 
 [^unk]:
