@@ -47,7 +47,7 @@ The following operations are affected by this bug:
 - `push rr`, the `call` family, `rst xx` and interrupt handling -
   Pushing to the stack will trigger the bug 4 times; two usual writes
   and two glitched writes caused by the implied `dec sp`. However, since one
-  glitched write occurs in the same cycle as a actual write, this will
+  glitched write occurs in the same M-cycle as a actual write, this will
   effectively behave like 3 writes.
 - Executing code from OAM - If PC is inside OAM (reading $FF,
   that is, `rst $38`) the bug will trigger twice, once for increasing PC

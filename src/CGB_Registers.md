@@ -168,7 +168,7 @@ would be recommended to use Single Speed whenever possible.
 
 In Double Speed Mode the following will operate twice as fast as normal:
 
-- The CPU (2.10 MHz, so 1 cycle = approx. 0.5 µs)
+- The CPU (2.10 MHz, so 1 T-cycle = approx. 0.5 µs)
 - Timer and Divider Registers
 - Serial Port (Link Cable)
 - DMA Transfer to OAM
@@ -179,7 +179,7 @@ And the following will keep operating as usual:
 - HDMA Transfer to VRAM
 - All Sound Timings and Frequencies
 
-The CPU stops for 2050 cycles (= 8200 clocks) after the `stop` instruction is
+The CPU stops for 2050 M-cycles (= 8200 T-cycles) after the `stop` instruction is
 executed. During this time, the CPU is in a strange state. `DIV` does not tick, so
 *some* audio events are not processed. Additionally, VRAM/OAM/... locking is "frozen", yielding
 different results depending on the [PPU mode](<#PPU modes>) it's started in:

@@ -9,7 +9,7 @@ The main implication of this rendering process is the existence of **raster effe
 The most famous raster effect is modifying the [scrolling registers](<#LCD Position and Scrolling>) between scanlines to create a ["wavy" effect](https://gbdev.io/guides/deadcscroll#effects).
 
 A "**dot**" = one 2<sup>22</sup> Hz (≅ 4.194 MHz) time unit.
-Dots remain the same regardless of whether the CPU is in [double speed](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>), so there are 4 dots per single-speed CPU cycle, and 2 per double-speed CPU cycle.
+Dots remain the same regardless of whether the CPU is in [Double Speed mode](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>), so there are 4 dots per Single Speed M-cycle, and 2 per Double Speed M-cycle.
 
 :::tip NOTE
 
@@ -64,10 +64,10 @@ Only the OBJ's leftmost pixel matters here, transparent or not; it is designated
    3. Incur this many dots of penalty, or zero if negative (from waiting for the BG fetch to finish).
 3. Incur a flat, 6-dot penalty (from fetching the OBJ's tile).
 
-**Exception**: an OBJ with an OAM X position of 0 (thus, completely off the left side of the screen) always incurs a 11-cycle penalty, regardless of `SCX`.
+**Exception**: an OBJ with an OAM X position of 0 (thus, completely off the left side of the screen) always incurs a 11-dot cycle penalty, regardless of `SCX`.
 
 
-[^first12]: The 12 extra cycles come from two tile fetches at the beginning of Mode 3. One is the first tile in the scanline (the one that gets shifted by `SCX` % 8 pixels), the other is simply discarded.
+[^first12]: The 12 extra dot cycles come from two tile fetches at the beginning of Mode 3. One is the first tile in the scanline (the one that gets shifted by `SCX` % 8 pixels), the other is simply discarded.
 
 [^crt]: The Game Boy can afford to "take pauses", because it writes to a LCD it fully controls; by contrast, home consoles like the NES or SNES are on a schedule imposed by the screen they are hooked up to. Taking pauses arguably simplified the PPU's design while allowing greater flexibility to game developers.
 

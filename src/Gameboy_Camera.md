@@ -187,7 +187,7 @@ This means that the GB Camera shouldn't be used in GBC double speed mode!
 :::
 
 The time needed to capture and process an image depends on the exposure time and the value of N bit of the register 1 of the M64282FP chip.
-In GAME BOY CYCLES (1 MiHz):
+In Game Boy M-cycles (1 MiHz):
 
 ```
 N_bit    = ([A001] & BIT(7)) ? 0 : 512
@@ -200,7 +200,7 @@ Divide those values by 2 to get the sensor clocks.
 ### Capture process timings
 
 The next values are in sensor clocks.
-Multiply by 2 to get Game Boy cycles:
+Multiply by 2 to get Game Boy M-cycles:
 
 ```
     - Reset pulse.

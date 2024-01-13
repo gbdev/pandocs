@@ -93,4 +93,4 @@ Year-10000-Proof, provided that the cartridge gets used at least every
 ### Delays
 
 When accessing the RTC Registers, it is recommended to wait 4 µs
-(4 cycles in Normal Speed Mode) between any separate accesses.
+(4 M-cycles in Single Speed Mode) between any separate accesses.

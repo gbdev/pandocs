@@ -12,7 +12,7 @@ Source:      $XX00-$XX9F   ;XX = $00 to $DF
 Destination: $FE00-$FE9F
 ```
 
-The transfer takes 160 machine cycles: 640 dots (1.4 lines) in normal speed,
+The transfer takes 160 M-cycles: 640 dots (1.4 lines) in normal speed,
 or 320 dots (0.7 lines) in CGB Double Speed Mode.
 This is much faster than a CPU-driven copy.
 
@@ -64,15 +64,15 @@ Many games copy a routine like it into HRAM and call it during Mode 1.
 run_dma:
     ld a, HIGH(start address)
     ldh [$FF46], a  ; start DMA transfer (starts right after instruction)
-    ld a, 40        ; delay for a total of 4×40 = 160 cycles
+    ld a, 40        ; delay for a total of 4×40 = 160 M-cycles
 .wait
-    dec a           ; 1 cycle
-    jr nz, .wait    ; 3 cycles
+    dec a           ; 1 M-cycle
+    jr nz, .wait    ; 3 M-cycles
     ret
 ```
 
 If HRAM is tight, this more compact procedure saves 5 bytes of HRAM
-at the cost of a few cycles spent jumping to the tail in HRAM.
+at the cost of a few M-cycles spent jumping to the tail in HRAM.
 
 ```rgbasm
 run_dma:          ; This part must be in ROM.
@@ -86,8 +86,8 @@ run_dma_tail:     ; This part must be in HRAM.
 .wait
     dec b
     jr nz, .wait
-    ret z         ; Conditional `ret` is 1 cycle slower, which avoids
-                  ; reading from the stack on the last cycle of DMA.
+    ret z         ; Conditional `ret` is 1 M-cycle slower, which avoids
+                  ; reading from the stack on the last M-cycle of DMA.
 ```
 
 If starting a mid-frame transfer, wait for Mode 0 first

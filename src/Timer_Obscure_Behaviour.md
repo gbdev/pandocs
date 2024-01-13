@@ -1,5 +1,27 @@
 # Timer obscure behaviour
 
+<!-- TODO: actually fix the diagrams -->
+
+:::tip Notice about the diagrams
+
+The diagrams visualizing DIV are made with the assumption that
+ it's increased every T-cycle.
+
+As DIV is incremented every M-cycle in clockstep with the CPU, 
+ the lower 2 bits of DIV in the illustrations don't actually exist.
+
+:::
+
+<!-- TODO: fix the wording if necessary -->
+
+:::warning Use of names referring to DIV
+
+DIV is actually the entire internal counter which is incremented every M-cycle.
+
+When detailing relations in the paragraphs below, the entirety of DIV
+ will be referred to as the internal counter, while the portion visible to the CPU
+ will be referred to as DIV.
+
 ## Timer Global Circuit
 
 ![](imgs/timer_simplified.svg "imgs/timer_simplified.svg")
@@ -14,7 +36,7 @@ Notice how the values that are connected to the inputs of the
 multiplexer are the values of those bits, not the carry of those bits.
 This is the reason of a few things:
 
-- When writing to DIV, the whole counter is reset, so the timer is
+- When writing to DIV, the whole internal counter is reset, so the timer is
 also affected.
 
 - When writing to DIV, if the current output is 1 and timer is
@@ -24,10 +46,10 @@ edge detector will detect a falling edge and TIMA will increase.
 - When writing to TAC, if the previously selected multiplexer input was
 1 and the new input is 0, TIMA will increase too. This doesnt
 happen when the timer is disabled, but it also happens when disabling
-the timer (the same effect as writing to DIV). The following code explains the behaviour in DMG and MGB.
+the timer (the same effect as writing to DIV). The following code explains the behavior in DMG and MGB.
 
 ```
-    clocks_array[4] = {1024, 16, 64, 256}
+    clocks_array[4] = {256, 4, 16, 64}
 
     old_clocks = clocks_array[old_TAC&3]
     new_clocks = clocks_array[new_TAC&3]
@@ -35,7 +57,7 @@ the timer (the same effect as writing to DIV). The following code explains the b
     old_enable = old_TAC & BIT(2)
     new_enable = new_TAC & BIT(2)
 
-    sys_clocks = 16 bit system counter
+    sys_clocks = internal DIV
 
     IF old_enable == 0 THEN
         glitch = 0 (*)
@@ -59,15 +81,14 @@ every device.
 ## Timer Overflow Behaviour
 
 When TIMA overflows, the value from TMA is loaded and IF timer flag is
-set to 1, but this doesnt happen immediately. Timer interrupt is
-delayed 1 cycle (4 clocks) from the TIMA overflow. The TMA reload to
-TIMA is also delayed. For one cycle, after overflowing TIMA, the value
+set to 1, but this doesn't happen immediately. Timer interrupt is
+delayed 1 M-cycle from the TIMA overflow. The TMA reload to
+TIMA is also delayed. For 1 M-cycle, after overflowing TIMA, the value
 in TIMA is $00, not TMA. This happens only when an overflow happens, not
-when the upper bit goes from 1 to 0, it cant be done manually writing
+when the upper bit goes from 1 to 0, it can't be done manually writing
 to TIMA, the timer has to increment itself.
 
-For example (SYS is the system internal counter divided by 4 for easier
-understanding, each increment of the graph is 1 cycle, not 1 clock):
+For example (SYS is the low part of the internal DIV counter):
 
     Timer overflows:
 
@@ -88,14 +109,14 @@ understanding, each increment of the graph is 1 cycle, not 1 clock):
 - During the strange cycle \[A\] you can prevent the IF flag from being
 set and prevent the TIMA from being reloaded from TMA by writing a value
 to TIMA. That new value will be the one that stays in the TIMA register
-after the instruction. Writing to DIV, TAC or other registers wont
+after the instruction. Writing to DIV, TAC or other registers won't
 prevent the IF flag from being set or TIMA from being reloaded.
 
-- If you write to TIMA during the cycle that TMA is being loaded to it
+- If you write to TIMA during the M-cycle that TMA is being loaded to it
 \[B\], the write will be ignored and TMA value will be written to TIMA
 instead.
 
-- If TMA is written the same cycle it is loaded to TIMA \[B\], TIMA is
+- If TMA is written the same M-cycle it is loaded to TIMA \[B\], TIMA is
 also loaded with that value.
 
 - This is a guessed schematic to explain the priorities with registers
@@ -105,5 +126,5 @@ TIMA and TMA:
 
 TMA is a latch. As soon as it is written, the output shows that value.
 That explains that when TMA is written and TIMA is being incremented,
-the value written to TMA is also written to TIMA. It doesnt affect the
-IF flag, though.
+the value written to TMA is also written to TIMA. It doesn't affect the
+IF flag though.
