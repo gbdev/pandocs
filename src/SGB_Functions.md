@@ -57,7 +57,8 @@ out because this area is used to transfer object positions to the SNES.
 
 The possibly most popular and most impressive feature is to replace the
 default SGB screen border by a custom bitmap which is stored in the game
-cartridge.  A border can be much more colorful than the game screen.
+cartridge.
+A border can be much more colorful than the game screen, as it uses 4 bits per pixel (16 color per tile) instead of 2 bpp (4 colors/tile).
 
 ## Multiple Joypads
 
