@@ -12,21 +12,9 @@ The system counter is constantly incrementing every M-cycle
 
 :::
 
-<!-- TODO: actually fix the diagrams -->
-
-:::tip Notice about the diagrams
-
-The diagrams visualizing the system counter are made with the assumption that
- it's incremented every T-cycle.
-
-As it's incremented every M-cycle in clockstep with the CPU, 
- the lower 2 bits in the illustrations don't actually exist.
-
-:::
-
 ## Timer Global Circuit
 
-![](imgs/timer_simplified.svg "imgs/timer_simplified.svg")
+{{#include imgs/timer_simplified.svg}}
 
 ## Relation between Timer and Divider register
 
