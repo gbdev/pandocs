@@ -16,27 +16,35 @@
 			.no-stroke { stroke: none !important; }
 		]]></style>
 		<polygon points="0,0 8,-4 8,4" id="arrow-head"/>
+		<g id="reg">
+			<polygon points="-80,0 -40,-20 40,-20 80,0"/>
+			<rect x="-80" y="0" width="20" height="20"/><rect x="-60" y="0" width="20" height="20"/>
+			<rect x="-40" y="0" width="20" height="20"/><rect x="-20" y="0" width="20" height="20"/>
+			<rect x="0"   y="0" width="20" height="20"/><rect x="20"  y="0" width="20" height="20"/>
+			<rect x="40"  y="0" width="20" height="20"/><rect x="60"  y="0" width="20" height="20"/>
+		</g>
 		<g id="byte">
-			<rect x="0"   y="0" width="20" height="20"/><text x="10"  y="12" class="centered">7</text>
-			<rect x="20"  y="0" width="20" height="20"/><text x="30"  y="12" class="centered">6</text>
-			<rect x="40"  y="0" width="20" height="20"/><text x="50"  y="12" class="centered">5</text>
-			<rect x="60"  y="0" width="20" height="20"/><text x="70"  y="12" class="centered">4</text>
-			<rect x="80"  y="0" width="20" height="20"/><text x="90"  y="12" class="centered">3</text>
-			<rect x="100" y="0" width="20" height="20"/><text x="110" y="12" class="centered">2</text>
-			<rect x="120" y="0" width="20" height="20"/><text x="130" y="12" class="centered">1</text>
-			<rect x="140" y="0" width="20" height="20"/><text x="150" y="12" class="centered">0</text>
+			<text x="-70" y="12" class="centered">7</text><text x="-50" y="12" class="centered">6</text>
+			<text x="-30" y="12" class="centered">5</text><text x="-10" y="12" class="centered">4</text>
+			<text x="10"  y="12" class="centered">3</text><text x="30"  y="12" class="centered">2</text>
+			<text x="50"  y="12" class="centered">1</text><text x="70"  y="12" class="centered">0</text>
 		</g>
 	</defs>
 	<!-- KEY1 and Double-Speed arrow -->
-	<polygon points="50,30 90,10 170,10 210,30"/>
-		<text x="130" y="21" class="centered">KEY1</text><use x="50" y="30" href="#byte"/>
+	<use x="130" y="30" href="#reg"/>
+			<text x="60" y="42" class="centered">7</text><line x1="70" y1="50" x2="90" y2="30"/>
+			<line x1="90" y1="50" x2="110" y2="30"/><line x1="110" y1="50" x2="130" y2="30"/>
+			<line x1="130" y1="50" x2="150" y2="30"/><line x1="150" y1="50" x2="170" y2="30"/>
+			<line x1="170" y1="50" x2="190" y2="30"/><text x="200" y="42" class="centered">0</text>
+		<text x="130" y="21" class="centered">KEY1</text>
 	<polyline points="60,50 60,143 123,143"/><use x="127" y="143" href="#arrow-head" transform="rotate(180,127,143)"/>
 		<text x="55" y="70" class="right">Double</text>
 		<text x="55" y="90" class="right">Speed</text>
 		<text x="55" y="110" class="right">Mode</text>
 		<text x="55" y="130" class="right">active?</text>
 	<!-- DIV and events affecting it -->
-	<polygon points="90,90 130,70 210,70 250,90"/><text x="170" y="81" class="centered">DIV</text><use x="90" y="90" href="#byte"/>
+	<use x="170" y="90" href="#reg"/><use x="170" y="90" href="#byte"/>
+		<text x="170" y="81" class="centered">DIV</text>
 	<rect x="250" y="90" width="20" height="20"/><rect x="270" y="90" width="20" height="20"/>
 	<rect x="290" y="90" width="20" height="20"/><rect x="310" y="90" width="20" height="20"/>
 	<rect x="330" y="90" width="20" height="20"/><rect x="350" y="90" width="20" height="20"/>
@@ -73,7 +81,11 @@
 	<rect x="210" y="165" width="140" height="60" class="placeholder"/>
 		<text x="280" y="185" class="centered">See detailed</text>
 		<text x="280" y="205" class="centered">schematic</text>
-	<polygon points="380,260 420,280 500,280 540,260"/><use x="380" y="240" href="#byte"/>
+	<use x="460" y="260" href="#reg" transform="rotate(180,460,260)"/>
+			<line x1="380" y1="260" x2="400" y2="240"/><line x1="400" y1="260" x2="420" y2="240"/>
+			<line x1="420" y1="260" x2="440" y2="240"/><line x1="440" y1="260" x2="460" y2="240"/>
+			<line x1="460" y1="260" x2="480" y2="240"/><text x="490" y="252" class="centered">2</text>
+			<text x="510" y="252" class="centered">1</text><text x="530" y="252" class="centered">0</text>
 		<text x="460" y="271" class="centered">TAC</text>
 	<polyline points="510,240 510,230 530,230 530,240"/><polyline points="520,230 520,180 358,180"/><use x="350" y="180" href="#arrow-head"/>
 		<text x="380" y="170">TAC.freq</text>
@@ -89,10 +101,10 @@
 		<text x="280" y="350" class="centered">See</text>
 		<text x="280" y="370" class="centered">detailed</text>
 		<text x="280" y="390" class="centered">schematic</text>
-	<polygon points="20,300 60,320 140,320 180,300"/><use x="20" y="280" href="#byte"/>
+	<use x="100" y="300" href="#reg" transform="rotate(180,100,300)"/><use x="100" y="280" href="#byte"/>
 		<text x="100" y="311" class="centered">TMA</text>
 	<line x1="100" y1="320" x2="100" y2="343"/><use x="100" y="350" href="#arrow-head" transform="rotate(-90,100,350)"/>
-	<polygon points="20,370 60,350 140,350 180,370"/><use x="20" y="370" href="#byte"/>
+	<use x="100" y="370" href="#reg"/><use x="100" y="370" href="#byte"/>
 		<text x="100" y="361" class="centered">TIMA</text>
 	<line x1="230" y1="333" x2="107" y2="333"/><use x="100" y="333" href="#arrow-head"/>
 		<text x="220" y="323" class="right">Load</text>
@@ -100,7 +112,11 @@
 		<text x="225" y="370" class="right">Inc.</text>
 	<polyline points="20,380 10,380 10,435 280,435 280,427"/><use x="280" y="420" href="#arrow-head" transform="rotate(90,280,420)"/>
 		<text x="120" y="425" class="centered">Overflow</text>
-	<polygon points="380,350 420,330 500,330 540,350"/><use x="380" y="350" href="#byte"/>
+	<use x="460" y="350" href="#reg"/>
+			<line x1="380" y1="370" x2="400" y2="350"/><line x1="400" y1="370" x2="420" y2="350"/>
+			<line x1="420" y1="370" x2="440" y2="350"/><text x="450" y="362" class="centered">4</text>
+			<text x="470" y="362" class="centered">3</text><text x="490" y="362" class="centered">2</text>
+			<text x="510" y="362" class="centered">1</text><text x="530" y="362" class="centered">0</text>
 		<text x="460" y="340" class="centered">IF</text>
 	<polyline points="330,400 490,400 490,377"/><use x="490" y="370" href="#arrow-head" transform="rotate(90,490,370)"/>
 		<text x="340" y="390">Interrupt request</text>
