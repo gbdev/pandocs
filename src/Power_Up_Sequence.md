@@ -312,19 +312,19 @@ Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
 [`OBP1`]      | $FF49   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
 [`WY`]        | $FF4A   | $00      | $00       | $00        | $00
 [`WX`]        | $FF4B   | $00      | $00       | $00        | $00
-[`KEY1`]      | $FF4D   | ---      | ---       | ---        | N/A or $7E[^compat]
-[`VBK`]       | $FF4F   | ---      | ---       | ---        | N/A or $FE[^compat]
-[`HDMA1`]     | $FF51   | ---      | ---       | ---        | $FF
-[`HDMA2`]     | $FF52   | ---      | ---       | ---        | $FF
-[`HDMA3`]     | $FF53   | ---      | ---       | ---        | $FF
-[`HDMA4`]     | $FF54   | ---      | ---       | ---        | $FF
-[`HDMA5`]     | $FF55   | ---      | ---       | ---        | $FF
-[`RP`]        | $FF56   | ---      | ---       | ---        | N/A or $3E[^compat]
+[`KEY1`]      | $FF4D   | ---      | ---       | ---        | $7E[^cgb_only]
+[`VBK`]       | $FF4F   | ---      | ---       | ---        | $FE[^cgb_only]
+[`HDMA1`]     | $FF51   | ---      | ---       | ---        | $FF[^cgb_only]
+[`HDMA2`]     | $FF52   | ---      | ---       | ---        | $FF[^cgb_only]
+[`HDMA3`]     | $FF53   | ---      | ---       | ---        | $FF[^cgb_only]
+[`HDMA4`]     | $FF54   | ---      | ---       | ---        | $FF[^cgb_only]
+[`HDMA5`]     | $FF55   | ---      | ---       | ---        | $FF[^cgb_only]
+[`RP`]        | $FF56   | ---      | ---       | ---        | $3E[^cgb_only]
 [`BCPS`]      | $FF68   | ---      | ---       | ---        | ??[^compat]
 [`BCPD`]      | $FF69   | ---      | ---       | ---        | ??[^compat]
 [`OCPS`]      | $FF6A   | ---      | ---       | ---        | ??[^compat]
 [`OCPD`]      | $FF6B   | ---      | ---       | ---        | ??[^compat]
-[`SVBK`]      | $FF70   | ---      | ---       | ---        | N/A or $F8[^compat]
+[`SVBK`]      | $FF70   | ---      | ---       | ---        | $F8[^cgb_only]
 [`IE`]        | $FFFF   | $00      | $00       | $00        | $00
 
 [^unk]:
@@ -342,6 +342,8 @@ Make sure to always set those before displaying objects for the first time.
 
 [^compat]:
 These depend on whether compatibility mode is enabled.
+
+[^cgb_only]: These registers are only available in CGB Mode, and will read \$FF in Non-CGB Mode.
 
 The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-dmg0.s), [`acceptance/boot_hwio-dmgABCmgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-dmgABCmgb.s), [`acceptance/boot_hwio-S`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-S.s), and [`misc/boot_hwio-C`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_hwio-C.s), plus some extra testing.
 
