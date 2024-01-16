@@ -2,13 +2,13 @@
 <svg viewBox="0 0 585 440" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 	<defs>
 		<style type="text/css"><![CDATA[
-			text { fill: var(--fg); dominant-baseline: middle; }
+			text { fill: var(--fg, #000); dominant-baseline: middle; }
 			.centered { text-anchor: middle; }
 			.right    { text-anchor: end; }
-			rect, polyline, line, circle { stroke: var(--fg); fill: none; }
-			#arrow-head                  { stroke: none;      fill: var(--fg); }
-			polygon                      { stroke: var(--fg); fill: var(--quote-bg); }
-			.inverted                    { stroke: var(--bg); fill: var(--bg); }
+			rect, polyline, line, circle { stroke: var(--fg, #000); fill: none; }
+			#arrow-head                  { stroke: none;            fill: var(--fg, #000); }
+			polygon                      { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
+			.inverted                    { stroke: var(--bg, #fff); fill: var(--bg, #fff); }
 			.placeholder                 { stroke-dasharray: 5 3 2 0; fill: #40ffff40; }
 			.event     { fill: #00ff0020; }
 			.mux       { fill: #10e8e880; }
