@@ -2,30 +2,16 @@
 <svg viewBox="0 0 700 590" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 	<defs>
 		<style type="text/css"><![CDATA[
-			text {
-				fill: var(--fg);
-			}
-			rect {
-				opacity: 75%;
-			}
-			.mode-box {
-				opacity: 25%;
-				height: 60px;
-			}
-			.scanline {
-				height: 20px;
-			}
-			.square {
-				height: 10px;
-				width: 10px;
-			}
+			text { fill: var(--fg, #000); }
+			rect      { opacity: 75%; }
+			.mode-box { opacity: 25%; height: 60px; }
+			.scanline {               height: 20px; }
+			.square   { width: 10px;  height: 10px; }
 			.m2 { fill: #ffd966; }
 			.m3 { fill: #ff8000; }
 			.m0 { fill: #97d077; }
 			.m1 { fill: #00ffff; }
-			.m30 {
-				fill: url(#m30-gradient);
-			}
+			.m30 { fill: url(#m30-gradient); }
 			.darken {
 				fill: #000;
 				opacity: 50%;
@@ -33,18 +19,10 @@
 			}
 			.centered { text-anchor: middle; }
 			.right    { text-anchor: end; }
-			.mode-id {
-				font-size: large;
-			}
-			.small {
-				font-size: small;
-			}
-			.middle-baseline {
-				dominant-baseline: middle;
-			}
-			.mode-id, .mode-descr {
-				font-variant: small-caps;
-			}
+			.mode-id { font-size: large; }
+			.small   { font-size: small; }
+			.middle-baseline { dominant-baseline: middle; }
+			.mode-id, .mode-descr { font-variant: small-caps; }
 		]]></style>
 		<linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="m30-gradient">
 			<stop offset="0%" stop-color="#ff8000"/>

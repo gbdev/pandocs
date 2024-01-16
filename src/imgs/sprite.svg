@@ -7,7 +7,7 @@
         font-size: 13px;
         text-anchor: middle;
         dominant-baseline: central;
-        fill: var(--fg)
+        fill: var(--fg, #000)
       }
       .c0 { fill: #081820 }
       .c1 { fill: #346856 }

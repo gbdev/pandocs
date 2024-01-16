@@ -3,19 +3,19 @@
   <defs>
     <style type="text/css"><![CDATA[
       text {
-        fill: var(--fg);
+        fill: var(--fg, #000);
         dominant-baseline: middle;
         font-feature-settings: "tnum";
       }
       .centered { text-anchor: middle; }
       .right    { text-anchor: end; }
       rect, path, use {
-        stroke: var(--fg);
-        fill: var(--fg);
+        stroke: var(--fg, #000);
+        fill: var(--fg, #000);
       }
       .inverted {
-        stroke: var(--bg);
-        fill: var(--bg);
+        stroke: var(--bg, #fff);
+        fill: var(--bg, #fff);
       }
       .unfilled {
         fill: none !important;
