@@ -9,11 +9,9 @@
 			#arrow-head                  { stroke: none;            fill: var(--fg, #000); }
 			polygon                      { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
 			.inverted                    { stroke: var(--bg, #fff); fill: var(--bg, #fff); }
-			.placeholder                 { stroke-dasharray: 5 3 2 0; fill: #40ffff40; }
+			.placeholder                 { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
 			.event     { fill: #00ff0020; }
-			.mux       { fill: #10e8e880; }
-			.unfilled  { fill:   none !important; }
-			.no-stroke { stroke: none !important; }
+			.mux       { fill: #10e8e850; }
 		]]></style>
 		<polygon points="0,0 8,-4 8,4" id="arrow-head"/>
 		<g id="reg">

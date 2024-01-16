@@ -14,13 +14,27 @@ The system counter is constantly incrementing every M-cycle
 
 ## Timer Global Circuit
 
-{{#include imgs/timer_simplified.svg}}
+{{#include imgs/src/timer_simplified.svg:2:}}
 
 ## Relation between Timer and Divider register
 
 This is a schematic of the circuit involving TAC and DIV:
 
-![](imgs/timer_tac_bug_dmg.svg "imgs/timer_tac_bug_dmg.svg")
+<figure><figcaption>
+
+On **DMG**:
+
+</figcaption>
+{{#include imgs/src/timer_tac_bug_dmg.svg:2:}}
+</figure>
+
+<figure><figcaption>
+
+On **CGB**:
+
+</figcaption>
+{{#include imgs/src/timer_tac_bug_gbc.svg:2:}}
+</figure>
 
 Notice how the values that are connected to the inputs of the
 multiplexer are the values of those bits, not the carry of those bits.
