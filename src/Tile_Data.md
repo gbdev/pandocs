@@ -86,7 +86,7 @@ example, the tile data `$3C $7E $42 $42 $42 $42 $42 $42 $7E $5E $7E $0A $7C $56
 $38 $7C` appears as follows:
 
 <figure>
-{{#include imgs/sprite.svg:2:}}
+{{#include imgs/src/sprite.svg:2:}}
 <figcaption>Sample tile data</figcaption>
 </figure>
 

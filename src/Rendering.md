@@ -25,7 +25,7 @@ During a frame, the Game Boy's PPU cycles between four modes as follows:
 
 </figcaption>
 
-{{#include imgs/ppu_modes_timing.svg:2:}}
+{{#include imgs/src/ppu_modes_timing.svg:2:}}
 
 </figure>
 

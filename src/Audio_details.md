@@ -42,7 +42,7 @@ tl;dr:
 </style>
 
 <figure>
-{{#include imgs/apu_detailed.svg:2:}}
+{{#include imgs/src/apu_detailed.svg:2:}}
 
 <figcaption>Source: Lior "LIJI32" Halphon</figcaption>
 </figure>
@@ -167,7 +167,7 @@ This only matters when changing the setting mid-playback: the digital values bei
 
 ### Noise channel (CH4)
 
-{{#include imgs/ch4_lfsr.svg:2:}}
+{{#include imgs/src/ch4_lfsr.svg:2:}}
 
 CH4 revolves around a [LFSR](https://en.wikipedia.org/wiki/Linear-feedback_shift_register), pictured above.
 The LFSR has 16 bits: 15 bits for its current state and 1 bit to temporarily store the next bit to shift in.
