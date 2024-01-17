@@ -121,7 +121,7 @@ power as possible. Using a high level language will require more CPU
 power and these techniques will not have as big as an effect.
 
 To optimize your code, it might be a good idea to look at [this
-page](http://wikiti.brandonw.net/index.php?title=Z80_Optimization),
+page](https://web.archive.org/web/20230301041000/https://wikiti.brandonw.net/index.php?title=Z80_Optimization),
 although it applies to the original Z80 CPU, so one must adapt the
 optimizations to the GBZ80.
 
