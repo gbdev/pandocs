@@ -122,7 +122,7 @@ also loaded with that value.
 - This is a guessed schematic to explain the priorities with registers
 TIMA and TMA:
 
-![](imgs/timer_tima_tma_detailed.svg "imgs/timer_tima_tma_detailed.svg")
+{{#include imgs/src/timer_tima_tma_detailed.svg:2:}}
 
 TMA is a latch. As soon as it is written, the output shows that value.
 That explains that when TMA is written and TIMA is being incremented,

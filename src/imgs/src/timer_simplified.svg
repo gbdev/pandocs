@@ -7,9 +7,9 @@
 			.right    { text-anchor: end; }
 			rect, polyline, line, circle { stroke: var(--fg, #000); fill: none; }
 			#arrow-head                  { stroke: none;            fill: var(--fg, #000); }
-			polygon                      { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
+			polygon, .reg                { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
 			.inverted                    { stroke: var(--bg, #fff); fill: var(--bg, #fff); }
-			.placeholder                 { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
+			.placeholder               { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
 			.event     { fill: #00ff0020; }
 			.mux       { fill: #10e8e850; }
 		]]></style>
