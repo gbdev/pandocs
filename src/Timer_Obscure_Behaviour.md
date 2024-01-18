@@ -78,53 +78,50 @@ change of value happens (so timer is enabled after the write), the
 behaviour depends on a race condition, so it cannot be predicted for
 every device.
 
-## Timer Overflow Behaviour
+## Timer overflow behavior
 
-When TIMA overflows, the value from TMA is loaded and IF timer flag is
-set to 1, but this doesn't happen immediately. Timer interrupt is
-delayed 1 M-cycle from the TIMA overflow. The TMA reload to
-TIMA is also delayed. For 1 M-cycle, after overflowing TIMA, the value
-in TIMA is $00, not TMA. This happens only when an overflow happens, not
-when the upper bit goes from 1 to 0, it can't be done manually writing
-to TIMA, the timer has to increment itself.
+When `TIMA` overflows, the value from `TMA` is copied, and the timer flag is set in [`IF`](<#FF0F — IF: Interrupt flag>), but **one M-cycle later**.
+This means that `TIMA` is equal to \$00 for the M-cycle after it overflows.
 
-For example (SYS here is the lower 8 bits of the system counter):
+This only happens when `TIMA` overflows from incrementing, it cannot be made to happen by manually writing to `TIMA`.
 
-    Timer overflows:
+Here is an example; `SYS` represents the lower 8 bits of the system counter, and `TAC` is \$FD (timer enabled, bit 1 of `SYS` selected as source):
 
-                  [A] [B]
-    SYS  FD FE FF |00| 01 02 03
-    TIMA FF FF FF |00| 23 23 23
-    TMA  23 23 23 |23| 23 23 23
-    IF   E0 E0 E0 |E0| E4 E4 E4
+<figure><figcaption>
 
-    Timer doesn't overflow:
+`TIMA` overflows on cycle <var>A</var>, but the interrupt is only requested on cycle <var>B</var>:
 
-                  [C]
-    SYS  FD FE FF 00 01 02 03
-    TIMA 45 45 45 46 46 46 46
-    TMA  23 23 23 23 23 23 23
-    IF   E0 E0 E0 E0 E0 E0 E0
+</figcaption>
 
-- During the strange cycle \[A\] you can prevent the IF flag from being
-set and prevent the TIMA from being reloaded from TMA by writing a value
-to TIMA. That new value will be the one that stays in the TIMA register
-after the instruction. Writing to DIV, TAC or other registers won't
-prevent the IF flag from being set or TIMA from being reloaded.
+M-cycle |    |    ||<var>A</var>|<var>B</var>||&#8203;
+--------|----|----|----|--------|----|----|---
+`SYS`   | 2B | 2C | 2D |   2E   | 2F | 30 | 31
+`TIMA`  | FE | FF | FF | **00** | 23 | 24 | 24
+`TMA`   | 23 | 23 | 23 |   23   | 23 | 23 | 23
+`IF`    | E0 | E0 | E0 | **E0** | E4 | E4 | E4
 
-- If you write to TIMA during the M-cycle that TMA is being loaded to it
-\[B\], the write will be ignored and TMA value will be written to TIMA
-instead.
+</figure>
 
-- If TMA is written the same M-cycle it is loaded to TIMA \[B\], TIMA is
-also loaded with that value.
+Here are some unexpected behaviors:
 
-- This is a guessed schematic to explain the priorities with registers
-TIMA and TMA:
+1. Writing to `TIMA` during cycle <var>A</var> acts as if the overflow **didn't happen**!
+   `TMA` will not be copied to `TIMA` (the value written will therefore stay), and bit 2 of `IF` will not be set.
+   Writing to `DIV`, `TAC`, or other registers won't prevent the `IF` flag from being set or `TIMA` from being reloaded.
+2. Writing to `TIMA` during cycle <var>B</var> will be ignored; `TIMA` will be equal to `TIMA` at the end of the cycle anyway.
+3. Writing to `TMA` during cycle <var>B</var> will have the same value copied to `TIMA` as well, on the same cycle.
+
+Here is how `TIMA` and `TMA` interact:
 
 {{#include imgs/src/timer_tima_tma_detailed.svg:2:}}
 
-TMA is a latch. As soon as it is written, the output shows that value.
-That explains that when TMA is written and TIMA is being incremented,
-the value written to TMA is also written to TIMA. It doesn't affect the
-IF flag though.
+<details><summary>Explanation of the above behaviors:</summary>
+
+1. Writing to `TIMA` blocks the falling edge from the increment from being detected (see the `AND` gate)[^write_edge].
+2. The "Load" signal stays enabled for the entirety of cycle <var>B</var>, and since `TIMA` is made of <abbr title="T-flip-flop with Asynchronous Load">TAL</abbr> cells, it's constantly copying its input.
+   However, the "Write to TIMA" signal gets reset in the middle of the cycle, thus the multiplexer emits `TMA`'s value again; in essence, the CPU's write to `TIMA` *does* go through, but it's overwritten right after.
+3. As mentioned in the above bullet point, `TIMA` constantly copies its input, so it updates together with `TMA`.
+   This and the previous bullet point can be emulated as if `TMA` was copied to `TIMA` at the very end of the cycle, though this is not quite what's happening in hardware.
+
+[^write_edge]: This is necessary, because otherwise writing a number with bit 7 reset (either from the CPU or from `TMA`) when `TIMA`'s bit 7 is set, would trigger the bit 7 falling edge detector and thus schedule a spurious interrupt.
+
+</details>

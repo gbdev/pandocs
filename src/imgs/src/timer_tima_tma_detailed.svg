@@ -6,11 +6,11 @@
 			.small { font-size: .75em; }
 			.centered { text-anchor: middle; }
 			.right    { text-anchor: end; }
+			.placeholder                     { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
 			rect, polyline, line, circle, path { stroke: var(--fg, #000); fill: none; }
 			#arrow-head                        { stroke: none;            fill: var(--fg, #000); }
 			polygon, .reg                      { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
 			.inverted                          { stroke: var(--bg, #fff); fill: var(--bg, #fff); }
-			.placeholder               { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
 			.event     { fill: #00ff0020; }
 			.mux       { fill: #10e8e850; }
 		]]></style>
@@ -39,8 +39,8 @@
 		<text x="310" y="65" class="centered">to TMA</text>
 	<line x1="270" y1="55" x2="202" y2="55"/><use x="195" y="55" href="#arrow-head"/>
 		<text x="205" y="47">Load</text>
-	<rect x="230" y="90" width="160" height="20"/>
-		<text x="310" y="102" class="centered">Data bus</text>
+	<rect x="230" y="90" width="160" height="20" class="placeholder reg"/>
+		<text x="310" y="102" class="centered">CPU data bus</text>
 	<line x1="230" y1="100" x2="195" y2="100"/>
 	<polygon points="150,120 210,120 200,140 160,140" class="mux"/>
 		<text x="165" y="132" class="centered">0</text>
