@@ -11,9 +11,9 @@ The most famous raster effect is modifying the [scrolling registers](<#LCD Posit
 A "**dot**" = one 2<sup>22</sup> Hz (≅ 4.194 MHz) time unit.
 Dots remain the same regardless of whether the CPU is in [double speed](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>), so there are 4 dots per single-speed CPU cycle, and 2 per double-speed CPU cycle.
 
-:::tip
+:::tip NOTE
 
-Note that a frame is not exactly one 60<sup>th</sup> of a second: the Game Boy runs slightly slower than 60 Hz, as one frame takes ~16.74 ms instead of ~16.67 (the error is 0.45%).
+A frame is not exactly one 60<sup>th</sup> of a second: the Game Boy runs slightly slower than 60 Hz, as one frame takes ~16.74 ms instead of ~16.67 (the error is 0.45%).
 
 :::
 
