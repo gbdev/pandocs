@@ -156,7 +156,7 @@ Finally, the instruction "families" have been further grouped into four "blocks"
 	"<code>ld [imm16], a</code>"  7:"1" 6:"1" 5:"1" 4:"0" 3:"1" 2:"1" 1:"0" 0:"0" ;
 	"<code>ldh a, [c]</code>"     7:"1" 6:"1" 5:"1" 4:"1" 3:"0" 2:"1" 1:"0" 0:"0" ;
 	"<code>ldh a, [imm8]</code>"  7:"1" 6:"1" 5:"1" 4:"1" 3:"0" 2:"0" 1:"0" 0:"0" ;
-	"<code>ld a, [imm16]</code>"  7:"1" 6:"1" 5:"1" 4:"1" 3:"1" 2:"1" 1:"0" 0:"0" ;
+	"<code>ld a, [imm16]</code>"  7:"1" 6:"1" 5:"1" 4:"1" 3:"1" 2:"0" 1:"1" 0:"0" ;
 }}
 
 {{#bits 8 >
