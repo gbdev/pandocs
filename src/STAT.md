@@ -2,7 +2,7 @@
 
 :::tip TERMINOLOGY
 
-A *dot* is the shortest period over which the PPU can output one pixel: is it equivalent to 1 T-state on DMG or on CGB single-speed mode or 2 T-states on CGB double-speed mode. On each dot during mode 3, either the PPU outputs a pixel or the fetcher is stalling the [FIFOs](<#Pixel FIFO>).
+A *dot* is the shortest period over which the PPU can output one pixel: is it equivalent to 1 T-cycle on DMG or on CGB Single Speed mode or 2 T-cycles on CGB Double Speed mode. On each dot during mode 3, either the PPU outputs a pixel or the fetcher is stalling the [FIFOs](<#Pixel FIFO>).
 
 :::
 
@@ -36,7 +36,7 @@ is set, and (if enabled) a STAT interrupt is requested.
 A hardware quirk in the monochrome Game Boy makes the LCD interrupt
 sometimes trigger when writing to STAT (including writing \$00) during
 OAM scan, HBlank, VBlank, or LY=LYC. It behaves as if \$FF were
-written for one cycle, and then the written value were written the next
-cycle. Because the GBC in DMG mode does not have this quirk, two games
+written for one M-cycle, and then the written value were written the next
+M-cycle. Because the GBC in DMG mode does not have this quirk, two games
 that depend on this quirk (Ocean's *Road Rash* and Vic Tokai's *Xerd
 no Densetsu*) will not run on a GBC.

@@ -1,0 +1,121 @@
+<!-- Do not put any blank lines, or Markdown processing will break! -->
+<svg viewBox="0 0 585 440" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<style type="text/css"><![CDATA[
+			text { fill: var(--fg, #000); dominant-baseline: middle; }
+			.centered { text-anchor: middle; }
+			.right    { text-anchor: end; }
+			rect, polyline, line, circle { stroke: var(--fg, #000); fill: none; }
+			#arrow-head                  { stroke: none;            fill: var(--fg, #000); }
+			polygon                      { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
+			.inverted                    { stroke: var(--bg, #fff); fill: var(--bg, #fff); }
+			.placeholder                 { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
+			.event     { fill: #00ff0020; }
+			.mux       { fill: #10e8e850; }
+		]]></style>
+		<polygon points="0,0 8,-4 8,4" id="arrow-head"/>
+		<g id="reg">
+			<polygon points="-80,0 -40,-20 40,-20 80,0"/>
+			<rect x="-80" y="0" width="20" height="20"/><rect x="-60" y="0" width="20" height="20"/>
+			<rect x="-40" y="0" width="20" height="20"/><rect x="-20" y="0" width="20" height="20"/>
+			<rect x="0"   y="0" width="20" height="20"/><rect x="20"  y="0" width="20" height="20"/>
+			<rect x="40"  y="0" width="20" height="20"/><rect x="60"  y="0" width="20" height="20"/>
+		</g>
+		<g id="byte">
+			<text x="-70" y="12" class="centered">7</text><text x="-50" y="12" class="centered">6</text>
+			<text x="-30" y="12" class="centered">5</text><text x="-10" y="12" class="centered">4</text>
+			<text x="10"  y="12" class="centered">3</text><text x="30"  y="12" class="centered">2</text>
+			<text x="50"  y="12" class="centered">1</text><text x="70"  y="12" class="centered">0</text>
+		</g>
+	</defs>
+	<!-- KEY1 and Double-Speed arrow -->
+	<use x="130" y="30" href="#reg"/>
+			<text x="60" y="42" class="centered">7</text><line x1="70" y1="50" x2="90" y2="30"/>
+			<line x1="90" y1="50" x2="110" y2="30"/><line x1="110" y1="50" x2="130" y2="30"/>
+			<line x1="130" y1="50" x2="150" y2="30"/><line x1="150" y1="50" x2="170" y2="30"/>
+			<line x1="170" y1="50" x2="190" y2="30"/><text x="200" y="42" class="centered">0</text>
+		<text x="130" y="21" class="centered">KEY1</text>
+	<polyline points="60,50 60,143 123,143"/><use x="127" y="143" href="#arrow-head" transform="rotate(180,127,143)"/>
+		<text x="55" y="70" class="right">Double</text>
+		<text x="55" y="90" class="right">Speed</text>
+		<text x="55" y="110" class="right">Mode</text>
+		<text x="55" y="130" class="right">active?</text>
+	<!-- DIV and events affecting it -->
+	<use x="170" y="90" href="#reg"/><use x="170" y="90" href="#byte"/>
+		<text x="170" y="81" class="centered">DIV</text>
+	<rect x="250" y="90" width="20" height="20"/><rect x="270" y="90" width="20" height="20"/>
+	<rect x="290" y="90" width="20" height="20"/><rect x="310" y="90" width="20" height="20"/>
+	<rect x="330" y="90" width="20" height="20"/><rect x="350" y="90" width="20" height="20"/>
+	<polyline points="374,93 384,93 384,50 470,50"/><use x="370" y="93" href="#arrow-head"/>
+		<text x="425" y="40" class="centered">Reset</text>
+	<polygon points="470,50 480,30 540,30 550,50 540,70 480,70" class="event"/>
+		<text x="510" y="42" class="centered">Write</text>
+		<text x="510" y="60" class="centered">to DIV</text>
+	<polyline points="374,107 384,107 384,120 475,120"/><use x="370" y="107" href="#arrow-head"/>
+		<text x="429" y="110" class="centered">Increment</text>
+	<circle cx="510" cy="120" r="35" class="event"/>
+		<text x="510" y="114" class="centered">M-cycle</text>
+		<text x="510" y="134" class="centered">clock</text>
+	<!-- DIV-APU circuitry -->
+	<line x1="140" y1="110" x2="140" y2="126"/><use x="140" y="130" href="#arrow-head" transform="rotate(-90,140,130)"/>
+	<line x1="160" y1="110" x2="160" y2="126"/><use x="160" y="130" href="#arrow-head" transform="rotate(-90,160,130)"/>
+	<polygon points="125,130 175,130 170,155 130,155" class="mux"/>
+		<text x="140" y="144" class="centered">1</text>
+		<text x="160" y="144" class="centered">0</text>
+	<line x1="150" y1="155" x2="150" y2="166"/><use x="150" y="170" href="#arrow-head" transform="rotate(-90,150,170)"/>
+	<rect x="115" y="170" width="70" height="70" class="placeholder"/>
+		<text x="150" y="185" class="centered">Falling</text>
+		<text x="150" y="205" class="centered">edge</text>
+		<text x="150" y="225" class="centered">detector</text>
+	<line x1="115" y1="205" x2="90" y2="205"/><use x="85" y="205" href="#arrow-head"/>
+	<circle cx="45" cy="205" r="40" class="event"/>
+		<text x="45" y="199" class="centered">DIV-APU</text>
+		<text x="45" y="219" class="centered">event</text>
+	<!-- "Timer tick" -->
+	<line x1="220" y1="110" x2="220" y2="161"/><use x="220" y="165" href="#arrow-head" transform="rotate(-90,220,165)"/>
+	<line x1="260" y1="110" x2="260" y2="161"/><use x="260" y="165" href="#arrow-head" transform="rotate(-90,260,165)"/>
+	<line x1="300" y1="110" x2="300" y2="161"/><use x="300" y="165" href="#arrow-head" transform="rotate(-90,300,165)"/>
+	<line x1="340" y1="110" x2="340" y2="161"/><use x="340" y="165" href="#arrow-head" transform="rotate(-90,340,165)"/>
+	<rect x="210" y="165" width="140" height="60" class="placeholder"/>
+		<text x="280" y="185" class="centered">See detailed</text>
+		<text x="280" y="205" class="centered">schematic</text>
+	<use x="460" y="260" href="#reg" transform="rotate(180,460,260)"/>
+			<line x1="380" y1="260" x2="400" y2="240"/><line x1="400" y1="260" x2="420" y2="240"/>
+			<line x1="420" y1="260" x2="440" y2="240"/><line x1="440" y1="260" x2="460" y2="240"/>
+			<line x1="460" y1="260" x2="480" y2="240"/><text x="490" y="252" class="centered">2</text>
+			<text x="510" y="252" class="centered">1</text><text x="530" y="252" class="centered">0</text>
+		<text x="460" y="271" class="centered">TAC</text>
+	<polyline points="510,240 510,230 530,230 530,240"/><polyline points="520,230 520,180 358,180"/><use x="350" y="180" href="#arrow-head"/>
+		<text x="380" y="170">TAC.freq</text>
+	<polyline points="490,240 490,210 358,210"/><use x="350" y="210" href="#arrow-head"/>
+		<text x="380" y="200">TAC.enable</text>
+	<line x1="280" y1="225" x2="280" y2="233"/><use x="280" y="240" href="#arrow-head" transform="rotate(-90,280,240)"/>
+	<circle cx="280" cy="270" r="30" class="event"/>
+		<text x="280" y="262" class="centered">Timer</text>
+		<text x="280" y="282" class="centered">tick</text>
+	<!-- TMA and TIMA (bottom half) -->
+	<line x1="280" y1="300" x2="280" y2="313"/><use x="280" y="320" href="#arrow-head" transform="rotate(-90,280,320)"/>
+	<rect x="230" y="320" width="100" height="100" class="placeholder"/>
+		<text x="280" y="350" class="centered">See</text>
+		<text x="280" y="370" class="centered">detailed</text>
+		<text x="280" y="390" class="centered">schematic</text>
+	<use x="100" y="300" href="#reg" transform="rotate(180,100,300)"/><use x="100" y="280" href="#byte"/>
+		<text x="100" y="311" class="centered">TMA</text>
+	<line x1="100" y1="320" x2="100" y2="343"/><use x="100" y="350" href="#arrow-head" transform="rotate(-90,100,350)"/>
+	<use x="100" y="370" href="#reg"/><use x="100" y="370" href="#byte"/>
+		<text x="100" y="361" class="centered">TIMA</text>
+	<line x1="230" y1="333" x2="107" y2="333"/><use x="100" y="333" href="#arrow-head"/>
+		<text x="220" y="323" class="right">Load</text>
+	<line x1="230" y1="380" x2="187" y2="380"/><use x="180" y="380" href="#arrow-head"/>
+		<text x="225" y="370" class="right">Inc.</text>
+	<polyline points="20,380 10,380 10,435 280,435 280,427"/><use x="280" y="420" href="#arrow-head" transform="rotate(90,280,420)"/>
+		<text x="120" y="425" class="centered">Overflow</text>
+	<use x="460" y="350" href="#reg"/>
+			<line x1="380" y1="370" x2="400" y2="350"/><line x1="400" y1="370" x2="420" y2="350"/>
+			<line x1="420" y1="370" x2="440" y2="350"/><text x="450" y="362" class="centered">4</text>
+			<text x="470" y="362" class="centered">3</text><text x="490" y="362" class="centered">2</text>
+			<text x="510" y="362" class="centered">1</text><text x="530" y="362" class="centered">0</text>
+		<text x="460" y="340" class="centered">IF</text>
+	<polyline points="330,400 490,400 490,377"/><use x="490" y="370" href="#arrow-head" transform="rotate(90,490,370)"/>
+		<text x="340" y="390">Interrupt request</text>
+</svg>
