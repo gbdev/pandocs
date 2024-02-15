@@ -1,14 +1,10 @@
 # Timer obscure behaviour
 
-<!-- TODO: fix the wording even more -->
+:::tip System counter
 
-:::warning Use of names referring to DIV
+DIV is just the visible part of the **system counter**.
 
-When detailing relations in the paragraphs below, 
- DIV is just the visible part of the system counter.
-
-The system counter is constantly incrementing every M-cycle
- while the CPU is not in STOP mode.
+The **system counter** is constantly incrementing every M-cycle, unless the CPU is in [STOP mode](<#Using the STOP Instruction>).
 
 :::
 
