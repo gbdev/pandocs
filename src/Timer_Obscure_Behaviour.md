@@ -35,7 +35,7 @@ On **CGB**:
 Notice how the bits themselves are connected to the multiplexer and then to the falling-edge detector; this causes a few odd behaviors:
 
 - Resetting the entire system counter (by writing to `DIV`) can reset the bit currently selected by the multiplexer, thus sending a "Timer tick" and/or "[DIV-APU event](<#DIV-APU>)" pulse early.
-- Changing which bit of the system counter is selected (by changing the "Clock select" bits of [`TAC`]) from a bit currently set to another currently reset, will send a "Timer tick" pulse.
+- Changing which bit of the system counter is selected (by changing the "Clock select" bits of [`TAC`]) from a bit currently set to another that is currently unset, will send a "Timer tick" pulse.
   (For example: if the system counter is equal to \$3FF0 and `TAC` to \$FC, writing \$05 or \$06 to `TAC` will instantly send a "Timer tick", but \$04 or \$07 won't.)
 - On monochrome consoles, disabling the timer if the currently selected bit is set, will send a "Timer tick" once.
   This does not happen on Color models.
