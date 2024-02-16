@@ -40,7 +40,7 @@ Notice how the bits themselves are connected to the multiplexer and then to the 
 - On monochrome consoles, disabling the timer if the currently selected bit is set, will send a "Timer tick" once.
   This does not happen on Color models.
 - On Color models, a write to `TAC` that fulfills the previous bullet's conditions *and* turns the timer on (it was disabled before) may or may not send a "Timer tick".
-  This depends on a race condition, so it is device-dependent.
+  The exact behaviour varies between individual consoles.
 
 ## Timer overflow behavior
 
