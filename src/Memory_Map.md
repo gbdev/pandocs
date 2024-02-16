@@ -5,14 +5,14 @@ The Game Boy has a 16-bit address bus, which is used to address ROM, RAM, and I/
 Start       | End       | Description                                                      | Notes
 ------------|-----------|------------------------------------------------------------------|----------
 0000        | 3FFF      | 16 KiB ROM bank 00                                               | From cartridge, usually a fixed bank
-4000        | 7FFF      | 16 KiB ROM Bank 01\~NN                                           | From cartridge, switchable bank via [mapper](#MBCs) (if any)
+4000        | 7FFF      | 16 KiB ROM Bank 01–NN                                            | From cartridge, switchable bank via [mapper](#MBCs) (if any)
 8000        | 9FFF      | 8 KiB Video RAM (VRAM)                                           | In CGB mode, switchable bank 0/1
 A000        | BFFF      | 8 KiB External RAM                                               | From cartridge, switchable bank if any
 C000        | CFFF      | 4 KiB Work RAM (WRAM)                                            |
-D000        | DFFF      | 4 KiB Work RAM (WRAM)                                            | In CGB mode, switchable bank 1\~7
-E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                  | Nintendo says use of this area is prohibited.
+D000        | DFFF      | 4 KiB Work RAM (WRAM)                                            | In CGB mode, switchable bank 1–7
+E000        | FDFF      | [Echo RAM](<#Echo RAM>) (mirror of C000–DDFF)                    | Nintendo says use of this area is prohibited.
 FE00        | FE9F      | [Object attribute memory (OAM)](<#Object Attribute Memory (OAM)>) |
-FEA0        | FEFF      | Not Usable                                                       | Nintendo says use of this area is prohibited
+FEA0        | FEFF      | [Not Usable](<#FEA0–FEFF range>)                                 | Nintendo says use of this area is prohibited.
 FF00        | FF7F      | [I/O Registers](<#I/O Ranges>)                                   |
 FF80        | FFFE      | High RAM (HRAM)                                                  |
 FFFF        | FFFF      | [Interrupt](#Interrupts) Enable register (IE)                    |
@@ -86,7 +86,7 @@ echo RAM interferes with SRAM normally at A000-BFFF. Software can check if
 Echo RAM is properly emulated by writing to RAM (avoid values 00 and
 FF) and checking if said value is mirrored in Echo RAM and not cart SRAM.
 
-## FEA0-FEFF range
+## FEA0–FEFF range
 
 Nintendo indicates use of this area is prohibited.  This area returns
 $FF when OAM is blocked, and otherwise the behavior depends on the
