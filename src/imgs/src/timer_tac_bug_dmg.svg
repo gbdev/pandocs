@@ -8,9 +8,9 @@
 			.right    { text-anchor: end; }
 			rect, polyline, line, circle { stroke: var(--fg, #000); fill: none; }
 			#arrow-head                  { stroke: none;            fill: var(--fg, #000); }
-			polygon                      { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
+			polygon, .reg                { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
 			.inverted                    { stroke: var(--bg, #fff); fill: var(--bg, #fff); }
-			.placeholder                 { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
+			.placeholder               { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
 			.event     { fill: #00ff0020; }
 			.mux       { fill: #10e8e850; }
 		]]></style>
@@ -45,6 +45,7 @@
 	<circle cx="510" cy="120" r="35" class="event"/>
 		<text x="510" y="114" class="centered">M-cycle</text>
 		<text x="510" y="134" class="centered">clock</text>
+	<!-- Muxer -->
 	<line x1="220" y1="110" x2="220" y2="156"/><use x="220" y="160" href="#arrow-head" transform="rotate(-90,220,160)"/>
 	<line x1="260" y1="110" x2="260" y2="156"/><use x="260" y="160" href="#arrow-head" transform="rotate(-90,260,160)"/>
 	<line x1="300" y1="110" x2="300" y2="156"/><use x="300" y="160" href="#arrow-head" transform="rotate(-90,300,160)"/>
@@ -64,6 +65,7 @@
 		<text x="380" y="160">TAC.freq</text>
 	<polyline points="490,240 490,210 303,210"/><use x="295" y="210" href="#arrow-head"/>
 		<text x="380" y="200">TAC.enable</text>
+	<!-- After muxer -->
 	<line x1="280" y1="180" x2="280" y2="187"/><use x="280" y="195" href="#arrow-head" transform="rotate(-90,280,195)"/>
 	<rect x="265" y="195" width="30" height="30" class="mux"/>
 		<text x="280" y="210" class="centered small">AND</text>
