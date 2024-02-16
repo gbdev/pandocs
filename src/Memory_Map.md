@@ -35,6 +35,12 @@ $FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
 $FF68   |  $FF6B  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
 $FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mode only): WRAM bank>)
 
+## VRAM memory map
+
+TODO: descr
+
+{{#include imgs/src/vram_map.svg}}
+
 ## Jump Vectors in first ROM bank
 
 The following addresses are supposed to be used as jump vectors:
