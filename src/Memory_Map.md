@@ -40,6 +40,7 @@ $FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mod
 TODO: descr
 
 {{#include imgs/src/vram_map.svg}}
+<script src="js/vram_map.js"></script>
 
 ## Jump Vectors in first ROM bank
 
