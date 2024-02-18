@@ -84,7 +84,6 @@ Some of the information cannot be shown if JavaScript is disabled.
 </noscript>
 
 {{#include imgs/src/vram_map.svg}}
-<script src="js/vram_map.js"></script>
 
 :::tip
 
