@@ -42,7 +42,7 @@ VRAM is, by itself, normal RAM, and may be used as such; however, the PPU interp
 Bank 1 does not exist except on CGB, where it can be switched to (only in CGB Mode) using [the `VBK` register](<#FF4F — VBK (CGB Mode only): VRAM bank>).
 
 Each bank first contains 384 tiles, of 16 bytes each.
-These tiles are commonly thought of as grouped in three "blocks" of 128 tiles each; see [this detailed explanation](<#VRAM Tile Data>) for the relevance of the blocks.
+These tiles are commonly thought of as grouped in three "blocks" of 128 tiles each; see [this detailed explanation](<#VRAM Tile Data>) for more details.
 
 :::tip
 
