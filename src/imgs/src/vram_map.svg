@@ -112,18 +112,18 @@
 			.hover + * { display: none; }  .hover:hover + * { display: initial; }
 		</style>
 	</defs>
-	<text x="90" y="20"  class="right">0x8000</text>
-	<text x="90" y="116" class="right">0x8800</text>
-	<text x="90" y="212" class="right">0x9000</text>
-	<text x="90" y="308" class="right">0x9800</text>
-	<text x="90" y="500" class="right">0x9C00</text>
-	<text x="90" y="692" class="right">0x9FFF</text>
-	<text x="590" y="20" >0x8000</text>
-	<text x="590" y="116">0x8800</text>
-	<text x="590" y="212">0x9000</text>
-	<text x="590" y="308">0x9800</text>
-	<text x="590" y="500">0x9C00</text>
-	<text x="590" y="692">0x9FFF</text>
+	<text x="90" y="20"  class="right">$8000</text>
+	<text x="90" y="116" class="right">$8800</text>
+	<text x="90" y="212" class="right">$9000</text>
+	<text x="90" y="308" class="right">$9800</text>
+	<text x="90" y="500" class="right">$9C00</text>
+	<text x="90" y="692" class="right">$9FFF</text>
+	<text x="590" y="20" >$8000</text>
+	<text x="590" y="116">$8800</text>
+	<text x="590" y="212">$9000</text>
+	<text x="590" y="308">$9800</text>
+	<text x="590" y="500">$9C00</text>
+	<text x="590" y="692">$9FFF</text>
 	<text x="196" y="10" class="centered">Bank 0</text>
 	<text x="484" y="10" class="centered">Bank 1</text>
 	<text x="196" y="704" class="centered">Bank 0</text>
@@ -145,7 +145,7 @@
 	<g>
 		<text x="340" y="134" class="centered descr">Tile ID:</text>
 		<text x="340" y="154" class="centered descr" id="tile_id"></text>
-		<text x="340" y="174" class="centered descr">Addr:</text>
+		<text x="340" y="174" class="centered descr">Address:</text>
 		<text x="340" y="194" class="centered descr" id="tile_addr"></text>
 	</g>
 	<g class="hover">
@@ -167,7 +167,8 @@
 	<script>// <![CDATA[
 "use strict";
 /*
- * Use of `on<event>` properties is normally discouraged, however they *have to* be used here.
+ * Use of `on<event>` properties is normally discouraged in favor of `addEventHandler`s.
+ * However, they *have* to be used here.
  *
  * For the sake of maintainability and the SVG's file size, the tilemaps are made of nested `<use>`
  * elements. However, those elements have a "closed root", thus the "inside" elements are *not*
@@ -188,7 +189,7 @@ let tileInfo = { x: null, y: null, baseAddr: null };
 const updateTileID = () => {
 	// Do nothing if all of the handlers haven't fired at least once yet.
 	// Check all properties to avoid relying on the order in which the events are triggered.
-	if (Object.values(mapInfo).includes(null)) {
+	if (Object.values(tileInfo).includes(null)) {
 		return;
 	}
 	const tileID = tileInfo.y * 16 + tileInfo.x + (tileInfo.baseAddr >> 4 & 0x80);
@@ -197,7 +198,7 @@ const updateTileID = () => {
 	svg.getElementById("tile_addr").textContent = `${toHex(tileAddr, 4)}–${toHex(tileAddr + 15, 4)}`;
 };
 // These are event handlers, called into by `onmouseenter` attributes within `vram_map.svg`.
-// Have each hover event attempt to recalc the tile ID; this will cause up to 2 unnecessary recalcs,
+// Have each hover event attempt to recalc the tile ID; this will cause up to two unnecessary recalcs,
 // but avoids relying on the order upon which the events are fired.
 const tile  = x    => { tileInfo.x = x;           updateTileID(); };
 const row   = y    => { tileInfo.y = y;           updateTileID(); };
@@ -221,7 +222,7 @@ const updateMapCoords = () => {
 	svg.getElementById("map_addr").textContent = `($${toHex(mapAddr, 4)})`;
 };
 // These are event handlers, called into by `onmouseenter` attributes within `vram_map.svg`.
-// Have each hover event attempt to recalc the tile ID; this will cause up to 2 unnecessary recalcs,
+// Have each hover event attempt to recalc the tile ID; this will cause up to two unnecessary recalcs,
 // but avoids relying on the order upon which the events are fired.
 const mapX = x            => { mapInfo.x = x;                                updateMapCoords(); };
 const mapY = y            => { mapInfo.y = y;                                updateMapCoords(); };
