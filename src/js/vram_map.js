@@ -20,8 +20,8 @@ const svg = document.getElementById("vram_map");
 let tileInfo = { x: null, y: null, baseAddr: null };
 const updateTileID = () => {
 	// Do nothing if all of the handlers haven't fired at least once yet.
-	// Check all three properties to avoid relying on the order in which the events are triggered.
-	if (tileInfo.x === null || tileInfo.y === null || tileInfo.baseAddr === null) {
+	// Check all properties to avoid relying on the order in which the events are triggered.
+	if (Object.values(mapInfo).includes(null)) {
 		return;
 	}
 
@@ -44,9 +44,8 @@ const block = addr => { tileInfo.baseAddr = addr; updateTileID(); };
 let mapInfo = { x: null, y: null, baseAddr: null, bank: null };
 const updateMapCoords = () => {
 	// Do nothing if all of the handlers haven't fired at least once yet.
-	// Check all three properties to avoid relying on the order in which the events are triggered.
-	// (The bank is always set at the same time as the address.)
-	if (mapInfo.x === null || mapInfo.y === null || mapInfo.baseAddr === null) {
+	// Check all properties to avoid relying on the order in which the events are triggered.
+	if (Object.values(mapInfo).includes(null)) {
 		return;
 	}
 
