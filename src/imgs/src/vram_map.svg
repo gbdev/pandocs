@@ -1,5 +1,5 @@
 <!-- Do not put any blank lines, or Markdown processing will break! -->
-<svg viewBox="0 0 585 710" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="vram_map">
+<svg viewBox="0 0 680 710" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="vram_map">
 	<defs>
 		<rect id="tile"  x="0" y="0" width="12" height="12" class="highlight"/>
 		<rect id="entry" x="0" y="0" width="6"  height="6"  class="highlight"/>
@@ -118,6 +118,12 @@
 	<text x="90" y="308" class="right">0x9800</text>
 	<text x="90" y="500" class="right">0x9C00</text>
 	<text x="90" y="692" class="right">0x9FFF</text>
+	<text x="590" y="20" >0x8000</text>
+	<text x="590" y="116">0x8800</text>
+	<text x="590" y="212">0x9000</text>
+	<text x="590" y="308">0x9800</text>
+	<text x="590" y="500">0x9C00</text>
+	<text x="590" y="692">0x9FFF</text>
 	<text x="196" y="10" class="centered">Bank 0</text>
 	<text x="484" y="10" class="centered">Bank 1</text>
 	<text x="196" y="704" class="centered">Bank 0</text>
@@ -130,11 +136,11 @@
 		<use x="100" y="212" href="#tiles_block" class="hover" onmouseenter="block(0x9000)"/>
 		<text x="90" y="260" class="right descr">Tile block 2</text>
 		<use x="388" y="20"  href="#tiles_block" class="hover" onmouseenter="block(0x8000)"/>
-		<text x="90" y="68" class="right descr">Tile block 0</text>
+		<text x="590" y="68" class="descr">Tile block 0</text>
 		<use x="388" y="116" href="#tiles_block" class="hover" onmouseenter="block(0x8800)"/>
-		<text x="90" y="164" class="right descr">Tile block 1</text>
+		<text x="590" y="164" class="descr">Tile block 1</text>
 		<use x="388" y="212" href="#tiles_block" class="hover" onmouseenter="block(0x9000)"/>
-		<text x="90" y="260" class="right descr">Tile block 2</text>
+		<text x="590" y="260" class="descr">Tile block 2</text>
 	</g>
 	<g>
 		<text x="340" y="134" class="centered descr">Tile ID:</text>
@@ -148,9 +154,9 @@
 		<use x="100" y="500" href="#tilemap" class="hover" onmouseenter="tmap(0x9C00, 0)"/>
 		<text x="90" y="596" class="right descr">Tilemap 1</text>
 		<use x="388" y="308" href="#tilemap" class="hover" onmouseenter="tmap(0x9800, 1)"/>
-		<text x="90" y="404" class="right descr">Attrmap 0</text>
+		<text x="590" y="404" class="descr">Attrmap 0</text>
 		<use x="388" y="500" href="#tilemap" class="hover" onmouseenter="tmap(0x9C00, 1)"/>
-		<text x="90" y="596" class="right descr">Attrmap 1</text>
+		<text x="590" y="596" class="descr">Attrmap 1</text>
 	</g>
 	<g>
 		<text x="340" y="470" class="centered descr" id="map_what"></text>
