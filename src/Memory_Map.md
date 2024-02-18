@@ -37,10 +37,60 @@ $FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mod
 
 ## VRAM memory map
 
-TODO: descr
+VRAM is, by itself, normal RAM, and may be used as such; however, the PPU interprets it in specific ways.
+
+Bank 1 does not exist except on CGB, where it can be switched to (only in CGB Mode) using [the `VBK` register](<#FF4F — VBK (CGB Mode only): VRAM bank>).
+
+Each bank first contains 384 tiles, of 16 bytes each.
+These tiles are commonly thought of as grouped in three "blocks" of 128 tiles each; see [this detailed explanation](<#VRAM Tile Data>) for the relevance of the blocks.
+
+:::tip
+
+The ID of a tile can be obtained from its address using the following equation:  
+<var>ID</var> = <var>address</var> / 16 mod 256.
+
+This is equivalent to only looking at the address' middle two hexadecimal digits.
+
+:::
+
+After the tiles, each bank contains two maps, 32×32 (= 1024) bytes each.
+The two banks are however different here: bank 0 contains [tile maps](<#VRAM Tile Maps>), while bank 1 contains the corresponding [attribute maps](<#BG Map Attributes (CGB Mode only)>).
+
+:::tip
+
+Each entry corresponds to a set of coordinates, linked to its address:
+
+- <var>X</var> = <var>address</var> mod 32
+- <var>Y</var> = <var>address</var> / 32 mod 32
+
+In fact, the address of any entry can be thought of as a bitfield:
+
+{{#bits 16 >
+	""  15:"1" 14:"0" 13:"0" 12:"1"  11:"1" 10:"<var>tilemap</var>" 9-5:"<var>Y</var>" 4-0:"<var>X</var>"
+}}
+
+:::
+
+Here is a visualisation of how VRAM is laid out; hover over elements to see some details.
+
+<noscript>
+
+:::caution
+
+Some of the information cannot be shown if JavaScript is disabled.
+
+:::
+
+</noscript>
 
 {{#include imgs/src/vram_map.svg}}
 <script src="js/vram_map.js"></script>
+
+:::tip
+
+The diagram is not to scale: each map takes up only half as much memory as a tile "block", despite the maps being visually twice as tall.
+
+:::
 
 ## Jump Vectors in first ROM bank
 

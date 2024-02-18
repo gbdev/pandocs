@@ -150,13 +150,13 @@
 	</g>
 	<g class="hover">
 		<use x="100" y="308" href="#tilemap" class="hover" onmouseenter="tmap(0x9800, 0)"/>
-		<text x="90" y="404" class="right descr">Tilemap 0</text>
+		<text x="90" y="404" class="right descr">Tile map 0</text>
 		<use x="100" y="500" href="#tilemap" class="hover" onmouseenter="tmap(0x9C00, 0)"/>
-		<text x="90" y="596" class="right descr">Tilemap 1</text>
+		<text x="90" y="596" class="right descr">Tile map 1</text>
 		<use x="388" y="308" href="#tilemap" class="hover" onmouseenter="tmap(0x9800, 1)"/>
-		<text x="590" y="404" class="descr">Attrmap 0</text>
+		<text x="590" y="404" class="descr">Attr map 0</text>
 		<use x="388" y="500" href="#tilemap" class="hover" onmouseenter="tmap(0x9C00, 1)"/>
-		<text x="590" y="596" class="descr">Attrmap 1</text>
+		<text x="590" y="596" class="descr">Attr map 1</text>
 	</g>
 	<g>
 		<text x="340" y="470" class="centered descr" id="map_what"></text>
