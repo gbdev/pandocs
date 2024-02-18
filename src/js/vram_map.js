@@ -53,7 +53,8 @@ const updateMapCoords = () => {
 	svg.getElementById("map_what").textContent = mapInfo.bank == 0 ? "Tile ID for" : "Attribute for";
 	svg.getElementById("map_x").textContent = mapInfo.x;
 	svg.getElementById("map_y").textContent = mapInfo.y;
-	svg.getElementById("map_addr").textContent = `($${toHex(mapInfo.baseAddr + mapInfo.x + mapInfo.y * 32, 4)})`;
+	const mapAddr = mapInfo.baseAddr + mapInfo.x + mapInfo.y * 32;
+	svg.getElementById("map_addr").textContent = `($${toHex(mapAddr, 4)})`;
 };
 
 // These are event handlers, called into by `onmouseenter` attributes within `vram_map.svg`.
