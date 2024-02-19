@@ -55,4 +55,4 @@ They can be set to any value (but they must still be transferred).
 :::
 
 [JOYP]: <#FF00 — P1/JOYP: Joypad>
-[sgb-speedtest]: https://github.com/zlago/sgb-speedtest/
+[sgb-speedtest]: https://github.com/gb-archive/sgb-speedtest
