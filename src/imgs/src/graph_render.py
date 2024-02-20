@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 from sys import argv, stderr
+import io
 
 import lxml
 import matplotlib.pyplot as plt
@@ -6,7 +8,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-def gen_graph(in_path, title):
+def gen_graph(in_path, title, out_path):
 
     ## Let's draw the plot
 
@@ -45,24 +47,23 @@ def gen_graph(in_path, title):
     # Add title at the top
     plt.title(title)
     plt.ylabel(df.columns[1])
-    plt.savefig("test.svg", transparent=True)
 
     ## Manipulate the SVG render of the plot to replace colors with CSS variables
-    with open("test.svg", "r") as f:
-        contents = f.read()
+    with io.StringIO() as f:
+        plt.savefig(f, format="svg", transparent=True)
+
         # It's an SVG, so let's use the XML parser
-        soup = BeautifulSoup(contents, "xml")
+        soup = BeautifulSoup(f.getvalue(), "xml")
 
-        replace_style_property(soup, "path", "stroke", COLOR_BASE, "var(--fg)")
+    replace_style_property(soup, "path", "stroke", COLOR_BASE, "var(--fg, #000)")
+    replace_style_property(soup, "path", "stroke", COLOR_LINE, "var(--inline-code-color, #320)")
+    replace_style_property(soup, "text", "fill", COLOR_BASE, "var(--fg, #000)")
+    replace_style_property(soup, "use", "stroke", COLOR_BASE, "var(--fg, #000)")
+    replace_style_property(soup, "use", "fill", COLOR_BASE, "var(--fg, #000)")
 
-        replace_style_property(soup, "path", "stroke", COLOR_LINE, "var(--inline-code-color)")
-
-        replace_style_property(soup, "text", "fill", COLOR_BASE, "var(--fg)")
-
-        # Write the altered SVG file
-        with open("output.svg", "wb") as f_output:
-            f_output.write(soup.prettify("utf-8"))
-            print(soup)
+    # Write the altered SVG file
+    with open(out_path, "wt") as f:
+        print(soup, file=f)
 
 
 def replace_style_property(
@@ -93,9 +94,10 @@ def replace_style_property(
 
     return
 
+# CLI interface.
+if __name__ == "__main__":
+    if len(argv) != 3:
+        print("Usage: python3 graph_render.py <path/to.csv> <graph title>", file=stderr)
+        exit(1)
 
-if len(argv) != 3:
-    print("Usage: python3 graph_render.py <path/to.csv> <graph title>", file=stderr)
-    exit(1)
-
-gen_graph(argv[1], argv[2])
+    gen_graph(argv[1], argv[2])

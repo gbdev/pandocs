@@ -10,15 +10,19 @@ build-dir = "docs"
 create-missing = true # This is kept for convenience, but CI sets it to false
 use-default-preprocessors = false
 
-# Custom preprocessor for internal links processing
-[preprocessor.pandocs]
-command = "cargo run -p pandocs-preproc --locked --release --"
-after = [ "links" ]
+[preprocessor.graph_gen]
+command = "src/imgs/src/preproc.py"
+before = [ "links" ] # This generates some of the files that get `{{#include}}`d
 
 # `{{#include }}` etc. resolution
 [preprocessor.links]
 
-# Custom back-end for our custom markup
+# Custom preprocessor for internal links processing and other custom markup
+[preprocessor.pandocs]
+command = "cargo run -p pandocs-preproc --locked --release --"
+after = [ "links" ]
+
+# Custom back-end to generate the single-file version and scrub off some generated files
 [output.pandocs]
 command = "cargo run -p pandocs-renderer --locked --release --"
 

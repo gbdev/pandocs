@@ -67,38 +67,6 @@ impl Renderer for Pandocs {
         path.set_file_name("print.html");
         gen_single_page(&mut path, &base_url).context("Failed to render single-page version")?;
 
-        // Generate the graphs in `imgs/src/` by shelling out to Python
-        let working_dir = ctx.destination.join("imgs");
-        let src_dir = working_dir.join("src");
-        let python = if cfg!(windows) { "python" } else { "python3" };
-        let gen_graph = |file_name, title| {
-            let mut file_name = PathBuf::from_str(file_name).unwrap(); // Can't fail
-            let output = File::create(working_dir.join(&file_name))?;
-
-            file_name.set_extension("csv");
-            let status = Command::new(python)
-                .current_dir(&src_dir)
-                .arg("graph_render.py")
-                .arg(&file_name)
-                .arg(title)
-                .stdout(output)
-                .status()
-                .with_context(|| format!("Failed to generate \"{}\"", file_name.display()))?;
-
-            if status.success() {
-                Ok(())
-            } else {
-                Err(Error::msg(format!(
-                    "Generating \"{}\" failed with {}",
-                    file_name.display(),
-                    status,
-                )))
-            }
-        };
-        gen_graph("MBC5_Rumble_Mild.svg", "Mild Rumble")?;
-        gen_graph("MBC5_Rumble_Strong.svg", "Strong Rumble")?;
-        fs::remove_dir_all(&src_dir).context(format!("Failed to remove {}", src_dir.display()))?;
-
         // Scrub off files that need not be published
         for path in GlobWalkerBuilder::from_patterns(&ctx.destination, &[".gitignore", "*.graphml"])
             .file_type(FileType::FILE)
