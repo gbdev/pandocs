@@ -1,0 +1,231 @@
+<!-- Do not put any blank lines, or Markdown processing will break! -->
+<svg viewBox="0 0 680 710" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="vram_map">
+	<defs>
+		<rect id="tile"  x="0" y="0" width="12" height="12" class="highlight"/>
+		<rect id="entry" x="0" y="0" width="6"  height="6"  class="highlight"/>
+		<g id="tiles_row">
+			<use x="0"   y="0" href="#tile" onmouseenter="tile(0)"/>
+			<use x="12"  y="0" href="#tile" onmouseenter="tile(1)"/>
+			<use x="24"  y="0" href="#tile" onmouseenter="tile(2)"/>
+			<use x="36"  y="0" href="#tile" onmouseenter="tile(3)"/>
+			<use x="48"  y="0" href="#tile" onmouseenter="tile(4)"/>
+			<use x="60"  y="0" href="#tile" onmouseenter="tile(5)"/>
+			<use x="72"  y="0" href="#tile" onmouseenter="tile(6)"/>
+			<use x="84"  y="0" href="#tile" onmouseenter="tile(7)"/>
+			<use x="96"  y="0" href="#tile" onmouseenter="tile(8)"/>
+			<use x="108" y="0" href="#tile" onmouseenter="tile(9)"/>
+			<use x="120" y="0" href="#tile" onmouseenter="tile(10)"/>
+			<use x="132" y="0" href="#tile" onmouseenter="tile(11)"/>
+			<use x="144" y="0" href="#tile" onmouseenter="tile(12)"/>
+			<use x="156" y="0" href="#tile" onmouseenter="tile(13)"/>
+			<use x="168" y="0" href="#tile" onmouseenter="tile(14)"/>
+			<use x="180" y="0" href="#tile" onmouseenter="tile(15)"/>
+		</g>
+		<g id="tiles_block">
+			<rect x="0" y="0" width="192" height="96" class="block"/>
+			<use x="0" y="0"   href="#tiles_row" onmouseenter="row(0)"/>
+			<use x="0" y="12"  href="#tiles_row" onmouseenter="row(1)"/>
+			<use x="0" y="24"  href="#tiles_row" onmouseenter="row(2)"/>
+			<use x="0" y="36"  href="#tiles_row" onmouseenter="row(3)"/>
+			<use x="0" y="48"  href="#tiles_row" onmouseenter="row(4)"/>
+			<use x="0" y="60"  href="#tiles_row" onmouseenter="row(5)"/>
+			<use x="0" y="72"  href="#tiles_row" onmouseenter="row(6)"/>
+			<use x="0" y="84"  href="#tiles_row" onmouseenter="row(7)"/>
+		</g>
+		<g id="map_row">
+			<use x="0"   y="0" href="#entry" onmouseenter="mapX(0)"/>
+			<use x="6"   y="0" href="#entry" onmouseenter="mapX(1)"/>
+			<use x="12"  y="0" href="#entry" onmouseenter="mapX(2)"/>
+			<use x="18"  y="0" href="#entry" onmouseenter="mapX(3)"/>
+			<use x="24"  y="0" href="#entry" onmouseenter="mapX(4)"/>
+			<use x="30"  y="0" href="#entry" onmouseenter="mapX(5)"/>
+			<use x="36"  y="0" href="#entry" onmouseenter="mapX(6)"/>
+			<use x="42"  y="0" href="#entry" onmouseenter="mapX(7)"/>
+			<use x="48"  y="0" href="#entry" onmouseenter="mapX(8)"/>
+			<use x="54"  y="0" href="#entry" onmouseenter="mapX(9)"/>
+			<use x="60"  y="0" href="#entry" onmouseenter="mapX(10)"/>
+			<use x="66"  y="0" href="#entry" onmouseenter="mapX(11)"/>
+			<use x="72"  y="0" href="#entry" onmouseenter="mapX(12)"/>
+			<use x="78"  y="0" href="#entry" onmouseenter="mapX(13)"/>
+			<use x="84"  y="0" href="#entry" onmouseenter="mapX(14)"/>
+			<use x="90"  y="0" href="#entry" onmouseenter="mapX(15)"/>
+			<use x="96"  y="0" href="#entry" onmouseenter="mapX(16)"/>
+			<use x="102" y="0" href="#entry" onmouseenter="mapX(17)"/>
+			<use x="108" y="0" href="#entry" onmouseenter="mapX(18)"/>
+			<use x="114" y="0" href="#entry" onmouseenter="mapX(19)"/>
+			<use x="120" y="0" href="#entry" onmouseenter="mapX(20)"/>
+			<use x="126" y="0" href="#entry" onmouseenter="mapX(21)"/>
+			<use x="132" y="0" href="#entry" onmouseenter="mapX(22)"/>
+			<use x="138" y="0" href="#entry" onmouseenter="mapX(23)"/>
+			<use x="144" y="0" href="#entry" onmouseenter="mapX(24)"/>
+			<use x="150" y="0" href="#entry" onmouseenter="mapX(25)"/>
+			<use x="156" y="0" href="#entry" onmouseenter="mapX(26)"/>
+			<use x="162" y="0" href="#entry" onmouseenter="mapX(27)"/>
+			<use x="168" y="0" href="#entry" onmouseenter="mapX(28)"/>
+			<use x="174" y="0" href="#entry" onmouseenter="mapX(29)"/>
+			<use x="180" y="0" href="#entry" onmouseenter="mapX(30)"/>
+			<use x="186" y="0" href="#entry" onmouseenter="mapX(31)"/>
+		</g>
+		<g id="tilemap">
+			<rect x="0" y="0" width="192" height="192" class="block"/>
+			<use x="0" y="0"   href="#map_row" onmouseenter="mapY(0)"/>
+			<use x="0" y="6"   href="#map_row" onmouseenter="mapY(1)"/>
+			<use x="0" y="12"  href="#map_row" onmouseenter="mapY(2)"/>
+			<use x="0" y="18"  href="#map_row" onmouseenter="mapY(3)"/>
+			<use x="0" y="24"  href="#map_row" onmouseenter="mapY(4)"/>
+			<use x="0" y="30"  href="#map_row" onmouseenter="mapY(5)"/>
+			<use x="0" y="36"  href="#map_row" onmouseenter="mapY(6)"/>
+			<use x="0" y="42"  href="#map_row" onmouseenter="mapY(7)"/>
+			<use x="0" y="48"  href="#map_row" onmouseenter="mapY(8)"/>
+			<use x="0" y="54"  href="#map_row" onmouseenter="mapY(9)"/>
+			<use x="0" y="60"  href="#map_row" onmouseenter="mapY(10)"/>
+			<use x="0" y="66"  href="#map_row" onmouseenter="mapY(11)"/>
+			<use x="0" y="72"  href="#map_row" onmouseenter="mapY(12)"/>
+			<use x="0" y="78"  href="#map_row" onmouseenter="mapY(13)"/>
+			<use x="0" y="84"  href="#map_row" onmouseenter="mapY(14)"/>
+			<use x="0" y="90"  href="#map_row" onmouseenter="mapY(15)"/>
+			<use x="0" y="96"  href="#map_row" onmouseenter="mapY(16)"/>
+			<use x="0" y="102" href="#map_row" onmouseenter="mapY(17)"/>
+			<use x="0" y="108" href="#map_row" onmouseenter="mapY(18)"/>
+			<use x="0" y="114" href="#map_row" onmouseenter="mapY(19)"/>
+			<use x="0" y="120" href="#map_row" onmouseenter="mapY(20)"/>
+			<use x="0" y="126" href="#map_row" onmouseenter="mapY(21)"/>
+			<use x="0" y="132" href="#map_row" onmouseenter="mapY(22)"/>
+			<use x="0" y="138" href="#map_row" onmouseenter="mapY(23)"/>
+			<use x="0" y="144" href="#map_row" onmouseenter="mapY(24)"/>
+			<use x="0" y="150" href="#map_row" onmouseenter="mapY(25)"/>
+			<use x="0" y="156" href="#map_row" onmouseenter="mapY(26)"/>
+			<use x="0" y="162" href="#map_row" onmouseenter="mapY(27)"/>
+			<use x="0" y="168" href="#map_row" onmouseenter="mapY(28)"/>
+			<use x="0" y="174" href="#map_row" onmouseenter="mapY(29)"/>
+			<use x="0" y="180" href="#map_row" onmouseenter="mapY(30)"/>
+			<use x="0" y="186" href="#map_row" onmouseenter="mapY(31)"/>
+		</g>
+		<style type="text/css">
+			text { fill: var(--fg, #000); dominant-baseline: middle; font-feature-settings: "tnum"; }
+			.descr { fill: var(--inline-code-color, #310); }
+			.centered { text-anchor: middle; }
+			.right    { text-anchor: end; }
+			rect { stroke: var(--fg, #000); fill: var(--bg, #fff); }
+			#tile:hover, #entry:hover { fill: var(--icons, #777); }
+			.block { stroke-width: 4; }
+			.hover + * { display: none; }  .hover:hover + * { display: initial; }
+		</style>
+	</defs>
+	<text x="90" y="20"  class="right">$8000</text>
+	<text x="90" y="116" class="right">$8800</text>
+	<text x="90" y="212" class="right">$9000</text>
+	<text x="90" y="308" class="right">$9800</text>
+	<text x="90" y="500" class="right">$9C00</text>
+	<text x="90" y="692" class="right">$9FFF</text>
+	<text x="590" y="20" >$8000</text>
+	<text x="590" y="116">$8800</text>
+	<text x="590" y="212">$9000</text>
+	<text x="590" y="308">$9800</text>
+	<text x="590" y="500">$9C00</text>
+	<text x="590" y="692">$9FFF</text>
+	<text x="196" y="10" class="centered">Bank 0</text>
+	<text x="484" y="10" class="centered">Bank 1</text>
+	<text x="196" y="704" class="centered">Bank 0</text>
+	<text x="484" y="704" class="centered">Bank 1</text>
+	<g class="hover">
+		<use x="100" y="20"  href="#tiles_block" class="hover" onmouseenter="block(0x8000)"/>
+		<text x="90" y="68" class="right descr">Tile block 0</text>
+		<use x="100" y="116" href="#tiles_block" class="hover" onmouseenter="block(0x8800)"/>
+		<text x="90" y="164" class="right descr">Tile block 1</text>
+		<use x="100" y="212" href="#tiles_block" class="hover" onmouseenter="block(0x9000)"/>
+		<text x="90" y="260" class="right descr">Tile block 2</text>
+		<use x="388" y="20"  href="#tiles_block" class="hover" onmouseenter="block(0x8000)"/>
+		<text x="590" y="68" class="descr">Tile block 0</text>
+		<use x="388" y="116" href="#tiles_block" class="hover" onmouseenter="block(0x8800)"/>
+		<text x="590" y="164" class="descr">Tile block 1</text>
+		<use x="388" y="212" href="#tiles_block" class="hover" onmouseenter="block(0x9000)"/>
+		<text x="590" y="260" class="descr">Tile block 2</text>
+	</g>
+	<g>
+		<text x="340" y="134" class="centered descr">Tile ID:</text>
+		<text x="340" y="154" class="centered descr" id="tile_id"></text>
+		<text x="340" y="174" class="centered descr">Address:</text>
+		<text x="340" y="194" class="centered descr" id="tile_addr"></text>
+	</g>
+	<g class="hover">
+		<use x="100" y="308" href="#tilemap" class="hover" onmouseenter="tmap(0x9800, 0)"/>
+		<text x="90" y="404" class="right descr">Tile map 0</text>
+		<use x="100" y="500" href="#tilemap" class="hover" onmouseenter="tmap(0x9C00, 0)"/>
+		<text x="90" y="596" class="right descr">Tile map 1</text>
+		<use x="388" y="308" href="#tilemap" class="hover" onmouseenter="tmap(0x9800, 1)"/>
+		<text x="590" y="404" class="descr">Attr map 0</text>
+		<use x="388" y="500" href="#tilemap" class="hover" onmouseenter="tmap(0x9C00, 1)"/>
+		<text x="590" y="596" class="descr">Attr map 1</text>
+	</g>
+	<g>
+		<text x="340" y="470" class="centered descr" id="map_what"></text>
+		<text x="338" y="490" class="right descr">X =</text><text x="342" y="490" class="descr" id="map_x"></text>
+		<text x="338" y="510" class="right descr">Y =</text><text x="342" y="510" class="descr" id="map_y"></text>
+		<text x="340" y="530" class="centered descr" id="map_addr"></text>
+	</g>
+	<script>// <![CDATA[
+"use strict";
+/*
+ * Use of `on<event>` properties is normally discouraged in favor of `addEventHandler`s.
+ * However, they *have* to be used here.
+ *
+ * For the sake of maintainability and the SVG's file size, the tilemaps are made of nested `<use>`
+ * elements. However, those elements have a "closed root", thus the "inside" elements are *not*
+ * exposed to anything outside of them.
+ *
+ * I have tried putting `<script>` blocks inside of the "template" element, but they appear to only
+ * run on the template, not within any of its clones.
+ * The only remaining thing is the `on*` attributes, which *do* appear to be cloned!
+ */
+const toHex = (num, nbDigits) => num.toString(16).toUpperCase().padStart(nbDigits, '0');
+const svg = document.getElementById("vram_map");
+/*
+ * Tile blocks
+ */
+// Since the hover events are dispatched to several separate handlers, we need something to
+// centralize all of their information.
+let tileInfo = { x: null, y: null, baseAddr: null };
+const updateTileID = () => {
+	// Do nothing if all of the handlers haven't fired at least once yet.
+	// Check all properties to avoid relying on the order in which the events are triggered.
+	if (Object.values(tileInfo).includes(null)) {
+		return;
+	}
+	const tileID = tileInfo.y * 16 + tileInfo.x + (tileInfo.baseAddr >> 4 & 0x80);
+	svg.getElementById("tile_id").textContent = `$${toHex(tileID, 2)}`;
+	const tileAddr = tileInfo.baseAddr + (tileInfo.y * 16 + tileInfo.x) * 16;
+	svg.getElementById("tile_addr").textContent = `${toHex(tileAddr, 4)}–${toHex(tileAddr + 15, 4)}`;
+};
+// These are event handlers, called into by `onmouseenter` attributes within `vram_map.svg`.
+// Have each hover event attempt to recalc the tile ID; this will cause up to two unnecessary recalcs,
+// but avoids relying on the order upon which the events are fired.
+const tile  = x    => { tileInfo.x = x;           updateTileID(); };
+const row   = y    => { tileInfo.y = y;           updateTileID(); };
+const block = addr => { tileInfo.baseAddr = addr; updateTileID(); };
+/*
+ * Tilemap
+ */
+// Since the hover events are dispatched to several separate handlers, we need something to
+// centralize all of their information.
+let mapInfo = { x: null, y: null, baseAddr: null, bank: null };
+const updateMapCoords = () => {
+	// Do nothing if all of the handlers haven't fired at least once yet.
+	// Check all properties to avoid relying on the order in which the events are triggered.
+	if (Object.values(mapInfo).includes(null)) {
+		return;
+	}
+	svg.getElementById("map_what").textContent = mapInfo.bank == 0 ? "Tile ID for" : "Attribute for";
+	svg.getElementById("map_x").textContent = mapInfo.x;
+	svg.getElementById("map_y").textContent = mapInfo.y;
+	const mapAddr = mapInfo.baseAddr + mapInfo.x + mapInfo.y * 32;
+	svg.getElementById("map_addr").textContent = `($${toHex(mapAddr, 4)})`;
+};
+// These are event handlers, called into by `onmouseenter` attributes within `vram_map.svg`.
+// Have each hover event attempt to recalc the tile ID; this will cause up to two unnecessary recalcs,
+// but avoids relying on the order upon which the events are fired.
+const mapX = x            => { mapInfo.x = x;                                updateMapCoords(); };
+const mapY = y            => { mapInfo.y = y;                                updateMapCoords(); };
+const tmap = (addr, bank) => { mapInfo.baseAddr = addr; mapInfo.bank = bank; updateMapCoords(); };
+// ]]></script>
+</svg>

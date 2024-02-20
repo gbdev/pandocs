@@ -5,17 +5,91 @@ The Game Boy has a 16-bit address bus, which is used to address ROM, RAM, and I/
 Start       | End       | Description                                                      | Notes
 ------------|-----------|------------------------------------------------------------------|----------
 0000        | 3FFF      | 16 KiB ROM bank 00                                               | From cartridge, usually a fixed bank
-4000        | 7FFF      | 16 KiB ROM Bank 01\~NN                                           | From cartridge, switchable bank via [mapper](#MBCs) (if any)
+4000        | 7FFF      | 16 KiB ROM Bank 01–NN                                            | From cartridge, switchable bank via [mapper](#MBCs) (if any)
 8000        | 9FFF      | 8 KiB Video RAM (VRAM)                                           | In CGB mode, switchable bank 0/1
 A000        | BFFF      | 8 KiB External RAM                                               | From cartridge, switchable bank if any
 C000        | CFFF      | 4 KiB Work RAM (WRAM)                                            |
-D000        | DFFF      | 4 KiB Work RAM (WRAM)                                            | In CGB mode, switchable bank 1\~7
-E000        | FDFF      | Mirror of C000\~DDFF (ECHO RAM)                                  | Nintendo says use of this area is prohibited.
+D000        | DFFF      | 4 KiB Work RAM (WRAM)                                            | In CGB mode, switchable bank 1–7
+E000        | FDFF      | [Echo RAM](<#Echo RAM>) (mirror of C000–DDFF)                    | Nintendo says use of this area is prohibited.
 FE00        | FE9F      | [Object attribute memory (OAM)](<#Object Attribute Memory (OAM)>) |
-FEA0        | FEFF      | Not Usable                                                       | Nintendo says use of this area is prohibited
+FEA0        | FEFF      | [Not Usable](<#FEA0–FEFF range>)                                 | Nintendo says use of this area is prohibited.
 FF00        | FF7F      | [I/O Registers](<#I/O Ranges>)                                   |
 FF80        | FFFE      | High RAM (HRAM)                                                  |
 FFFF        | FFFF      | [Interrupt](#Interrupts) Enable register (IE)                    |
+
+## I/O Ranges
+
+The Game Boy uses the following I/O ranges:
+
+Start   | End     | First appeared | Purpose
+--------|---------|----------------|-------------
+$FF00   |         |       DMG      | [Joypad input](<#FF00 — P1/JOYP: Joypad>)
+$FF01   |  $FF02  |       DMG      | [Serial transfer](<#Serial Data Transfer (Link Cable)>)
+$FF04   |  $FF07  |       DMG      | [Timer and divider](<#Timer and Divider Registers>)
+$FF10   |  $FF26  |       DMG      | [Audio](<#Audio Registers>)
+$FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30–FF3F — Wave pattern RAM>)
+$FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 — LCDC: LCD control>), [Status](<#FF41 — STAT: LCD status>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
+$FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F — VBK (CGB Mode only): VRAM bank>)
+$FF50   |         |       DMG      | Set to non-zero to disable boot ROM
+$FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
+$FF68   |  $FF6B  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
+$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mode only): WRAM bank>)
+
+## VRAM memory map
+
+VRAM is, by itself, normal RAM, and may be used as such; however, the PPU interprets it in specific ways.
+
+Bank 1 does not exist except on CGB, where it can be switched to (only in CGB Mode) using [the `VBK` register](<#FF4F — VBK (CGB Mode only): VRAM bank>).
+
+Each bank first contains 384 tiles, of 16 bytes each.
+These tiles are commonly thought of as grouped in three "blocks" of 128 tiles each; see [this detailed explanation](<#VRAM Tile Data>) for more details.
+
+:::tip
+
+The ID of a tile can be obtained from its address using the following equation:  
+<var>ID</var> = <var>address</var> / 16 mod 256.
+
+This is equivalent to only looking at the address' middle two hexadecimal digits.
+
+:::
+
+After the tiles, each bank contains two maps, 32×32 (= 1024) bytes each.
+The two banks are however different here: bank 0 contains [tile maps](<#VRAM Tile Maps>), while bank 1 contains the corresponding [attribute maps](<#BG Map Attributes (CGB Mode only)>).
+
+:::tip
+
+Each entry corresponds to a set of coordinates, linked to its address:
+
+- <var>X</var> = <var>address</var> mod 32
+- <var>Y</var> = <var>address</var> / 32 mod 32
+
+In fact, the address of any entry can be thought of as a bitfield:
+
+{{#bits 16 >
+	""  15:"1" 14:"0" 13:"0" 12:"1"  11:"1" 10:"<var>tilemap</var>" 9-5:"<var>Y</var>" 4-0:"<var>X</var>"
+}}
+
+:::
+
+Here is a visualisation of how VRAM is laid out; hover over elements to see some details.
+
+<noscript>
+
+:::caution
+
+Some of the information cannot be shown if JavaScript is disabled.
+
+:::
+
+</noscript>
+
+{{#include imgs/src/vram_map.svg}}
+
+:::tip
+
+The diagram is not to scale: each map takes up only half as much memory as a tile "block", despite the maps being visually twice as tall.
+
+:::
 
 ## Jump Vectors in first ROM bank
 
@@ -68,25 +142,7 @@ echo RAM interferes with SRAM normally at A000-BFFF. Software can check if
 Echo RAM is properly emulated by writing to RAM (avoid values 00 and
 FF) and checking if said value is mirrored in Echo RAM and not cart SRAM.
 
-## I/O Ranges
-
-The Game Boy uses the following I/O ranges:
-
-Start   | End     | First appeared | Purpose
---------|---------|----------------|-------------
-$FF00   |         |       DMG      | [Joypad input](<#FF00 — P1/JOYP: Joypad>)
-$FF01   |  $FF02  |       DMG      | [Serial transfer](<#Serial Data Transfer (Link Cable)>)
-$FF04   |  $FF07  |       DMG      | [Timer and divider](<#Timer and Divider Registers>)
-$FF10   |  $FF26  |       DMG      | [Audio](<#Audio Registers>)
-$FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30–FF3F — Wave pattern RAM>)
-$FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 — LCDC: LCD control>), [Status](<#FF41 — STAT: LCD status>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
-$FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F — VBK (CGB Mode only): VRAM bank>)
-$FF50   |         |       DMG      | Set to non-zero to disable boot ROM
-$FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
-$FF68   |  $FF6B  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
-$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mode only): WRAM bank>)
-
-## FEA0-FEFF range
+## FEA0–FEFF range
 
 Nintendo indicates use of this area is prohibited.  This area returns
 $FF when OAM is blocked, and otherwise the behavior depends on the
