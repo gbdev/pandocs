@@ -75,7 +75,7 @@ Here is a visualisation of how VRAM is laid out; hover over elements to see some
 
 <noscript>
 
-:::caution
+:::warning Interactive figure
 
 Some of the information cannot be shown if JavaScript is disabled.
 
@@ -85,11 +85,9 @@ Some of the information cannot be shown if JavaScript is disabled.
 
 {{#include imgs/src/vram_map.svg}}
 
-:::tip
-
+<small>
 The diagram is not to scale: each map takes up only half as much memory as a tile "block", despite the maps being visually twice as tall.
-
-:::
+</small>
 
 ## Jump Vectors in first ROM bank
 
