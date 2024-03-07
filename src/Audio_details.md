@@ -173,7 +173,7 @@ CH4 revolves around a [LFSR](https://en.wikipedia.org/wiki/Linear-feedback_shift
 The LFSR has 16 bits: 15 bits for its current state and 1 bit to temporarily store the next bit to shift in.
 
 When CH4 is ticked (at the frequency specified via [`NR43`](<#FF22 — NR43: Channel 4 frequency & randomness>)):
-1. The result of <math><menclose notation="top"><msub><mi>LFSR</mi><mn>0</mn></msub> <mo>⊕</mo> <msub><mi>LFSR</mi><mn>1</mn></msub></menclose></math> (`1` if bit 0 and bit 1 are identical, `0` otherwise) is written to bit 15.
+1. The result of <math><menclose notation="top"><msub><mi>LFSR</mi><mn>0</mn></msub> <mo>⊙</mo> <msub><mi>LFSR</mi><mn>1</mn></msub></menclose></math> (`1` if bit 0 and bit 1 are identical, `0` otherwise) is written to bit 15.
 2. If "short mode" was selected in [`NR43`](<#FF22 — NR43: Channel 4 frequency & randomness>), then bit 15 is copied to bit 7 as well.
 3. Finally, the entire LFSR is shifted right, and bit 0 selects between 0 and [the chosen volume](<#FF21 — NR42: Channel 4 volume & envelope>).
 
