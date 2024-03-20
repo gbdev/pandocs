@@ -1,6 +1,7 @@
 # Command Packet Transfers
 
-Command packets are transferred from the Game Boy to the SNES by using bits 4 and 5 of of [the `JOYP` register][JOYP]. These lines are normally used to select the two rows in the Game Boy keyboard matrix (which still works).
+Command packets are transferred from the Game Boy to the SNES by using bits 4 and 5 of of [the `JOYP` register][JOYP].
+These lines are normally used to select one of the two button groups (which [still works as usual][JOYP]).
 
 ## Transferring Bits
 
