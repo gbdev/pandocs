@@ -1,16 +1,16 @@
 # Command Packet Transfers
 
-Command packets are transferred from the Game Boy to the SNES by using bits 6 and 7 of of [the `JOYP` register][JOYP].
+Command packets are transferred from the Game Boy to the SNES by using bits 4 and 5 of of [the `JOYP` register][JOYP]. These lines are normally used to select the two rows in the Game Boy keyboard matrix (which still works).
 
 ## Transferring Bits
 
-A command packet transfer must be initiated by setting [`JOYP`][JOYP] bits 6 and 7 both to 0; this will reset and start the ICD2 packet receiving circuit.
-Data is then transferred (LSB first), setting bit 6 to 0 will indicate a `0` bit, and setting bit 7 to 0 will indicate a `1` bit.
+A command packet transfer must be initiated by setting [`JOYP`][JOYP] bits 4 and 5 both to 0; this will reset and start the ICD2 packet receiving circuit.
+Data is then transferred (LSB first), setting bit 4 to 0 will indicate a `0` bit, and setting bit 5 to 0 will indicate a `1` bit.
 For example:
 
 {{#include imgs/sgb_bits.svg}}
 
-[The boot ROM](<#Super Game Boy (SGB, SGB2)>) and licensed software keep data and reset pulses LOW for at least 5 M-cycles and leave bit 6 and 7 both to 1 for at least 15 M-cycles after each pulse.
+[The boot ROM](<#Super Game Boy (SGB, SGB2)>) and licensed software keep data and reset pulses LOW for at least 5 M-cycles and leave bit 4 and 5 both to 1 for at least 15 M-cycles after each pulse.
 Though the hardware is capable of receiving pulses and spaces as short as 2 M-cycles (as tested using [sgb-speedtest]), following the common practice of 5 M-cycle pulses and 15 M-cycle spaces may improve reliability in some corner case that the community has not yet discovered.
 
 :::tip
