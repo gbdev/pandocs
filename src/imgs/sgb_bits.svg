@@ -29,8 +29,8 @@
     <line x1="430" y1="0" x2="430" y2="100"/><line x1="440" y1="0" x2="440" y2="100"/>
   </g>
   <text x="90" y="10"  class="right">Transmitted</text>
-  <text x="90" y="42"  class="right">JOYP bit 6</text>
-  <text x="90" y="72"  class="right">JOYP bit 7</text>
+  <text x="90" y="42"  class="right">JOYP bit 4</text>
+  <text x="90" y="72"  class="right">JOYP bit 5</text>
   <text x="90" y="110" class="right">M-cycles</text>
   <path d="M110,30 h20 v20 h10 v-20 h30 v20 h10 v-20 h30 v20 h10 v-20 h110 v20 h10 v-20 h70 v20 h10 v-20 h20 m2,0 h2 m2,0 h2 m2,0 h2"/>
   <path d="M110,60 h20 v20 h10 v-20 h110 v20 h10 v-20 h30 v20 h10 v-20 h70 v20 h10 v-20 h60 m2,0 h2 m2,0 h2 m2,0 h2"/>
