@@ -136,6 +136,7 @@ Code | Publisher
 `99` | [Pack-In-Video](https://en.wikipedia.org/wiki/Pack-In-Video)
 `9H` | Bottom Up
 `A4` | [Konami](https://en.wikipedia.org/wiki/Konami) (Yu-Gi-Oh!)
+`BL` | [MTO](https://en.wikipedia.org/wiki/MTO_(video_game_company))
 `DK` | [Kodansha](https://en.wikipedia.org/wiki/Kodansha)
 
 ## 0146 — SGB flag
