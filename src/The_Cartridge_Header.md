@@ -108,16 +108,16 @@ Code | Publisher
 `54` | [Konami](https://en.wikipedia.org/wiki/Konami)
 `55` | [Hi Tech Expressions](https://en.wikipedia.org/wiki/Hi_Tech_Expressions)
 `56` | [LJN](https://en.wikipedia.org/wiki/LJN)
-`57` | Matchbox
-`58` | Mattel
-`59` | Milton Bradley
+`57` | [Matchbox](https://en.wikipedia.org/wiki/Matchbox_(brand))
+`58` | [Mattel](https://en.wikipedia.org/wiki/Mattel)
+`59` | [Milton Bradley Company](https://en.wikipedia.org/wiki/Milton_Bradley_Company)
 `60` | [Titus Interactive](https://en.wikipedia.org/wiki/Titus_Interactive)
 `61` | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 `64` | [Lucasfilm Games](https://en.wikipedia.org/wiki/Lucasfilm_Games)[^lucasfilm]
 `67` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)
 `69` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 `70` | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
-`71` | Interplay
+`71` | [Interplay Entertainment](https://en.wikipedia.org/wiki/Interplay_Entertainment)
 `72` | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
 `73` | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
 `75` | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
@@ -128,7 +128,7 @@ Code | Publisher
 `86` | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)
 `87` | Tsukuda Original
 `91` | [Chunsoft Co.](https://en.wikipedia.org/wiki/Spike_Chunsoft)[^spike]
-`92` | Video system
+`92` | Video System
 `93` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)/[Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `95` | [Varie](https://en.wikipedia.org/wiki/Varie)
 `96` | Yonezawa/s'pal
@@ -296,8 +296,8 @@ HEX   | Licensee
 54    | [GameTek](https://en.wikipedia.org/wiki/GameTek)
 55    | Park Place
 56    | [LJN](https://en.wikipedia.org/wiki/LJN)
-57    | Matchbox           
-59    | Milton Bradley
+57    | [Matchbox](https://en.wikipedia.org/wiki/Matchbox_(brand))
+59    | [Milton Bradley Company](https://en.wikipedia.org/wiki/Milton_Bradley_Company)
 5A    | [Mindscape](https://en.wikipedia.org/wiki/Mindscape_(company))
 5B    | [Romstar](https://en.wikipedia.org/wiki/Romstar)
 5C    | [Naxat Soft](https://en.wikipedia.org/wiki/Kaga_Create)[^kaga]
@@ -309,7 +309,7 @@ HEX   | Licensee
 6E    | [Elite Systems](https://en.wikipedia.org/wiki/Elite_Systems)
 6F    | Electro Brain      
 70    | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
-71    | Interplay
+71    | [Interplay Entertainment](https://en.wikipedia.org/wiki/Interplay_Entertainment)
 72    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
 73    | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
 75    | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
