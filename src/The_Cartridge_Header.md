@@ -347,7 +347,7 @@ AC    | Toei Animation
 AD    | Toho
 AF    | Namco             
 B0    | Acclaim           
-B1    | ASCII Corportation or Nexsoft
+B1    | ASCII Corporation or Nexsoft
 B2    | Bandai             
 B4    | Square Enix               
 B6    | HAL Laboratory
