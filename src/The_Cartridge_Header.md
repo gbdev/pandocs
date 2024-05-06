@@ -75,9 +75,9 @@ Sample licensee codes:
 Code | Publisher
 -----|-------------------------
 `00` | None
-`01` | Nintendo R&D1
+`01` | [Nintendo Research & Development 1](https://en.wikipedia.org/wiki/Nintendo_Research_%26_Development_1)
 `08` | Capcom
-`13` | EA (Electronic Arts)
+`13` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 `18` | Hudson Soft
 `19` | B-AI
 `20` | KSS
@@ -87,7 +87,7 @@ Code | Publisher
 `28` | Kemco Japan
 `29` | seta
 `30` | Viacom
-`31` | Nintendo
+`31` | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
 `32` | Bandai
 `33` | Ocean/Acclaim
 `34` | Konami
@@ -112,15 +112,15 @@ Code | Publisher
 `58` | Mattel
 `59` | Milton Bradley
 `60` | Titus
-`61` | Virgin Interactive
+`61` | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 `64` | LucasArts
 `67` | Ocean
-`69` | EA (Electronic Arts)
+`69` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 `70` | Infogrames
 `71` | Interplay
 `72` | Broderbund
 `73` | Sculptured Software
-`75` | The Sales Curve Limited
+`75` | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
 `78` | THQ
 `79` | Accolade
 `80` | Misawa Entertainment
@@ -253,24 +253,24 @@ Here is a list of known Old licensee codes ([source](https://raw.githubuserconte
 HEX   | Licensee
 ------|------------
 00    | None               
-01    | Nintendo           
-08    | Capcom
-09    | Hot-B              
-0A    | Jaleco             
-0B    | Coconuts Japan
-0C    | Elite Systems      
-13    | EA (Electronic Arts)    
-18    | Hudson Soft
-19    | ITC Entertainment  
-1A    | Yanoman            
-1D    | Japan Clary
-1F    | Virgin Interactive             
+01    | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
+08    | [Capcom](https://en.wikipedia.org/wiki/Capcom)
+09    | [HOT-B](https://en.wikipedia.org/wiki/Category:Hot_B_games)
+0A    | [Jaleco](https://en.wikipedia.org/wiki/Jaleco)
+0B    | [Coconuts Japan](https://en.wikipedia.org/wiki/Category:Coconuts_Japan_games)
+0C    | [Elite Systems](https://en.wikipedia.org/wiki/Elite_Systems)
+13    | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
+18    | [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)
+19    | [ITC Entertainment](https://en.wikipedia.org/wiki/ITC_Entertainment)
+1A    | [Yanoman](https://en.wikipedia.org/wiki/Category:Yanoman_games)
+1D    | [Japan Clary](https://www.mobygames.com/company/7639/japan-clary-business/)
+1F    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 24    | PCM Complete       
 25    | San-X
 28    | Kotobuki Systems   
 29    | Seta               
 30    | Infogrames
-31    | Nintendo           
+31    | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
 32    | Bandai             
 33    | Indicates that the [New licensee code](<#0144–0145 — New licensee code>) should be used instead.
 34    | Konami             
@@ -285,7 +285,7 @@ HEX   | Licensee
 46    | Angel              
 47    | Spectrum Holoby    
 49    | Irem
-4A    | Virgin Interactive            
+4A    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 4D    | Malibu             
 4F    | U.S. Gold
 50    | Absolute           
@@ -302,16 +302,16 @@ HEX   | Licensee
 5C    | Naxat Soft
 5D    | Tradewest          
 60    | Titus              
-61    | Virgin Interactive
+61    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 67    | Ocean Interactive              
-69    | EA (Electronic Arts)    
+69    | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 6E    | Elite Systems
 6F    | Electro Brain      
 70    | Infogrames         
 71    | Interplay
 72    | Broderbund         
 73    | Sculptured Software   
-75    | The Sales Curve Limited
+75    | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
 78    | THQ             
 79    | Accolade           
 7A    | Triffix Entertainment
@@ -399,6 +399,10 @@ EE    | IGS
 F0    | A Wave         
 F3    | Extreme Entertainment  
 FF    | LJN
+
+[^sci]: Later known as [SCi (Sales Curve Interactive), then SCi Entertainment Group plc, then Eidos](https://en.wikipedia.org/wiki/SCi_Games), then accquired by [Square Enix](https://en.wikipedia.org/wiki/Square_Enix) in 2009.
+
+[^virgin]: Later known as [Virgin Mastertronic Ltd., then Virgin Interactive Entertainment, then Avalon Interactive Group, Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment).
 
 ## 014C — Mask ROM version number
 
