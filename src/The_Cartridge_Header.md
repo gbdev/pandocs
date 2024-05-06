@@ -77,13 +77,13 @@ Code | Publisher
 `00` | None
 `01` | Nintendo R&D1
 `08` | Capcom
-`13` | Electronic Arts
+`13` | EA (Electronic Arts)
 `18` | Hudson Soft
-`19` | b-ai
-`20` | kss
-`22` | pow
+`19` | B-AI
+`20` | KSS
+`22` | Pow
 `24` | PCM Complete
-`25` | san-x
+`25` | San-X
 `28` | Kemco Japan
 `29` | seta
 `30` | Viacom
@@ -93,44 +93,44 @@ Code | Publisher
 `34` | Konami
 `35` | Hector
 `37` | Taito
-`38` | Hudson
+`38` | Hudson Soft
 `39` | Banpresto
 `41` | Ubi Soft
 `42` | Atlus
 `44` | Malibu
-`46` | angel
-`47` | Bullet-Proof
-`49` | irem
+`46` | Angel
+`47` | Bullet-Proof Software
+`49` | Irem
 `50` | Absolute
 `51` | Acclaim
 `52` | Activision
-`53` | American sammy
+`53` | American Sammy
 `54` | Konami
-`55` | Hi tech entertainment
+`55` | Hi Tech Entertainment
 `56` | LJN
 `57` | Matchbox
 `58` | Mattel
 `59` | Milton Bradley
 `60` | Titus
-`61` | Virgin
+`61` | Virgin Interactive
 `64` | LucasArts
 `67` | Ocean
-`69` | Electronic Arts
+`69` | EA (Electronic Arts)
 `70` | Infogrames
 `71` | Interplay
 `72` | Broderbund
-`73` | sculptured
-`75` | sci
+`73` | Sculptured Software
+`75` | SCi (Sales Curve Interactive)
 `78` | THQ
 `79` | Accolade
-`80` | misawa
+`80` | Misawa Entertainment
 `83` | lozc
 `86` | Tokuma Shoten Intermedia
 `87` | Tsukuda Original
 `91` | Chunsoft
 `92` | Video system
 `93` | Ocean/Acclaim
-`95` | Varie
+`95` | Varie Corporation
 `96` | Yonezawa/s'pal
 `97` | Kaneko
 `99` | Pack in soft
@@ -260,7 +260,7 @@ HEX   | Licensee
 0B    | Coconuts Japan
 0C    | Elite Systems      
 13    | EA (Electronic Arts)    
-18    | Hudsonsoft
+18    | Hudson Soft
 19    | ITC Entertainment  
 1A    | Yanoman            
 1D    | Japan Clary
@@ -310,9 +310,9 @@ HEX   | Licensee
 70    | Infogrames         
 71    | Interplay
 72    | Broderbund         
-73    | Sculptered Soft   
-75    | The Sales Curve
-78    | t.hq               
+73    | Sculptured Software   
+75    | SCi (Sales Curve Interactive)
+78    | THQ             
 79    | Accolade           
 7A    | Triffix Entertainment
 7C    | Microprose         
@@ -346,8 +346,8 @@ AA    | Broderbund
 AC    | Toei Animation    
 AD    | Toho
 AF    | Namco             
-B0    | acclaim           
-B1    | ASCII or Nexsoft
+B0    | Acclaim           
+B1    | ASCII Corportation or Nexsoft
 B2    | Bandai             
 B4    | Square Enix               
 B6    | HAL Laboratory
@@ -369,7 +369,7 @@ CA    | Ultra
 CB    | Vap                
 CC    | Use Corporation               
 CD    | Meldac
-CE    | .Pony Canyon or    
+CE    | Pony Canyon    
 CF    | Angel              
 D0    | Taito
 D1    | Sofel              
@@ -387,7 +387,7 @@ DF    | Altron
 E0    | Jaleco             
 E1    | Towa Chiki          
 E2    | Yutaka
-E3    | Varie              
+E3    | Varie Corporation  
 E5    | Epcoh              
 E7    | Athena
 E8    | Asmik ACE Entertainment             
