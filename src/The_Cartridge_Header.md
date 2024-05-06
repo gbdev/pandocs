@@ -94,7 +94,7 @@ Code | Publisher
 `35` | Hector
 `37` | Taito
 `38` | [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)
-`39` | Banpresto
+`39` | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 `41` | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
 `42` | [Atlus](https://en.wikipedia.org/wiki/Atlus)
 `44` | Malibu
@@ -113,7 +113,7 @@ Code | Publisher
 `59` | Milton Bradley
 `60` | Titus
 `61` | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
-`64` | LucasArts
+`64` | [Lucasfilm Games](https://en.wikipedia.org/wiki/Lucasfilm_Games)[^lucasfilm]
 `67` | Ocean
 `69` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 `70` | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
@@ -130,7 +130,7 @@ Code | Publisher
 `91` | Chunsoft
 `92` | Video system
 `93` | Ocean/Acclaim
-`95` | Varie Corporation
+`95` | [Varie](https://en.wikipedia.org/wiki/Varie)
 `96` | Yonezawa/s'pal
 `97` | Kaneko
 `99` | Pack in soft
@@ -276,7 +276,7 @@ HEX   | Licensee
 34    | [Konami](https://en.wikipedia.org/wiki/Konami)
 35    | HectorSoft            
 38    | [Capcom](https://en.wikipedia.org/wiki/Capcom)
-39    | Banpresto          
+39    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 3C    | .Entertainment i   
 3E    | Gremlin
 41    | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
@@ -309,7 +309,7 @@ HEX   | Licensee
 6F    | Electro Brain      
 70    | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 71    | Interplay
-72    | Broderbund         
+72    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
 73    | Sculptured Software   
 75    | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
 78    | THQ             
@@ -334,7 +334,7 @@ HEX   | Licensee
 9A    | Nihon Bussan       
 9B    | Tecmo
 9C    | Imagineer          
-9D    | Banpresto          
+9D    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 9F    | Nova
 A1    | Hori Electric      
 A2    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
@@ -342,17 +342,17 @@ A4    | [Konami](https://en.wikipedia.org/wiki/Konami)
 A6    | Kawada             
 A7    | Takara             
 A9    | Technos Japan
-AA    | Broderbund         
+AA    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)         
 AC    | Toei Animation    
 AD    | Toho
 AF    | Namco             
 B0    | Acclaim           
 B1    | ASCII Corporation or Nexsoft
-B2    | Bandai             
-B4    | Square Enix               
+B2    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
+B4    | [Square Enix](https://en.wikipedia.org/wiki/Square_Enix)
 B6    | HAL Laboratory
 B7    | SNK                
-B9    | Pony Canyon        
+B9    | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
 BA    | Culture Brain
 BB    | Sunsoft            
 BD    | Sony Imagesoft    
@@ -369,7 +369,7 @@ CA    | Ultra
 CB    | Vap                
 CC    | Use Corporation               
 CD    | Meldac
-CE    | Pony Canyon    
+CE    | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
 CF    | Angel              
 D0    | Taito
 D1    | Sofel              
@@ -378,7 +378,7 @@ D3    | Sigma Enterprises
 D4    | ASK Kodansha Co.       
 D6    | Naxat Soft         
 D7    | Copya System
-D9    | Banpresto          
+D9    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 DA    | Tomy               
 DB    | LJN
 DD    | NCS                
@@ -387,7 +387,7 @@ DF    | Altron
 E0    | Jaleco             
 E1    | Towa Chiki          
 E2    | Yutaka
-E3    | Varie Corporation  
+E3    | [Varie](https://en.wikipedia.org/wiki/Varie)
 E5    | Epcoh              
 E7    | Athena
 E8    | Asmik ACE Entertainment             
@@ -403,6 +403,8 @@ FF    | LJN
 [^ubisoft]: Later known as [Ubisoft](https://en.wikipedia.org/wiki/Ubisoft).
 
 [^virgin]: Later known as [Virgin Mastertronic Ltd., then Virgin Interactive Entertainment, then Avalon Interactive Group, Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment).
+
+[^lucasfilm]: Later known as [LucasArts](https://en.wikipedia.org/wiki/Lucasfilm_Games) between 1990-2021.
 
 [^atari]: Later known as [Atari SA](https://en.wikipedia.org/wiki/Atari_SA).
 
