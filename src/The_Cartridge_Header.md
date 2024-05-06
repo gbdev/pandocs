@@ -120,7 +120,7 @@ Code | Publisher
 `71` | Interplay
 `72` | Broderbund
 `73` | Sculptured Software
-`75` | SCi (Sales Curve Interactive)
+`75` | The Sales Curve Limited
 `78` | THQ
 `79` | Accolade
 `80` | Misawa Entertainment
@@ -311,7 +311,7 @@ HEX   | Licensee
 71    | Interplay
 72    | Broderbund         
 73    | Sculptured Software   
-75    | SCi (Sales Curve Interactive)
+75    | The Sales Curve Limited
 78    | THQ             
 79    | Accolade           
 7A    | Triffix Entertainment
