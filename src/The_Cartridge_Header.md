@@ -84,9 +84,9 @@ Code | Publisher
 `22` | [Planning Office WADA](https://www.mobygames.com/company/15869/planning-office-wada)
 `24` | [PCM Complete](https://www.mobygames.com/company/9489/pcm-complete)
 `25` | San-X
-`28` | Kemco Japan
-`29` | seta
-`30` | Viacom
+`28` | [Kemco](https://en.wikipedia.org/wiki/Kemco)
+`29` | [SETA Corporation](https://en.wikipedia.org/wiki/SETA_Corporation)
+`30` | [Viacom](https://en.wikipedia.org/wiki/Viacom_(1952%E2%80%932005))
 `31` | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
 `32` | [Bandai](https://en.wikipedia.org/wiki/Bandai)
 `33` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)/[Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
@@ -104,9 +104,9 @@ Code | Publisher
 `50` | Absolute
 `51` | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `52` | [Activision](https://en.wikipedia.org/wiki/Activision)
-`53` | American Sammy
+`53` | [Sammy USA Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
 `54` | [Konami](https://en.wikipedia.org/wiki/Konami)
-`55` | Hi Tech Entertainment
+`55` | [Hi Tech Expressions](https://en.wikipedia.org/wiki/Hi_Tech_Expressions)
 `56` | LJN
 `57` | Matchbox
 `58` | Mattel
@@ -268,14 +268,14 @@ HEX   | Licensee
 1F    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 24    | [PCM Complete](https://www.mobygames.com/company/9489/pcm-complete)
 25    | San-X
-28    | Kotobuki Systems   
-29    | Seta               
+28    | [Kemco](https://en.wikipedia.org/wiki/Kemco)
+29    | [SETA Corporation](https://en.wikipedia.org/wiki/SETA_Corporation)
 30    | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 31    | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
 32    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
 33    | Indicates that the [New licensee code](<#0144–0145 — New licensee code>) should be used instead.
 34    | [Konami](https://en.wikipedia.org/wiki/Konami)
-35    | [HectorSoft](https://www.mobygames.com/company/12239/hectorsoft)            
+35    | [HectorSoft](https://www.mobygames.com/company/12239/hectorsoft)
 38    | [Capcom](https://en.wikipedia.org/wiki/Capcom)
 39    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 3C    | .Entertainment i   
@@ -292,7 +292,7 @@ HEX   | Licensee
 50    | Absolute           
 51    | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 52    | [Activision](https://en.wikipedia.org/wiki/Activision)
-53    | American Sammy     
+53    | [Sammy USA Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
 54    | [GameTek](https://en.wikipedia.org/wiki/GameTek)
 55    | Park Place
 56    | LJN                
@@ -343,7 +343,7 @@ A4    | [Konami](https://en.wikipedia.org/wiki/Konami)
 A6    | Kawada             
 A7    | Takara             
 A9    | Technos Japan
-AA    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)         
+AA    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
 AC    | Toei Animation    
 AD    | Toho
 AF    | Namco             
@@ -357,8 +357,8 @@ B9    | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
 BA    | Culture Brain
 BB    | Sunsoft            
 BD    | Sony Imagesoft    
-BF    | Sammy
-C0    | Taito             
+BF    | [Sammy Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
+C0    | [Taito](https://en.wikipedia.org/wiki/Taito)
 C2    | Kemco              
 C3    | Squaresoft
 C4    | Tokuma Shoten Intermedia   
@@ -391,7 +391,7 @@ E2    | Yutaka
 E3    | [Varie](https://en.wikipedia.org/wiki/Varie)
 E5    | Epcoh              
 E7    | Athena
-E8    | Asmik ACE Entertainment             
+E8    | [Asmik Ace Entertainment](https://en.wikipedia.org/wiki/Asmik_Ace)
 E9    | Natsume            
 EA    | King Records
 EB    | [Atlus](https://en.wikipedia.org/wiki/Atlus)
