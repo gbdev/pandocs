@@ -76,9 +76,9 @@ Code | Publisher
 -----|-------------------------
 `00` | None
 `01` | [Nintendo Research & Development 1](https://en.wikipedia.org/wiki/Nintendo_Research_%26_Development_1)
-`08` | Capcom
+`08` | [Capcom](https://en.wikipedia.org/wiki/Capcom)
 `13` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
-`18` | Hudson Soft
+`18` | [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)
 `19` | B-AI
 `20` | KSS
 `22` | Pow
@@ -88,15 +88,15 @@ Code | Publisher
 `29` | seta
 `30` | Viacom
 `31` | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
-`32` | Bandai
+`32` | [Bandai](https://en.wikipedia.org/wiki/Bandai)
 `33` | Ocean/Acclaim
-`34` | Konami
+`34` | [Konami](https://en.wikipedia.org/wiki/Konami)
 `35` | Hector
 `37` | Taito
-`38` | Hudson Soft
+`38` | [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)
 `39` | Banpresto
-`41` | Ubi Soft
-`42` | Atlus
+`41` | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
+`42` | [Atlus](https://en.wikipedia.org/wiki/Atlus)
 `44` | Malibu
 `46` | Angel
 `47` | Bullet-Proof Software
@@ -105,7 +105,7 @@ Code | Publisher
 `51` | Acclaim
 `52` | Activision
 `53` | American Sammy
-`54` | Konami
+`54` | [Konami](https://en.wikipedia.org/wiki/Konami)
 `55` | Hi Tech Entertainment
 `56` | LJN
 `57` | Matchbox
@@ -116,7 +116,7 @@ Code | Publisher
 `64` | LucasArts
 `67` | Ocean
 `69` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
-`70` | Infogrames
+`70` | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 `71` | Interplay
 `72` | Broderbund
 `73` | Sculptured Software
@@ -135,7 +135,7 @@ Code | Publisher
 `97` | Kaneko
 `99` | Pack in soft
 `9H` | Bottom Up
-`A4` | Konami (Yu-Gi-Oh!)
+`A4` | [Konami](https://en.wikipedia.org/wiki/Konami) (Yu-Gi-Oh!)
 
 ## 0146 — SGB flag
 
@@ -269,18 +269,18 @@ HEX   | Licensee
 25    | San-X
 28    | Kotobuki Systems   
 29    | Seta               
-30    | Infogrames
+30    | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 31    | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
-32    | Bandai             
+32    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
 33    | Indicates that the [New licensee code](<#0144–0145 — New licensee code>) should be used instead.
-34    | Konami             
+34    | [Konami](https://en.wikipedia.org/wiki/Konami)
 35    | HectorSoft            
-38    | Capcom
+38    | [Capcom](https://en.wikipedia.org/wiki/Capcom)
 39    | Banpresto          
 3C    | .Entertainment i   
 3E    | Gremlin
-41    | Ubisoft           
-42    | Atlus              
+41    | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
+42    | [Atlus](https://en.wikipedia.org/wiki/Atlus)
 44    | Malibu
 46    | Angel              
 47    | Spectrum Holoby    
@@ -307,7 +307,7 @@ HEX   | Licensee
 69    | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 6E    | Elite Systems
 6F    | Electro Brain      
-70    | Infogrames         
+70    | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 71    | Interplay
 72    | Broderbund         
 73    | Sculptured Software   
@@ -337,8 +337,8 @@ HEX   | Licensee
 9D    | Banpresto          
 9F    | Nova
 A1    | Hori Electric      
-A2    | Bandai             
-A4    | Konami
+A2    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
+A4    | [Konami](https://en.wikipedia.org/wiki/Konami)
 A6    | Kawada             
 A7    | Takara             
 A9    | Technos Japan
@@ -400,9 +400,13 @@ F0    | A Wave
 F3    | Extreme Entertainment  
 FF    | LJN
 
-[^sci]: Later known as [SCi (Sales Curve Interactive), then SCi Entertainment Group plc, then Eidos](https://en.wikipedia.org/wiki/SCi_Games), then accquired by [Square Enix](https://en.wikipedia.org/wiki/Square_Enix) in 2009.
+[^ubisoft]: Later known as [Ubisoft](https://en.wikipedia.org/wiki/Ubisoft).
 
 [^virgin]: Later known as [Virgin Mastertronic Ltd., then Virgin Interactive Entertainment, then Avalon Interactive Group, Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment).
+
+[^atari]: Later known as [Atari SA](https://en.wikipedia.org/wiki/Atari_SA).
+
+[^sci]: Later known as [SCi (Sales Curve Interactive), then SCi Entertainment Group plc, then Eidos](https://en.wikipedia.org/wiki/SCi_Games), then accquired by [Square Enix](https://en.wikipedia.org/wiki/Square_Enix) in 2009.
 
 ## 014C — Mask ROM version number
 
