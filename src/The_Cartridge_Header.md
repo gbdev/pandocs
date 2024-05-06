@@ -89,7 +89,7 @@ Code | Publisher
 `30` | Viacom
 `31` | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
 `32` | [Bandai](https://en.wikipedia.org/wiki/Bandai)
-`33` | Ocean/Acclaim
+`33` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)/[Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `34` | [Konami](https://en.wikipedia.org/wiki/Konami)
 `35` | Hector
 `37` | Taito
@@ -97,13 +97,13 @@ Code | Publisher
 `39` | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 `41` | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
 `42` | [Atlus](https://en.wikipedia.org/wiki/Atlus)
-`44` | Malibu
-`46` | Angel
+`44` | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
+`46` | [Angel](https://www.mobygames.com/company/5083/angel)
 `47` | Bullet-Proof Software
 `49` | Irem
 `50` | Absolute
-`51` | Acclaim
-`52` | Activision
+`51` | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
+`52` | [Activision](https://en.wikipedia.org/wiki/Activision)
 `53` | American Sammy
 `54` | [Konami](https://en.wikipedia.org/wiki/Konami)
 `55` | Hi Tech Entertainment
@@ -114,7 +114,7 @@ Code | Publisher
 `60` | Titus
 `61` | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 `64` | [Lucasfilm Games](https://en.wikipedia.org/wiki/Lucasfilm_Games)[^lucasfilm]
-`67` | Ocean
+`67` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)
 `69` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 `70` | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 `71` | Interplay
@@ -129,7 +129,7 @@ Code | Publisher
 `87` | Tsukuda Original
 `91` | Chunsoft
 `92` | Video system
-`93` | Ocean/Acclaim
+`93` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)/[Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `95` | [Varie](https://en.wikipedia.org/wiki/Varie)
 `96` | Yonezawa/s'pal
 `97` | Kaneko
@@ -281,16 +281,16 @@ HEX   | Licensee
 3E    | Gremlin
 41    | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
 42    | [Atlus](https://en.wikipedia.org/wiki/Atlus)
-44    | Malibu
-46    | Angel              
+44    | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
+46    | [Angel](https://www.mobygames.com/company/5083/angel)
 47    | Spectrum Holoby    
 49    | Irem
 4A    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 4D    | Malibu             
 4F    | U.S. Gold
 50    | Absolute           
-51    | Acclaim            
-52    | Activision
+51    | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
+52    | [Activision](https://en.wikipedia.org/wiki/Activision)
 53    | American Sammy     
 54    | GameTek           
 55    | Park Place
@@ -303,7 +303,7 @@ HEX   | Licensee
 5D    | Tradewest          
 60    | Titus              
 61    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
-67    | Ocean Interactive              
+67    | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)
 69    | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 6E    | Elite Systems
 6F    | Electro Brain      
@@ -346,7 +346,7 @@ AA    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
 AC    | Toei Animation    
 AD    | Toho
 AF    | Namco             
-B0    | Acclaim           
+B0    | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 B1    | ASCII Corporation or Nexsoft
 B2    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
 B4    | [Square Enix](https://en.wikipedia.org/wiki/Square_Enix)
@@ -370,7 +370,7 @@ CB    | Vap
 CC    | Use Corporation               
 CD    | Meldac
 CE    | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
-CF    | Angel              
+CF    | [Angel](https://www.mobygames.com/company/5083/angel)
 D0    | Taito
 D1    | Sofel              
 D2    | Quest              
@@ -393,7 +393,7 @@ E7    | Athena
 E8    | Asmik ACE Entertainment             
 E9    | Natsume            
 EA    | King Records
-EB    | Atlus              
+EB    | [Atlus](https://en.wikipedia.org/wiki/Atlus)
 EC    | Epic/Sony Records  
 EE    | IGS
 F0    | A Wave         
