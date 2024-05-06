@@ -91,15 +91,15 @@ Code | Publisher
 `32` | [Bandai](https://en.wikipedia.org/wiki/Bandai)
 `33` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)/[Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `34` | [Konami](https://en.wikipedia.org/wiki/Konami)
-`35` | Hector
-`37` | Taito
+`35` | [HectorSoft](https://www.mobygames.com/company/12239/hectorsoft)
+`37` | [Taito](https://en.wikipedia.org/wiki/Taito)
 `38` | [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)
 `39` | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 `41` | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
 `42` | [Atlus](https://en.wikipedia.org/wiki/Atlus)
 `44` | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
 `46` | [Angel](https://www.mobygames.com/company/5083/angel)
-`47` | Bullet-Proof Software
+`47` | [Bullet-Proof Software](https://en.wikipedia.org/wiki/Blue_Planet_Software)[^blueplanet]
 `49` | Irem
 `50` | Absolute
 `51` | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
@@ -111,7 +111,7 @@ Code | Publisher
 `57` | Matchbox
 `58` | Mattel
 `59` | Milton Bradley
-`60` | Titus
+`60` | [Titus Interactive](https://en.wikipedia.org/wiki/Titus_Interactive)
 `61` | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 `64` | [Lucasfilm Games](https://en.wikipedia.org/wiki/Lucasfilm_Games)[^lucasfilm]
 `67` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)
@@ -119,7 +119,7 @@ Code | Publisher
 `70` | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 `71` | Interplay
 `72` | Broderbund
-`73` | Sculptured Software
+`73` | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
 `75` | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
 `78` | THQ
 `79` | Accolade
@@ -274,7 +274,7 @@ HEX   | Licensee
 32    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
 33    | Indicates that the [New licensee code](<#0144–0145 — New licensee code>) should be used instead.
 34    | [Konami](https://en.wikipedia.org/wiki/Konami)
-35    | HectorSoft            
+35    | [HectorSoft](https://www.mobygames.com/company/12239/hectorsoft)            
 38    | [Capcom](https://en.wikipedia.org/wiki/Capcom)
 39    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 3C    | .Entertainment i   
@@ -286,31 +286,31 @@ HEX   | Licensee
 47    | Spectrum Holoby    
 49    | Irem
 4A    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
-4D    | Malibu             
+4D    | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
 4F    | U.S. Gold
 50    | Absolute           
 51    | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 52    | [Activision](https://en.wikipedia.org/wiki/Activision)
 53    | American Sammy     
-54    | GameTek           
+54    | [GameTek](https://en.wikipedia.org/wiki/GameTek)
 55    | Park Place
 56    | LJN                
 57    | Matchbox           
 59    | Milton Bradley
-5A    | Mindscape          
-5B    | Romstar            
-5C    | Naxat Soft
-5D    | Tradewest          
-60    | Titus              
+5A    | [Mindscape](https://en.wikipedia.org/wiki/Mindscape_(company))
+5B    | [Romstar](https://en.wikipedia.org/wiki/Romstar)
+5C    | [Naxat Soft](https://en.wikipedia.org/wiki/Kaga_Create)[^kaga]
+5D    | [Tradewest](https://en.wikipedia.org/wiki/Tradewest)
+60    | [Titus Interactive](https://en.wikipedia.org/wiki/Titus_Interactive)
 61    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 67    | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)
 69    | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
-6E    | Elite Systems
+6E    | [Elite Systems](https://en.wikipedia.org/wiki/Elite_Systems)
 6F    | Electro Brain      
 70    | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 71    | Interplay
 72    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
-73    | Sculptured Software   
+73    | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
 75    | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
 78    | THQ             
 79    | Accolade           
@@ -320,7 +320,7 @@ HEX   | Licensee
 80    | Misawa Entertainment
 83    | Lozc               
 86    | Tokuma Shoten Intermedia   
-8B    | Bullet-Proof Software
+8B    | [Bullet-Proof Software](https://en.wikipedia.org/wiki/Blue_Planet_Software)[^blueplanet]
 8C    | Vic Tokai          
 8E    | Ape                
 8F    | I'Max
@@ -371,12 +371,12 @@ CC    | Use Corporation
 CD    | Meldac
 CE    | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
 CF    | [Angel](https://www.mobygames.com/company/5083/angel)
-D0    | Taito
+D0    | [Taito](https://en.wikipedia.org/wiki/Taito)
 D1    | Sofel              
 D2    | Quest              
 D3    | Sigma Enterprises
 D4    | ASK Kodansha Co.       
-D6    | Naxat Soft         
+D6    | [Naxat Soft](https://en.wikipedia.org/wiki/Kaga_Create)[^kaga]
 D7    | Copya System
 D9    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 DA    | Tomy               
@@ -402,13 +402,19 @@ FF    | LJN
 
 [^ubisoft]: Later known as [Ubisoft](https://en.wikipedia.org/wiki/Ubisoft).
 
+[^blueplanet]: Later succeeded by [Blue Planet Software](https://en.wikipedia.org/wiki/Blue_Planet_Software), then acquired by [The Tetris Company](https://en.wikipedia.org/wiki/The_Tetris_Company) in 2020.
+
 [^virgin]: Later known as [Virgin Mastertronic Ltd., then Virgin Interactive Entertainment, then Avalon Interactive Group, Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment).
 
 [^lucasfilm]: Later known as [LucasArts](https://en.wikipedia.org/wiki/Lucasfilm_Games) between 1990-2021.
 
 [^atari]: Later known as [Atari SA](https://en.wikipedia.org/wiki/Atari_SA).
 
-[^sci]: Later known as [SCi (Sales Curve Interactive), then SCi Entertainment Group plc, then Eidos](https://en.wikipedia.org/wiki/SCi_Games), then accquired by [Square Enix](https://en.wikipedia.org/wiki/Square_Enix) in 2009.
+[^sculptured]: Later accquired by [Iguana Entertainment](https://en.wikipedia.org/wiki/Iguana_Entertainment) in 1995. Parent studio owned by [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment).
+
+[^sci]: Later known as [SCi (Sales Curve Interactive), then SCi Entertainment Group plc, then Eidos](https://en.wikipedia.org/wiki/SCi_Games), then acquired by [Square Enix](https://en.wikipedia.org/wiki/Square_Enix) in 2009.
+
+[^kaga]: Later known as [Kaga Create](https://en.wikipedia.org/wiki/Kaga_Create).
 
 ## 014C — Mask ROM version number
 
