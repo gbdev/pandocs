@@ -100,14 +100,14 @@ Code | Publisher
 `44` | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
 `46` | [Angel](https://www.mobygames.com/company/5083/angel)
 `47` | [Bullet-Proof Software](https://en.wikipedia.org/wiki/Blue_Planet_Software)[^blueplanet]
-`49` | Irem
+`49` | [Irem](https://en.wikipedia.org/wiki/Irem)
 `50` | Absolute
 `51` | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `52` | [Activision](https://en.wikipedia.org/wiki/Activision)
 `53` | [Sammy USA Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
 `54` | [Konami](https://en.wikipedia.org/wiki/Konami)
 `55` | [Hi Tech Expressions](https://en.wikipedia.org/wiki/Hi_Tech_Expressions)
-`56` | LJN
+`56` | [LJN](https://en.wikipedia.org/wiki/LJN)
 `57` | Matchbox
 `58` | Mattel
 `59` | Milton Bradley
@@ -118,22 +118,22 @@ Code | Publisher
 `69` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 `70` | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
 `71` | Interplay
-`72` | Broderbund
+`72` | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
 `73` | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
 `75` | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
-`78` | THQ
+`78` | [THQ](https://en.wikipedia.org/wiki/THQ)
 `79` | Accolade
-`80` | Misawa Entertainment
+`80` | [Misawa Entertainment](https://www.mobygames.com/company/8225/misawa-entertainment-coltd)
 `83` | lozc
-`86` | Tokuma Shoten Intermedia
+`86` | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)
 `87` | Tsukuda Original
-`91` | Chunsoft
+`91` | [Chunsoft Co.](https://en.wikipedia.org/wiki/Spike_Chunsoft)[^spike]
 `92` | Video system
 `93` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)/[Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `95` | [Varie](https://en.wikipedia.org/wiki/Varie)
 `96` | Yonezawa/s'pal
-`97` | Kaneko
-`99` | Pack in soft
+`97` | [Kaneko](https://en.wikipedia.org/wiki/Kaneko)
+`99` | [Pack-In-Video](https://en.wikipedia.org/wiki/Pack-In-Video)
 `9H` | Bottom Up
 `A4` | [Konami](https://en.wikipedia.org/wiki/Konami) (Yu-Gi-Oh!)
 `DK` | [Kodansha](https://en.wikipedia.org/wiki/Kodansha)
@@ -253,7 +253,7 @@ Here is a list of known Old licensee codes ([source](https://raw.githubuserconte
 
 HEX   | Licensee
 ------|------------
-00    | None               
+00    | None
 01    | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
 08    | [Capcom](https://en.wikipedia.org/wiki/Capcom)
 09    | [HOT-B](https://en.wikipedia.org/wiki/Category:Hot_B_games)
@@ -285,7 +285,7 @@ HEX   | Licensee
 44    | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
 46    | [Angel](https://www.mobygames.com/company/5083/angel)
 47    | Spectrum Holoby    
-49    | Irem
+49    | [Irem](https://en.wikipedia.org/wiki/Irem)
 4A    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
 4D    | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
 4F    | U.S. Gold
@@ -295,7 +295,7 @@ HEX   | Licensee
 53    | [Sammy USA Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
 54    | [GameTek](https://en.wikipedia.org/wiki/GameTek)
 55    | Park Place
-56    | LJN                
+56    | [LJN](https://en.wikipedia.org/wiki/LJN)
 57    | Matchbox           
 59    | Milton Bradley
 5A    | [Mindscape](https://en.wikipedia.org/wiki/Mindscape_(company))
@@ -313,28 +313,28 @@ HEX   | Licensee
 72    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
 73    | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
 75    | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
-78    | THQ             
+78    | [THQ](https://en.wikipedia.org/wiki/THQ)
 79    | Accolade           
-7A    | Triffix Entertainment
+7A    | [Triffix Entertainment](https://www.mobygames.com/company/4307/triffix-entertainment-inc)
 7C    | Microprose         
-7F    | Kemco              
-80    | Misawa Entertainment
+7F    | [Kemco](https://en.wikipedia.org/wiki/Kemco)
+80    | [Misawa Entertainment](https://www.mobygames.com/company/8225/misawa-entertainment-coltd)
 83    | Lozc               
-86    | Tokuma Shoten Intermedia   
+86    | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)   
 8B    | [Bullet-Proof Software](https://en.wikipedia.org/wiki/Blue_Planet_Software)[^blueplanet]
 8C    | Vic Tokai          
 8E    | Ape                
 8F    | I'Max
-91    | Chunsoft Co.         
+91    | [Chunsoft Co.](https://en.wikipedia.org/wiki/Spike_Chunsoft)[^spike]
 92    | Video System       
-93    | Tsubaraya Productions Co.
-95    | Varie Corporation              
+93    | [Tsubaraya Productions](https://en.wikipedia.org/wiki/Tsuburaya_Productions)
+95    | [Varie](https://en.wikipedia.org/wiki/Varie)
 96    | Yonezawa/S'Pal     
-97    | Kaneko
+97    | [Kemco](https://en.wikipedia.org/wiki/Kemco)
 99    | Arc                
 9A    | Nihon Bussan       
 9B    | Tecmo
-9C    | Imagineer          
+9C    | [Imagineer](https://en.wikipedia.org/wiki/Imagineer_(Japanese_company))
 9D    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 9F    | Nova
 A1    | Hori Electric      
@@ -351,17 +351,17 @@ B0    | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainm
 B1    | ASCII Corporation or Nexsoft
 B2    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
 B4    | [Square Enix](https://en.wikipedia.org/wiki/Square_Enix)
-B6    | HAL Laboratory
+B6    | [HAL Laboratory](https://en.wikipedia.org/wiki/HAL_Laboratory)
 B7    | SNK                
 B9    | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
-BA    | Culture Brain
+BA    | [Culture Brain](https://en.wikipedia.org/wiki/Culture_Brain)
 BB    | Sunsoft            
 BD    | Sony Imagesoft    
 BF    | [Sammy Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
 C0    | [Taito](https://en.wikipedia.org/wiki/Taito)
 C2    | Kemco              
-C3    | Squaresoft
-C4    | Tokuma Shoten Intermedia   
+C3    | [Square](https://en.wikipedia.org/wiki/Square_(video_game_company))
+C4    | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)
 C5    | Data East          
 C6    | Tonkinhouse
 C8    | Koei               
@@ -375,13 +375,13 @@ CF    | [Angel](https://www.mobygames.com/company/5083/angel)
 D0    | [Taito](https://en.wikipedia.org/wiki/Taito)
 D1    | Sofel              
 D2    | Quest              
-D3    | Sigma Enterprises
+D3    | [Sigma Enterprises](https://www.mobygames.com/company/5001/sigma-enterprises-inc)
 D4    | ASK Kodansha Co.       
 D6    | [Naxat Soft](https://en.wikipedia.org/wiki/Kaga_Create)[^kaga]
 D7    | Copya System
 D9    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
 DA    | Tomy               
-DB    | LJN
+DB    | [LJN](https://en.wikipedia.org/wiki/LJN)
 DD    | NCS                
 DE    | Human              
 DF    | Altron
@@ -398,8 +398,8 @@ EB    | [Atlus](https://en.wikipedia.org/wiki/Atlus)
 EC    | Epic/Sony Records  
 EE    | IGS
 F0    | A Wave         
-F3    | Extreme Entertainment  
-FF    | LJN
+F3    | [Extreme Entertainment](https://www.mobygames.com/company/4221/extreme-entertainment-group-inc)
+FF    | [LJN](https://en.wikipedia.org/wiki/LJN)
 
 [^ubisoft]: Later known as [Ubisoft](https://en.wikipedia.org/wiki/Ubisoft).
 
@@ -414,6 +414,8 @@ FF    | LJN
 [^sculptured]: Later accquired by [Iguana Entertainment](https://en.wikipedia.org/wiki/Iguana_Entertainment) in 1995. Parent studio owned by [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment).
 
 [^sci]: Later known as [SCi (Sales Curve Interactive), then SCi Entertainment Group plc, then Eidos](https://en.wikipedia.org/wiki/SCi_Games), then acquired by [Square Enix](https://en.wikipedia.org/wiki/Square_Enix) in 2009.
+
+[^spike]: Later known as [Spike Chunsoft Co., Ltd.](https://en.wikipedia.org/wiki/Spike_Chunsoft).
 
 [^kaga]: Later known as [Kaga Create](https://en.wikipedia.org/wiki/Kaga_Create).
 
