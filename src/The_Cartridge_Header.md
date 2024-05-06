@@ -79,10 +79,10 @@ Code | Publisher
 `08` | [Capcom](https://en.wikipedia.org/wiki/Capcom)
 `13` | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
 `18` | [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)
-`19` | B-AI
-`20` | KSS
-`22` | Pow
-`24` | PCM Complete
+`19` | [B-AI](https://www.giantbomb.com/b-ai/3010-8160)
+`20` | [KSS](https://en.wikipedia.org/wiki/KSS_(company))
+`22` | [Planning Office WADA](https://www.mobygames.com/company/15869/planning-office-wada)
+`24` | [PCM Complete](https://www.mobygames.com/company/9489/pcm-complete)
 `25` | San-X
 `28` | Kemco Japan
 `29` | seta
@@ -136,6 +136,7 @@ Code | Publisher
 `99` | Pack in soft
 `9H` | Bottom Up
 `A4` | [Konami](https://en.wikipedia.org/wiki/Konami) (Yu-Gi-Oh!)
+`DK` | [Kodansha](https://en.wikipedia.org/wiki/Kodansha)
 
 ## 0146 — SGB flag
 
@@ -265,7 +266,7 @@ HEX   | Licensee
 1A    | [Yanoman](https://en.wikipedia.org/wiki/Category:Yanoman_games)
 1D    | [Japan Clary](https://www.mobygames.com/company/7639/japan-clary-business/)
 1F    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
-24    | PCM Complete       
+24    | [PCM Complete](https://www.mobygames.com/company/9489/pcm-complete)
 25    | San-X
 28    | Kotobuki Systems   
 29    | Seta               
