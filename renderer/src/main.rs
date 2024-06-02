@@ -10,15 +10,13 @@
 use anyhow::Context;
 use globwalk::{FileType, GlobWalkerBuilder};
 use lazy_static::lazy_static;
-use mdbook::errors::{Error, Result};
+use mdbook::errors::Result;
 use mdbook::renderer::{HtmlHandlebars, RenderContext, Renderer};
 use regex::Regex;
 use std::fs::{self, File};
 use std::io::{self, Write};
 use std::io::{BufRead, BufReader, BufWriter};
 use std::path::PathBuf;
-use std::process::Command;
-use std::str::FromStr;
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 use url::Url;
 

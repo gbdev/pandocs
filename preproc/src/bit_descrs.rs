@@ -222,7 +222,7 @@ impl<'input> BitDescrAttrs<'input> {
                 let right = cap
                     .get(2)
                     .map_or(left, |end_match| end_match.as_str().parse().unwrap());
-                let name = undo_escapes(&cap.get(3).unwrap().as_str());
+                let name = undo_escapes(cap.get(3).unwrap().as_str());
 
                 // Perform some sanity checks.
                 let Some((mut start, len)) = if increasing {
