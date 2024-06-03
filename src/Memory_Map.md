@@ -26,6 +26,7 @@ Start   | End     | First appeared | Purpose
 $FF00   |         |       DMG      | [Joypad input](<#FF00 — P1/JOYP: Joypad>)
 $FF01   |  $FF02  |       DMG      | [Serial transfer](<#Serial Data Transfer (Link Cable)>)
 $FF04   |  $FF07  |       DMG      | [Timer and divider](<#Timer and Divider Registers>)
+$FF0F   |         |       DMG      | [Interrupts](<#FF0F — IF: Interrupt flag>)
 $FF10   |  $FF26  |       DMG      | [Audio](<#Audio Registers>)
 $FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30–FF3F — Wave pattern RAM>)
 $FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 — LCDC: LCD control>), [Status](<#FF41 — STAT: LCD status>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
