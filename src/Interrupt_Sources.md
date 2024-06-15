@@ -56,42 +56,8 @@ The timer interrupt [is requested] every time that the timer overflows (that is,
 
 ## INT $58 — Serial interrupt
 
-**XXXXXX\...**
-
-Transmitting and receiving serial data is done simultaneously. The
-received data is automatically stored in SB.
-
-The serial I/O port on the Game Boy is a very simple setup and is crude
-compared to standard RS-232 (IBM-PC) or RS-485 (Macintosh) serial ports.
-There are no start or stop bits.
-
-During a transfer, a byte is shifted in at the same time that a byte is
-shifted out. The rate of the shift is determined by whether the clock
-source is internal or external. The most significant bit is shifted in
-and out first.
-
-When the internal clock is selected, it drives the clock pin on the game
-link port and it stays high when not used. During a transfer it will go
-low eight times to clock in/out each bit.
-
-The state of the last bit shifted out determines the state of the output
-line until another transfer takes place.
-
-If a serial transfer with internal clock is performed and no external
-Game Boy is present, a value of \$FF will be received in the transfer.
-
-The following code initiates the process of shifting \$75 out the serial
-port and a byte to be shifted into \$FF01:
-
-```rgbasm
-   ld a, $75
-   ld [$FF01], a
-   ld a, $81
-   ld [$FF02], a
-```
-
-The Game Boy does not support wake-on-LAN. Completion of an externally
-clocked serial transfer does not exit STOP mode.
+The serial interrupt [is requested] upon completion of a serial data transfer.
+In other words, eight serial clock cycles after starting a transfer (by setting [SC](<#FF02 — SC: Serial transfer control>) bit 7), the incoming data will be in [SB](<#FF01 — SB: Serial transfer data>) and the interrupt will be requested.
 
 ## INT $60 — Joypad interrupt
 
