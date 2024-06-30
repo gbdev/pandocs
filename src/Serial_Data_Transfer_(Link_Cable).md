@@ -46,12 +46,10 @@ that the transfer is complete in two ways: SC's Bit 7 will be cleared
 (that is, SC will be set up \$01), and also a [Serial interrupt](<#INT $58 — Serial interrupt>)
 will be requested.
 
-The other Game Boy will load up a data byte and can optionally set SC's
-Bit 7 (that is, SC=\$80). Regardless of whether or not it has done this, if
-and when the master wants to conduct a transfer, it will happen
-(pulling whatever happens to be in SB at that time). The externally clocked
+The other Game Boy will load up a data byte and has to set SC's
+Bit 7 (that is, SC=\$80) to enable the serial port. The externally clocked
 Game Boy will have a [serial interrupt](<#INT $58 — Serial interrupt>) requested at the end of the
-transfer, and if it bothered to set SC's Bit 7, it will be cleared.
+transfer, and SC's Bit 7 will be cleared.
 
 ### Internal Clock
 
