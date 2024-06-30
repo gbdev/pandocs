@@ -3,9 +3,8 @@
 Communication between two Game Boy systems happens one byte at a time. One
 Game Boy generates a clock signal internally and thus controls when the
 exchange happens. In SPI terms, the Game Boy generating the clock is
-called the "master."  The other one uses an external clock (receiving
-it from the other Game Boy) and has no control over when the
-transfer happens. If it hasn't gotten around to loading up the next
+called the "master" while the other one (the "slave" Game Boy) receives it.
+If it hasn't gotten around to loading up the next
 data byte at the time the transfer begins, the last one will go out
 again. Alternately, if it's ready to send the next byte but the last
 one hasn't gone out yet, it has no choice but to wait.
@@ -106,7 +105,7 @@ two Game Boy systems could switch between internal and external clock for each
 transferred byte to ensure synchronization.
 
 Transfer is initiated when the master Game Boy sets its Transfer
-Start Flag, regardless of the value of this flag on the other device.
+Start Flag.
 This bit is automatically set to 0 (on both) at the end of transfer.
 Reading this bit can be used to determine if the transfer is still
 active.
