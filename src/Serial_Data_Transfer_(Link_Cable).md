@@ -3,9 +3,8 @@
 Communication between two Game Boy systems happens one byte at a time. One
 Game Boy generates a clock signal internally and thus controls when the
 exchange happens. In SPI terms, the Game Boy generating the clock is
-called the "master."  The other one uses an external clock (receiving
-it from the other Game Boy) and has no control over when the
-transfer happens. If it hasn't gotten around to loading up the next
+called the "master" while the other one (the "slave" Game Boy) receives it.
+If it hasn't gotten around to loading up the next
 data byte at the time the transfer begins, the last one will go out
 again. Alternately, if it's ready to send the next byte but the last
 one hasn't gone out yet, it has no choice but to wait.
@@ -46,12 +45,10 @@ that the transfer is complete in two ways: SC's Bit 7 will be cleared
 (that is, SC will be set up \$01), and also a [Serial interrupt](<#INT $58 — Serial interrupt>)
 will be requested.
 
-The other Game Boy will load up a data byte and can optionally set SC's
-Bit 7 (that is, SC=\$80). Regardless of whether or not it has done this, if
-and when the master wants to conduct a transfer, it will happen
-(pulling whatever happens to be in SB at that time). The externally clocked
+The other Game Boy will load up a data byte and has to set SC's
+Bit 7 (that is, SC=\$80) to enable the serial port. The externally clocked
 Game Boy will have a [serial interrupt](<#INT $58 — Serial interrupt>) requested at the end of the
-transfer, and if it bothered to set SC's Bit 7, it will be cleared.
+transfer, and SC's Bit 7 will be cleared.
 
 ### Internal Clock
 
@@ -108,7 +105,7 @@ two Game Boy systems could switch between internal and external clock for each
 transferred byte to ensure synchronization.
 
 Transfer is initiated when the master Game Boy sets its Transfer
-Start Flag, regardless of the value of this flag on the other device.
+Start Flag.
 This bit is automatically set to 0 (on both) at the end of transfer.
 Reading this bit can be used to determine if the transfer is still
 active.
