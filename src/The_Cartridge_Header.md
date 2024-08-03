@@ -254,153 +254,153 @@ Here is a list of known Old licensee codes ([source](https://raw.githubuserconte
 
 HEX   | Licensee
 ------|------------
-00    | None
-01    | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
-08    | [Capcom](https://en.wikipedia.org/wiki/Capcom)
-09    | [HOT-B](https://en.wikipedia.org/wiki/Category:Hot_B_games)
-0A    | [Jaleco](https://en.wikipedia.org/wiki/Jaleco)
-0B    | [Coconuts Japan](https://en.wikipedia.org/wiki/Category:Coconuts_Japan_games)
-0C    | [Elite Systems](https://en.wikipedia.org/wiki/Elite_Systems)
-13    | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
-18    | [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)
-19    | [ITC Entertainment](https://en.wikipedia.org/wiki/ITC_Entertainment)
-1A    | [Yanoman](https://en.wikipedia.org/wiki/Category:Yanoman_games)
-1D    | [Japan Clary](https://www.mobygames.com/company/7639/japan-clary-business/)
-1F    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
-24    | [PCM Complete](https://www.mobygames.com/company/9489/pcm-complete)
-25    | San-X
-28    | [Kemco](https://en.wikipedia.org/wiki/Kemco)
-29    | [SETA Corporation](https://en.wikipedia.org/wiki/SETA_Corporation)
-30    | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
-31    | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
-32    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
-33    | Indicates that the [New licensee code](<#0144–0145 — New licensee code>) should be used instead.
-34    | [Konami](https://en.wikipedia.org/wiki/Konami)
-35    | [HectorSoft](https://www.mobygames.com/company/12239/hectorsoft)
-38    | [Capcom](https://en.wikipedia.org/wiki/Capcom)
-39    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
-3C    | .Entertainment i   
-3E    | Gremlin
-41    | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
-42    | [Atlus](https://en.wikipedia.org/wiki/Atlus)
-44    | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
-46    | [Angel](https://www.mobygames.com/company/5083/angel)
-47    | Spectrum Holoby    
-49    | [Irem](https://en.wikipedia.org/wiki/Irem)
-4A    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
-4D    | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
-4F    | U.S. Gold
-50    | Absolute           
-51    | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
-52    | [Activision](https://en.wikipedia.org/wiki/Activision)
-53    | [Sammy USA Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
-54    | [GameTek](https://en.wikipedia.org/wiki/GameTek)
-55    | Park Place
-56    | [LJN](https://en.wikipedia.org/wiki/LJN)
-57    | [Matchbox](https://en.wikipedia.org/wiki/Matchbox_(brand))
-59    | [Milton Bradley Company](https://en.wikipedia.org/wiki/Milton_Bradley_Company)
-5A    | [Mindscape](https://en.wikipedia.org/wiki/Mindscape_(company))
-5B    | [Romstar](https://en.wikipedia.org/wiki/Romstar)
-5C    | [Naxat Soft](https://en.wikipedia.org/wiki/Kaga_Create)[^kaga]
-5D    | [Tradewest](https://en.wikipedia.org/wiki/Tradewest)
-60    | [Titus Interactive](https://en.wikipedia.org/wiki/Titus_Interactive)
-61    | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
-67    | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)
-69    | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
-6E    | [Elite Systems](https://en.wikipedia.org/wiki/Elite_Systems)
-6F    | Electro Brain      
-70    | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
-71    | [Interplay Entertainment](https://en.wikipedia.org/wiki/Interplay_Entertainment)
-72    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
-73    | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
-75    | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
-78    | [THQ](https://en.wikipedia.org/wiki/THQ)
-79    | Accolade           
-7A    | [Triffix Entertainment](https://www.mobygames.com/company/4307/triffix-entertainment-inc)
-7C    | Microprose         
-7F    | [Kemco](https://en.wikipedia.org/wiki/Kemco)
-80    | [Misawa Entertainment](https://www.mobygames.com/company/8225/misawa-entertainment-coltd)
-83    | Lozc               
-86    | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)   
-8B    | [Bullet-Proof Software](https://en.wikipedia.org/wiki/Blue_Planet_Software)[^blueplanet]
-8C    | Vic Tokai          
-8E    | Ape                
-8F    | I'Max
-91    | [Chunsoft Co.](https://en.wikipedia.org/wiki/Spike_Chunsoft)[^spike]
-92    | Video System       
-93    | [Tsubaraya Productions](https://en.wikipedia.org/wiki/Tsuburaya_Productions)
-95    | [Varie](https://en.wikipedia.org/wiki/Varie)
-96    | Yonezawa/S'Pal     
-97    | [Kemco](https://en.wikipedia.org/wiki/Kemco)
-99    | Arc                
-9A    | Nihon Bussan       
-9B    | Tecmo
-9C    | [Imagineer](https://en.wikipedia.org/wiki/Imagineer_(Japanese_company))
-9D    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
-9F    | Nova
-A1    | Hori Electric      
-A2    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
-A4    | [Konami](https://en.wikipedia.org/wiki/Konami)
-A6    | Kawada             
-A7    | Takara             
-A9    | Technos Japan
-AA    | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
-AC    | Toei Animation    
-AD    | Toho
-AF    | Namco             
-B0    | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
-B1    | ASCII Corporation or Nexsoft
-B2    | [Bandai](https://en.wikipedia.org/wiki/Bandai)
-B4    | [Square Enix](https://en.wikipedia.org/wiki/Square_Enix)
-B6    | [HAL Laboratory](https://en.wikipedia.org/wiki/HAL_Laboratory)
-B7    | SNK                
-B9    | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
-BA    | [Culture Brain](https://en.wikipedia.org/wiki/Culture_Brain)
-BB    | Sunsoft            
-BD    | Sony Imagesoft    
-BF    | [Sammy Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
-C0    | [Taito](https://en.wikipedia.org/wiki/Taito)
-C2    | Kemco              
-C3    | [Square](https://en.wikipedia.org/wiki/Square_(video_game_company))
-C4    | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)
-C5    | Data East          
-C6    | Tonkinhouse
-C8    | Koei               
-C9    | UFL                
-CA    | Ultra
-CB    | Vap                
-CC    | Use Corporation               
-CD    | Meldac
-CE    | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
-CF    | [Angel](https://www.mobygames.com/company/5083/angel)
-D0    | [Taito](https://en.wikipedia.org/wiki/Taito)
-D1    | Sofel              
-D2    | Quest              
-D3    | [Sigma Enterprises](https://www.mobygames.com/company/5001/sigma-enterprises-inc)
-D4    | ASK Kodansha Co.       
-D6    | [Naxat Soft](https://en.wikipedia.org/wiki/Kaga_Create)[^kaga]
-D7    | Copya System
-D9    | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
-DA    | Tomy               
-DB    | [LJN](https://en.wikipedia.org/wiki/LJN)
-DD    | NCS                
-DE    | Human              
-DF    | Altron
-E0    | Jaleco             
-E1    | Towa Chiki          
-E2    | Yutaka
-E3    | [Varie](https://en.wikipedia.org/wiki/Varie)
-E5    | Epcoh              
-E7    | Athena
-E8    | [Asmik Ace Entertainment](https://en.wikipedia.org/wiki/Asmik_Ace)
-E9    | Natsume            
-EA    | King Records
-EB    | [Atlus](https://en.wikipedia.org/wiki/Atlus)
-EC    | Epic/Sony Records  
-EE    | IGS
-F0    | A Wave         
-F3    | [Extreme Entertainment](https://www.mobygames.com/company/4221/extreme-entertainment-group-inc)
-FF    | [LJN](https://en.wikipedia.org/wiki/LJN)
+`00`  | None
+`01`  | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
+`08`  | [Capcom](https://en.wikipedia.org/wiki/Capcom)
+`09`  | [HOT-B](https://en.wikipedia.org/wiki/Category:Hot_B_games)
+`0A`  | [Jaleco](https://en.wikipedia.org/wiki/Jaleco)
+`0B`  | [Coconuts Japan](https://en.wikipedia.org/wiki/Category:Coconuts_Japan_games)
+`0C`  | [Elite Systems](https://en.wikipedia.org/wiki/Elite_Systems)
+`13`  | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
+`18`  | [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)
+`19`  | [ITC Entertainment](https://en.wikipedia.org/wiki/ITC_Entertainment)
+`1A`  | [Yanoman](https://en.wikipedia.org/wiki/Category:Yanoman_games)
+`1D`  | [Japan Clary](https://www.mobygames.com/company/7639/japan-clary-business/)
+`1F`  | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
+`24`  | [PCM Complete](https://www.mobygames.com/company/9489/pcm-complete)
+`25`  | [San-X](https://en.wikipedia.org/wiki/San-X)
+`28`  | [Kemco](https://en.wikipedia.org/wiki/Kemco)
+`29`  | [SETA Corporation](https://en.wikipedia.org/wiki/SETA_Corporation)
+`30`  | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
+`31`  | [Nintendo](https://en.wikipedia.org/wiki/Nintendo)
+`32`  | [Bandai](https://en.wikipedia.org/wiki/Bandai)
+`33`  | Indicates that the [New licensee code](<#0144–0145 — New licensee code>) should be used instead.
+`34`  | [Konami](https://en.wikipedia.org/wiki/Konami)
+`35`  | [HectorSoft](https://www.mobygames.com/company/12239/hectorsoft)
+`38`  | [Capcom](https://en.wikipedia.org/wiki/Capcom)
+`39`  | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
+`3C`  | Entertainment Interactive (stub)   
+`3E`  | [Gremlin](https://en.wikipedia.org/wiki/Gremlin_Interactive)
+`41`  | [Ubi Soft](https://en.wikipedia.org/wiki/Ubisoft)[^ubisoft]
+`42`  | [Atlus](https://en.wikipedia.org/wiki/Atlus)
+`44`  | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
+`46`  | [Angel](https://www.mobygames.com/company/5083/angel)
+`47`  | [Spectrum HoloByte](https://en.wikipedia.org/wiki/Spectrum_HoloByte)   
+`49`  | [Irem](https://en.wikipedia.org/wiki/Irem)
+`4A`  | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
+`4D`  | [Malibu Interactive](https://en.wikipedia.org/wiki/Malibu_Comics)
+`4F`  | [U.S. Gold](https://en.wikipedia.org/wiki/U.S._Gold)
+`50`  | [Absolute](https://en.wikipedia.org/wiki/Absolute_Entertainment)           
+`51`  | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
+`52`  | [Activision](https://en.wikipedia.org/wiki/Activision)
+`53`  | [Sammy USA Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
+`54`  | [GameTek](https://en.wikipedia.org/wiki/GameTek)
+`55`  | [Park Place](https://en.wikipedia.org/wiki/Park_Place_Entertainment)[^caesars]
+`56`  | [LJN](https://en.wikipedia.org/wiki/LJN)
+`57`  | [Matchbox](https://en.wikipedia.org/wiki/Matchbox_(brand))
+`59`  | [Milton Bradley Company](https://en.wikipedia.org/wiki/Milton_Bradley_Company)
+`5A`  | [Mindscape](https://en.wikipedia.org/wiki/Mindscape_(company))
+`5B`  | [Romstar](https://en.wikipedia.org/wiki/Romstar)
+`5C`  | [Naxat Soft](https://en.wikipedia.org/wiki/Kaga_Create)[^kaga]
+`5D`  | [Tradewest](https://en.wikipedia.org/wiki/Tradewest)
+`60`  | [Titus Interactive](https://en.wikipedia.org/wiki/Titus_Interactive)
+`61`  | [Virgin Games Ltd.](https://en.wikipedia.org/wiki/Virgin_Interactive_Entertainment)[^virgin]
+`67`  | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)
+`69`  | [EA (Electronic Arts)](https://en.wikipedia.org/wiki/Electronic_Arts)
+`6E`  | [Elite Systems](https://en.wikipedia.org/wiki/Elite_Systems)
+`6F`  | [Electro Brain](https://en.wikipedia.org/wiki/Electro_Brain)      
+`70`  | [Infogrames](https://en.wikipedia.org/wiki/Atari_SA)[^atari]
+`71`  | [Interplay Entertainment](https://en.wikipedia.org/wiki/Interplay_Entertainment)
+`72`  | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
+`73`  | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
+`75`  | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
+`78`  | [THQ](https://en.wikipedia.org/wiki/THQ)
+`79`  | [Accolade](https://en.wikipedia.org/wiki/Accolade_(company))[^infogrames]           
+`7A`  | [Triffix Entertainment](https://www.mobygames.com/company/4307/triffix-entertainment-inc)
+`7C`  | [MicroProse](https://en.wikipedia.org/wiki/MicroProse)         
+`7F`  | [Kemco](https://en.wikipedia.org/wiki/Kemco)
+`80`  | [Misawa Entertainment](https://www.mobygames.com/company/8225/misawa-entertainment-coltd)
+`83`  | [LOZC G.](https://en.wikipedia.org/wiki/Category:LOZC_G._Amusements_games)           
+`86`  | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)   
+`8B`  | [Bullet-Proof Software](https://en.wikipedia.org/wiki/Blue_Planet_Software)[^blueplanet]
+`8C`  | [Vic Tokai Corp.](https://en.wikipedia.org/wiki/Tokai_Communications)[^tokaicomm]
+`8E`  | [Ape Inc.](https://en.wikipedia.org/wiki/Creatures_Inc.)[^creatures]              
+`8F`  | [I'Max](https://en.wikipedia.org/wiki/I%27MAX)[^imax]
+`91`  | [Chunsoft Co.](https://en.wikipedia.org/wiki/Spike_Chunsoft)[^spike]
+`92`  | [Video System](https://en.wikipedia.org/wiki/Category:Video_System_games)       
+`93`  | [Tsubaraya Productions](https://en.wikipedia.org/wiki/Tsuburaya_Productions)
+`95`  | [Varie](https://en.wikipedia.org/wiki/Varie)
+`96`  | [Yonezawa](https://en.wikipedia.org/wiki/Sega_Fave)[^segabuy]/S'Pal     
+`97`  | [Kemco](https://en.wikipedia.org/wiki/Kemco)
+`99`  | Arc                
+`9A`  | [Nihon Bussan](https://en.wikipedia.org/wiki/Nihon_Bussan)       
+`9B`  | [Tecmo](https://en.wikipedia.org/wiki/Tecmo)
+`9C`  | [Imagineer](https://en.wikipedia.org/wiki/Imagineer_(Japanese_company))
+`9D`  | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
+`9F`  | Nova
+`A1`  | [Hori Electric](https://www.mobygames.com/company/8959/hori-electric-co-ltd/)      
+`A2`  | [Bandai](https://en.wikipedia.org/wiki/Bandai)
+`A4`  | [Konami](https://en.wikipedia.org/wiki/Konami)
+`A6`  | Kawada             
+`A7`  | [Takara](https://en.wikipedia.org/wiki/Takara)             
+`A9`  | [Technos Japan](https://en.wikipedia.org/wiki/Techn%C5%8Ds_Japan)
+`AA`  | [Broderbund](https://en.wikipedia.org/wiki/Broderbund)
+`AC`  | [Toei Animation](https://en.wikipedia.org/wiki/Toei_Animation)    
+`AD`  | [Toho](https://en.wikipedia.org/wiki/Toho)
+`AF`  | [Namco](https://en.wikipedia.org/wiki/Namco)             
+`B0`  | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
+`B1`  | [ASCII Corporation](https://en.wikipedia.org/wiki/ASCII_Corporation) or Nexsoft
+`B2`  | [Bandai](https://en.wikipedia.org/wiki/Bandai)
+`B4`  | [Square Enix](https://en.wikipedia.org/wiki/Square_Enix)
+`B6`  | [HAL Laboratory](https://en.wikipedia.org/wiki/HAL_Laboratory)
+`B7`  | [SNK](https://en.wikipedia.org/wiki/SNK)                
+`B9`  | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
+`BA`  | [Culture Brain](https://en.wikipedia.org/wiki/Culture_Brain)
+`BB`  | [Sunsoft](https://en.wikipedia.org/wiki/Sunsoft)            
+`BD`  | [Sony Imagesoft](https://en.wikipedia.org/wiki/Sony_Imagesoft)    
+`BF`  | [Sammy Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
+`C0`  | [Taito](https://en.wikipedia.org/wiki/Taito)
+`C2`  | [Kemco](https://en.wikipedia.org/wiki/Kemco)              
+`C3`  | [Square](https://en.wikipedia.org/wiki/Square_(video_game_company))
+`C4`  | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)
+`C5`  | [Data East](https://en.wikipedia.org/wiki/Data_East)          
+`C6`  | [Tonkin House](https://en.wikipedia.org/wiki/Tonkin_House)
+`C8`  | [Koei](https://en.wikipedia.org/wiki/Koei)               
+`C9`  | UFL                
+`CA`  | [Ultra Games](https://en.wikipedia.org/wiki/Ultra_Games)
+`CB`  | [VAP, Inc.](https://en.wikipedia.org/wiki/VAP,_Inc.)                
+`CC`  | [Use Corporation](https://en.wikipedia.org/wiki/Category:Use_Corporation_games)               
+`CD`  | [Meldac](https://en.wikipedia.org/wiki/Meldac)
+`CE`  | [Pony Canyon](https://en.wikipedia.org/wiki/Pony_Canyon)
+`CF`  | [Angel](https://www.mobygames.com/company/5083/angel)
+`D0`  | [Taito](https://en.wikipedia.org/wiki/Taito)
+`D1`  | [SOFEL (Software Engineering Lab)](https://en.wikipedia.org/wiki/SOFEL)              
+`D2`  | [Quest](https://en.wikipedia.org/wiki/Quest_Corporation)              
+`D3`  | [Sigma Enterprises](https://www.mobygames.com/company/5001/sigma-enterprises-inc)
+`D4`  | [ASK Kodansha Co.](https://www.mobygames.com/company/5166/ask-co-ltd/)       
+`D6`  | [Naxat Soft](https://en.wikipedia.org/wiki/Kaga_Create)[^kaga]
+`D7`  | [Copya System](https://en.wikipedia.org/wiki/Category:Copya_Systems_games)
+`D9`  | [Banpresto](https://en.wikipedia.org/wiki/Banpresto)
+`DA`  | [Tomy](https://en.wikipedia.org/wiki/Tomy)               
+`DB`  | [LJN](https://en.wikipedia.org/wiki/LJN)
+`DD`  | [Nippon Computer Systems](https://www.ncsx.co.jp/)
+`DE`  | [Human Ent.](https://en.wikipedia.org/wiki/Human_Entertainment)
+`DF`  | [Altron](https://en.wikipedia.org/wiki/Category:Altron_games)
+`E0`  | [Jaleco](https://en.wikipedia.org/wiki/Jaleco)     
+`E1`  | [Towa Chiki](https://en.wikipedia.org/wiki/Towa_Chiki)
+`E2`  | [Yutaka](https://en.wikipedia.org/wiki/Yutaka_(video_game_company)) # Needs more info
+`E3`  | [Varie](https://en.wikipedia.org/wiki/Varie)
+`E5`  | [Epoch](https://en.wikipedia.org/wiki/Epoch_Co.)              
+`E7`  | [Athena](https://en.wikipedia.org/wiki/Athena_(game_developer))
+`E8`  | [Asmik Ace Entertainment](https://en.wikipedia.org/wiki/Asmik_Ace)
+`E9`  | [Natsume](https://en.wikipedia.org/wiki/Natsume_Inc.)            
+`EA`  | [King Records](https://en.wikipedia.org/wiki/King_Records_(Japan))
+`EB`  | [Atlus](https://en.wikipedia.org/wiki/Atlus)
+`EC`  | Epic/[Sony Records](https://en.wikipedia.org/wiki/Sony_Music)  
+`EE`  | [IGS](https://www.igs-entertainment.co/)
+`F0`  | [A Wave](https://www.mobygames.com/company/9123/a-wave-inc/)         
+`F3`  | [Extreme Entertainment](https://www.mobygames.com/company/4221/extreme-entertainment-group-inc)
+`FF`  | [LJN](https://en.wikipedia.org/wiki/LJN)
 
 [^ubisoft]: Later known as [Ubisoft](https://en.wikipedia.org/wiki/Ubisoft).
 
@@ -419,6 +419,18 @@ FF    | [LJN](https://en.wikipedia.org/wiki/LJN)
 [^spike]: Later known as [Spike Chunsoft Co., Ltd.](https://en.wikipedia.org/wiki/Spike_Chunsoft).
 
 [^kaga]: Later known as [Kaga Create](https://en.wikipedia.org/wiki/Kaga_Create).
+
+[^tokaicomm]: Known as Vic Tokai Corporation until 2011 when the name changed to Tokai Communications.
+
+[^infogrames]: Later Infogrames North America, Inc.
+
+[^caesars]: Later named Caesars Entertainment, Inc.
+
+[^creatures]: Now known as Creatures, Inc.
+
+[^imax]: Not to be confused with the IMAX motion picture film format.
+
+[^segabuy]: Merged into Sega as Sega-Yonezawa, later becoming Sega Toys, and finally Sega Fave.
 
 ## 014C — Mask ROM version number
 
