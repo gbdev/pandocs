@@ -27,6 +27,17 @@ It refuses to run on the GBA for a different reason: the developer couldn't figu
 
 :::
 
+Each channel contains components that control different aspects of sound generation:
+
+| Channel  | Sweep | Frequency      | Wave Form | Length Timer | Volume   |
+|----------|-------|----------------|-----------|--------------|----------|
+| Square 1 | Sweep | Period Counter | Duty      | Length Timer | Envelope |
+| Square 2 |       | Period Counter | Duty      | Length Timer | Envelope |
+| Wave     |       | Period Counter | Wave      | Length Timer | Volume   |
+| Noise    |       | Period Counter | LFSR      | Length Timer | Envelope |
+
+These components are controlled by writing to the [audio registers](<#Audio Registers>).
+
 [^speaker_mono]:
 The speaker merges back the two channels, losing the stereo aspect entirely.
 
