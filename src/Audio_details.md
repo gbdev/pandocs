@@ -138,6 +138,35 @@ A channel can be deactivated in one of the following ways:
 - Its [length timer](<#Length timer>) expiring
 - (CH1 only) [Frequency sweep](<#FF10 — NR10: Channel 1 sweep>) overflowing the frequency
 
+### Pulse channel with sweep (CH1)
+
+The first square channel has a frequency sweep unit, controlled by `NR10`. This internally has a "sweep timer", "enabled flag",
+and period/frequency "shadow register". The "enabled flag" controls if the sweep unit is active,
+the "sweep timer" is clocked at 128 Hz by the [DIV-APU](#DIV-APU), and the "shadow register" holds the current output period.
+
+During a [trigger event](#Triggering), several things occur:
+
+- CH1 [period value](<#FF13 — NR13: Channel 1 period low \[write-only\]>) is copied to the "shadow register".
+- The "sweep timer" is reset.
+- The "enabled flag" is set if either the [sweep pace or individual step](<#FF10 — NR10: Channel 1 sweep>) are non-zero, cleared otherwise.
+- If the individual step is non-zero, _frequency calculation_ and _overflow check_ are performed immediately.
+
+_Frequency calculation_ consists of taking the value in the frequency "shadow register", shifting it right by the individual step,
+optionally negating the value, depending on the [direction](<#FF10 — NR10: Channel 1 sweep>), and summing this with the frequency "shadow register" to produce a new frequency.
+What is done with this new frequency depends on the context.
+
+The _overflow check_ simply calculates the new frequency and if it is greater than 2047, or $7FF, CH1 is disabled.
+
+When the "sweep timer" is [clocked](#DIV-APU) if the "enabled flag" is set and the sweep pace is not zero,
+a new frequency is calculated and the overflow check is performed.
+If the new frequency is 2047 or less and the individual step is not zero, this new frequency is written back to the
+"shadow register" and CH1 frequency in `NR13` and `NR14`, then frequency calculation and overflow check
+are run _again_ immediately using this new value, but this second new frequency is not written back.
+
+CH1 frequency can be modified via `NR13` and `NR14` while sweep is active,
+but the "shadow register" won't be affected so the next time the "sweep timer" updates the channel's frequency,
+this modification will be lost. This can be avoided by triggering the channel.
+
 ### Pulse channels (CH1, CH2)
 
 Each pulse channel has an internal "duty step" counter, which is used to index into [the selected waveform](<#FF11 — NR11: Channel 1 length timer & duty cycle>) (each background stripe corresponds to one "duty step")[^pulse_lut].
