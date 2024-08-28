@@ -81,7 +81,7 @@ Internally, all envelopes are ticked at 64 Hz, and every 1–7 of those ticks, t
 All channels can be individually set to automatically shut themselves down after a certain amount of time.
 
 If the functionality is enabled, a channel's **length timer** ticks up[^len_cnt_dir] at 256 Hz (tied to [DIV-APU](<#DIV-APU>)) from the value it's initially set at.
-When the length timer reaches 64, the channel is turned off.
+When the length timer reaches 64 (Ch1 and Ch2) or 256 (Ch3), the channel is turned off.
 
 ### Frequency
 

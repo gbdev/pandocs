@@ -32,7 +32,7 @@ One of the pitfalls of the `NRxy` naming convention is that the register's purpo
       - The channel's [length timer](<#Length timer>) is enabled in `NRx4` and expires, or
       - *For CH1 only*: when the [period sweep](<#FF10 — NR10: Channel 1 sweep>) overflows[^freq_sweep_underflow], or
       - [The channel's DAC](#DACs) is turned off.
-  
+
   The envelope reaching a volume of 0 does NOT turn the channel off!
 
 <hr>
@@ -179,11 +179,11 @@ The pulse channels' period dividers are clocked at 1048576 Hz, once per four dot
 This makes their sample rate equal to <math><mfrac><mn>1048576</mn><mrow><mn>2048</mn><mo>-</mo><mi>period_value</mi></mrow></mfrac></math> Hz.
 with a resulting tone frequency equal to <math><mfrac><mn>131072</mn><mrow><mn>2048</mn><mo>-</mo><mi>period_value</mi></mrow></mfrac></math> Hz.
 
-- Period value $500 means -$300, or 1 sample per 768 input cycles  
-  or (1048576 ÷ 768) = 1365.3 Hz sample rate  
+- Period value $500 means -$300, or 1 sample per 768 input cycles
+  or (1048576 ÷ 768) = 1365.3 Hz sample rate
   or (1048576 ÷ 768 ÷ 8) = 170.67 Hz tone frequency
-- Period value $740 means -$C0, or 1 sample per 192 input cycles  
-  or (1048576 ÷ 192) = 5461.3 Hz sample rate  
+- Period value $740 means -$C0, or 1 sample per 192 input cycles
+  or (1048576 ÷ 192) = 5461.3 Hz sample rate
   or (1048576 ÷ 192 ÷ 8) = 682.67 Hz tone frequency
 
 Period value $740 produces a higher frequency than $500.
@@ -202,7 +202,15 @@ Period changes (written to `NR13` or `NR14`) only take effect after the current 
   "NR14" 7:"Trigger" 6:"Length enable" 2-0:"Period"
 }}
 
-- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel.
+- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel, causing the
+  following to occur:
+  * Ch1 is enabled.
+  * If length timer expired it is reset.
+  * The period divider is set to the contents of `NR13` and `NR14`.
+  * Envelope timer is reset.
+  * Volume is set to contents of `NR12` initial volume.
+  * Sweep does [several things](<#Pulse channel with sweep (CH1)>).
+
 - **[Length](<#Length timer>) enable** (*Read/Write*): Takes effect immediately upon writing to this register.
 - **Period** (*Write-only*): The upper 3 bits of the period value; the lower 8 bits are stored in [`NR13`](<#FF13 — NR13: Channel 1 period low \[write-only\]>).
 
@@ -256,7 +264,7 @@ This channel lacks the envelope functionality that the other three channels have
 }}
 
 - **Output level**: Controls the channel's volume as follows:
-  
+
   Bits 6-5 (binary) | Output level
   -----------------:|--------------
      00             | Mute (No sound)
@@ -273,11 +281,11 @@ The wave channel's period divider is clocked at 2097152 Hz, once per two dots, a
 This makes their sample rate equal to <math><mfrac><mn>2097152</mn><mrow><mn>2048</mn><mo>-</mo><mi>period_value</mi></mrow></mfrac></math> Hz.
 with a resulting tone frequency equal to <math><mfrac><mn>65536</mn><mrow><mn>2048</mn><mo>-</mo><mi>period_value</mi></mrow></mfrac></math> Hz.
 
-- Period value $500 means -$300, or 1 sample per 768 input cycles  
-  or (2097152 ÷ 768) = 2730.7 Hz sample rate  
+- Period value $500 means -$300, or 1 sample per 768 input cycles
+  or (2097152 ÷ 768) = 2730.7 Hz sample rate
   or (2097152 ÷ 768 ÷ 32) = 85.333 Hz tone frequency
-- Period value $740 means -$C0, or 1 sample per 192 input cycles  
-  or (2097152 ÷ 192) = 10923 Hz sample rate  
+- Period value $740 means -$C0, or 1 sample per 192 input cycles
+  or (2097152 ÷ 192) = 10923 Hz sample rate
   or (2097152 ÷ 192 ÷ 32) = 341.33 Hz tone frequency
 
 Given the same period value, the tone frequency of the wave channel is generally half that of a pulse channel, or one octave lower.
@@ -295,20 +303,27 @@ Period changes (written to `NR33` or `NR34`) only take effect after the followin
   "NR34" 7:"Trigger" 6:"Length enable" 2-0:"Period"
 }}
 
-- **Trigger** (*Write-only*): Writing any value to `NR34` with this bit set [triggers](<#Triggering>) the channel.
+- **Trigger** (*Write-only*): Writing any value to `NR34` with this bit set [triggers](<#Triggering>) the channel, causing the
+  following to occur:
+  * Ch3 is enabled.
+  * If length timer expired it is reset.
+  * The period divider is set to the contents of `NR33` and `NR34`.
+  * Volume is set to contents of `NR32` initial volume.
+  * Wave RAM index is reset, but its *not* refilled.
 
-  :::warning RETRIGGERING CAUTION
+:::warning RETRIGGERING CAUTION
 
-  On monochrome consoles only, retriggering CH3 while it's about to read a byte from wave RAM causes wave RAM to be corrupted in a generally unpredictable manner.
+On monochrome consoles only, retriggering CH3 while it's about to read a byte from wave RAM causes wave RAM to be corrupted in a generally unpredictable manner.
 
-  :::
+:::
 
-  :::warning PLAYBACK DELAY
+:::warning PLAYBACK DELAY
 
-  Triggering the wave channel does not immediately start playing wave RAM; instead, the *last* sample ever read (which is reset to 0 when the APU is off) is output until the channel next reads a sample.
-  ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_delay.asm))
+Triggering the wave channel does not immediately start playing wave RAM; instead, the *last* sample ever read (which is reset to 0 when the APU is off) is output until the channel next reads a sample.
+([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_delay.asm))
 
-  :::
+:::
+
 - **[Length](<#Length timer>) enable** (*Read/Write*): Takes effect immediately upon writing to this register.
 - **Period** (*Write-only*): The upper 3 bits of the period value; the lower 8 bits are stored in [`NR33`](<#FF1D — NR33: Channel 3 period low \[write-only\]>).
 
@@ -395,5 +410,12 @@ If the bit shifted out is a 0, the channel emits a 0; otherwise, it emits the vo
   "NR44" 7:"Trigger" 6:"Length enable"
 }}
 
-- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel.
+- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel, causing the
+  following to occur:
+  * Ch4 is enabled.
+  * If length timer expired it is reset.
+  * Envelope timer is reset.
+  * Volume is set to contents of `NR42` initial volume.
+  * [LFSR bits](<#Noise channel (CH4)>) are reset.
+
 - **[Length](<#Length timer>) enable** (*Read/Write*): Takes effect immediately upon writing to this register.
