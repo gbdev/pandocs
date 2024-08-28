@@ -24,6 +24,8 @@ One of the pitfalls of the `NRxy` naming convention is that the register's purpo
 
 - **Audio on/off** (*Read/Write*): This controls whether the APU is powered on at all (akin to [`LCDC` bit 7](<#LCDC.7 — LCD enable>)).
   Turning the APU off drains less power (around 16%), but clears all APU registers and makes them read-only until turned back on, except `NR52`[^dmg_apu_off].
+  Turning the APU off, however, does not affect [Wave RAM](<#FF30–FF3F — Wave pattern RAM>), which can always be read/written, nor the [DIV-APU](<#DIV-APU>) counter.
+
 - **CH<var>n</var> on?** (*Read-only*): Each of these four bits allows checking whether channels are active[^nr52_dac].
   Writing to those does **not** enable or disable the channels, despite many emulators behaving as if.
 
