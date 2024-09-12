@@ -45,4 +45,17 @@ with one large and one small plug though.
 
 ## External Power Supply
 
-...
+The Game Boy can be powered by an external supply through a coaxial (or *barrel*) power connector.
+The appropriate connector and supply depends on the model.
+The table below describes the physical connector (barrel outer and inner diameter) and the electrical requirements for each model:
+
+Model | Outer Dia. | Inner Dia. | Voltage |  Load | Centre Polarity
+------|------------|------------|---------|-------|-------------
+  DMG |     3.5 mm |    1.35 mm |  6 V DC | 0.7 W | Negative (-)
+  MGB |    2.35 mm |     0.7 mm |  3 V DC | 0.7 W | Positive (+)
+  CGB |    2.35 mm |     0.7 mm |  3 V DC | 0.6 W | Positive (+)
+
+- Polarity is listed as the sign of the inner/centre contact. The outer contact is always the opposite sign.
+- The CGB and DMG specify the voltage and polarity on the case, near the connector. The MGB lists the voltage but not the polarity.
+- The dimensions of the MGB/CGB connector match a Japanese standard connector (JEITA RC-5320A JSAP1, formerly EIAJ-01).
+- The listed load in watts is taken from the back label of each model.
