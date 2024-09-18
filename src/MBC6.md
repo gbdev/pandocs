@@ -97,13 +97,18 @@ The commands and access sequences are as follows, were X refers to
 either 4 or 6 and Y to 5 or 7, depending on the bank region:
 
 ```
-------------- ------------- ------------- ------------- ------------- ------------- ------------------------------------------------
-2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    ?:????=$30    Erase sector\* (set 128 KiB region to $FFs)
-2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    2:Y555=$10    Erase chip\* (set entire flash to $FFs)
-2:Y555=$AA    1:XAAA=$55    2:Y555=$90                                              ID mode (reads out JEDEC ID (C2,81) at $X000)
-2:Y555=$AA    1:XAAA=$55    2:Y555=$A0                                              Program mode\*
-?:????=$F0                                                                          Exit ID, erase or program mode
-------------- ------------- ------------- ------------- ------------- ------------- ------------------------------------------------
+------------- ------------- ------------- ------------- ------------- ------------- ---------------------------------------------------
+2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    ?:????=$30    Erase sector* (set 128 KiB region to $FFs)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    2:Y555=$10    Erase chip* (set entire 1 MiB to $FFs)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$60    2:Y555=$AA    1:XAAA=$55    2:Y555=$04    Erase hidden region* (set hidden 256 bytes to $FFs)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$90                                              ID mode (reads out JEDEC ID (C2,81) at $XXX0,$XXX1)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$77    2:Y555=$AA    1:XAAA=$55    2:Y555=$77    Read hidden region
+2:Y555=$AA    1:XAAA=$55    2:Y555=$A0                                              Program mode*
+2:Y555=$AA    1:XAAA=$55    2:Y555=$60    2:Y555=$AA    1:XAAA=$55    2:Y555=$E0    Program mode for hidden region*
+2:Y555=$AA    1:XAAA=$55    2:Y555=$60    2:Y555=$AA    1:XAAA=$55    2:Y555=$40    Unprotect sector 0*
+2:Y555=$AA    1:XAAA=$55    2:Y555=$60    2:Y555=$AA    1:XAAA=$55    2:Y555=$20    Protect sector 0*
+?:????=$F0                                                                          Exit any of the commands above
+------------- ------------- ------------- ------------- ------------- ------------- ---------------------------------------------------
 ```
 
 Commands marked with \* require the Write Enable bit to be 1. These will
@@ -111,18 +116,26 @@ make the flash read out status bytes instead of values. A status of $80
 means the operation has finished and you should exit the mode using the
 $F0 command. A status of $10 indicates a timeout.
 
-Programming must be done by first erasing a sector, activating write
+Programming must be done by first erasing a sector, activating program
 mode, writing out 128 bytes (aligned), then writing any value (except
 $F0) to the final address again to commit the write, waiting for the
 status to indicate completion, and writing $F0 to any address to exit
-program mode. If a sector is not erased first programming will not work
+program mode. If a sector is not erased first, programming will not work
 properly. In some cases it will only allow the stored bytes to be anded
 instead of replaced; in others it just won't work at all. The only way
 to set the bits back to 1 is to erase the sector entirely. It is
 recommended to check the flash to make sure all bytes were written
 properly and re-write (without erasing) the 128 byte block if some bits
-didn't get set to 0 properly. After writing all blocks in a sector
+didn't get set to 0 properly. After writing all blocks in a sector,
 Flash Write Enable should be set to 0.
+
+In addition to the 1 MiB, the flash has a hidden 256 byte region that can
+be made accessible by the read hidden region command.
+
+Erasing and programming the hidden 256 byte region works the same as for
+the "main" flash, just use the dedicated commands instead. It also needs
+to be programmed in 128 byte chunks, so the program hidden region command
+needs to be used twice to program the whole 256 bytes.
 
 The last byte of the erase sector command needs to be written to an
 address that lies within the sector that you want to erase. There are
@@ -133,6 +146,14 @@ number. Therefore, for erasing sector 2, before writing the last byte
 ($30), write 32 to $2000 to select the bank, and then write $30 to
 $4000 or any other address between $4000-$5FFF, the lower address bits
 are not relevant.
+
+The erase chip command erases the whole 1 MiB flash. The 256 byte hidden
+region is **not** erased by the erase chip command. If sector 0 is
+protected, only sectors 1 to 7 are erased.
+
+Sector 0 (the first 128 KiB of the flash) can be protected from erasure
+and programming, using the protect/unprotect sector 0 commands. The state
+of the protection is stored non-volatile.
 
 ## External links
 
