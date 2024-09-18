@@ -8,8 +8,8 @@ which uses the Mobile Adapter to connect to
 the web to download mini-games onto the local flash. Both ROM banks and
 both RAM banks are views into the same ROM and RAM, but with separately
 adjustable offsets. Since the banked regions are smaller the effective
-number of banks is twice what it usually would be; 8 kB ROM banks
-instead of 16 kB and 4 kB RAM banks instead of 8 kB.
+number of banks is twice what it usually would be; 8 KiB ROM banks
+instead of 16 KiB and 4 KiB RAM banks instead of 8 KiB.
 
 ## Memory
 
