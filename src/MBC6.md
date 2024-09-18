@@ -126,7 +126,7 @@ Flash Write Enable should be set to 0.
 
 The last byte of the erase sector command needs to be written to an
 address that lies within the sector that you want to erase. There are
-eight sectors, 128 KiB each. For example, to erase sector 2, the last
+eight sectors, 128 KiB each. E.g., to erase sector 2, the last
 byte ($30) has to be written to address $40000. The bank number for
 that address can be calculated like this: 2 \* 16, where 2 is the sector
 number. Therefore, for erasing sector 2, before writing the last byte
