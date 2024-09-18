@@ -32,7 +32,7 @@ additional-css = [
 	"custom/style.css",
 ]
 # rgbasm.min.js gets injected into highlight.js by the renderer
-curly-quotes = true
+smart-punctuation = true
 print = { enable = true }
 fold = { enable = true, level = 0 }
 git-repository-url = "https://github.com/gbdev/pandocs"

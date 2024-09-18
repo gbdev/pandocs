@@ -41,10 +41,15 @@ jobs:
       with:
         path: pandocs
 
-    - name: Install mdbook
-      uses: peaceiris/actions-mdbook@v1
+    - name: Cache Rust build dir
+      uses: Swatinem/rust-cache@v2
       with:
-        mdbook-version: 0.4.33
+        workspaces: pandocs/target/
+
+    - name: Install mdbook
+      uses: peaceiris/actions-mdbook@v2
+      with:
+        mdbook-version: 0.4.40
     
     - name: Install static-sitemap-cli
       run: npm install static-sitemap-cli
@@ -60,14 +65,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r pandocs/requirements.txt
-
-    - name: Cache build dir
-      uses: actions/cache@v3
-      with:
-        path: pandocs/target/
-        key: ${{ runner.os }}-build-${{ hashFiles('pandocs/Cargo.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-build-
 
     - name: Build
       working-directory: pandocs/
