@@ -308,7 +308,7 @@ Period changes (written to `NR33` or `NR34`) only take effect after the followin
 - **Trigger** (*Write-only*): Writing any value to `NR34` with this bit set [triggers](<#Triggering>) the channel, causing the
   following to occur:
   * Ch3 is enabled.
-  * If length timer expired it is reset.
+  * If the length timer expired it is reset.
   * The period divider is set to the contents of `NR33` and `NR34`.
   * Volume is set to contents of `NR32` initial volume.
   * Wave RAM index is reset, but its *not* refilled.
