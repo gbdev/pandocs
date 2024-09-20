@@ -397,7 +397,7 @@ HEX   | Licensee
 `EA`  | [King Records](https://en.wikipedia.org/wiki/King_Records_(Japan))
 `EB`  | [Atlus](https://en.wikipedia.org/wiki/Atlus)
 `EC`  | Epic/[Sony Records](https://en.wikipedia.org/wiki/Sony_Music)  
-`EE`  | [IGS](https://www.igs-entertainment.co/)
+`EE`  | [IGS](http://web.archive.org/web/20240825224157/https://igs-entertainment.co/)
 `F0`  | [A Wave](https://www.mobygames.com/company/9123/a-wave-inc/)         
 `F3`  | [Extreme Entertainment](https://www.mobygames.com/company/4221/extreme-entertainment-group-inc)
 `FF`  | [LJN](https://en.wikipedia.org/wiki/LJN)
