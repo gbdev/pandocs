@@ -415,7 +415,7 @@ If the bit shifted out is a 0, the channel emits a 0; otherwise, it emits the vo
 - **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel, causing the
   following to occur:
   * Ch4 is enabled.
-  * If length timer expired it is reset.
+  * If the length timer expired it is reset.
   * Envelope timer is reset.
   * Volume is set to contents of `NR42` initial volume.
   * [LFSR bits](<#Noise channel (CH4)>) are reset.
