@@ -141,7 +141,7 @@ A channel can be deactivated in one of the following ways:
 ### Pulse channel with sweep (CH1)
 
 The first square channel has a frequency sweep unit, controlled by `NR10`. This internally has a "sweep timer", "enabled flag",
-and period/frequency "shadow register". The "enabled flag" controls if the sweep unit is active,
+and a period/frequency "shadow register". The "enabled flag" controls if the sweep unit is active,
 the "sweep timer" is clocked at 128 Hz by the [DIV-APU](#DIV-APU), and the "shadow register" holds the current output period.
 
 During a [trigger event](#Triggering), several things occur:
