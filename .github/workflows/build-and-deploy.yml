@@ -5,36 +5,54 @@ on:
     paths-ignore:
       - 'historical/**'
       - 'mediawiki-exporter/**'
-      - 'README.MD'
+      - 'README.md'
       - 'LICENSE'
   pull_request:
     paths-ignore:
       - 'historical/**'
       - 'mediawiki-exporter/**'
-      - 'README.MD'
+      - 'README.md'
       - 'LICENSE'
+  schedule:
+    - cron: '42 16 1/7 * *'
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 env:
-  MDBOOK_LINKCHECK_VER: 0.7.4
+  MDBOOK_LINKCHECK_VER: 0.7.7
 
 jobs:
   build:
+    name: Build Pan Docs
     runs-on: ubuntu-latest
     steps:
     - name: Checkout pandocs
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         path: pandocs
 
     - name: Install mdbook
       uses: peaceiris/actions-mdbook@v1
       with:
-        mdbook-version: 0.4.8
+        mdbook-version: 0.4.33
+    
+    - name: Install static-sitemap-cli
+      run: npm install static-sitemap-cli
 
     # FIXME: Keep this up to date
     - name: Install mdbook-linkcheck
       run: | # `-L` because GitHub performs a redirection
-        curl -L -o mdbook-linkcheck.zip "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v$MDBOOK_LINKCHECK_VER/mdbook-linkcheck.v$MDBOOK_LINKCHECK_VER.x86_64-unknown-linux-gnu.zip"
+        curl -L -o mdbook-linkcheck.zip "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v${MDBOOK_LINKCHECK_VER}/mdbook-linkcheck.x86_64-unknown-linux-gnu.zip"
         unzip mdbook-linkcheck.zip mdbook-linkcheck
         chmod +x mdbook-linkcheck
 
@@ -44,7 +62,7 @@ jobs:
         pip install -r pandocs/requirements.txt
 
     - name: Cache build dir
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: pandocs/target/
         key: ${{ runner.os }}-build-${{ hashFiles('pandocs/Cargo.lock') }}
@@ -58,43 +76,27 @@ jobs:
         MDBOOK_OUTPUT__LINKCHECK__COMMAND: "../mdbook-linkcheck"
       run: |
         mdbook build
+  
+    - name: Generate sitemap
+      run: |
+        cd pandocs/docs/pandocs/
+        npx sscli --no-clean --base https://gbdev.io/pandocs
 
-    - name: Store final build
-      uses: actions/upload-artifact@v2
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: Build output
         path: pandocs/docs/pandocs/
-        if-no-files-found: error
 
   deploy:
+    name: Deploy to GitHub pages
+    # Do not run this unless *pushing* to `master`.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    # Do not run this unless *pushing* (`heads`) to `master`
-    if: github.ref == 'refs/heads/master'
     steps:
-    - name: Checkout pandocs/gh-pages
-      uses: actions/checkout@v2
-      with:
-        path: pandocs
-        ref: gh-pages
-
-    - name: Delete all current files
-      run: |
-        rm -vrf pandocs/*
-
-    - name: Unpack build
-      uses: actions/download-artifact@v2
-      with:
-        name: Build output
-        path: pandocs/
-
-    - name: Deploy
-      working-directory: pandocs/
-      run: |
-        git config --local user.name "GitHub Action"
-        git config --global user.email "community@gbdev.io"
-        git remote -v
-        git branch -v
-        git add -A
-        git commit -am 'Update build'
-        git push -v
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2

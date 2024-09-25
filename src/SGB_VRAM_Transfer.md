@@ -10,18 +10,18 @@ Game Boy display memory during the next frame.
 
 ## Transfer Data
 
-Normally, transfer data should be stored at 8000h-8FFFh in Game Boy VRAM,
+Normally, transfer data should be stored at 8000-8FFF in Game Boy VRAM,
 even though the SNES receives the data in from display scanlines, it
 will automatically re-produce the same ordering of bits and bytes, as
-being originally stored at 8000h-8FFFh in Game Boy memory.
+being originally stored at 8000-8FFF in Game Boy memory.
 
 ## Preparing the Display
 
 The above method works only when recursing the following things: BG Map
-must display unsigned characters 00h-FFh on the screen; 00h..13h in
-first line, 14h..27h in next line, etc. The Game Boy display must be
-enabled, the display may not be scrolled, OBJ sprites should not overlap
-the background tiles, the BGP palette register must be set to E4h.
+must display unsigned characters $00-$FF on the screen; $00..$13 in
+first line, $14..$27 in next line, etc. The Game Boy display must be
+enabled, the display may not be scrolled, objects (sprites) should not overlap
+the background tiles, the BGP palette register must be set to $E4.
 
 ## Transfer Time
 
@@ -38,6 +38,6 @@ multiple chunks.
 The display will contain "garbage" during the transfer, this
 dirt-effect can be avoided by freezing the screen (in the state which
 has been displayed before the transfer) by using the MASK_EN command.
-Of course, this works only when actually executing the game on a SGB
+Of course, this works only when actually executing the game on an SGB
 (and not on handheld Game Boy systems), it'd be thus required to detect
 the presence of SGB hardware before blindly sending VRAM data.

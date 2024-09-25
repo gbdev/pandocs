@@ -1,100 +1,133 @@
 
-# VRAM Sprite Attribute Table (OAM)
+# Object Attribute Memory (OAM)
 
-The Game Boy PPU can display up to 40 sprites either in 8x8 or
-in 8x16 pixels. Because of a limitation of hardware, only ten sprites
-can be displayed per scan line. Sprite tiles have the same format as
-BG tiles, but they are taken from the Sprite Tiles Table located at
+The Game Boy PPU can display up to 40 movable objects (or sprites), each 8×8 or
+8×16 pixels. Because of a limitation of hardware, only ten objects
+can be displayed per scanline. Object tiles have the same format as
+BG tiles, but they are taken from tile blocks 0 and 1 located at
 $8000-8FFF and have unsigned numbering.
 
-Sprite attributes reside in the Sprite Attribute Table (OAM - Object
-Attribute Memory) at \$FE00-FE9F. Each of the 40 entries consists of
+Object attributes reside in the object attribute memory (OAM) at \$FE00-FE9F.
+(This corresponds to the sprite attribute table on a TMS9918 VDP.)
+Each of the 40 entries consists of
 four bytes with the following meanings:
 
-## Byte0 - Y Position
+## Byte 0 — Y Position
 
-Y = Sprite's vertical position on the screen + 16. So for example,
-Y=0 hides a sprite,
-Y=2 hides a 8x8 sprite but displays the last two rows of a 8x16 sprite,
-Y=16 displays a sprite at the top of the screen,
-Y=144 displays a 8x16 sprite aligned with the bottom of the screen,
-Y=152 displays a 8x8 sprite aligned with the bottom of the screen,
-Y=154 displays the first six rows of a sprite at the bottom of the screen,
-Y=160 hides a sprite.
+<img class="pixelated" src="imgs/Objects_vertical_position.png" alt="Interpretation of object Y coordinates">
 
-## Byte1 - X Position
+Y = Object's vertical position on the screen + 16. So for example:
 
-X = Sprite's horizontal position on the screen + 8. This works similarly
-to the examples above, except that the width of a sprite is always 8. An
-off-screen value (X=0 or X\>=168) hides the sprite, but the sprite still
-affects the priority ordering, thus other sprites with lower priority may be
-left out due to the ten sprites limit per scan-line.
-A better way to hide a sprite is to set its Y-coordinate off-screen.
+- Y=0 hides an object,
+- Y=2 hides an 8×8 object but displays the last two rows of an 8×16 object,
+- Y=16 displays an object at the top of the screen,
+- Y=144 displays an 8×16 object aligned with the bottom of the screen,
+- Y=152 displays an 8×8 object aligned with the bottom of the screen,
+- Y=154 displays the first six rows of an object at the bottom of the screen,
+- Y=160 hides an object.
 
-## Byte 2 - Tile Index
+## Byte 1 — X Position
 
-In 8x8 mode (LCDC bit 2 = 0), this byte specifies the sprite's only tile index ($00-$FF).
-This unsigned value selects a tile from the memory area at $8000-$8FFF.
+X = Object's horizontal position on the screen + 8. This works similarly
+to the examples above, except that the width of an object is always 8. An
+off-screen value (X=0 or X\>=168) hides the object, but the object still
+contributes to the limit of ten objects per scanline.
+This can cause objects later in OAM not to be drawn on that line.
+A better way to hide an object is to set its Y-coordinate off-screen.
+
+## Byte 2 — Tile Index
+
+In 8×8 mode (LCDC bit 2 = 0), this byte specifies the object's only tile index (\$00-\$FF).
+This unsigned value selects a tile from the memory area at \$8000-\$8FFF.
 In CGB Mode this could be either in
 VRAM bank 0 or 1, depending on bit 3 of the following byte.
-In 8x16 mode (LCDC bit 2 = 1), the memory area at $8000-$8FFF is still interpreted
-as a series of 8x8 tiles, where every 2 tiles form a sprite. In this mode, this byte
-specifies the index of the first (top) tile of the sprite. This is enforced by the
-hardware: the least significant bit of the tile index is ignored; that is, the top 8x8
-tile is "NN & $FE", and the bottom 8x8 tile is "NN | $01".
+In 8×16 mode (LCDC bit 2 = 1), the memory area at \$8000-\$8FFF is still interpreted
+as a series of 8×8 tiles, where every 2 tiles form an object. In this mode, this byte
+specifies the index of the first (top) tile of the object. This is enforced by the
+hardware: the least significant bit of the tile index is ignored; that is, the top 8×8
+tile is "NN & \$FE", and the bottom 8×8 tile is "NN | \$01".
 
-## Byte3 - Attributes/Flags:
+## Byte 3 — Attributes/Flags
 
-```
- Bit7   BG and Window over OBJ (0=No, 1=BG and Window colors 1-3 over the OBJ)
- Bit6   Y flip          (0=Normal, 1=Vertically mirrored)
- Bit5   X flip          (0=Normal, 1=Horizontally mirrored)
- Bit4   Palette number  **Non CGB Mode Only** (0=OBP0, 1=OBP1)
- Bit3   Tile VRAM-Bank  **CGB Mode Only**     (0=Bank 0, 1=Bank 1)
- Bit2-0 Palette number  **CGB Mode Only**     (OBP0-7)
-```
+{{#bits 8 >
+  "Attributes"  7:"Priority" 6:"Y flip" 5:"X flip" 4:"DMG palette" 3:"Bank" 2-0:"CGB palette";
+}}
 
-## Sprite Priorities and Conflicts
+- **Priority**: `0` = No, `1` = BG and Window colors 1–3 are drawn over this OBJ
+- **Y flip**: `0` = Normal, `1` = Entire OBJ is vertically mirrored
+- **X flip**: `0` = Normal, `1` = Entire OBJ is horizontally mirrored
+- **DMG palette** *\[Non CGB Mode only\]*: `0` = OBP0, `1` = OBP1
+- **Bank** *\[CGB Mode Only\]*: `0` = Fetch tile from VRAM bank 0, `1` = Fetch tile from VRAM bank 1
+- **CGB palette** *\[CGB Mode Only\]*: Which of OBP0–7 to use
 
-During each scanline's OAM scan, the PPU compares LY to each
-sprite's Y position to find the 10 sprites on that line that appear
-first in OAM (\$FE00-\$FE03 being the first). It discards the rest,
-displaying only those 10 sprites on that line.
-To keep unused sprites from affecting onscreen sprites, set their Y
-coordinate to Y = 0 or Y \>= 160 (144 + 16) (Note: Y \<= 8 also works
-if sprite size is set to 8x8). Just setting the X coordinate to X = 0 or
-X \>= 168 (160 + 8) on a sprite will hide it, but it will still count
-towards the 10 sprite limit per scanline, possibly causing another sprite
-that appears later in OAM to be left undisplayed.
+## Writing data to OAM
 
-If using BGB, in the VRAM viewer - OAM tab, hover your
-mouse over the small screen to highlight the sprites on a line. Sprites
-hidden due to the limitation will be highlighted in red.
+The recommended method is to write the data to a buffer in normal RAM
+(typically WRAM) first, then to copy that buffer to OAM using
+[the DMA transfer functionality](<#OAM DMA Transfer>).
 
-When these 10 sprites overlap, the highest priority one will appear
-above all others, etc. (Thus, no Z-fighting.) In Non-CGB mode, the smaller the X
-coordinate, the higher the priority. When X coordinates are the same, sprites located
-first in OAM have a higher priority. In CGB mode, only the sprite's location in OAM
-determines its priority.
+While it is also possible to write data directly to the OAM area
+[by accessing it normally](<#OAM (memory area at $FE00-$FE9F) is accessible during Modes 0-1>),
+this only works [during the HBlank and VBlank periods](<#PPU modes>).
 
-::: tip NOTE
+## Object Priority and Conflicts
 
-Priority among opaque pixels that overlap is determined using the rules explained
-above. After the pixel with the highest priority has been determined,
-the "BG and Window over OBJ" attribute of *only* that pixel is honored (or disregarded if
-this is a transparent pixel, i.e. a pixel with color ID zero). Thus if a sprite with a
-higher priority but with "BG and Window over OBJ" toggled on
-overlaps a sprite with a lower priority and a nonzero background
-pixel, the background pixel is displayed regardless of the
-lower-priority sprite's "BG and Window over OBJ" attribute.
+There are two kinds of "priorities" as far as objects are concerned.
+The first one defines which objects are ignored when there are more than 10 on a
+given scanline. The second one decides which object is displayed on top when some
+overlap (the Game Boy being a 2D console, there is no Z coordinate).
+
+### Selection priority
+
+During each scanline's OAM scan, the PPU compares [`LY`](<#FF44 — LY: LCD Y coordinate \[read-only\]>)
+([using `LCDC` bit 2 to determine their size](<#LCDC.2 — OBJ size>)) to each
+object's Y position to select up to 10 objects to be drawn on that line.
+The PPU scans OAM sequentially (from $FE00 to $FE9F), selecting the first (up to)
+10 suitably-positioned objects.
+
+Since the PPU only checks the Y coordinate to select objects, even
+off-screen objects count towards the 10-objects-per-scanline limit.
+Merely setting an object's X coordinate to X&nbsp;=&nbsp;0 or X&nbsp;≥&nbsp;168
+(160&nbsp;+&nbsp;8) will hide it, but it will still count towards the
+limit, possibly causing another object later in OAM not
+to be drawn. To keep off-screen objects from affecting on-screen ones, make
+sure to set their Y coordinate to Y&nbsp;=&nbsp;0 or Y&nbsp;≥&nbsp;160
+(144&nbsp;+&nbsp;16).
+(Y&nbsp;≤&nbsp;8 also works if [object size](<#LCDC.2 — OBJ size>) is set to 8×8.)
+
+### Drawing priority
+
+When **opaque** pixels from two different objects overlap, which pixel ends up
+being displayed is determined by another kind of priority: the pixel belonging
+to the higher-priority object wins. However, this priority is determined
+differently when in CGB mode.
+
+- **In Non-CGB mode**, the smaller the X coordinate, the higher the priority.
+  When X coordinates are identical, the object located first in OAM has higher
+  priority.
+- **In CGB mode**, only the object's location in OAM determines its priority.
+  The earlier the object, the higher its priority.
+
+:::tip Interaction with "BG over OBJ" flag
+
+Object drawing priority and ["BG over OBJ"](<#BG Map Attributes (CGB Mode only)>) interact in a non-intuitive way.
+
+Internally, the PPU first resolves priority between objects to
+pick an "object pixel", which is the first non-transparent pixel encountered
+when iterating over objects sorted by their drawing priority.
+The "BG over OBJ" attribute is **never** considered in this process.
+
+Only *after* object priority is resolved, the "object pixel" has the "BG over
+OBJ" attribute of its object checked to determine whether it should be drawn
+over the background.
+This means that an object with a higher priority but with "BG over OBJ" enabled
+will sort of "mask" lower-priority objects, even if those have "BG over OBJ"
+disabled.
+
+This can be exploited to only hide parts of an object behind the background
+([video demonstration](https://youtu.be/B8sJGgCVvnk)).
+A similar behaviour [can be seen on the NES](https://forums.nesdev.org/viewtopic.php?f=10&t=16861).
+
+**In CGB Mode**, BG vs. OBJ priority is declared in more than one register, [please see this page](<#BG-to-OBJ Priority in CGB Mode>) for more details.
 
 :::
-
-## Writing Data to OAM Memory
-
-The recommended method is to write the data to normal RAM first, and to
-copy that RAM to OAM by using the DMA transfer function, initiated
-through DMA register (FF46). Besides, it is also possible to
-write data directly to the OAM area by using normal LD instructions, but this
-works only during the HBlank and VBlank periods. The current state of
-the LCD controller can be read out from the STAT register (FF41).

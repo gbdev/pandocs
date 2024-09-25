@@ -10,11 +10,19 @@ build-dir = "docs"
 create-missing = true # This is kept for convenience, but CI sets it to false
 use-default-preprocessors = false
 
-# Custom preprocessor for internal links processing
+[preprocessor.graph_gen]
+command = "src/imgs/src/preproc.py"
+before = [ "links" ] # This generates some of the files that get `{{#include}}`d
+
+# `{{#include }}` etc. resolution
+[preprocessor.links]
+
+# Custom preprocessor for internal links processing and other custom markup
 [preprocessor.pandocs]
 command = "cargo run -p pandocs-preproc --locked --release --"
+after = [ "links" ]
 
-# Custom back-end for our custom markup
+# Custom back-end to generate the single-file version and scrub off some generated files
 [output.pandocs]
 command = "cargo run -p pandocs-renderer --locked --release --"
 
@@ -35,7 +43,10 @@ site-url = "/pandocs/"
 follow-web-links = true
 traverse-parent-directories = false
 optional = true
-# Do not check the "this was generated from commit N" link, as the commit may not have been pushed yet
+warning-policy = "warn"
 exclude = [
-	'https://github\.com/gbdev/pandocs/tree/'
+	'https://github\.com/gbdev/pandocs/tree/', # Do not check the "this was generated from commit N" link, as the commit may not have been pushed yet
+	'print.html', # Do not check the print page, as it is generated separately
+	'single.html', # Do not check the single page, as it is generated separately
+	'http[s]*://problemkaputt\.de', # Skip checking problemkaputt.de, as connection to this domain is generally unreliable
 ]

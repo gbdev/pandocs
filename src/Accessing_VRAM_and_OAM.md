@@ -1,10 +1,10 @@
 
 # Accessing VRAM and OAM
 
-::: warning
+:::warning Warning
 
 When the PPU is drawing the screen it is directly reading
-from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).
+from Video Memory (VRAM) and from the Object Attribute Memory (OAM).
 During these periods the Game Boy CPU may not access VRAM and OAM.
 That means that any attempts to write to VRAM or OAM are ignored (data
 remains unchanged). And any attempts to read from VRAM or OAM will return
@@ -87,7 +87,7 @@ cycles after completion of the procedure. If we need to wait for the VBlank peri
 better to skip the whole procedure, and use a STAT interrupt instead. In any case,
 doing a DMA transfer is more efficient than writing to OAM directly.
 
-::: tip NOTE
+:::tip NOTE
 
 While the display is disabled, both VRAM and OAM are accessible.
 The downside is that the screen is blank (white) during this

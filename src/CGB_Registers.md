@@ -1,7 +1,7 @@
 # CGB Registers
 
 This chapter describes only Game Boy Color (GBC or CGB) registers that didn't
-fit into normal categories - most CGB registers are described in the
+fit into normal categories — most CGB registers are described in the
 chapter about Video Display (Color Palettes, VRAM Bank, VRAM DMA
 Transfers, and changed meaning of Bit 0 of LCDC Control register). Also,
 a changed bit is noted in the chapter about the Serial/Link port.
@@ -9,17 +9,17 @@ a changed bit is noted in the chapter about the Serial/Link port.
 ## Unlocking CGB functions
 
 When using any CGB registers (including those in the Video/Link
-chapters), you must first unlock CGB features by changing byte 0143h in
-the cartridge header. Typically use a value of 80h for games which
-support both CGB and monochrome Game Boy systems, and C0h for games which work
+chapters), you must first unlock CGB features by changing byte 0143 in
+the cartridge header. Typically, use a value of $80 for games which
+support both CGB and monochrome Game Boy systems, and $C0 for games which work
 on CGBs only. Otherwise, the CGB will operate in monochrome "Non CGB"
 compatibility mode.
 
 ## Detecting CGB (and GBA) functions
 
-CGB hardware can be detected by examing the CPU accumulator (A-register)
-directly after startup. A value of 11h indicates CGB (or GBA) hardware,
-if so, CGB functions can be used (if unlocked, see above). When A=11h,
+CGB hardware can be detected by examining the CPU accumulator (A-register)
+directly after startup. A value of $11 indicates CGB (or GBA) hardware,
+if so, CGB functions can be used (if unlocked, see above). When A=$11,
 you may also examine Bit 0 of the CPUs B-Register to separate between
 CGB (bit cleared) and GBA (bit set), by that detection it is possible to
 use "repaired" color palette data matching for GBA displays.
@@ -28,7 +28,7 @@ use "repaired" color palette data matching for GBA displays.
 
 ### LCD VRAM DMA Transfers
 
-#### FF51 - HDMA1 (New DMA Source, High) (W), FF52 - HDMA2 (New DMA Source, Low) (W) - CGB Mode Only
+#### FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]
 
 These two registers specify the address at which the transfer will read
 data from. Normally, this should be either in ROM, SRAM or WRAM, thus
@@ -38,13 +38,13 @@ address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
 
-#### FF53 - HDMA3 (New DMA Destination, High) (W), FF54 - HDMA4 (New DMA Destination, Low) (W) - CGB Mode Only
+#### FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
 
-#### FF55 - HDMA5 (New DMA Length/Mode/Start) (W) - CGB Mode Only
+#### FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start
 
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
@@ -54,11 +54,11 @@ bits of the address are ignored (treated as zero), the upper 3 bits are
 ignored either (destination is always in VRAM).
 
 Writing to this register starts the transfer, the lower 7 bits of which
-specify the Transfer Length (divided by 10h, minus 1), that is, lengths of
-10h-800h bytes can be defined by the values 00h-7Fh. The upper bit
+specify the Transfer Length (divided by $10, minus 1), that is, lengths of
+$10-$800 bytes can be defined by the values $00-$7F. The upper bit
 indicates the Transfer Mode:
 
-##### Bit 7 = 0 - General Purpose DMA
+##### Bit 7 = 0 — General-Purpose DMA
 
 When using this transfer method,
 all data is transferred at once. The execution of the program is halted
@@ -67,11 +67,11 @@ blindly attempts to copy the data, even if the LCD controller is
 currently accessing VRAM. So General Purpose DMA should be used only if
 the Display is disabled, or during VBlank, or (for rather short blocks)
 during HBlank. The execution of the program continues when the transfer
-has been completed, and FF55 then contains a value of FFh.
+has been completed, and FF55 then contains a value of $FF.
 
-##### Bit 7 = 1 - HBlank DMA
+##### Bit 7 = 1 — HBlank DMA
 
-The HBlank DMA transfers 10h bytes of
+The HBlank DMA transfers $10 bytes of
 data during each HBlank, that is, at LY=0-143, no data is transferred during
 VBlank (LY=144-153), but the transfer will then continue at LY=00. The
 execution of the program is halted during the separate transfers, but
@@ -81,21 +81,21 @@ block. Note that the program should not change the Destination VRAM bank
 bankable memory) until the transfer has completed! (The transfer should
 be paused as described below while the banks are switched)
 
-Reading from Register FF55 returns the remaining length (divided by 10h,
-minus 1), a value of 0FFh indicates that the transfer has completed. It
+Reading from Register FF55 returns the remaining length (divided by $10,
+minus 1), a value of $FF indicates that the transfer has completed. It
 is also possible to terminate an active HBlank transfer by writing zero
 to Bit 7 of FF55. In that case reading from FF55 will return how many
 \$10 "blocks" remained (minus 1) in the lower 7 bits, but Bit 7 will
 be read as "1". Stopping the transfer doesn't set HDMA1-4 to \$FF.
 
-::: warning
+:::warning WARNING
 
 HBlank DMA should not be started (write to FF55) during a HBlank
 period (STAT mode 0).
 
 If the transfer's destination address overflows, the transfer stops
-prematurely. \[Note: what's the state of the registers if this happens
-?\]
+prematurely.
+The status of the registers if this happens still needs to be [investigated](https://github.com/gbdev/pandocs/issues/364).
 
 :::
 
@@ -122,9 +122,9 @@ Speed Mode).
 The CGB has twice the VRAM of the DMG, but it is banked and either bank
 has a different purpose.
 
-#### FF4F - VBK - CGB Mode Only - VRAM Bank (R/W)
+#### FF4F — VBK (CGB Mode only): VRAM bank
 
-This register can be written to to change VRAM banks. Only bit 0
+This register can be written to change VRAM banks. Only bit 0
 matters, all other bits are ignored.
 
 #### VRAM bank 1
@@ -137,19 +137,21 @@ corresponding Tile Maps.
 Reading from this register will return the number of the currently
 loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
-### FF4D - KEY1 - CGB Mode Only - Prepare Speed Switch
+### FF4D — KEY1 (CGB Mode only): Prepare speed switch
 
-```
- Bit 7: Current Speed     (0=Normal, 1=Double) (Read Only)
- Bit 0: Prepare Speed Switch (0=No, 1=Prepare) (Read/Write)
-```
+{{#bits 8 >
+   "KEY1" 7:"Current speed" 0:"Switch armed"
+}}
+
+- **Current speed** (*Read-only*): `0` = Single-speed mode, `1` = Double-speed mode
+- **Switch armed** (*Read/Write*): `0` = No, `1` = Armed
 
 This register is used to prepare the Game Boy to switch between CGB
 Double Speed Mode and Normal Speed Mode. The actual speed switch is
 performed by executing a `stop` instruction after Bit 0 has been set. After
 that, Bit 0 will be cleared automatically, and the Game Boy will operate
 at the "other" speed. The recommended speed switching procedure in
-pseudo code would be:
+pseudocode would be:
 
 ```
 IF KEY1_BIT7 != DESIRED_SPEED THEN
@@ -166,7 +168,7 @@ would be recommended to use Single Speed whenever possible.
 
 In Double Speed Mode the following will operate twice as fast as normal:
 
-- The CPU (2.10 MHz, so 1 cycle = approx. 0.5 µs)
+- The CPU (2.10 MHz, so 1 M-cycle = approx. 0.5 µs)
 - Timer and Divider Registers
 - Serial Port (Link Cable)
 - DMA Transfer to OAM
@@ -177,30 +179,32 @@ And the following will keep operating as usual:
 - HDMA Transfer to VRAM
 - All Sound Timings and Frequencies
 
-The CPU stops for 2050 cycles (= 8200 clocks) after the `stop` instruction is
+The CPU stops for 2050 M-cycles (= 8200 T-cycles) after the `stop` instruction is
 executed. During this time, the CPU is in a strange state. `DIV` does not tick, so
 *some* audio events are not processed. Additionally, VRAM/OAM/... locking is "frozen", yielding
-different results depending on the [STAT mode](<#FF41 - STAT (LCD Status) (R/W)>) it's started in:
+different results depending on the [PPU mode](<#PPU modes>) it's started in:
 
-- HBlank / VBlank (Mode 0 / Mode 1): The PPU cannot access any videomemory, and produces black pixels
-- OAM scan (Mode 2): The PPU can access VRAM just fine, but not OAM, leading to rendering background, but not sprites
+- HBlank / VBlank (Mode 0 / Mode 1): The PPU cannot access any video memory, and produces black pixels
+- OAM scan (Mode 2): The PPU can access VRAM just fine, but not OAM, leading to rendering background, but not objects (sprites)
 - Rendering (Mode 3): The PPU can access everything correctly, and so rendering is not affected
 
 TODO: confirm whether interrupts can occur (just the joypad one?) during the pause, and consequences if so
 
-### FF56 - RP - CGB Mode Only - Infrared Communications Port
+### FF56 — RP (CGB Mode only): Infrared communications port
 
 This register allows to input and output data through the CGBs built-in
 Infrared Port. When reading data, bit 6 and 7 must be set (and obviously
-Bit 0 must be cleared - if you don't want to receive your own Game Boy's
+Bit 0 must be cleared — if you don't want to receive your own Game Boy's
 IR signal). After sending or receiving data you should reset the
-register to 00h to reduce battery power consumption again.
+register to $00 to reduce battery power consumption again.
 
-```
- Bit 0:   Write Data   (0=LED Off, 1=LED On)             (Read/Write)
- Bit 1:   Read Data    (0=Receiving IR Signal, 1=Normal) (Read Only)
- Bit 6-7: Data Read Enable (0=Disable, 3=Enable)         (Read/Write)
-```
+{{#bits 8 >
+   "RP" 7-6:"Read enable" 1:"Receiving" 0:"Emitting"
+}}
+
+- **Read enable** (*Read/Write*): `0` = Disable (bit 1 reads `1`), `3` = Enable
+- **Receiving** (*Read-only*): `0` = Receiving IR signal, `1` = Normal
+- **Emitting** (*Read/Write*): `0` = LED off, `1` = LED on
 
 Note that the receiver will adapt itself to the normal level of IR
 pollution in the air, so if you would send a LED ON signal for a longer
@@ -210,7 +214,7 @@ ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a permanent
 880us LED ON signal. Even though being generally CGB compatible, the GBA
 does not include an infra-red port.
 
-### FF6C - OPRI - CGB Mode Only - Object Priority Mode
+### FF6C — OPRI (CGB Mode only): Object priority mode
 
 This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
@@ -218,29 +222,30 @@ location in OAM. This flag is set by the CGB bios after checking the game's CGB 
 
 OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to KEY0 but STOP hasn't been executed yet, and the write takes effect instantly.
 
-::: warning TO BE VERIFIED
+:::warning TO BE VERIFIED
 
 It does not have an effect, at least not an instant effect, if written to during CGB or DMG mode after the boot ROM has been unmapped.
 It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effect on this register's behavior.
 
 :::
 
-```
-Bit 0: OBJ Priority Mode (0=OAM Priority, 1=Coordinate Priority) (Read/Write)
-```
+{{#bits 8 >
+   "OPRI" 0:"Priority mode"
+}}
 
-### FF70 - SVBK - CGB Mode Only - WRAM Bank
+- **Priority mode** (*Read/Write*): `0` = CGB-style priority, `1` = DMG-style priority
 
-In CGB Mode 32 KBytes internal RAM are available. This memory is divided
-into 8 banks of 4 KBytes each. Bank 0 is always available in memory at
-C000-CFFF, Bank 1-7 can be selected into the address space at D000-DFFF.
+### FF70 — SVBK (CGB Mode only): WRAM bank
 
-```
- Bit 0-2  Select WRAM Bank (Read/Write)
-```
+In CGB Mode, 32 KiB of internal RAM are available.
+This memory is divided into 8 banks of 4 KiB each.
+Bank 0 is always available in memory at C000–CFFF, banks 1–7 can be selected into the address space at D000–DFFF.
 
-Writing a value of 01h-07h will select Bank 1-7, writing a value of 00h
-will select Bank 1 too.
+{{#bits 8 >
+"SVBK" 2-0:"WRAM bank"
+}}
+
+- **WRAM bank** (*Read/Write*): Writing a value will map the corresponding bank to [D000–DFFF](<#Memory Map>), except 0, which maps bank 1 instead.
 
 ## Undocumented registers
 
@@ -249,29 +254,19 @@ unknown (if any). It isn't recommended to use them in your software,
 but you could, for example, use them to check if you are running on an
 emulator or on DMG hardware.
 
-### FF72 - Bits 0-7 (Read/Write), FF73 - Bits 0-7 (Read/Write)
+### FF72–FF73 — Bits 0–7 (CGB Mode only)
 
-Both of these registers are fully read/write. Their initial value is
-$00.
+Both of these registers are fully read/write.
+Their initial value is $00.
 
-### FF74 - Bits 0-7 (Read/Write) - CGB Mode Only
+### FF74 — Bits 0–7 (CGB Mode only)
 
-In CGB mode, this register is fully readable and writable. Its initial
-value is $00.
+In CGB mode, this register is fully readable and writable.
+Its initial value is $00.
 
 Otherwise, this register is read-only, and locked at value $FF.
 
-### FF75 - Bits 4-6 (Read/Write)
+### FF75 — Bits 4–6 (CGB Mode only)
 
-Only bits 4, 5 and 6 of this register are read/write enabled. Their
-initial value is 0.
-
-### FF76 - PCM12 - PCM amplitudes 1 & 2 (Read Only)
-
-This register is read-only. The low nibble is a copy of sound channel
-\#1's PCM amplitude, the high nibble a copy of sound channel \#2's.
-
-### FF77 - PCM34 - PCM amplitudes 3 & 4 (Read Only)
-
-Same, but with channels 3 and 4.
-
+Only bits 4, 5 and 6 of this register are read/write enabled.
+Their initial value is 0.

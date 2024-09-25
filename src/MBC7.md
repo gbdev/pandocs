@@ -2,7 +2,7 @@
 
 MBC7 (Memory Bank Controller 7) is an MBC containing a 2-axis
 accelerometer (ADXL202E) and a 256 byte EEPROM
-([93LC56](http://www.microchip.com/wwwproducts/en/en010904)). A000-BFFF
+([93LC56](https://web.archive.org/web/20230115175018/https://www.microchip.com/en-us/product/93LC56)). A000-BFFF
 does not directly address the EEPROM, as most MBCs do, but rather
 contains several registers that can be read or written one at a time.
 This makes EEPROM access very slow due to needing multiple writes per
@@ -23,20 +23,20 @@ Same as for MBC5. (Bank 0 mapping needs confirmation)
 ### A000-AFFF - RAM Registers (Read/Write)
 
 Must be enabled via 0000 and 4000 region writes (see respective
-sections), otherwise reads read FFh and writes do nothing. Registers are
+sections), otherwise reads read $FF and writes do nothing. Registers are
 addressed through bits 4-7 of the address. Bits 0-3 and 8-11 are
 ignored.
 
 Accelerometer data must be latched before reading. Data is 16-bit and
 centered at the value 81D0. Earth\'s gravity affects the value by
-roughly 70h, with larger acceleration providing a larger range. Maximum
+roughly $70, with larger acceleration providing a larger range. Maximum
 range is unknown.
 
 ### Ax0x/Ax1x - Latch Accelerometer (Write Only)
 
-Write 55h to Ax0x to erase the latched data (reset back to 8000) then
-AAh to Ax1x to latch the accelerometer and update the addressable
-registers. Reads return FFh. Other writes do not appear to do anything
+Write $55 to Ax0x to erase the latched data (reset back to 8000) then
+$AA to Ax1x to latch the accelerometer and update the addressable
+registers. Reads return $FF. Other writes do not appear to do anything
 (Partially unconfirmed). Note that you cannot re-latch the accelerometer
 value without first erasing it; attempts to do so yield no change.
 
@@ -54,7 +54,7 @@ high byte. Reads 8000 before first latching.
 
 ### Ax6x/Ax7x - Unknown
 
-Ax6x always reads 00h and Ax7x always reads FFh. Possibly reserved for Z
+Ax6x always reads $00 and Ax7x always reads $FF. Possibly reserved for Z
 axis, which does not exist on this accelerometer.
 
 ### Ax8x - EEPROM (Read/Write)
@@ -74,11 +74,11 @@ manually clocking CLK. All commands must be preceded by a 1 bit, and
 existing games precede the 1 bit with a 0 bit (though this is not
 necessary):
 
--   Write 00h (lower CS)
--   Write 80h (raise CS)
--   Write C0h (shift in 0 bit)
--   Write 82h (lower CS, raise DI)
--   Write C2h (shift in 1 bit)
+-   Write $00 (lower CS)
+-   Write $80 (raise CS)
+-   Write $C0 (shift in 0 bit)
+-   Write $82 (lower CS, raise DI)
+-   Write $C2 (shift in 1 bit)
 -   Write command
 
 The following commands exist, each 10 bits (excluding data shifted in or
@@ -108,16 +108,16 @@ Datasheet:
 
 ### Ax9x-AxFx - Unused
 
-Reads out FFh.
+Reads out $FF.
 
 ### B000-BFFF - Unknown
 
-Only seems to read out FFh.
+Only seems to read out $FF.
 
 ### 0000-1FFF - RAM Enable 1 (Write Only)
 
-Mostly the same as for MBC1, a value of 0Ah will enable reading and
-writing to RAM registers. A value of 00h will disable it. Please note
+Mostly the same as for MBC1, a value of $0A will enable reading and
+writing to RAM registers. A value of $00 will disable it. Please note
 that the RAM must second be enabled in the second RAM enable section as
 well (4000-5FFF)
 
@@ -127,12 +127,12 @@ The ROM bank number goes here.
 
 ### 4000-5FFF - RAM Enable 2 (Write Only)
 
-Writing 40h to this region enables access to the RAM registers. Writing
+Writing $40 to this region enables access to the RAM registers. Writing
 any other value appears to disable access to RAM, but this is not fully
 tested. Please note that the RAM must first be enabled in the first RAM
 enable section as well (0000-1FFF)
 
 ## External links
 
-- Source: [GBDev Forums thread by endrift](http://gbdev.gg8.se/forums/viewtopic.php?id=448)
+- Source: [GBDev Forums thread by endrift](https://web.archive.org/web/20240429225227/http://gbdev.gg8.se/forums/viewtopic.php?id=448)
 

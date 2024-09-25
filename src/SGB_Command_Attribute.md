@@ -1,6 +1,6 @@
 # Color Attribute Commands
 
-## SGB Command 04h - ATTR_BLK
+## SGB Command $04 — ATTR_BLK
 
 Used to specify color attributes for the inside or outside of one or
 more rectangular screen regions.
@@ -8,7 +8,7 @@ more rectangular screen regions.
 ```
  Byte  Content
  0     Command*8+Length (length=1..7)
- 1     Number of Data Sets (01h..12h)
+ 1     Number of Data Sets ($01..$12)
  2-7   Data Set #1
          Byte 0 - Control Code (0-7)
            Bit 0 - Change Colors inside of surrounded area     (1=Yes)
@@ -35,7 +35,7 @@ When sending three or more data sets, data is continued in further
 packet(s). Unused bytes at the end of the last packet should be set to
 zero. The format of the separate Data Sets is described below.
 
-## SGB Command 05h - ATTR_LIN
+## SGB Command $05 — ATTR_LIN
 
 Used to specify color attributes of one or more horizontal or vertical
 character lines.
@@ -43,7 +43,7 @@ character lines.
 ```
  Byte  Content
  0     Command*8+Length (length=1..7)
- 1     Number of Data Sets (01h..6Eh) (one byte each)
+ 1     Number of Data Sets ($01..$6E) (one byte each)
  2     Data Set #1
          Bit 0-4 - Line Number    (X- or Y-coordinate, depending on bit 7)
          Bit 5-6 - Palette Number (0-3)
@@ -60,7 +60,7 @@ below. The length of each line reaches from one end of the screen to the
 other end. In case that some lines overlap each other, then lines from
 lastmost data sets will overwrite lines from previous data sets.
 
-## SGB Command 06h - ATTR_DIV
+## SGB Command $06 — ATTR_DIV
 
 Used to split the screen into two halfes, and to assign separate color
 attributes to each half, and to the division line between them.
@@ -77,7 +77,7 @@ attributes to each half, and to the division line between them.
  3-F   Not used (zero)
 ```
 
-## SGB Command 07h - ATTR_CHR
+## SGB Command $07 — ATTR_CHR
 
 Used to specify color attributes for separate characters.
 
@@ -101,10 +101,10 @@ for one character. Depending on the writing style, data sets are written
 from left to right, or from top to bottom. In either case the function
 wraps to the next row/column when reaching the end of the screen.
 
-## SGB Command 15h - ATTR_TRN
+## SGB Command $15 — ATTR_TRN
 
 Used to initialize Attribute Files (ATFs) in SNES RAM. Each ATF consists
-of 20x18 color attributes for the Game Boy screen. This function does not
+of 20×18 color attributes for the Game Boy screen. This function does not
 directly affect display attributes. Instead, one of the defined ATFs may
 be copied to actual display memory at a later time by using ATTR_SET or
 PAL_SET functions.
@@ -122,20 +122,20 @@ The ATF data is sent by VRAM-Transfer (4 KBytes).
  FD2-FFF  Not used
 ```
 
-Each ATF consists of 90 bytes, that are 5 bytes (20x2bits) for each of
+Each ATF consists of 90 bytes, that are 5 bytes (20×2 bits) for each of
 the 18 character lines of the Game Boy window. The two most significant
 bits of the first byte define the color attribute (0-3) for the first
 character of the first line, the next two bits the next character, and
 so on.
 
-## SGB Command 16h - ATTR_SET
+## SGB Command $16 — ATTR_SET
 
 Used to transfer attributes from Attribute File (ATF) to Game Boy window.
 
 ```
  Byte  Content
  0     Command*8+Length (fixed length=1)
- 1     Attribute File Number (00-2Ch), Bit 6=Cancel Mask
+ 1     Attribute File Number ($00-$2C), Bit 6=Cancel Mask
  2-F   Not used (zero)
 ```
 

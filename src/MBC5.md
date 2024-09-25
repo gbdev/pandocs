@@ -5,7 +5,7 @@ It can map up to 64 Mbits (8 MiB) of ROM.
 MBC5 (Memory Bank Controller 5) is the 4th generation MBC. There
 apparently was no MBC4, presumably because of the superstition about the
 number 4 in Japanese culture. It is the first MBC that is guaranteed to
-work properly with GBC double speed mode.
+work properly with GBC Double Speed mode.
 
 ## Memory
 
@@ -47,7 +47,7 @@ As for the MBC1s RAM Banking Mode, writing a value in the range $00-$0F
 maps the corresponding external RAM bank (if any) into the memory area at
 A000-BFFF.
 
-![](imgs/MBC5.png "imgs/MBC5.png")
+<img class="pixelated" src="imgs/MBC5.png">
 
 ### Rumble
 
@@ -58,6 +58,6 @@ bit to 1 enables the rumble motor and keeps it enabled until the bit is reset ag
 To control the rumble's intensity, it should be turned on and off repeatedly,
 as seen with these two examples from Pokémon Pinball:
 
-<img src="imgs/MBC5_Rumble_Mild.svg" width="950px"> 
- 
-<img src="imgs/MBC5_Rumble_Strong.svg" width="950px">
+{{#include ../generated/MBC5_Rumble_Mild.svg}}
+
+{{#include ../generated/MBC5_Rumble_Strong.svg}}

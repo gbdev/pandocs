@@ -1,108 +1,95 @@
 # Interrupts
 
-## IME - Interrupt Master Enable Flag (Write Only)
+## IME: Interrupt master enable flag \[write only\]
 
-```
-0 - Disable all interrupts
-1 - Enable all interrupts that are enabled in the IE register (FFFF)
-```
+`IME` is a flag internal to the CPU that controls whether *any* interrupt handlers are called, regardless of the contents of `IE`.
+`IME` cannot be read in any way, and is modified by these instructions/events only:
 
-The IME flag is used to disable all interrupts, overriding any enabled
-bits in the IE register. It isn't possible to access the IME flag by
-using a I/O address. IME can be modified by
-the following instructions/events only:
+- **`ei`**: Enables interrupt handling (that is, `IME := 1`)
+- **`di`**: Disables interrupt handling (that is, `IME := 0`)
+- **`reti`**: Enables interrupts and returns (same as `ei` immediately followed by `ret`)
+- **When an [interrupt handler](<#Interrupt Handling>) is executed**: Disables interrupts before `call`ing the interrupt handler
 
-```
-EI     ;Enables interrupts  (that is, IME=1)
-DI     ;Disables interrupts (that is, IME=0)
-RETI   ;Enables interrupts and returns (same as the instruction sequence EI, RET)
-<INT>  ;Disables interrupts and calls interrupt vector
-```
+`IME` is unset (interrupts are disabled) [when the game starts running](<#0100-0103 — Entry point>).
 
-where \<INT\> means the operation which is automatically executed by the
-CPU when it executes an interrupt.
+The effect of `ei` is delayed by one instruction. This means that `ei`
+followed immediately by `di` does not allow any interrupts between them.
+This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 
-The effect of EI is delayed by one instruction. This means that EI
-followed immediately by DI does not allow any interrupts between them.
+## FFFF — IE: Interrupt enable
 
-## FFFF - IE - Interrupt Enable (R/W)
+{{#bits 8 >
+  "IE" 4:"Joypad" 3:"Serial" 2:"Timer" 1:"LCD" 0:"VBlank"
+}}
 
-```
-Bit 0: VBlank   Interrupt Enable  (INT 40h)  (1=Enable)
-Bit 1: LCD STAT Interrupt Enable  (INT 48h)  (1=Enable)
-Bit 2: Timer    Interrupt Enable  (INT 50h)  (1=Enable)
-Bit 3: Serial   Interrupt Enable  (INT 58h)  (1=Enable)
-Bit 4: Joypad   Interrupt Enable  (INT 60h)  (1=Enable)
-```
+- **VBlank** (*Read/Write*): Controls whether [the VBlank interrupt handler](<#INT $40 — VBlank interrupt>) may be called (see `IF` below).
+- **LCD** (*Read/Write*): Controls whether [the LCD interrupt handler](<#INT $48 — STAT interrupt>) may be called (see `IF` below).
+- **Timer** (*Read/Write*): Controls whether [the Timer interrupt handler](<#INT $50 — Timer interrupt>) may be called (see `IF` below).
+- **Serial** (*Read/Write*): Controls whether [the Serial interrupt handler](<#INT $58 — Serial interrupt>) may be called (see `IF` below).
+- **Joypad** (*Read/Write*): Controls whether [the Joypad interrupt handler](<#INT $60 — Joypad interrupt>) may be called (see `IF` below).
 
-## FF0F - IF - Interrupt Flag (R/W)
+## FF0F — IF: Interrupt flag
 
-```
-Bit 0: VBlank   Interrupt Request (INT 40h)  (1=Request)
-Bit 1: LCD STAT Interrupt Request (INT 48h)  (1=Request)
-Bit 2: Timer    Interrupt Request (INT 50h)  (1=Request)
-Bit 3: Serial   Interrupt Request (INT 58h)  (1=Request)
-Bit 4: Joypad   Interrupt Request (INT 60h)  (1=Request)
-```
+{{#bits 8 >
+  "IF" 4:"Joypad" 3:"Serial" 2:"Timer" 1:"LCD" 0:"VBlank"
+}}
 
-When an interrupt signal changes from low to high, the
-corresponding bit in the IF register becomes set. For example, Bit 0
-becomes set when the LCD controller enters the VBlank period.
+- **VBlank** (*Read/Write*): Controls whether [the VBlank interrupt handler](<#INT $40 — VBlank interrupt>) is being requested.
+- **LCD** (*Read/Write*): Controls whether [the LCD interrupt handler](<#INT $48 — STAT interrupt>) is being requested.
+- **Timer** (*Read/Write*): Controls whether [the Timer interrupt handler](<#INT $50 — Timer interrupt>) is being requested.
+- **Serial** (*Read/Write*): Controls whether [the Serial interrupt handler](<#INT $58 — Serial interrupt>) is being requested.
+- **Joypad** (*Read/Write*): Controls whether [the Joypad interrupt handler](<#INT $60 — Joypad interrupt>) is being requested.
 
-Any set bits in the IF register are only **requesting** an interrupt to be
-executed. The actual **execution** happens only if both the IME flag and
-the corresponding bit in the IE register are set, otherwise the
-interrupt "waits" until both IME and IE allow its execution.
+When an interrupt request signal (some internal wire going from the PPU/APU/... to the CPU) changes from low to high, the corresponding bit in the `IF` register becomes set.
+For example, bit 0 becomes set when the PPU enters the [VBlank](<#PPU modes>) period.
 
-Since the CPU automatically sets and clears the bits in the IF register, it
-is usually not required to write to the IF register. However, the user
+Any set bits in the `IF` register are only **requesting** an interrupt.
+The actual **execution** of the interrupt handler happens only if both the `IME` flag and the corresponding bit in the `IE` register are set; otherwise the
+interrupt "waits" until **both** `IME` and `IE` allow it to be serviced.
+
+Since the CPU automatically sets and clears the bits in the `IF` register, it
+is usually not necessary to write to the `IF` register. However, the user
 may still do that in order to manually request (or discard) interrupts.
-Like with real interrupts, a manually requested interrupt isn't executed
-unless/until IME and IE allow its execution.
+Just like real interrupts, a manually requested interrupt isn't serviced
+unless/until `IME` and `IE` allow it.
 
 ## Interrupt Handling
 
-1. The IF bit corresponding to this interrupt and the IME flag are reset by the CPU.
+1. The `IF` bit corresponding to this interrupt and the `IME` flag are reset by the CPU.
 The former "acknowledges" the interrupt, while the latter prevents any further interrupts
 from being handled until the program re-enables them, typically by using the `reti` instruction.
-2. The corresponding interrupt handler (see the IE and IF register descriptions [above](<#FFFF - IE - Interrupt Enable (R/W)>)) is
-called by the CPU. This is a regular call, exactly like what would be performed by a `call <vector>` instruction (the current PC is pushed on the stack
-and then set to the address of the interrupt vector).
+2. The corresponding interrupt handler (see the `IE` and `IF` register descriptions [above](<#FFFF — IE: Interrupt enable>)) is
+called by the CPU. This is a regular call, exactly like what would be performed by a `call <address>` instruction (the current PC is pushed onto the stack
+and then set to the address of the interrupt handler).
 
-According to Z80 datasheets, the following occurs when control is being
-transferred to an interrupt handler:
+The following interrupt service routine is executed when control is being transferred to an interrupt handler:
 
-1. Two wait states are executed (2 machine cycles pass while nothing
-occurs, presumably the CPU is executing NOPs during this time).
-2. The current PC is pushed onto the stack, this process consumes 2 more
-machine cycles.
-3. The high byte of the PC is set to 0, the low byte is set to the
-address of the handler ($40,$48,$50,$58,$60). This consumes one
-last machine cycle.
+1. Two wait states are executed (2 M-cycles pass while nothing happens; presumably the CPU is executing `nop`s during this time).
+2. The current value of the PC register is pushed onto the stack, consuming 2 more M-cycles.
+3. The PC register is set to the address of the handler (one of: $40, $48, $50, $58, $60).
+This consumes one last M-cycle.
 
-The entire ISR **should** consume a total of 5 machine cycles. This has
-yet to be tested, but is what the Z80 datasheet implies.
+The entire process [lasts 5 M-cycles](https://gist.github.com/SonoSooS/c0055300670d678b5ae8433e20bea595#user-content-isr-and-nmi).
 
 ## Interrupt Priorities
 
-In the following three situations it might happen that more than one bit in the IF register is set, requesting more than one interrupt at once:
+In the following circumstances it is possible that more than one bit in the IF register is set, requesting more than one interrupt at once:
 
-1. More than one interrupt signal changed from Low to High at the same time.
-2. Several interrupts have been requested while IME/IE didn't allow them to be handled directly.
+1. More than one interrupt request signal changed from low to high at the same time.
+2. Several interrupts have been requested while IME/IE didn't allow them to be serviced.
 3. The user has written a value with several bits set (for example binary 00011111) to the IF register.
 
-If IME and IE allow the execution of more than one of the
+If IME and IE allow the servicing of more than one of the
 requested interrupts, the interrupt with the highest priority
-is executed first. The priorities follow the same order as the bits in the IE
+is serviced first. The priorities follow the order of the bits in the IE
 and IF registers: Bit 0 (VBlank) has the highest priority, and Bit 4
 (Joypad) has the lowest priority.
 
 ## Nested Interrupts
 
 The CPU automatically disables all the other interrupts by setting IME=0
-when it executes an interrupt. Usually IME remains zero until the
-interrupt handler returns (and sets IME=1 by means of the RETI instruction).
-However, if you want any other interrupts (of any priority)
-to be allowed to be executed from inside the interrupt
-handler, then you can use the EI instruction in the interrupt
-handler.
+when it services an interrupt. Usually IME remains zero until the
+interrupt handler returns (and sets IME=1 by means of the `reti` instruction).
+However, if you want to allow the servicing of other interrupts (of any priority)
+during the execution of an interrupt handler, you may do so by using the
+`ei` instruction in the handler.

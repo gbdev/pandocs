@@ -1,0 +1,89 @@
+<!-- Do not put any blank lines, or Markdown processing will break! -->
+<svg viewBox="-5 0 400 400" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<style type="text/css"><![CDATA[
+			text { fill: var(--fg, #000); dominant-baseline: middle; }
+			.small { font-size: .75em; }
+			.centered { text-anchor: middle; }
+			.right    { text-anchor: end; }
+			.placeholder                     { stroke-dasharray: 5 3 2 0; fill: #40ffff30; }
+			rect, polyline, line, circle, path { stroke: var(--fg, #000); fill: none; }
+			#arrow-head                        { stroke: none;            fill: var(--fg, #000); }
+			polygon, .reg                      { stroke: var(--fg, #000); fill: var(--quote-bg, #ccc); }
+			.inverted                          { stroke: var(--bg, #fff); fill: var(--bg, #fff); }
+			.event     { fill: #00ff0020; }
+			.mux       { fill: #10e8e850; }
+		]]></style>
+		<polygon points="0,0 8,-4 8,4" id="arrow-head"/>
+		<g id="reg">
+			<polygon points="-80,0 -40,-20 40,-20 80,0"/>
+			<rect x="-80" y="0" width="20" height="20"/><rect x="-60" y="0" width="20" height="20"/>
+			<rect x="-40" y="0" width="20" height="20"/><rect x="-20" y="0" width="20" height="20"/>
+			<rect x="0"   y="0" width="20" height="20"/><rect x="20"  y="0" width="20" height="20"/>
+			<rect x="40"  y="0" width="20" height="20"/><rect x="60"  y="0" width="20" height="20"/>
+		</g>
+		<g id="byte">
+			<text x="-70" y="12" class="centered">7</text><text x="-50" y="12" class="centered">6</text>
+			<text x="-30" y="12" class="centered">5</text><text x="-10" y="12" class="centered">4</text>
+			<text x="10"  y="12" class="centered">3</text><text x="30"  y="12" class="centered">2</text>
+			<text x="50"  y="12" class="centered">1</text><text x="70"  y="12" class="centered">0</text>
+		</g>
+		<polygon points="-40,0 -30,-20 30,-20 40,0 30,20 -30,20" class="event" id="event"/>
+	</defs>
+	<rect x="100" y="10" width="160" height="20" class="reg"/>
+		<text x="180" y="22" class="centered">TMA</text>
+	<line x1="165" y1="30" x2="165" y2="113"/><use x="165" y="120" href="#arrow-head" transform="rotate(-90,165,120)"/>
+	<line x1="195" y1="37" x2="195" y2="113"/><use x="195" y="120" href="#arrow-head" transform="rotate(-90,195,120)"/><use x="195" y="30" href="#arrow-head" transform="rotate(90,195,30)"/>
+	<use x="310" y="55" href="#event"/>
+		<text x="310" y="47" class="centered">Write</text>
+		<text x="310" y="65" class="centered">to TMA</text>
+	<line x1="270" y1="55" x2="202" y2="55"/><use x="195" y="55" href="#arrow-head"/>
+		<text x="205" y="47">Load</text>
+	<rect x="230" y="90" width="160" height="20" class="placeholder reg"/>
+		<text x="310" y="102" class="centered">CPU data bus</text>
+	<line x1="230" y1="100" x2="195" y2="100"/>
+	<polygon points="150,120 210,120 200,140 160,140" class="mux"/>
+		<text x="165" y="132" class="centered">0</text>
+		<text x="195" y="132" class="centered">1</text>
+	<line x1="180" y1="140" x2="180" y2="188"/><use x="180" y="195" href="#arrow-head" transform="rotate(-90,180,195)"/>
+	<use x="180" y="215" href="#reg"/><use x="180" y="215" href="#byte"/>
+		<text x="180" y="206" class="centered">TIMA</text>
+	<circle cx="360" cy="225" r="30" class="event"/>
+		<text x="360" y="217" class="centered">Timer</text>
+		<text x="360" y="237" class="centered">tick</text>
+	<line x1="330" y1="225" x2="267" y2="225"/><use x="260" y="225" href="#arrow-head"/>
+		<text x="268" y="215" class="small">Increment</text>
+	<line x1="110" y1="235" x2="110" y2="243"/><use x="110" y="250" href="#arrow-head" transform="rotate(-90,110,250)"/>
+	<rect x="75" y="250" width="70" height="70" class="placeholder"/>
+		<text x="110" y="265" class="centered">Falling</text>
+		<text x="110" y="285" class="centered">edge</text>
+		<text x="110" y="305" class="centered">detector</text>
+	<line x1="110" y1="320" x2="110" y2="333"/><use x="110" y="340" href="#arrow-head" transform="rotate(-90,110,340)"/>
+	<use x="40" y="70" href="#event"/>
+		<text x="40" y="62" class="centered">Write to</text>
+		<text x="40" y="80" class="centered">TIMA</text>
+	<line x1="40" y1="90" x2="40" y2="153"/><use x="40" y="160" href="#arrow-head" transform="rotate(-90,40,160)"/>
+	<line x1="40" y1="130" x2="148" y2="130"/><use x="155" y="130" href="#arrow-head" transform="rotate(180,155,130)"/><!-- To muxer -->
+	<rect x="50" y="340" width="30" height="30" class="mux"/>
+		<text x="65" y="355" class="centered small">NOT</text>
+	<line x1="80" y1="355" x2="88" y2="355"/><use x="95" y="355" href="#arrow-head" transform="rotate(180,95,355)"/>
+	<rect x="95" y="340" width="30" height="30" class="mux"/>
+		<text x="110" y="355" class="centered small">AND</text>
+	<line x1="125" y1="355" x2="143" y2="355"/><use x="150" y="355" href="#arrow-head" transform="rotate(180,150,355)"/>
+	<rect x="150" y="340" width="60" height="30" class="mux"/>
+		<text x="180" y="355" class="centered">Delay</text>
+	<polyline points="210,355 340,355 340,327"/><use x="340" y="320" href="#arrow-head" transform="rotate(90,340,320)"/>
+		<text x="345" y="340">Set</text>
+	<use x="310" y="300" href="#reg"/>
+			<line x1="230" y1="320" x2="250" y2="300"/><line x1="250" y1="320" x2="270" y2="300"/>
+			<line x1="270" y1="320" x2="290" y2="300"/><text x="300" y="312" class="centered">4</text>
+			<text x="320" y="312" class="centered">3</text><text x="340" y="312" class="centered">2</text>
+			<text x="360" y="312" class="centered">1</text><text x="380" y="312" class="centered">0</text>
+		<text x="310" y="292" class="centered">IF</text>
+	<polyline points="230,355 230,390 40,390 40,197"/><use x="40" y="190" href="#arrow-head" transform="rotate(90,40,190)"/>
+	<line x1="65" y1="175" x2="65" y2="333"/><use x="65" y="340" href="#arrow-head" transform="rotate(-90,65,340)"/>
+	<rect x="25" y="160" width="30" height="30" class="mux"/>
+		<text x="40" y="175" class="centered small">OR</text>
+	<line x1="55" y1="175" x2="173" y2="175"/><use x="180" y="175" href="#arrow-head" transform="rotate(180,180,175)"/>
+		<text x="170" y="165" class="right">Load</text>
+</svg>

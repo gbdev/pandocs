@@ -3,17 +3,15 @@
 
 ## LCD Monochrome Palettes
 
-### FF47 - BGP (BG Palette Data) (R/W) - Non CGB Mode Only
+### FF47 — BGP (Non-CGB Mode only): BG palette data
 
-This register assigns gray shades to the color indexes of the BG and
-Window tiles.
+This register assigns gray shades to the [color IDs](./Tile_Data.md) of the BG and Window tiles.
 
-```
-Bit 7-6 - Color for index 3
-Bit 5-4 - Color for index 2
-Bit 3-2 - Color for index 1
-Bit 1-0 - Color for index 0
-```
+{{#bits 8 >
+  "Color for..."  7-6:"ID 3" 5-4:"ID 2" 3-2:"ID 1" 1-0:"ID 0";
+}}
+
+Each of the two-bit values map to a color thusly:
 
 Value | Color
 ------|-------
@@ -22,72 +20,79 @@ Value | Color
   2   | Dark gray
   3   | Black
 
-In CGB Mode the Color Palettes are taken from [CGB Palette Memory](<#LCD Color Palettes (CGB only)>)
+In CGB Mode the color palettes are taken from [CGB palette memory](<#LCD Color Palettes (CGB only)>)
 instead.
 
-### FF48 - OBP0 (Object Palette 0 Data) (R/W) - Non CGB Mode Only
+### FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data
 
-This register assigns gray shades to the color indexes of the OBJs that use this palette. It works exactly
-like BGP (FF47), except that the lower two bits are ignored because
-sprite index 00 means transparent.
-
-### FF49 - OBP1 (Object Palette 1 Data) (R/W) - Non CGB Mode Only
-
-This register assigns gray shades to the color indexes of the OBJs that use this palette. It works exactly
-like BGP (FF47), except that the lower two bits are ignored because
-sprite index 00 means transparent.
+These registers assigns gray shades to the color indexes of the OBJs that use the corresponding palette.
+They work exactly like [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette data>), except that the lower two bits are ignored because color index 0 is transparent for OBJs.
 
 ## LCD Color Palettes (CGB only)
 
-### FF68 - BCPS/BGPI (Background Color Palette Specification or Background Palette Index) - CGB Mode Only
+The CGB has a small amount of RAM used to store its color palettes. Unlike most
+of the hardware interface, palette RAM (or *CRAM* for *Color RAM*) is not
+accessed directly, but instead through the following registers:
 
-This register is used to address a byte in the CGBs Background Palette
-Memory. Each two byte in that memory define a color value. The first 8
-bytes define Color 0-3 of Palette 0 (BGP0), and so on for BGP1-7.
+### FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index
 
-```
-Bit 7     Auto Increment  (0=Disabled, 1=Increment after Writing)
-Bit 5-0   Index (00-3F)
-```
+This register is used to address a byte in the CGB's background palette RAM.
+Since there are 8 palettes, 8 palettes × 4 colors/palette × 2 bytes/color = 64 bytes
+can be addressed.
 
-Data can be read/written to/from the specified index address through
-Register FF69. When the Auto Increment bit is set then the index is
-automatically incremented after each **write** to FF69. Auto Increment has
-no effect when **reading** from FF69, so the index must be manually
-incremented in that case. Writing to FF69 during rendering still causes
-auto-increment to occur.
+First comes BGP0 color number 0, then BGP0 color number 1, BGP0 color number 2, BGP0 color number 3,
+BGP1 color number 0, and so on. Thus, address $03 allows accessing the second (upper)
+byte of BGP0 color #1 via BCPD, which contains the color's blue and upper green bits.
 
-Unlike the following, this register can be accessed outside VBlank and
-HBlank.
+{{#bits 8 >
+  "BCPS / OCPS"  7:"Auto-increment" 5-0:"Address";
+}}
 
-### FF69 - BCPD/BGPD (Background Color Palette Data or Background Palette Data) - CGB Mode Only
+- **Auto-increment**: `0` = Disabled; `1` = Increment "Address" field after **writing** to
+  [`BCPD`](<#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>) /
+  [`OCPD`](<#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>)
+  (even during [Mode 3](<#PPU modes>), despite the write itself failing), reads *never* cause an increment
+- **Address**: Specifies which byte of BG Palette Memory can be accessed through
+  [`BCPD`](<#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>)
 
-This register allows to read/write data to the CGBs Background Palette
-Memory, addressed through Register FF68. Each color is defined by two
-bytes (Bit 0-7 in first byte).
+Unlike BCPD, this register can be accessed outside VBlank and HBlank.
 
-```
-Bit 0-4   Red Intensity   (00-1F)
-Bit 5-9   Green Intensity (00-1F)
-Bit 10-14 Blue Intensity  (00-1F)
-```
+### FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data
 
-Much like VRAM, data in Palette Memory cannot be read/written during the
-time when the LCD Controller is reading from it. (That is when the STAT
-register indicates Mode 3). Note: All background colors are initialized
-as white by the boot ROM, but it's a good idea to initialize at least
-one color yourself (for example if you include a soft-reset mechanic).
+This register allows to read/write data to the CGBs background palette memory, addressed through [BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>).
+Each color is stored as little-endian RGB555:
 
-### FF6A - OCPS/OBPI (Object Color Palette Specification or Sprite Palette Index), FF6B - OCPD/OBPD (Object Color Palette Data or Sprite Palette Data) - Both CGB Mode Only
+{{#bits 16 <
+  "One color"  0-4:"Red intensity" 5-9:"Green intensity" 10-14:"Blue intensity";
+}}
 
-These registers are used to initialize the Sprite Palettes OBP0-7,
-identically as described above for Background Palettes. Note that four
-colors may be defined for each OBP Palettes - but only Color 1-3 of each
-Sprite Palette can be displayed, Color 0 is always transparent, and can
-be initialized to a don't care value or plain never initialized.
+Much like VRAM, data in palette memory cannot be read or written during the time
+when the PPU is reading from it, that is, [Mode 3](<#PPU modes>).
 
-Note: All sprite colors are left uninitialized by the boot ROM, and are
-somewhat random.
+:::tip NOTE
+
+All background colors are initialized as white by the boot ROM, however it is a
+good idea to initialize all colors yourself, e.g. if implementing
+a soft-reset mechanic.
+
+:::
+
+### FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data
+
+These registers function exactly like BCPS and BCPD respectively; the 64 bytes
+of OBJ palette memory are entirely separate from Background palette memory, but
+function the same.
+
+Note that while 4 colors are stored per OBJ palette, color #0 is never used, as
+it's always transparent. It's thus fine to write garbage values, or even leave
+color #0 uninitialized.
+
+:::tip NOTE
+
+The boot ROM leaves all object colors uninitialized (and thus somewhat random),
+aside from setting the first byte of OBJ0 color #0 to $00, which is unused.
+
+:::
 
 ### RGB Translation by CGBs
 
@@ -96,14 +101,14 @@ somewhat random.
 When developing graphics on PCs, note that the RGB values will have
 different appearance on CGB displays as on VGA/HDMI monitors calibrated
 to sRGB color. Because the GBC is not lit, the highest intensity will
-produce Light Gray color rather than White. The intensities are not
-linear; the values 10h-1Fh will all appear very bright, while medium and
-darker colors are ranged at 00h-0Fh.
+produce light gray rather than white. The intensities are not
+linear; the values $10-$1F will all appear very bright, while medium and
+darker colors are ranged at $00-0F.
 
 The CGB display's pigments aren't perfectly saturated. This means the
-colors mix quite oddly; increasing intensity of only one R,G,B color
-will also influence the other two R,G,B colors. For example, a color
-setting of 03EFh (Blue=0, Green=1Fh, Red=0Fh) will appear as Neon Green
+colors mix quite oddly: increasing the intensity of only one R/G/B color
+will also influence the other two R/G/B colors. For example, a color
+setting of $03EF (Blue=$00, Green=$1F, Red=$0F) will appear as Neon Green
 on VGA displays, but on the CGB it'll produce a decently washed out
 Yellow. See the image above.
 
@@ -113,20 +118,24 @@ Even though GBA is described to be compatible to CGB games, most CGB
 games are completely unplayable on older GBAs because most colors are
 invisible (black). Of course, colors such like Black and White will
 appear the same on both CGB and GBA, but medium intensities are arranged
-completely different. Intensities in range 00h..07h are invisible/black
+completely different. Intensities in range $00–07 are invisible/black
 (unless eventually under best sunlight circumstances, and when gazing at
 the screen under obscure viewing angles), unfortunately, these
 intensities are regularly used by most existing CGB games for medium and
 darker colors.
 
+:::tip WORKAROUND
+
 Newer CGB games may avoid this effect by changing palette data when
-detecting GBA hardware ([see
-how](<#Detecting CGB (and GBA) functions>)).
-Based on measurement of GBC and GBA palettes using the [144p Test
-Suite](https://github.com/pinobatch/240p-test-mini/tree/master/gameboy) ROM, a fairly close approximation is GBA = GBC \* 3/4 + 8h for
-each R,G,B intensity. The result isn't quite perfect, and it may turn
+detecting GBA hardware ([see how](<#Detecting CGB (and GBA) functions>)).
+Based on measurements of GBC and GBA palettes using the
+[144p Test Suite](https://github.com/pinobatch/240p-test-mini/tree/master/gameboy),
+a fairly close approximation is `GBA = GBC × 3/4 + $08` for each R/G/B
+component. The result isn't quite perfect, and it may turn
 out that the color mixing is different also; anyways, it'd be still
 ways better than no conversion.
+
+:::
 
 This problem with low brightness levels does not affect later GBA SP
 units and Game Boy Player. Thus ideally, the player should have control

@@ -2,10 +2,11 @@
 
 Game Boy Color hardware applies automatic colorization to monochrome
 games, with one 4-color palette for backgrounds and two 3-color
-palettes for sprites.  Because of past underuse of Super Game Boy
+palettes for objects (sprites).
+Because of past under-utilization of Super Game Boy
 features even in first-party games (as explained in an article by
 Christine Love), Nintendo required Game Boy Color games to appear
-more colorful than this automatic colorization.  Thus Nintendo
+more colorful than this automatic colorization. Thus, Nintendo
 required publishers to keep Nintendo in the loop at three points in
 development.  The Mario Club division evaluated games on whether
 color was being used appropriately.  Some things Mario Club looked at
@@ -32,4 +33,4 @@ References:
 
 * ["F the Super Game Boy: Kirby's Dream Land 2"](https://loveconquersallgam.es/post/2487450388/fuck-the-super-game-boy-kirbys-dream-land-2) by Christine Love
 * ["The Making of Snoopy Tennis"](https://sidequestions.medium.com/making-snoopy-tennis-nintendo-gameboy-color-infogrames-mermaid-11bed971526d) by Alexander Hughes
-* ["License Agreement for Game Boy (Western Hemisphere)"](https://contracts.onecle.com/thq/nintendo.lic.1999.03.09.shtml)
+* ["License Agreement for Game Boy (Western Hemisphere)"](https://web.archive.org/web/20220323183905/https://contracts.onecle.com/thq/nintendo.lic.1999.03.09.shtml)

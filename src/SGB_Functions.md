@@ -2,7 +2,7 @@
 
 ## General Description
 
-Basically, the SGB (Super Game Boy) is an adapter cartridge that allows
+The Super Game Boy (SGB) is an adapter cartridge that allows
 to play Game Boy games on a SNES (Super Nintendo Entertainment System)
 gaming console. In detail, you plug the Game Boy cartridge into the SGB
 cartridge, then plug the SGB cartridge into the SNES, and then connect
@@ -11,23 +11,22 @@ the TV Set, and are controlled by using the SNES joypad(s).
 
 ## More Technical Description
 
-The SGB cartridge just contains a normal Game Boy CPU and normal Game Boy
-video controller. Normally the video signal from this controller would
-be sent to the LCD screen, however, in this special case the SNES read
-out the video signal and displays it on the TV set by using a special
-SNES BIOS ROM which is located in the SGB cartridge. Also, normal
-Game Boy sound output is forwared to the SNES and output to the TV Set,
-vice versa, joypad input is forwared from the SNES controller(s) to the
-Game Boy joypad inputs.
+The SGB cartridge contains a Game Boy system on chip, with its normal
+CPU and video and sound controller. It also has a bridge circuit, the ICD2, to
+translate joypad input, video signal, and control packets between the
+SNES and GB as well as a system software ROM that runs on the SNES.
+The system software forwards button presses from the controllers and
+sends the video signal to the TV set, giving both the player and the
+game a small amount of control over the appearance.
 
 ## Normal Monochrome Games
 
 Any Game Boy games which have been designed for monochrome handheld
 Game Boy systems will work with the SGB hardware as well. The SGB will
 apply a four color palette to these games by replacing the normal four
-grayshades. The 160x144 pixel gamescreen is displayed in the middle of
-the 256x224 pixel SNES screen (the unused area is filled by a screen
-border bitmap). The user may access built-in menues, allowing to change
+shades of gray. The 160×144 pixel game screen is displayed in the middle of
+the 256×224 pixel SNES screen (the unused area is filled by a screen
+border bitmap). The user may access built-in menus, allowing to change
 color palette data, to select between several pre-defined borders, etc.
 
 Games that have been designed to support SGB functions may also access
@@ -35,29 +34,31 @@ the following additional features:
 
 ## Colorized Game Screen
 
-There's limited ability to colorize the gamescreen by assigning custom
-color palettes to each 20x18 display characters, however, this works
+There's limited ability to colorize the game screen by assigning custom
+color palettes to each 20×18 display characters, however, this works
 mainly for static display data such like title screens or status bars,
-the 20x18 color attribute map is non-scrollable, and it is not possible
-to assign separate colors to moveable foreground sprites (OBJs), so that
+the 20×18 color attribute map cannot be scrolled, and it is not possible
+to assign separate colors to moveable foreground objects (sprites), so that
 animated screen regions will be typically restricted to using a single
 palette of four colors only.
 
 ## SNES Foreground Sprites
 
-Up to 24 foreground sprites (OBJs) of 8x8 or 16x16 pixels, 16 colors can
+Up to 24 additional 16-color objects of 8×8 or 16×16 pixels, can
 be displayed. When replacing (or just overlaying) the normal Game Boy
-OBJs by SNES OBJs it'd be thus possible to display OBJs with other
+objects by SNES objects it'd be thus possible to display objects with other
 colors than normal background area. This method doesn't appear to be
 very popular, even though it appears to be quite easy to implement,
-however, the bottommost character line of the gamescreen will be masked
-out because this area is used to transfer OAM data to the SNES.
+however, the bottommost character line of the game screen will be masked
+out because this area is used to transfer object positions to the SNES.
+(Later versions of the SGB system software remove much of this object enhancement.)
 
 ## The SGB Border
 
 The possibly most popular and most impressive feature is to replace the
 default SGB screen border by a custom bitmap which is stored in the game
 cartridge.
+A border can be much more colorful than the game screen, as it uses 4 bits per pixel (16 color per tile) instead of 2 bpp (4 colors/tile).
 
 ## Multiple Joypads
 
@@ -70,11 +71,13 @@ the same display screen.
 
 ## Sound Functions
 
-Beside for normal Game Boy sound, a number of digital sound effects is
+Alongside normal Game Boy sound, a number of digital sound effects is
 pre-defined in the SNES BIOS, these effects may be accessed quite
 easily. Programmers whom are familiar with SNES sounds may also access
-the SNES sound chip, or use the SNES MIDI engine directly in order to
-produce other sound effects or music.
+the SNES sound chip, or use the SNES "[Kankichi]" sequencer engine
+directly in order to produce other sound effects or music.
+
+[Kankichi]: https://sneslab.net/wiki/N-SPC_Engine
 
 ## Taking Control of the SNES CPU
 
@@ -89,7 +92,8 @@ Game Boy CPU, video controller, timers, and sound frequencies will be all
 operated approx 2.4% faster than handheld systems. Basically, this
 should be no problem, and the game will just run a little bit faster.
 However sensitive musicians may notice that sound frequencies are a bit
-too high, programs that support SGB functions may avoid this effect by
+too high, particularly in programs that use GB sound alongside Kankichi.
+Programs that support SGB functions may avoid this effect by
 reducing frequencies of Game Boy sounds when having detected SGB
 hardware. Also, "PAL version" SNES models which use a
 50Hz display refresh rate (rather than 60Hz) result in

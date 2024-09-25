@@ -9,7 +9,7 @@ batteries.
 The HALT instruction should be used whenever possible to reduce power
 consumption.
 
-The CPU will remain halted until an interrupt *enabled by [the IE register ($FFFF)](<#FFFF - IE - Interrupt Enable (R/W)>)* is
+The CPU will remain halted until an interrupt *enabled by [the IE register ($FFFF)](<#FFFF — IE: Interrupt enable>)* is
 flagged in IF, at which point the interrupt is serviced if IME is enabled,
 and then execution continues at the instruction immediately following the
 HALT.
@@ -80,11 +80,25 @@ reason, d-pad and/or button inputs should be enabled by writing $00,
 $10 or $20 to the `P1` register before entering STOP (depending on which
 buttons you want to terminate the STOP on).
 
+### The bizarre case of the Game Boy STOP instruction, before even considering timing.
+
+The Game Boy STOP instruction is weird. Normally, it should enter STOP mode, where the CPU sits idle until a button is pressed. The STOP instruction was reused on the Game Boy Color to trigger a CPU speed switch, so executing STOP after writing 1 to KEY1 normally causes a speed switch. STOP is normally a 2-byte instruction where the second byte is ignored.
+
+*But the Game Boy isn't normal. Depending on various factors, the STOP instruction might do different things. Will it actually enter STOP mode? Will it enter HALT mode instead? Will it just be a NOP? Will it perform the speed switch I requested? Will it magically become a 1-byte opcode and execute its second byte as another opcode? Will it glitch the CPU in a non-deterministic fashion? Follow the chart to figure out!*
+
+<p align="center">
+<img src="imgs/stop_diagram.svg">
+<br>
+  <i>Source: Lior Halphon</i>
+</p>
+
+
+
 ## Disabling the Sound Controller
 
 If your program doesn't use sound at all (or during some periods) then
-write 00h to register FF26 to save 16% or more on GB power consumption.
-Sound can be turned back on by writing 80h to the same register, all
+write $00 to register FF26 to save 16% or more on GB power consumption.
+Sound can be turned back on by writing $80 to the same register, all
 sound registers must be then re-initialized. When the Game Boy is turned
 on, sound is enabled by default, and must be turned off manually when
 not used.
@@ -107,7 +121,7 @@ power as possible. Using a high level language will require more CPU
 power and these techniques will not have as big as an effect.
 
 To optimize your code, it might be a good idea to look at [this
-page](http://wikiti.brandonw.net/index.php?title=Z80_Optimization),
+page](https://web.archive.org/web/20230301041000/https://wikiti.brandonw.net/index.php?title=Z80_Optimization),
 although it applies to the original Z80 CPU, so one must adapt the
 optimizations to the GBZ80.
 
