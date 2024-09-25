@@ -117,6 +117,8 @@ Purpose or HBlank DMA, that's because there are always 2 bytes
 transferred per microsecond (even if the itself program runs it Normal
 Speed Mode).
 
+This allows for a transfer of 2280 bytes during VBlank, which is up to 142.5 tiles.
+
 ### VRAM Banks
 
 The CGB has twice the VRAM of the DMG, but it is banked and either bank
