@@ -14,59 +14,49 @@ objects behind it to show through.
 
 There are three "blocks" of 128 tiles each:
 
-<table>
-  <thead>
-    <tr>
-      <th rowspan="2">Block</th>
-      <th rowspan="2">VRAM Address</th>
-      <th colspan="3">Corresponding Tile IDs</th>
-    </tr>
-    <tr>
-      <td>Objects</td>
-      <td>BG/Win if LCDC.4=1</td>
-      <td>BG/Win if LCDC.4=0</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>$8000&ndash;$87FF</td>
-      <td>0&ndash;127</td>
-      <td>0&ndash;127</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>$8800&ndash;$8FFF</td>
-      <td>128&ndash;255</td>
-      <td>128&ndash;255</td>
-      <td>
-        128&ndash;255 <br />
-        (or -128&ndash;-1)
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>$9000&ndash;$97FF</td>
-      <td colspan="2">(Can't use)</td>
-      <td>0&ndash;127</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper" style="text-align: center;"><table><thead>
+  <tr>
+    <th rowspan=2>Tile IDs for...</th>
+    <th>Block 0</th>
+    <th>Block 1</th>
+    <th>Block 2</th>
+  </tr>
+  <tr>
+    <th>$8000–87FF</th>
+    <th>$8800–8FFF</th>
+    <th>$9000–97FF</th>
+  </tr>
+</thead><tbody>
+  <tr>
+    <td><strong>Objects</strong></td>
+    <td>0–127</td>
+    <td>128–255</td>
+    <td>—</td>
+  </tr>
+  <tr>
+    <td><strong>BG/Win</strong>, if LCDC.4=1</td>
+    <td>0–127</td>
+    <td>128–255</td>
+    <td>—</td>
+  </tr>
+  <tr>
+    <td><strong>BG/Win</strong>, if LCDC.4=0</td>
+    <td>—</td>
+    <td>128–255</td>
+    <td>0–127</td>
+  </tr>
+</tbody></table></div>
 
+Tiles are always indexed using an 8-bit integer, but the addressing method may differ:
 
-Tiles are always indexed using an 8-bit integer, but the addressing
-method may differ. The "$8000 method" uses \$8000 as its base pointer
-and uses an unsigned addressing, meaning that tiles 0-127 are in block
-0, and tiles 128-255 are in block 1. The "$8800 method" uses \$9000 as
-its base pointer and uses a signed addressing, meaning that tiles 0-127
-are in block 2, and tiles -128 to -1 are in block 1, or to put it differently,
-"$8800 addressing" takes tiles 0-127 from block 2
-and tiles 128-255 from block 1. (You can notice that block 1 is shared
-by both addressing methods)
+- The "**$8000 method**" uses \$8000 as its base pointer and uses an unsigned addressing, meaning that tiles 0-127 are in block 0, and tiles 128-255 are in block 1.
+- The "**$8800 method**" uses \$9000 as its base pointer and uses a signed addressing, meaning that tiles 0-127 are in block 2, and tiles -128 to -1 are in block 1; or, to put it differently, "$8800 addressing" takes tiles 0-127 from block 2 and tiles 128-255 from block 1.
 
-Objects always use "$8000 addressing", but the BG and Window can use either
-mode, controlled by [LCDC bit 4](<#LCDC.4 — BG and Window tile data area>).
+(You can notice that block 1 is shared by both addressing methods)
+
+Objects always use "$8000 addressing", but the BG and Window can use either mode, controlled by [LCDC bit 4](<#LCDC.4 — BG and Window tile data area>).
+
+## Data format
 
 Each tile occupies 16 bytes, where each line is represented by 2 bytes:
 
