@@ -55,16 +55,20 @@ Select the active RAM Bank B (B000-BFFF)
 ### 0C00-0FFF — Flash Enable (Write Only)
 
 Enable or disable access to the flash chip. Only the lowest bit (0 for
-disable, 1 for enable) is used. Flash Write Enable must be active to
-change this.
+disable, 1 for enable) is used. If disabled, then the /CE (chip enable)
+signal from the MBC6 chip to the flash will stay disabled.
 
 ### 1000 — Flash Write Enable (Write Only)
 
-Enable or disable write mode for the flash chip. Only the lowest bit (0
-for disable, 1 for enable) is used. Note that this maps to the /WE pin
-on the flash chip, not whether writing to the bus is enabled;
-some flash commands (e.g. JEDEC ID query) still work with this off so
-long as Flash Enable is on.
+Enable or disable write mode for flash sector 0 and the hidden region.
+Only the lowest bit (0 for disable, 1 for enable) is used. Note that
+this maps to the /WP pin (write protect) on the flash chip, not whether
+writing to the bus is enabled; most flash commands still work with this
+off so long as Flash Enable is on (see table below). If this register
+is set to 0 (disabled), which is the default value after power up, then
+neither flash sector 0 nor the hidden flash region can be erased or
+programmed. Flash sectors 1 to 7 are not affected by this and can
+always be erased and programmed as long as Flash Enable is on.
 
 ### 2000-27FF — ROM/Flash Bank A Number (Write Only)
 
@@ -98,12 +102,12 @@ either 4 or 6 and Y to 5 or 7, depending on the bank region:
 
 ```
 ------------- ------------- ------------- ------------- ------------- ------------- ---------------------------------------------------
-2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    ?:????=$30    Erase sector* (set 128 KiB region to $FFs)
-2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    2:Y555=$10    Erase chip* (set entire 1 MiB to $FFs)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    ?:????=$30    Erase sector (set 128 KiB region to $FFs)
+2:Y555=$AA    1:XAAA=$55    2:Y555=$80    2:Y555=$AA    1:XAAA=$55    2:Y555=$10    Erase chip (set entire 1 MiB to $FFs)
 2:Y555=$AA    1:XAAA=$55    2:Y555=$60    2:Y555=$AA    1:XAAA=$55    2:Y555=$04    Erase hidden region* (set hidden 256 bytes to $FFs)
 2:Y555=$AA    1:XAAA=$55    2:Y555=$90                                              ID mode (reads out JEDEC ID (C2,81) at $XXX0,$XXX1)
 2:Y555=$AA    1:XAAA=$55    2:Y555=$77    2:Y555=$AA    1:XAAA=$55    2:Y555=$77    Read hidden region
-2:Y555=$AA    1:XAAA=$55    2:Y555=$A0                                              Program mode*
+2:Y555=$AA    1:XAAA=$55    2:Y555=$A0                                              Program mode
 2:Y555=$AA    1:XAAA=$55    2:Y555=$60    2:Y555=$AA    1:XAAA=$55    2:Y555=$E0    Program mode for hidden region*
 2:Y555=$AA    1:XAAA=$55    2:Y555=$60    2:Y555=$AA    1:XAAA=$55    2:Y555=$40    Unprotect sector 0*
 2:Y555=$AA    1:XAAA=$55    2:Y555=$60    2:Y555=$AA    1:XAAA=$55    2:Y555=$20    Protect sector 0*
@@ -111,10 +115,13 @@ either 4 or 6 and Y to 5 or 7, depending on the bank region:
 ------------- ------------- ------------- ------------- ------------- ------------- ---------------------------------------------------
 ```
 
-Commands marked with \* require the Write Enable bit to be 1. These will
-make the flash read out status bytes instead of values. A status of $80
-means the operation has finished and you should exit the mode using the
-$F0 command. A status of $10 indicates a timeout.
+Commands marked with \* require the Flash Write Enable bit to be 1. The
+erase, program and (un-)protect flash commands will make the flash read
+out status bytes instead of values. If status bit 7 is set (mask $80) the
+operation has finished and you should exit the mode using the $F0
+command. Status bit 4 (mask $10) indicates a timeout. Status bit 1 (mask
+$02) is set when the sector 0 protection was enabled by the Protect Sector
+0 command.
 
 Programming must be done by first erasing a sector, activating program
 mode, writing out 128 bytes (aligned), then writing any value (except
@@ -149,11 +156,18 @@ are not relevant.
 
 The erase chip command erases the whole 1 MiB flash. The 256 byte hidden
 region is **not** erased by the erase chip command. If sector 0 is
-protected, only sectors 1 to 7 are erased.
+protected, either by the Flash Write Enable bit in MBC6 register 0x1000
+or by the Protect Sector 0 flash command (or both), only sectors 1 to 7
+are erased.
 
 Sector 0 (the first 128 KiB of the flash) can be protected from erasure
-and programming, using the protect/unprotect sector 0 commands. The state
-of the protection is stored non-volatile.
+and programming, using the Protect/Unprotect Sector 0 flash commands.
+The state of the protection is stored non-volatile. This acts as a second
+layer of protection in addition to the Flash Write Enable bit. The Flash
+Write Enable bit protects both, sector 0 and the hidden region. The
+Protect Sector 0 command only protects sector 0. If you want to make sure
+that you can erase and program sector 0, you first have to set the Flash
+Write Enable bit to 1, then issue the Unprotect Sector 0 flash command.
 
 ## External links
 
