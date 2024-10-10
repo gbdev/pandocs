@@ -138,6 +138,35 @@ A channel can be deactivated in one of the following ways:
 - Its [length timer](<#Length timer>) expiring
 - (CH1 only) [Frequency sweep](<#FF10 — NR10: Channel 1 sweep>) overflowing the frequency
 
+### Pulse channel with sweep (CH1)
+
+The first square channel has a frequency sweep unit, controlled by `NR10`. This internally has a "sweep timer", "enabled flag",
+and a period/frequency "shadow register". The "enabled flag" controls if the sweep unit is active,
+the "sweep timer" is clocked at 128 Hz by the [DIV-APU](#DIV-APU), and the "shadow register" holds the current output period.
+
+During a [trigger event](#Triggering), several things occur:
+
+- CH1 [period value](<#FF13 — NR13: Channel 1 period low \[write-only\]>) is copied to the "shadow register".
+- The "sweep timer" is reset.
+- The "enabled flag" is set if either the [sweep pace or individual step](<#FF10 — NR10: Channel 1 sweep>) are non-zero, cleared otherwise.
+- If the individual step is non-zero, _frequency calculation_ and _overflow check_ are performed immediately.
+
+_Frequency calculation_ consists of taking the value in the frequency "shadow register", shifting it right by the individual step,
+optionally negating the value, depending on the [direction](<#FF10 — NR10: Channel 1 sweep>), and summing this with the frequency "shadow register" to produce a new frequency.
+What is done with this new frequency depends on the context.
+
+The _overflow check_ simply calculates the new frequency and if it is greater than 2047, or $7FF, CH1 is disabled.
+
+When the "sweep timer" is [clocked](#DIV-APU) if the "enabled flag" is set and the sweep pace is not zero,
+a new frequency is calculated and the overflow check is performed.
+If the new frequency is 2047 or less and the individual step is not zero, this new frequency is written back to the
+"shadow register" and CH1 frequency in `NR13` and `NR14`, then frequency calculation and overflow check
+are run _again_ immediately using this new value, but this second new frequency is not written back.
+
+CH1 frequency can be modified via `NR13` and `NR14` while sweep is active,
+but the "shadow register" won't be affected so the next time the "sweep timer" updates the channel's frequency,
+this modification will be lost. This can be avoided by triggering the channel.
+
 ### Pulse channels (CH1, CH2)
 
 Each pulse channel has an internal "duty step" counter, which is used to index into [the selected waveform](<#FF11 — NR11: Channel 1 length timer & duty cycle>) (each background stripe corresponds to one "duty step")[^pulse_lut].
@@ -199,3 +228,45 @@ The APU was reworked pretty heavily for the GBA, which introduces some slightly 
 None of the additional features (more wave RAM, digital FIFOs, etc.) are available to CGB programs.
 
 [`NR51`]: <#FF25 — NR51: Sound panning>
+
+## Obscure Behavior
+
+- The volume envelope and sweep timers treat a period of 0 as 8.
+- Just after powering on, the first duty step of Ch1 and Ch2 after they are triggered for the first time is played
+  as if it were 0. Also, the duty cycle clocking is disabled until the first trigger.
+- When triggering Ch3, the first sample to play is the previous one still in the high nibble of the sample buffer, and the next sample is the second nibble from the wave table. This is because it doesn't load the first byte on trigger like it *should*.
+  The first nibble from the wave table is thus not played until the waveform loops.
+- When triggering Ch1 and Ch2, the low two bits of the frequency timer are NOT modified.
+- Extra length clocking occurs when writing to NRx4 when the DIV-APU next step is one that doesn't clock the length timer. In this case, if the length timer was PREVIOUSLY disabled and now enabled and the length timer is not zero, it is decremented. If this decrement makes it zero and trigger is clear, the channel is disabled. On the CGB-02, the length timer only has to have been disabled before; the current length enable state doesn't matter. This breaks at least one game (Prehistorik Man), and was fixed on CGB-04 and CGB-05.
+- If a channel is triggered when the DIV-APU next step is one that doesn't clock the length timer and the length timer is now enabled and length is being set to 64 (256 for wave channel) because it was previously zero, it is set to 63 instead (255 for wave channel).
+- If a channel is triggered when the DIV-APU next step will clock the volume envelope, the envelope's timer is reloaded with one greater than it would have been.
+- Using a noise channel clock shift of 14 or 15 results in the LFSR receiving no clocks.
+- Clearing the sweep direction bit in NR10 after at least one sweep calculation has been made using the substraction mode since the last trigger causes the channel to be immediately disabled. This prevents you from having the sweep lower the frequency then raise the frequency without a trigger inbetween.
+- Triggering the wave channel on the DMG while it reads a sample byte will alter the first four bytes of wave RAM. If the channel was reading one of the first four bytes, the only first byte will be rewritten with the byte being read. If the channel was reading one of the later 12 bytes, the first FOUR bytes of wave RAM will be rewritten with the four aligned bytes that the read was from (bytes 4-7, 8-11, or 12-15); for example if it were reading byte 9 when it was retriggered, the first four bytes would be rewritten with the contents of bytes 8-11. To avoid this corruption you should stop the wave by writing 0 then $80 to NR30 before triggering it again. The game Duck Tales encounters this issue part way through most songs.
+- "Zombie" mode: the volume can be manually altered while a channel is playing by writing to NRx2. Behavior depends on the old and new values of NRx2, and whether the envlope has stopped automatic updates. The CGB-02 and CGB-04 are the most consistent:
+  * If the old envelope period was zero and the envelope is still doing automatic updates, volume is incremented by 1, otherwise if the envelope was in decrease mode, volume is incremented by 2.
+  * If the mode was changed (increase to decrease or decrease to increase), volume is set to 16-volume.
+  * Only the low 4 bits of volume are kept after the above operations.
+
+Other models behave differently, especially the DMG units which have crazy behavior in some cases. The only useful consistent behavior is using increase mode with a period of zero in order to increment the volume by 1. That is, write $V8 to NRx2 to set the initial volume to V before triggering the channel, then write $08 to NRx2 to increment the volume as the sound plays (repeat 15 times to decrement the volume by 1). This allows manual volume control on all units tested.
+
+- When all four channel DACs are off, the master volume units are disconnected from the sound output and the output level becomes 0. When any channel DAC is on, a high-pass filter capacitor is connected which slowly removes any DC component from the signal. The following code applied at 4194304 Hz implements these two behaviors for one of the DMG output channels (unoptimized floating point for clarity):
+
+```c
+static double capacitor = 0.0;
+
+double high_pass( double in, bool dacs_enabled )
+{
+     double out = 0.0;
+     if ( dacs_enabled )
+     {
+         out = in - capacitor;
+
+         // capacitor slowly charges to 'in' via their difference
+         capacitor = in - out * 0.999958; // use 0.998943 for MGB&CGB
+     }
+     return out;
+}
+```
+
+The charge factor can be calculated for any output sampling rate as 0.999958^(4194304/rate). So if you were applying high_pass() at 44100 Hz, you'd use a charge factor of 0.996.
