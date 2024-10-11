@@ -23,7 +23,7 @@
   - [Scrolling](./Scrolling.md)
   - [Palettes](./Palettes.md)
   - [Rendering](./Rendering.md)
-    - [Pixel FIFO](./pixel_fifo.md)
+    - [Rendering internals](./Rendering_Internals.md)
 - [Audio](./Audio.md)
   - [Audio Registers](./Audio_Registers.md)
   - [Audio Details](./Audio_details.md)
