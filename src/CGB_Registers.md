@@ -79,7 +79,10 @@ the program execution continues during the "spaces" between each data
 block. Note that the program should not change the Destination VRAM bank
 (FF4F), or the Source ROM/RAM bank (in case data is transferred from
 bankable memory) until the transfer has completed! (The transfer should
-be paused as described below while the banks are switched)
+be paused as described below while the banks are switched).
+
+Upon halting the CPU (using the [halt instruction](<#Using the HALT Instruction>)),
+the transfer will also be halted and will be resumed only when the CPU resumes execution.
 
 Reading from Register FF55 returns the remaining length (divided by $10,
 minus 1), a value of $FF indicates that the transfer has completed. It
