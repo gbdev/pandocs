@@ -82,7 +82,7 @@ bankable memory) until the transfer has completed! (The transfer should
 be paused as described below while the banks are switched).
 
 Upon halting the CPU (using the [halt instruction](<#Using the HALT Instruction>)),
-the transfer will also be halted and will be resumed only when the CPU resumes execution.
+the transfer will also be halted and will be resumed only when the CPU resumes execution ([test rom](https://github.com/alloncm/MagenTests?tab=readme-ov-file#vram-dma-hblank-mode) exhibiting this behaviour).
 
 Reading from Register FF55 returns the remaining length (divided by $10,
 minus 1), a value of $FF indicates that the transfer has completed. It
