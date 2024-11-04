@@ -89,7 +89,7 @@ color #0 uninitialized.
 
 :::tip NOTE
 
-For most of the cases the boot ROM leaves all object colors uninitialized (and thus somewhat random),
+For most of the cases the boot ROM leaves all object colors uninitialized (and thus somewhat random/unreliable),
 aside from setting the first byte of OBJ0 color #0 to $00, which is unused.
 
 Only in compatibility for DMG mode, the boot ROM sets the first 2 object palettes which are
