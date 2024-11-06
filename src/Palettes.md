@@ -89,10 +89,10 @@ color #0 uninitialized.
 
 :::tip NOTE
 
-For most of the cases the boot ROM leaves all object colors uninitialized (and thus somewhat random/unreliable),
+In CGB mode, the boot ROM leaves all object colors uninitialized (and thus somewhat random/unreliable),
 aside from setting the first byte of OBJ0 color #0 to $00, which is unused.
 
-Only in compatibility for DMG mode, the boot ROM sets the first 2 object palettes which are
+In DMG compatibility mode, the boot ROM sets the first 2 object palettes which are
 used by OBP0/OBP1, for more [see](./Power_Up_Sequence.md#compatibility-palettes).
 
 :::
