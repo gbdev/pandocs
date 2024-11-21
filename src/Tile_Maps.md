@@ -5,10 +5,9 @@ The Game Boy contains two 32×32 tile maps in VRAM at
 the memory areas `$9800-$9BFF` and `$9C00-$9FFF`. Any of these maps can be used to
 display the Background or the Window.
 
-## Tile Indexes
+## Tile indices
 
-Each tile map contains the 1-byte indexes of the
-tiles to be displayed.
+Each tile map contains the 1-byte indices of the tiles to be displayed.
 
 Tiles are obtained from the Tile Data Table using either of the two
 addressing modes (described in [VRAM Tile Data](<#VRAM Tile Data>)), which
@@ -17,7 +16,7 @@ can be selected via [the LCDC register](<#FF40 — LCDC: LCD control>).
 Since one tile has 8×8 pixels, each map holds a 256×256 pixels picture.
 Only 160×144 of those pixels are displayed on the LCD at any given time.
 
-## BG Map Attributes (CGB Mode only)
+## BG Map attributes (CGB Mode only)
 
 In CGB Mode, an additional map of 32×32 bytes is stored in VRAM Bank 1
 (each byte defines attributes for the corresponding tile-number map
