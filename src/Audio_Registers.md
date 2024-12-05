@@ -24,6 +24,8 @@ One of the pitfalls of the `NRxy` naming convention is that the register's purpo
 
 - **Audio on/off** (*Read/Write*): This controls whether the APU is powered on at all (akin to [`LCDC` bit 7](<#LCDC.7 — LCD enable>)).
   Turning the APU off drains less power (around 16%), but clears all APU registers and makes them read-only until turned back on, except `NR52`[^dmg_apu_off].
+  Turning the APU off, however, does not affect [Wave RAM](<#FF30–FF3F — Wave pattern RAM>), which can always be read/written, nor the [DIV-APU](<#DIV-APU>) counter.
+
 - **CH<var>n</var> on?** (*Read-only*): Each of these four bits allows checking whether channels are active[^nr52_dac].
   Writing to those does **not** enable or disable the channels, despite many emulators behaving as if.
 
@@ -32,7 +34,7 @@ One of the pitfalls of the `NRxy` naming convention is that the register's purpo
       - The channel's [length timer](<#Length timer>) is enabled in `NRx4` and expires, or
       - *For CH1 only*: when the [period sweep](<#FF10 — NR10: Channel 1 sweep>) overflows[^freq_sweep_underflow], or
       - [The channel's DAC](#DACs) is turned off.
-  
+
   The envelope reaching a volume of 0 does NOT turn the channel off!
 
 <hr>
@@ -202,7 +204,15 @@ Period changes (written to `NR13` or `NR14`) only take effect after the current 
   "NR14" 7:"Trigger" 6:"Length enable" 2-0:"Period"
 }}
 
-- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel.
+- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel, causing the
+  following to occur:
+  * Ch1 is enabled.
+  * If length timer expired it is reset.
+  * The period divider is set to the contents of `NR13` and `NR14`.
+  * Envelope timer is reset.
+  * Volume is set to contents of `NR12` initial volume.
+  * Sweep does [several things](<#Pulse channel with sweep (CH1)>).
+
 - **[Length](<#Length timer>) enable** (*Read/Write*): Takes effect immediately upon writing to this register.
 - **Period** (*Write-only*): The upper 3 bits of the period value; the lower 8 bits are stored in [`NR13`](<#FF13 — NR13: Channel 1 period low \[write-only\]>).
 
@@ -256,7 +266,7 @@ This channel lacks the envelope functionality that the other three channels have
 }}
 
 - **Output level**: Controls the channel's volume as follows:
-  
+
   Bits 6-5 (binary) | Output level
   -----------------:|--------------
      00             | Mute (No sound)
@@ -295,20 +305,27 @@ Period changes (written to `NR33` or `NR34`) only take effect after the followin
   "NR34" 7:"Trigger" 6:"Length enable" 2-0:"Period"
 }}
 
-- **Trigger** (*Write-only*): Writing any value to `NR34` with this bit set [triggers](<#Triggering>) the channel.
+- **Trigger** (*Write-only*): Writing any value to `NR34` with this bit set [triggers](<#Triggering>) the channel, causing the
+  following to occur:
+  * Ch3 is enabled.
+  * If the length timer expired it is reset.
+  * The period divider is set to the contents of `NR33` and `NR34`.
+  * Volume is set to contents of `NR32` initial volume.
+  * Wave RAM index is reset, but its *not* refilled.
 
-  :::warning RETRIGGERING CAUTION
+    :::warning RETRIGGERING CAUTION
 
-  On monochrome consoles only, retriggering CH3 while it's about to read a byte from wave RAM causes wave RAM to be corrupted in a generally unpredictable manner.
+    On monochrome consoles only, retriggering CH3 while it's about to read a byte from wave RAM causes wave RAM to be corrupted in a generally unpredictable manner.
 
-  :::
+    :::
 
-  :::warning PLAYBACK DELAY
+    :::warning PLAYBACK DELAY
 
-  Triggering the wave channel does not immediately start playing wave RAM; instead, the *last* sample ever read (which is reset to 0 when the APU is off) is output until the channel next reads a sample.
-  ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_delay.asm))
+    Triggering the wave channel does not immediately start playing wave RAM; instead, the *last* sample ever read (which is reset to 0 when the APU is off) is output until the channel next reads a sample.
+    ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_delay.asm))
 
-  :::
+    :::
+
 - **[Length](<#Length timer>) enable** (*Read/Write*): Takes effect immediately upon writing to this register.
 - **Period** (*Write-only*): The upper 3 bits of the period value; the lower 8 bits are stored in [`NR33`](<#FF1D — NR33: Channel 3 period low \[write-only\]>).
 
@@ -395,5 +412,12 @@ If the bit shifted out is a 0, the channel emits a 0; otherwise, it emits the vo
   "NR44" 7:"Trigger" 6:"Length enable"
 }}
 
-- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel.
+- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel, causing the
+  following to occur:
+  * Ch4 is enabled.
+  * If the length timer expired it is reset.
+  * Envelope timer is reset.
+  * Volume is set to contents of `NR42` initial volume.
+  * [LFSR bits](<#Noise channel (CH4)>) are reset.
+
 - **[Length](<#Length timer>) enable** (*Read/Write*): Takes effect immediately upon writing to this register.

@@ -27,6 +27,17 @@ It refuses to run on the GBA for a different reason: the developer couldn't figu
 
 :::
 
+Each channel contains components that control different aspects of sound generation:
+
+| Channel  | Sweep | Frequency      | Wave Form | Length Timer | Volume   |
+|----------|-------|----------------|-----------|--------------|----------|
+| Square 1 | Sweep | Period Counter | Duty      | Length Timer | Envelope |
+| Square 2 |       | Period Counter | Duty      | Length Timer | Envelope |
+| Wave     |       | Period Counter | Wave      | Length Timer | Volume   |
+| Noise    |       | Period Counter | LFSR      | Length Timer | Envelope |
+
+These components are controlled by writing to the [audio registers](<#Audio Registers>).
+
 [^speaker_mono]:
 The speaker merges back the two channels, losing the stereo aspect entirely.
 
@@ -70,7 +81,8 @@ Internally, all envelopes are ticked at 64 Hz, and every 1–7 of those ticks, t
 All channels can be individually set to automatically shut themselves down after a certain amount of time.
 
 If the functionality is enabled, a channel's **length timer** ticks up[^len_cnt_dir] at 256 Hz (tied to [DIV-APU](<#DIV-APU>)) from the value it's initially set at.
-When the length timer reaches 64 (256 for wave channel), the channel is turned off.
+
+When the length timer reaches 64 (CH1, CH2, and CH4) or 256 (CH3), the channel is turned off.
 
 ### Frequency
 
