@@ -219,13 +219,34 @@ ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a permanent
 880us LED ON signal. Even though being generally CGB compatible, the GBA
 does not include an infra-red port.
 
+### FF4C — KEY0 (CGB Mode only): CPU mode select 
+
+This register is not officaly documented and this info have been gathered from leaks ([translated here](https://github.com/ISSOtm/gb-bootroms/commit/8513822a812ad9153b1618490d504c212ed61ed2))
+
+{{#bits 8 >
+   "KEY0" 3-2:"CPU mode"
+}}
+
+CPU mode can be one of those 2 bits values:
+- 0 - CGB mode (for execution of CGB supporting cartridges)
+- 1 - DMG mode (for execution of DMG exclusive cartridges)
+- 2 - PGB1 mode
+- 3 - PGB2 mode
+
+:::tip Research needed
+
+The PGB mode is not well researched or documented yet.
+Help is welcome!
+
+:::
+
 ### FF6C — OPRI (CGB Mode only): Object priority mode
 
 This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's CGB compatibility.
 
-OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to KEY0 but STOP hasn't been executed yet, and the write takes effect instantly.
+OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
 
 :::warning TO BE VERIFIED
 
