@@ -79,7 +79,10 @@ the program execution continues during the "spaces" between each data
 block. Note that the program should not change the Destination VRAM bank
 (FF4F), or the Source ROM/RAM bank (in case data is transferred from
 bankable memory) until the transfer has completed! (The transfer should
-be paused as described below while the banks are switched)
+be paused as described below while the banks are switched).
+
+Upon halting the CPU (using the [halt instruction](<#Using the HALT Instruction>)),
+the transfer will also be halted and will be resumed only when the CPU resumes execution ([test rom](https://github.com/alloncm/MagenTests?tab=readme-ov-file#vram-dma-hblank-mode) exhibiting this behaviour).
 
 Reading from Register FF55 returns the remaining length (divided by $10,
 minus 1), a value of $FF indicates that the transfer has completed. It
@@ -116,6 +119,8 @@ Older MBC controllers (like MBC1-3) and slower ROMs are not guaranteed to suppor
 Purpose or HBlank DMA, that's because there are always 2 bytes
 transferred per microsecond (even if the itself program runs it Normal
 Speed Mode).
+
+This allows for a transfer of 2280 bytes during VBlank, which is up to 142.5 tiles.
 
 ### VRAM Banks
 

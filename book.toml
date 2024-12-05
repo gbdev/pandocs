@@ -32,7 +32,7 @@ additional-css = [
 	"custom/style.css",
 ]
 # rgbasm.min.js gets injected into highlight.js by the renderer
-curly-quotes = true
+smart-punctuation = true
 print = { enable = true }
 fold = { enable = true, level = 0 }
 git-repository-url = "https://github.com/gbdev/pandocs"
@@ -43,6 +43,7 @@ site-url = "/pandocs/"
 follow-web-links = true
 traverse-parent-directories = false
 optional = true
+warning-policy = "warn"
 exclude = [
 	'https://github\.com/gbdev/pandocs/tree/', # Do not check the "this was generated from commit N" link, as the commit may not have been pushed yet
 	'print.html', # Do not check the print page, as it is generated separately

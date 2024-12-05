@@ -3,20 +3,16 @@
 
 :::warning Warning
 
-When the PPU is drawing the screen it is directly reading
-from Video Memory (VRAM) and from the Object Attribute Memory (OAM).
-During these periods the Game Boy CPU may not access VRAM and OAM.
-That means that any attempts to write to VRAM or OAM are ignored (data
-remains unchanged). And any attempts to read from VRAM or OAM will return
-undefined data (typically $FF).
+When the PPU is [drawing the screen](<#Rendering overview>), it is often directly reading from Video Memory (VRAM) and from the Object Attribute Memory (OAM).
+During these periods, the Game Boy CPU cannot access VRAM and OAM.
 
-For this reason the program should verify if VRAM/OAM is accessible
-before actually reading or writing to it. This is usually done by
-reading the Mode bits from the STAT Register (FF41). When doing this (as
-described in the examples below) you should take care that no interrupts
-occur between the wait loops and the following memory access - the
-memory is guaranteed to be accessible only for a few cycles just
-after the wait loops have completed.
+That means that any attempts to write to VRAM or OAM are ignored (data remains unchanged).
+And any attempts to read from VRAM or OAM will return undefined data (typically $FF).
+
+For this reason the program should verify if VRAM/OAM is accessible before actually reading or writing to it.
+This is usually done by reading the Mode bits from [the STAT Register](<#FF41 — STAT: LCD status>).
+When doing this (as described in the examples below) you should take care that **no interrupts occur between the wait loops and the following memory access**;
+the memory is guaranteed to be accessible only for a few cycles (less than Mode 2's length) just after a wait loop exits.
 
 :::
 
@@ -66,8 +62,7 @@ During those modes, OAM can be accessed directly or by doing a DMA
 transfer (FF46). Outside those modes, DMA out-prioritizes the PPU in
 accessing OAM, and the PPU will read $FF from OAM during that time.
 
-A typical
-procedure that waits for accessibility of OAM would be:
+A typical procedure that waits for accessibility of OAM would be:
 
 ```rgbasm
     ld   hl, $FF41    ; STAT Register

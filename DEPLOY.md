@@ -41,7 +41,8 @@ docker build -t pandocs .
 
 If you prefer to install every dependency locally:
 
-1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads) (3.9 or an earlier version).
+1. Install [Rust](https://www.rust-lang.org/tools/install), [mdBook](https://github.com/rust-lang/mdBook#readme), and [Python 3](https://www.python.org/downloads) (version 3.9 or newer).
+
   mdBook is the tool rendering the documentation, Rust is used for some custom plugins and Python scripts are used to render some images. E.g.:
   ```sh
   # Install Rust using rustup

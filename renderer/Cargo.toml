@@ -7,11 +7,11 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0.40"
+anyhow = "1.0.89"
 globwalk = "0.8.1"
-lazy_static = "1.4.0"
+lazy_static = "1.5.0"
 # mdbook here is only used as a lib, so no need for the extra features
-mdbook = { version = "0.4.8", default-features = false, features = [ "search" ] }
-regex = "1.5"
-termcolor = "1.1.2"
-url = "2.2.2"
+mdbook = { version = "0.4.40", default-features = false, features = [ "search" ] }
+regex = "1.10"
+termcolor = "1.4.1"
+url = "2.5.2"
