@@ -221,22 +221,28 @@ does not include an infra-red port.
 
 ### FF4C — KEY0 (CGB Mode only): CPU mode select 
 
-This register is not officaly documented and this info have been gathered from leaks ([translated here](https://github.com/ISSOtm/gb-bootroms/commit/8513822a812ad9153b1618490d504c212ed61ed2))
+This GBC-only register (which is not officaly documented) is written only by the CGB boot ROM,
+as it gets locked after the bootrom finish execution (by a write to the [BANK register](<#Monochrome models (DMG0, DMG, MGB)>)).
+
+Once it is locked, the behavior of the system can't be changed without a reset (This behavior can be observed using [this test ROM](https://github.com/alloncm/MagenTests?tab=readme-ov-file#key0-cpu-mode-register-lock-after-boot)).
+
+As a result of the above most of the behavior is not directly testable without hardware manipulation.
+Even though we can't test it's behavior directly we can inspect the disassembly of the CGB bootrom and infer the following: 
 
 {{#bits 8 >
-   "KEY0" 3-2:"CPU mode"
+   "KEY0" 2:"DMG compatibility mode"
 }}
 
-CPU mode can be one of those 2 bits values:
-- 0 - CGB mode (for execution of CGB supporting cartridges)
-- 1 - DMG mode (for execution of DMG exclusive cartridges)
-- 2 - PGB1 mode
-- 3 - PGB2 mode
+- **DMG compatibility mode**: `0` = Disabled (full CGB mode, for regular CGB cartridges), `1` = Enabled (for DMG only cartridges)
+
+#### Bit 3 and "PGB mode"
+
+It has been speculated based on leaked documents that setting bit 3 is related to a special mode called "PGB" for controlling the LCD externally.
+However, this has not been independently verified.
 
 :::tip Research needed
 
-The PGB mode is not well researched or documented yet.
-Help is welcome!
+Bit 3 and the "PGB mode" are not well researched or documented yet, any help is welcome!
 
 :::
 
@@ -246,7 +252,7 @@ This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's CGB compatibility.
 
-OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
+OPRI has an effect if a [PGB](<#Bit 3 and "PGB mode">) value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
 
 :::warning TO BE VERIFIED
 
