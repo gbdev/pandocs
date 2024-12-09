@@ -86,7 +86,9 @@ Then, like the monochrome boot ROMs, the header logo is checked *from the buffer
 For unknown reasons, however, only the first half of the logo is checked, despite the full logo being present in the HRAM buffer.
 
 Finally, the boot ROM fades all BG palettes to white, and sets the hardware to compatibility mode.
-If [the CGB compatibility byte](<#0143 — CGB flag>) indicates CGB compatibility, the byte is written directly to `KEY0` ($FF4C), potentially enabling PGB mode; otherwise, $04 is written to `KEY0` (enabling DMG compatibility mode in the CPU), $01 is written to [`OPRI`](<#FF6C — OPRI (CGB Mode only): Object priority mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
+If [the CGB compatibility byte](<#0143 — CGB flag>) indicates CGB compatibility, the byte is written directly to [`KEY0`](<#FF4C — KEY0 (CGB Mode only): CPU mode select>), potentially [enabling "PGB mode"](<#PGB mode>);
+otherwise, $04 is written to [`KEY0`](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) (enabling DMG compatibility mode in the CPU),
+$01 is written to [`OPRI`](<#FF6C — OPRI (CGB Mode only): Object priority mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
 Additionally, the DMG logo tilemap is written [if the compatibility requests it](<#Compatibility palettes>).
 
 Like all other boot ROMs, the last thing the color boot ROMs do is hand off execution at the same time as they unmap themselves, though they write $11 instead of $01 or $FF.
