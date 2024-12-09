@@ -221,7 +221,7 @@ does not include an infra-red port.
 
 ### FF4C — KEY0 (CGB Mode only): CPU mode select 
 
-This GBC-only register (which is not officaly documented) is written only by the CGB boot ROM,
+This GBC-only register (which is not officially documented) is written only by the CGB boot ROM,
 as it gets locked after the bootrom finish execution (by a write to the [BANK register](<#Monochrome models (DMG0, DMG, MGB)>)).
 
 Once it is locked, the behavior of the system can't be changed without a reset (This behavior can be observed using [this test ROM](https://github.com/alloncm/MagenTests?tab=readme-ov-file#key0-cpu-mode-register-lock-after-boot)).
