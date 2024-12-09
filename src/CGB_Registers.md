@@ -235,14 +235,14 @@ Even though we can't test it's behavior directly we can inspect the disassembly 
 
 - **DMG compatibility mode**: `0` = Disabled (full CGB mode, for regular CGB cartridges), `1` = Enabled (for DMG only cartridges)
 
-#### Bit 3 and "PGB mode"
-
-It has been speculated based on leaked documents that setting bit 3 is related to a special mode called "PGB" for controlling the LCD externally.
-However, this has not been independently verified.
+#### PGB mode
 
 :::tip Research needed
 
-Bit 3 and the "PGB mode" are not well researched or documented yet, any help is welcome!
+It has been speculated that setting bit 3 is related to a special mode called "PGB" for controlling the LCD externally.
+However, this has not been independently verified.
+
+This mode is not well researched nor documented yet, you are welcome to help [here!](https://github.com/gbdev/pandocs/issues/581)
 
 :::
 
@@ -252,7 +252,7 @@ This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's CGB compatibility.
 
-OPRI has an effect if a [PGB](<#Bit 3 and "PGB mode">) value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
+OPRI has an effect if a [PGB](<#PGB mode>) value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
 
 :::warning TO BE VERIFIED
 
