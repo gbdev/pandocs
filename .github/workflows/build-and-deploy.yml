@@ -3,18 +3,18 @@ name: Build and deploy an updated version of the website
 on:
   push:
     paths-ignore:
-      - 'historical/**'
-      - 'mediawiki-exporter/**'
-      - 'README.md'
-      - 'LICENSE'
+      - "historical/**"
+      - "mediawiki-exporter/**"
+      - "README.md"
+      - "LICENSE"
   pull_request:
     paths-ignore:
-      - 'historical/**'
-      - 'mediawiki-exporter/**'
-      - 'README.md'
-      - 'LICENSE'
+      - "historical/**"
+      - "mediawiki-exporter/**"
+      - "README.md"
+      - "LICENSE"
   schedule:
-    - cron: '42 16 1/7 * *'
+    - cron: "42 16 1/7 * *"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -36,83 +36,83 @@ jobs:
     name: Build Pan Docs
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout pandocs
-      uses: actions/checkout@v4
-      with:
-        path: pandocs
+      - name: Checkout pandocs
+        uses: actions/checkout@v4
+        with:
+          path: pandocs
 
-    - name: Cache Rust build dir
-      uses: Swatinem/rust-cache@v2
-      with:
-        workspaces: pandocs/target/
+      - name: Cache Rust build dir
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: pandocs/
 
-    - name: Install mdbook
-      uses: peaceiris/actions-mdbook@v2
-      with:
-        mdbook-version: 0.4.40
-    
-    - name: Install static-sitemap-cli
-      run: npm install static-sitemap-cli
+      - name: Install mdbook
+        uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: 0.4.40
 
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r pandocs/requirements.txt
+      - name: Install static-sitemap-cli
+        run: npm install static-sitemap-cli
 
-    - name: Build
-      working-directory: pandocs/
-      env:
-        MDBOOK_BUILD__CREATE_MISSING: "false" # Prevent creating missing files in SUMMARY.md
-      run: |
-        mdbook build
-  
-    - name: Generate sitemap
-      run: |
-        cd pandocs/docs/pandocs/
-        npx sscli --no-clean --base https://gbdev.io/pandocs
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r pandocs/requirements.txt
 
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: pandocs/docs/pandocs/
+      - name: Build
+        working-directory: pandocs/
+        env:
+          MDBOOK_BUILD__CREATE_MISSING: "false" # Prevent creating missing files in SUMMARY.md
+        run: |
+          mdbook build
+
+      - name: Generate sitemap
+        run: |
+          cd pandocs/docs/pandocs/
+          npx sscli --no-clean --base https://gbdev.io/pandocs
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pandocs/docs/pandocs/
 
   linkcheck:
     name: Check for dead links
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout pandocs
-      uses: actions/checkout@v4
-      with:
-        path: pandocs
+      - name: Checkout pandocs
+        uses: actions/checkout@v4
+        with:
+          path: pandocs
 
-    - name: Cache Rust build dir
-      uses: Swatinem/rust-cache@v2
-      with:
-        workspaces: pandocs/target/
+      - name: Cache Rust build dir
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: pandocs/
 
-    - name: Install mdbook
-      uses: peaceiris/actions-mdbook@v2
-      with:
-        mdbook-version: 0.4.40
+      - name: Install mdbook
+        uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: 0.4.40
 
-    # FIXME: Keep this up to date
-    - name: Install mdbook-linkcheck
-      run: | # `-L` because GitHub performs a redirection
-        curl -L -o mdbook-linkcheck.zip "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v${MDBOOK_LINKCHECK_VER}/mdbook-linkcheck.x86_64-unknown-linux-gnu.zip"
-        unzip mdbook-linkcheck.zip mdbook-linkcheck
-        chmod +x mdbook-linkcheck
+      # FIXME: Keep this up to date
+      - name: Install mdbook-linkcheck
+        run: | # `-L` because GitHub performs a redirection
+          curl -L -o mdbook-linkcheck.zip "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v${MDBOOK_LINKCHECK_VER}/mdbook-linkcheck.x86_64-unknown-linux-gnu.zip"
+          unzip mdbook-linkcheck.zip mdbook-linkcheck
+          chmod +x mdbook-linkcheck
 
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r pandocs/requirements.txt --break-system-packages
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r pandocs/requirements.txt --break-system-packages
 
-    - name: Check links
-      working-directory: pandocs/
-      env:
-        MDBOOK_OUTPUT__LINKCHECK__COMMAND: "../mdbook-linkcheck"
-      run: |
-        mdbook build
+      - name: Check links
+        working-directory: pandocs/
+        env:
+          MDBOOK_OUTPUT__LINKCHECK__COMMAND: "../mdbook-linkcheck"
+        run: |
+          mdbook build
 
   deploy:
     name: Deploy to GitHub pages
