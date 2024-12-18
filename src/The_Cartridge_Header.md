@@ -56,14 +56,7 @@ Value | Meaning
 `$80` | The game supports CGB enhancements, but is backwards compatible with monochrome Game Boys
 `$C0` | The game works on CGB only (the hardware ignores bit 6, so this really functions the same as `$80`)
 
-Values with bit 7 and either bit 2 or 3 set will switch the Game Boy into a special non-CGB-mode called "PGB mode".
-
-:::tip Research needed
-
-The PGB mode is not well researched or documented yet.
-Help is welcome!
-
-:::
+Setting bit 7 will trigger a write of this register value to [KEY0 register](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) which sets the CPU mode.
 
 ## 0144–0145 — New licensee code
 
