@@ -224,10 +224,10 @@ does not include an infra-red port.
 This GBC-only register (which is not officially documented) is written only by the CGB boot ROM,
 as it gets locked after the bootrom finish execution (by a write to the [BANK register](<#Monochrome models (DMG0, DMG, MGB)>)).
 
-Once it is locked, the behavior of the system can't be changed without a reset (This behavior can be observed using [this test ROM](https://github.com/alloncm/MagenTests?tab=readme-ov-file#key0-cpu-mode-register-lock-after-boot)).
+Once it is locked, the behavior of the system can't be changed without a reset (this behavior can be observed using [this test ROM](https://github.com/alloncm/MagenTests?tab=readme-ov-file#key0-cpu-mode-register-lock-after-boot)).
 
 As a result of the above most of the behavior is not directly testable without hardware manipulation.
-Even though we can't test it's behavior directly we can inspect the disassembly of the CGB bootrom and infer the following: 
+Even though we can't test its behavior directly we can inspect the disassembly of the CGB bootrom and infer the following: 
 
 {{#bits 8 >
    "KEY0" 2:"DMG compatibility mode"
@@ -240,7 +240,6 @@ Even though we can't test it's behavior directly we can inspect the disassembly 
 :::tip Research needed
 
 It has been speculated that setting bit 3 is related to a special mode called "PGB" for controlling the LCD externally.
-However, this has not been independently verified.
 
 This mode is not well researched nor documented yet, you are welcome to help [here!](https://github.com/gbdev/pandocs/issues/581)
 
