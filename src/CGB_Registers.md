@@ -219,13 +219,39 @@ ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a permanent
 880us LED ON signal. Even though being generally CGB compatible, the GBA
 does not include an infra-red port.
 
+### FF4C — KEY0 (CGB Mode only): CPU mode select 
+
+This GBC-only register (which is not officially documented) is written only by the CGB boot ROM,
+as it gets locked after the bootrom finish execution (by a write to the [BANK register](<#Monochrome models (DMG0, DMG, MGB)>)).
+
+Once it is locked, the behavior of the system can't be changed without a reset (this behavior can be observed using [this test ROM](https://github.com/alloncm/MagenTests?tab=readme-ov-file#key0-cpu-mode-register-lock-after-boot)).
+
+As a result of the above most of the behavior is not directly testable without hardware manipulation.
+Even though we can't test its behavior directly we can inspect the disassembly of the CGB bootrom and infer the following: 
+
+{{#bits 8 >
+   "KEY0" 2:"DMG compatibility mode"
+}}
+
+- **DMG compatibility mode**: `0` = Disabled (full CGB mode, for regular CGB cartridges), `1` = Enabled (for DMG only cartridges)
+
+#### PGB mode
+
+:::tip Research needed
+
+It has been speculated that setting bit 3 is related to a special mode called "PGB" for controlling the LCD externally.
+
+This mode is not well researched nor documented yet, you are welcome to help [here!](https://github.com/gbdev/pandocs/issues/581)
+
+:::
+
 ### FF6C — OPRI (CGB Mode only): Object priority mode
 
 This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's CGB compatibility.
 
-OPRI has an effect if a PGB value (`0xX8`, `0xXC`) is written to KEY0 but STOP hasn't been executed yet, and the write takes effect instantly.
+OPRI has an effect if a [PGB](<#PGB mode>) value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
 
 :::warning TO BE VERIFIED
 
