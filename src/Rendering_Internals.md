@@ -3,7 +3,7 @@
 The Game Boy's PPU is the component responsible for feeding the LCD (= the screen) with pixels.
 This document describes how the PPU renders pixels.
 
-::: tip Terminology
+:::tip Terminology
 
 A "dot" is the unit of time within the PPU.
 One "dot" is one 4 MiHz cycle, i.e. a unit of time equal to 1 ∕ 4194304 of a second.
