@@ -5,7 +5,7 @@ This document describes how the PPU renders pixels.
 
 :::tip Terminology
 
-A "dot" is the unit of time within the PPU.
+A *dot* is the unit of time within the PPU.
 One "dot" is one 4 MiHz cycle, i.e. a unit of time equal to 1 ∕ 4194304 of a second.
 The duration of one "dot" is independent of [CGB double speed](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>).
 
