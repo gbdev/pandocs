@@ -41,9 +41,8 @@ incoming bit is shifted in from the other side:
 
 The master Game Boy will load up a data byte in SB and then set
 SC to \$81 (Transfer requested, use internal clock). It will be notified
-that the transfer is complete in two ways: SC's Bit 7 will be cleared
-(that is, SC will be set up \$01), and also a [Serial interrupt](<#INT $58 — Serial interrupt>)
-will be requested.
+that the transfer is complete in two ways: SC's Bit 7 will be cleared, and a [Serial interrupt](<#INT $58 — Serial interrupt>)
+will be requested. When checking SC to determine if the transfer is complete, make sure to only read SC's Bit 7.
 
 The other Game Boy will load up a data byte and has to set SC's
 Bit 7 (that is, SC=\$80) to enable the serial port. The externally clocked
