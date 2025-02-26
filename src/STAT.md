@@ -29,7 +29,7 @@ is set, and (if enabled) a STAT interrupt is requested.
 - **Mode 1 int select** (*Read/Write*): If set, selects the Mode 1 condition for [the STAT interrupt](<#INT $48 — STAT interrupt>).
 - **Mode 0 int select** (*Read/Write*): If set, selects the Mode 0 condition for [the STAT interrupt](<#INT $48 — STAT interrupt>).
 - **LYC == LY** (*Read-only*): Set when [LY](<#FF44 — LY: LCD Y coordinate \[read-only\]>) contains the same value as [LYC](<#FF45 — LYC: LY compare>); it is constantly updated.
-- **PPU mode** (*Read-only*): Indicates [the PPU's current status](<#PPU modes>).
+- **PPU mode** (*Read-only*): Indicates [the PPU's current status](<#PPU modes>). Reports 0 instead when the [PPU is disabled](<#LCDC.7 — LCD enable>).
   
 ### Spurious STAT interrupts
 
