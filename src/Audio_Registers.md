@@ -412,7 +412,7 @@ If the bit shifted out is a 0, the channel emits a 0; otherwise, it emits the vo
   "NR44" 7:"Trigger" 6:"Length enable"
 }}
 
-- **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel, causing the
+- **Trigger** (*Write-only*): Writing any value to `NR44` with this bit set [triggers](<#Triggering>) the channel, causing the
   following to occur:
   * Ch4 is enabled.
   * If the length timer expired it is reset.
