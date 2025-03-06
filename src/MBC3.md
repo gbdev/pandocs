@@ -18,7 +18,7 @@ Contains the first 16 KiB of the ROM.
 Same as for MBC1, except that accessing banks $20, $40, and $60 is
 supported now.
 
-### A000-BFFF - RAM Bank 00-03, if any (Read/Write)
+### A000-BFFF - RAM Bank 00-07 or RTC register (Read/Write)
 
 Depending on the current Bank Number/RTC Register selection (see below),
 this memory space is used to access an 8 KiB external RAM Bank, or a
@@ -30,7 +30,8 @@ single RTC Register.
 
 Depending on the current Bank Number/RTC Register selection (see below),
 this memory space is used to access an 8KByte external RAM Bank, or a
-single RTC Register.
+single RTC Register. The mapped RTC register can be read/written by 
+accessing any address in that area, typically using address A000.
 
 ### 0000-1FFF - RAM and Timer Enable (Write Only)
 
@@ -47,12 +48,13 @@ corresponding ROM Banks.
 
 ### 4000-5FFF - RAM Bank Number - or - RTC Register Select (Write Only)
 
-As for the MBC1s RAM Banking Mode, writing a value in range for $00-$03
-maps the corresponding external RAM Bank (if any) into memory at
-A000-BFFF. When writing a value of $08-$0C, this will map the
-corresponding RTC register into memory at A000-BFFF. That register could
-then be read/written by accessing any address in that area, typically
-that is done by using address A000.
+Controls what is mapped into memory at A000-BFFF.
+
+| Value   | Selection                                     |
+|---------|-----------------------------------------------|
+| $00-$07 | The corresponding RAM Bank.                   |
+| $08-$0C | The corresponding RTC Register (see below).    |
+
 
 ### 6000-7FFF - Latch Clock Data (Write Only)
 
@@ -62,18 +64,14 @@ until it becomes latched again, by repeating the write $00-\>$01
 procedure. This provides a way to read the RTC registers while the
 clock keeps ticking.
 
-### The Clock Counter Registers
-
-```
-$08  RTC S   Seconds   0-59 ($00-$3B)
-$09  RTC M   Minutes   0-59 ($00-$3B)
-$0A  RTC H   Hours     0-23 ($00-$17)
-$0B  RTC DL  Lower 8 bits of Day Counter ($00-$FF)
-$0C  RTC DH  Upper 1 bit of Day Counter, Carry Bit, Halt Flag
-      Bit 0  Most significant bit of Day Counter (Bit 8)
-      Bit 6  Halt (0=Active, 1=Stop Timer)
-      Bit 7  Day Counter Carry Bit (1=Counter Overflow)
-```
+### Clock Counter Registers
+| Register | Name | Description | Range |
+|----------|------|-------------|-------|
+| $08 | RTC S | Seconds | 0-59 ($00-$3B) |
+| $09 | RTC M | Minutes | 0-59 ($00-$3B) |
+| $0A | RTC H | Hours | 0-23 ($00-$17) |
+| $0B | RTC DL | Lower 8 bits of Day Counter | ($00-$FF) |
+| $0C | RTC DH | Upper 1 bit of Day Counter, Carry Bit, Halt Flag. <br>Bit 0: Most significant bit (Bit 8) of Day Counter<br>Bit 6: Halt (0=Active, 1=Stop Timer)<br>Bit 7:  Day Counter Carry Bit (1=Counter Overflow) | |
 
 The Halt Flag is supposed to be set before **writing** to the RTC
 Registers.
