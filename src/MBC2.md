@@ -36,7 +36,7 @@ the RAM enable flag or the ROM bank number.
 #### When bit 8 is clear
 
 When the least significant bit of the upper address byte is zero, the value that is written controls whether the RAM is enabled.
-When the value written to this address range is equal to `$0A`, RAM is enabled.
+Save RAM will be enabled if and only if the lower 4 bits of the value written here are `$A`.
 If any other value is written, RAM is disabled.
 
 Examples of addresses that can control RAM: $0000–00FF, $0200–02FF, $0400–04FF, ..., $3E00–3EFF.
