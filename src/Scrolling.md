@@ -62,3 +62,6 @@ For the window to be displayed on a scanline, the following conditions must be m
 
 If the WY condition has already been triggered and at the start of a row the window enable bit was set,
 then resetting that bit before the WX condition gets triggered on that row yields a nice window glitch pixel where the window would have been activated.
+
+The way the Window selects which line of its tilemap to render may be surprising: the Y position is selected by an internal counter, which is reset to 0 during VBlank and **only** incremented when the Window starts being rendered on a given scanline.
+In particular, this means that hiding the Window mid-frame in any way (via either `WX` or `LCDC`, usually to display a status bar at the top *and* bottom of the screen) will also inhibit incrementing that Y-position counter.
