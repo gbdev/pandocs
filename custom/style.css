@@ -24,9 +24,9 @@ html {
 
 body {
   font-family: "Inter";
-  /* Enable some font features for Inter (https://rsms.me/inter/#features/calt) */
+  /* Enable some font features for Inter (https://rsms.me/inter/#features) */
   font-feature-settings: "ss01", /* Alternate (Open) digits */ "ss02",
-    /* Disambiguation gliphs */ "case";
+    /* Disambiguation glyphs */ "case", /* No contextual alternatives (e.g. 3x9 → 3×9) */ "calt" 0;
   /* Case alternates */
   letter-spacing: -0.005em;
   /* equals -0.5% */
@@ -111,6 +111,13 @@ code {
   height: 3px;
   margin: 25px 0px 25px 0px;
 }
+
+/* Classes for custom table styling */
+
+table.compact th {
+    padding: 3px 5px;
+}
+
 
 /* Global CSS variables */
 
