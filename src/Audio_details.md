@@ -152,7 +152,8 @@ During a [trigger event](#Triggering), several things occur:
 - If the individual step is non-zero, _frequency calculation_ and _overflow check_ are performed immediately.
 
 _Frequency calculation_ consists of taking the value in the frequency "shadow register", shifting it right by the individual step,
-optionally negating the value, depending on the [direction](<#FF10 — NR10: Channel 1 sweep>), and summing this with the frequency "shadow register" to produce a new frequency.
+optionally negating the value (depending on the [direction](<#FF10 — NR10: Channel 1 sweep>)) and summing this with the frequency
+"shadow register" to produce a new frequency.
 What is done with this new frequency depends on the context.
 
 The _overflow check_ simply calculates the new frequency and if it is greater than 2047, or $7FF, CH1 is disabled.
