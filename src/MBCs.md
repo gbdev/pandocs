@@ -20,3 +20,9 @@ so, it might be nevertheless possible to use Double Speed during periods
 which use only code and data which is located in internal RAM. Despite the 
 above, a self-made MBC1-EPROM card appears to work stable and fine even in 
 Double Speed Mode.
+
+## MBC Out Of Bounds RAM Access
+
+On most of the MBC's in case an out of bounds address is accessed (selecting unmapped RAM bank),
+only the mapped bits from the address will be used.
+The actual address being accessed can be calculated using this formula: `address & (max_ram_size - 1)`.
