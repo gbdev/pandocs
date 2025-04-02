@@ -20,10 +20,10 @@ in 8×8 squares, called _tiles_ (or sometimes "patterns" or "characters"), often
 the base unit in Game Boy graphics.
 
 A tile does not encode color information. Instead, a tile assigns a
-_color ID_ to each of its pixels, ranging from 0 to 3. For this reason,
+[_color indices_](<#Data format>) to each of its pixels, ranging from 0 to 3. For this reason,
 Game Boy graphics are also called _2bpp_ (2 bits per pixel). When a tile is used
-in the Background or Window, these color IDs are associated with a _palette_. When
-a tile is used in an object, the IDs 1 to 3 are associated with a palette, but
+in the Background or Window, these [color indices](<#Data format>) are associated with a _palette_. When
+a tile is used in an object, the indices 1 to 3 are associated with a palette, but
 ID 0 means transparent.
 
 ## Palettes

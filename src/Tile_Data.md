@@ -81,18 +81,18 @@ $38 $7C` appears as follows:
 </figure>
 
 For the first row, the values `$3C $7E` are `00111100` and `01111110` in
-binary. The leftmost bits are 0 and 0, thus the color ID is binary `00`, or 0.
-The next bits are 0 and 1, thus the color ID is binary `10`, or 2 (remember to
+binary. The leftmost bits are 0 and 0, thus the [color index](<#Data format>) is binary `00`, or 0.
+The next bits are 0 and 1, thus the [color index](<#Data format>) is binary `10`, or 2 (remember to
 flip the order of the bits!). The full eight-pixel row evaluates to 0 2 3 3 3 3
 2 0.
 
 A tool for viewing tiles can be found
 [here](https://www.huderlem.com/demos/gameboy2bpp.html).
 
-So, each pixel has a color ID of 0 to 3. The color
+So, each pixel has a [color index](<#Data format>) of 0 to 3. The color
 numbers are translated into real colors (or gray shades) depending on
 the current palettes, except that when the tile is used in an OBJ the
-color ID 0 means transparent. The palettes are defined through registers
+[color index](<#Data format>) 0 means transparent. The palettes are defined through registers
 [BGP](<#FF47 — BGP (Non-CGB Mode only): BG palette data>),
 [OBP0 and OBP1](<#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>), and
 [BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>),
