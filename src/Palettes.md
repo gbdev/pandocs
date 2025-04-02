@@ -5,7 +5,7 @@
 
 ### FF47 — BGP (Non-CGB Mode only): BG palette data
 
-This register assigns gray shades to the [color IDs](./Tile_Data.md) of the BG and Window tiles.
+This register assigns gray shades to the [color indices](<#Data format>) of the BG and Window tiles.
 
 {{#bits 8 >
   "Color for..."  7-6:"ID 3" 5-4:"ID 2" 3-2:"ID 1" 1-0:"ID 0";
