@@ -25,4 +25,4 @@ Double Speed Mode.
 
 On most of the MBC's in case an out of bounds address is accessed (selecting unmapped RAM bank),
 only the mapped bits from the address will be used.
-The actual address being accessed can be calculated using this formula: `address & (max_ram_size - 1)`.
+The actual address being accessed can be calculated using this formula: `address % max_ram_size`.
