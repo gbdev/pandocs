@@ -40,6 +40,12 @@ registers. Reads return $FF. Other writes do not appear to do anything
 (Partially unconfirmed). Note that you cannot re-latch the accelerometer
 value without first erasing it; attempts to do so yield no change.
 
+Once the latch for a sample update has been triggered the cpu should not be
+put into HALT for at least 1.2 msec since HALTing turns off the PHI cartridge
+signal (clock from the GB) which the MBC7 accelerometer sensor relies on.
+If that clock is turned off too soon the X and Y values will have signficantly
+more noise in the sampled data.
+
 ### Ax2x/Ax3x - Accelerometer X value (Read Only)
 
 Ax2x contains the low byte of the X value (lower values are towards the
@@ -134,5 +140,5 @@ enable section as well (0000-1FFF)
 
 ## External links
 
-- Source: [GBDev Forums thread by endrift](https://web.archive.org/web/20240429225227/http://gbdev.gg8.se/forums/viewtopic.php?id=448)
+- Source: [GBDev Forums thread by endrift](https://web.archive.org/web/20250424080817/https://gbdev.gg8.se/forums/viewtopic.php?id=448)
 
