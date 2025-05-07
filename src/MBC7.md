@@ -43,7 +43,7 @@ value without first erasing it; attempts to do so yield no change.
 Once the latch for a sample update has been triggered the CPU should not be
 put into HALT for at least 1.2 µs since HALTing turns off the PHI cartridge
 signal (the System Clock) which the MBC7 accelerometer sensor relies on.
-If that clock is turned off too soon the X and Y values will have signficantly
+If that clock is turned off too soon the X and Y values will have significantly
 more noise in the sampled data.
 
 ### Ax2x/Ax3x - Accelerometer X value (Read Only)
