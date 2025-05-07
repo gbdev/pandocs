@@ -40,7 +40,7 @@ registers. Reads return $FF. Other writes do not appear to do anything
 (Partially unconfirmed). Note that you cannot re-latch the accelerometer
 value without first erasing it; attempts to do so yield no change.
 
-Once the latch for a sample update has been triggered the cpu should not be
+Once the latch for a sample update has been triggered the CPU should not be
 put into HALT for at least 1.2 msec since HALTing turns off the PHI cartridge
 signal (clock from the GB) which the MBC7 accelerometer sensor relies on.
 If that clock is turned off too soon the X and Y values will have signficantly
