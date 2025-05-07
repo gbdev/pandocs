@@ -13,7 +13,7 @@
 - [Furrtek - Reverse-engineered schematics for DMG-CPU-B](https://github.com/furrtek/DMG-CPU-Inside)
 - [Furrtek - Game Boy Printer](http://furrtek.free.fr/?a=gbprinter)
 - [Pan of ATX, Marat Fayzullin, Felber Pascal, Robson Paul, and Korth Martin - Pan Docs (previous versions and revisions)](https://github.com/gbdev/pandocs/tree/master/historical)
-- [Jeff Frohwein - DMG, SGB, MBC schematics](http://www.devrs.com/gb/hardware.php)
+- [Jeff Frohwein - DMG, SGB, MBC schematics](https://web.archive.org/web/20120402014839/http://www.devrs.com/gb/hardware.php)
 - [Pat Fagan - z80gboy.txt](http://www.z80.info/z80gboy.txt)
 - [Christine Love - F the Super Game Boy: Kirby's Dream Land 2](https://loveconquersallgam.es/post/2487450388/fuck-the-super-game-boy-kirbys-dream-land-2)
 - [Shonumi - Dan Docs](https://shonumi.github.io/dandocs.html)
