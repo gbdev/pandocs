@@ -20,7 +20,10 @@ td:first-child {
       <td>CPU</td><td colspan="4">8-bit 8080-like Sharp CPU (speculated to be a SM83 core)</td>
     </tr>
     <tr>
-      <td>CPU freq</td><td colspan="2">4.194304&nbsp;MHz<sup class="footnote-reference"><a href="#dmg_clk">1</a></sup></td><td>Depends on revision<sup class="footnote-reference"><a href="#sgb_clk">2</a></sup></td><td>Up to 8.388608&nbsp;MHz</td>
+      <td>Master Clock</td><td colspan="2">4.194304&nbsp;MHz<sup class="footnote-reference"><a href="#dmg_clk">1</a></sup></td><td>Depends on revision<sup class="footnote-reference"><a href="#sgb_clk">2</a></sup></td><td>Up to 8.388608&nbsp;MHz</td>
+    </tr>
+    <tr>
+      <td>System Clock</td><td colspan="4">1/4 the frequency of Master Clock</td>
     </tr>
     <tr>
         <td>Work RAM</td><td colspan="3">8&nbsp;KiB</td><td>32&nbsp;KiB<sup class="footnote-reference"><a href="#compat">3</a></sup> (4&nbsp;+&nbsp;7&nbsp;×&nbsp;4&nbsp;KiB)</td>
@@ -62,7 +65,7 @@ td:first-child {
 Real DMG units tend to run about 50-70 PPM slow. Accuracy of other models is unknown. [See this page](https://github.com/jkotlinski/gbchrono) for more details.
 
 [^sgb_clk]:
-SGB1 cartridges derive the GB CPU clock from the SNES' clock, [yielding a clock speed a bit higher](<#SGB System Clock>), which differs slightly between NTSC and PAL systems.
+SGB1 cartridges derive the GB CPU clock from the SNES' clock, [yielding a clock speed a bit higher](<#SGB Clock Speed>), which differs slightly between NTSC and PAL systems.
 SGB2 instead uses a clock internal to the cartridge, and so has the same speed as the handhelds.
 
 [^compat]:
