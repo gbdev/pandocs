@@ -175,14 +175,14 @@ Those registers form a 4×4 matrix with 3 bytes per element. They handle ditheri
 ## Game Boy Camera Timings
 
 The capture process is started when the A000 register of the Game Boy Camera cartridge is written with any value with bit 0 set to "1".
-The Game Boy Camera cartridge is one of the few cartridges that use the PHI signal (clock from the GB).
-That signal is a 1 MiHz clock (1047567 Hz).
-The M6438FP chip needs a clock input too, which is half the frequency of the PHI pin (0.5 Mihz, 524288Hz).
+The Game Boy Camera cartridge is one of the few cartridges that use the PHI cartridge signal (the System Clock).
+That signal is a 1.048576 MHz clock (2.097152 MHz in CGB Double-speed mode).
+The M6438FP chip needs a clock input too, which is half the frequency of the PHI signal.
 The reason for that is that the sensor chip sometimes handles the signals on the rising edge of the clock, but other times on the falling edge.
 
 :::tip NOTE
 
-This means that the GB Camera shouldn't be used in GBC double speed mode!
+Since the PHI signal runs twice as fast in CGB Double-speed mode the values used for exposure time should be doubled.
 
 :::
 
