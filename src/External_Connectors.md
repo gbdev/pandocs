@@ -5,7 +5,7 @@
  Pin  | Name   | Explanation
 ------|--------|--------------
   1   | VDD    | Power Supply +5V DC
-  2   | PHI    | System Clock
+  2   | PHI    | System Clock ~ 1.05 MHz <br> (CGB Double-speed mode: ~ 2.10 MHz)
   3   | /WR    | Write
   4   | /RD    | Read
   5   | /CS    | Chip Select

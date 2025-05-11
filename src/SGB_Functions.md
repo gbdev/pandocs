@@ -84,10 +84,10 @@ directly in order to produce other sound effects or music.
 Finally, it is possible to write program code or data into SNES memory,
 and to execute such program code by using the SNES CPU.
 
-## SGB System Clock
+## SGB Clock Speed
 
-Because the SGB is synchronized to the SNES CPU, the Game Boy system
-clock is directly chained to the SNES system clock. In result, the
+Because the SGB is synchronized to the SNES CPU, the Game Boy Master
+Clock is directly chained to the SNES Master Clock. In result, the
 Game Boy CPU, video controller, timers, and sound frequencies will be all
 operated approx 2.4% faster than handheld systems. Basically, this
 should be no problem, and the game will just run a little bit faster.
@@ -99,6 +99,6 @@ hardware. Also, "PAL version" SNES models which use a
 50Hz display refresh rate (rather than 60Hz) result in
 respectively slower Game Boy timings.
 
-- NTSC SGB: 21.477 MHz master clock, 4.2955 MHz GB clock, 2.41% fast
-- PAL SGB: 21.281 MHz master clock, 4.2563 MHz GB clock, 1.48% fast
+- NTSC SGB: 21.477 MHz Master Clock, 4.2955 MHz GB Master Clock, 2.41% fast
+- PAL SGB: 21.281 MHz Master Clock, 4.2563 MHz GB Master Clock, 1.48% fast
 - NTSC SGB2: Separate 20.972 MHz crystal, correct speed
