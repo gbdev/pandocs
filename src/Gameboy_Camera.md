@@ -182,7 +182,7 @@ The reason for that is that the sensor chip sometimes handles the signals on the
 
 :::tip NOTE
 
-Since the PHI signal runs twice as fast in CGB Double-speed mode the values used for exposure time should be doubled.
+Since the PHI signal runs twice as fast in CGB Double-speed mode, the values used for exposure time should be doubled.
 
 :::
 
