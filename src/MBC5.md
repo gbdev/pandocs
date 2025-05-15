@@ -2,10 +2,8 @@
 
 It can map up to 64 Mbits (8 MiB) of ROM.
 
-MBC5 (Memory Bank Controller 5) is the 4th generation MBC. There
-apparently was no MBC4, presumably because of the superstition about the
-number 4 in Japanese culture. It is the first MBC that is guaranteed to
-work properly with GBC Double Speed mode.
+MBC5 (Memory Bank Controller 5) is the 5th generation MBC (MBC4 was not used in any released cartridges).
+It is the first MBC that is guaranteed to work properly with GBC Double Speed mode.
 
 ## Memory
 
