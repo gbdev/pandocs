@@ -21,8 +21,9 @@ which use only code and data which is located in internal RAM. Despite the
 above, a self-made MBC1-EPROM card appears to work stable and fine even in 
 Double Speed Mode.
 
-## MBC Out Of Bounds RAM Access
+## MBC Unmapped RAM Bank Access
 
-On most of the MBC's in case an out of bounds address is accessed (selecting unmapped RAM bank),
-only the mapped bits from the address will be used.
-The actual address being accessed can be calculated using this formula: `address % max_ram_size`.
+On most of the MBC's in case an unmapped RAM bank is selected (which would be translate to an out of bounds RAM address by the MBC controller), 
+the MBC controller will simply wrap around the internal ram address and would access valid RAM address.
+
+The MBC internal address being accessed can be calculated using this formula: `((address - external_ram_start_address) * ram_bank_size) % max_external_ram_size`.
