@@ -26,4 +26,4 @@ Double Speed Mode.
 On most of the MBC's in case an unmapped RAM bank is selected (which would be translate to an out of bounds RAM address by the MBC controller), 
 the MBC controller will simply wrap around the internal ram address and would access valid RAM address.
 
-The MBC internal address being accessed can be calculated using this formula: `((address - external_ram_start_address) * ram_bank_size) % max_external_ram_size`.
+The MBC internal address being accessed can be calculated using this formula: `((address - external_ram_start_address) + (active_ram_bank * ram_bank_size)) % max_external_ram_size`.
