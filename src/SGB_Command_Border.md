@@ -1,11 +1,20 @@
 # Border and OBJ Commands
 
+A SGB border is simply an image displayed on the "host" SNES, and the SNES functions much [like the Game Boy (Color)](./Rendering.md): tiles are arranged on the screen by a tilemap, and then colorized by color palettes.
+
+However, since all of this happens on the SNES side, all of this data—tiles, tilemap, palettes—must be transferred from the GB to the SNES via [SGB VRAM transfers](./SGB_VRAM_Transfer.md).
+
+The process is as follows:
+
+1. Send tiles using one or two [`CHR_TRN`](<#SGB Command $13 — CHR_TRN>) commands
+2. Send the tilemap and palettes using a [`PCT_TRN`](<#SGB Command $14 — PCT_TRN>) command
+
+After that, the current border will slowly fade out, and after a few extra frames, the new border will start fading in.
+
 ## SGB Command $13 — CHR_TRN
 
-Used to transfer tile data (characters) to SNES Tile memory in VRAM.
-This normally used to define BG tiles for the SGB Border (see PCT_TRN),
-but might be also used to define moveable SNES foreground sprites (see
-OBJ_TRN).
+Used to transfer tile data to the SNES.
+This is normally used to write BG tiles for the SGB border (see [`PCT_TRN`](<#SGB Command $14 — PCT_TRN>)), but might be also used to define moveable SNES foreground sprites (see [`OBJ_TRN`](<#SGB Command $18 — OBJ_TRN>)).
 
 ```
  Byte  Content
@@ -13,8 +22,8 @@ OBJ_TRN).
  1     Tile Transfer Destination
          Bit 0   - Tile Numbers   (0=Tiles $00-$7F, 1=Tiles $80-$FF)
          Bit 1   - Tile Type      (0=BG Tiles, 1=OBJ Tiles)
-         Bit 2-7 - Not used (zero)
- 2-F   Not used (zero)
+         Bit 2-7 - Ignored
+ 2-F   Ignored
 ```
 
 The tile data is sent by VRAM transfer (4 KiB).
@@ -98,6 +107,20 @@ Take the bottommost row (at $86C0-$86FF in VRAM) and copy it to the extra row, f
 The Super NES supports 8 background palettes.
 The SGB system software (when run in a LLE such as Mesen 2) has been observed to use background palette 0 for the GB screen, palettes 1, 2, 3, and 7 for the menus, and palettes 4, 5, and 6 for the border.
 Thus a border can use three 15-color palettes.
+
+## Quirks
+
+### Sending `CHR_TRN` *after* `PCT_TRN`
+
+Normally, tiles must be uploaded via `CHR_TRN` before `PCT_TRN` is sent.
+However, it is actually possible to do the reverse!
+
+This is possible because of how the tile transfer actually works.
+Writing the new border's tiles to VRAM while the old border's tilemap is still being displayed would corrupt that border; so instead, the SGB BIOS stores the tiles in SNES WRAM, and copies them to SNES VRAM after the old border has been faded out.
+
+It would seem possible to simply send the `CHR_TRN` right after the `PCT_TRN`, but `CHR_TRN` is ignored by the SGB BIOS during the fade-out.
+Therefore, the `CHR_TRN` must be sent right after the fade-out; [this was measured](https://github.com/pinobatch/little-things-gb/blob/master/sgbears/docs/long_story.txt) to be a 5-frame window, but its offset varies at least between SGB and SGB2.
+Waiting 61 to 63 (Game Boy) frames seems to be the safest.
 
 ## SGB Command $18 — OBJ_TRN
 
