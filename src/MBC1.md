@@ -194,9 +194,9 @@ duplicated into $30-$3F and so on.
 <div class=table-wrapper><table class=bit-descrs><thead><tr>
   <th></th><th>19</th><th>18</th><th>17</th><th>16</th><th>15</th><th>14</th><th>13</th><th>12</th><th>..</th><th>1</th><th>0</th>
 </tr></thead><tbody><tr>
-  <td><strong>Mode 0</strong></td><td colspan=2>0</td><td colspan=4>0</td><td rowspan=2 colspan=5>From Game Boy address</td>
+  <td><strong>Mode 0</strong></td><td colspan=2>0</td><td rowspan=2 colspan=4>0</td><td rowspan=2 colspan=5>From Game Boy address</td>
 </tr><tr>
-  <td><strong>Mode 1</strong></td><td colspan=2>From 4000–5FFF bank register</td><td colspan=4>From 2000–3FFF bank register (bit 4 unused)</td>
+  <td><strong>Mode 1</strong></td><td colspan=2>From 4000–5FFF bank register</td>
 </tr></tbody></table></div>
 
 #### 4000–7FFF
