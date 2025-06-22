@@ -84,7 +84,7 @@ Same, but with channels 3 and 4.
 
 ### DIV-APU
 
-A "DIV-APU" counter is increased every time `DIV`'s bit 4 (5 in [double-speed mode](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>)) goes from 1 to 0, therefore at a frequency of 512 Hz (regardless of whether double-speed is active).
+A "DIV-APU" counter is increased every time `DIV`'s bit 4 (5 in [double-speed mode](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>)) goes from 1 to 0, therefore at a frequency of 512 Hz (regardless of whether double-speed is active).
 Thus, the counter can be made to increase faster by writing to `DIV` while its relevant bit is set (which clears `DIV`, and triggers the falling edge).
 
 The following events occur every <var>N</var> DIV-APU ticks:

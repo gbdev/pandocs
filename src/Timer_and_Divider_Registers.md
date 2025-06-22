@@ -15,7 +15,7 @@ This register is incremented at a rate of 16384Hz (\~16779Hz on SGB).
 Writing any value to this register resets it to $00.
 Additionally, this register is reset when executing the `stop` instruction, and
 only begins ticking again once `stop` mode ends. This also occurs during a
-[speed switch](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>).
+[speed switch](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>).
 (TODO: how is it affected by the wait after a speed switch?)
 
 Note: The divider is affected by CGB double speed mode, and will

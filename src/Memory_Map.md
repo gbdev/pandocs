@@ -31,10 +31,10 @@ $FF10   |  $FF26  |       DMG      | [Audio](<#Audio Registers>)
 $FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30–FF3F — Wave pattern RAM>)
 $FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 — LCDC: LCD control>), [Status](<#FF41 — STAT: LCD status>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
 $FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F — VBK (CGB Mode only): VRAM bank>)
-$FF50   |         |       DMG      | Set to non-zero to disable boot ROM
+$FF50   |         |       DMG      | [Boot ROM mapping control](<#Power-Up Sequence>)
 $FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
 $FF68   |  $FF6B  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
-$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mode only): WRAM bank>)
+$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>)
 
 ## VRAM memory map
 
