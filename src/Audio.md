@@ -54,7 +54,7 @@ The SGB2 rectifies this issue.
 All interfaces to the APU use **durations** instead of frequencies, which may be confusing as signal theory and music are more typically based on the latter.
 Thus, durations will be expressed from their frequencies: for example, a "256 Hz tick" means "1 ∕ 256th of a second".
 
-The length of APU ticks is not affected by [CGB double speed](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>), so the APU works just the same regardless of CPU speed.
+The length of APU ticks is not affected by [CGB double speed](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>), so the APU works just the same regardless of CPU speed.
 
 :::warning Terminology
 

@@ -86,8 +86,8 @@ Then, like the monochrome boot ROMs, the header logo is checked *from the buffer
 For unknown reasons, however, only the first half of the logo is checked, despite the full logo being present in the HRAM buffer.
 
 Finally, the boot ROM fades all BG palettes to white, and sets the hardware to compatibility mode.
-If [the CGB compatibility byte](<#0143 — CGB flag>) indicates CGB compatibility, the byte is written directly to [`KEY0`](<#FF4C — KEY0 (CGB Mode only): CPU mode select>), potentially [enabling "PGB mode"](<#PGB mode>);
-otherwise, $04 is written to [`KEY0`](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) (enabling DMG compatibility mode in the CPU),
+If [the CGB compatibility byte](<#0143 — CGB flag>) indicates CGB compatibility, the byte is written directly to [`KEY0`](<#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>), potentially [enabling "PGB mode"](<#PGB mode>);
+otherwise, $04 is written to [`KEY0`](<#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>) (enabling DMG compatibility mode in the CPU),
 $01 is written to [`OPRI`](<#FF6C — OPRI (CGB Mode only): Object priority mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
 Additionally, the DMG logo tilemap is written [if the compatibility requests it](<#Compatibility palettes>).
 
@@ -314,8 +314,10 @@ Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
 [`OBP1`]      | $FF49   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
 [`WY`]        | $FF4A   | $00      | $00       | $00        | $00
 [`WX`]        | $FF4B   | $00      | $00       | $00        | $00
+[`KEY0`]      | $FF4C   | ---      | ---       | ---        | ??[^unk]
 [`KEY1`]      | $FF4D   | ---      | ---       | ---        | $7E[^cgb_only]
 [`VBK`]       | $FF4F   | ---      | ---       | ---        | $FE[^cgb_only]
+[`BANK`]      | $FF50   | ---      | ---       | ---        | ---
 [`HDMA1`]     | $FF51   | ---      | ---       | ---        | $FF[^cgb_only]
 [`HDMA2`]     | $FF52   | ---      | ---       | ---        | $FF[^cgb_only]
 [`HDMA3`]     | $FF53   | ---      | ---       | ---        | $FF[^cgb_only]
@@ -390,8 +392,10 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`OBP1`]: <#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>
 [`WY`]: <#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>
 [`WX`]: <#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>
-[`KEY1`]: <#FF4D — KEY1 (CGB Mode only): Prepare speed switch>
+[`KEY0`]: <#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>
+[`KEY1`]: <#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>
 [`VBK`]: <#FF4F — VBK (CGB Mode only): VRAM bank>
+[`BANK`]: <#Power-Up Sequence>
 [`HDMA1`]: <#FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]>
 [`HDMA2`]: <#FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]>
 [`HDMA3`]: <#FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]>
@@ -403,11 +407,5 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`OCPS`]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
 [`OCPD`]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
 [`OPRI`]: <#FF6C — OPRI (CGB Mode only): Object priority mode>
-[`SVBK`]: <#FF70 — SVBK (CGB Mode only): WRAM bank>
-[FF72]: <#FF72–FF73 — Bits 0–7 (CGB Mode only)>
-[FF73]: <#FF72–FF73 — Bits 0–7 (CGB Mode only)>
-[FF74]: <#FF74 — Bits 0-7 (CGB Mode only)>
-[FF75]: <#FF75 — Bits 0-6>
-[`PCM12`]: <#FF76 — PCM12: PCM amplitudes 1 & 2 \[read-only\]>
-[`PCM34`]: <#FF77 — PCM34: PCM amplitudes 3 & 4 \[read-only\]>
+[`SVBK`]: <#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>
 [`IE`]: <#FFFF — IE: Interrupt enable>
