@@ -21,7 +21,7 @@ Eventually it is also possible to patch external RAM ? Newer devices
 reportedly allow to specify only the first six digits (optionally). 
 Three codes can be used at once.
 
-Check the [Game Genie manual](http://www.digitpress.com/library/manuals/gameboy/game%20genie.pdf) for reference.
+Check the [Game Genie manual](https://www.digitpress.com/library/manuals/gameboy/game%20genie.pdf) for reference.
 
 ## Game Shark (RAM patches)
 

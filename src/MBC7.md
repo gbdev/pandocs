@@ -111,7 +111,7 @@ still running. Data sheet says that the signal to DO is RDY, thus it
 reads a 1 when the command finishes.
 
 Datasheet:
-[1](http://ww1.microchip.com/downloads/en/DeviceDoc/21712C.pdf)
+[1](https://ww1.microchip.com/downloads/en/DeviceDoc/21712C.pdf)
 
 ### Ax9x-AxFx - Unused
 

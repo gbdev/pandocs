@@ -120,8 +120,9 @@ using efficient and tight assembler code which requires as little CPU
 power as possible. Using a high level language will require more CPU
 power and these techniques will not have as big as an effect.
 
-To optimize your code, it might be a good idea to look at [this
-page](https://web.archive.org/web/20230301041000/https://wikiti.brandonw.net/index.php?title=Z80_Optimization),
-although it applies to the original Z80 CPU, so one must adapt the
-optimizations to the GBZ80.
+To optimize your code, it might be a good idea to look at
+[WikiTI's Z80 Optimization page](https://wikiti.brandonw.net/index.php?title=Z80_Optimization)
+(although it applies to the original Z80 CPU, so one must adapt the
+optimizations to the SM83), or at
+[this SM83-specific page](https://github.com/pret/pokecrystal/wiki/Optimizing-assembly-code).
 

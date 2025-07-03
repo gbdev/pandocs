@@ -139,7 +139,7 @@ Tables [were agreed upon](https://github.com/gbdev/pandocs/issues/318) as the be
 - Sums, products: Σ Π
 
 References:
-1. http://www.cs.cornell.edu/courses/cs482/2003su/handouts/pseudocode.pdf
+1. https://www.cs.cornell.edu/courses/cs482/2003su/handouts/pseudocode.pdf
 2. https://blog.usejournal.com/how-to-write-pseudocode-a-beginners-guide-29956242698
 3. https://cs.wmich.edu/gupta/teaching/cs3310/sp18cs3310web/lecture%20notes%20cs3310/PseudocodeBasics.pdf
 4. https://en.wikipedia.org/wiki/Pseudocode#Mathematical_style_pseudocode
