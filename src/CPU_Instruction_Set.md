@@ -2,7 +2,7 @@
 
 :::tip
 
-If you are looking for textual explanations of what each each instruction does, please read [gbz80(7)](http://rgbds.gbdev.io/docs/gbz80.7); if you want a compact reference card/cheat sheet of each opcode and its flag effects, please consult [the optables](http://gbdev.io/gb-opcodes/optables) (whose [octal view](http://gbdev.io/gb-opcodes/optables/octal) makes most encoding patterns more apparent).
+If you are looking for textual explanations of what each each instruction does, please read [gbz80(7)](https://rgbds.gbdev.io/docs/gbz80.7); if you want a compact reference card/cheat sheet of each opcode and its flag effects, please consult [the optables](https://gbdev.io/gb-opcodes/optables) (whose [octal view](https://gbdev.io/gb-opcodes/optables/octal) makes most encoding patterns more apparent).
 
 :::
 
