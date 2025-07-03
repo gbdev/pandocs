@@ -131,5 +131,5 @@ Bit \# | Name                | Description
 
 Some sort of RLE? The GB Camera doesn't use it.
 
-([Details and pictures](http://furrtek.free.fr/?a=gbprinter&i=2), need
+([Details and pictures](https://furrtek.free.fr/?a=gbprinter&i=2), need
 to be copied here)

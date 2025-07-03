@@ -220,7 +220,7 @@ This does not happen under regular operation, but can be achieved by switching f
 ## Game Boy Advance audio
 
 The APU was reworked pretty heavily for the GBA, which introduces some slightly different behavior:
-- Instead of mixing being done by analog circuitry, it's instead done digitally; then, sound is converted to an analog signal and an offset is added (see `SOUNDBIAS` in [GBATEK](http://problemkaputt.de/gbatek.htm#gbasoundcontrolregisters) for more details).
+- Instead of mixing being done by analog circuitry, it's instead done digitally; then, sound is converted to an analog signal and an offset is added (see `SOUNDBIAS` in [GBATEK](https://problemkaputt.de/gbatek.htm#gbasoundcontrolregisters) for more details).
 - This also means that the GBA APU has no DACs.
   Instead, they are emulated digitally such that a disabled "DAC" behaves like an enabled DAC receiving 0 as its input.
 - Additionally, CH3's DAC has its output inverted.
