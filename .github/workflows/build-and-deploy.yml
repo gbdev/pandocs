@@ -4,13 +4,11 @@ on:
   push:
     paths-ignore:
       - "historical/**"
-      - "mediawiki-exporter/**"
       - "README.md"
       - "LICENSE"
   pull_request:
     paths-ignore:
       - "historical/**"
-      - "mediawiki-exporter/**"
       - "README.md"
       - "LICENSE"
   schedule:
