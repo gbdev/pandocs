@@ -123,8 +123,8 @@ cp build/highlight.min.js ../pandocs/theme/highlight.js
 ├── custom/
 │   └── ...
 ├── historical/
-│   └── ...
-├── mediawiki-exporter/
+│   ├── mediawiki-exporter/
+│   │   └── ...
 │   └── ...
 ├── preproc/
 │   └── ...
@@ -151,7 +151,7 @@ cp build/highlight.min.js ../pandocs/theme/highlight.js
   - `workflows/` - [CI workflow description](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions) files.
 - `custom/` - Custom files added to the build.
 - `historical/` - Archive of legacy Pan Docs versions.
-- `mediawiki-exporter/` - A script (and support files) to generate this repo's Git history from a MediaWiki export.
+  - `mediawiki-exporter/` - A script (and support files) to generate this repo's Git history from a MediaWiki export.
 - `preproc/`, `renderer/` - Our custom mdBook [preprocessor](https://rust-lang.github.io/mdBook/for_developers/preprocessors) and [back-end](https://rust-lang.github.io/mdBook/for_developers/backends), respectively. Both are standard Rust project folders (though see `Cargo.toml` below).
 - `src/` - Markdown text sources for the document. **You are probably interested in this folder.**
   - `imgs/` - Images should go in this folder, for organization purposes.
