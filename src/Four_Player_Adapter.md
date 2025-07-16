@@ -7,7 +7,7 @@ requiring Link Cable adapters.
 
 ## Power
 
-The DMG-07 will not power on until it's Player 1 cable is plugged into
+The DMG-07 will not power on until its Player 1 cable is plugged into
 a Game Boy link port to supply power. The Player 1 cable is the only one
 permanently attached to the device and has the power pin connected,
 unlike typical link port cables.
