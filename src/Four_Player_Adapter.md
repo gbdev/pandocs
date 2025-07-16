@@ -12,6 +12,12 @@ a Game Boy link port to supply power. The Player 1 cable is the only one
 permanently attached to the device and has the power pin connected,
 unlike typical link port cables.
 
+## Clock Control
+
+Serial clock for all transfers is provided by the DMG-07, with connected
+Game Boys operating in external clock mode. Trying to send data via internal
+clock mode results in garbage data and should not be used.
+
 ## Communication Phases
 
 The DMG-07 protocol can be divided into 2 sections, the "ping" phase, and
@@ -19,13 +25,8 @@ the "transmission" phase. The initial ping phase involves sending packets
 back and forth between connected Game Boys probing for their current
 connection status. Afterwards, the DMG-07 is switched to the transmission
 phase where the Game Boys exchange data across the link cable network.
-Later, connected Game Boys may restart the ping phase by sending specific
-commands.
-
-An important thing to note is that all Game Boys transfer data across
-the DMG-07 in external clock mode (bit 0 of the SC register set to 0) with
-the clock source provided by the DMG-07. Trying to send data via internal
-clock mode results in garbage data and should not be used.
+Later, connected Game Boys may switch back to ping phase by sending the
+["ping restart sequence"](<#Restarting Ping Phase>).
 
 ## Ping Phase
 
