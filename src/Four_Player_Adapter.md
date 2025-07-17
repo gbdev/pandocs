@@ -148,8 +148,8 @@ The Player ID values are determined by whichever port a Game Boy is connected
 to. As more Game Boys connect and properly reply to pings, the upper bits of
 the STAT bytes are turned on.
 
-In this way, each Game Boy broadcasts across its presence across the link
-cable network. It also acts as a sort of acknowledgement signal, where software
+In this way, each Game Boy broadcasts its presence across the link cable
+network. It also acts as a sort of acknowledgement signal, where software
 can drop a Game Boy if the DMG-07 detects an improper response during a ping, or
 a Game Boy simply quits the network.
 
