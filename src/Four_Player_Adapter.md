@@ -61,17 +61,16 @@ Byte | Value | Description
   3  |   ??  | STAT2
   4  |   ??  | STAT3
 
-The chart below illustrates how Game Boys should respond to bytes in a ping packet.
-- Note: When a byte in the DMG-07 column is received the matching byte in the Reply
-column should be loaded into the SB register as a reply that will be transmitted
-during the next serial transfer.
-
-Received From DMG-07 | Game Boy reply sent during next transfer
+The chart below illustrates how Game Boys should respond to bytes in a ping packet:
+Received From DMG-07 | Game Boy Reply
 ---------------------|-----------------------
 PING HEADER (\$FE)   | ACK1 = (\$88)
 STAT1                | ACK2 = (\$88 )
 STAT2                | RATE (Packet Timing)
 STAT3                | SIZE (Packet Size)
+
+Note: Bytes in the Received column should have the matching byte in the Reply
+column loaded into the SB register to be sent during the next serial transfer.
 
 ### ACK Replies
 
@@ -193,34 +192,34 @@ transmission phase.
 After the DMG-07 finishes sending the indicator packet of \$CC bytes it will immediately
 begin sending data packets and the transmission phase RATE and SIZE settings take effect.
 
-The following chart is an example of switching from ping to transmission phase.
-- The SIZE setting is 1, meaning a total packet size of 4 bytes (1×4).
-- Only the Player 1 Game Boy is connected in this example
-- Note: When a byte in the DMG-07 column is received the matching byte in the Reply column
-should be loaded into the SB register as a reply that will be transmitted during the next
-serial transfer.
+The following chart is an example of switching from ping to transmission phase,
+with SIZE of 1 (so total packet size is 4 bytes) and only the Player 1 Game Boy
+connected.
 
-Packet Byte | Received From<br>DMG-07 | Game Boy reply sent <br>during next transfer | Meaning
-------------|-------------------------|----------------------------------------------|--------
-Byte 1 |$FE | $88 | PING HEADER and ACK1 reply by Game Boy
-Byte 2 |$11 | $88 | STAT1 and ACK2 reply by Game Boy
-Byte 3 |$11 | $10 | STAT2 and RATE (with a value of \$10) reply by Game Boy
-Byte 4 |$11 | $01 | STAT2 and SIZE (with a value of \$01) reply by Game Boy
- |  |  | 
-Byte 1 |$FE | $AA | Game Boy initiates switch to transmission (4 x \$AA)
-Byte 2 |$11 | $AA | 
-Byte 3 |$11 | $AA | 
-Byte 4 |$11 | $AA | 
- |  |  | 
-Byte 1 |$CC | $00 | Start of transmission phase indicator from DMG-07 (4 x \$CC)
-Byte 2 |$CC | $00 | 
-Byte 3 |$CC | $00 | 
-Byte 4 |$CC | $00 | Final transmission phase indicator from DMG-07
- |  |  | 
-Byte 1 |$AA | $12 | First data packet from DMG-07 (with random data)
-Byte 2 |$00 | $00 | 
-Byte 3 |$00 | $00 | 
-Byte 4 |$D6 | $00 | End of first data packet
+| Packet Byte | Received From<br>DMG-07 | Game Boy Reply | Meaning                                                      |
+| ----------- | ----------------------- | -------------- | ------------------------------------------------------------ |
+| Byte 1      | $FE                     | $88            | PING HEADER and ACK1 reply by Game Boy                       |
+| Byte 2      | $11                     | $88            | STAT1 and ACK2 reply by Game Boy                             |
+| Byte 3      | $11                     | $10            | STAT2 and RATE (with a value of \$10) reply by Game Boy      |
+| Byte 4      | $11                     | $01            | STAT2 and SIZE (with a value of \$01) reply by Game Boy      |
+|             |                         |                |                                                              |
+| Byte 1      | $FE                     | $AA            | Game Boy initiates switch to transmission (4 x \$AA)         |
+| Byte 2      | $11                     | $AA            |                                                              |
+| Byte 3      | $11                     | $AA            |                                                              |
+| Byte 4      | $11                     | $AA            |                                                              |
+|             |                         |                |                                                              |
+| Byte 1      | $CC                     | $00            | Start of transmission phase indicator from DMG-07 (4 x \$CC) |
+| Byte 2      | $CC                     | $00            |                                                              |
+| Byte 3      | $CC                     | $00            |                                                              |
+| Byte 4      | $CC                     | $00            | Final transmission phase indicator from DMG-07               |
+|             |                         |                |                                                              |
+| Byte 1      | $AA                     | $12            | First data packet from DMG-07 (with random data)             |
+| Byte 2      | $00                     | $00            |                                                              |
+| Byte 3      | $00                     | $00            |                                                              |
+| Byte 4      | $D6                     | $00            | End of first data packet                                     |
+
+Note: Bytes in the Received column should have the matching byte in the Reply
+column loaded into the SB register to be sent during the next serial transfer.
 
 ### Transmission Protocol
 
@@ -233,14 +232,11 @@ Data received by the DMG-07 is buffered until it is broadcast during the next
 packet. This means there is a one-packet delay between when the Game Boys send
 data and when they receive the packet which combines all their data together.
 
-For example, say the packet size is 2 bytes; the flow of data for two consecutive
-packets would look like this.
-- The format shown for a player byte is P\[player num\].\[packet num\], so P3.1 is player 3, packet 1.
-- Note: When a byte in the DMG-07 column is received the matching byte in the Reply column
-should be loaded into the SB register as a reply that will be transmitted during the next
-serial transfer.
+The following chart shows data for two consecutive packets with SIZE of 2 
+(so total packet size is 8 bytes). The label for a player byte is 
+`P[player num].[packet num]`, so `P3.1` is Player 3, Packet 1.
 
-Packet Byte | Received From<br>DMG-07 | P1 reply      | P2 reply      | P3 reply      | P4 reply
+Packet Byte | Received From<br>DMG-07 | P1 Reply      | P2 Reply      | P3 Reply      | P4 Reply
 ------------|-------------------------|---------------|---------------|---------------|-----------
 1           | P1.0 (byte 1)           | P1.1 (byte 1) | P2.1 (byte 1) | P3.1 (byte 1) | P4.1 (byte 1)
 2           | P1.0 (byte 2)           | P1.1 (byte 2) | P2.1 (byte 2) | P3.1 (byte 2) | P4.1 (byte 2)
@@ -251,14 +247,17 @@ Packet Byte | Received From<br>DMG-07 | P1 reply      | P2 reply      | P3 reply
 7           | P4.0 (byte 1)           | 0             | 0             | 0             | 0 
 8           | P4.0 (byte 2)           | 0             | 0             | 0             | 0
 Next Packet | | | | 
-1           | P1.1 (byte 1)             | P1.2 (byte 1) | P2.2 (byte 1) | P3.2 (byte 1) | P4.2 (byte 1)
-2           | P1.1 (byte 2)             | P1.2 (byte 2) | P2.2 (byte 2) | P3.2 (byte 2) | P4.2 (byte 2)
-3           | P2.1 (byte 1)             | 0             | 0             | 0             | 0 
-4           | P2.1 (byte 2)             | 0             | 0             | 0             | 0
-5           | P3.1 (byte 1)             | 0             | 0             | 0             | 0 
-6           | P3.1 (byte 2)             | 0             | 0             | 0             | 0
-7           | P4.1 (byte 1)             | 0             | 0             | 0             | 0 
-8           | P4.1 (byte 2)             | 0             | 0             | 0             | 0
+1           | P1.1 (byte 1)           | P1.2 (byte 1) | P2.2 (byte 1) | P3.2 (byte 1) | P4.2 (byte 1)
+2           | P1.1 (byte 2)           | P1.2 (byte 2) | P2.2 (byte 2) | P3.2 (byte 2) | P4.2 (byte 2)
+3           | P2.1 (byte 1)           | 0             | 0             | 0             | 0 
+4           | P2.1 (byte 2)           | 0             | 0             | 0             | 0
+5           | P3.1 (byte 1)           | 0             | 0             | 0             | 0 
+6           | P3.1 (byte 2)           | 0             | 0             | 0             | 0
+7           | P4.1 (byte 1)           | 0             | 0             | 0             | 0 
+8           | P4.1 (byte 2)           | 0             | 0             | 0             | 0
+
+Note: Bytes in the Received column should have the matching byte in the Reply
+column loaded into the SB register to be sent during the next serial transfer.
 
 
 All connected Game Boys should send their data into the buffer during the first few serial
@@ -295,31 +294,31 @@ number of consecutive \$FF bytes to require from the DMG-07 to indicate a switch
 After the DMG-07 finishes sending the indicator packet of \$FF bytes it will
 immediately begin transmitting ping phase packets.
 
-The following chart is an example of switching from transmission back to ping phase.
-- The SIZE setting is 1, meaning a total packet size of 4 bytes (1×4).
-- The other 3 connected Game Boys here all send \$A5 for their contribution to the shared packet.
-- Note: When a byte in the DMG-07 column is received the matching byte in the Reply column
-should be loaded into the SB register as a reply that will be transmitted during the next
-serial transfer.
+The following chart is an example of switching from transmission back to ping phase,
+with SIZE of 1 (so total packet size is 4 bytes) and the other 3 Game Boys sending
+\$A5 for their data byte.
 
-Packet Byte | Received From<br>DMG-07 | Game Boy reply sent <br>during next transfer | Meaning
-------------|-------------------------|----------------------------------------------|--------
-Byte 1 |$81 | $81 | Game Boy sends its last transmission data (\$81)
-Byte 2 |$A5 | $00 | Data from Player 2 (\$A5)
-Byte 3 |$A5 | $00 | Data from Player 3 (\$A5)
-Byte 4 |$A5 | $00 | Data from Player 4 (\$A5)
-|  |  | 
-Byte 1 |$81 | $FF | Game Boy initiates ping restart (4×\$FF)
-Byte 2 |$A5 | $FF | 
-Byte 3 |$A5 | $FF | 
-Byte 4 |$A5 | $FF | 
-|  |  | 
-Byte 1 |$FF | $00 | Start of switch to ping indicator from DMG-07 (4×\$FF)
-Byte 2 |$FF | $00 | 
-Byte 3 |$FF | $00 | 
-Byte 4 |$FF | $00 | Final switch to ping indicator from DMG-07
-|  |  | 
-Byte 1 |$FE | $00 | Now returned to ping phase, start of first Ping packet
-Byte 2 |$01 | $88 | 
-Byte 3 |$01 | $88 | 
-Byte 4 |$F1 | $00 | 
+| Packet Byte | Received From<br>DMG-07 | Game Boy Reply | Meaning                                                |
+| ----------- | ----------------------- | -------------- | ------------------------------------------------------ |
+| Byte 1      | $81                     | $81            | Game Boy sends its last transmission data (\$81)       |
+| Byte 2      | $A5                     | $00            | Data from Player 2 (\$A5)                              |
+| Byte 3      | $A5                     | $00            | Data from Player 3 (\$A5)                              |
+| Byte 4      | $A5                     | $00            | Data from Player 4 (\$A5)                              |
+|             |                         |                |
+| Byte 1      | $81                     | $FF            | Game Boy initiates ping restart (4×\$FF)               |
+| Byte 2      | $A5                     | $FF            |                                                        |
+| Byte 3      | $A5                     | $FF            |                                                        |
+| Byte 4      | $A5                     | $FF            |                                                        |
+|             |                         |                |
+| Byte 1      | $FF                     | $00            | Start of switch to ping indicator from DMG-07 (4×\$FF) |
+| Byte 2      | $FF                     | $00            |                                                        |
+| Byte 3      | $FF                     | $00            |                                                        |
+| Byte 4      | $FF                     | $00            | Final switch to ping indicator from DMG-07             |
+|             |                         |                |
+| Byte 1      | $FE                     | $00            | Now returned to ping phase, start of first Ping packet |
+| Byte 2      | $01                     | $88            |                                                        |
+| Byte 3      | $01                     | $88            |                                                        |
+| Byte 4      | $F1                     | $00            |
+
+Note: Bytes in the Received column should have the matching byte in the Reply
+column loaded into the SB register to be sent during the next serial transfer.
