@@ -287,3 +287,6 @@ Replace `imgs/ppu_modes_timing.svg` with the path to the SVG from the `src/` fol
 
 A word of caution about the directive's placement: if it is surrounded by empty lines, the image will be outside of any paragraphs, within the document's main flow.
 However, if it is adjacent to a line of text, it may be placed within the paragraph, which is likely not what you want.
+
+
+# This is my contribution for completing my task.
