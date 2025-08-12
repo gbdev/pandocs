@@ -9,7 +9,7 @@ The main implication of this rendering process is the existence of **raster effe
 The most famous raster effect is modifying the [scrolling registers](<#LCD Position and Scrolling>) between scanlines to create a ["wavy" effect](https://gbdev.io/guides/deadcscroll#effects).
 
 A "**dot**" = one 2<sup>22</sup> Hz (≅ 4.194 MHz) time unit.
-Dots remain the same regardless of whether the CPU is in [Double Speed mode](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>), so there are 4 dots per Single Speed M-cycle, and 2 per Double Speed M-cycle.
+Dots remain the same regardless of whether the CPU is in [Double Speed mode](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>), so there are 4 dots per Normal Speed M-cycle, and 2 per Double Speed M-cycle.
 
 :::tip NOTE
 

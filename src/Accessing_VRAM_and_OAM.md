@@ -46,7 +46,7 @@ start of Mode 0 is to disable all the individual STAT interrupts except Mode 0
 (STAT bit 3), enable STAT interrupts (IE bit 1), disable IME (by executing `di`),
 and use the `halt` instruction. This allows
 use of the entire Mode 0 on one line and Mode 2 on the following line,
-which sum to 165 to 288 dots. For comparison, at single speed (4 dots
+which sum to 165 to 288 dots. For comparison, at normal speed (4 dots
 per machine cycle), a copy from stack that takes
 9 cycles per 2 bytes can push 8 bytes (half a tile) in 144 dots, which
 fits within the worst case timing for mode 0+2.
