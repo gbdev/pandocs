@@ -108,7 +108,7 @@ It is speculated that this may be debug remnants.
 
 The boot ROM is responsible for the automatic colorization of monochrome-only games when run on a GBC.
 
-When in DMG compatibility mode, the [CGB palettes](<#LCD Color Palettes (CGB only)>) are still being used: the background uses BG palette 0 (likely because the entire [attribute map](<#BG Map Attributes (CGB Mode only)>) is set to all zeros), and objects use OBJ palette 0 or 1 depending on bit 4 of [their attribute](<#Byte 3 — Attributes/Flags>).
+When in DMG compatibility mode, the [CGB palettes](<#LCD Color Palettes (CGB only)>) are still being used: the background uses BG palette 0 (likely because the entire [attribute map](<#BG Map attributes (CGB Mode only)>) is set to all zeros), and objects use OBJ palette 0 or 1 depending on bit 4 of [their attribute](<#Byte 3 — Attributes/Flags>).
 [`BGP`, `OBP0`, and `OBP1`](<#LCD Monochrome Palettes>) actually index into the CGB palettes instead of the DMG's shades of grey.
 
 The boot ROM picks a compatibility palette using an ID computed using the following algorithm:

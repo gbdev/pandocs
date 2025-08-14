@@ -1,0 +1,181 @@
+<!-- Do not put any blank lines, or all hell will break loose! -->
+<svg viewBox="0 0 470 440" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      text {
+        fill: var(--fg, #000);
+        dominant-baseline: middle;
+        font-size: .6em;
+      }
+      #title {
+        font-size: 1em;
+        font-weight: bold;
+      }
+      .centered { text-anchor: middle; }
+      .right    { text-anchor: end; }
+      .block { font-weight: bold; }
+      svg > rect, svg > path, svg > use {
+        stroke: var(--fg, #000);
+        fill: var(--fg, #000);
+      }
+      .unfilled {
+        fill: none !important;
+      }
+      .no-stroke {
+        stroke: none !important;
+      }
+      .opa50 { opacity: .5; }
+      .register { stroke-width: 2px; }
+      .dashed { stroke-dasharray: 4; }
+      .dotted { stroke-dasharray: 2; }
+      .xypos   { stroke: #bc3; fill: #bc3; }
+      .attrs   { stroke: #9df; fill: #9df; }
+      .tileid  { stroke: #4b9; fill: #4b9; }
+      .tileofs { stroke: #e86; fill: #e86; }
+      .pxrow   { stroke: #ed8; fill: #ed8; }
+      rect.legend { width: 5px; height: 5px; }
+    ]]></style>
+    <path d="M 0,-2 v 4 l 4,-2 z" id="arrow-head"/>
+  </defs>
+  <rect x="5" y="401" class="legend xypos"/>
+  <text x="14" y="405">(X, Y) positions</text>
+  <rect x="5" y="415" class="legend attrs"/>
+  <text x="14" y="419">Attributes</text>
+  <rect x="5" y="429" class="legend tileid"/>
+  <text x="14" y="433">8-bit tile ID</text>
+  <rect x="90" y="415" class="legend tileofs"/>
+  <text x="99" y="419">(9-bit tile ID, Y offset)</text>
+  <rect x="90" y="429" class="legend pxrow"/>
+  <text x="99" y="433">Pixel row (2 bytes)</text>
+  <text x="465" y="405" class="right">(Some arrows have been</text>
+  <text x="465" y="419" class="right">omitted to avoid cluttering</text>
+  <text x="465" y="433" class="right">the diagram too much.)</text>
+  <rect x="5" y="5" width="100" height="60" class="unfilled register"/>
+  <text x="55" y="17" class="centered block">OAM</text>
+  <rect x="5" y="80" width="100" height="200" class="unfilled register"/>
+  <text x="55" y="92" class="centered block">VRAM</text>
+  <rect x="5" y="320" width="100" height="50" class="unfilled register"/>
+  <text x="55" y="332" class="centered block">Palettes</text>
+  <path d="M 55,100 v 10 m 0,15 v 155" class="dashed"/>
+  <path d="M 5,100 h 100" class="dashed"/>
+  <text x="55" y="118" class="centered">Tile data</text>
+  <path d="M 5,190 h 100" class="dashed"/>
+  <text x="8" y="207">Tile maps</text>
+  <text x="58" y="207">Attr maps</text>
+  <rect x="130" y="10" width="325" height="370" class="unfilled opa50"/>
+  <text x="290" y="22" class="centered opa50" id="title">PPU</text>
+  <rect x="250" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="270" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="290" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="310" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="330" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="350" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="370" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="390" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="410" y="70" width="15" height="15" class="unfilled"/>
+  <rect x="430" y="70" width="15" height="15" class="unfilled"/>
+  <text x="245" y="78" class="right">OBJ slots</text>
+  <rect x="303" y="130" width="90" height="20" class="unfilled"/>
+  <text x="348" y="142" class="centered">OBJ fetcher</text>
+  <rect x="150" y="210" width="90" height="20" class="unfilled"/>
+  <text x="195" y="222" class="centered">BG fetcher</text>
+  <rect x="137" y="170" width="25" height="20" class="unfilled register"/>
+  <text x="150" y="182" class="centered">SCX</text>
+  <rect x="167" y="170" width="25" height="20" class="unfilled register"/>
+  <text x="180" y="182" class="centered">SCY</text>
+  <rect x="197" y="170" width="25" height="20" class="unfilled register"/>
+  <text x="209" y="182" class="centered">WX</text>
+  <rect x="227" y="170" width="25" height="20" class="unfilled register"/>
+  <text x="239" y="182" class="centered">WY</text>
+  <rect x="270" y="180" width="25" height="20" class="unfilled register"/>
+  <text x="282" y="192" class="centered">LY</text>
+  <rect x="210" y="265" width="120" height="20" class="unfilled"/>
+  <text x="270" y="277" class="centered">Pixel slice fetcher</text>
+  <rect x="160" y="310" width="100" height="20" class="unfilled"/>
+  <text x="210" y="322" class="centered">BG FIFO</text>
+  <rect x="280" y="310" width="100" height="20" class="unfilled"/>
+  <text x="330" y="322" class="centered">OBJ FIFO</text>
+  <rect x="220" y="350" width="100" height="20" class="unfilled"/>
+  <text x="270" y="362" class="centered">Selector</text>
+  <rect x="240" y="398" width="60" height="30" class="unfilled"/>
+  <text x="270" y="414" class="centered block">LCD</text>
+  <!-- Keep in mind that later things are drawn over earlier ones. Order matters! -->
+  <path d="M 258,40 v 26" class="unfilled xypos"/>
+  <use x="258" y="66" href="#arrow-head" class="xypos" transform="rotate(90,258,66)"/>
+  <path d="M 278,40 v 26" class="unfilled xypos"/>
+  <use x="278" y="66" href="#arrow-head" class="xypos" transform="rotate(90,278,66)"/>
+  <path d="M 298,40 v 26" class="unfilled xypos"/>
+  <use x="298" y="66" href="#arrow-head" class="xypos" transform="rotate(90,298,66)"/>
+  <path d="M 318,40 v 26" class="unfilled xypos"/>
+  <use x="318" y="66" href="#arrow-head" class="xypos" transform="rotate(90,318,66)"/>
+  <path d="M 338,40 v 26" class="unfilled xypos"/>
+  <use x="338" y="66" href="#arrow-head" class="xypos" transform="rotate(90,338,66)"/>
+  <path d="M 358,40 v 26" class="unfilled xypos"/>
+  <use x="358" y="66" href="#arrow-head" class="xypos" transform="rotate(90,358,66)"/>
+  <path d="M 378,40 v 26" class="unfilled xypos"/>
+  <use x="378" y="66" href="#arrow-head" class="xypos" transform="rotate(90,378,66)"/>
+  <path d="M 398,40 v 26" class="unfilled xypos"/>
+  <use x="398" y="66" href="#arrow-head" class="xypos" transform="rotate(90,398,66)"/>
+  <path d="M 418,40 v 26" class="unfilled xypos"/>
+  <use x="418" y="66" href="#arrow-head" class="xypos" transform="rotate(90,418,66)"/>
+  <path d="M 105,40 h 333 v 26" class="unfilled xypos"/>
+  <use x="438" y="66" href="#arrow-head" class="xypos" transform="rotate(90,438,66)"/>
+  <path d="M 258,85 v 36 h 50 v 5" class="unfilled xypos"/>
+  <use x="308" y="126" href="#arrow-head" class="xypos" transform="rotate(90,308,126)"/>
+  <path d="M 278,85 v 31 h 39 v 10" class="unfilled xypos"/>
+  <use x="317" y="126" href="#arrow-head" class="xypos" transform="rotate(90,317,126)"/>
+  <path d="M 298,85 v 26 h 28 v 15" class="unfilled xypos"/>
+  <use x="326" y="126" href="#arrow-head" class="xypos" transform="rotate(90,326,126)"/>
+  <path d="M 318,85 v 21 h 17 v 20" class="unfilled xypos"/>
+  <use x="335" y="126" href="#arrow-head" class="xypos" transform="rotate(90,335,126)"/>
+  <path d="M 338,85 v 16 h 6 v 25" class="unfilled xypos"/>
+  <use x="344" y="126" href="#arrow-head" class="xypos" transform="rotate(90,344,126)"/>
+  <path d="M 358,85 v 16 h -5 v 25" class="unfilled xypos"/>
+  <use x="353" y="126" href="#arrow-head" class="xypos" transform="rotate(90,353,126)"/>
+  <path d="M 378,85 v 21 h -16 v 20" class="unfilled xypos"/>
+  <use x="362" y="126" href="#arrow-head" class="xypos" transform="rotate(90,362,126)"/>
+  <path d="M 398,85 v 26 h -27 v 15" class="unfilled xypos"/>
+  <use x="371" y="126" href="#arrow-head" class="xypos" transform="rotate(90,371,126)"/>
+  <path d="M 418,85 v 31 h -38 v 10" class="unfilled xypos"/>
+  <use x="380" y="126" href="#arrow-head" class="xypos" transform="rotate(90,380,126)"/>
+  <path d="M 438,85 v 36 h -49 v 5" class="unfilled xypos"/>
+  <use x="389" y="126" href="#arrow-head" class="xypos" transform="rotate(90,389,126)"/>
+  <path d="M 105,220 h 41" class="unfilled tileid"/>
+  <use x="146" y="220" href="#arrow-head" class="tileid"/>
+  <path d="M 150,190 v 8 h 11 v 8" class="unfilled dotted"/>
+  <use x="161" y="206" href="#arrow-head" transform="rotate(90,161,206)"/>
+  <path d="M 180,190 v 8 h 4 v 8" class="unfilled dotted"/>
+  <use x="184" y="206" href="#arrow-head" transform="rotate(90,184,206)"/>
+  <path d="M 209,190 v 8 h -3 v 8" class="unfilled dotted"/>
+  <use x="206" y="206" href="#arrow-head" transform="rotate(90,206,206)"/>
+  <path d="M 239,190 v 8 h -10 v 8" class="unfilled dotted"/>
+  <use x="229" y="206" href="#arrow-head" transform="rotate(90,229,206)"/>
+  <path d="M 276,180 v -40 h -116 v -96" class="unfilled dotted"/>
+  <use x="160" y="44" href="#arrow-head" transform="rotate(-90,160,44)"/>
+  <path d="M 289,180 v -40 h 10" class="unfilled dotted"/>
+  <use x="299" y="140" href="#arrow-head"/>
+  <path d="M 282,200 v 20 h -38" class="unfilled dotted"/>
+  <use x="244" y="220" href="#arrow-head" transform="rotate(180,244,220)"/>
+  <path d="M 105,140 h 10 v 77 a 8 4 0 0 1 0,6 v 52 h 91" class="unfilled pxrow"/>
+  <use x="206" y="275" href="#arrow-head" class="pxrow"/>
+  <path d="M 225,230 v 31" class="unfilled tileofs"/>
+  <use x="225" y="261" href="#arrow-head" class="tileofs" transform="rotate(90,225,261)"/>
+  <path d="M 320,150 v 111" class="unfilled tileofs"/>
+  <use x="320" y="261" href="#arrow-head" class="tileofs" transform="rotate(90,320,261)"/>
+  <path d="M 270,285 v 11 h -30 v 10" class="unfilled pxrow"/>
+  <use x="240" y="306" href="#arrow-head" class="pxrow" transform="rotate(90,240,306)"/>
+  <path d="M 270,296 h 30 v 10" class="unfilled pxrow"/>
+  <use x="300" y="306" href="#arrow-head" class="pxrow" transform="rotate(90,300,306)"/>
+  <path d="M 175,230 v 42 a 8 4 0 0 1 0,6 v 28" class="unfilled attrs"/>
+  <use x="175" y="306" href="#arrow-head" class="attrs" transform="rotate(90,175,306)"/>
+  <path d="M 368,150 v 156" class="unfilled attrs"/>
+  <use x="368" y="306" href="#arrow-head" class="attrs" transform="rotate(90,368,306)"/>
+  <path d="M 235,330 v 16" class="unfilled"/>
+  <use x="235" y="346" href="#arrow-head" transform="rotate(90,235,346)"/>
+  <path d="M 305,330 v 16" class="unfilled"/>
+  <use x="305" y="346" href="#arrow-head" transform="rotate(90,305,346)"/>
+  <path d="M 105,360 h 111" class="unfilled"/>
+  <use x="216" y="360" href="#arrow-head"/>
+  <path d="M 270,370 v 24" class="unfilled"/>
+  <use x="270" y="394" href="#arrow-head" transform="rotate(90,270,394)"/>
+</svg>
