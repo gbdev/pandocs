@@ -115,7 +115,7 @@ manually terminating a HBlank Transfer.
 
 In both Normal Speed and Double Speed Mode it takes about 8 μs to
 transfer a block of $10 bytes.
-That is, 8 M-cycles in Normal Speed Mode [\[1\]](imgs/hdma_single_speed.png),
+That is, 8 M-cycles in Normal Speed Mode [\[1\]](imgs/hdma_normal_speed.png),
 and 16 "fast" M-cycles in Double Speed Mode [\[2\]](imgs/hdma_double_speed.png).
 Older MBC controllers (like MBC1-3) and slower ROMs are not guaranteed to support General
 Purpose or HBlank DMA, that's because there are always 2 bytes
@@ -150,7 +150,7 @@ loaded VRAM bank in bit 0, and all other bits will be set to 1.
    "KEY1" 7:"Current speed" 0:"Switch armed"
 }}
 
-- **Current speed** (*Read-only*): `0` = Single-speed mode, `1` = Double-speed mode
+- **Current speed** (*Read-only*): `0` = Normal-speed mode, `1` = Double-speed mode
 - **Switch armed** (*Read/Write*): `0` = No, `1` = Armed
 
 This register is used to prepare the Game Boy to switch between CGB
@@ -171,7 +171,7 @@ ENDIF
 
 The CGB is operating in Normal Speed Mode when it is first turned on. Note
 that using the Double Speed Mode increases the power consumption; therefore, it
-would be recommended to use Single Speed whenever possible.
+would be recommended to use Normal Speed whenever possible.
 
 In Double Speed Mode the following will operate twice as fast as normal:
 
