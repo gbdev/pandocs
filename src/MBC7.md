@@ -141,5 +141,5 @@ enable section as well (0000-1FFF)
 
 ## External links
 
-- Source: [GBDev Forums thread by endrift](https://web.archive.org/web/20250424080817/https://gbdev.gg8.se/forums/viewtopic.php?id=448)
+- Source: [GBDev Forums thread by endrift](https://gbdev.gg8.se/forums/viewtopic.php?id=448)
 
