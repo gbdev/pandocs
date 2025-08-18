@@ -159,7 +159,7 @@ The upper-half of STAT1, STAT2, and STAT3 are updated based on the ping response
 to show when Game Boys are "connected". If for whatever reason, the ping responses
 are not sent, the status bits are unset.
 
-Some examples of ping packets sent byte the DMG-07 are shown below:
+Some examples of ping packets sent by the DMG-07 are shown below:
 
 Packet        | Description
 --------------|-------------------------------------------------------
