@@ -54,6 +54,7 @@ a little more time than a single Game Boy video frame.
 ### Ping Packet Fields
 
 The ping data received by each Game Boy looks like this:
+
 Byte | Value | Description
 -----|-------|-------------
   1  | \$FE  | PING HEADER
@@ -62,6 +63,7 @@ Byte | Value | Description
   4  |   ??  | STAT3
 
 The chart below illustrates how Game Boys should respond to bytes in a ping packet:
+
 Received From DMG-07 | Game Boy Reply
 ---------------------|-----------------------
 PING HEADER (\$FE)   | ACK1 = (\$88)
@@ -135,6 +137,7 @@ the Game Boys. Each byte is usually the same, however, sometimes the status can
 change midway through a ping, typically on STAT2 or STAT3. 
 
 Each STAT byte has the following fields:
+
 Bit | Name
 ----|------------------------
  7  | Player 4 Connected
@@ -157,6 +160,7 @@ to show when Game Boys are "connected". If for whatever reason, the ping respons
 are not sent, the status bits are unset.
 
 Some examples of ping packets sent byte the DMG-07 are shown below:
+
 Packet        | Description
 --------------|-------------------------------------------------------
 `FE 01 01 01` | Ping packet received by Player 1 with no other Game Boys connected.
