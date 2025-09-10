@@ -122,7 +122,7 @@ $FFFF      | [IE]        | Interrupt enable                                     
 [OCPS/OBPI]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
 [OCPD/OBPD]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
 [OPRI]: <#FF6C — OPRI (CGB Mode only): Object priority mode>
-[SVBK]: <#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>
+[SVBK/WBK]: <#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>
 [PCM12]: <#FF76 — PCM12 (CGB Mode only): Digital outputs 1 & 2 \[read-only\]>
 [PCM34]: <#FF77 — PCM34 (CGB Mode only): Digital outputs 3 & 4 \[read-only\]>
 [IE]: <#FFFF — IE: Interrupt enable>
