@@ -124,6 +124,11 @@ Speed Mode).
 
 This allows for a transfer of 2280 bytes during VBlank, which is up to 142.5 tiles.
 
+#### Status of the registers after the end of the transfer
+
+The source and destination address are both incremented by $10 bytes for each block of $10 bytes transfered after the transfer is done.
+FF55 is set to $FF once the transfer ends.
+
 ### VRAM Banks
 
 The CGB has twice the VRAM of the DMG, but it is banked and either bank
