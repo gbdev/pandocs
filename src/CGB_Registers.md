@@ -127,7 +127,7 @@ This allows for a transfer of 2280 bytes during VBlank, which is up to 142.5 til
 #### Status of the registers after the end of the transfer
 
 The source and destination address regisers are both incremented by $10 bytes for each block of $10 bytes transfered after the transfer is done.
-FF55 is set to $FF once the transfer ends.
+FF55 is always equal to $FF once the transfer ends
 
 ### VRAM Banks
 
