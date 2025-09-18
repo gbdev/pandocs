@@ -30,14 +30,14 @@ $FF0F   |         |       DMG      | [Interrupts](<#FF0F — IF: Interrupt flag>
 $FF10   |  $FF26  |       DMG      | [Audio](<#Audio Registers>)
 $FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30–FF3F — Wave pattern RAM>)
 $FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 — LCDC: LCD control>), [Status](<#FF41 — STAT: LCD status>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
-$FF4C   |  $FF4D  |       CGB      | [KEY0](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) and [KEY1](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>)
+$FF4C   |  $FF4D  |       CGB      | [KEY0](<#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>) and [KEY1](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>)
 $FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F — VBK (CGB Mode only): VRAM bank>)
 $FF50   |         |       DMG      | Set to non-zero to disable boot ROM
 $FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
 $FF56   |         |       CGB      | [IR port](<#FF56 — RP (CGB Mode only): Infrared communications port>)
 $FF68   |  $FF6B  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
 $FF6C   |         |       CGB      | [Object priority mode](<#FF6C — OPRI (CGB Mode only): Object priority mode>)
-$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK (CGB Mode only): WRAM bank>)
+$FF70   |         |       CGB      | [WRAM Bank Select](<#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>)
 
 ## VRAM memory map
 
