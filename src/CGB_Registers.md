@@ -28,6 +28,8 @@ use "repaired" color palette data matching for GBA displays.
 
 ### LCD VRAM DMA Transfers
 
+One of the pitfalls of the `HDMAx` naming convention is that the register's purpose is not immediately clear from its name, so some alternative `VDMA_*` names have been proposed, [such as `VDMA_LEN` for `HDMA5`](https://github.com/gbdev/hardware.inc/blob/8d4432e5796bffe2e13c438013285c5f11c37b99/hardware.inc#L919).
+
 #### FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]
 
 These two registers specify the address at which the transfer will read
@@ -113,7 +115,7 @@ manually terminating a HBlank Transfer.
 
 In both Normal Speed and Double Speed Mode it takes about 8 μs to
 transfer a block of $10 bytes.
-That is, 8 M-cycles in Normal Speed Mode [\[1\]](imgs/hdma_single_speed.png),
+That is, 8 M-cycles in Normal Speed Mode [\[1\]](imgs/hdma_normal_speed.png),
 and 16 "fast" M-cycles in Double Speed Mode [\[2\]](imgs/hdma_double_speed.png).
 Older MBC controllers (like MBC1-3) and slower ROMs are not guaranteed to support General
 Purpose or HBlank DMA, that's because there are always 2 bytes
@@ -142,13 +144,13 @@ corresponding Tile Maps.
 Reading from this register will return the number of the currently
 loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
-### FF4D — KEY1 (CGB Mode only): Prepare speed switch
+### FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch
 
 {{#bits 8 >
    "KEY1" 7:"Current speed" 0:"Switch armed"
 }}
 
-- **Current speed** (*Read-only*): `0` = Single-speed mode, `1` = Double-speed mode
+- **Current speed** (*Read-only*): `0` = Normal-speed mode, `1` = Double-speed mode
 - **Switch armed** (*Read/Write*): `0` = No, `1` = Armed
 
 This register is used to prepare the Game Boy to switch between CGB
@@ -169,7 +171,7 @@ ENDIF
 
 The CGB is operating in Normal Speed Mode when it is first turned on. Note
 that using the Double Speed Mode increases the power consumption; therefore, it
-would be recommended to use Single Speed whenever possible.
+would be recommended to use Normal Speed whenever possible.
 
 In Double Speed Mode the following will operate twice as fast as normal:
 
@@ -219,7 +221,7 @@ ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a permanent
 880us LED ON signal. Even though being generally CGB compatible, the GBA
 does not include an infra-red port.
 
-### FF4C — KEY0 (CGB Mode only): CPU mode select 
+### FF4C — KEY0/SYS (CGB Mode only): CPU mode select
 
 This GBC-only register (which is not officially documented) is written only by the CGB boot ROM,
 as it gets locked after the bootrom finish execution (by a write to the [BANK register](<#Monochrome models (DMG0, DMG, MGB)>)).
@@ -251,7 +253,7 @@ This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's CGB compatibility.
 
-OPRI has an effect if a [PGB](<#PGB mode>) value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0 (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
+OPRI has an effect if a [PGB](<#PGB mode>) value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
 
 :::warning TO BE VERIFIED
 
@@ -266,7 +268,7 @@ It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effec
 
 - **Priority mode** (*Read/Write*): `0` = CGB-style priority, `1` = DMG-style priority
 
-### FF70 — SVBK (CGB Mode only): WRAM bank
+### FF70 — SVBK/WBK (CGB Mode only): WRAM bank
 
 In CGB Mode, 32 KiB of internal RAM are available.
 This memory is divided into 8 banks of 4 KiB each.

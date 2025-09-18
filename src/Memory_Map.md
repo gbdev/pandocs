@@ -32,7 +32,7 @@ $FF30   |  $FF3F  |       DMG      | [Wave pattern](<#FF30–FF3F — Wave patte
 $FF40   |  $FF4B  |       DMG      | LCD [Control](<#FF40 — LCDC: LCD control>), [Status](<#FF41 — STAT: LCD status>), [Position, Scrolling](<#LCD Position and Scrolling>), and [Palettes](<#Palettes>)
 $FF4C   |  $FF4D  |       CGB      | [KEY0](<#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>) and [KEY1](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>)
 $FF4F   |         |       CGB      | [VRAM Bank Select](<#FF4F — VBK (CGB Mode only): VRAM bank>)
-$FF50   |         |       DMG      | Set to non-zero to disable boot ROM
+$FF50   |         |       DMG      | [Boot ROM mapping control](<#Power-Up Sequence>)
 $FF51   |  $FF55  |       CGB      | [VRAM DMA](<#LCD VRAM DMA Transfers>)
 $FF56   |         |       CGB      | [IR port](<#FF56 — RP (CGB Mode only): Infrared communications port>)
 $FF68   |  $FF6B  |       CGB      | [BG / OBJ Palettes](<#LCD Color Palettes (CGB only)>)
@@ -101,7 +101,7 @@ The following addresses are supposed to be used as jump vectors:
 -   Interrupts: 0040, 0048, 0050, 0058, 0060
 
 However, this memory area (0000-00FF) may be used for any other purpose in case that your
-program doesn't use any (or only some) [`rst`](https://rgbds.gbdev.io/docs/v0.5.2/gbz80.7#RST_vec) instructions or interrupts. `rst`
+program doesn't use any (or only some) [`rst`](https://rgbds.gbdev.io/docs/gbz80.7#RST_vec) instructions or interrupts. `rst`
 is a 1-byte instruction that works similarly to the 3-byte `call` instruction, except
 that the destination address is restricted. Since it is 1-byte sized,
 it is also slightly faster.

@@ -163,4 +163,4 @@ Location | Purpose
 
 ## External links
 
-- Source: [GBDev Forums thread](http://web.archive.org/web/20231003224822/https://gbdev.gg8.se/forums/viewtopic.php?id=744)
+- Source: [GBDev Forums thread](https://gbdev.gg8.se/forums/viewtopic.php?id=744)

@@ -45,8 +45,10 @@ $FF48      | [OBP0]      | OBJ palette 0 data                                   
 $FF49      | [OBP1]      | OBJ palette 1 data                                                | R/W                 | DMG
 $FF4A      | [WY]        | Window Y position                                                 | R/W                 | All
 $FF4B      | [WX]        | Window X position plus 7                                          | R/W                 | All
-$FF4D      | [KEY1]      | Prepare speed switch                                              | Mixed               | CGB
+$FF4C      | [KEY0/SYS]  | CPU mode select                                                   | Mixed               | CGB
+$FF4D      | [KEY1/SPD]  | Prepare speed switch                                              | Mixed               | CGB
 $FF4F      | [VBK]       | VRAM bank                                                         | R/W                 | CGB
+$FF50      | [BANK]      | Boot ROM mapping control                                          | W                   | All
 $FF51      | [HDMA1]     | VRAM DMA source high                                              | W                   | CGB
 $FF52      | [HDMA2]     | VRAM DMA source low                                               | W                   | CGB
 $FF53      | [HDMA3]     | VRAM DMA destination high                                         | W                   | CGB
@@ -58,7 +60,7 @@ $FF69      | [BCPD/BGPD] | Background color palette data / Background palette da
 $FF6A      | [OCPS/OBPI] | OBJ color palette specification / OBJ palette index               | R/W                 | CGB
 $FF6B      | [OCPD/OBPD] | OBJ color palette data / OBJ palette data                         | R/W                 | CGB
 $FF6C      | [OPRI]      | Object priority mode                                              | R/W                 | CGB
-$FF70      | [SVBK]      | WRAM bank                                                         | R/W                 | CGB
+$FF70      | [SVBK/WBK]  | WRAM bank                                                         | R/W                 | CGB
 $FF76      | [PCM12]     | Audio digital outputs 1 & 2                                       | R                   | CGB
 $FF77      | [PCM34]     | Audio digital outputs 3 & 4                                       | R                   | CGB
 $FFFF      | [IE]        | Interrupt enable                                                  | R/W                 | All
@@ -105,8 +107,10 @@ $FFFF      | [IE]        | Interrupt enable                                     
 [OBP1]: <#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>
 [WY]: <#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>
 [WX]: <#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>
-[KEY1]: <#FF4D — KEY1 (CGB Mode only): Prepare speed switch>
+[KEY0/SYS]: <#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>
+[KEY1/SPD]: <#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>
 [VBK]: <#FF4F — VBK (CGB Mode only): VRAM bank>
+[BANK]: <#Power-Up Sequence>
 [HDMA1]: <#FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]>
 [HDMA2]: <#FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]>
 [HDMA3]: <#FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]>
@@ -118,7 +122,7 @@ $FFFF      | [IE]        | Interrupt enable                                     
 [OCPS/OBPI]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
 [OCPD/OBPD]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
 [OPRI]: <#FF6C — OPRI (CGB Mode only): Object priority mode>
-[SVBK]: <#FF70 — SVBK (CGB Mode only): WRAM bank>
+[SVBK/WBK]: <#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>
 [PCM12]: <#FF76 — PCM12 (CGB Mode only): Digital outputs 1 & 2 \[read-only\]>
 [PCM34]: <#FF77 — PCM34 (CGB Mode only): Digital outputs 3 & 4 \[read-only\]>
 [IE]: <#FFFF — IE: Interrupt enable>

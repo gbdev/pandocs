@@ -50,4 +50,4 @@ behaves like normal cart RAM.
 
 ## External links
 
-- [Source on jrra.zone](http://jrra.zone/blog/huc1.html)
+- [Source on jrra.zone](https://jrra.zone/blog/huc1.html)

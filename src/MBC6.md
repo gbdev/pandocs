@@ -171,8 +171,8 @@ Write Enable bit to 1, then issue the Unprotect Sector 0 flash command.
 
 ## External links
 
-- Source: [GBDev Forums thread by endrift](http://web.archive.org/web/20240919224258/https://gbdev.gg8.se/forums/viewtopic.php?id=544)
-- Reference: [Nintendo Power Game Boy Memory cartridge documentation](http://iceboy.a-singer.de/doc/np_gb_memory.html)
+- Source: [GBDev Forums thread by endrift](https://gbdev.gg8.se/forums/viewtopic.php?id=544)
+- Reference: [Nintendo Power Game Boy Memory cartridge documentation](https://iceboy.a-singer.de/doc/np_gb_memory.html)
   * The NP GB Memory cartridges use a nearly identical flash chip.
     It seemingly only slightly differs in its part number. Therefore,
     the part about the flash chip also applies to Net de Get.

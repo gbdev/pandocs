@@ -111,7 +111,7 @@ still running. Data sheet says that the signal to DO is RDY, thus it
 reads a 1 when the command finishes.
 
 Datasheet:
-[1](http://ww1.microchip.com/downloads/en/DeviceDoc/21712C.pdf)
+[1](https://ww1.microchip.com/downloads/en/DeviceDoc/21712C.pdf)
 
 ### Ax9x-AxFx - Unused
 
@@ -141,5 +141,5 @@ enable section as well (0000-1FFF)
 
 ## External links
 
-- Source: [GBDev Forums thread by endrift](https://web.archive.org/web/20250424080817/https://gbdev.gg8.se/forums/viewtopic.php?id=448)
+- Source: [GBDev Forums thread by endrift](https://gbdev.gg8.se/forums/viewtopic.php?id=448)
 

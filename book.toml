@@ -49,4 +49,5 @@ exclude = [
 	'print.html', # Do not check the print page, as it is generated separately
 	'single.html', # Do not check the single page, as it is generated separately
 	'http[s]*://problemkaputt\.de', # Skip checking problemkaputt.de, as connection to this domain is generally unreliable
+	'http[s]*://tcrf\.net', # Skip checking tcrf.net, as it returns 403 (https://blog.xkeeper.net/uncategorized/tcrf-has-been-getting-ddosed/)
 ]

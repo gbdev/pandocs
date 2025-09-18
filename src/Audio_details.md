@@ -84,7 +84,7 @@ Same, but with channels 3 and 4.
 
 ### DIV-APU
 
-A "DIV-APU" counter is increased every time `DIV`'s bit 4 (5 in [double-speed mode](<#FF4D — KEY1 (CGB Mode only): Prepare speed switch>)) goes from 1 to 0, therefore at a frequency of 512 Hz (regardless of whether double-speed is active).
+A "DIV-APU" counter is increased every time `DIV`'s bit 4 (5 in [double-speed mode](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>)) goes from 1 to 0, therefore at a frequency of 512 Hz (regardless of whether double-speed is active).
 Thus, the counter can be made to increase faster by writing to `DIV` while its relevant bit is set (which clears `DIV`, and triggers the falling edge).
 
 The following events occur every <var>N</var> DIV-APU ticks:
@@ -220,7 +220,7 @@ This does not happen under regular operation, but can be achieved by switching f
 ## Game Boy Advance audio
 
 The APU was reworked pretty heavily for the GBA, which introduces some slightly different behavior:
-- Instead of mixing being done by analog circuitry, it's instead done digitally; then, sound is converted to an analog signal and an offset is added (see `SOUNDBIAS` in [GBATEK](http://problemkaputt.de/gbatek.htm#gbasoundcontrolregisters) for more details).
+- Instead of mixing being done by analog circuitry, it's instead done digitally; then, sound is converted to an analog signal and an offset is added (see `SOUNDBIAS` in [GBATEK](https://problemkaputt.de/gbatek.htm#gbasoundcontrolregisters) for more details).
 - This also means that the GBA APU has no DACs.
   Instead, they are emulated digitally such that a disabled "DAC" behaves like an enabled DAC receiving 0 as its input.
 - Additionally, CH3's DAC has its output inverted.

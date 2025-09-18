@@ -12,7 +12,7 @@ As a rule of thumb, for any `x` in `1`, `2`, `3`, `4`:
 
 ...but there are some exceptions.
 
-One of the pitfalls of the `NRxy` naming convention is that the register's purpose is not immediately clear from its name, so some alternative names have been proposed, [such as `AUDENA` for `NR52`](https://github.com/gbdev/hardware.inc/blob/05f5a9b6c7172abe1d7488080c1c050284c09226/hardware.inc#L415).
+One of the pitfalls of the `NRxy` naming convention is that the register's purpose is not immediately clear from its name, so some alternative `AUD*` names have been proposed, [such as `AUDENA` for `NR52`](https://github.com/gbdev/hardware.inc/blob/8d4432e5796bffe2e13c438013285c5f11c37b99/hardware.inc#L910).
 
 ## Global control registers
 
