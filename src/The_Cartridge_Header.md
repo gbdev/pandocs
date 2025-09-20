@@ -99,7 +99,7 @@ Code | Publisher
 `52` | [Activision](https://en.wikipedia.org/wiki/Activision)
 `53` | [Sammy USA Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
 `54` | [Konami](https://en.wikipedia.org/wiki/Konami)
-`55` | [Hi Tech Expressions](https://en.wikipedia.org/wiki/Hi_Tech_Expressions)
+`55` | [Hi Tech Expressions](https://tvtropes.org/pmwiki/pmwiki.php/Creator/HiTechExpressions)
 `56` | [LJN](https://en.wikipedia.org/wiki/LJN)
 `57` | [Matchbox](https://en.wikipedia.org/wiki/Matchbox_(brand))
 `58` | [Mattel](https://en.wikipedia.org/wiki/Mattel)
