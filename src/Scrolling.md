@@ -1,4 +1,4 @@
-# Viewport Position (Scrolling)
+# Viewport position (Scrolling)
 
 These registers can be accessed even during Mode 3, but modifications may not take
 effect immediately (see further below).
@@ -23,6 +23,6 @@ Example from the homebrew game *Mindy's Hike*:
 
 ## Mid-frame behavior
 
-The scroll registers are re-read on each [tile fetch](<#Get Tile>), except for the low 3 bits of SCX, which are only read at the beginning of the scanline (for the initial shifting of pixels).
+The scroll registers are re-read on each [tile fetch](<#Get Tile>), except for the low 3 bits of `SCX`, which are only read at the beginning of the scanline (for the initial shifting of pixels).
 
-All models before the CGB-D read the Y coordinate once for each bitplane (so a very precisely timed SCY write allows "desyncing" them), but CGB-D and later use the same Y coordinate for both no matter what.
+All models before the CGB-D read the Y coordinate once for each bitplane (so a very precisely timed `SCY` write allows "desyncing" them), but CGB-D and later use the same Y coordinate for both no matter what.
