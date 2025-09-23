@@ -19,7 +19,7 @@ CGB  | 256 + 1792   | Split in two parts, with the cartridge header in the middl
 AGB0 | 256 + 1792   | Increments B register for GBA identification
 AGB  | 256 + 1792   | Fixes ["logo TOCTTOU"](<#Bypass>)
 
-[A disassembly of all of them is available online.](https://github.com/ISSOtm/gb-bootroms)
+[A disassembly of all of them is available online.](https://codeberg.org/ISSOtm/gb-bootroms)
 
 ## Monochrome models (DMG0, DMG, MGB)
 
@@ -121,13 +121,13 @@ The boot ROM picks a compatibility palette using an ID computed using the follow
    * If this check fails, palettes ID $00 is used.
    * Otherwise, the algorithm proceeds.
 1. Compute the sum of all 16 [game title](<#0134-0143 — Title>) bytes, storing this as the "title checksum".
-1. Find the title checksum [in a table](https://github.com/ISSOtm/gb-bootroms/blob/443d7f057ae06e8d1d76fa8083650cf0be2cd0ae/src/cgb.asm#L1221-L1230), and record its index within the table.
+1. Find the title checksum [in a table](https://codeberg.org/ISSOtm/gb-bootroms/src/commit/443d7f057ae06e8d1d76fa8083650cf0be2cd0ae/src/cgb.asm#L1221-L1230), and record its index within the table.
 
    An almost-complete list of titles corresponding to the different checksums can be found in [Liji's free CGB boot ROM reimplementation](https://github.com/LIJI32/SameBoy/blob/1d7692cff5552e296be5e1ab075c4f187f57132c/BootROMs/cgb_boot.asm#L230-L328).
    * If not found, palettes ID $00 is used.
    * If the index is 64 or below, the index is used as-is as the palettes ID, and the algorithm ends.
    * Otherwise, it must be further corrected based on the title's fourth letter; proceed to the step below.
-1. The fourth letter is searched for in [another table](https://github.com/ISSOtm/gb-bootroms/blob/443d7f057ae06e8d1d76fa8083650cf0be2cd0ae/src/cgb.asm#L1232-L1240).
+1. The fourth letter is searched for in [another table](https://codeberg.org/ISSOtm/gb-bootroms/src/commit/443d7f057ae06e8d1d76fa8083650cf0be2cd0ae/src/cgb.asm#L1232-L1240).
    * If the letter can't be found, palettes ID $00 is used.
    * If the letter is found, the index obtained in the previous step is increased by 14 times the row index to get the palettes ID.
      (So, if the letter was found in the first row, the index is unchanged; if it's found in the second row, it's increased by 14, and so on.)
@@ -265,7 +265,7 @@ As indicated by the "+ 1" in the "AGB (DMG mode)" column, if on AGB, that value 
 
 <!-- How else do I prevent the footnote definition from being too greedy? >_< -->
 
-The tables above were obtained from analysis of [the boot ROM's disassemblies](https://github.com/ISSOtm/gb-bootroms), and confirmed using Mooneye-GB tests [`acceptance/boot_regs-dmg0`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-dmg0.s), [`acceptance/boot_regs-dmgABC`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-dmgABC.s), [`acceptance/boot_regs-mgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-mgb.s), [`acceptance/boot_regs-sgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-sgb.s), [`acceptance/boot_regs-sgb2`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-sgb2.s), [`misc/boot_regs-cgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_regs-cgb.s), and [`misc/boot_regs-A`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_regs-A.s), plus some extra testing.
+The tables above were obtained from analysis of [the boot ROM's disassemblies](https://codeberg.org/ISSOtm/gb-bootroms), and confirmed using Mooneye-GB tests [`acceptance/boot_regs-dmg0`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-dmg0.s), [`acceptance/boot_regs-dmgABC`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-dmgABC.s), [`acceptance/boot_regs-mgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-mgb.s), [`acceptance/boot_regs-sgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-sgb.s), [`acceptance/boot_regs-sgb2`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_regs-sgb2.s), [`misc/boot_regs-cgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_regs-cgb.s), and [`misc/boot_regs-A`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_regs-A.s), plus some extra testing.
 
 ## Hardware registers
 
