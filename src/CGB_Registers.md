@@ -39,12 +39,14 @@ tested on Echo RAM, OAM, FEXX, IO and HRAM\]. Trying to specify a source
 address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
+The address specified by those registers is incremented by $10 for each block of $10 bytes transfered successfully.
 
 #### FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
+The address specified by those registers is incremented by $10 for each block of $10 bytes transfered successfully.
 
 #### FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start
 
@@ -123,11 +125,6 @@ transferred per microsecond (even if the itself program runs it Normal
 Speed Mode).
 
 This allows for a transfer of 2280 bytes during VBlank, which is up to 142.5 tiles.
-
-#### Status of the registers after the end of the transfer
-
-The source and destination address regisers are both incremented by $10 bytes for each block of $10 bytes transfered after the transfer is done.
-FF55 is always equal to $FF once the transfer ends
 
 ### VRAM Banks
 
