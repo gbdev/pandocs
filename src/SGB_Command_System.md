@@ -29,6 +29,8 @@ commands.
 SGB freezes/unfreezes the Game Boy screen automatically whenever the LCD is
 turned off/on.
 
+:::
+
 ## SGB Command $0C — ATRC_EN
 
 Used to enable/disable Attraction mode, which is enabled by default.
