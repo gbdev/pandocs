@@ -29,19 +29,19 @@ On GBC, clearing the [Window enable bit] in `LCDC` resets the *Y condition*; `WY
 :::
 
 Additionally, the PPU maintains a counter, initialized to 0 at the beginning of each scanline.
-The counter is incremented for each pixel rendered; however, it also increments 7 times before the first pixel is actually rendered (this covers pixels discarded during the initial “fine scroll” adjustment).
+The counter is incremented for each pixel rendered; however, it also increments 7 times before the first pixel is actually rendered (this covers pixels discarded during the initial "fine scroll" adjustment).
 
 When this counter is equal to `WX`, if the *Y condition* is true and the [Window enable bit] is set in `LCDC`, background rendering is reset, beginning anew from the active row of the Window's tilemap.
 The coordinate of the active Window row is then incremented.
 
-- This process can happen more than once per scanline, making the Window's “tilemap Y coordinate” increase more than once in the scanline.
+- This process can happen more than once per scanline, making the Window's "tilemap Y coordinate" increase more than once in the scanline.
   (This is demonstrated by the TODO test ROM.)
 
-  However, this requires “disabling” the Window by briefly clearing its enable bit from `LCDC` first.
-- If this process doesn't happen, the Window's “tilemap Y coordinate” does not increase; so, if the Window is hidden (by any means) on a given scanline, the row of pixels rendered the next time it's shown will be the same as if it had not been hidden in the first place, producing a sort of vertical striped stretching:
+  However, this requires "disabling" the Window by briefly clearing its enable bit from `LCDC` first.
+- If this process doesn't happen, the Window's "tilemap Y coordinate" does not increase; so, if the Window is hidden (by any means) on a given scanline, the row of pixels rendered the next time it's shown will be the same as if it had not been hidden in the first place, producing a sort of vertical striped stretching:
 
   ![Visual demonstration](https://github.com/mattcurrie/mealybug-tearoom-tests/raw/master/expected/DMG-blob/m2_win_en_toggle.png?raw=true)
-- If `WX` is equal to 0, the Window is switched to before the initial “fine scroll” adjustment, causing it to be shifted left by <math><mi>SCX</mi> <mo>%</mo> <mn>8</mn></math> pixels.
+- If `WX` is equal to 0, the Window is switched to before the initial "fine scroll" adjustment, causing it to be shifted left by <math><mi>SCX</mi> <mo>%</mo> <mn>8</mn></math> pixels.
 - On monochrome systems, `WX` = 166 (which would normally show a single Window pixel, along the right edge of the screen) exhibits a bug: the Window spans the entire screen, but offset vertically by one scanline.
 - On monochrome systems, if the Window is disabled via `LCDC`, but the other conditions are met *and* it would have started rendering exactly on a BG tile boundary, then where it would have started rendering, a single pixel with ID 0 (i.e. drawn as the first entry in [the BG palette]) is inserted; this offsets the remainder of the scanline.[^star_trek]
 
