@@ -22,7 +22,7 @@ The PPU keeps track of a “**Y condition**” throughout a frame.
 - On each VBlank, the *Y condition* is cleared (becomes false).
 - At the beginning of each scanline, if the value of `WY` is equal to [`LY`], the *Y condition* becomes true (and remains so for subsequent scanlines).
 
-:::tip Erratum
+:::tip Note
 
 On GBC, clearing the [Window enable bit] in `LCDC` resets the *Y condition*; `WY` must be set to `LY` or greater for the Window to display again in the current frame.
 
