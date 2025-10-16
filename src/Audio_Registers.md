@@ -402,7 +402,7 @@ This register allows controlling the way the amplitude is randomly switched.
 - **Clock divider**: See the frequency formula below.
   Note that <var>divider</var> = 0 is treated as <var>divider</var> = 0.5 instead.
 
-The frequency at which the LFSR is clocked is <math><mfrac><mn>262144</mn><mrow><mi>divider</mi><mo>×</mo><msup><mn>2</mn><mi>shift</mi></msup></mrow></mfrac></math> Hz.
+The frequency at which the LFSR is clocked is <math><mfrac><mn>262144</mn><mrow><mi>divider</mi><mo>×</mo><msup><mn>2</mn><mi>shift</mi></msup></mrow></mfrac></math> Hz, except that <var>shift</var> being equal to 14 or 15 stops the channel from being clocked entirely.
 
 If the bit shifted out is a 0, the channel emits a 0; otherwise, it emits the volume selected in `NR42`.
 
