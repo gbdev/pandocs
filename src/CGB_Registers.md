@@ -39,14 +39,33 @@ tested on Echo RAM, OAM, FEXX, IO and HRAM\]. Trying to specify a source
 address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
-The address specified by those registers is cached internally and incremented by $10 for each block of $10 bytes successfully transferred. The cached address persists until the registers are written again.
+After a transfer the address contained in this register pair is 
+by $10 for each block of $10 bytes transfered, these 
+registers being write-only, this can only be observed by doing another 
+transfer without updating these registers.
+
 
 #### FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
-The address specified by those registers is cached internally and incremented by $10 for each block of $10 bytes successfully transferred. The cached address persists until the registers are written again.
+
+#### State of the VRAM DMA source/destination registers after a transfer
+
+After a transfer, the source/destination registers are incremented by $10 
+for each block of $10 bytes transfered.
+Despite both the VRAM DMA source/destination registers being write-only,
+knowing their state after a transfer can turn useful when performing
+multiple transfer in a row.
+For instance, a transfer of one large block is mostly equivalent to
+multiple transfers of smaller blocks, without needing to update the source
+nor the destination registers between each of the smaller transfers.
+Another use case would be to fill VRAM with the same $10 bytes block repeated 
+all over, as only the source address register would need be updated after each
+transfer, the destination register being automatically incremented by
+the block size after each transfer.
+
 
 #### FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start
 
