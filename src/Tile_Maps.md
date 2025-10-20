@@ -106,7 +106,7 @@ for the definition of "Window visibility".)
 
 :::tip Window Internal Line Counter
 
-The window keeps an internal line counter that's functionally similar to `LY`, and increments alongside it. However, it only gets incremented when the window is visible, as described [here](<#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>).
+The window keeps an internal line counter that's functionally similar to `LY`, and increments alongside it. However, it only gets incremented when the window is visible, as described [here](<#Window rendering criteria>).
 
 This line counter determines what window line is to be rendered on the current scanline.
 

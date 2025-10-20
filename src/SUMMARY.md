@@ -18,6 +18,7 @@
   - [Tile Maps](./Tile_Maps.md)
   - [OAM](./OAM.md)
     - [OAM DMA Transfer](./OAM_DMA_Transfer.md)
+  - [Window](./Window.md)
   - [LCD Control](./LCDC.md)
   - [LCD Status Registers](./STAT.md)
   - [Scrolling](./Scrolling.md)
