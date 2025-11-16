@@ -1,6 +1,6 @@
 # MBC3
 
-(max 2MByte ROM and/or 32KByte RAM and Timer)
+(max 2MByte ROM and/or 64KByte RAM and Timer)
 
 Beside for the ability to access up to 2MB ROM (128 banks), and 32KB RAM
 (4 banks), the MBC3 also includes a built-in Real Time Clock (RTC). The
@@ -23,6 +23,8 @@ supported now.
 Depending on the current Bank Number/RTC Register selection (see below),
 this memory space is used to access an 8 KiB external RAM Bank, or a
 single RTC Register.
+
+The Japanese version of Pokémon Crystal Version is the only official game to have an MBC3 with 8 RAM banks (for a total of 64 KiB). It is sometimes referred to as MBC30, reflecting the print on the chip, although the cartridge type in the header is not different.
 
 ## Registers
 
@@ -58,11 +60,23 @@ Controls what is mapped into memory at A000-BFFF.
 
 ### 6000-7FFF - Latch Clock Data (Write Only)
 
-When writing $00, and then $01 to this register, the current time
-becomes latched into the RTC registers. The latched data will not change
-until it becomes latched again, by repeating the write $00-\>$01
-procedure. This provides a way to read the RTC registers while the
-clock keeps ticking.
+Latching makes a static copy of the current timestamp available in the clock counter registers while the clock keeps running in the background. This makes sure that your reads from the counter registers will be consistent, since any counter overflowing while you read the different parts can have you read an incorrect value (e.g. reading the hour at 11:59 and the minute at 12:00 will give 12:59.)
+
+The exact behavior of this register varies depending on hardware:
+
+MBC3B provides a running clock on power-on and after writing any even value to this register. It is still recommended to latch the clock by writing any odd value. MBC3B can only latch while it provides a running clock, so you must write an even value before you can write an odd value again.
+
+MBC3A's clock counters are indeterminate by default. Writing any value to this register latches the clock. MBC3A cannot provide a running clock. Naturally, it can latch repeatedly.
+
+Most games write $00 and then $01 to this register. This procedure will latch the clock on both chips, even if it is already latched.
+
+:::tip
+
+**Help wanted**
+
+If you have a flashcart and any MBC3 or MBC30 cart (see the print on the chip), please reach out to us on gbdev Discord so you can be given the test ROMs.
+
+:::
 
 ### Clock Counter Registers
 | Register | Name | Description | Range |
@@ -73,8 +87,11 @@ clock keeps ticking.
 | $0B | RTC DL | Lower 8 bits of Day Counter | ($00-$FF) |
 | $0C | RTC DH | Upper 1 bit of Day Counter, Carry Bit, Halt Flag. <br>Bit 0: Most significant bit (Bit 8) of Day Counter<br>Bit 6: Halt (0=Active, 1=Stop Timer)<br>Bit 7:  Day Counter Carry Bit (1=Counter Overflow) | |
 
-The Halt Flag is supposed to be set before **writing** to the RTC
-Registers.
+The Halt Flag is supposed to be set before **writing** to the RTC Registers. This makes sure no register overflows while you write the different parts.
+
+Bits that are not required to store the above information will be ignored and always read 0.
+
+You can write values larger than the ones mentioned above (up to 63 for seconds and minutes, and up to 31 for hours). Invalid values will then continue incrementing like a valid value and will only overflow once the available bits no longer suffice. This overflow however will not cause a carry, neither does writing 60 or 24 directly. For example, if you write 30:59:63 (and clear the Halt Flag), it will be 30:59:00 one second later, and 31:00:00 one minute after that. This behavior has been confirmed on MBC3B.
 
 ### The Day Counter
 
