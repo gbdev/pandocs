@@ -1,6 +1,6 @@
 # MBC3
 
-(max 2MByte ROM and/or 64KByte RAM and Timer)
+(max 4 MiB ROM, 64 KiB RAM, and Timer)
 
 Beside for the ability to access up to 2MB ROM (128 banks), and 32KB RAM
 (4 banks), the MBC3 also includes a built-in Real Time Clock (RTC). The
@@ -68,7 +68,7 @@ MBC3B provides a running clock on power-on and after writing any even value to t
 
 MBC3A's clock counters are indeterminate by default. Writing any value to this register latches the clock. MBC3A cannot provide a running clock. Naturally, it can latch repeatedly.
 
-Most games write $00 and then $01 to this register. This procedure will latch the clock on both chips, even if it is already latched.
+**tl;dr**: The behaviour of this register depends on the MBC's version, so for maximum compatibility, write $00 then $01 to this register to safely trigger latching.
 
 :::tip
 
