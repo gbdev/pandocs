@@ -24,7 +24,8 @@ The information here was largely obtained from an emulator that passes `intr_2_m
 
 {{#include imgs/src/ppu_overview.svg:2:}}
 
-The Game Boy's rendering process, at its core, works using two queues of pixels, also known as the **pixel [FIFO](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics))s**: one for "background" pixels, one for [OBJ](#Objects) pixels[^real_fifos].
+The Game Boy's rendering process, at its core, works using two queues of pixels, also known as the **pixel [FIFO](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics))s**.
+There's one queue for [Background](#Background) pixels, and one for [OBJ](#Objects) pixels[^real_fifos].
 (The Window largely piggybacks on the BG rendering mechanism, more on that below.)
 
 Every "dot", one pixel is shifted off of both FIFOs, and one of them is selected for output.
