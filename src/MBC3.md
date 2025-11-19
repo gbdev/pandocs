@@ -3,9 +3,9 @@
 (max 4 MiB ROM, 64 KiB RAM, and timer)
 
 Beside for the ability to access up to 4 MiB ROM (256 banks) and 64 KiB RAM
-(8 banks), the MBC3 also includes a built-in Real Time Clock (RTC), sometimes referred to as the timer. The
+(8 banks), this MBC also includes a built-in Real Time Clock (RTC), sometimes referred to as the timer. The
 RTC requires an external 32.768 kHz quartz crystal oscillator, and an external
-battery (if it should continue to tick when the Game Boy is turned off). All official MBC3 releases utilize cartridge RAM and a battery, but a few DMG games don't use the timer and therefore lack the crystal.
+battery (if it should continue to tick when the Game Boy is turned off). All official releases with this mapper utilize cartridge RAM and a battery, but a few DMG games don't use the timer and therefore lack the crystal.
 
 There are (at least) four different versions of this MBC that can be distinguished by the print on the chip itself: MBC3, MBC3A, MBC3B and MBC30. Only the latter supports the full 4 MiB of ROM and 64 KiB of RAM whereas the other three can only access half of that. The MBC30 is only found in the Japanese _Pocket Monsters: Crystal Version_, which is also the only release with the full 64 KiB of RAM (8 banks). No game uses the full 4 MiB.
 
@@ -91,7 +91,7 @@ If you would like to help, have a flashcart and any official RTC cartridge, plea
 | $0B | RTC DL | Lower 8 bits of Day Counter | ($00-$FF) |
 | $0C | RTC DH | Upper 1 bit of Day Counter, Carry Bit, Halt Flag. <br>Bit 0: Most significant bit (Bit 8) of Day Counter<br>Bit 6: Halt (0=Active, 1=Stop Timer)<br>Bit 7:  Day Counter Carry Bit (1=Counter Overflow) | |
 
-The Halt Flag is supposed to be set before **writing** to the RTC Registers. This makes sure no register overflows while you write the different parts. The MBC3 chip however does not require you to halt or latch the clock before you write to the counter registers. Note that latching also prevents you from seeing your writes reflected immediately.
+The Halt Flag is supposed to be set before **writing** to the RTC Registers. This makes sure no register overflows while you write the different parts. However, it is not required that you halt or latch the clock before you write to the counter registers. Note that latching also prevents you from seeing your writes reflected immediately.
 
 Bits that are not required to store the above information will be ignored and always read 0.
 
