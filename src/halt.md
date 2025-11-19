@@ -7,7 +7,7 @@ and [`IF`](<#FF0F — IF: Interrupt flag>) is non-zero.
 
 Most commonly, [`IME`](<#IME: Interrupt master enable flag \[write only\]>) is
 set. In this case, the CPU simply wakes up, and before executing the instruction
-after the `halt`, the [interrupt handler is called](<#Interrupt Handling>)
+after the `halt`, the [interrupt handler is called](<#Interrupt handling>)
 normally.
 
 If `IME` is *not* set, there are two distinct cases, depending on whether an

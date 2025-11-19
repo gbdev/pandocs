@@ -57,11 +57,8 @@ This bit controls whether the window shall be displayed or not.
 This bit is overridden on DMG by [bit 0](<#LCDC.0 — BG and Window enable/priority>)
 if that bit is clear.
 
-Changing the value of this register mid-frame triggers a more complex behaviour:
-[see further below](<#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>).
-
-Note that on CGB models, setting this bit to 0 then back to 1 mid-frame
-may cause the second write to be ignored. (TODO: test this.)
+Changing the value of this register mid-frame triggers several more complex behaviours:
+[see the corresponding chapter](<#Window mid-frame behavior>).
 
 ### LCDC.4 — BG and Window tile data area
 

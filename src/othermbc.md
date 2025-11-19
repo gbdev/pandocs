@@ -55,7 +55,7 @@ the mapper consists of a single standard 74 series logic chip, it has
 two unusual properties:
 
 First, unlike a usual MBC, it switches the whole 32 KiB ROM area instead
-of just the $4000-$7FFF area. Therefore, if you want to use [the interrupt vectors](<#Interrupt Handling>)
+of just the $4000-$7FFF area. Therefore, if you want to use [the interrupt vectors](<#Interrupt handling>)
 with this cart, you should duplicate them across all banks.
 Additionally, since the 74LS377's contents can't be guaranteed when powering on,
 the ROM header and some code for switching to a known bank should also
