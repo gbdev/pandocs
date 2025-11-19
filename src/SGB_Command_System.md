@@ -24,6 +24,13 @@ after having displayed the picture). The Cancel Mask function may be
 also invoked (optionally) by completion of PAL_SET and ATTR_SET
 commands.
 
+:::tip
+
+SGB freezes/unfreezes the Game Boy screen automatically whenever the LCD is
+turned off/on.
+
+:::
+
 ## SGB Command $0C — ATRC_EN
 
 Used to enable/disable Attraction mode, which is enabled by default.
