@@ -91,7 +91,7 @@ This means a master will start to receive $FF bytes.
 
 If a disconnection happens during transmission, the input will be pulled up to 1 over a 20uSec period. (TODO: Only measured on a CGB rev E)
 This means if the slave was sending a 0 bit at the time of the disconnect, you will read 0 bits for up to 20 μs.
-Which on a CGB at the highest speed can be more then a byte.
+Which, on a CGB at the highest speed, can amount to more than one byte.
 
 ## Delays and Synchronization
 
