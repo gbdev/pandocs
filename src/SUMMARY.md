@@ -41,7 +41,7 @@
   - [Command Packet Transfers](./SGB_Command_Packet.md)
   - [VRAM Transfers](./SGB_VRAM_Transfer.md)
   - [Color Palettes Overview](./SGB_Color_Palettes.md)
-  - [Command Summary](./SGB_Command_Summary.md)
+  - [Command List](./SGB_Command_Summary.md)
     - [Palette Commands](./SGB_Command_Palettes.md)
     - [Color Attribute Commands](./SGB_Command_Attribute.md)
     - [Sound Functions](./SGB_Command_Sound.md)
