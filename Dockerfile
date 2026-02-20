@@ -1,24 +1,24 @@
-# Get a python 3.10 image
-FROM python:3.10.9
-LABEL org.opencontainers.image.source=https://github.com/gbdev/pandocs
-SHELL ["bash", "-lc"]
-RUN apt update
-RUN apt install curl -y
-
-# Install rust and mdbook
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-RUN apt install gcc -y
-RUN source "$HOME/.cargo/env"
+# --- Stage 1: build mdBook binary ---
+FROM rust:1.83 AS builder
 RUN cargo install mdbook
 
-COPY . /code
+# --- Stage 2: final Python runtime ---
+FROM python:3.10-slim
+
+# Copy mdBook binary only (no Rust toolchain)
+COPY --from=builder /usr/local/cargo/bin/mdbook /usr/local/bin/mdbook
+
+# Install dependencies
+RUN apt-get update && apt-get install -y curl gcc && rm -rf /var/lib/apt/lists/*
+
+# Set up working directory
 WORKDIR /code
+COPY . /code
 
-# Init python3 env
+# Python environment
 RUN python -m venv env
-RUN source env/bin/activate
-RUN pip install -r requirements.txt
+RUN . env/bin/activate && pip install --no-cache-dir -r requirements.txt
 
-# Serve pandocs at localhost:8000
+# Build and serve docs
 RUN mdbook build
 CMD mdbook watch & (cd /code/docs/pandocs/ && python3 -m http.server)
