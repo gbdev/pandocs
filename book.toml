@@ -2,7 +2,6 @@
 title = "Pan Docs"
 description = "The single, most comprehensive technical reference to Game Boy available to the public."
 language = "en"
-multilingual = false
 src = "src"
 
 [build]
