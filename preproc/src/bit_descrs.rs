@@ -11,7 +11,7 @@ use std::borrow::Cow;
 
 use anyhow::{bail, Context, Error};
 use lazy_static::lazy_static;
-use mdbook::book::Chapter;
+use mdbook_preprocessor::book::Chapter;
 use regex::Regex;
 
 use crate::Pandocs;

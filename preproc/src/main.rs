@@ -14,10 +14,11 @@ use std::process;
 
 use anyhow::{anyhow, Context};
 use clap::{App, Arg, ArgMatches, SubCommand};
-use mdbook::book::Book;
-use mdbook::errors::Error;
-use mdbook::preprocess::{CmdPreprocessor, Preprocessor, PreprocessorContext};
-use mdbook::BookItem;
+use mdbook_preprocessor::{
+    book::{Book, BookItem},
+    errors::Error,
+    Preprocessor, PreprocessorContext
+};
 
 mod admonitions;
 mod anchors;
@@ -49,16 +50,16 @@ fn main() -> Result<(), Error> {
 }
 
 fn handle_preprocessing(pre: &dyn Preprocessor) -> Result<(), Error> {
-    let (ctx, book) = CmdPreprocessor::parse_input(io::stdin())?;
+    let (ctx, book) = mdbook_preprocessor::parse_input(io::stdin())?;
 
-    if ctx.mdbook_version != mdbook::MDBOOK_VERSION {
+    if ctx.mdbook_version != mdbook_preprocessor::MDBOOK_VERSION {
         // We should probably use the `semver` crate to check compatibility
         // here...
         eprintln!(
             "Warning: The {} plugin was built against version {} of mdbook, \
              but we're being called from version {}",
             pre.name(),
-            mdbook::MDBOOK_VERSION,
+            mdbook_preprocessor::MDBOOK_VERSION,
             ctx.mdbook_version
         );
     }
@@ -74,7 +75,7 @@ fn handle_supports(pre: &dyn Preprocessor, sub_args: &ArgMatches) -> ! {
     let supported = pre.supports_renderer(renderer);
 
     // Signal whether the renderer is supported by exiting with 1 or 0.
-    if supported {
+    if supported.unwrap() {
         process::exit(0);
     } else {
         process::exit(1);
@@ -94,12 +95,18 @@ impl Preprocessor for Pandocs {
         "pandocs-preproc"
     }
 
-    fn supports_renderer(&self, renderer: &str) -> bool {
-        renderer != "not-supported"
+    fn supports_renderer(&self, renderer: &str) -> Result<bool, anyhow::Error> {
+        Ok(renderer != "not-supported")
     }
 
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
-        let config = ctx.config.get_preprocessor("pandocs");
+        let out_of_repo = match ctx.config.get::<bool>("preprocessor.pandocs.out-of-repo") {
+            Ok(boolean) => match boolean {
+                Some(b) => b,
+                None => false
+            },
+            Err(_) => false
+        };
 
         let mut sections = HashMap::new();
         for item in book.iter() {
@@ -141,7 +148,7 @@ impl Preprocessor for Pandocs {
                             "<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}).</small>",
                             commit.short_hash(), commit.hash(), commit.timestamp(),
                         ));
-                    } else if matches!(config.and_then(|config| config.get("out-of-repo")).and_then(|value| value.as_bool()), Some(true)) {
+                    } else if out_of_repo {
                         // OK, just don't add anything.
                     } else {
                         res = Err(anyhow!("Git metadata is missing, but out-of-repo builds are not enabled!\n\tYou can enable them by setting `preprocessor.pandocs.out-of-repo` to `true`.\n\t(Consider using an environment variable for this:\n\t https://rust-lang.github.io/mdBook/format/configuration/environment-variables.html)"));

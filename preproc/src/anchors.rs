@@ -10,8 +10,10 @@
 use std::collections::HashMap;
 use std::io::Write;
 
-use mdbook::book::Chapter;
-use mdbook::errors::Error;
+use mdbook_preprocessor::{
+    book::Chapter,
+    errors::Error
+};
 use pulldown_cmark::{CowStr, Event, LinkType, Options, Parser, Tag};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
