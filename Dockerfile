@@ -9,7 +9,7 @@ RUN apt install curl -y
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN apt install gcc -y
 RUN source "$HOME/.cargo/env"
-RUN cargo install mdbook
+RUN cargo install mdbook@0.5.2
 
 COPY . /code
 WORKDIR /code

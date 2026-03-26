@@ -2,7 +2,6 @@
 title = "Pan Docs"
 description = "The single, most comprehensive technical reference to Game Boy available to the public."
 language = "en"
-multilingual = false
 src = "src"
 
 [build]
@@ -39,8 +38,8 @@ git-repository-url = "https://github.com/gbdev/pandocs"
 edit-url-template = "https://github.com/gbdev/pandocs/edit/master/{path}"
 site-url = "/pandocs/"
 
-[output.linkcheck]
-follow-web-links = true
+[output.linkcheck2]
+follow-web-links = false
 traverse-parent-directories = false
 optional = true
 warning-policy = "warn"

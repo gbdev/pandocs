@@ -10,8 +10,8 @@ edition = "2018"
 anyhow = "1.0.89"
 globwalk = "0.8.1"
 lazy_static = "1.5.0"
-# mdbook here is only used as a lib, so no need for the extra features
-mdbook = { version = "0.4.40", default-features = false, features = [ "search" ] }
+mdbook-renderer = "0.5.2"
+mdbook-html = "0.5.2"
 regex = "1.10"
 termcolor = "1.4.1"
 url = "2.5.2"

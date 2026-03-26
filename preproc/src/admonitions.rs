@@ -10,7 +10,7 @@
 use std::{iter::Peekable, matches};
 
 use anyhow::Error;
-use mdbook::book::Chapter;
+use mdbook_preprocessor::book::Chapter;
 use pulldown_cmark::{Event, Options, Parser, Tag};
 
 use crate::Pandocs;
