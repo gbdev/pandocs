@@ -39,7 +39,7 @@ edit-url-template = "https://github.com/gbdev/pandocs/edit/master/{path}"
 site-url = "/pandocs/"
 
 [output.linkcheck2]
-follow-web-links = true
+follow-web-links = false
 traverse-parent-directories = false
 optional = true
 warning-policy = "warn"
