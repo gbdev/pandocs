@@ -38,7 +38,7 @@ git-repository-url = "https://github.com/gbdev/pandocs"
 edit-url-template = "https://github.com/gbdev/pandocs/edit/master/{path}"
 site-url = "/pandocs/"
 
-[output.linkcheck]
+[output.linkcheck2]
 follow-web-links = true
 traverse-parent-directories = false
 optional = true
