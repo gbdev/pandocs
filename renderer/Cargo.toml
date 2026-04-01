@@ -15,3 +15,7 @@ mdbook-html = "0.5.2"
 regex = "1.10"
 termcolor = "1.4.1"
 url = "2.5.2"
+
+[features]
+default = ["search"]
+search = ["mdbook-html/search"]
