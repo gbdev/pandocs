@@ -51,11 +51,10 @@ Attraction Disable disables this animation.
 
 ## SGB Command $0D — TEST_EN
 
+This command does nothing on all retail SGB revisions. The following description only applies to some prototype units.
+
 Used to enable/disable test mode for "SGB-CPU variable clock speed
 function". This function is disabled by default.
-
-This command does nothing on some SGB revisions. (SGBv2 confirmed,
-unknown on others)
 
 ```
  Byte  Content
