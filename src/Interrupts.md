@@ -8,7 +8,7 @@
 - **`ei`**: Enables interrupt handling (that is, `IME := 1`)
 - **`di`**: Disables interrupt handling (that is, `IME := 0`)
 - **`reti`**: Enables interrupts and returns (same as `ei` immediately followed by `ret`)
-- **When an [interrupt handler](<#Interrupt Handling>) is executed**: Disables interrupts before `call`ing the interrupt handler
+- **When an [interrupt handler](<#Interrupt handling>) is executed**: Disables interrupts before `call`ing the interrupt handler
 
 `IME` is unset (interrupts are disabled) [when the game starts running](<#0100-0103 — Entry point>).
 
@@ -53,7 +53,7 @@ may still do that in order to manually request (or discard) interrupts.
 Just like real interrupts, a manually requested interrupt isn't serviced
 unless/until `IME` and `IE` allow it.
 
-## Interrupt Handling
+## Interrupt handling
 
 1. The `IF` bit corresponding to this interrupt and the `IME` flag are reset by the CPU.
 The former "acknowledges" the interrupt, while the latter prevents any further interrupts
@@ -71,7 +71,7 @@ This consumes one last M-cycle.
 
 The entire process [lasts 5 M-cycles](https://gist.github.com/SonoSooS/c0055300670d678b5ae8433e20bea595#user-content-isr-and-nmi).
 
-## Interrupt Priorities
+## Interrupt priorities
 
 In the following circumstances it is possible that more than one bit in the IF register is set, requesting more than one interrupt at once:
 
@@ -85,7 +85,7 @@ is serviced first. The priorities follow the order of the bits in the IE
 and IF registers: Bit 0 (VBlank) has the highest priority, and Bit 4
 (Joypad) has the lowest priority.
 
-## Nested Interrupts
+## Nested interrupt handling
 
 The CPU automatically disables all the other interrupts by setting IME=0
 when it services an interrupt. Usually IME remains zero until the
