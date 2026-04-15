@@ -76,7 +76,7 @@ Code | Publisher
 `20` | [KSS](https://en.wikipedia.org/wiki/KSS_(company))
 `22` | [Planning Office WADA](https://www.mobygames.com/company/15869/planning-office-wada)
 `24` | [PCM Complete](https://www.mobygames.com/company/9489/pcm-complete)
-`25` | San-X
+`25` | [San-X](https://en.wikipedia.org/wiki/San-X)
 `28` | [Kemco](https://en.wikipedia.org/wiki/Kemco)
 `29` | [SETA Corporation](https://en.wikipedia.org/wiki/SETA_Corporation)
 `30` | [Viacom](https://en.wikipedia.org/wiki/Viacom_(1952%E2%80%932005))
@@ -94,7 +94,7 @@ Code | Publisher
 `46` | [Angel](https://www.mobygames.com/company/5083/angel)
 `47` | [Bullet-Proof Software](https://en.wikipedia.org/wiki/Blue_Planet_Software)[^blueplanet]
 `49` | [Irem](https://en.wikipedia.org/wiki/Irem)
-`50` | Absolute
+`50` | [Absolute](https://en.wikipedia.org/wiki/Absolute_Entertainment)
 `51` | [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `52` | [Activision](https://en.wikipedia.org/wiki/Activision)
 `53` | [Sammy USA Corporation](https://en.wikipedia.org/wiki/Sammy_Corporation)
@@ -115,16 +115,16 @@ Code | Publisher
 `73` | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
 `75` | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
 `78` | [THQ](https://en.wikipedia.org/wiki/THQ)
-`79` | Accolade
+`79` | [Accolade](https://en.wikipedia.org/wiki/Accolade,_Inc.)[^infogrames]
 `80` | [Misawa Entertainment](https://www.mobygames.com/company/8225/misawa-entertainment-coltd)
-`83` | lozc
+`83` | [LOZC G.](https://en.wikipedia.org/wiki/Category:LOZC_G._Amusements_games)
 `86` | [Tokuma Shoten](https://en.wikipedia.org/wiki/Tokuma_Shoten)
 `87` | Tsukuda Original
 `91` | [Chunsoft Co.](https://en.wikipedia.org/wiki/Spike_Chunsoft)[^spike]
-`92` | Video System
+`92` | [Video System](https://en.wikipedia.org/wiki/Category:Video_System_games)
 `93` | [Ocean Software](https://en.wikipedia.org/wiki/Ocean_Software)/[Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment)
 `95` | [Varie](https://en.wikipedia.org/wiki/Varie)
-`96` | Yonezawa/s'pal
+`96` | [Yonezawa](https://en.wikipedia.org/wiki/Sega_Fave)[^segabuy]/S'Pal
 `97` | [Kaneko](https://en.wikipedia.org/wiki/Kaneko)
 `99` | [Pack-In-Video](https://en.wikipedia.org/wiki/Pack-In-Video)
 `9H` | Bottom Up
@@ -308,7 +308,7 @@ HEX   | Licensee
 `73`  | [Sculptured Software](https://en.wikipedia.org/wiki/Iguana_Entertainment)[^sculptured]
 `75`  | [The Sales Curve Limited](https://en.wikipedia.org/wiki/SCi_Games)[^sci]
 `78`  | [THQ](https://en.wikipedia.org/wiki/THQ)
-`79`  | [Accolade](https://en.wikipedia.org/wiki/Accolade_(company))[^infogrames]
+`79`  | [Accolade](https://en.wikipedia.org/wiki/Accolade,_Inc.)[^infogrames]
 `7A`  | [Triffix Entertainment](https://www.mobygames.com/company/4307/triffix-entertainment-inc)
 `7C`  | [MicroProse](https://en.wikipedia.org/wiki/MicroProse)
 `7F`  | [Kemco](https://en.wikipedia.org/wiki/Kemco)

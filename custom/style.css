@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  font-family: "Inter";
+  font-family: "Inter", sans-serif;
   /* Enable some font features for Inter (https://rsms.me/inter/#features/calt) */
   font-feature-settings: "ss01", /* Alternate (Open) digits */ "ss02",
     /* Disambiguation gliphs */ "case";

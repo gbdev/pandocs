@@ -101,6 +101,8 @@ Thus a border can use three 15-color palettes.
 
 ## SGB Command $18 — OBJ_TRN
 
+This command does nothing on all retail SGB revisions. The following description only applies to some prototype units.
+
 Used to start transferring object attributes to SNES object attribute memory (OAM). Unlike all other
 functions with names ending in "\_TRN", this function does not use the usual
 one-time 4 KiB VRAM transfer method. Instead, when enabled (below
@@ -110,8 +112,6 @@ display, the lower line is masked, and only the upper 20×17 characters
 of the Game Boy screen are used - the masking method is unknown - frozen,
 black, or recommended to be covered by the SGB border, or else ??? Also,
 when the function is enabled, attract mode (built-in borders' screen saver on idle) is not performed.
-
-This command does nothing on some SGB revisions. (SGBv2, SGB2?)
 
 ```
  Byte  Content

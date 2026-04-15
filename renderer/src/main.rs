@@ -10,8 +10,11 @@
 use anyhow::Context;
 use globwalk::{FileType, GlobWalkerBuilder};
 use lazy_static::lazy_static;
-use mdbook::errors::Result;
-use mdbook::renderer::{HtmlHandlebars, RenderContext, Renderer};
+use mdbook_renderer::{
+    errors::Result,
+    RenderContext, Renderer
+};
+use mdbook_html::HtmlHandlebars;
 use regex::Regex;
 use std::fs::{self, File};
 use std::io::{self, Write};
@@ -26,7 +29,7 @@ fn main() -> Result<()> {
 
     let renderer = Pandocs;
 
-    if ctx.version != mdbook::MDBOOK_VERSION {
+    if ctx.version != mdbook_renderer::MDBOOK_VERSION {
         // We should probably use the `semver` crate to check compatibility
         // here...
         let mut stderr = StandardStream::stderr(ColorChoice::Auto);
@@ -39,7 +42,7 @@ fn main() -> Result<()> {
             " The {} renderer was built against version {} of mdbook, \
              but we're being called from version {}",
             renderer.name(),
-            mdbook::MDBOOK_VERSION,
+            mdbook_renderer::MDBOOK_VERSION,
             ctx.version
         );
     }
@@ -56,7 +59,7 @@ impl Renderer for Pandocs {
 
     fn render(&self, ctx: &RenderContext) -> Result<()> {
         // First, render things using the HTML renderer
-        let renderer = HtmlHandlebars;
+        let renderer = HtmlHandlebars::new();
         renderer.render(ctx)?;
 
         // Generate the single-page version
