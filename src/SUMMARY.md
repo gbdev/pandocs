@@ -49,6 +49,7 @@
     - [System Control Commands](./SGB_Command_System.md)
     - [Multiplayer Command](./SGB_Command_Multiplayer.md)
     - [Border and OBJ Commands](./SGB_Command_Border.md)
+    - [Removed SGB commands](./SGB_Command_Prototype.md)
     - [Undocumented SGB commands](./SGB_Command_Undocumented.md)
 
 # CPU Specifications

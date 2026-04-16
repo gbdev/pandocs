@@ -49,24 +49,6 @@ Attraction Disable disables this animation.
  2-F   Not used (zero)
 ```
 
-## SGB Command $0D — TEST_EN
-
-This command does nothing on all retail SGB revisions. The following description only applies to some prototype units.
-
-Used to enable/disable test mode for "SGB-CPU variable clock speed
-function". This function is disabled by default.
-
-```
- Byte  Content
- 0     Command*8+Length    (fixed length=1)
- 1     Test Mode Enable    (0=Disable, 1=Enable)
- 2-F   Not used (zero)
-```
-
-Maybe intended to determine whether SNES operates at 50Hz or 60Hz
-display refresh rate ??? Possibly result can be read-out from joypad
-register ???
-
 ## SGB Command $0E — ICON_EN
 
 Used to enable/disable ICON function. Possibly meant to enable/disable
