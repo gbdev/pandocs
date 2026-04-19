@@ -37,6 +37,7 @@ fold = { enable = true, level = 0 }
 git-repository-url = "https://github.com/gbdev/pandocs"
 edit-url-template = "https://github.com/gbdev/pandocs/edit/master/{path}"
 site-url = "/pandocs/"
+sidebar-header-nav = false
 
 [output.linkcheck2]
 follow-web-links = false
