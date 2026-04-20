@@ -60,15 +60,16 @@ Unlike BCPD, this register can be accessed outside VBlank and HBlank.
 ### FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data
 
 This register provides read/write access to the byte located at the address within the CGB's background palette memory specified in [BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>).
-The color data format is RGB555, meaning a single color is composed of three 5 bit components, one for each of red, green, and blue.
-Each 15 bit color occupies the lower part of a 16 bit word, with the 16th bit unused:
+
+The color data format is RGB555, meaning a single color is composed of three 5-bit components, one for each of red, green, and blue.
+Each 15-bit color occupies the lower part of a 16-bit word, with the 16th bit unused:
 
 {{#bits 16 >
   "Channel"  15:"N/A" 14-10:"Blue" 9-5:"Green" 4-0:"Red";
 }}
 
-As the colors are two bytes in size, you must read/write this register *twice* to access a whole color.
-The low byte (bits 0-7) is stored first (lower) in memory -- with *litle-endian* byte order.
+As each color is two bytes in size, you must read/write this register *twice* to access a whole color.
+The low byte (bits 0-7) is stored first (lower) in memory (*little-endian* byte order).
 
 Much like VRAM, CGB color RAM is inaccessible when the PPU is reading from it, that is, during [Mode 3](<#PPU modes>)
 
