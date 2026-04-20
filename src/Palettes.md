@@ -59,8 +59,7 @@ Unlike BCPD, this register can be accessed outside VBlank and HBlank.
 
 ### FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data
 
-This register provides read/write access to the CGB background palette memory.
-The byte accessed is specified in [BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>).
+This register provides read/write access to the byte located at the address within the CGB's background palette memory specified in [BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>).
 The color data format is RGB555, meaning a single color is composed of three 5 bit components, one for each of red, green, and blue.
 Each 15 bit color occupies the lower part of a 16 bit word, with the 16th bit unused:
 
