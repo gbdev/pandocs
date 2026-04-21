@@ -30,9 +30,16 @@ They work exactly like [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette da
 
 ## LCD Color Palettes (CGB only)
 
-The CGB has a small amount of RAM used to store its color palettes. Unlike most
-of the hardware interface, palette RAM (or *CRAM* for *Color RAM*) is not
-accessed directly, but instead through the following registers:
+Colors on the Game Boy Color are stored as RGB555, meaning a single color is composed of three 5-bit components, one for each of red, green, and blue.
+Each 15-bit color occupies the lower part of a 16-bit word, with the 16th bit ignored by the hardware:
+
+{{#include imgs/src/rgb555.svg}}
+
+The CGB has a small amount of RAM used to store its color palettes.
+
+{{#include imgs/src/color_ram.svg}}
+
+Unlike most of the hardware interface, palette RAM (or *CRAM* for *Color RAM*) is not accessed directly, but instead through the following registers:
 
 ### FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index
 
@@ -61,12 +68,7 @@ Unlike BCPD, this register can be accessed outside VBlank and HBlank.
 
 This register provides read/write access to the byte located at the address within the CGB's background palette memory specified in [BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>).
 
-The color data format is RGB555, meaning a single color is composed of three 5-bit components, one for each of red, green, and blue.
-Each 15-bit color occupies the lower part of a 16-bit word, with the 16th bit unused:
-
-{{#bits 16 >
-  "Channel"  15:"N/A" 14-10:"Blue" 9-5:"Green" 4-0:"Red";
-}}
+The color data format is RGB555
 
 As each color is two bytes in size, you must read/write this register *twice* to access a whole color.
 The low byte (bits 0-7) is stored first (lower) in memory (*little-endian* byte order).
