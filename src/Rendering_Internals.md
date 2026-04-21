@@ -16,7 +16,7 @@ When it is stated that a certain action *lengthens mode 3*, it implies that mode
 ::: warning Timings caution
 
 Timings here are not tested by a single test ROM (made especially difficult by their resolution being finer than M-cycles).
-The information here was largely obtained from an emulator that passes `intr_2_mode0*` from [this test suite](https://github.com/wilbertpol/mooneye-gb/tree/b78dd21f0b6d00513bdeab20f7950e897a0379b3/tests/acceptance/gpu), but not all of it has been verified from e.g. [hardware schematics](https://github.com/furrtek/DMG-CPU-Inside).
+The information here was largely obtained from an emulator that passes `intr_2_mode0*` from [this test suite](https://github.com/wilbertpol/mooneye-gb/tree/b78dd21f0b6d00513bdeab20f7950e897a0379b3/tests/acceptance/gpu), but not all of it has been verified from e.g. [hardware schematics](https://github.com/msinger/dmg-schematics).
 
 :::
 
