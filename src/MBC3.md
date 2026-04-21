@@ -92,3 +92,12 @@ Year-10000-Proof, provided that the cartridge gets used at least every
 
 When accessing the RTC Registers, it is recommended to wait 4 µs
 (4 M-cycles in Normal Speed Mode) between any separate accesses.
+
+
+# MBC30
+
+(4 MiB ROM, 64 KiB RAM, timer)
+
+The MBC30 is practically identical to MBC3 in operation, but is capable of addressing twice as much memory for both ROM and RAM.
+The only title to be shipped with the MBC30 mapper was _Pocket Monsters: Crystal Version_ in Japan, with the various worldwide versions using MBC3.
+
