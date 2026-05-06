@@ -44,22 +44,26 @@ For example, the two palettes shown in the previous diagram would be stored like
 Unlike VRAM, OAM, or wave RAM, CRAM cannot be accessed directly, but instead through pairs of registers: one “data” register provides a one-byte view into CRAM, while the corresponding “index” register controls which CRAM address the data register is bound to.
 Much like VRAM, CRAM is inaccessible when the PPU is reading from it, that is, during [Mode 3](<#PPU modes>): writes are ignored, and reads return $FF.
 
-[^bit15]: The 16th bit, bit 15, is **ignored** by the hardware. In discussion, that bit is generally clear (for example, the canonical pure white is `7FFF` and not `FFFF`), but the hardware treats both identically: it's fine to fill color RAM with $FF bytes to set it to all-white!
-[^cram_size]: 2 bytes/color x 4 colors/palette x 8 palettes = 64 bytes.
+[^bit15]:
+The 16th bit, bit 15, is **ignored** by the hardware.
+In discussion, that bit is generally clear (for example, the canonical pure white is `7FFF` and not `FFFF`), but the hardware treats both identically: it's fine to fill color RAM with $FF bytes to set it to all-white!
 
-### FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index
+[^cram_size]:
+2 bytes/color × 4 colors/palette × 8 palettes = 64 bytes.
+
+### FF68 — BGPI (CGB Mode only): Background palette index
 
 {{#bits 8 >
-  "BCPS / OCPS"  7:"Auto-increment" 5-0:"Address";
+  "BGPI"  7:"Auto-increment" 5-0:"Address";
 }}
 
 - **Auto-increment**: `0` = Disabled; `1` = Enabled
 - **Address**: Specifies which byte of BG Palette Memory can be accessed through
-  [`BCPD`](<#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>)
+  [`BGPD`](<#FF69 — BGPD (CGB Mode only): Background palette data>)
 
-Unlike `BCPD`, this register can be freely accessed outside VBlank and HBlank.
+Unlike `BGPD`, this register can be freely accessed outside VBlank and HBlank.
 
-### FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data
+### FF69 — BGPD (CGB Mode only): Background palette data
 
 As each color is two bytes in size, you must read/write this register *twice* to access a whole color.
 
@@ -72,9 +76,9 @@ All background colors are initialized as white by the boot ROM, however it is a 
 
 :::
 
-### FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data
+### FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data
 
-These registers function exactly like BCPS and BCPD respectively; the 64 bytes of OBJ palette memory are entirely separate from Background palette memory, but function the same.
+These registers function exactly like BGPI and BGPD respectively; the 64 bytes of OBJ palette memory are entirely separate from Background palette memory, but function the same.
 
 Note that while 4 colors are stored per OBJ palette, color #0 is never used, as it's always transparent. It's thus fine to write garbage values, or even leave color #0 uninitialized.
 

@@ -324,10 +324,10 @@ Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
 [`HDMA4`]     | $FF54   | ---      | ---       | ---        | $FF[^cgb_only]
 [`HDMA5`]     | $FF55   | ---      | ---       | ---        | $FF[^cgb_only]
 [`RP`]        | $FF56   | ---      | ---       | ---        | $3E[^cgb_only]
-[`BCPS`]      | $FF68   | ---      | ---       | ---        | ??[^compat]
-[`BCPD`]      | $FF69   | ---      | ---       | ---        | ??[^compat]
-[`OCPS`]      | $FF6A   | ---      | ---       | ---        | ??[^compat]
-[`OCPD`]      | $FF6B   | ---      | ---       | ---        | ??[^compat]
+[`BGPI`]      | $FF68   | ---      | ---       | ---        | ??[^compat]
+[`BGPD`]      | $FF69   | ---      | ---       | ---        | ??[^compat]
+[`OGPI`]      | $FF6A   | ---      | ---       | ---        | ??[^compat]
+[`OGPD`]      | $FF6B   | ---      | ---       | ---        | ??[^compat]
 [`SVBK`]      | $FF70   | ---      | ---       | ---        | $F8[^cgb_only]
 [`IE`]        | $FFFF   | $00      | $00       | $00        | $00
 
