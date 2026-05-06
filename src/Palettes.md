@@ -1,4 +1,3 @@
-
 # Palettes
 
 ## LCD Monochrome Palettes
@@ -31,25 +30,23 @@ They work exactly like [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette da
 ## LCD Color Palettes (CGB only)
 
 Colors on the Game Boy Color are stored as RGB555, meaning a single color is composed of three 5-bit components, one for each of red, green, and blue.
-Each 15-bit color occupies the lower part of a 16-bit word, with the 16th bit ignored by the hardware:
+Each 15-bit color occupies the lower part of a 16-bit “word”[^bit15]:
 
 {{#include imgs/src/rgb555.svg}}
 
-The CGB has a small amount of RAM used to store its color palettes.
+The color palettes are stored in two dedicated banks of palette RAM (or <abbr title="Color RAM">CRAM</abbr> for *color RAM*), 64 bytes each[^cram_size]: one for background/window palettes and the other for OBJ palettes.
+
+The two bytes of each color are stored **little-endian**, meaning that the low byte comes first.
+For example, the two palettes shown in the previous diagram would be stored like this:
 
 {{#include imgs/src/color_ram.svg}}
 
-Unlike most of the hardware interface, palette RAM (or *CRAM* for *Color RAM*) is not accessed directly, but instead through the following registers:
+Unlike VRAM, OAM, or wave RAM, CRAM cannot be accessed directly, but instead through a pair of registers: one “data” register provides a one-byte view into CRAM, while the corresponding “index” register controls which CRAM address the data register is bound to.
+
+[^bit15]: The 16th bit, bit 15, is **ignored** by the hardware. In discussion, that bit is generally clear (for example, the canonical pure white is `7FFF` and not `FFFF`), but the hardware treats both identically: it's fine to fill color RAM with $FF bytes to set it to all-white!
+[^cram_size]: 2 bytes/color x 4 colors/palette x 8 palettes = 64 bytes.
 
 ### FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index
-
-This register is used to address a byte in the CGB's background palette RAM.
-Since there are 8 palettes, 8 palettes × 4 colors/palette × 2 bytes/color = 64 bytes
-can be addressed.
-
-First comes BGP0 color number 0, then BGP0 color number 1, BGP0 color number 2, BGP0 color number 3,
-BGP1 color number 0, and so on. Thus, address $03 allows accessing the second (upper)
-byte of BGP0 color #1 via BCPD, which contains the color's blue and upper green bits.
 
 {{#bits 8 >
   "BCPS / OCPS"  7:"Auto-increment" 5-0:"Address";
@@ -68,18 +65,13 @@ Unlike BCPD, this register can be accessed outside VBlank and HBlank.
 
 This register provides read/write access to the byte located at the address within the CGB's background palette memory specified in [BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>).
 
-The color data format is RGB555
-
 As each color is two bytes in size, you must read/write this register *twice* to access a whole color.
-The low byte (bits 0-7) is stored first (lower) in memory (*little-endian* byte order).
 
 Much like VRAM, CGB color RAM is inaccessible when the PPU is reading from it, that is, during [Mode 3](<#PPU modes>)
 
 :::tip NOTE
 
-All background colors are initialized as white by the boot ROM, however it is a
-good idea to initialize all colors yourself, e.g. if implementing
-a soft-reset mechanic.
+All background colors are initialized as white by the boot ROM, however it is a good idea to initialize all colors yourself, e.g. if implementing a soft-reset mechanic.
 
 :::
 
@@ -95,11 +87,9 @@ color #0 uninitialized.
 
 :::tip NOTE
 
-In CGB mode, the boot ROM leaves all object colors uninitialized (and thus somewhat random/unreliable),
-aside from setting the first byte of OBJ0 color #0 to $00, which is unused.
+In CGB mode, the boot ROM leaves all object colors uninitialized (and thus somewhat random/unreliable), aside from setting the first byte of OBJ0 color #0 to $00, which is unused.
 
-In DMG compatibility mode, the boot ROM sets the first 2 object palettes which are
-used by OBP0/OBP1, [as explained here](<#Compatibility palettes>).
+In DMG compatibility mode, the boot ROM sets the first 2 object palettes which are used by OBP0/OBP1, [as explained here](<#Compatibility palettes>).
 
 :::
 
