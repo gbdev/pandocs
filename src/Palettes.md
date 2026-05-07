@@ -80,7 +80,7 @@ All background colors are initialized as white by the boot ROM, however it is a 
 
 These registers function exactly like BGPI and BGPD respectively; the 64 bytes of OBJ palette memory are entirely separate from Background palette memory, but function the same.
 
-Note that while 4 colors are stored per OBJ palette, color #0 is never used, as it's always transparent. It's thus fine to write garbage values, or even leave color #0 uninitialized.
+Note that while 4 colors are stored per OBJ palette, color #0 is never used, as it's always transparent. It's thus fine to write garbage values, or even leave it uninitialized.
 
 :::tip NOTE
 
