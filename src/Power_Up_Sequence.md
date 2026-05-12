@@ -25,7 +25,7 @@ AGB  | 256 + 1792   | Fixes ["logo TOCTTOU"](<#Bypass>)
 
 The monochrome boot ROMs read [the logo from the header](<#0104-0133 — Nintendo logo>), unpack it into VRAM, and then start slowly scrolling it down.
 Since reads from an absent cartridge usually return $FF, this explains why powering the console on without a cartridge scrolls a black box.
-Additionally, fauly or dirty connections can cause the data read to be corrupted, resulting in a jumbled-up logo.
+Additionally, faulty or dirty connections can cause the data read to be corrupted, resulting in a jumbled-up logo.
 
 *Once the logo has finished scrolling*, the boot ROM plays the famous "ba-ding!" sound, and reads the logo **again**, this time comparing it to a copy it stores.
 Then, it also computes the header checksum, and compares it to [the checksum stored in the header](<#014D — Header checksum>).
