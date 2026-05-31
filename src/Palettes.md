@@ -30,7 +30,7 @@ They work exactly like [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette da
 ## LCD Color Palettes (CGB only)
 
 Colors on the Game Boy Color are stored as RGB555, meaning a single color is composed of three 5-bit components, one for each of red, green, and blue.
-Each 15-bit color occupies the lower part of a 16-bit “word”[^bit15]:
+Each 15-bit color occupies the lower part of a 16-bit word[^bit15]:
 
 {{#include imgs/src/rgb555.svg}}
 
