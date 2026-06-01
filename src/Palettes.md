@@ -67,7 +67,7 @@ Unlike `BGPD`, this register can be freely accessed outside VBlank and HBlank.
 
 As each color is two bytes in size, you must read/write this register *twice* to access a whole color.
 
-This is made much easier through the use of the address auto-increment: `BGPI`'s "address" field is automatically incremented (wrapping around to zero after index 15) after each write to this register, even if the write fails due to CRAM being inaccessible.
+This is made much easier through the use of the address auto-increment: `BGPI`'s "address" field is automatically incremented (wrapping around from 63 back to 0) after each write to this register, even if the write fails due to CRAM being inaccessible.
 Reads, however, never trigger auto-increment.
 
 :::tip NOTE
