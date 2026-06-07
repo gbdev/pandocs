@@ -49,8 +49,8 @@ Unlike VRAM, OAM, or wave RAM, CRAM cannot be accessed directly, but instead thr
 Much like VRAM, CRAM is inaccessible when the PPU is reading from it, that is, during [Mode 3](<#PPU modes>): writes are ignored, and reads return $FF.
 
 [^bit15]:
-The 16th bit, bit 15, is **ignored** by the hardware.
-In discussion, that bit is generally clear (for example, the canonical pure white is `7FFF` and not `FFFF`), but the hardware treats both identically: it's fine to fill color RAM with $FF bytes to set it to all-white!
+The 16th bit, bit 15, is **ignored** by the rendering process.
+Conventionally, that bit is generally clear (for example, the canonical pure white is `$7FFF` and not `$FFFF`), but the hardware treats both identically: it's fine to fill color RAM with $FF bytes to set it to all-white.
 
 [^cram_size]:
 2 bytes/color × 4 colors/palette × 8 palettes = 64 bytes.
