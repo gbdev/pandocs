@@ -47,7 +47,7 @@ For example, the two palettes shown in the previous diagram would be stored like
 
 Unlike VRAM, OAM, or wave RAM, CRAM is not exposed in the memory map and cannot be accessed directly.
 Instead, each bank of CRAM is accessed through a pair of registers: one register is used to select a CRAM address, and the other provides read/write access to the byte at that address.
-Much like VRAM, CRAM is inaccessible when the PPU is reading from it, that is, during [Mode 3](<#PPU modes>): writes are ignored, and reads return $FF.
+Much like VRAM, the CRAM data registers are inaccessible when the PPU is reading from CRAM, that is, during [Mode 3](<#PPU modes>): writes are ignored, and reads return $FF.
 
 [^bit15]:
 The 16th bit, bit 15, is **ignored** by the rendering process.
