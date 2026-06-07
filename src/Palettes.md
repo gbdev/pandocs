@@ -40,7 +40,7 @@ Each 15-bit color occupies the lower part of a 16-bit word[^bit15]:
 
 The color palettes are stored in two dedicated banks of palette RAM (or <abbr title="Color RAM">CRAM</abbr> for *color RAM*), 64 bytes each[^cram_size]: one for background/window palettes and the other for OBJ palettes.
 
-The two bytes of each color are stored **little-endian**, meaning that the low byte comes first.
+The two bytes of each color are stored in **little-endian** byte order, meaning that the low byte comes first.
 For example, the two palettes shown in the previous diagram would be stored like this:
 
 {{#include imgs/src/color_ram.svg}}
