@@ -33,6 +33,12 @@ They work exactly like [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette da
 
 The GBC provides 8 palettes for the background (and Window), and 8 for OBJs; they are selected via the [attribute maps](<#BG Map Attributes (CGB Mode only)>) and [OAM attributes](<#Byte 3 — Attributes/Flags>) respectively.
 
+:::tip NOTE
+
+All background colors are initialized as white [by the boot ROM](<#Power-Up Sequence>).
+
+:::
+
 Colors on the Game Boy Color are stored as RGB555, meaning a single color is composed of three 5-bit components, one for each of red, green, and blue.
 Each 15-bit color occupies the lower part of a 16-bit word[^bit15]:
 
@@ -74,12 +80,6 @@ As each color is two bytes in size, you must read/write this register *twice* to
 
 This is made much easier through the use of the address auto-increment: `BGPI`'s "address" field is automatically incremented (wrapping around from 63 back to 0) after each write to this register, even if the write fails due to CRAM being inaccessible.
 Reads, however, never trigger auto-increment.
-
-:::tip NOTE
-
-All background colors are initialized as white by the boot ROM, however it is a good idea to initialize all colors yourself, e.g. if implementing a soft-reset mechanic.
-
-:::
 
 ### FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data
 
