@@ -2,6 +2,11 @@
 
 ## LCD Monochrome Palettes
 
+Non-Color games have access to one palette for the background (and Window), and two for OBJs.
+
+In CGB Mode the color palettes are taken from [CGB palette memory](<#LCD Color Palettes (CGB only)>)
+instead.
+
 ### FF47 — BGP (Non-CGB Mode only): BG palette data
 
 This register assigns gray shades to the [color indices](<#Data format>) of the BG and Window tiles.
@@ -19,15 +24,14 @@ Value | Color
   2   | Dark gray
   3   | Black
 
-In CGB Mode the color palettes are taken from [CGB palette memory](<#LCD Color Palettes (CGB only)>)
-instead.
-
 ### FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data
 
 These registers assigns gray shades to the color indexes of the OBJs that use the corresponding palette.
 They work exactly like [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette data>), except that the lower two bits are ignored because color index 0 is transparent for OBJs.
 
 ## LCD Color Palettes (CGB only)
+
+The GBC provides 8 palettes for the background (and Window), and 8 for OBJs; they are selected via the [attribute maps](<#BG Map Attributes (CGB Mode only)>) and [OAM attributes](<#Byte 3 — Attributes/Flags>) respectively.
 
 Colors on the Game Boy Color are stored as RGB555, meaning a single color is composed of three 5-bit components, one for each of red, green, and blue.
 Each 15-bit color occupies the lower part of a 16-bit word[^bit15]:
