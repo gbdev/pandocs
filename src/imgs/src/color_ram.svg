@@ -1,0 +1,57 @@
+<svg viewBox="-15 0 365 32" id="cram">
+	<defs>
+		<style type="text/css"><![CDATA[
+			#cram rect {
+				stroke: var(--fg, #000);
+			}
+			#cram text {
+				fill: var(--fg, #000);
+				font-size: 7px;
+				dominant-baseline: middle;
+				text-anchor: middle;
+			}
+			#cram .left  { text-anchor: start; }
+			#cram .right { text-anchor: end; }
+			#cram .byte { font-size: 7.5px; }
+			#cram polyline, line {
+				fill: none;
+				stroke: var(--fg, #000);
+				stroke-width: .5px;
+			}
+			#cram .thick { stroke-width: 1px; }
+			#cram .dashed { stroke-dasharray: 1; }
+		]]></style>
+	</defs>
+	<text x="2" y="4.5" class="right" style="font-size:6px">Addr:</text>
+	<polygon points="341,8 341,18 321,18 321,8" fill="#ffffff"/>
+	<rect x="281" y="8" width="40" height="10" fill="#FF8484"/><line x1="301" y1="8"  x2="301" y2="18"/>
+	<rect x="241" y="8" width="40" height="10" fill="#FF0000"/><line x1="261" y1="8"  x2="261" y2="18"/>
+	<rect x="201" y="8" width="40" height="10" fill="#8439FF"/><line x1="221" y1="8"  x2="221" y2="18"/>
+	<rect x="161" y="8" width="40" height="10" fill="#FFFFFF"/><line x1="181" y1="8"  x2="181" y2="18"/>
+	<rect x="121" y="8" width="40" height="10" fill="#FFA594"/><line x1="141" y1="8"  x2="141" y2="18"/>
+	<rect x="81"  y="8" width="40" height="10" fill="#8439FF"/><line x1="101" y1="8"  x2="101" y2="18"/>
+	<rect x="41"  y="8" width="40" height="10" fill="#420031"/><line x1="61"  y1="8"  x2="61"  y2="18"/>
+	<rect x="1"   y="8" width="40" height="10" fill="#FFFFFF"/><line x1="21"  y1="8"  x2="21"  y2="18"/>
+	<text x="11"  y="5">00</text><text x="11"  y="14" class="byte" style="fill:#000">$FF</text>
+	<text x="31"  y="5">01</text><text x="31"  y="14" class="byte" style="fill:#000">$7F</text>
+	<text x="51"  y="5">02</text><text x="51"  y="14" class="byte" style="fill:#fff">$08</text>
+	<text x="71"  y="5">03</text><text x="71"  y="14" class="byte" style="fill:#fff">$18</text>
+	<text x="91"  y="5">04</text><text x="91"  y="14" class="byte" style="fill:#fff">$F0</text>
+	<text x="111" y="5">05</text><text x="111" y="14" class="byte" style="fill:#fff">$7C</text>
+	<text x="131" y="5">06</text><text x="131" y="14" class="byte" style="fill:#000">$9F</text>
+	<text x="151" y="5">07</text><text x="151" y="14" class="byte" style="fill:#000">$4A</text>
+	<polyline points="2,19 2,23 73,23"/><polyline points="89,23 160,23 160,19"/><text x="81" y="24">BG0</text>
+	<text x="171" y="5">08</text><text x="171" y="14" class="byte" style="fill:#000">$FF</text>
+	<text x="191" y="5">09</text><text x="191" y="14" class="byte" style="fill:#000">$7F</text>
+	<text x="211" y="5">0A</text><text x="211" y="14" class="byte" style="fill:#fff">$F0</text>
+	<text x="231" y="5">0B</text><text x="231" y="14" class="byte" style="fill:#fff">$7C</text>
+	<text x="251" y="5">0C</text><text x="251" y="14" class="byte" style="fill:#fff">$1F</text>
+	<text x="271" y="5">0D</text><text x="271" y="14" class="byte" style="fill:#fff">$00</text>
+	<text x="291" y="5">0E</text><text x="291" y="14" class="byte" style="fill:#000">$1F</text>
+	<text x="311" y="5">0F</text><text x="311" y="14" class="byte" style="fill:#000">$42</text>
+	<polyline points="162,19 162,23 233,23"/><polyline points="249,23 320,23 320,19"/><text x="241" y="24">BG1</text>
+	<text x="331" y="5">10</text><text x="331" y="14" class="byte" style="fill:#000">$FF</text>
+	<line x1="321" y1="8"  x2="342" y2="8"  class="thick"/><line x1="342" y1="8"  x2="350" y2="8"  class="thick dashed"/>
+	<line x1="321" y1="18" x2="342" y2="18" class="thick"/><line x1="342" y1="18" x2="350" y2="18" class="thick dashed"/>
+	<polyline points="322,19 322,23 326,23"/><line x1="342" y1="23" x2="350" y2="23" class="dashed"/><text x="334" y="24">BG2</text>
+</svg>

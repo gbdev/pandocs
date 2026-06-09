@@ -1,7 +1,11 @@
-
 # Palettes
 
 ## LCD Monochrome Palettes
+
+Non-Color games have access to one palette for the background (and Window), and two for OBJs.
+
+In CGB Mode the color palettes are taken from [CGB palette memory](<#LCD Color Palettes (CGB only)>)
+instead.
 
 ### FF47 — BGP (Non-CGB Mode only): BG palette data
 
@@ -20,9 +24,6 @@ Value | Color
   2   | Dark gray
   3   | Black
 
-In CGB Mode the color palettes are taken from [CGB palette memory](<#LCD Color Palettes (CGB only)>)
-instead.
-
 ### FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data
 
 These registers assigns gray shades to the color indexes of the OBJs that use the corresponding palette.
@@ -30,70 +31,67 @@ They work exactly like [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette da
 
 ## LCD Color Palettes (CGB only)
 
-The CGB has a small amount of RAM used to store its color palettes. Unlike most
-of the hardware interface, palette RAM (or *CRAM* for *Color RAM*) is not
-accessed directly, but instead through the following registers:
-
-### FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index
-
-This register is used to address a byte in the CGB's background palette RAM.
-Since there are 8 palettes, 8 palettes × 4 colors/palette × 2 bytes/color = 64 bytes
-can be addressed.
-
-First comes BGP0 color number 0, then BGP0 color number 1, BGP0 color number 2, BGP0 color number 3,
-BGP1 color number 0, and so on. Thus, address $03 allows accessing the second (upper)
-byte of BGP0 color #1 via BCPD, which contains the color's blue and upper green bits.
-
-{{#bits 8 >
-  "BCPS / OCPS"  7:"Auto-increment" 5-0:"Address";
-}}
-
-- **Auto-increment**: `0` = Disabled; `1` = Increment "Address" field after **writing** to
-  [`BCPD`](<#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>) /
-  [`OCPD`](<#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>)
-  (even during [Mode 3](<#PPU modes>), despite the write itself failing), reads *never* cause an increment
-- **Address**: Specifies which byte of BG Palette Memory can be accessed through
-  [`BCPD`](<#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>)
-
-Unlike BCPD, this register can be accessed outside VBlank and HBlank.
-
-### FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data
-
-This register allows to read/write data to the CGBs background palette memory, addressed through [BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>).
-Each color is stored as little-endian RGB555:
-
-{{#bits 16 <
-  "One color"  0-4:"Red intensity" 5-9:"Green intensity" 10-14:"Blue intensity";
-}}
-
-Much like VRAM, data in palette memory cannot be read or written during the time
-when the PPU is reading from it, that is, [Mode 3](<#PPU modes>).
+The GBC provides 8 palettes for the background (and Window), and 8 for OBJs; they are selected via the [attribute maps](<#BG Map Attributes (CGB Mode only)>) and [OAM attributes](<#Byte 3 — Attributes/Flags>) respectively.
 
 :::tip NOTE
 
-All background colors are initialized as white by the boot ROM, however it is a
-good idea to initialize all colors yourself, e.g. if implementing
-a soft-reset mechanic.
+All background colors are initialized as white [by the boot ROM](<#Power-Up Sequence>).
 
 :::
 
-### FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data
+Colors on the Game Boy Color are stored as RGB555, meaning a single color is composed of three 5-bit components, one for each of red, green, and blue.
+Each 15-bit color occupies the lower part of a 16-bit word[^bit15]:
 
-These registers function exactly like BCPS and BCPD respectively; the 64 bytes
-of OBJ palette memory are entirely separate from Background palette memory, but
-function the same.
+{{#include imgs/src/rgb555.svg}}
 
-Note that while 4 colors are stored per OBJ palette, color #0 is never used, as
-it's always transparent. It's thus fine to write garbage values, or even leave
-color #0 uninitialized.
+The color palettes are stored in two dedicated banks of palette RAM (or <abbr title="Color RAM">CRAM</abbr> for *color RAM*), 64 bytes each[^cram_size]: one for background/window palettes and the other for OBJ palettes.
+
+The two bytes of each color are stored in **little-endian** byte order, meaning that the low byte comes first.
+For example, the two palettes shown in the previous diagram would be stored like this:
+
+{{#include imgs/src/color_ram.svg}}
+
+Unlike VRAM, OAM, or wave RAM, CRAM is not exposed in the memory map and cannot be accessed directly.
+Instead, each bank of CRAM is accessed through a pair of registers: one register is used to select a CRAM address, and the other provides read/write access to the byte at that address.
+Much like VRAM, the CRAM data registers are inaccessible when the PPU is reading from CRAM, that is, during [Mode 3](<#PPU modes>): writes are ignored, and reads return $FF.
+
+[^bit15]:
+The 16th bit, bit 15, is **ignored** by the rendering process.
+Conventionally, that bit is generally clear (for example, the canonical pure white is `$7FFF` and not `$FFFF`), but the hardware treats both identically: it's fine to fill color RAM with $FF bytes to set it to all-white.
+
+[^cram_size]:
+2 bytes/color × 4 colors/palette × 8 palettes = 64 bytes.
+
+### FF68 — BGPI (CGB Mode only): Background palette index
+
+{{#bits 8 >
+  "BGPI"  7:"Auto-increment" 5-0:"Address";
+}}
+
+- **Auto-increment**: `0` = Disabled; `1` = Enabled
+- **Address**: Specifies which byte of BG Palette Memory can be accessed through
+  [`BGPD`](<#FF69 — BGPD (CGB Mode only): Background palette data>)
+
+Unlike `BGPD`, this register can be freely accessed outside VBlank and HBlank.
+
+### FF69 — BGPD (CGB Mode only): Background palette data
+
+As each color is two bytes in size, you must read/write this register *twice* to access a whole color.
+
+This is made much easier through the use of the address auto-increment: `BGPI`'s "address" field is automatically incremented (wrapping around from 63 back to 0) after each write to this register, even if the write fails due to CRAM being inaccessible.
+Reads, however, never trigger auto-increment.
+
+### FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data
+
+These registers function exactly like BGPI and BGPD respectively; the 64 bytes of OBJ palette memory are entirely separate from Background palette memory, but function the same.
+
+Note that while 4 colors are stored per OBJ palette, color #0 is never used, as it's always transparent. It's thus fine to write garbage values, or even leave it uninitialized.
 
 :::tip NOTE
 
-In CGB mode, the boot ROM leaves all object colors uninitialized (and thus somewhat random/unreliable),
-aside from setting the first byte of OBJ0 color #0 to $00, which is unused.
+In CGB mode, the boot ROM leaves all object colors uninitialized (and thus somewhat random/unreliable), aside from setting the first byte of OBJ0 color #0 to $00, which is unused.
 
-In DMG compatibility mode, the boot ROM sets the first 2 object palettes which are
-used by OBP0/OBP1, [as explained here](<#Compatibility palettes>).
+In DMG compatibility mode, the boot ROM sets the first 2 object palettes which are used by OBP0/OBP1, [as explained here](<#Compatibility palettes>).
 
 :::
 
