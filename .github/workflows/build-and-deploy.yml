@@ -27,7 +27,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  MDBOOK_VERSION: 0.5.2
+  MDBOOK_VERSION: 0.5.4
   MDBOOK_LINKCHECK2_VERSION: 0.12.0
 
 jobs:
