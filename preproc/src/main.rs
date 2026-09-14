@@ -13,11 +13,10 @@ use std::path::Path;
 use std::process;
 
 use anyhow::{anyhow, Context};
-use clap::{App, Arg, ArgMatches, SubCommand};
 use mdbook_preprocessor::{
     book::{Book, BookItem},
     errors::Error,
-    Preprocessor, PreprocessorContext
+    Preprocessor, PreprocessorContext,
 };
 
 mod admonitions;
@@ -26,24 +25,18 @@ mod bit_descrs;
 mod git;
 use git::Commit;
 
-pub fn make_app() -> App<'static, 'static> {
-    App::new("pandocs-preproc")
-        .about("A mdbook preprocessor for Pan Docs")
-        .subcommand(
-            SubCommand::with_name("supports")
-                .arg(Arg::with_name("renderer").required(true))
-                .about("Check whether a renderer is supported by this preprocessor"),
-        )
-}
-
 fn main() -> Result<(), Error> {
-    let matches = make_app().get_matches();
+    let mut args = std::env::args();
+    let _ = args.next(); // Program name.
 
-    // Users will want to construct their own preprocessor here
     let preprocessor = Pandocs::new();
 
-    if let Some(sub_args) = matches.subcommand_matches("supports") {
-        handle_supports(&preprocessor, sub_args);
+    if args.next().is_some_and(|arg| arg == "supports") {
+        let renderer_name = args
+            .next()
+            .expect("Missing argument: name of renderer to check for compat");
+        assert!(args.next().is_none(), "Unexpected extra args");
+        handle_supports(&preprocessor, &renderer_name);
     } else {
         handle_preprocessing(&preprocessor)
     }
@@ -70,8 +63,7 @@ fn handle_preprocessing(pre: &dyn Preprocessor) -> Result<(), Error> {
     Ok(())
 }
 
-fn handle_supports(pre: &dyn Preprocessor, sub_args: &ArgMatches) -> ! {
-    let renderer = sub_args.value_of("renderer").expect("Required argument");
+fn handle_supports(pre: &dyn Preprocessor, renderer: &str) -> ! {
     let supported = pre.supports_renderer(renderer);
 
     // Signal whether the renderer is supported by exiting with 1 or 0.
@@ -103,9 +95,9 @@ impl Preprocessor for Pandocs {
         let out_of_repo = match ctx.config.get::<bool>("preprocessor.pandocs.out-of-repo") {
             Ok(boolean) => match boolean {
                 Some(b) => b,
-                None => false
+                None => false,
             },
-            Err(_) => false
+            Err(_) => false,
         };
 
         let mut sections = HashMap::new();
