@@ -46,8 +46,10 @@ jobs:
         with:
           workspaces: pandocs/
 
-      - name: Install mdbook
-        run: cargo install mdbook@${MDBOOK_VERSION}
+      - name: Install mdbook dependencies
+        uses: taiki-e/install-action@v2
+        with:
+          tool: mdbook@${{ env.MDBOOK_VERSION }}
 
       - name: Install static-sitemap-cli
         run: npm install static-sitemap-cli
@@ -90,9 +92,9 @@ jobs:
           workspaces: pandocs/
 
       - name: Install mdbook dependencies
-        run: |
-          cargo install mdbook@${MDBOOK_VERSION}
-          cargo install mdbook-linkcheck2@${MDBOOK_LINKCHECK2_VERSION}
+        uses: taiki-e/install-action@v2
+        with:
+          tool: mdbook@${{ env.MDBOOK_VERSION }}  mdbook-linkcheck2@${{ env.MDBOOK_LINKCHECK2_VERSION }}
 
       - name: Install Python dependencies
         run: |
