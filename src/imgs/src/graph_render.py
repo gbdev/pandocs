@@ -14,7 +14,7 @@ def gen_graph(in_path, title, out_path):
 
     plt.rcParams["figure.figsize"] = [7.50, 3.50]
     plt.rcParams["figure.autolayout"] = True
-    plt.rcParams["font.family"] = "Inter"
+    plt.rcParams["font.family"] = ""
     # Assume fonts are installed on the machine where the SVG will be viewed
     #  (we load Inter with the webpage so it should be there)
     plt.rcParams["svg.fonttype"] = "none"
@@ -60,6 +60,7 @@ def gen_graph(in_path, title, out_path):
     replace_style_property(soup, "text", "fill", COLOR_BASE, "var(--fg, #000)")
     replace_style_property(soup, "use", "stroke", COLOR_BASE, "var(--fg, #000)")
     replace_style_property(soup, "use", "fill", COLOR_BASE, "var(--fg, #000)")
+    replace_style_property(soup, "text", "font-family", "", "'Inter'")
 
     # Write the altered SVG file
     with open(out_path, "wt") as f:
@@ -96,8 +97,8 @@ def replace_style_property(
 
 # CLI interface.
 if __name__ == "__main__":
-    if len(argv) != 3:
-        print("Usage: python3 graph_render.py <path/to.csv> <graph title>", file=stderr)
+    if len(argv) != 4:
+        print("Usage: python3 graph_render.py <path/to.csv> <graph title> <output>", file=stderr)
         exit(1)
 
-    gen_graph(argv[1], argv[2])
+    gen_graph(argv[1], argv[2], argv[3])
