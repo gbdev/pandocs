@@ -19,9 +19,9 @@ checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
 name = "bitflags"
-version = "1.3.2"
+version = "2.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
+checksum = "3ded4057c258ba199e2d26386d3af3780957ecaee6c4ef4041c6b4b8b97c0b06"
 
 [[package]]
 name = "bstr"
@@ -108,9 +108,9 @@ dependencies = [
 
 [[package]]
 name = "globwalk"
-version = "0.8.1"
+version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "93e3af942408868f6934a7b85134a3230832b9977cf66125df2f9edcfce4ddcc"
+checksum = "0bf760ebf69878d9fd8f110c89703d90ce35095324d1f1edcb595c63945ee757"
 dependencies = [
  "bitflags",
  "ignore",
@@ -386,21 +386,28 @@ dependencies = [
 
 [[package]]
 name = "pulldown-cmark"
-version = "0.8.0"
+version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ffade02495f22453cd593159ea2f59827aae7f53fa8323f756799b670881dcf8"
+checksum = "e9f068eba8e7071c5f9511831b44f32c740d5adf574e990f946ddb53db2f314e"
 dependencies = [
  "bitflags",
  "getopts",
  "memchr",
+ "pulldown-cmark-escape",
  "unicase",
 ]
 
 [[package]]
-name = "pulldown-cmark-to-cmark"
-version = "6.0.4"
+name = "pulldown-cmark-escape"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1f5925e2c68fb0c3c189cd0f6bbcf1e16402a070d4fcaf7600e239e8302dd0e8"
+checksum = "007d8adb5ddab6f8e3f491ac63566a7d5002cc7ed73901f72057943fa71ae1ae"
+
+[[package]]
+name = "pulldown-cmark-to-cmark"
+version = "22.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ab1ad36992cead65f02aa399a373a42730922f1525d988172634fdefdecb8a60"
 dependencies = [
  "pulldown-cmark",
 ]

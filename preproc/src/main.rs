@@ -93,11 +93,8 @@ impl Preprocessor for Pandocs {
 
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
         let out_of_repo = match ctx.config.get::<bool>("preprocessor.pandocs.out-of-repo") {
-            Ok(boolean) => match boolean {
-                Some(b) => b,
-                None => false,
-            },
-            Err(_) => false,
+            Ok(Some(boolean)) => boolean,
+            Err(_) | Ok(None) => false,
         };
 
         let mut sections = HashMap::new();
@@ -143,8 +140,10 @@ impl Preprocessor for Pandocs {
                     } else if out_of_repo {
                         // OK, just don't add anything.
                     } else {
-                        res = Err(anyhow!("Git metadata is missing, but out-of-repo builds are not enabled!\n\tYou can enable them by setting `preprocessor.pandocs.out-of-repo` to `true`.\n\t(Consider using an environment variable for this:\n\t https://rust-lang.github.io/mdBook/format/configuration/environment-variables.html)"));
-                        return;
+                        res = Err(anyhow!("Git metadata is missing, but out-of-repo builds are not enabled!\
+\tYou can enable them by setting `preprocessor.pandocs.out-of-repo` to `true`.
+\t(Consider using an environment variable for this:
+\t https://rust-lang.github.io/mdBook/format/configuration/environment-variables.html)"));
                     }
                 }
             }

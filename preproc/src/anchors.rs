@@ -10,10 +10,7 @@
 use std::collections::HashMap;
 use std::io::Write;
 
-use mdbook_preprocessor::{
-    book::Chapter,
-    errors::Error
-};
+use mdbook_preprocessor::{book::Chapter, errors::Error};
 use pulldown_cmark::{CowStr, Event, LinkType, Options, Parser, Tag};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
@@ -27,7 +24,7 @@ impl Pandocs {
     ) {
         let mut events = Parser::new(&chapter.content);
         while let Some(event) = events.next() {
-            if let Event::Start(Tag::Heading(_)) = event {
+            if let Event::Start(Tag::Heading { .. }) = event {
                 let mut depth = 1;
                 let mut name = String::new();
 
@@ -74,8 +71,13 @@ impl Pandocs {
             Options::ENABLE_TABLES | Options::ENABLE_FOOTNOTES | Options::ENABLE_STRIKETHROUGH;
 
         let events = Parser::new_ext(&chapter.content, extensions).map(|event| match event {
-            Event::Start(Tag::Link(link_type, url, title)) if url.starts_with('#') => {
-                let (link, ok) = translate_anchor_link(sections, link_type, url, title);
+            Event::Start(Tag::Link {
+                link_type,
+                dest_url,
+                title,
+                ..
+            }) if dest_url.starts_with('#') => {
+                let (link, ok) = translate_anchor_link(sections, link_type, dest_url, title);
                 if !ok {
                     let mut stderr = StandardStream::stderr(ColorChoice::Auto);
                     stderr
@@ -84,10 +86,10 @@ impl Pandocs {
                     write!(&mut stderr, "warning:").unwrap();
                     stderr.reset().unwrap();
 
-                    if let Tag::Link(_, ref url, _) = link {
+                    if let Tag::Link { dest_url, .. } = &link {
                         eprintln!(
-                            " {}: Internal anchor link \"{}\" not found, keeping as-is",
-                            &chapter.name, url
+                            " {}: Internal anchor link \"{dest_url}\" not found, keeping as-is",
+                            chapter.name,
                         );
                     } else {
                         unreachable!()
@@ -96,14 +98,10 @@ impl Pandocs {
                 Event::Start(link)
             }
 
-            Event::End(Tag::Link(link_type, url, title)) if url.starts_with('#') => {
-                Event::End(translate_anchor_link(sections, link_type, url, title).0)
-            }
-
             _ => event,
         });
 
-        pulldown_cmark_to_cmark::cmark(events, &mut buf, None)
+        pulldown_cmark_to_cmark::cmark(events, &mut buf)
             .map_err(|err| Error::from(err).context("Markdown serialization failed"))?;
         chapter.content = buf;
 
@@ -114,10 +112,10 @@ impl Pandocs {
 fn translate_anchor_link<'a>(
     sections: &HashMap<String, (String, bool)>,
     link_type: LinkType,
-    url: CowStr<'a>,
+    dest_url: CowStr<'a>,
     title: CowStr<'a>,
 ) -> (Tag<'a>, bool) {
-    let (url, ok) = if let Some((chapter, multiple)) = sections.get(&url[1..]) {
+    let (dest_url, ok) = if let Some((chapter, multiple)) = sections.get(&dest_url[1..]) {
         if *multiple {
             let mut stderr = StandardStream::stderr(ColorChoice::Auto);
             stderr
@@ -126,20 +124,29 @@ fn translate_anchor_link<'a>(
             write!(&mut stderr, "warning:").unwrap();
             stderr.reset().unwrap();
             eprintln!(
-                " Referencing multiply-defined section \"{}\" (using chapter \"{}\")",
-                &url[1..],
-                &chapter
+                " Referencing multiply-defined section \"{}\" (using chapter \"{chapter}\")",
+                &dest_url[1..],
             );
         }
         (
-            CowStr::Boxed(format!("{}.html#{}", chapter, id_from_name(&url[1..])).into_boxed_str()),
+            CowStr::Boxed(
+                format!("{chapter}.html#{}", id_from_name(&dest_url[1..])).into_boxed_str(),
+            ),
             true,
         )
     } else {
-        (url, false)
+        (dest_url, false)
     };
 
-    (Tag::Link(link_type, url, title), ok)
+    (
+        Tag::Link {
+            link_type,
+            dest_url,
+            title,
+            id: "".into(),
+        },
+        ok,
+    )
 }
 
 fn id_from_name(name: &str) -> String {
