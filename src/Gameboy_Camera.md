@@ -253,9 +253,6 @@ When shooting, the values change based on how much light there is.
 | VH     | 5-6  | Select vertical/horizontal edge enhancement mode. |
 | G      | 0-4  | Analog output gain.                               |
 
-<break><break>
-<break><break>
-
 | G3  | G2  | G1  | G0  | Gain |
 | --- | --- | --- | --- | ---- |
 | 0   | 0   | 0   | 1   | 14.0 |
