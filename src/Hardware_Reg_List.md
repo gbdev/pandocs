@@ -117,10 +117,10 @@ $FFFF      | [IE]        | Interrupt enable                                     
 [HDMA4]: <#FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]>
 [HDMA5]: <#FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start>
 [RP]: <#FF56 — RP (CGB Mode only): Infrared communications port>
-[BCPS/BGPI]: <#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>
-[BCPD/BGPD]: <#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>
-[OCPS/OBPI]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
-[OCPD/OBPD]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
+[BCPS/BGPI]: <#FF68 — BGPI (CGB Mode only): Background palette index>
+[BCPD/BGPD]: <#FF69 — BGPD (CGB Mode only): Background palette data>
+[OCPS/OBPI]: <#FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>
+[OCPD/OBPD]: <#FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>
 [OPRI]: <#FF6C — OPRI (CGB Mode only): Object priority mode>
 [SVBK/WBK]: <#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>
 [PCM12]: <#FF76 — PCM12 (CGB Mode only): Digital outputs 1 & 2 \[read-only\]>

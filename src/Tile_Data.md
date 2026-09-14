@@ -1,4 +1,3 @@
-
 # VRAM Tile Data
 
 Tile data is stored in VRAM in the memory area at \$8000-$97FF; with each tile
@@ -8,7 +7,7 @@ this is doubled (768 tiles) because of the two VRAM banks.
 Each tile (or character) has 8×8 pixels and has a color depth of
 2 bits per pixel, allowing each pixel to use one of 4 colors or gray
 shades. Tiles can be displayed as part of the Background/Window maps,
-and/or as objects (movable sprites).  Color 0 has a special meaning
+and/or as objects (movable sprites). Color 0 has a special meaning
 in objects - it's transparent, allowing the background or other
 objects behind it to show through.
 
@@ -95,7 +94,7 @@ the current palettes, except that when the tile is used in an OBJ the
 [color index](<#Data format>) 0 means transparent. The palettes are defined through registers
 [BGP](<#FF47 — BGP (Non-CGB Mode only): BG palette data>),
 [OBP0 and OBP1](<#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>), and
-[BCPS/BGPI](<#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>),
-[BCPD/BGPD](<#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>),
-[OCPS/OBPI and OCPD/OBPD](<#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>)
+[BCPS/BGPI](<#FF68 — BGPI (CGB Mode only): Background palette index>),
+[BCPD/BGPD](<#FF69 — BGPD (CGB Mode only): Background palette data>),
+[OCPS/OBPI and OCPD/OBPD](<FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>)
 (CGB Mode).
