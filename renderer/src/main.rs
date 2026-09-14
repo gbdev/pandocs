@@ -8,13 +8,7 @@
  */
 
 use anyhow::Context;
-use globwalk::{FileType, GlobWalkerBuilder};
-use lazy_static::lazy_static;
-use mdbook_renderer::{
-    errors::Result,
-    RenderContext, Renderer
-};
-use mdbook_html::HtmlHandlebars;
+use mdbook_renderer::{errors::Result, RenderContext, Renderer};
 use regex::Regex;
 use std::fs::{self, File};
 use std::io::{self, Write};
@@ -22,6 +16,7 @@ use std::io::{BufRead, BufReader, BufWriter};
 use std::path::PathBuf;
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 use url::Url;
+use walkdir::{DirEntry, WalkDir};
 
 fn main() -> Result<()> {
     let mut stdin = io::stdin();
@@ -50,6 +45,10 @@ fn main() -> Result<()> {
     renderer.render(&ctx)
 }
 
+fn entry_should_be_scrubbed(entry: &DirEntry) -> bool {
+    entry.file_name() == ".gitignore" || entry.file_name().as_encoded_bytes().ends_with(b".graphml")
+}
+
 struct Pandocs;
 
 impl Renderer for Pandocs {
@@ -58,26 +57,35 @@ impl Renderer for Pandocs {
     }
 
     fn render(&self, ctx: &RenderContext) -> Result<()> {
-        // First, render things using the HTML renderer
-        let renderer = HtmlHandlebars::new();
-        renderer.render(ctx)?;
+        // Copy the HTML renderer's output, except for files we do not seek to publish.
+        fs::remove_dir_all(&ctx.destination) // Make sure to avoid any stale files, though!
+            .with_context(|| format!("Failed to empty dir {}", ctx.destination.display()))?;
+        let html_output_dir = ctx.destination.parent().unwrap().join("html");
+        for entry_result in WalkDir::new(&html_output_dir)
+            .into_iter()
+            .filter_entry(|entry| !entry_should_be_scrubbed(entry))
+        {
+            let entry = entry_result.with_context(|| {
+                format!("Error while iterating on {}", html_output_dir.display())
+            })?;
+
+            let dest_path = ctx
+                .destination
+                .join(entry.path().strip_prefix(&html_output_dir).unwrap());
+            if entry.file_type().is_dir() {
+                fs::create_dir(&dest_path) // The directory shouldn't already exist, since we start from scratch each time!
+                    .with_context(|| format!("Failed to create dir {}", dest_path.display()))?
+            } else {
+                fs::copy(entry.path(), dest_path)
+                    .with_context(|| format!("Failed to copy file {}", entry.path().display()))?;
+            }
+        }
 
         // Generate the single-page version
         let base_url = Url::parse("http://localhost/").unwrap();
         let mut path = ctx.destination.join(self.name());
         path.set_file_name("print.html");
         gen_single_page(&mut path, &base_url).context("Failed to render single-page version")?;
-
-        // Scrub off files that need not be published
-        for path in GlobWalkerBuilder::from_patterns(&ctx.destination, &[".gitignore", "*.graphml"])
-            .file_type(FileType::FILE)
-            .build()?
-        {
-            let path = path?;
-            let path = path.path();
-            fs::remove_file(path)
-                .with_context(|| format!("Failed to remove {}", path.display()))?;
-        }
 
         Ok(())
     }
@@ -95,16 +103,16 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
     path.set_file_name("single.html");
     let mut single_page = BufWriter::new(File::create(path)?);
     // HACK: this almost certainly forgets a bunch of HTML edge cases
-    lazy_static! {
-        static ref LINK_RE: Regex =
-            Regex::new(r#"<a(?:\s+(?:href="([^"]*)"|\w+="[^"]*"))*\s*>"#).unwrap();
-    }
+    let link_regex = Regex::new(r#"<a(?:\s+(?:href="([^"]*)"|\w+="[^"]*"))*\s*>"#).unwrap();
 
     // HACK: this assumes all link tags span a single line
     let mut lines = print_page.lines();
     while let Some(line) = lines.next().transpose()? {
         let mut i = 0;
-        for url_match in LINK_RE.captures_iter(&line).filter_map(|caps| caps.get(1)) {
+        for url_match in link_regex
+            .captures_iter(&line)
+            .filter_map(|caps| caps.get(1))
+        {
             let url = &line[url_match.range()];
 
             match Url::parse(url) {
