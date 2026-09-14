@@ -126,7 +126,7 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
                 .with_context(|| format!("Bad total URL \"{}\"", url))?;
             if let Some(frag) = url.fragment() {
                 // Write everything up to the match
-                single_page.write_all(line[i..url_match.start()].as_bytes())?;
+                single_page.write_all(&line.as_bytes()[i..url_match.start()])?;
                 // Write the replaced match
                 single_page.write_all("#".as_bytes())?;
                 single_page.write_all(frag.as_bytes())?;
@@ -136,7 +136,7 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
         }
 
         // Write rest of line
-        single_page.write_all(line[i..].as_bytes())?;
+        single_page.write_all(&line.as_bytes()[i..])?;
         single_page.write_all("\n".as_bytes())?;
 
         // Remove the automatic print trigger code.
