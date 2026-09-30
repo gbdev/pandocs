@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>Pan Docs</ShortName>
+  <Description>Search Pan Docs, the Game Boy technical reference.</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="196" height="196" type="image/png">https://gbdev.io/pandocs/favicon.png</Image>
+  <Url type="text/html" method="get" template="https://gbdev.io/pandocs/?search={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://gbdev.io/pandocs/opensearch.xml"/>
+  <moz:SearchForm>https://gbdev.io/pandocs/</moz:SearchForm>
+</OpenSearchDescription>

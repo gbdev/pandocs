@@ -4,6 +4,9 @@
 <meta name="og:title" content="{{#if chapter_title}}{{ chapter_title }}{{else}}{{ book_title }}{{/if}}" />
 <meta name="og:description" content="{{ description }}" />
 
+<!-- OpenSearch, lets browsers add Pan Docs as a search engine -->
+<link rel="search" type="application/opensearchdescription+xml" title="{{ book_title }}" href="{{ path_to_root }}opensearch.xml" />
+
 <!-- Twitter meta tags -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@gbdev0" />
