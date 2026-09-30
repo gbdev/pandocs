@@ -24,12 +24,12 @@ Content               | Size (bytes) | GB -> Printer | Printer -> GB |
 ----------------------|--------------|---------------|---------------|
 Magic bytes           | 2            | $88, $33      | $00           |
 Command               | 1            | See below     | $00           |
- Compression flag     | 1            | 0/1           | $00           |
+Compression flag      | 1            | 0/1           | $00           |
 Length of data        | 2            | LSB, MSB      | $00           |
 Command-specific data | Variable     | See below     | $00           |
 Checksum              | 2            | LSB, MSB      | $00           |
-Alive indicator       | 1            |               | $00           |
-Status                | 1            | See below     | $00           |
+Printer Ack.          | 1            | $00           | $81           |
+Status                | 1            | $00           | See below     |
 
 The checksum is simply a sum of every byte sent except the magic bytes
 and obviously, the checksum itself.
