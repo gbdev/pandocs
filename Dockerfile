@@ -1,5 +1,4 @@
-# Get a python 3.10 image
-FROM python:3.10.9
+FROM python:3.14-trixie
 LABEL org.opencontainers.image.source=https://github.com/gbdev/pandocs
 SHELL ["bash", "-lc"]
 RUN apt update
