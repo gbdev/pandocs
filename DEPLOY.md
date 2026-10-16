@@ -47,8 +47,10 @@ If you prefer to install every dependency locally:
   ```sh
   # Install Rust using rustup
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-  # Install mdbook using cargo
+  # Install mdbook from source using cargo
   cargo install mdbook@0.5.2
+  # OR, quicker, install the mdbook binary with cargo-binstall (you need to install cargo-binstall first: https://github.com/cargo-bins/cargo-binstall#installation)
+  cargo binstall mdbook@0.5.2
   # Remember to add cargo bin directory to your path
   # Install Python; e.g. on Debian-based systems:
   apt install python3
