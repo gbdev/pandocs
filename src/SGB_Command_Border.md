@@ -1,11 +1,11 @@
-# Border and OBJ Commands
+# Border Commands
 
 ## SGB Command $13 — CHR_TRN
 
-Used to transfer tile data (characters) to SNES Tile memory in VRAM.
-This normally used to define BG tiles for the SGB Border (see PCT_TRN),
+Used to transfer tile data ("characters") to SNES Tile memory in VRAM.
+This is normally used to define BG tiles for the SGB Border (see [PCT_TRN](<#SGB Command $14 — PCT_TRN>)),
 but might be also used to define moveable SNES foreground sprites (see
-OBJ_TRN).
+[OBJ_TRN](<#SGB Command $18 — OBJ_TRN>)).
 
 ```
  Byte  Content
