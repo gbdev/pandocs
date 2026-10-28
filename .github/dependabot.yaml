@@ -1,0 +1,19 @@
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "quarterly" # We do not need *immediate* bumps, only frequent enough to avoid falling out of support range.
+    cooldown: # Avoid bumping deps immediately, to give time for security audits to be conducted.
+      default-days: 15
+      include: [ "*" ]
+    groups:
+      actions:
+        patterns: [ "*" ]
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+    labels: [ "ci/cd" ] # Since those PRs are CI-related...
