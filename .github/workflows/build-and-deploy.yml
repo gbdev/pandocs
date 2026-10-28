@@ -69,7 +69,7 @@ jobs:
       - name: Generate sitemap
         run: |
           cd pandocs/docs/pandocs/
-          npx sscli --no-clean --base https://gbdev.io/pandocs
+          npx sscli --urls raw --base https://gbdev.io/pandocs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
