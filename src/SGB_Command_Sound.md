@@ -19,9 +19,6 @@ internal tone data.
  5-F   Not used (zero)
 ```
 
-See Sound Effect Tables below for a list of available pre-defined
-effects.
-
 Notes:
 
 1.  Mute is only active when both bits D2 and D3 are 1.
@@ -33,58 +30,16 @@ Notes:
     does not exist by itself. When mute flag is set, volume and pitch of
     Sound Effect A (port 1) and Sound Effect B (port 2) must be set.
 
-## SGB Command $09 — SOU_TRN
-
-Used to transfer sound code or data to SNES Audio Processing Unit memory
-(APU-RAM).
-
-```
- Byte  Content
- 0     Command*8+Length (fixed length=1)
- 1-F   Not used (zero)
-```
-
-The sound code/data is sent by [VRAM transfer](<#VRAM Transfers>) as a contiguous list of "packets".
-
-All 16-bit values are little-endian.
-
-Data transfer packet format:
-```
- 0-1    Size of data below (N); if zero, this is instead a jump packet
- 2-3    Destination address in S-APU RAM (typically $2B00, see below)
- 4-N+3  Data to be transferred
-```
-
-Jump packet format:
-```
- 0-1  Must be $0000
- 2-3  S-APU jump address, use $0400 to safely restart the built-in SGB BIOS' N-SPC sound engine
-```
-
-Possible destinations in APU-RAM are:
-
-Memory range | Description
--------------|-------------
- $0400-2AFF  | APU-RAM Program Area (9.75KBytes)
- $2B00-4AFF  | APU-RAM Sound Score Area (8Kbytes)
- $4DB0-EEFF  | APU-RAM Sampling Data Area (40.25 Kbytes)
-
-This function may be used to take control of the SNES sound chip, and/or
-to access the SNES MIDI engine. In either case it requires deeper
-knowledge of SNES sound programming.
-
-## SGB Sound Effect A/B Tables
-
-Below lists the digital sound effects that are pre-defined in the
-SGB BIOS, and which can be used with the SGB "SOUND" Command.
-Effect A and B may be simultaneously used.
+Effects A and B may be simultaneously used.
 Sound Effect A uses channels 6 and 7, Sound Effect B uses channels
-0, 1, 4 and 5. Effects that use less channels will use only the upper channels
+0, 1, 4 and 5. Effects that use fewer channels will use only the upper channels
 (eg. 4 and 5 for a B Effect with only two channels).
 
-## Sound Effect A Flag Table
+### Sound Effect A IDs
 
-Code | Description             | Recommended pitch | Nb of channels used
+Sound effect A is used for formanto sounds (percussion sounds).
+
+ ID  | Description             | Recommended pitch | Nb of channels used
 -----|-------------------------|-------------------|--------------------
  00  | Dummy flag, re-trigger  |  -                |  2
  01  | Nintendo                |  3                |  1
@@ -137,11 +92,11 @@ Code | Description             | Recommended pitch | Nb of channels used
  30  | Small Laser             |  2                |  2
  80  | Effect A, stop/silent   |  -                |  2
 
-Sound effect A is used for formanto sounds (percussion sounds).
+### Sound Effect B IDs
 
-## Sound Effect B Flag Table
+Sound effect B is mainly used for looping sounds (sustained sounds).
 
-Code | Description              | Recommended pitch | Nb of channels used
+ ID  | Description              | Recommended pitch | Nb of channels used
 -----|--------------------------|-------------------|--------------------
  00  | Dummy flag, re-trigger   |  -                |  4
  01  | Applause...small group   |  2                |  1
@@ -171,4 +126,42 @@ Code | Description              | Recommended pitch | Nb of channels used
  19  | Show up title, formanto  |  0                |  1
  80  | Effect B, stop/silent    |  -                |  4
 
-Sound effect B is mainly used for looping sounds (sustained sounds).
+## SGB Command $09 — SOU_TRN
+
+Used to transfer sound code or data to SNES Audio Processing Unit memory
+(APU-RAM).
+
+```
+ Byte  Content
+ 0     Command*8+Length (fixed length=1)
+ 1-F   Not used (zero)
+```
+
+The sound code/data is sent by [VRAM transfer](<#VRAM Transfers>) as a contiguous list of "packets".
+
+All 16-bit values are little-endian.
+
+Data transfer packet format:
+```
+ 0-1    Size of data below (N); if zero, this is instead a jump packet
+ 2-3    Destination address in S-APU RAM (typically $2B00, see below)
+ 4-N+3  Data to be transferred
+```
+
+Jump packet format:
+```
+ 0-1  Must be $0000
+ 2-3  S-APU jump address, use $0400 to safely restart the built-in SGB BIOS' N-SPC sound engine
+```
+
+Possible destinations in APU-RAM are:
+
+Memory range | Description
+-------------|-------------
+ $0400-2AFF  | APU-RAM Program Area (9.75KBytes)
+ $2B00-4AFF  | APU-RAM Sound Score Area (8Kbytes)
+ $4DB0-EEFF  | APU-RAM Sampling Data Area (40.25 Kbytes)
+
+This function may be used to take control of the SNES sound chip, and/or
+to access the SNES MIDI engine. In either case it requires deeper
+knowledge of SNES sound programming.
