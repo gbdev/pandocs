@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: dtolnay/rust-toolchain@stable
       - name: Checkout pandocs
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: pandocs
 
@@ -82,7 +82,7 @@ jobs:
     steps:
       - uses: dtolnay/rust-toolchain@stable
       - name: Checkout pandocs
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: pandocs
 
@@ -117,4 +117,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
