@@ -50,6 +50,10 @@ the handler disable objects. This can be used if you use the window for
 a text box (at the bottom of the screen), and you want objects (sprites) to be
 hidden by the text box.
 
+Note that, since [LY is reset early during line 153](<#FF44 — LY: LCD Y coordinate \[read-only\]>),
+an LY=LYC interrupt with LYC = 0 is requested shortly after line 153 begins,
+while still in VBlank, rather than at the start of line 0.
+
 ## INT $50 — Timer interrupt
 
 The timer interrupt [is requested] every time that the timer overflows (that is, when [TIMA](<#FF05 — TIMA: Timer counter>) exceeds $FF).
