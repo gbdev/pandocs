@@ -11,6 +11,8 @@ A *dot* is the shortest period over which the PPU can output one pixel: is it eq
 LY indicates the current horizontal line, which might be about to be drawn,
 being drawn, or just been drawn. LY can hold any value from 0 to 153, with
 values from 144 to 153 indicating the VBlank period.
+Note that LY only reads 153 for the first few dots of line 153, and 0 for the rest of it;
+see [PPU modes](<#PPU modes>).
 
 ## FF45 — LYC: LY compare
 

@@ -29,6 +29,10 @@ During a frame, the Game Boy's PPU cycles between four modes as follows:
 
 </figure>
 
+Line 153 lasts as long as the other VBlank lines, and STAT keeps reporting Mode 1 for all of it.
+However, [`LY`](<#FF44 — LY: LCD Y coordinate \[read-only\]>) is reset early: it reads 153 for only the first few dots of line 153 (4 dots on DMG, 8 on CGB in DMG mode), then reads 0 for the rest of the line, as hatched in the diagram above.
+Since [`LYC`](<#FF45 — LYC: LY compare>) is compared against `LY`, an LY=LYC match for LYC = 0 also happens early, during line 153, rather than at the start of line 0.
+
 While the PPU is accessing some video-related memory, [that memory is inaccessible to the CPU](<#Accessing VRAM and OAM>) (writes are ignored, and reads return garbage values, usually $FF).
 
 Mode | Action                                     | Duration                             | Accessible video memory
