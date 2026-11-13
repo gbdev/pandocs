@@ -12,6 +12,7 @@
 			.m0 { fill: #97d077; }
 			.m1 { fill: #00ffff; }
 			.m30 { fill: url(#m30-gradient); }
+			.ly-reset { fill: url(#ly-reset-hatch); opacity: 25%; }
 			.darken {
 				fill: #000;
 				opacity: 50%;
@@ -28,6 +29,9 @@
 			<stop offset="0%" stop-color="#ff8000"/>
 			<stop offset="100%" stop-color="#97d077"/>
 		</linearGradient>
+		<pattern id="ly-reset-hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+			<line x1="0" y1="0" x2="0" y2="8" stroke="#000" stroke-width="2"/>
+		</pattern>
 	</defs>
 	<rect class="mode-box m2" x="60" y="0" width="80"/>
 	<text class="centered mode-id" x="100" y="25">Mode 2</text>
@@ -116,6 +120,9 @@
 	<rect class="square m1" y="540" x="70"/>
 	<text class="middle-baseline right" x="55" y="572">153</text>
 	<rect class="scanline m1" y="560" x="60" width="466"/>
+	<!-- LY reads 0 for most of line 153 (see the note below the diagram) -->
+	<rect class="scanline ly-reset" y="560" x="64" width="462"/>
+	<text class="middle-baseline darken right" y="572" x="525">LY READS 0</text>
 	<rect class="m1" y="435" x="533" height="145" width="2"/>
 	<text class="middle-baseline small" x="540" y="490">10 "scanlines"</text>
 	<text class="middle-baseline small" x="540" y="510">4560 dots</text>
