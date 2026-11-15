@@ -75,9 +75,9 @@ impl Pandocs {
                 link_type,
                 dest_url,
                 title,
-                ..
+                id,
             }) if dest_url.starts_with('#') => {
-                let (link, ok) = translate_anchor_link(sections, link_type, dest_url, title);
+                let (link, ok) = translate_anchor_link(sections, link_type, dest_url, title, id);
                 if !ok {
                     let mut stderr = StandardStream::stderr(ColorChoice::Auto);
                     stderr
@@ -114,6 +114,7 @@ fn translate_anchor_link<'a>(
     link_type: LinkType,
     dest_url: CowStr<'a>,
     title: CowStr<'a>,
+    id: CowStr<'a>,
 ) -> (Tag<'a>, bool) {
     let (dest_url, ok) = if let Some((chapter, multiple)) = sections.get(&dest_url[1..]) {
         if *multiple {
@@ -143,7 +144,8 @@ fn translate_anchor_link<'a>(
             link_type,
             dest_url,
             title,
-            id: "".into(),
+            // Keep the reference label, or `[text][label]` links lose their definition
+            id,
         },
         ok,
     )
