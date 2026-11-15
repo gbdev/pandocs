@@ -75,7 +75,8 @@ if the bit is clear (0), the BG uses tilemap $9800, otherwise tilemap $9C00.
 
 ### LCDC.2 — OBJ size
 
-This bit controls the size of all objects (1 tile or 2 stacked vertically).
+This bit controls the size of all objects (1 tile or 2 stacked vertically):
+if the bit is clear (0), objects are 8×8 pixels, otherwise 8×16.
 
 Be cautious when changing object size mid-frame.
 Changing from 8×8 to 8×16 pixels mid-frame within 8 scanlines of the bottom of an object
