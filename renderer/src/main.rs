@@ -106,8 +106,34 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
     let link_regex = Regex::new(r#"<a(?:\s+(?:href="([^"]*)"|\w+="[^"]*"))*\s*>"#).unwrap();
 
     // HACK: this assumes all link tags span a single line
-    let mut lines = print_page.lines();
+    let mut lines = print_page.lines().peekable();
+    let mut removed_placeholder = false;
     while let Some(line) = lines.next().transpose()? {
+        // Remove the placeholder "Single-page version" chapter (`src/single.md`),
+        // which would otherwise be included at the end of the page.
+        // HACK: this assumes that each chapter starts with a page break `<div>` line,
+        // immediately followed by the chapter's `<h1>` line, and that it is the last chapter.
+        if line
+            .trim_start()
+            .starts_with(r#"<div style="break-before: page;"#)
+            && lines.peek().is_some_and(|next| {
+                next.as_ref().is_ok_and(|next| {
+                    next.trim_start()
+                        .starts_with(r#"<h1 id="single-page-version">"#)
+                })
+            })
+        {
+            // Discard lines until the end of the page's content.
+            while let Some(line) = lines.next_if(|line| {
+                line.as_ref()
+                    .map_or(true, |line| line.trim_start() != "</main>")
+            }) {
+                line?;
+            }
+            removed_placeholder = true;
+            continue;
+        }
+
         let mut i = 0;
         for url_match in link_regex
             .captures_iter(&line)
@@ -174,6 +200,9 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
         }
     }
 
+    if !removed_placeholder {
+        anyhow::bail!("Did not find the placeholder single-page chapter to remove");
+    }
     single_page.flush()?;
     Ok(())
 }
