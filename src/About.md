@@ -31,4 +31,6 @@ You can search anywhere by pressing <kbd>s</kbd> on your keyboard or clicking th
 
 The <i class="fa-solid fa-pencil"></i> icon allows you to suggest an edit on the current page by directly opening the source file in the git repository.
 
+The whole document is also available as a [single page](./single.md) and as a [PDF](pandocs.pdf), e.g. for offline reading.
+
 <br><br>

@@ -50,6 +50,7 @@ exclude = [
 	'https://github\.com/gbdev/pandocs/tree/', # Do not check the "this was generated from commit N" link, as the commit may not have been pushed yet
 	'print.html', # Do not check the print page, as it is generated separately
 	'single.html', # Do not check the single page, as it is generated separately
+	'pandocs\.pdf', # Do not check the PDF, as it is generated after the build (see `tools/gen_pdf.sh`)
 	'http[s]*://problemkaputt\.de', # Skip checking problemkaputt.de, as connection to this domain is generally unreliable
 	'http[s]*://tcrf\.net', # Skip checking tcrf.net, as it returns 403 (https://blog.xkeeper.net/uncategorized/tcrf-has-been-getting-ddosed/)
 ]
