@@ -233,8 +233,7 @@ Register | DMG0            | DMG                     | MGB                     |
 **PC**   | $0100           | $0100                   | $0100                   | $0100           | $0100
 **SP**   | $FFFE           | $FFFE                   | $FFFE                   | $FFFE           | $FFFE
 
-[^dmg_c]:
-If the [header checksum](<#014D — Header checksum>) is $00, then the carry and half-carry flags are clear; otherwise, they are both set.
+[^dmg_c]: If the [header checksum](<#014D — Header checksum>) is $00, then the carry and half-carry flags are clear; otherwise, they are both set.
 
 Register | CGB (DMG mode)  | AGB (DMG mode)             | CGB             | AGB
 --------:|:---------------:|:--------------------------:|:---------------:|:---------------:
@@ -249,15 +248,13 @@ Register | CGB (DMG mode)  | AGB (DMG mode)             | CGB             | AGB
 **PC**   | $0100           | $0100                      | $0100           | $0100
 **SP**   | $FFFE           | $FFFE                      | $FFFE           | $FFFE
 
-[^agbdmg_f]:
-To determine the flags, take the B register you would have gotten on CGB[^cgbdmg_b], and `inc` it.
-(To be precise: an `inc b` is the last operation to touch the flags.)
-The carry and direction flags are always clear, though.
+[^agbdmg_f]: To determine the flags, take the B register you would have gotten on CGB[^cgbdmg_b], and `inc` it.
+             (To be precise: an `inc b` is the last operation to touch the flags.)
+             The carry and direction flags are always clear, though.
 
-[^cgbdmg_b]:
-If the [old licensee code](<#014B — Old licensee code>) is $01, or the old licensee code is $33 and the [new licensee code](<#0144–0145 — New licensee code>) is `"01"` ($30 $31), then B is the sum of all 16 [title](<#0134-0143 — Title>) bytes.
-Otherwise, B is $00.
-As indicated by the "+ 1" in the "AGB (DMG mode)" column, if on AGB, that value is increased by 1[^agbdmg_f].
+[^cgbdmg_b]: If the [old licensee code](<#014B — Old licensee code>) is $01, or the old licensee code is $33 and the [new licensee code](<#0144–0145 — New licensee code>) is `"01"` ($30 $31), then B is the sum of all 16 [title](<#0134-0143 — Title>) bytes.
+             Otherwise, B is $00.
+             As indicated by the "+ 1" in the "AGB (DMG mode)" column, if on AGB, that value is increased by 1[^agbdmg_f].
 
 [^cgbdmg_hl]: There are two possible cases:
               - **The B register is $43 or $58 (on CGB) / $44 or $59 (on AGB)**: HL = $991A
@@ -331,21 +328,17 @@ Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
 [`SVBK`]      | $FF70   | ---      | ---       | ---        | $F8[^cgb_only]
 [`IE`]        | $FFFF   | $00      | $00       | $00        | $00
 
-[^unk]:
-Since this boot ROM's duration depends on the header's contents, a general answer can't be given.
-The value should be static for a given header, though.
+[^unk]: Since this boot ROM's duration depends on the header's contents, a general answer can't be given.
+        The value should be static for a given header, though.
 
-[^unk_pad]:
-Since this boot ROM's duration depends on the header's contents (and the player's inputs in compatibility mode), an answer can't be given.
-Just don't rely on these.
+[^unk_pad]: Since this boot ROM's duration depends on the header's contents (and the player's inputs in compatibility mode), an answer can't be given.
+            Just don't rely on these.
 
-[^obp]:
-These registers are left entirely uninitialized.
-Their value tends to be most often $00 or $FF, but the value is especially not reliable if your software runs after e.g. a flashcart or multicart selection menu.
-Make sure to always set those before displaying objects for the first time.
+[^obp]: These registers are left entirely uninitialized.
+        Their value tends to be most often $00 or $FF, but the value is especially not reliable if your software runs after e.g. a flashcart or multicart selection menu.
+        Make sure to always set those before displaying objects for the first time.
 
-[^compat]:
-These depend on whether compatibility mode is enabled.
+[^compat]: These depend on whether compatibility mode is enabled.
 
 [^cgb_only]: These registers are only available in CGB Mode, and will read \$FF in Non-CGB Mode.
 

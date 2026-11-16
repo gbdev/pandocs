@@ -9,7 +9,7 @@
 
 use std::{iter::Peekable, matches};
 
-use anyhow::Error;
+use anyhow::{Context, Error};
 use mdbook_preprocessor::book::Chapter;
 use pulldown_cmark::{Event, Parser, Tag, TagEnd};
 
@@ -22,8 +22,11 @@ impl Pandocs {
         let events =
             AdmonitionsGenerator::new(Parser::new_ext(&chapter.content, Pandocs::MARKDOWN_OPTIONS));
 
-        pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS)
-            .map_err(|err| Error::from(err).context("Markdown serialization failed"))?;
+        pulldown_cmark_to_cmark::Options::default()
+            .validate(Pandocs::MARKDOWN_OPTIONS)
+            .context("Incompatible CommonMark options specified")?;
+        pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS_RENDER)
+            .context("Markdown serialization failed")?;
         chapter.content = buf;
 
         Ok(())

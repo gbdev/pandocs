@@ -55,12 +55,10 @@ Unlike VRAM, OAM, or wave RAM, CRAM is not exposed in the memory map and cannot 
 Instead, each bank of CRAM is accessed through a pair of registers: one register is used to select a CRAM address, and the other provides read/write access to the byte at that address.
 Much like VRAM, the CRAM data registers are inaccessible when the PPU is reading from CRAM, that is, during [Mode 3](<#PPU modes>): writes are ignored, and reads return $FF.
 
-[^bit15]:
-The 16th bit, bit 15, is **ignored** by the rendering process.
-Conventionally, that bit is generally clear (for example, the canonical pure white is `$7FFF` and not `$FFFF`), but the hardware treats both identically: it's fine to fill color RAM with $FF bytes to set it to all-white.
+[^bit15]: The 16th bit, bit 15, is **ignored** by the rendering process.
+          Conventionally, that bit is generally clear (for example, the canonical pure white is `$7FFF` and not `$FFFF`), but the hardware treats both identically: it's fine to fill color RAM with $FF bytes to set it to all-white.
 
-[^cram_size]:
-2 bytes/color × 4 colors/palette × 8 palettes = 64 bytes.
+[^cram_size]: 2 bytes/color × 4 colors/palette × 8 palettes = 64 bytes.
 
 ### FF68 — BGPI (CGB Mode only): Background palette index
 

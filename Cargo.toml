@@ -1,5 +1,5 @@
 [workspace]
-members = [ "preproc", "renderer" ]
+members = ["preproc", "renderer"]
 resolver = "3"
 
 [workspace.dependencies]

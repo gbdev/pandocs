@@ -59,13 +59,11 @@ Note that the former step never mutes a non-silent input, but the latter can.
 Each of the two analog outputs then goes through a [high-pass filter](https://en.wikipedia.org/wiki/High-pass_filter) (HPF).
 For short, a HPF constantly tries to "pull" the signal towards analog 0 (neutral); the reason for that is explained further below.
 
-[^digital_analog]:
-To be clear: digital values are discrete and clear-cut; conversely, the analog domain is continuous.
-The former is what computers use, the latter is what the real world is made of.
+[^digital_analog]: To be clear: digital values are discrete and clear-cut; conversely, the analog domain is continuous.
+                   The former is what computers use, the latter is what the real world is made of.
 
-[^vin]:
-Actually, VIN acts as a 5<sup>th</sup> channel fed into the mixer, whose control bits are in NR50 instead of NR51.
-This was omitted from the diagram for simplicity.
+[^vin]: Actually, VIN acts as a 5<sup>th</sup> channel fed into the mixer, whose control bits are in NR50 instead of NR51.
+        This was omitted from the diagram for simplicity.
 
 ## PCM registers
 
@@ -95,8 +93,7 @@ Envelope sweep | 8    | 64 Hz
 Sound length   | 2    | 256 Hz
 CH1 freq sweep | 4    | 128 Hz
 
-[^div_apu_freq]:
-Indicated values are under normal operation; the frequencies will obviously differ if writing to `DIV` to increase the counter faster.
+[^div_apu_freq]: Indicated values are under normal operation; the frequencies will obviously differ if writing to `DIV` to increase the counter faster.
 
 ### Mixer
 
@@ -178,8 +175,7 @@ Retriggering a pulse channel causes its "duty step timer" to reset, thus retrigg
 
 When first starting up a pulse channel, it will *always* output a (digital) zero.
 
-[^pulse_lut]:
-Actually, there is not LUT, but the manipulations done to the counter's bits are equivalent.
+[^pulse_lut]: Actually, there is not LUT, but the manipulations done to the counter's bits are equivalent.
 
 ### Wave channel (CH3)
 

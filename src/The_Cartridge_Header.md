@@ -172,11 +172,9 @@ Code  | Type
 `$FE` | HuC3
 `$FF` | HuC1+RAM+BATTERY
 
-[^rom_ram]:
-No licensed cartridge makes use of this option. The exact behavior is unknown.
+[^rom_ram]: No licensed cartridge makes use of this option. The exact behavior is unknown.
 
-[^mbc30]:
-MBC3 with 64 KiB of SRAM refers to MBC30, used only in _Pocket Monsters: Crystal Version_ (the Japanese version of _Pokémon Crystal Version_).
+[^mbc30]: MBC3 with 64 KiB of SRAM refers to MBC30, used only in _Pocket Monsters: Crystal Version_ (the Japanese version of _Pokémon Crystal Version_).
 
 ## 0148 — ROM size
 
@@ -198,10 +196,9 @@ Value | ROM size  | Number of ROM banks
 `$53` | 1.2 MiB   | 80 [^weird_rom_sizes]
 `$54` | 1.5 MiB   | 96 [^weird_rom_sizes]
 
-[^weird_rom_sizes]:
-Only listed in unofficial docs. No cartridges or ROM files using these sizes are known.
-As the other ROM sizes are all powers of 2, these are likely inaccurate.
-The source of these values is unknown.
+[^weird_rom_sizes]: Only listed in unofficial docs. No cartridges or ROM files using these sizes are known.
+                    As the other ROM sizes are all powers of 2, these are likely inaccurate.
+                    The source of these values is unknown.
 
 ## 0149 — RAM size
 
@@ -219,10 +216,9 @@ Code  | SRAM size | Comment
 `$04` | 128 KiB   | 16 banks of 8 KiB each
 `$05` |  64 KiB   |  8 banks of 8 KiB each
 
-[^2kib_sram]:
-Listed in various unofficial docs as 2 KiB.
-However, a 2 KiB RAM chip was never used in a cartridge.
-The source of this value is unknown.
+[^2kib_sram]: Listed in various unofficial docs as 2 KiB.
+              However, a 2 KiB RAM chip was never used in a cartridge.
+              The source of this value is unknown.
 
 Various "PD" ROMs ("Public Domain" homebrew ROMs, generally tagged with `(PD)` in the filename) are known to use the `$01` RAM Size tag, but this is believed to have been a mistake with early homebrew tools, and the PD ROMs often don't use cartridge RAM at all.
 
@@ -405,7 +401,8 @@ HEX   | Licensee
 
 [^atari]: Later known as [Atari SA](https://en.wikipedia.org/wiki/Atari_SA).
 
-[^sculptured]: Later accquired by [Iguana Entertainment](https://en.wikipedia.org/wiki/Iguana_Entertainment) in 1995. Parent studio owned by [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment).
+[^sculptured]: Later accquired by [Iguana Entertainment](https://en.wikipedia.org/wiki/Iguana_Entertainment) in 1995.
+               Parent studio owned by [Acclaim Entertainment](https://en.wikipedia.org/wiki/Acclaim_Entertainment).
 
 [^sci]: Later known as [SCi (Sales Curve Interactive), then SCi Entertainment Group plc, then Eidos](https://en.wikipedia.org/wiki/SCi_Games), then acquired by [Square Enix](https://en.wikipedia.org/wiki/Square_Enix) in 2009.
 

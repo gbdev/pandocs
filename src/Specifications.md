@@ -61,17 +61,14 @@ td:first-child {
   </tbody>
 </table>
 
-[^dmg_clk]:
-Real DMG units tend to run about 50-70 PPM slow. Accuracy of other models is unknown. [See this page](https://github.com/jkotlinski/gbchrono) for more details.
+[^dmg_clk]: Real DMG units tend to run about 50-70 PPM slow. Accuracy of other models is unknown.
+            [See this page](https://github.com/jkotlinski/gbchrono) for more details.
 
-[^sgb_clk]:
-SGB1 cartridges derive the GB CPU clock from the SNES' clock, [yielding a clock speed a bit higher](<#SGB Clock Speed>), which differs slightly between NTSC and PAL systems.
-SGB2 instead uses a clock internal to the cartridge, and so has the same speed as the handhelds.
+[^sgb_clk]: SGB1 cartridges derive the GB CPU clock from the SNES' clock, [yielding a clock speed a bit higher](<#SGB Clock Speed>), which differs slightly between NTSC and PAL systems.
+            SGB2 instead uses a clock internal to the cartridge, and so has the same speed as the handhelds.
 
-[^compat]:
-The same value as on DMG is used in compatibility mode.
+[^compat]: The same value as on DMG is used in compatibility mode.
 
-[^sgb_vid]:
-The SGB runs two consoles: a Game Boy within the SGB cartridge, and the SNES itself.
-The GB LCD output is captured and displayed by the SNES, but the two consoles' frame rates don't quite sync up, leading to duplicated and/or dropped frames.
-The GB side of the vertical sync depends on the CPU clock[^sgb_clk], with the same ratio as the handhelds.
+[^sgb_vid]: The SGB runs two consoles: a Game Boy within the SGB cartridge, and the SNES itself.
+            The GB LCD output is captured and displayed by the SNES, but the two consoles' frame rates don't quite sync up, leading to duplicated and/or dropped frames.
+            The GB side of the vertical sync depends on the CPU clock[^sgb_clk], with the same ratio as the handhelds.

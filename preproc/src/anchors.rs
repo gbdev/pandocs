@@ -10,6 +10,7 @@
 use std::collections::HashMap;
 use std::io::Write;
 
+use anyhow::Context;
 use mdbook_preprocessor::{book::Chapter, errors::Error};
 use pulldown_cmark::{CowStr, Event, LinkType, Parser, Tag};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
@@ -101,8 +102,11 @@ impl Pandocs {
                 _ => event,
             });
 
-        pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS)
-            .map_err(|err| Error::from(err).context("Markdown serialization failed"))?;
+        pulldown_cmark_to_cmark::Options::default()
+            .validate(Pandocs::MARKDOWN_OPTIONS)
+            .context("Incompatible CommonMark options specified")?;
+        pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS_RENDER)
+            .context("Markdown serialization failed")?;
         chapter.content = buf;
 
         Ok(())

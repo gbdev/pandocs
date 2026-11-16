@@ -37,19 +37,14 @@ One of the pitfalls of the `NRxy` naming convention is that the register's purpo
 
   The envelope reaching a volume of 0 does NOT turn the channel off!
 
-<hr>
+[^dmg_apu_off]: ...and the length timers (in `NRx1`) on monochrome models.
 
-[^dmg_apu_off]:
-...and the length timers (in `NRx1`) on monochrome models.
+[^nr52_dac]: Actually, only the status of the channels' *generation* circuits is reported, not the status of [the DACs](#DACs).
+             A channel can only be ON if its corresponding DAC is, though.
 
-[^nr52_dac]:
-Actually, only the status of the channels' *generation* circuits is reported, not the status of [the DACs](#DACs). A channel can only be ON if its corresponding DAC is, though.
+[^dac_off]: If [the channel's DAC](#DACs) is off, then the write to NRx4 will be ineffective and won't turn the channel on.
 
-[^dac_off]:
-If [the channel's DAC](#DACs) is off, then the write to NRx4 will be ineffective and won't turn the channel on.
-
-[^freq_sweep_underflow]:
-The period sweep cannot normally underflow, so a "decreasing" sweep (`NR10` bit 3 set) cannot turn the channel off.
+[^freq_sweep_underflow]: The period sweep cannot normally underflow, so a "decreasing" sweep (`NR10` bit 3 set) cannot turn the channel off.
 
 ### FF25 — NR51: Sound panning
 
@@ -104,8 +99,7 @@ In addition mode, if the period value would overflow (i.e. <math><msub><mi>L</mi
 Note that if the period ever becomes 0, the period sweep will never be able to change it.
 For the same reason, the period sweep cannot underflow the period (which would turn the channel off).
 
-[^div_apu]:
-[As long as `DIV` is not written to](#DIV-APU).
+[^div_apu]: [As long as `DIV` is not written to](#DIV-APU).
 
 ### FF11 — NR11: Channel 1 length timer & duty cycle
 
@@ -353,9 +347,8 @@ Accessing wave RAM while CH3 is **active** (i.e. playing) causes accesses to mis
 Wave RAM *can* be accessed normally even if the DAC is on, as long as the channel is not active. ([Source](https://github.com/LIJI32/SameSuite/blob/master/apu/channel_3/channel_3_wave_ram_dac_on_rw.asm))
 This is especially relevant on GBA, whose [mixer behaves as if DACs are always enabled](<#Game Boy Advance audio>).
 
-[^wave_access]:
-The way it works is that wave RAM is a 16-byte memory buffer, and while it's playing, CH3 has priority over the CPU when choosing which of those 16 bytes is accessed.
-So, from the CPU's point of view, wave RAM reads out the same byte, regardless of the address.
+[^wave_access]: The way it works is that wave RAM is a 16-byte memory buffer, and while it's playing, CH3 has priority over the CPU when choosing which of those 16 bytes is accessed.
+                So, from the CPU's point of view, wave RAM reads out the same byte, regardless of the address.
 
 ## Sound Channel 4 — Noise
 
@@ -366,8 +359,7 @@ The frequency can be adjusted in order to make the noise appear "harder" (lower 
 The random function that switches the output level can also be manipulated.
 Certain settings can cause the wave to be more regular, sounding closer to a pulse than noise.
 
-[^not_white]:
-By default, the noise will sound close to white; but it can be manipulated to sound differently.
+[^not_white]: By default, the noise will sound close to white; but it can be manipulated to sound differently.
 
 ### FF20 — NR41: Channel 4 length timer \[write-only\]
 

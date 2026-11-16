@@ -38,8 +38,7 @@ Each channel contains components that control different aspects of sound generat
 
 These components are controlled by writing to the [audio registers](<#Audio Registers>).
 
-[^speaker_mono]:
-The speaker merges back the two channels, losing the stereo aspect entirely.
+[^speaker_mono]: The speaker merges back the two channels, losing the stereo aspect entirely.
 
 ## Common concepts
 
@@ -96,25 +95,17 @@ See the description of each NRx3 register for more information.
 
 :::
 
----
+[^trig_dac_off]: If [the channel's DAC](#DACs) is off, the channel will not turn on.
 
-[^trig_dac_off]:
-If [the channel's DAC](#DACs) is off, the channel will not turn on.
+[^pulse_restart]: Except for pulse channels, whose phase position is only ever reset by turning the APU off.
+                  This is usually not noticeable unless changing the duty cycle mid-note.
 
-[^pulse_restart]:
-Except for pulse channels, whose phase position is only ever reset by turning the APU off.
-This is usually not noticeable unless changing the duty cycle mid-note.
+[^vol_knob]: This is separate from the physical volume knob located on the side of the console.
 
-[^vol_knob]:
-This is separate from the physical volume knob located on the side of the console.
+[^len_cnt_dir]: Internally, the length timer is inverted when written, and *that* ticks down until it reaches 0.
+                But the effect is as if the counter ticked up.
 
-[^len_cnt_dir]:
-Internally, the length timer is inverted when written, and *that* ticks down until it reaches 0.
-But the effect is as if the counter ticked up.
+[^pitch]: There is also **pitch**, which is merely a measure of how we perceive frequency.
+          The higher the frequency, the higher the pitch; therefore, pitch will be omitted from the rest of the document.
 
-[^pitch]:
-There is also **pitch**, which is merely a measure of how we perceive frequency.
-The higher the frequency, the higher the pitch; therefore, pitch will be omitted from the rest of the document.
-
-[^len_raw]:
-Actually, the APU interfaces don't work strictly with periods, but with values that can be thought of as *negative* periods.
+[^len_raw]: Actually, the APU interfaces don't work strictly with periods, but with values that can be thought of as *negative* periods.
