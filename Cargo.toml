@@ -1,2 +1,7 @@
 [workspace]
 members = [ "preproc", "renderer" ]
+
+[workspace.dependencies]
+anyhow = "1.0.89"
+regex = "1.13"
+termcolor = "1.4.1"
