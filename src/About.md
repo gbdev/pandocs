@@ -31,4 +31,33 @@ You can search anywhere by pressing <kbd>s</kbd> on your keyboard or clicking th
 
 The <i class="fa-solid fa-pencil"></i> icon allows you to suggest an edit on the current page by directly opening the source file in the git repository.
 
+### Boxes and collapsible sections
+
+Throughout the document, some information is set apart from the main text in colored boxes, depending on what it is about.
+Their title (e.g. "NOTE" or "TO BE VERIFIED") tells you more precisely what they contain.
+
+:::tip TIP
+
+Side notes and clarifications, definitions of the terms being used, practical advice and workarounds, and pointers to sources and further reading.
+
+:::
+
+:::warning WARNING
+
+Behavior that is easy to get wrong (e.g. timing constraints or the order of operations), simplifications made by the surrounding text, and information that has not been verified yet.
+
+:::
+
+:::danger DANGER
+
+Critical warnings, about things that may damage the hardware or have legal implications.
+
+:::
+
+<details><summary>Collapsible sections (click to expand)</summary>
+
+Supplementary information, like detailed explanations, that you can skip on a first read.
+
+</details>
+
 <br><br>
