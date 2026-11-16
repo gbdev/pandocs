@@ -4,7 +4,7 @@ The maintenance and expansion of this project wouldn't be possible without the c
 
 - The [gbdev community](https://gbdev.io), for providing precious feedback, content, support and invaluable knowledge.
 - [Contributors](https://github.com/gbdev/pandocs/graphs/contributors) of code and content on the Pan Docs project.
-- [DigitalOcean](https://www.digitalocean.com/), for sponsoring this initiative and lifting us from any hosting and infrastructural cost in the last few years.
+- The [Open Source Lab at Oregon State University](https://osuosl.org/), for providing the infrastructure that hosts gbdev projects.
 - [Backers](https://opencollective.com/gbdev), for allowing us to push the community projects further and spread open culture while staying independent and free.
 
 ## Authors
