@@ -1,5 +1,6 @@
 [workspace]
 members = [ "preproc", "renderer" ]
+resolver = "3"
 
 [workspace.dependencies]
 anyhow = "1.0.89"
