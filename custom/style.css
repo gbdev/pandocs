@@ -186,3 +186,8 @@ p, .table-wrapper {
   margin-block-start: 1em;
   margin-block-end: 1em;
 }
+
+/* Print (and the generated PDF) on A4 paper */
+@page {
+  size: A4;
+}

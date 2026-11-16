@@ -66,6 +66,19 @@ jobs:
         run: |
           mdbook build
 
+      - name: Install Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+          install-dependencies: true
+
+      - name: Generate PDF
+        working-directory: pandocs/
+        env:
+          CHROME: ${{ steps.setup-chrome.outputs.chrome-path }}
+        run: tools/gen_pdf.sh
+
       - name: Generate sitemap
         run: |
           cd pandocs/docs/pandocs/

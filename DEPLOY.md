@@ -75,6 +75,10 @@ mdbook watch
 mdbook serve
 ```
 4. The final HTML files are in `docs/pandocs/`.
+5. Optionally, generate the PDF version (`docs/pandocs/pandocs.pdf`) from the single-page version. This requires Chrome or Chromium (set the `CHROME` environment variable if it isn't found automatically):
+```bash
+tools/gen_pdf.sh
+```
 
 Be aware of the following caveats:
 
