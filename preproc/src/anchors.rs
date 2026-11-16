@@ -11,7 +11,7 @@ use std::collections::HashMap;
 use std::io::Write;
 
 use mdbook_preprocessor::{book::Chapter, errors::Error};
-use pulldown_cmark::{CowStr, Event, LinkType, Options, Parser, Tag};
+use pulldown_cmark::{CowStr, Event, LinkType, Parser, Tag};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
 
 use crate::Pandocs;
@@ -67,41 +67,41 @@ impl Pandocs {
         sections: &HashMap<String, (String, bool)>,
     ) -> Result<(), Error> {
         let mut buf = String::with_capacity(chapter.content.len());
-        let extensions =
-            Options::ENABLE_TABLES | Options::ENABLE_FOOTNOTES | Options::ENABLE_STRIKETHROUGH;
 
-        let events = Parser::new_ext(&chapter.content, extensions).map(|event| match event {
-            Event::Start(Tag::Link {
-                link_type,
-                dest_url,
-                title,
-                id,
-            }) if dest_url.starts_with('#') => {
-                let (link, ok) = translate_anchor_link(sections, link_type, dest_url, title, id);
-                if !ok {
-                    let mut stderr = StandardStream::stderr(ColorChoice::Auto);
-                    stderr
-                        .set_color(ColorSpec::new().set_fg(Some(Color::Yellow)).set_bold(true))
-                        .unwrap();
-                    write!(&mut stderr, "warning:").unwrap();
-                    stderr.reset().unwrap();
+        let events =
+            Parser::new_ext(&chapter.content, Pandocs::MARKDOWN_OPTIONS).map(|event| match event {
+                Event::Start(Tag::Link {
+                    link_type,
+                    dest_url,
+                    title,
+                    id,
+                }) if dest_url.starts_with('#') => {
+                    let (link, ok) =
+                        translate_anchor_link(sections, link_type, dest_url, title, id);
+                    if !ok {
+                        let mut stderr = StandardStream::stderr(ColorChoice::Auto);
+                        stderr
+                            .set_color(ColorSpec::new().set_fg(Some(Color::Yellow)).set_bold(true))
+                            .unwrap();
+                        write!(&mut stderr, "warning:").unwrap();
+                        stderr.reset().unwrap();
 
-                    if let Tag::Link { dest_url, .. } = &link {
-                        eprintln!(
-                            " {}: Internal anchor link \"{dest_url}\" not found, keeping as-is",
-                            chapter.name,
-                        );
-                    } else {
-                        unreachable!()
+                        if let Tag::Link { dest_url, .. } = &link {
+                            eprintln!(
+                                " {}: Internal anchor link \"{dest_url}\" not found, keeping as-is",
+                                chapter.name,
+                            );
+                        } else {
+                            unreachable!()
+                        }
                     }
+                    Event::Start(link)
                 }
-                Event::Start(link)
-            }
 
-            _ => event,
-        });
+                _ => event,
+            });
 
-        pulldown_cmark_to_cmark::cmark(events, &mut buf)
+        pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS)
             .map_err(|err| Error::from(err).context("Markdown serialization failed"))?;
         chapter.content = buf;
 

@@ -11,19 +11,18 @@ use std::{iter::Peekable, matches};
 
 use anyhow::Error;
 use mdbook_preprocessor::book::Chapter;
-use pulldown_cmark::{Event, Options, Parser, Tag, TagEnd};
+use pulldown_cmark::{Event, Parser, Tag, TagEnd};
 
 use crate::Pandocs;
 
 impl Pandocs {
     pub fn process_admonitions(&self, chapter: &mut Chapter) -> Result<(), Error> {
         let mut buf = String::with_capacity(chapter.content.len());
-        let extensions =
-            Options::ENABLE_TABLES | Options::ENABLE_FOOTNOTES | Options::ENABLE_STRIKETHROUGH;
 
-        let events = AdmonitionsGenerator::new(Parser::new_ext(&chapter.content, extensions));
+        let events =
+            AdmonitionsGenerator::new(Parser::new_ext(&chapter.content, Pandocs::MARKDOWN_OPTIONS));
 
-        pulldown_cmark_to_cmark::cmark(events, &mut buf)
+        pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS)
             .map_err(|err| Error::from(err).context("Markdown serialization failed"))?;
         chapter.content = buf;
 

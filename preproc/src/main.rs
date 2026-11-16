@@ -80,6 +80,10 @@ impl Pandocs {
     fn new() -> Pandocs {
         Pandocs
     }
+
+    const MARKDOWN_OPTIONS: pulldown_cmark::Options = pulldown_cmark::Options::ENABLE_TABLES
+        .union(pulldown_cmark::Options::ENABLE_OLD_FOOTNOTES)
+        .union(pulldown_cmark::Options::ENABLE_STRIKETHROUGH);
 }
 
 impl Preprocessor for Pandocs {
@@ -124,8 +128,9 @@ impl Preprocessor for Pandocs {
             }
 
             if let BookItem::Chapter(ref mut chapter) = item {
-                abort_if_err!(self.process_internal_anchor_links(chapter, &sections));
+                // Bit descrs should be first, since it does not like the HTML entity serialisation done by the later steps.
                 abort_if_err!(self.process_bit_descrs(chapter).context(format!("While processing chapter \"{}\"", chapter.name)));
+                abort_if_err!(self.process_internal_anchor_links(chapter, &sections));
                 abort_if_err!(self.process_admonitions(chapter));
 
                 if chapter.name == "Foreword" {
