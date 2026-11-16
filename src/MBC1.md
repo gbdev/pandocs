@@ -147,7 +147,7 @@ The following diagrams show how the address within the ROM/RAM chips are calcula
 :::tip
 
 In a smaller cartridge, some of the upper bits are ignored.
-(For example, a 128 KiB = 2<sup>17</sup> bytes ROM only uses bits 0–16.)
+(For example, a 128 KiB = 2^17^ bytes ROM only uses bits 0–16.)
 
 :::
 

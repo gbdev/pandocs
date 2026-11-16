@@ -62,7 +62,7 @@ For short, a HPF constantly tries to "pull" the signal towards analog 0 (neutral
 [^digital_analog]: To be clear: digital values are discrete and clear-cut; conversely, the analog domain is continuous.
                    The former is what computers use, the latter is what the real world is made of.
 
-[^vin]: Actually, VIN acts as a 5<sup>th</sup> channel fed into the mixer, whose control bits are in NR50 instead of NR51.
+[^vin]: Actually, VIN acts as a 5 ^th^ channel fed into the mixer, whose control bits are in NR50 instead of NR51.
         This was omitted from the diagram for simplicity.
 
 ## PCM registers

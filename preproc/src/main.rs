@@ -83,6 +83,8 @@ impl Pandocs {
 
     const MARKDOWN_OPTIONS: pulldown_cmark::Options = pulldown_cmark::Options::ENABLE_TABLES
         .union(pulldown_cmark::Options::ENABLE_FOOTNOTES)
+        .union(pulldown_cmark::Options::ENABLE_SUBSCRIPT)
+        .union(pulldown_cmark::Options::ENABLE_SUPERSCRIPT)
         .union(pulldown_cmark::Options::ENABLE_STRIKETHROUGH);
     const MARKDOWN_OPTIONS_RENDER: pulldown_cmark::Options = pulldown_cmark::Options::ENABLE_TABLES
         .union(pulldown_cmark::Options::ENABLE_OLD_FOOTNOTES) // Workaround for Byron/pulldown-cmark-to-cmark#118

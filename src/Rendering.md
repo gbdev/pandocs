@@ -7,13 +7,13 @@ A frame consists of 154 **scanlines**; during the first 144, the screen is drawn
 
 The main implication of this rendering process is the existence of **raster effects**: modifying some rendering parameters in the middle of rendering.
 The most famous raster effect is modifying the [scrolling registers](<#Viewport position (Scrolling)>) between scanlines to create a ["wavy" effect](https://gbdev.io/guides/deadcscroll#effects).
-
-A "**dot**" = one 2<sup>22</sup> Hz (≅ 4.194 MHz) time unit.
+ 
+A "**dot**" = one 2^22^ Hz (≅ 4.194 MHz) time unit.
 Dots remain the same regardless of whether the CPU is in [Double Speed mode](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>), so there are 4 dots per Normal Speed M-cycle, and 2 per Double Speed M-cycle.
 
 :::tip NOTE
 
-A frame is not exactly one 60<sup>th</sup> of a second: the Game Boy runs slightly slower than 60 Hz, as one frame takes ~16.74 ms instead of ~16.67 (the error is 0.45%).
+A frame is not exactly one 60^th^ of a second: the Game Boy runs slightly slower than 60 Hz, as one frame takes ~16.74 ms instead of ~16.67 (the error is 0.45%).
 
 :::
 
