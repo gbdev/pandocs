@@ -57,43 +57,44 @@ impl<'a, Iter: Iterator<Item = Event<'a>>> Iterator for AdmonitionsGenerator<'a,
     fn next(&mut self) -> Option<Self::Item> {
         let mut evt = self.iter.next()?;
 
-        match evt {
-            Event::Text(ref text) if self.at_paragraph_start => {
-                if let Some(params) = text.strip_prefix(":::") {
-                    // Check that there is no more text in the paragraph; if there isn't, we'll consume the entire paragraph.
-                    // Note that this intentionally rejects any formatting within the paragraph—serialisation would be too complex.
-                    if matches!(self.iter.peek(), Some(Event::End(TagEnd::Paragraph))) {
-                        if params.is_empty() {
-                            if self.nesting_level != 0 {
-                                // Ending an admonition.
-                                self.nesting_level -= 1;
+        // Admonition markers replace paragraphs that contain a single line of text which begins with `:::`.
+        // This matches the event sequence `[Begin(Paragraph), Text("::: (...)"), End(Paragraph)]`,
+        // which is what we check for here.
+        if self.at_paragraph_start
+            && let Event::Text(ref text) = evt
+            && let Some(params) = text.strip_prefix(":::")
+            // Check that there is no more text in the paragraph; if there isn't, we'll consume the entire paragraph.
+            // Note that this intentionally rejects any formatting within the paragraph—serialisation would be too complex.
+            && matches!(self.iter.peek(), Some(Event::End(TagEnd::Paragraph)))
+        {
+            if params.is_empty() {
+                if self.nesting_level != 0 {
+                    // Ending an admonition.
+                    self.nesting_level -= 1;
 
-                                evt = Event::Html("</div>".into());
-                            }
+                    evt = Event::Html("</div>".into());
+                }
+            } else {
+                let (kind, title) = match params.split_once(|c: char| c.is_ascii_whitespace()) {
+                    Some((kind, title)) => (kind, title.trim()),
+                    None => (params, ""),
+                };
+                if Self::KINDS.contains(&kind) {
+                    // Beginning an admonition.
+                    self.nesting_level += 1;
+
+                    evt = Event::Html(
+                        if title.is_empty() {
+                            format!("<div class=\"box {kind}-box\">")
                         } else {
-                            let (kind, title) =
-                                match params.split_once(|c: char| c.is_ascii_whitespace()) {
-                                    Some((kind, title)) => (kind, title.trim()),
-                                    None => (params, ""),
-                                };
-                            if Self::KINDS.contains(&kind) {
-                                // Beginning an admonition.
-                                self.nesting_level += 1;
-
-                                evt = Event::Html(
-                                    if title.is_empty() {
-                                        format!("<div class=\"box {kind}-box\">")
-                                    } else {
-                                        format!("<div class=\"box {kind}-box\"><p class=\"box-title\">{title}</p>")
-                                    }
-                                    .into(),
-                                );
-                            }
+                            format!(
+                                "<div class=\"box {kind}-box\"><p class=\"box-title\">{title}</p>"
+                            )
                         }
-                    }
+                        .into(),
+                    );
                 }
             }
-            _ => {}
         }
 
         self.at_paragraph_start = matches!(evt, Event::Start(Tag::Paragraph));
