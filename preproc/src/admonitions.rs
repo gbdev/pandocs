@@ -58,11 +58,11 @@ impl<'a, Iter: Iterator<Item = Event<'a>>> Iterator for AdmonitionsGenerator<'a,
         let mut evt = self.iter.next()?;
 
         // Admonition markers replace paragraphs that contain a single line of text which begins with `:::`.
-        // This matches the event sequence `[Begin(Paragraph), Text("::: (...)"), End(Paragraph)]`,
+        // This matches the event sequence `[Begin(Paragraph), Text(":::(...)"), End(Paragraph)]`,
         // which is what we check for here.
         if self.at_paragraph_start
             && let Event::Text(ref text) = evt
-            && let Some(params) = text.strip_prefix(":::")
+            && let Some(params) = text.trim_ascii().strip_prefix(":::")
             // Check that there is no more text in the paragraph; if there isn't, we'll consume the entire paragraph.
             // Note that this intentionally rejects any formatting within the paragraph—serialisation would be too complex.
             && matches!(self.iter.peek(), Some(Event::End(TagEnd::Paragraph)))
@@ -76,7 +76,7 @@ impl<'a, Iter: Iterator<Item = Event<'a>>> Iterator for AdmonitionsGenerator<'a,
                 }
             } else {
                 let (kind, title) = match params.split_once(|c: char| c.is_ascii_whitespace()) {
-                    Some((kind, title)) => (kind, title.trim()),
+                    Some((kind, title)) => (kind, title.trim_ascii_start()),
                     None => (params, ""),
                 };
                 if Self::KINDS.contains(&kind) {
