@@ -26,7 +26,7 @@ impl Pandocs {
             .validate(Pandocs::MARKDOWN_OPTIONS)
             .context("Incompatible CommonMark options specified")?;
         pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS_RENDER)
-            .context("Markdown serialization failed")?;
+            .with_context(|| format!("Markdown serialization of \"{}\" failed", chapter.name))?;
         chapter.content = buf;
 
         Ok(())
