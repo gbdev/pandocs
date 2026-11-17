@@ -236,7 +236,7 @@ There appears to be some kind of limit.
 
 The M64282FP does some processing to the captured image.
 First, it performs an edge control, then it does gain control, and lastly, it does level control.
-The resulting analog value is the one that can be read in the V<sub>out</sub> pin.
+The resulting analog value is the one that can be read in the V~out~ pin.
 The sensor can capture infrared radiation, so the images can be a bit strange compared to others captured by better sensors.
 
 ## The M64282FP registers
