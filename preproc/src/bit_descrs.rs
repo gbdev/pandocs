@@ -7,17 +7,20 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-use std::borrow::Cow;
+use std::{borrow::Cow, fmt::Write};
 
-use anyhow::{bail, Context, Error};
+use anyhow::{Context, bail, ensure};
 use lazy_static::lazy_static;
-use mdbook_preprocessor::book::Chapter;
+use mdbook_preprocessor::{
+    book::Chapter,
+    errors::{Error, Result},
+};
 use regex::Regex;
 
 use crate::Pandocs;
 
 impl Pandocs {
-    pub fn process_bit_descrs(&self, chapter: &mut Chapter) -> Result<(), Error> {
+    pub fn process_bit_descrs(&self, chapter: &mut Chapter) -> Result<()> {
         // When replacing one thing in a string by something with a different length,
         // the indices after that will not correspond,
         // we therefore have to store the difference to correct this
@@ -51,7 +54,7 @@ impl Pandocs {
             for i in std::iter::successors(Some(start), |i| {
                 (*i != end).then(|| if attrs.increasing { i + 1 } else { i - 1 })
             }) {
-                replaced.push_str(&format!("<th>{}</th>", i));
+                write!(replaced, "<th>{i}</th>").unwrap();
             }
             replaced.push_str("</tr></thead><tbody>");
 
@@ -105,7 +108,7 @@ impl Pandocs {
 
 fn find_bit_descrs(
     contents: &str,
-) -> impl Iterator<Item = Result<(usize, usize, BitDescrAttrs<'_>), Error>> {
+) -> impl Iterator<Item = Result<(usize, usize, BitDescrAttrs<'_>)>> {
     lazy_static! {
         static ref RE: Regex = Regex::new(
             r"(?x)             # Allow comments in the regex
@@ -127,7 +130,7 @@ fn find_bit_descrs(
                     let all = caps.get(0).unwrap(); // There is always a 0th capture.
                     (all.start(), all.end(), attrs)
                 })
-                .context(format!("Failed to parse \"{contents}\""))
+                .with_context(|| format!("Failed to parse \"{contents}\""))
         })
 }
 
@@ -139,17 +142,16 @@ struct BitDescrAttrs<'input> {
 }
 
 impl<'input> BitDescrAttrs<'input> {
-    fn from_str(contents: &'input str) -> Result<Self, Error> {
+    fn from_str(contents: &'input str) -> Result<Self> {
         // First, parse the width.
         let contents = contents.trim();
         let width_len = contents
             .find(|c: char| c.is_ascii_whitespace())
             .ok_or_else(|| Error::msg("{{#bits}} descriptions must describe at least one thing"))?;
         let width_str = &contents[..width_len];
-        let width = width_str.parse().context(format!(
-            "Expected bits description to start with width, got \"{}\"",
-            width_str
-        ))?;
+        let width = width_str.parse().with_context(|| {
+            format!("Expected bits description to start with width, got \"{width_str}\"")
+        })?;
         let s = contents[width_len..].trim_start();
 
         // Then, parse the direction
@@ -162,24 +164,21 @@ impl<'input> BitDescrAttrs<'input> {
         let increasing = match next {
             Some('<') => true,
             Some('>') => false,
-            c => {
-                bail!(
-                    "Expected width to be followed by '<' or '>' for direction, found {}",
-                    c.map_or(Cow::from("nothing"), |c| format!(
-                        "'{}'",
-                        &s[..base_len + c.len_utf8()]
-                    )
-                    .into()),
-                );
-            }
+            c => bail!(
+                "Expected width to be followed by '<' or '>' for direction, found {}",
+                c.map_or(Cow::from("nothing"), |c| format!(
+                    "'{}'",
+                    &s[..base_len + c.len_utf8()]
+                )
+                .into()),
+            ),
         };
         debug_assert_eq!('<'.len_utf8(), 1);
         debug_assert_eq!('>'.len_utf8(), 1);
         let s = s[base_len + 1..].trim_start();
 
         // Next, parse the rows!
-        let mut rows = Vec::new();
-        let mut name_type = None;
+        let mut rows = Vec::<(Cow<'_, str>, _)>::new();
         for row_str in s.split_terminator(';') {
             let row_str = row_str.trim();
 
@@ -190,21 +189,12 @@ impl<'input> BitDescrAttrs<'input> {
                 RE.replace_all(escaped, "$1")
             }
 
-            fn parse_name(row_str: &str) -> Option<usize> {
-                if !row_str.starts_with('"') {
-                    return None;
-                }
-
-                row_str[1..] // Skip the leading quote.
-                    .find('"')
-            }
-            let Some(name_len) = parse_name(row_str) else {
-                bail!(
-                    "Expected row to begin by its name (did you forget to put quotes around it?)"
-                );
-            };
-            let name = undo_escapes(&row_str[1..(name_len + 1)]);
-            let mut row_str = row_str[(name_len + 2)..].trim_start(); // The end is already trimmed.
+            let (name, row_str) = row_str.strip_prefix('"').and_then(|rest| rest.split_once('"')).ok_or_else(|| {
+                Error::msg(
+                    "Expected row to begin by its name (did you forget to put quotes around it?)",
+                )
+            })?;
+            let mut row_str = row_str.trim_start(); // The end is already trimmed.
 
             // Then, the fields!
             let mut fields: Vec<BitDescrField> = Vec::new();
@@ -215,9 +205,9 @@ impl<'input> BitDescrAttrs<'input> {
                         Regex::new(r#"^(\d+)(?:\s*-\s*(\d+))?\s*:\s*"([^"]*)""#).unwrap();
                 }
 
-                let Some(cap) = RE.captures(row_str) else {
-                    bail!("Failed to parse field for \"{}\"", row_str);
-                };
+                let cap = RE.captures(row_str).ok_or_else(|| {
+                    Error::msg(format!("Failed to parse field for \"{row_str}\""))
+                })?;
                 let left: usize = cap[1].parse().unwrap();
                 let right = cap
                     .get(2)
@@ -234,23 +224,21 @@ impl<'input> BitDescrAttrs<'input> {
                     bail!("Field must end after it started ({}-{})", left, right)
                 };
 
-                if let Some(field) = fields.last() {
+                if let [.., field] = fields.as_slice() {
                     if !increasing {
                         // Cancel the massaging to get back what was input
                         let prev_end = width - field.end();
 
-                        if prev_end < start {
-                            bail!(
-                                "Field must start after previous ended (expected {} > {})",
-                                prev_end - 1,
-                                start
-                            );
-                        }
-                    } else if field.end() > start {
-                        bail!(
-                            "Field must start after previous ended (expected {} < {})",
+                        ensure!(
+                            prev_end >= start,
+                            "Field must start after previous ended (expected {} > {start})",
+                            prev_end - 1,
+                        );
+                    } else {
+                        ensure!(
+                            field.end() <= start,
+                            "Field must start after previous ended (expected {} < {start})",
                             field.end() - 1,
-                            start
                         );
                     }
                 }
@@ -267,16 +255,14 @@ impl<'input> BitDescrAttrs<'input> {
             }
 
             // Check the name type.
-            let new_name_type = name.is_empty();
-            if let Some(name_type) = name_type {
-                if new_name_type != name_type {
-                    return Err(Error::msg("Row names must all be omitted, or none may be"));
-                }
-            } else {
-                name_type = Some(new_name_type);
+            if let [(first_name, _), ..] = rows.as_slice() {
+                ensure!(
+                    name.is_empty() == first_name.is_empty(),
+                    "Row names must all be omitted, or none may be",
+                );
             }
 
-            rows.push((name, fields));
+            rows.push((Cow::Borrowed(name), fields));
         }
 
         Ok(BitDescrAttrs {

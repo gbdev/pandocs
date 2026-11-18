@@ -7,25 +7,15 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-use std::collections::HashMap;
-use std::io;
-use std::path::Path;
-use std::process;
-
-use anyhow::{Context, anyhow};
+use anyhow::{Context, ensure};
 use mdbook_preprocessor::{
-    Preprocessor, PreprocessorContext,
-    book::{Book, BookItem},
-    errors::Error,
+    Preprocessor,
+    errors::{Error, Result},
 };
+use pandocs_preproc::Pandocs;
+use tracing::warn;
 
-mod admonitions;
-mod anchors;
-mod bit_descrs;
-mod git;
-use git::Commit;
-
-fn main() -> Result<(), Error> {
+fn main() -> Result<()> {
     tracing_subscriber::fmt()
         .without_time()
         .with_ansi(std::io::IsTerminal::is_terminal(&std::io::stderr()))
@@ -36,133 +26,49 @@ fn main() -> Result<(), Error> {
     let mut args = std::env::args();
     let _ = args.next(); // Program name.
 
-    let preprocessor = Pandocs::new();
+    let preprocessor = Pandocs;
 
-    if args.next().is_some_and(|arg| arg == "supports") {
-        let renderer_name = args
-            .next()
-            .expect("Missing argument: name of renderer to check for compat");
-        assert!(args.next().is_none(), "Unexpected extra args");
-        handle_supports(&preprocessor, &renderer_name);
-    } else {
-        handle_preprocessing(&preprocessor)
+    match args.next().as_deref() {
+        None => handle_preprocessing(&preprocessor),
+
+        Some("supports") => {
+            let renderer_name = args
+                .next()
+                .context("Missing argument: name of renderer to check for compat")?;
+            ensure!(
+                args.next().is_none(),
+                "Unexpected extra CLI args after the renderer's name"
+            );
+            handle_supports(&preprocessor, &renderer_name)
+        }
+
+        Some(subcmd) => Err(Error::msg(format!("Unknown subcommand `{subcmd}`"))),
     }
 }
 
-fn handle_preprocessing(pre: &dyn Preprocessor) -> Result<(), Error> {
-    let (ctx, book) = mdbook_preprocessor::parse_input(io::stdin())?;
+fn handle_preprocessing(pre: &Pandocs) -> Result<()> {
+    let (ctx, book) = mdbook_preprocessor::parse_input(std::io::stdin())?;
 
+    // We should probably use the `semver` crate to check compatibility here...
     if ctx.mdbook_version != mdbook_preprocessor::MDBOOK_VERSION {
-        // We should probably use the `semver` crate to check compatibility
-        // here...
-        eprintln!(
-            "Warning: The {} preproc was built against version {} of mdbook, but we're being called from version {}",
-            pre.name(),
+        warn!(
+            "The Pan Docs preproc was built against version {} of mdbook, but we're being called from version {}",
             mdbook_preprocessor::MDBOOK_VERSION,
             ctx.mdbook_version,
         );
     }
 
     let processed_book = pre.run(&ctx, book)?;
-    serde_json::to_writer(io::stdout(), &processed_book)?;
+    serde_json::to_writer(std::io::stdout(), &processed_book)?;
 
     Ok(())
 }
 
-fn handle_supports(pre: &dyn Preprocessor, renderer: &str) -> ! {
-    let supported = pre.supports_renderer(renderer);
-
+fn handle_supports(pre: &Pandocs, renderer: &str) -> Result<()> {
     // Signal whether the renderer is supported by exiting with 1 or 0.
-    if supported.unwrap() {
-        process::exit(0);
+    std::process::exit(if pre.supports_renderer(renderer)? {
+        0
     } else {
-        process::exit(1);
-    }
-}
-
-struct Pandocs;
-
-impl Pandocs {
-    fn new() -> Pandocs {
-        Pandocs
-    }
-
-    const MARKDOWN_OPTIONS: pulldown_cmark::Options = pulldown_cmark::Options::ENABLE_TABLES
-        .union(pulldown_cmark::Options::ENABLE_FOOTNOTES)
-        .union(pulldown_cmark::Options::ENABLE_STRIKETHROUGH);
-    const MARKDOWN_OPTIONS_RENDER: pulldown_cmark::Options = pulldown_cmark::Options::ENABLE_TABLES
-        .union(pulldown_cmark::Options::ENABLE_OLD_FOOTNOTES) // Workaround for Byron/pulldown-cmark-to-cmark#118
-        .union(pulldown_cmark::Options::ENABLE_STRIKETHROUGH);
-}
-
-impl Preprocessor for Pandocs {
-    fn name(&self) -> &str {
-        "pandocs-preproc"
-    }
-
-    fn supports_renderer(&self, renderer: &str) -> Result<bool, anyhow::Error> {
-        Ok(renderer != "not-supported")
-    }
-
-    fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
-        let out_of_repo = match ctx.config.get::<bool>("preprocessor.pandocs.out-of-repo") {
-            Ok(Some(boolean)) => boolean,
-            Err(_) | Ok(None) => false,
-        };
-
-        let mut sections = HashMap::new();
-        for item in book.iter() {
-            if let BookItem::Chapter(ref chapter) = item {
-                self.list_chapter_sections(&mut sections, chapter);
-            }
-        }
-
-        let mut res = Ok(());
-
-        book.for_each_mut(|item| {
-            macro_rules! abort_if_err {
-                ($expr:expr) => {
-                    match $expr {
-                        Err(e) => {
-                            res = Err(e);
-                            return;
-                        }
-                        Ok(ret) => ret,
-                    }
-                };
-            }
-
-            if res.is_err() {
-                return;
-            }
-
-            if let BookItem::Chapter(ref mut chapter) = item {
-                // Bit descrs should be first, since it does not like the HTML entity serialisation done by the later steps.
-                abort_if_err!(self.process_bit_descrs(chapter).context(format!("While processing chapter \"{}\"", chapter.name)));
-                abort_if_err!(self.process_internal_anchor_links(chapter, &sections));
-                abort_if_err!(self.process_admonitions(chapter));
-
-                if chapter.name == "Foreword" {
-                    // If the `.git` directory exists, we're very likely on a dev machine,
-                    // so it's safe to assume the command is installed.
-                    if Path::new(".git").exists() {
-                        let commit = abort_if_err!(Commit::rev_parse("HEAD"));
-                        chapter.content.push_str(&format!(
-                            "<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}).</small>",
-                            commit.short_hash(), commit.hash(), commit.timestamp(),
-                        ));
-                    } else if out_of_repo {
-                        // OK, just don't add anything.
-                    } else {
-                        res = Err(anyhow!("Git metadata is missing, but out-of-repo builds are not enabled!\
-\tYou can enable them by setting `preprocessor.pandocs.out-of-repo` to `true`.
-\t(Consider using an environment variable for this:
-\t https://rust-lang.github.io/mdBook/format/configuration/environment-variables.html)"));
-                    }
-                }
-            }
-        });
-
-        res.map(|_| book)
-    }
+        1
+    })
 }
