@@ -12,11 +12,11 @@ use std::io;
 use std::path::Path;
 use std::process;
 
-use anyhow::{anyhow, Context};
+use anyhow::{Context, anyhow};
 use mdbook_preprocessor::{
+    Preprocessor, PreprocessorContext,
     book::{Book, BookItem},
     errors::Error,
-    Preprocessor, PreprocessorContext,
 };
 
 mod admonitions;
@@ -26,6 +26,13 @@ mod git;
 use git::Commit;
 
 fn main() -> Result<(), Error> {
+    tracing_subscriber::fmt()
+        .without_time()
+        .with_ansi(std::io::IsTerminal::is_terminal(&std::io::stderr()))
+        .with_writer(std::io::stderr)
+        .with_target(false)
+        .init();
+
     let mut args = std::env::args();
     let _ = args.next(); // Program name.
 
@@ -49,11 +56,10 @@ fn handle_preprocessing(pre: &dyn Preprocessor) -> Result<(), Error> {
         // We should probably use the `semver` crate to check compatibility
         // here...
         eprintln!(
-            "Warning: The {} plugin was built against version {} of mdbook, \
-             but we're being called from version {}",
+            "Warning: The {} preproc was built against version {} of mdbook, but we're being called from version {}",
             pre.name(),
             mdbook_preprocessor::MDBOOK_VERSION,
-            ctx.mdbook_version
+            ctx.mdbook_version,
         );
     }
 

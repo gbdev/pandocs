@@ -8,12 +8,11 @@
  */
 
 use std::collections::HashMap;
-use std::io::Write;
 
 use anyhow::Context;
 use mdbook_preprocessor::{book::Chapter, errors::Error};
 use pulldown_cmark::{CowStr, Event, LinkType, Parser, Tag};
-use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
+use tracing::warn;
 
 use crate::Pandocs;
 
@@ -80,21 +79,13 @@ impl Pandocs {
                     let (link, ok) =
                         translate_anchor_link(sections, link_type, dest_url, title, id);
                     if !ok {
-                        let mut stderr = StandardStream::stderr(ColorChoice::Auto);
-                        stderr
-                            .set_color(ColorSpec::new().set_fg(Some(Color::Yellow)).set_bold(true))
-                            .unwrap();
-                        write!(&mut stderr, "warning:").unwrap();
-                        stderr.reset().unwrap();
-
-                        if let Tag::Link { dest_url, .. } = &link {
-                            eprintln!(
-                                " {}: Internal anchor link \"{dest_url}\" not found, keeping as-is",
-                                chapter.name,
-                            );
-                        } else {
+                        let Tag::Link { dest_url, .. } = &link else {
                             unreachable!()
-                        }
+                        };
+                        warn!(
+                            "{}: Internal anchor link \"{dest_url}\" not found; keeping as-is",
+                            chapter.name
+                        );
                     }
                     Event::Start(link)
                 }
@@ -122,14 +113,8 @@ fn translate_anchor_link<'a>(
 ) -> (Tag<'a>, bool) {
     let (dest_url, ok) = if let Some((chapter, multiple)) = sections.get(&dest_url[1..]) {
         if *multiple {
-            let mut stderr = StandardStream::stderr(ColorChoice::Auto);
-            stderr
-                .set_color(ColorSpec::new().set_fg(Some(Color::Yellow)).set_bold(true))
-                .unwrap();
-            write!(&mut stderr, "warning:").unwrap();
-            stderr.reset().unwrap();
-            eprintln!(
-                " Referencing multiply-defined section \"{}\" (using chapter \"{chapter}\")",
+            warn!(
+                "Referencing multiply-defined section \"{}\" (using chapter \"{chapter}\")",
                 &dest_url[1..],
             );
         }

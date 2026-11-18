@@ -7,38 +7,39 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
+use std::{
+    fs::{self, File},
+    io::{self, BufRead, BufReader, BufWriter, Write},
+    path::PathBuf,
+};
+
 use anyhow::Context;
 use mdbook_renderer::{errors::Result, RenderContext, Renderer};
 use regex::Regex;
-use std::fs::{self, File};
-use std::io::{self, Write};
-use std::io::{BufRead, BufReader, BufWriter};
-use std::path::PathBuf;
-use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
+use tracing::warn;
 use url::Url;
 use walkdir::{DirEntry, WalkDir};
 
 fn main() -> Result<()> {
+    tracing_subscriber::fmt()
+        .without_time()
+        .with_ansi(std::io::IsTerminal::is_terminal(&std::io::stderr()))
+        .with_writer(std::io::stderr)
+        .with_target(false)
+        .init();
+
     let mut stdin = io::stdin();
     let ctx = RenderContext::from_json(&mut stdin).unwrap();
 
     let renderer = Pandocs;
 
+    // We should probably use the `semver` crate to check compatibility here...
     if ctx.version != mdbook_renderer::MDBOOK_VERSION {
-        // We should probably use the `semver` crate to check compatibility
-        // here...
-        let mut stderr = StandardStream::stderr(ColorChoice::Auto);
-        stderr
-            .set_color(ColorSpec::new().set_fg(Some(Color::Yellow)).set_bold(true))
-            .unwrap();
-        write!(&mut stderr, "warning:").unwrap();
-        stderr.reset().unwrap();
-        eprintln!(
-            " The {} renderer was built against version {} of mdbook, \
-             but we're being called from version {}",
+        warn!(
+            "The {} renderer was built against version {} of mdbook, but we're being called from version {}",
             renderer.name(),
             mdbook_renderer::MDBOOK_VERSION,
-            ctx.version
+            ctx.version,
         );
     }
 
