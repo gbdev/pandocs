@@ -19,7 +19,7 @@ One of the pitfalls of the `NRxy` naming convention is that the register's purpo
 ### FF26 — NR52: Audio master control
 
 {{#bits 8 >
-  "NR52" 7:"Audio on/off" 3:"CH4 on?" 2:"CH3 on?" 1:"CH2 on?" 0:"CH1 on?"
+	"NR52" 7:"Audio on/off" 3:"CH4 on?" 2:"CH3 on?" 1:"CH2 on?" 0:"CH1 on?"
 }}
 
 - **Audio on/off** (*Read/Write*): This controls whether the APU is powered on at all (akin to [`LCDC` bit 7](<#LCDC.7 — LCD enable>)).
@@ -51,7 +51,7 @@ One of the pitfalls of the `NRxy` naming convention is that the register's purpo
 Each channel can be panned hard left, center, hard right, or ignored entirely.
 
 {{#bits 8 >
-  "NR51" 7:"CH4 left" 6:"CH3 left" 5:"CH2 left" 4:"CH1 left" 3:"CH4 right" 2:"CH3 right" 1:"CH2 right" 0:"CH1 right"
+	"NR51" 7:"CH4 left" 6:"CH3 left" 5:"CH2 left" 4:"CH1 left" 3:"CH4 right" 2:"CH3 right" 1:"CH2 right" 0:"CH1 right"
 }}
 
 Setting a bit to 1 enables the channel to go into the selected output.
@@ -61,7 +61,7 @@ Note that selecting or de-selecting a channel whose [DAC](#DACs) is enabled will
 ### FF24 — NR50: Master volume & VIN panning
 
 {{#bits 8 >
-  "NR50" 7:"VIN left" 6-4:"Left volume" 3:"VIN right" 2-0:"Right volume"
+	"NR50" 7:"VIN left" 6-4:"Left volume" 3:"VIN right" 2-0:"Right volume"
 }}
 
 - **VIN left/right**: These work exactly like the bits in [`NR51`](<#FF25 — NR51: Sound panning>). They should be set at 0 if external sound hardware is not being used.
@@ -77,7 +77,7 @@ Note that selecting or de-selecting a channel whose [DAC](#DACs) is enabled will
 This register controls CH1's period sweep functionality.
 
 {{#bits 8 >
-  "NR10"  6-4:"Pace" 3:"Direction" 2-0:"Individual step";
+	"NR10"  6-4:"Pace" 3:"Direction" 2-0:"Individual step";
 }}
 
 - **Pace**: This dictates how often sweep "iterations" happen, in units of 128 Hz ticks[^div_apu] (7.8 ms).
@@ -121,7 +121,7 @@ The selected duty cycle also alters the phase, although the effect is hardly not
 </style>
 
 {{#bits 8 >
-  "NR11"  7-6:"Wave duty" 5-0:"Initial length timer"
+	"NR11"  7-6:"Wave duty" 5-0:"Initial length timer"
 }}
 
 - **Duty cycle** (*Read/Write*): Controls the output waveform as follows:
@@ -141,7 +141,7 @@ The selected duty cycle also alters the phase, although the effect is hardly not
 This register controls the digital amplitude of the "high" part of the pulse, and the sweep applied to that setting.
 
 {{#bits 8 >
-  "NR12" 7-4:"Initial volume" 3:"Env dir" 2-0:"Sweep pace"
+	"NR12" 7-4:"Initial volume" 3:"Env dir" 2-0:"Sweep pace"
 }}
 
 - **Initial volume**: How loud the channel initially is. Note that these bits are readable, but are **not** updated by the envelope functionality!
@@ -195,7 +195,7 @@ Period changes (written to `NR13` or `NR14`) only take effect after the current 
 ### FF14 — NR14: Channel 1 period high & control
 
 {{#bits 8 >
-  "NR14" 7:"Trigger" 6:"Length enable" 2-0:"Period"
+	"NR14" 7:"Trigger" 6:"Length enable" 2-0:"Period"
 }}
 
 - **Trigger** (*Write-only*): Writing any value to `NR14` with this bit set [triggers](<#Triggering>) the channel, causing the
@@ -234,7 +234,7 @@ This register controls CH3's [DAC](#DACs).
 Like other channels, turning the DAC off immediately turns the channel off as well.
 
 {{#bits 8 >
-  "NR30" 7:"DAC on/off"
+	"NR30" 7:"DAC on/off"
 }}
 
 The DAC is often turned off just before writing to [wave RAM](<#FF30–FF3F — Wave pattern RAM>) to avoid issues with accessing it; see further below for more info.
@@ -246,7 +246,7 @@ Turning the DAC off [may cause an audio pop](<#Mixer>).
 This register controls the channel's [length timer](<#Length timer>).
 
 {{#bits 8 >
-  "NR31" 7-0:"Initial length timer"
+	"NR31" 7-0:"Initial length timer"
 }}
 
 The higher the [length timer](<#Length timer>), the shorter the time before the channel is cut.
@@ -256,7 +256,7 @@ The higher the [length timer](<#Length timer>), the shorter the time before the 
 This channel lacks the envelope functionality that the other three channels have, and has a much coarser volume control.
 
 {{#bits 8 >
-  "NR32" 6-5:"Output level"
+	"NR32" 6-5:"Output level"
 }}
 
 - **Output level**: Controls the channel's volume as follows:
@@ -296,7 +296,7 @@ Period changes (written to `NR33` or `NR34`) only take effect after the followin
 ### FF1E — NR34: Channel 3 period high & control
 
 {{#bits 8 >
-  "NR34" 7:"Trigger" 6:"Length enable" 2-0:"Period"
+	"NR34" 7:"Trigger" 6:"Length enable" 2-0:"Period"
 }}
 
 - **Trigger** (*Write-only*): Writing any value to `NR34` with this bit set [triggers](<#Triggering>) the channel, causing the
@@ -366,7 +366,7 @@ Certain settings can cause the wave to be more regular, sounding closer to a pul
 This register controls the channel's [length timer](<#Length timer>).
 
 {{#bits 8 >
-  "NR41" 5-0:"Initial length timer"
+	"NR41" 5-0:"Initial length timer"
 }}
 
 The higher the [length timer](<#Length timer>), the shorter the time before the channel is cut.
@@ -380,7 +380,7 @@ This register functions exactly like [`NR12`](<#FF12 — NR12: Channel 1 volume 
 This register allows controlling the way the amplitude is randomly switched.
 
 {{#bits 8 >
-  "NR43" 7-4:"Clock shift" 3:"LFSR width" 2-0:"Clock divider"
+	"NR43" 7-4:"Clock shift" 3:"LFSR width" 2-0:"Clock divider"
 }}
 
 - **Clock shift**: See the frequency formula below.
@@ -401,7 +401,7 @@ If the bit shifted out is a 0, the channel emits a 0; otherwise, it emits the vo
 ### FF23 — NR44: Channel 4 control
 
 {{#bits 8 >
-  "NR44" 7:"Trigger" 6:"Length enable"
+	"NR44" 7:"Trigger" 6:"Length enable"
 }}
 
 - **Trigger** (*Write-only*): Writing any value to `NR44` with this bit set [triggers](<#Triggering>) the channel, causing the

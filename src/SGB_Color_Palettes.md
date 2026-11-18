@@ -13,7 +13,7 @@ these palettes are used. Palettes 4-7 are used for the SGB Border, all
 Colors are encoded as 16-bit RGB numbers, in the following way:
 
 {{#bits 16 >
-  "" 15:"Ignored" 14-10:"Blue" 9-5:"Green" 4-0:"Red"
+	"" 15:"Ignored" 14-10:"Blue" 9-5:"Green" 4-0:"Red"
 }}
 
 The palettes are encoded **little-endian**, thus, the Red+Green byte comes

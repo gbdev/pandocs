@@ -18,21 +18,21 @@ Each cycle, the leftmost bit is shifted out (and over the wire) and the
 incoming bit is shifted in from the other side:
 
 {{#bits 8 >
-   "Initially" 7:"o.7" 6:"o.6" 5:"o.5" 4:"o.4" 3:"o.3" 2:"o.2" 1:"o.1" 0:"o.0" ;
-   "1 shift"  7:"o.6" 6:"o.5" 5:"o.4" 4:"o.3" 3:"o.2" 2:"o.1" 1:"o.0" 0:"i.7" ;
-   "2 shifts" 7:"o.5" 6:"o.4" 5:"o.3" 4:"o.2" 3:"o.1" 2:"o.0" 1:"i.7" 0:"i.6" ;
-   "3 shifts" 7:"o.4" 6:"o.3" 5:"o.2" 4:"o.1" 3:"o.0" 2:"i.7" 1:"i.6" 0:"i.5" ;
-   "4 shifts" 7:"o.3" 6:"o.2" 5:"o.1" 4:"o.0" 3:"i.7" 2:"i.6" 1:"i.5" 0:"i.4" ;
-   "5 shifts" 7:"o.2" 6:"o.1" 5:"o.0" 4:"i.7" 3:"i.6" 2:"i.5" 1:"i.4" 0:"i.3" ;
-   "6 shifts" 7:"o.1" 6:"o.0" 5:"i.7" 4:"i.6" 3:"i.5" 2:"i.4" 1:"i.3" 0:"i.2" ;
-   "7 shifts" 7:"o.0" 6:"i.7" 5:"i.6" 4:"i.5" 3:"i.4" 2:"i.3" 1:"i.2" 0:"i.1" ;
-   "8 shifts" 7:"i.7" 6:"i.6" 5:"i.5" 4:"i.4" 3:"i.3" 2:"i.2" 1:"i.1" 0:"i.0"
+	"Initially" 7:"o.7" 6:"o.6" 5:"o.5" 4:"o.4" 3:"o.3" 2:"o.2" 1:"o.1" 0:"o.0" ;
+	"1 shift"   7:"o.6" 6:"o.5" 5:"o.4" 4:"o.3" 3:"o.2" 2:"o.1" 1:"o.0" 0:"i.7" ;
+	"2 shifts"  7:"o.5" 6:"o.4" 5:"o.3" 4:"o.2" 3:"o.1" 2:"o.0" 1:"i.7" 0:"i.6" ;
+	"3 shifts"  7:"o.4" 6:"o.3" 5:"o.2" 4:"o.1" 3:"o.0" 2:"i.7" 1:"i.6" 0:"i.5" ;
+	"4 shifts"  7:"o.3" 6:"o.2" 5:"o.1" 4:"o.0" 3:"i.7" 2:"i.6" 1:"i.5" 0:"i.4" ;
+	"5 shifts"  7:"o.2" 6:"o.1" 5:"o.0" 4:"i.7" 3:"i.6" 2:"i.5" 1:"i.4" 0:"i.3" ;
+	"6 shifts"  7:"o.1" 6:"o.0" 5:"i.7" 4:"i.6" 3:"i.5" 2:"i.4" 1:"i.3" 0:"i.2" ;
+	"7 shifts"  7:"o.0" 6:"i.7" 5:"i.6" 4:"i.5" 3:"i.4" 2:"i.3" 1:"i.2" 0:"i.1" ;
+	"8 shifts"  7:"i.7" 6:"i.6" 5:"i.5" 4:"i.4" 3:"i.3" 2:"i.2" 1:"i.1" 0:"i.0"
 }}
 
 ## FF02 — SC: Serial transfer control
 
 {{#bits 8 >
-   "SC" 7:"Transfer enable" 1:"Clock speed" 0:"Clock select"
+	"SC" 7:"Transfer enable" 1:"Clock speed" 0:"Clock select"
 }}
 
 - **Transfer enable** (*Read/Write*): If `1`, a transfer is either requested or in progress.

@@ -7,7 +7,7 @@ matrix. Select either action or direction buttons by writing to this
 register, then read out the bits 0-3.
 
 {{#bits 8 >
-  "P1" 5:"Select buttons" 4:"Select d-pad" 3:"Start / Down" 2:"Select / Up" 1:"B / Left" 0:"A / Right"
+	"P1" 5:"Select buttons" 4:"Select d-pad" 3:"Start / Down" 2:"Select / Up" 1:"B / Left" 0:"A / Right"
 }}
 
 - **Select buttons**: If this bit is `0`, then buttons (SsBA) can be read from the lower nibble.

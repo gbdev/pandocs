@@ -12,7 +12,7 @@ instead.
 This register assigns gray shades to the [color indices](<#Data format>) of the BG and Window tiles.
 
 {{#bits 8 >
-  "Color for..."  7-6:"ID 3" 5-4:"ID 2" 3-2:"ID 1" 1-0:"ID 0";
+	"Color for..."  7-6:"ID 3" 5-4:"ID 2" 3-2:"ID 1" 1-0:"ID 0";
 }}
 
 Each of the two-bit values map to a color thusly:
@@ -63,7 +63,7 @@ Much like VRAM, the CRAM data registers are inaccessible when the PPU is reading
 ### FF68 — BGPI (CGB Mode only): Background palette index
 
 {{#bits 8 >
-  "BGPI"  7:"Auto-increment" 5-0:"Address";
+	"BGPI"  7:"Auto-increment" 5-0:"Address";
 }}
 
 - **Auto-increment**: `0` = Disabled; `1` = Enabled

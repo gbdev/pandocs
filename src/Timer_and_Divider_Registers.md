@@ -42,7 +42,7 @@ due to a timer overflow, the old value is transferred to TIMA.
 ## FF07 — TAC: Timer control
 
 {{#bits 8 >
-  "TAC" 2:"Enable" 1-0:"Clock select"
+	"TAC" 2:"Enable" 1-0:"Clock select"
 }}
 
 - **Enable**: Controls whether `TIMA` is incremented.

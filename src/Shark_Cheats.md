@@ -28,7 +28,7 @@ Check the [Game Genie manual](https://www.digitpress.com/library/manuals/gameboy
 Game Shark codes consist of eight hexadecimal digits, with the following meaning:
 
 {{#bits 8 <
-  "" 0-1:"SRAM bank" 2-3:"New value" 4-7:"Address"
+	"" 0-1:"SRAM bank" 2-3:"New value" 4-7:"Address"
 }}
 
 So, for example, cheat code `010238CD` switches to SRAM bank $01, and writes $02 at address $CD38.
@@ -37,4 +37,3 @@ As far as it is understood, patching is implemented by hooking the original
 VBlank interrupt handler, and re-writing RAM values each frame. The
 downside is that this method steals some CPU time, also, it cannot be
 used to patch program code in ROM. 10-25 codes can be used simultaneously.
-

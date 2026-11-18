@@ -19,7 +19,7 @@ This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 ## FFFF — IE: Interrupt enable
 
 {{#bits 8 >
-  "IE" 4:"Joypad" 3:"Serial" 2:"Timer" 1:"LCD" 0:"VBlank"
+	"IE" 4:"Joypad" 3:"Serial" 2:"Timer" 1:"LCD" 0:"VBlank"
 }}
 
 - **VBlank** (*Read/Write*): Controls whether [the VBlank interrupt handler](<#INT $40 — VBlank interrupt>) may be called (see `IF` below).
@@ -31,7 +31,7 @@ This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 ## FF0F — IF: Interrupt flag
 
 {{#bits 8 >
-  "IF" 4:"Joypad" 3:"Serial" 2:"Timer" 1:"LCD" 0:"VBlank"
+	"IF" 4:"Joypad" 3:"Serial" 2:"Timer" 1:"LCD" 0:"VBlank"
 }}
 
 - **VBlank** (*Read/Write*): Controls whether [the VBlank interrupt handler](<#INT $40 — VBlank interrupt>) is being requested.

@@ -6,10 +6,10 @@ Transmit color data for SGB palette 0, color 0-3, and for SGB palette 1,
 color 1-3 (without separate color 0).
 
 {{#bits 16 <
-        "" 0:"Header"
-           1-2:"Pals 0 & 1 color #0"
-            3-4:"Pal 0 color #1"   5-6:"Pal 0 color #2"   7-8:"Pal 0 color #3"
-           9-10:"Pal 1 color #1" 11-12:"Pal 1 color #2" 13-14:"Pal 1 color #3"
+	"" 0:"Header"
+	   1-2:"Pals 0 & 1 color #0"
+	   3-4:"Pal 0 color #1"   5-6:"Pal 0 color #2"   7-8:"Pal 0 color #3"
+	   9-10:"Pal 1 color #1" 11-12:"Pal 1 color #2" 13-14:"Pal 1 color #3"
 }}
 
 The **header** byte is `$00 << 3 | $01` = $01.
@@ -43,19 +43,19 @@ initialized by [`ATTR_TRN`](<#SGB Command $15 — ATTR_TRN>).
 :::
 
 {{#bits 16 <
-        "" 0:"Header"
-           1-2:"Palette #0's ID"
-           3-4:"Palette #1's ID"
-           5-6:"Palette #2's ID"
-           7-8:"Palette #3's ID"
-           9:"Flags"
+	"" 0:"Header"
+	   1-2:"Palette #0's ID"
+	   3-4:"Palette #1's ID"
+	   5-6:"Palette #2's ID"
+	   7-8:"Palette #3's ID"
+	   9:"Flags"
 }}
 
 The **header** byte is `$0A << 3 | $01` = $51.
 All **palette ID**s are little-endian.
 
 {{#bits 8 >
-        "Flags" 7:"Apply ATF" 6:"Cancel MASK_EN" 5-0:"ATF number"
+	"Flags" 7:"Apply ATF" 6:"Cancel MASK_EN" 5-0:"ATF number"
 }}
 
 - **Apply ATF**: If and only if this is set, then the ATF whose ID is specified by bits 0–5 is applied as if by [`ATTR_SET`](<#SGB Command $16 — ATTR_SET>).
@@ -73,7 +73,7 @@ of 4 System Color Palettes (4\*4 colors) for SNES OBJ palettes (16
 colors).
 
 {{#bits 16 <
-        "" 0:"Header"
+	"" 0:"Header"
 }}
 
 The **header** byte must be $59.
@@ -107,7 +107,7 @@ However, if `PAL_PRI` is enabled, then changing the palette set (via any `PAL_*`
 _Donkey Kong_ (1994) is one known game that appears to use this.
 
 {{#bits 16 <
-        "" 0:"Header" 1:"Priority"
+	"" 0:"Header" 1:"Priority"
 }}
 
 The **header** must be $C9.

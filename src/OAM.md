@@ -50,7 +50,7 @@ tile is "NN & \$FE", and the bottom 8×8 tile is "NN | \$01".
 ## Byte 3 — Attributes/Flags
 
 {{#bits 8 >
-  "Attributes"  7:"Priority" 6:"Y flip" 5:"X flip" 4:"DMG palette" 3:"Bank" 2-0:"CGB palette";
+	"Attributes"  7:"Priority" 6:"Y flip" 5:"X flip" 4:"DMG palette" 3:"Bank" 2-0:"CGB palette";
 }}
 
 - **Priority**: `0` = No, `1` = BG and Window [color indices](<#Data format>) 1–3 are drawn over this OBJ

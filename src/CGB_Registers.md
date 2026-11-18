@@ -147,7 +147,7 @@ loaded VRAM bank in bit 0, and all other bits will be set to 1.
 ### FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch
 
 {{#bits 8 >
-   "KEY1" 7:"Current speed" 0:"Switch armed"
+	"KEY1" 7:"Current speed" 0:"Switch armed"
 }}
 
 - **Current speed** (*Read-only*): `0` = Normal-speed mode, `1` = Double-speed mode
@@ -206,7 +206,7 @@ IR signal). After sending or receiving data you should reset the
 register to $00 to reduce battery power consumption again.
 
 {{#bits 8 >
-   "RP" 7-6:"Read enable" 1:"Receiving" 0:"Emitting"
+	"RP" 7-6:"Read enable" 1:"Receiving" 0:"Emitting"
 }}
 
 - **Read enable** (*Read/Write*): `0` = Disable (bit 1 reads `1`), `3` = Enable
@@ -232,7 +232,7 @@ As a result of the above most of the behavior is not directly testable without h
 Even though we can't test its behavior directly we can inspect the disassembly of the CGB bootrom and infer the following: 
 
 {{#bits 8 >
-   "KEY0" 2:"DMG compatibility mode"
+	"KEY0" 2:"DMG compatibility mode"
 }}
 
 - **DMG compatibility mode**: `0` = Disabled (full CGB mode, for regular CGB cartridges), `1` = Enabled (for DMG only cartridges)
@@ -263,7 +263,7 @@ It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effec
 :::
 
 {{#bits 8 >
-   "OPRI" 0:"Priority mode"
+	"OPRI" 0:"Priority mode"
 }}
 
 - **Priority mode** (*Read/Write*): `0` = CGB-style priority, `1` = DMG-style priority
@@ -275,7 +275,7 @@ This memory is divided into 8 banks of 4 KiB each.
 Bank 0 is always available in memory at C000–CFFF, banks 1–7 can be selected into the address space at D000–DFFF.
 
 {{#bits 8 >
-"SVBK" 2-0:"WRAM bank"
+	"SVBK" 2-0:"WRAM bank"
 }}
 
 - **WRAM bank** (*Read/Write*): Writing a value will map the corresponding bank to [D000–DFFF](<#Memory Map>), except 0, which maps bank 1 instead.

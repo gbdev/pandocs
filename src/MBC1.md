@@ -104,7 +104,7 @@ this mode select has no observable effect. The program may freely switch
 between the two modes at any time.
 
 {{#bits 8 >
-  "Value written" 0:"Banking mode"
+	"Value written" 0:"Banking mode"
 }}
 
 The **banking mode** can be:
