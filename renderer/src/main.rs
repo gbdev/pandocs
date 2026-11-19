@@ -111,11 +111,11 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
     while let Some(mut line) = lines.next().transpose()? {
         // Remove the placeholder "Single-page version" chapter (`src/single.md`),
         // which would otherwise be included at the end of the page.
-        // HACK: this assumes that each chapter starts with a page break `<div>` line...
+        // HACK: this assumes that each chapter starts with a page break `<div>` line,
         if line
             .trim_start()
             .starts_with(r#"<div style="break-before: page;"#)
-            // ...immediately followed by the chapter's `<h1>` line...
+            // immediately followed by the chapter's `<h1>` line.
             && lines
                 .next_if(|next_line| match next_line {
                     Ok(contents) => contents
@@ -125,14 +125,19 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
                 })
                 .is_some()
         {
+            // Discard lines until the end of the chapter, which is either the next chapter's
+            // page break, or the end of the page's content. That line is kept.
             line = lines
                 .by_ref()
                 .find(|res| match res {
-                    // ...and that it is the last chapter.
-                    Ok(line) => line.trim_start() == "</main>",
+                    Ok(line) => {
+                        let line = line.trim_start();
+                        line == "</main>"
+                            || line.starts_with(r#"<div style="break-before: page;"#)
+                    }
                     Err(_) => true,
                 })
-                .expect("Couldn't find end of placeholder chapter!")?;
+                .context("Couldn't find the end of the placeholder single-page chapter")??;
             removed_placeholder = true;
         }
 
