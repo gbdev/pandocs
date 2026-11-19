@@ -8,6 +8,7 @@ edition = "2024"
 
 [dependencies]
 anyhow.workspace = true
+ariadne = "0.6.0"
 mdbook-preprocessor = "0.5.2"
 pulldown-cmark-to-cmark = "23.0"
 regex.workspace = true

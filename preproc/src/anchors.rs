@@ -10,7 +10,7 @@
 use std::ops::Deref;
 
 use anyhow::Context;
-use mdbook_preprocessor::{book::Book, errors::Error};
+use mdbook_preprocessor::{book::Book, errors::Result};
 use pulldown_cmark::{Event, Parser, Tag, TagEnd};
 use rustc_hash::{FxBuildHasher, FxHashMap};
 use tracing::warn;
@@ -38,7 +38,7 @@ impl InternalLinkMap {
             let Some(ref path) = chapter.source_path else {
                 continue; // Draft chapters. (We do not generate any “synthetic” chapters.)
             };
-            let file = path
+            let file_name = path
                 .file_name() // mdBook will automatically translate the `.md` extension.
                 .unwrap()
                 .to_str()
@@ -63,7 +63,7 @@ impl InternalLinkMap {
                     match headings.entry(name) {
                         Entry::Vacant(vacant_entry) => {
                             vacant_entry.insert(HeadingInfo {
-                                file: file.into(),
+                                file: file_name.into(),
                                 has_homonyms: false,
                                 id: id.map(|s| s.deref().into()),
                             });
@@ -79,11 +79,7 @@ impl InternalLinkMap {
         Self { headings }
     }
 
-    pub fn rewrite_internal_links(
-        &self,
-        content: &mut String,
-        chapter_name: &str,
-    ) -> Result<(), Error> {
+    pub fn rewrite_internal_links(&self, content: &mut String, chapter_name: &str) -> Result<()> {
         let events = Parser::new_ext(content, Pandocs::MARKDOWN_OPTIONS).map(|mut event| {
             if let Event::Start(Tag::Link {
                 ref mut dest_url,
