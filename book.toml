@@ -44,6 +44,7 @@ command = "cargo run -p pandocs-renderer --locked --release --"
 [output.linkcheck2]
 follow-web-links = false
 traverse-parent-directories = false
+require-md-extension = true
 optional = true
 warning-policy = "warn"
 exclude = [

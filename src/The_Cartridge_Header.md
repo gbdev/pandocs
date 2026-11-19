@@ -29,7 +29,7 @@ The way the pixels are encoded is as follows: ([more visual aid](https://codeber
 The Game Boy's boot procedure [first displays the logo and then checks](<#Bypass>) that it matches the dump above.
 If it doesn't, the boot ROM **locks itself up**.
 
-The CGB and later models [only check the top half of the logo](Power_Up_Sequence.html?highlight=half#behavior) (the first `$18` bytes).
+The CGB and later models [only check the top half of the logo](Power_Up_Sequence.md?highlight=half#behavior) (the first `$18` bytes).
 
 ## 0134-0143 — Title
 
