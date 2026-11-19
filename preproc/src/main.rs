@@ -26,7 +26,7 @@ fn main() -> Result<()> {
     let mut args = std::env::args();
     let _ = args.next(); // Program name.
 
-    let preprocessor = Pandocs;
+    let preprocessor = Pandocs::new();
 
     match args.next().as_deref() {
         None => handle_preprocessing(&preprocessor),

@@ -7,281 +7,168 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-use std::{borrow::Cow, fmt::Write};
+use std::num::NonZeroU8;
 
 use anyhow::{Context, bail, ensure};
-use lazy_static::lazy_static;
-use mdbook_preprocessor::{
-    book::Chapter,
-    errors::{Error, Result},
-};
-use regex::Regex;
+use mdbook_preprocessor::errors::{Error, Result};
 
 use crate::Pandocs;
 
-impl Pandocs {
-    pub fn process_bit_descrs(&self, chapter: &mut Chapter) -> Result<()> {
-        // When replacing one thing in a string by something with a different length,
-        // the indices after that will not correspond,
-        // we therefore have to store the difference to correct this
-        let mut previous_end_index = 0;
-        let mut replaced = String::with_capacity(chapter.content.len());
+pub fn render_bit_descr(
+    dest: &mut String,
+    indentation: &str,
+    opt_body: Option<&str>,
+) -> Result<()> {
+    use std::fmt::Write;
 
-        for result in find_bit_descrs(&chapter.content) {
-            let (cap_start, cap_end, attrs) = result?;
+    let body = opt_body.context("body cannot be empty")?;
+    debug_assert!(!body.starts_with(Pandocs::WHITESPACE_AND_NEWLINES));
+    debug_assert!(!body.ends_with(Pandocs::WHITESPACE_AND_NEWLINES));
 
-            replaced.push_str(&chapter.content[previous_end_index..cap_start]);
+    let mut header = body.splitn(3, Pandocs::WHITESPACE_AND_NEWLINES);
+    // Parsing.
+    let width: NonZeroU8 = header
+        .next()
+        .expect("body should not be just whitespace!!")
+        .parse()
+        .context("bad width")?;
+    let order_is_ascending = match header.next().context("missing bit order")? {
+        "<" => true,
+        ">" => false,
+        bad => bail!("Bit order should be `<` or `>`, not \"{bad}\""),
+    };
+    let rows = header
+        .next()
+        .context("missing rows after bit order")?
+        .trim_matches(Pandocs::WHITESPACE_AND_NEWLINES);
+    debug_assert_eq!(header.next(), None); // Should be guaranteed by `splitn()`.
 
-            let (start, end) = if attrs.increasing {
-                (0, attrs.width - 1)
-            } else {
-                (attrs.width - 1, 0)
+    // Rendering.
+    dest.push_str(indentation);
+    if rows.starts_with('"') {
+        // If names are present, add an empty cell for the name column.
+        dest.push_str(
+            r#"<div class="table-wrapper"><table class="bit-descrs"><thead><tr><th></th>"#,
+        );
+    } else {
+        // Otherwise, add a class to correct the styling of the first column.
+        dest.push_str(
+            r#"<div class="table-wrapper"><table class="bit-descrs nameless"><thead><tr>"#,
+        );
+    }
+    if order_is_ascending {
+        for i in 0..width.get() {
+            write!(dest, "<th>{i}</th>").unwrap();
+        }
+    } else {
+        for i in (0..width.get()).rev() {
+            write!(dest, "<th>{i}</th>").unwrap();
+        }
+    }
+    dest.push_str("</tr></thead><tbody>");
+
+    // The table's body, now...
+
+    for row in rows.split_terminator(';') {
+        dest.push_str("<tr>");
+
+        // The row's optional name.
+        let mut to_parse =
+            match extract_prefix_string(row.trim_matches(Pandocs::WHITESPACE_AND_NEWLINES)) {
+                Ok(res) => {
+                    let (row_name, after_name) = res?;
+                    check_unsupported_escaping(row_name)?;
+
+                    write!(dest, "<td><strong>{row_name}</strong></td>").unwrap();
+                    after_name.trim_start_matches(Pandocs::WHITESPACE_AND_NEWLINES)
+                }
+                Err(trimmed) => trimmed,
             };
 
-            // Generate the table head
-            if !attrs.rows[0].0.is_empty() {
-                // If names are present, add an empty cell for the name column
-                replaced.push_str(
-                    "<div class=\"table-wrapper\"><table class=\"bit-descrs\"><thead><tr><th></th>",
-                );
-            } else {
-                // Otherwise, add a class to force correct styling of first column
-                replaced.push_str(
-                    "<div class=\"table-wrapper\"><table class=\"bit-descrs nameless\"><thead><tr>",
-                );
-            }
-            // Start at `start`, and step each time
-            for i in std::iter::successors(Some(start), |i| {
-                (*i != end).then(|| if attrs.increasing { i + 1 } else { i - 1 })
-            }) {
-                write!(replaced, "<th>{i}</th>").unwrap();
-            }
-            replaced.push_str("</tr></thead><tbody>");
-
-            for (name, row) in &attrs.rows {
-                replaced.push_str("<tr>");
-                // If a name is present, add it
-                if !name.is_empty() {
-                    replaced.push_str(&format!("<td><strong>{}</strong></td>", name));
-                }
-                let mut pos = 0;
-                let mut fields = row.iter().peekable();
-                while pos < attrs.width {
-                    let (len, is_unused, name) = match fields.peek() {
-                        // If we are at the edge of a "used" field, use it
-                        Some(field) if field.start == pos => {
-                            (field.len, false, field.name.as_ref())
-                        }
-                        // If in an unused field, end at the next field, or the width if none such
-                        res => (res.map_or(attrs.width, |field| field.start) - pos, true, ""),
-                    };
-
-                    replaced.push_str(&format!(
-                        "<td colspan=\"{}\"{}>{}</td>",
-                        len,
-                        if is_unused {
-                            " class=\"unused-field\""
-                        } else {
-                            ""
-                        },
-                        name
-                    ));
-
-                    if !is_unused {
-                        fields.next();
-                    }
-                    pos += len;
-                }
-                replaced.push_str("</tr>");
-            }
-            replaced.push_str("</tbody></table></div>");
-
-            previous_end_index = cap_end;
-        }
-
-        replaced.push_str(&chapter.content[previous_end_index..]);
-
-        chapter.content = replaced;
-        Ok(())
-    }
-}
-
-fn find_bit_descrs(
-    contents: &str,
-) -> impl Iterator<Item = Result<(usize, usize, BitDescrAttrs<'_>)>> {
-    lazy_static! {
-        static ref RE: Regex = Regex::new(
-            r"(?x)             # Allow comments in the regex
-            \\\{\{\#.*\}\}     # Escaped tag (will be ignored)
-            |                  # ...or...
-            \{\{\s*\#bits\s+   # tag opening braces, whitespace, type, and separating whitespace
-            ([^}]+)            # tag contents
-            \}\}               # closing braces"
-        )
-        .unwrap();
-    }
-    RE.captures_iter(contents)
-        .filter(|caps| caps.len() != 1)
-        .map(|caps| {
-            // Must use `.get()`, as indexing ties the returned value's lifetime to `caps`'s.
-            let contents = caps.get(1).unwrap().as_str();
-            BitDescrAttrs::from_str(contents)
-                .map(|attrs| {
-                    let all = caps.get(0).unwrap(); // There is always a 0th capture.
-                    (all.start(), all.end(), attrs)
-                })
-                .with_context(|| format!("Failed to parse \"{contents}\""))
-        })
-}
-
-#[derive(Debug)]
-struct BitDescrAttrs<'input> {
-    width: usize,
-    rows: Vec<(Cow<'input, str>, Vec<BitDescrField<'input>>)>,
-    increasing: bool,
-}
-
-impl<'input> BitDescrAttrs<'input> {
-    fn from_str(contents: &'input str) -> Result<Self> {
-        // First, parse the width.
-        let contents = contents.trim();
-        let width_len = contents
-            .find(|c: char| c.is_ascii_whitespace())
-            .ok_or_else(|| Error::msg("{{#bits}} descriptions must describe at least one thing"))?;
-        let width_str = &contents[..width_len];
-        let width = width_str.parse().with_context(|| {
-            format!("Expected bits description to start with width, got \"{width_str}\"")
-        })?;
-        let s = contents[width_len..].trim_start();
-
-        // Then, parse the direction
-        let mut chars = s.chars();
-        // Angle brackets have a tendency to get escaped, so account for that
-        let (base_len, next) = match chars.next() {
-            Some('\\') => ('\\'.len_utf8(), chars.next()),
-            c => (0, c),
+        let mut next_idx = 0;
+        let mut nb_skipped_bits = |start_idx, new_next_idx| {
+            NonZeroU8::new(start_idx - std::mem::replace(&mut next_idx, new_next_idx))
         };
-        let increasing = match next {
-            Some('<') => true,
-            Some('>') => false,
-            c => bail!(
-                "Expected width to be followed by '<' or '>' for direction, found {}",
-                c.map_or(Cow::from("nothing"), |c| format!(
-                    "'{}'",
-                    &s[..base_len + c.len_utf8()]
-                )
-                .into()),
-            ),
-        };
-        debug_assert_eq!('<'.len_utf8(), 1);
-        debug_assert_eq!('>'.len_utf8(), 1);
-        let s = s[base_len + 1..].trim_start();
-
-        // Next, parse the rows!
-        let mut rows = Vec::<(Cow<'_, str>, _)>::new();
-        for row_str in s.split_terminator(';') {
-            let row_str = row_str.trim();
-
-            fn undo_escapes(escaped: &str) -> Cow<'_, str> {
-                lazy_static! {
-                    static ref RE: Regex = Regex::new(r#"\\(\[|\])"#).unwrap();
-                }
-                RE.replace_all(escaped, "$1")
-            }
-
-            let (name, row_str) = row_str.strip_prefix('"').and_then(|rest| rest.split_once('"')).ok_or_else(|| {
-                Error::msg(
-                    "Expected row to begin by its name (did you forget to put quotes around it?)",
-                )
-            })?;
-            let mut row_str = row_str.trim_start(); // The end is already trimmed.
-
-            // Then, the fields!
-            let mut fields: Vec<BitDescrField> = Vec::new();
-            while !row_str.is_empty() {
-                lazy_static! {
-                    // Since mdBook has "smart quotes", be lenient about them.
-                    static ref RE: Regex =
-                        Regex::new(r#"^(\d+)(?:\s*-\s*(\d+))?\s*:\s*"([^"]*)""#).unwrap();
-                }
-
-                let cap = RE.captures(row_str).ok_or_else(|| {
-                    Error::msg(format!("Failed to parse field for \"{row_str}\""))
-                })?;
-                let left: usize = cap[1].parse().unwrap();
-                let right = cap
-                    .get(2)
-                    .map_or(left, |end_match| end_match.as_str().parse().unwrap());
-                let name = undo_escapes(cap.get(3).unwrap().as_str());
-
-                // Perform some sanity checks.
-                let Some((mut start, len)) = if increasing {
-                    right.checked_sub(left)
-                } else {
-                    left.checked_sub(right)
-                }
-                .map(|len| (left, len + 1)) else {
-                    bail!("Field must end after it started ({}-{})", left, right)
-                };
-
-                if let [.., field] = fields.as_slice() {
-                    if !increasing {
-                        // Cancel the massaging to get back what was input
-                        let prev_end = width - field.end();
-
-                        ensure!(
-                            prev_end >= start,
-                            "Field must start after previous ended (expected {} > {start})",
-                            prev_end - 1,
-                        );
+        while !to_parse.is_empty() {
+            // Parsing.
+            let (key, after_key) = to_parse
+                .split_once(':')
+                .context("Rows' items must be `<key>:\"<name>\"`")?;
+            let (name, rest) = extract_prefix_string(after_key).map_err(|_| {
+                Error::msg("Rows' items must have names surrounded by double quotes")
+            })??;
+            check_unsupported_escaping(name)?;
+            let parse_bit = |string: &str| {
+                string.parse().map(|bit| -> Result<u8> {
+                    ensure!(
+                        bit < width.get(),
+                        "Bit index specified for \"{name}\" is over {width}",
+                    );
+                    // Flip bit numbers into indices, to keep the rest of the logic much, much simpler.
+                    Ok(if order_is_ascending {
+                        bit
                     } else {
-                        ensure!(
-                            field.end() <= start,
-                            "Field must start after previous ended (expected {} < {start})",
-                            field.end() - 1,
-                        );
-                    }
+                        width.get() - 1 - bit
+                    })
+                })
+            };
+            let (start_idx, nb_bits) = match key.split_once('-') {
+                None => (
+                    parse_bit(key).with_context(|| format!("Bad bit index \"{key}\""))??,
+                    1,
+                ),
+                Some((start_str, end_str)) => {
+                    let start_idx = parse_bit(start_str).context("Bad starting bit index")??;
+                    let end_idx = parse_bit(end_str).context("Bad end bit index")??;
+                    ensure!(
+                        start_idx <= end_idx,
+                        "Bit range of \"{name}\" ({start_str}, {end_str}) is backwards",
+                    );
+                    (start_idx, end_idx - start_idx + 1)
                 }
+            };
+            to_parse = rest.trim_start_matches(Pandocs::WHITESPACE_AND_NEWLINES);
 
-                // If in decreasing order, still store positions in increasing order to simplify processing.
-                if !increasing {
-                    start = width - 1 - start;
-                }
-
-                fields.push(BitDescrField { start, len, name });
-
-                // Advance by the match's length, plus any whitespace after it.
-                row_str = row_str[cap[0].len()..].trim_start();
+            // Rendering.
+            if let Some(empty_field_width) = nb_skipped_bits(start_idx, start_idx + nb_bits) {
+                write!(
+                    dest,
+                    r#"<td colspan={empty_field_width} class="unused-field"></td>"#
+                )
+                .unwrap();
             }
-
-            // Check the name type.
-            if let [(first_name, _), ..] = rows.as_slice() {
-                ensure!(
-                    name.is_empty() == first_name.is_empty(),
-                    "Row names must all be omitted, or none may be",
-                );
-            }
-
-            rows.push((Cow::Borrowed(name), fields));
+            write!(dest, "<td colspan={nb_bits}>{name}</td>").unwrap();
         }
 
-        Ok(BitDescrAttrs {
-            width,
-            rows,
-            increasing,
-        })
+        // Rendering.
+        if let Some(empty_field_width) = nb_skipped_bits(width.get(), u8::MAX) {
+            write!(
+                dest,
+                r#"<td colspan={empty_field_width} class="unused-field"></td>"#
+            )
+            .unwrap();
+        }
+
+        dest.push_str("</tr>");
     }
+
+    dest.push_str("</tbody></table></div>");
+
+    Ok(())
 }
 
-#[derive(Debug)]
-struct BitDescrField<'a> {
-    start: usize,
-    len: usize,
-    name: Cow<'a, str>,
-}
-
-impl BitDescrField<'_> {
-    fn end(&self) -> usize {
-        self.start + self.len
+fn extract_prefix_string(haystack: &str) -> Result<Result<(&str, &str)>, &str> {
+    match haystack.strip_prefix('"') {
+        Some(after_first_quote) => Ok(after_first_quote
+            .split_once('"')
+            .context("Unterminated double-quoted string")),
+        None => Err(haystack),
     }
+}
+fn check_unsupported_escaping(extracted_string: &str) -> Result<()> {
+    ensure!(
+        !extracted_string.ends_with('\\'),
+        "Escaping double quotes is not supported; use `&quot;` instead"
+    );
+    Ok(())
 }

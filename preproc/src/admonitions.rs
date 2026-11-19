@@ -7,98 +7,97 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-use std::{iter::Peekable, matches};
-
-use anyhow::{Context, Error};
-use mdbook_preprocessor::book::Chapter;
-use pulldown_cmark::{Event, Parser, Tag, TagEnd};
+use anyhow::ensure;
+use mdbook_preprocessor::errors::Result;
 
 use crate::Pandocs;
 
-impl Pandocs {
-    pub fn process_admonitions(&self, chapter: &mut Chapter) -> Result<(), Error> {
-        let mut buf = String::with_capacity(chapter.content.len());
+pub fn render_admonition(
+    dest: &mut String,
+    indentation: &str,
+    end_indentation: &str,
+    kind: &str,
+    title: Option<&str>,
+    contents: &str,
+) -> Result<()> {
+    ensure!(
+        matches!(kind, "tip" | "warning" | "danger"),
+        "Unknown admonition type \"{kind}\" (must be \"tip\", \"warning\", or \"danger\"",
+    );
+    ensure!(
+        end_indentation == indentation,
+        "Admonition's end marker not indented like its start"
+    );
+    let real_contents = contents
+        .strip_circumfix('\n', '\n')
+        // Important to maintain blank lines as expected
+        .expect("Regex doesn't capture newlines around admonition content!?");
+    ensure!(
+        real_contents
+            .lines()
+            .all(|line| line.starts_with(indentation)
+                || !line.contains(|ch| !Pandocs::WHITESPACE.contains(&ch))),
+        "Admonition's body is less indented than its opening marker",
+    );
 
-        let events =
-            AdmonitionsGenerator::new(Parser::new_ext(&chapter.content, Pandocs::MARKDOWN_OPTIONS));
+    use std::fmt::Write; // Note that `write!()`ing to a `String` never fails, so `unwrap()` is fine.
 
-        pulldown_cmark_to_cmark::Options::default()
-            .validate(Pandocs::MARKDOWN_OPTIONS)
-            .context("Incompatible CommonMark options specified")?;
-        pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS_RENDER)
-            .with_context(|| format!("Markdown serialization of \"{}\" failed", chapter.name))?;
-        chapter.content = buf;
-
-        Ok(())
+    // Ensure there is a blank line before the start of the admonition, so the `<div>` is not part of a previous paragraph.
+    write!(dest, "\n{indentation}<div class=\"box {kind}-box\">").unwrap();
+    if let Some(title) = title {
+        write!(dest, "<p class=\"box-title\">{title}</p>").unwrap();
     }
+    writeln!(dest).unwrap();
+    // Since `contents` begins and ends with a newline, this leaves a blank line between it and the HTML lines;
+    // this is important so that Markdown processing is not suppressed.
+    writeln!(dest, "{contents}").unwrap();
+    writeln!(dest, "{indentation}</div>").unwrap();
+
+    Ok(())
 }
 
-struct AdmonitionsGenerator<'a, Iter: Iterator<Item = Event<'a>>> {
-    iter: Peekable<Iter>,
-    nesting_level: usize,
-    at_paragraph_start: bool,
-}
+#[cfg(test)]
+mod tests {
+    use crate::Pandocs;
 
-impl<'a, Iter: Iterator<Item = Event<'a>>> AdmonitionsGenerator<'a, Iter> {
-    const KINDS: [&'static str; 3] = ["tip", "warning", "danger"];
+    use super::*;
 
-    fn new(iter: Iter) -> Self {
-        Self {
-            iter: iter.peekable(),
-            nesting_level: 0,
-            at_paragraph_start: false,
-        }
+    #[test]
+    fn it_works() {
+        let mut content = "# Test chapter
+
+This one is easy, just serving as a smoke test; trickier cases will come later,
+so that if this test fails we know not to look at more complex ones.
+
+:::tip
+
+Admonition!!
+
+:::
+
+And there we go :)"
+            .into();
+        Pandocs::test_processing_chapter(&mut content).unwrap();
+        assert_eq!(
+            content,
+            r#"# Test chapter
+
+This one is easy, just serving as a smoke test; trickier cases will come later,
+so that if this test fails we know not to look at more complex ones.
+
+
+<div class="box tip-box">
+
+
+Admonition!!
+
+
+</div>
+
+
+And there we go :)"#
+        )
     }
-}
 
-impl<'a, Iter: Iterator<Item = Event<'a>>> Iterator for AdmonitionsGenerator<'a, Iter> {
-    type Item = Event<'a>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        let mut evt = self.iter.next()?;
-
-        // Admonition markers replace paragraphs that contain a single line of text which begins with `:::`.
-        // This matches the event sequence `[Begin(Paragraph), Text(":::(...)"), End(Paragraph)]`,
-        // which is what we check for here.
-        if self.at_paragraph_start
-            && let Event::Text(ref text) = evt
-            && let Some(params) = text.trim_ascii().strip_prefix(":::")
-            // Check that there is no more text in the paragraph; if there isn't, we'll consume the entire paragraph.
-            // Note that this intentionally rejects any formatting within the paragraph—serialisation would be too complex.
-            && matches!(self.iter.peek(), Some(Event::End(TagEnd::Paragraph)))
-        {
-            if params.is_empty() {
-                if self.nesting_level != 0 {
-                    // Ending an admonition.
-                    self.nesting_level -= 1;
-
-                    evt = Event::Html("</div>".into());
-                }
-            } else {
-                let (kind, title) = match params.split_once(|c: char| c.is_ascii_whitespace()) {
-                    Some((kind, title)) => (kind, title.trim_ascii_start()),
-                    None => (params, ""),
-                };
-                if Self::KINDS.contains(&kind) {
-                    // Beginning an admonition.
-                    self.nesting_level += 1;
-
-                    evt = Event::Html(
-                        if title.is_empty() {
-                            format!("<div class=\"box {kind}-box\">")
-                        } else {
-                            format!(
-                                "<div class=\"box {kind}-box\"><p class=\"box-title\">{title}</p>"
-                            )
-                        }
-                        .into(),
-                    );
-                }
-            }
-        }
-
-        self.at_paragraph_start = matches!(evt, Event::Start(Tag::Paragraph));
-
-        Some(evt)
-    }
+    // TODO: more tests
 }

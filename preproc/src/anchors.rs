@@ -7,140 +7,121 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-use std::collections::HashMap;
+use std::ops::Deref;
 
 use anyhow::Context;
-use mdbook_preprocessor::{book::Chapter, errors::Error};
-use pulldown_cmark::{CowStr, Event, LinkType, Parser, Tag};
+use mdbook_preprocessor::{book::Book, errors::Error};
+use pulldown_cmark::{Event, Parser, Tag, TagEnd};
+use rustc_hash::{FxBuildHasher, FxHashMap};
 use tracing::warn;
 
 use crate::Pandocs;
 
-impl Pandocs {
-    pub fn list_chapter_sections(
-        &self,
-        sections: &mut HashMap<String, (String, bool)>,
-        chapter: &Chapter,
-    ) {
-        let mut events = Parser::new(&chapter.content);
-        while let Some(event) = events.next() {
-            if let Event::Start(Tag::Heading { .. }) = event {
-                let mut depth = 1;
-                let mut name = String::new();
+#[derive(Debug)]
+pub struct InternalLinkMap {
+    headings: FxHashMap<String, HeadingInfo>,
+}
+#[derive(Debug)]
+struct HeadingInfo {
+    /// Sans extension.
+    file: Box<str>,
+    has_homonyms: bool,
+    /// Custom ID if one was provided and parsed as such.
+    id: Option<Box<str>>,
+}
 
-                while depth != 0 {
-                    match events.next().expect("Unclosed `Start` tag??") {
-                        Event::Start(_) => depth += 1,
-                        Event::End(_) => depth -= 1,
-                        Event::Text(text) | Event::Code(text) => name.push_str(&text),
-                        event => panic!("Unexpected event in header {:?}", event),
+impl InternalLinkMap {
+    pub fn new(book: &Book) -> Self {
+        let mut headings = FxHashMap::with_hasher(FxBuildHasher);
+
+        for chapter in book.chapters() {
+            let Some(ref path) = chapter.source_path else {
+                continue; // Draft chapters. (We do not generate any “synthetic” chapters.)
+            };
+            let file = path
+                .file_name() // mdBook will automatically translate the `.md` extension.
+                .unwrap()
+                .to_str()
+                .expect("Non-UTF8 file name!?");
+
+            let mut events = Parser::new_ext(&chapter.content, Pandocs::MARKDOWN_OPTIONS);
+            while let Some(event) = events.next() {
+                if let Event::Start(Tag::Heading { id, .. }) = event {
+                    let mut name = String::new();
+                    for sub_event in events
+                        .by_ref()
+                        .take_while(|event| !matches!(event, Event::End(TagEnd::Heading(_level))))
+                    {
+                        match sub_event {
+                            Event::Start(_) | Event::End(_) => {} // Inline formatting markers
+                            Event::Text(text) | Event::Code(text) => name.push_str(&text),
+                            event => panic!("Unexpected event in header {:?}", event),
+                        }
                     }
-                }
 
-                let chapter_name = name.clone();
-                let mut page_name = chapter
-                    .path
-                    .as_ref()
-                    .expect("Chapter without a source file??")
-                    .clone()
-                    .into_os_string()
-                    .into_string()
-                    .expect("Chapter file path is not valid UTF-8");
-                page_name.truncate(
-                    page_name
-                        .strip_suffix(".md")
-                        .expect("Source file not ending in `.md`??")
-                        .len(),
-                );
-
-                if sections.insert(name, (page_name, false)).is_some() {
-                    // Mark the ambiguity
-                    sections.get_mut(&chapter_name).unwrap().1 = true;
+                    use std::collections::hash_map::Entry;
+                    match headings.entry(name) {
+                        Entry::Vacant(vacant_entry) => {
+                            vacant_entry.insert(HeadingInfo {
+                                file: file.into(),
+                                has_homonyms: false,
+                                id: id.map(|s| s.deref().into()),
+                            });
+                        }
+                        Entry::Occupied(occupied_entry) => {
+                            occupied_entry.into_mut().has_homonyms = true
+                        }
+                    }
                 }
             }
         }
+
+        Self { headings }
     }
 
-    pub fn process_internal_anchor_links(
+    pub fn rewrite_internal_links(
         &self,
-        chapter: &mut Chapter,
-        sections: &HashMap<String, (String, bool)>,
+        content: &mut String,
+        chapter_name: &str,
     ) -> Result<(), Error> {
-        let mut buf = String::with_capacity(chapter.content.len());
-
-        let events =
-            Parser::new_ext(&chapter.content, Pandocs::MARKDOWN_OPTIONS).map(|event| match event {
-                Event::Start(Tag::Link {
-                    link_type,
-                    dest_url,
-                    title,
-                    id,
-                }) if dest_url.starts_with('#') => {
-                    let (link, ok) =
-                        translate_anchor_link(sections, link_type, dest_url, title, id);
-                    if !ok {
-                        let Tag::Link { dest_url, .. } = &link else {
-                            unreachable!()
-                        };
+        let events = Parser::new_ext(content, Pandocs::MARKDOWN_OPTIONS).map(|mut event|{
+            if let Event::Start(Tag::Link {
+                ref mut dest_url,
+                ..
+            }) = event
+                && let Some(anchor) = dest_url.strip_prefix('#')
+            {
+                match self.headings.get(anchor) {
+                    None => warn!("{chapter_name}: Found no heading called \"{anchor}\", keeping internal link as-is"),
+                    Some(info) => {
+                        if info.has_homonyms {
                         warn!(
-                            "{}: Internal anchor link \"{dest_url}\" not found; keeping as-is",
-                            chapter.name
+                            "Referencing multiply-defined section \"{anchor}\" (using chapter \"{chapter_name}\")"
                         );
-                    }
-                    Event::Start(link)
+                        *dest_url = format!("{}#{}", info.file, info.id.clone().unwrap_or_else(|| id_from_name(anchor))).into();
+                    }}
                 }
+            }
+            event
+        });
 
-                _ => event,
-            });
-
-        pulldown_cmark_to_cmark::Options::default()
-            .validate(Pandocs::MARKDOWN_OPTIONS)
-            .context("Incompatible CommonMark options specified")?;
-        pulldown_cmark_to_cmark::cmark(events, &mut buf, Pandocs::MARKDOWN_OPTIONS_RENDER)
-            .with_context(|| format!("Markdown serialization of \"{}\" failed", chapter.name))?;
-        chapter.content = buf;
+        let mut new_content = String::with_capacity(content.len());
+        pulldown_cmark_to_cmark::cmark(events, &mut new_content, Pandocs::MARKDOWN_OPTIONS)
+            .context("serialisation failed")?;
+        *content = new_content;
 
         Ok(())
     }
-}
 
-fn translate_anchor_link<'a>(
-    sections: &HashMap<String, (String, bool)>,
-    link_type: LinkType,
-    dest_url: CowStr<'a>,
-    title: CowStr<'a>,
-    id: CowStr<'a>,
-) -> (Tag<'a>, bool) {
-    let (dest_url, ok) = if let Some((chapter, multiple)) = sections.get(&dest_url[1..]) {
-        if *multiple {
-            warn!(
-                "Referencing multiply-defined section \"{}\" (using chapter \"{chapter}\")",
-                &dest_url[1..],
-            );
+    #[cfg(test)]
+    pub(crate) const fn empty() -> Self {
+        Self {
+            headings: FxHashMap::with_hasher(FxBuildHasher),
         }
-        (
-            CowStr::Boxed(
-                format!("{chapter}.html#{}", id_from_name(&dest_url[1..])).into_boxed_str(),
-            ),
-            true,
-        )
-    } else {
-        (dest_url, false)
-    };
-
-    (
-        Tag::Link {
-            link_type,
-            dest_url,
-            title,
-            // Keep the reference label, or `[text][label]` links lose their definition
-            id,
-        },
-        ok,
-    )
+    }
 }
 
-fn id_from_name(name: &str) -> String {
+fn id_from_name(name: &str) -> Box<str> {
     let mut content = name.to_string();
 
     // Skip any tags or html-encoded stuff
@@ -176,5 +157,5 @@ fn id_from_name(name: &str) -> String {
                 None
             }
         })
-        .collect::<String>()
+        .collect()
 }
