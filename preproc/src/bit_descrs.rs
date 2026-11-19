@@ -45,7 +45,8 @@ pub fn render_bit_descr(
 
     // Rendering.
     dest.push_str(indentation);
-    if rows.starts_with('"') {
+    let have_names = !rows.starts_with(r#""""#);
+    if have_names {
         // If names are present, add an empty cell for the name column.
         dest.push_str(
             r#"<div class="table-wrapper"><table class="bit-descrs"><thead><tr><th></th>"#,
@@ -55,7 +56,7 @@ pub fn render_bit_descr(
         dest.push_str(
             r#"<div class="table-wrapper"><table class="bit-descrs nameless"><thead><tr>"#,
         );
-    }
+    };
     if order_is_ascending {
         for i in 0..width.get() {
             write!(dest, "<th>{i}</th>").unwrap();
@@ -72,19 +73,23 @@ pub fn render_bit_descr(
     for row in rows.split_terminator(';') {
         dest.push_str("<tr>");
 
-        // The row's optional name.
-        let mut to_parse =
-            match extract_prefix_string(row.trim_matches(Pandocs::WHITESPACE_AND_NEWLINES)) {
-                Ok(res) => {
-                    let (row_name, after_name) = res?;
-                    check_unsupported_escaping(row_name)?;
+        // The row's name.
+        let (row_name, after_name) =
+            extract_prefix_string(row.trim_matches(Pandocs::WHITESPACE_AND_NEWLINES))
+                .map_err(|_| Error::msg("missing row name"))??;
+        check_unsupported_escaping(row_name)?;
+        let mut to_parse = after_name.trim_start_matches(Pandocs::WHITESPACE_AND_NEWLINES);
 
-                    write!(dest, "<td><strong>{row_name}</strong></td>").unwrap();
-                    after_name.trim_start_matches(Pandocs::WHITESPACE_AND_NEWLINES)
-                }
-                Err(trimmed) => trimmed,
-            };
+        let have_name = !row_name.is_empty();
+        ensure!(
+            have_name == have_names,
+            "All rows must have empty names, or none may; but not both",
+        );
+        if have_name {
+            write!(dest, "<td><strong>{row_name}</strong></td>").unwrap();
+        }
 
+        // The row proper.
         let mut next_idx = 0;
         let mut nb_skipped_bits = |start_idx, new_next_idx| {
             NonZeroU8::new(start_idx - std::mem::replace(&mut next_idx, new_next_idx))
