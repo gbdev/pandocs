@@ -23,6 +23,8 @@ In particular, this common wait loop is guaranteed to return at least 110 cycles
     ldh a, [rLY]
     cp SCREEN_HEIGHT ; 144
     jr c, .waitVBlank ; Keep waiting if [LY] < 144
+; If interrupts are disabled, then VBlank is guaranteed to continue for at least
+; the next 110 - (2 + 2) = 106 cycles (due to overhead of `cp` and `jr`).
 ```
 
 ## FF45 — LYC: LY compare
