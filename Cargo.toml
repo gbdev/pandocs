@@ -2,6 +2,13 @@
 members = ["preproc", "renderer"]
 resolver = "3"
 
+# Note that we indirectly depend on `idna`, and that can pull in a *ton* of dependencies;
+# this is currently avoided by turning off IDNA support *entirely*,
+# which notably means that our renderer rejects non-ASCII domain names
+# and fails to properly enforce Punycode domains.
+# This should be fine for us, but here is the documentation if this needs to be changed in the future:
+# https://docs.rs/crate/idna_adapter/latest
+
 [workspace.dependencies]
 anyhow = "1.0.89"
 
