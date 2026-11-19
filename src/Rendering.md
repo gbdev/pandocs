@@ -29,6 +29,8 @@ During a frame, the Game Boy's PPU cycles between four modes as follows:
 
 </figure>
 
+Line 153 is hatched because [`LY` is reset to 0 early](<#Line 153>) shortly after that line begins, even though VBlank lasts until the end of the line.
+
 While the PPU is accessing some video-related memory, [that memory is inaccessible to the CPU](<#Accessing VRAM and OAM>) (writes are ignored, and reads return garbage values, usually $FF).
 
 Mode | Action                                     | Duration                             | Accessible video memory

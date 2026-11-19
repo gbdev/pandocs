@@ -12,6 +12,7 @@
 			.m0 { fill: #97d077; }
 			.m1 { fill: #00ffff; }
 			.m30 { fill: url(#m30-gradient); }
+			.m1-hatched { fill: url(#m1-hatch); }
 			.darken {
 				fill: #000;
 				opacity: 50%;
@@ -28,6 +29,9 @@
 			<stop offset="0%" stop-color="#ff8000"/>
 			<stop offset="100%" stop-color="#97d077"/>
 		</linearGradient>
+		<pattern id="m1-hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+			<path d="M 2,0 v 8" stroke="#00ffff" stroke-width="4"/>
+		</pattern>
 	</defs>
 	<rect class="mode-box m2" x="60" y="0" width="80"/>
 	<text class="centered mode-id" x="100" y="25">Mode 2</text>
@@ -41,9 +45,9 @@
 	<text class="centered mode-id" x="424" y="25">Mode 0</text>
 	<text class="centered mode-descr" x="424" y="45">Horizontal blank</text>
 	<text class="centered small" x="424" y="75">87–204 dots</text>
-	<rect class="mode-box m1" x="130" y="490" width="230"/>
-	<text class="centered mode-id" x="245" y="515">Mode 1</text>
-	<text class="centered mode-descr" x="245" y="535">Vertical blank</text>
+	<rect class="mode-box m1" x="130" y="465" width="230"/>
+	<text class="centered mode-id" x="245" y="490">Mode 1</text>
+	<text class="centered mode-descr" x="245" y="510">Vertical blank</text>
 	<!-- "Accessibility" spans -->
 	<text x="322" y="135">VRAM ($8000–9FFF) inaccessible</text>
 	<text x="322" y="155">CGB palettes inaccessible</text>
@@ -60,8 +64,8 @@
 	                          h -257
 	                          m 0,10
 	                          v -20"/>
-	<text class="centered" x="443" y="515">Everything</text>
-	<text class="centered" x="443" y="535">accessible</text>
+	<text class="centered" x="443" y="490">Everything</text>
+	<text class="centered" x="443" y="510">accessible</text>
 	<!-- Scanlines -->
 	<text class="middle-baseline right" x="55" y="222">LY = 0</text>
 	<rect class="scanline m2" y="210" x="60" width="80"/>
@@ -109,13 +113,16 @@
 	<rect class="scanline m0" y="410" x="439" width="87"/>
 	<text class="middle-baseline right" x="55" y="447">144</text>
 	<rect class="scanline m1" y="435" x="60" width="466"/>
-	<text class="middle-baseline right" x="55" y="472">145</text>
-	<rect class="scanline m1" y="460" x="60" width="466"/>
+	<text class="middle-baseline right" x="55" y="475">...</text>
+	<rect class="square m1" y="465" x="70"/>
+	<text class="middle-baseline right" x="55" y="497">...</text>
 	<rect class="square m1" y="490" x="70"/>
+	<text class="middle-baseline right" x="55" y="522">...</text>
 	<rect class="square m1" y="515" x="70"/>
-	<rect class="square m1" y="540" x="70"/>
+	<text class="middle-baseline right" x="55" y="547">152</text>
+	<rect class="scanline m1" y="535" x="60" width="466"/>
 	<text class="middle-baseline right" x="55" y="572">153</text>
-	<rect class="scanline m1" y="560" x="60" width="466"/>
+	<rect class="scanline m1" y="560" x="60" width="10"/><rect class="scanline m1-hatched" y="560" x="70" width="456"/>
 	<rect class="m1" y="435" x="533" height="145" width="2"/>
 	<text class="middle-baseline small" x="540" y="490">10 "scanlines"</text>
 	<text class="middle-baseline small" x="540" y="510">4560 dots</text>

@@ -10,13 +10,32 @@ A *dot* is the shortest period over which the PPU can output one pixel: is it eq
 
 LY indicates the current horizontal line, which might be about to be drawn,
 being drawn, or just been drawn. LY can hold any value from 0 to 153, with
-values from 144 to 153 indicating the VBlank period.
+values from 144 to 153 indicating the VBlank period (but see below for line 153).
+
+### Line 153
+
+The last scanline of a frame, line 153, lasts for the usual 456 dots, but `LY` starts reporting `$00` only a few dots into it.
+
+In particular, this common wait loop is guaranteed to return at least 110 cycles before the true end of VBlank:
+
+```rgbasm
+.waitVBlank
+    ldh a, [rLY]
+    cp SCREEN_HEIGHT ; 144
+    jr c, .waitVBlank ; Keep waiting if [LY] < 144
+; If interrupts are disabled, then VBlank is guaranteed to continue for at least
+; the next 110 - (2 + 2) = 106 cycles (due to overhead of `cp` and `jr`).
+```
 
 ## FF45 — LYC: LY compare
 
 The Game Boy constantly compares the value of the LYC and LY registers.
 When both values are identical, the "LYC=LY" flag in the STAT register
 is set, and (if enabled) a STAT interrupt is requested.
+
+Since the comparison uses LY's value, a match with LYC = 0 happens early,
+[during line 153](<#Line 153>) (while still in VBlank),
+rather than at the beginning of line 0.
 
 ## FF41 — STAT: LCD status
 
