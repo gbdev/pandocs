@@ -4,6 +4,21 @@ resolver = "3"
 
 [workspace.dependencies]
 anyhow = "1.0.89"
-regex = "1.13"
-tracing = "0.1"
-tracing-subscriber = "0.3"
+
+[workspace.dependencies.tracing]
+version = "0.1"
+# Disable `#[instrument]` since we don't use it.
+default-features = false
+features = ["std"]
+
+[workspace.dependencies.regex]
+version = "1.13"
+# Disable Unicode support to reduce our deps.
+default-features = false
+features = ["std", "perf"]
+
+[workspace.dependencies.tracing-subscriber]
+version = "0.3"
+# We don't use `log`.
+default-features = false
+features = ["std", "fmt", "ansi", "smallvec"]
