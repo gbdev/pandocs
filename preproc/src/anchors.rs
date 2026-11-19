@@ -84,7 +84,7 @@ impl InternalLinkMap {
         content: &mut String,
         chapter_name: &str,
     ) -> Result<(), Error> {
-        let events = Parser::new_ext(content, Pandocs::MARKDOWN_OPTIONS).map(|mut event|{
+        let events = Parser::new_ext(content, Pandocs::MARKDOWN_OPTIONS).map(|mut event| {
             if let Event::Start(Tag::Link {
                 ref mut dest_url,
                 ..
@@ -95,11 +95,15 @@ impl InternalLinkMap {
                     None => warn!("{chapter_name}: Found no heading called \"{anchor}\", keeping internal link as-is"),
                     Some(info) => {
                         if info.has_homonyms {
-                        warn!(
-                            "Referencing multiply-defined section \"{anchor}\" (using chapter \"{chapter_name}\")"
-                        );
-                        *dest_url = format!("{}#{}", info.file, info.id.clone().unwrap_or_else(|| id_from_name(anchor))).into();
-                    }}
+                            warn!("Referencing multiply-defined section \"{anchor}\" (using chapter \"{chapter_name}\")");
+                        }
+
+                        let target_fragment = match info.id.as_deref() {
+                            Some(id) => id,
+                            None => &id_from_name(anchor),
+                        };
+                        *dest_url = format!("{}#{target_fragment}", info.file).into();
+                    }
                 }
             }
             event
@@ -122,32 +126,8 @@ impl InternalLinkMap {
 }
 
 fn id_from_name(name: &str) -> Box<str> {
-    let mut content = name.to_string();
-
-    // Skip any tags or html-encoded stuff
-    const REPL_SUB: &[&str] = &[
-        "<em>",
-        "</em>",
-        "<code>",
-        "</code>",
-        "<strong>",
-        "</strong>",
-        "&lt;",
-        "&gt;",
-        "&amp;",
-        "&#39;",
-        "&quot;",
-    ];
-    for sub in REPL_SUB {
-        content = content.replace(sub, "");
-    }
-
-    // Remove spaces and hashes indicating a header
-    let trimmed = content.trim().trim_start_matches('#').trim();
-
-    // Normalize
-    trimmed
-        .chars()
+    // Normalize like mdBook
+    name.chars()
         .filter_map(|ch| {
             if ch.is_alphanumeric() || ch == '_' || ch == '-' {
                 Some(ch.to_ascii_lowercase())
