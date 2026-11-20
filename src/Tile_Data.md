@@ -96,5 +96,5 @@ the current palettes, except that when the tile is used in an OBJ the
 [OBP0 and OBP1](<#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>), and
 [BCPS/BGPI](<#FF68 — BGPI (CGB Mode only): Background palette index>),
 [BCPD/BGPD](<#FF69 — BGPD (CGB Mode only): Background palette data>),
-[OCPS/OBPI and OCPD/OBPD](<FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>)
+[OCPS/OBPI and OCPD/OBPD](<#FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>)
 (CGB Mode).

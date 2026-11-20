@@ -323,8 +323,8 @@ Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
 [`RP`]        | $FF56   | ---      | ---       | ---        | $3E[^cgb_only]
 [`BGPI`]      | $FF68   | ---      | ---       | ---        | ??[^compat]
 [`BGPD`]      | $FF69   | ---      | ---       | ---        | ??[^compat]
-[`OGPI`]      | $FF6A   | ---      | ---       | ---        | ??[^compat]
-[`OGPD`]      | $FF6B   | ---      | ---       | ---        | ??[^compat]
+[`OBPI`]      | $FF6A   | ---      | ---       | ---        | ??[^compat]
+[`OBPD`]      | $FF6B   | ---      | ---       | ---        | ??[^compat]
 [`SVBK`]      | $FF70   | ---      | ---       | ---        | $F8[^cgb_only]
 [`IE`]        | $FFFF   | $00      | $00       | $00        | $00
 
@@ -395,10 +395,10 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`HDMA4`]: <#FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]>
 [`HDMA5`]: <#FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start>
 [`RP`]: <#FF56 — RP (CGB Mode only): Infrared communications port>
-[`BCPS`]: <#FF68 — BCPS/BGPI (CGB Mode only): Background color palette specification / Background palette index>
-[`BCPD`]: <#FF69 — BCPD/BGPD (CGB Mode only): Background color palette data / Background palette data>
-[`OCPS`]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
-[`OCPD`]: <#FF6A–FF6B — OCPS/OBPI, OCPD/OBPD (CGB Mode only): OBJ color palette specification / OBJ palette index, OBJ color palette data / OBJ palette data>
+[`BGPI`]: <#FF68 — BGPI (CGB Mode only): Background palette index>
+[`BGPD`]: <#FF69 — BGPD (CGB Mode only): Background palette data>
+[`OBPI`]: <#FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>
+[`OBPD`]: <#FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>
 [`OPRI`]: <#FF6C — OPRI (CGB Mode only): Object priority mode>
 [`SVBK`]: <#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>
 [`IE`]: <#FFFF — IE: Interrupt enable>
