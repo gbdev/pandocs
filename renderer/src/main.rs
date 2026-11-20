@@ -118,11 +118,10 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
             .starts_with(r#"<div style="break-before: page;"#)
             // immediately followed by the chapter's `<h1>` line.
             && lines
-                .next_if(|next_line| match next_line {
-                    Ok(contents) => contents
+                .next_if(|next_line| next_line.is_ok_and(|contents| {
+                    contents
                         .trim_start()
                         .starts_with(r#"<h1 id="single-page-version">"#),
-                    _ => false,
                 })
                 .is_some()
         {
