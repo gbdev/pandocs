@@ -54,13 +54,13 @@ impl Pandocs {
     fn process_chapter(
         &self,
         name: &str,
-        file_name: &str,
+        src_path: &str,
         contents: &mut String,
         link_map: &anchors::InternalLinkMap,
         is_out_of_repo: bool,
     ) -> Result<()> {
         // Process blocks.
-        let mut error_src = FileDiags::new(file_name, contents);
+        let mut error_src = FileDiags::new(src_path, contents);
         let mut replacer = replacing::Replacer::new(contents);
         for captures in self.block_regex.captures_iter(contents) {
             let match_span = error_src.make_span(captures.get_match().range());
@@ -145,7 +145,7 @@ impl Pandocs {
         let (errors, new_contents) = link_map.rewrite_internal_links(contents);
         if !errors.is_empty() {
             // Must create a new one, since `contents` may have been modified.
-            let mut error_src = FileDiags::new(file_name, contents);
+            let mut error_src = FileDiags::new(src_path, contents);
             for error in errors {
                 let span = error_src.make_span(error.label_byte_range);
                 error_src.render(
@@ -212,17 +212,13 @@ impl Preprocessor for Pandocs {
             let Some(ref path) = chapter.source_path else {
                 return; // Draft chapters. (We do not generate any “synthetic” chapters.)
             };
-            let file_name = path
-                .file_name() // mdBook will automatically translate the `.md` extension.
-                .unwrap()
-                .to_str()
-                .expect("Non-UTF8 file name!?");
+            let src_path = ctx.config.book.src.join(path);
 
             if res.is_ok() {
                 res = self
                     .process_chapter(
                         &chapter.name,
-                        file_name,
+                        src_path.to_str().expect("Non-UTF8 file name!?"),
                         &mut chapter.content,
                         &link_map,
                         is_out_of_repo,

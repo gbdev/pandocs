@@ -1,4 +1,4 @@
-use std::ops::Range;
+use std::{fs::File, ops::Range};
 
 use ariadne::{Cache, Color, Config, Label, Report, ReportBuilder, ReportKind, Source, Span};
 
@@ -32,18 +32,53 @@ impl<'a> FileDiags<'a> {
     pub fn make_span(&self, byte_range: Range<usize>) -> (&'a str, Range<usize>) {
         (self.file_name, byte_range)
     }
-    pub fn render(&mut self, diag: ReportBuilder<'_, (&str, Range<usize>)>) {
+    pub fn render(&mut self, mut diag: ReportBuilder<'_, (&str, Range<usize>)>) {
         let source = match self.contents {
             Ok(ref source) => source,
             Err(contents) => {
-                // TODO: check if different from on-disk, and if so, bring it up
                 self.contents = Ok(Source::from(contents));
-                self.contents.as_ref().unwrap()
+                let source = self.contents.as_ref().unwrap();
+
+                if let Some(first_neq_idx) = compare_against_disk(contents, self.file_name) {
+                    let (_line, line_no, _col_no) = source.get_byte_line(first_neq_idx).unwrap();
+                    diag.set_note(format!(
+                        "Due to limitations, line numbers above {line_no} may be misreported",
+                    ));
+                }
+
+                source
             }
         };
 
         diag.finish().eprint((self.file_name, source)).unwrap();
     }
+}
+
+// This function is meant to be run on chapter files, which should exist as regular files and everything;
+// so, I/O errors are *not* expected here, and panicking is appropriate.
+fn compare_against_disk(in_memory: &str, path: &str) -> Option<usize> {
+    use std::io::Read;
+    let mut file = File::open(path).expect("Chapter source not loadable!?");
+    let mut buf = [0; 8 * 1024]; // Arbitrary batch size for fast I/O; aped from `std::io::DEFAULT_BUF_SIZE`.
+
+    let mut nb_checked = 0;
+    loop {
+        let nb_to_check = match file.read(&mut buf) {
+            Ok(0) => break, // Reached EOF.
+            Ok(n) => n,
+            Err(error) if matches!(error.kind(), std::io::ErrorKind::Interrupted) => continue, // Retry.
+            Err(error) => panic!("Error while reading {path}: {error}"),
+        };
+        let from_disk = &buf[..nb_to_check];
+        let from_memory = &in_memory.as_bytes()[nb_checked..nb_checked + nb_to_check];
+        if let Some(mismatch_ofs) =
+            std::iter::zip(from_disk, from_memory).position(|(&disk, &mem)| disk != mem)
+        {
+            return Some(nb_checked + mismatch_ofs);
+        }
+        nb_checked += nb_to_check;
+    }
+    None // Even if the on-disk file is longer than the in-memory one, we will never witness the modified parts.
 }
 
 #[derive(Debug, Clone)]
