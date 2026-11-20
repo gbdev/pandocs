@@ -1,7 +1,7 @@
 # DMA Transfers to VRAM
 
 The GBC added a system that can copy data to VRAM in 16-byte increments much faster than the CPU can;
-such a transfer can be done either all at once, or at a rate of 16 bytes per HBlank.
+such a transfer can be done either all at once ("GDMA"), or at a rate of 16 bytes per HBlank ("HDMA").
 
 :::tip Register naming
 
@@ -9,40 +9,38 @@ The traditional `HDMAx` naming convention makes each register's purpose not imme
 
 :::
 
-## FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]
+## Source and destination
 
-These two registers specify the address at which the transfer will read
-data from. Normally, this should be either in ROM, SRAM or WRAM, thus
-either in range 0000-7FF0 or A000-DFF0. \[Note: this has yet to be
-tested on Echo RAM, OAM, FEXX, IO and HRAM\]. Trying to specify a source
-address in VRAM will cause garbage to be copied.
+The GBC internally holds two 16-bit addresses (source, and destination); these registers allow updating half of one address.
+Notably, the internal addresses are updated during transfers (though the intermediate updates can only be witnessed during a HDMA), and preserved even after a transfer completes ([test ROM][gdma_cont]).
+
+### FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]
+
+This should point to ROM, SRAM, or WRAM; thus either in range $0000–7FF0 or $A000–DFF0.
+\[Note: this has yet to be tested on Echo RAM, OAM, FEXX, IO and HRAM\].
+Trying to specify a source address in VRAM will cause garbage to be copied.
 
 The four lower bits of this address will be ignored and treated as 0.
-After a transfer the address contained in this register pair is 
-by $10 for each block of $10 bytes transfered, these 
-registers being write-only, this can only be observed by doing another 
-transfer without updating these registers.
 
-## FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]
+:::warning Banking hazard
+
+If the source address falls into a banked region (e.g. $D000-DFFF), then data will be read from the region's active bank.
+Thus, changing the active bank of a region a HDMA is reading from is perilous!
+
+:::
+
+### FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
 The four lower bits of this address will be ignored and treated as 0.
 
-## State of the VRAM DMA source/destination registers after a transfer
+:::warning Banking hazard
 
-After a transfer, the source/destination registers are incremented by $10 
-for each block of $10 bytes transfered.
-Despite both the VRAM DMA source/destination registers being write-only,
-knowing their state after a transfer can turn useful when performing
-multiple transfer in a row.
-For instance, a transfer of one large block is mostly equivalent to
-multiple transfers of smaller blocks, without needing to update the source
-nor the destination registers between each of the smaller transfers.
-Another use case would be to fill VRAM with the same $10 bytes block repeated 
-all over, as only the source address register would need be updated after each
-transfer, the destination register being automatically incremented by
-the block size after each transfer.
+Data is written to the VRAM bank selected by [`VBK`] at the time a byte is copied.
+Thus, writing to `VBK` while a HDMA is running is perilous!
+
+:::
 
 ## FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start
 
@@ -121,3 +119,17 @@ transferred per microsecond (even if the itself program runs it Normal
 Speed Mode).
 
 This allows for a transfer of 2280 bytes during VBlank, which is up to 142.5 tiles.
+
+## Tricks
+
+- More than 128 tiles can be transferred by writing to `HDMA5` again after a transfer completes; there is no need to write to the other registers again.
+- It is possible to fill all of VRAM with a repeating 16-byte pattern by performing one transfer, resetting only the source address (`HDMA2` is sufficient if it wasn't $F0), and repeating.
+- It is also possible to alter the source and/or destination between two HDMA writes, or even to change `VBK` to write to both VRAM banks; this however requires careful timing, which can be messed up by an unfortunately-timed [interrupt].
+
+## Boot-up state
+
+TODO: what state does the boot ROM leave them at?
+
+[gdma_cont]: https://github.com/LIJI32/SameSuite/blob/f15645fb049a47ea235f6d2c9a033e72d8087901/dma/gbc_dma_cont.asm
+[`VBK`]: <#FF4F — VBK (CGB Mode only): VRAM bank>
+[interrupt]: #Interrupts
