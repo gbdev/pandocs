@@ -111,7 +111,7 @@ Bits: 22 21 20 19 18 17 16 15 14 13 12 .. 01 00
 ### A000-BFFF - RAM Bank $00-03, if any (Read/Write)
 
 This area is used to address external SRAM in the cartridge (if any).
-The RAM is only accessible [if RAM is enabled](<#0000-1FFF - RAM Enable (Write Only)>), otherwise reads return open bus values (often $FF, but not guaranteed) and writes are ignored.
+The RAM is only accessible [if RAM is enabled](<MMM01.md#0000-1FFF - RAM Enable (Write Only)>), otherwise reads return open bus values (often $FF, but not guaranteed) and writes are ignored.
 
 External RAM is often battery-backed, allowing for the storage of game data while the Game Boy is turned off, or if the cartridge is removed from the Game Boy.
 

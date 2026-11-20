@@ -74,6 +74,7 @@ will render as
 
 ```markdown
 [VRAM Sprite Attribute Table (OAM)](<#VRAM Sprite Attribute Table (OAM)>)
+[Palettes](<Palettes.md#Palettes>)
 ```
 
 Since Pan Docs contains a lot of internal references, and getting the actual anchor is somewhat tedious, internal links are given special treatment. Links whose URL simply begins with a hash are eligible; the rest of the (pseudo-)URL is treated as a section name (as plain text), and the link made to point to that section.
@@ -81,6 +82,8 @@ Since Pan Docs contains a lot of internal references, and getting the actual anc
 Note that the angle brackets [are only required if there are spaces in the URL](https://spec.commonmark.org/0.29/#example-485).
 
 In effect, this means that linking to a section is as simple as copy-pasting its name in the URL field, prepending a `#`, and wrapping everything in `<>` if the name contains a space.
+
+It is also possible to explicitly specify the targeted file; this is required if the same name appears multiple times.
 
 ### Bit breakdown tables
 

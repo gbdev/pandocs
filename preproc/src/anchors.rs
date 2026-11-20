@@ -17,11 +17,11 @@ use crate::{Pandocs, bail, diagnostics::ChapterError, ensure};
 
 #[derive(Debug)]
 pub struct InternalLinkMap {
-    headings: FxHashMap<String, HeadingInfo>,
+    headings: FxHashMap<String, Vec<HeadingInfo>>,
 }
 #[derive(Debug)]
 struct HeadingInfo {
-    file_name: Option<Box<str>>,
+    file_name: Box<str>,
     /// Custom ID if one was provided and parsed as such.
     id: Option<Box<str>>,
 }
@@ -55,18 +55,13 @@ impl InternalLinkMap {
                         }
                     }
 
-                    use std::collections::hash_map::Entry;
-                    match headings.entry(name) {
-                        Entry::Vacant(vacant_entry) => {
-                            vacant_entry.insert(HeadingInfo {
-                                file_name: Some(file_name.into()),
-                                id: id.map(|s| s.deref().into()),
-                            });
-                        }
-                        Entry::Occupied(occupied_entry) => {
-                            occupied_entry.into_mut().file_name = None
-                        }
-                    }
+                    headings
+                        .entry(name)
+                        .or_insert_with(|| Vec::with_capacity(1))
+                        .push(HeadingInfo {
+                            file_name: file_name.into(),
+                            id: id.map(|s| s.deref().into()),
+                        });
                 }
             }
         }
@@ -75,32 +70,72 @@ impl InternalLinkMap {
     }
 
     pub fn rewrite_internal_links(&self, content: &str) -> (Vec<ChapterError>, String) {
-        let rewrite_link = |dest_url: &mut CowStr<'_>, src_range| {
-            let Some(anchor) = dest_url.strip_prefix('#') else {
-                return Ok(());
+        let maybe_rewrite_link = |dest_url: &mut CowStr<'_>, src_range| {
+            let (file_name, heading) = match dest_url.split_once('#') {
+                Some(("", heading)) => (None, heading),
+                Some((file_name, heading)) if file_name.ends_with(".md") => {
+                    (Some(file_name), heading)
+                }
+                _ => {
+                    return Ok(());
+                }
             };
 
-            let Some(info) = self.headings.get(anchor) else {
+            let Some(instances) = self.headings.get(heading) else {
                 bail!(
                     "No such heading",
                     src_range,
                     "not found anywhere in the book"
                 );
             };
-            let Some(ref file_name) = info.file_name else {
-                bail!(
-                    "This heading exists in multiple places",
-                    src_range,
-                    "please disambiguate (TODO)"
-                );
+            let info = match file_name {
+                None => match instances.as_slice() {
+                    [] => unreachable!(),
+                    [single] => single,
+                    [one, two, ..] => bail!(
+                        "This heading exists in multiple places",
+                        src_range,
+                        format!(
+                            "please disambiguate, e.g. `{}#{heading}` or `{}#{heading}`",
+                            one.file_name, two.file_name,
+                        )
+                    ),
+                },
+                Some(sought) => instances
+                    .iter()
+                    .find(|info| info.file_name.deref() == sought)
+                    .ok_or_else(|| {
+                        (
+                            "Heading not found in specified file",
+                            src_range,
+                            match instances.as_slice() {
+                                [] => unreachable!(),
+                                [single] => format!("did you mean `{}`?", single.file_name),
+                                [one, two] => format!(
+                                    "it was found in `{}` and `{}`",
+                                    one.file_name, two.file_name
+                                ),
+                                [one, two, three] => format!(
+                                    "it was found in `{}`, `{}`, and `{}`",
+                                    one.file_name, two.file_name, three.file_name
+                                ),
+                                [one, two, rest @ ..] => format!(
+                                    "it was found in `{}`, `{}`, and {} more",
+                                    one.file_name,
+                                    two.file_name,
+                                    rest.len()
+                                ),
+                            },
+                        )
+                    })?,
             };
 
             // `unwrap_or_else` would not extend the lifetime of the temporary returned by `id_from_name`!
             let target_fragment = match info.id {
                 Some(ref id) => id,
-                None => &id_from_name(anchor),
+                None => &id_from_name(heading),
             };
-            *dest_url = format!("{file_name}#{target_fragment}").into();
+            *dest_url = format!("{}#{target_fragment}", info.file_name).into();
 
             Ok(())
         };
@@ -116,7 +151,7 @@ impl InternalLinkMap {
                 }) = event
                 {
                     // TODO: if the link uses a ref, we should point to it...
-                    if let Err(error) = rewrite_link(dest_url, src_range) {
+                    if let Err(error) = maybe_rewrite_link(dest_url, src_range) {
                         errors.push(error);
                     }
                 }

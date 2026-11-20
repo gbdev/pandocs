@@ -278,7 +278,7 @@ Bank 0 is always available in memory at C000–CFFF, banks 1–7 can be selected
 	"SVBK" 2-0:"WRAM bank"
 }}
 
-- **WRAM bank** (*Read/Write*): Writing a value will map the corresponding bank to [D000–DFFF](<#Memory Map>), except 0, which maps bank 1 instead.
+- **WRAM bank** (*Read/Write*): Writing a value will map the corresponding bank to [D000–DFFF](<Memory_Map.md#Memory Map>), except 0, which maps bank 1 instead.
 
 ## Undocumented registers
 

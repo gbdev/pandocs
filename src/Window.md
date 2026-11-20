@@ -47,7 +47,7 @@ The coordinate of the active Window row is then incremented.
 
 [^star_trek]: This was discovered as affecting the game *Star Trek 25th anniversary*; more information and a test ROM are available [in this thread](https://github.com/LIJI32/SameBoy/issues/278#issuecomment-1189712129).
 
-[the Window]: #Window
+[the Window]: Graphics.md#Window
 [VBlank interrupt handler]: <#INT $40 — VBlank interrupt>
 [Window enable bit]: <#LCDC.5 — Window enable>
 [`LY`]: <#FF44 — LY: LCD Y coordinate \[read-only\]>
