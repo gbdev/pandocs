@@ -1,8 +1,11 @@
 # DMA Transfers to VRAM
 
-:::tip
+The GBC added a system that can copy data to VRAM in 16-byte increments much faster than the CPU can;
+such a transfer can be done either all at once, or at a rate of 16 bytes per HBlank.
 
-One of the pitfalls of the `HDMAx` naming convention is that the register's purpose is not immediately clear from its name, so some alternative `VDMA_*` names have been proposed, [such as `VDMA_LEN` for `HDMA5`](https://github.com/gbdev/hardware.inc/blob/8d4432e5796bffe2e13c438013285c5f11c37b99/hardware.inc#L919).
+:::tip Register naming
+
+The traditional `HDMAx` naming convention makes each register's purpose not immediately clear from its name, so some alternative `VDMA_*` names have been proposed, [such as `VDMA_LEN` for `HDMA5`](https://github.com/gbdev/hardware.inc/blob/8d4432e5796bffe2e13c438013285c5f11c37b99/hardware.inc#L919).
 
 :::
 
