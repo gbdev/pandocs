@@ -9,7 +9,7 @@
 
 use std::process::{Command, Stdio};
 
-use anyhow::Error;
+use mdbook_preprocessor::errors::{Error, Result};
 
 #[derive(Debug)]
 pub struct Commit {
@@ -18,7 +18,7 @@ pub struct Commit {
 }
 
 impl Commit {
-    pub fn rev_parse(what: &str) -> Result<Self, Error> {
+    pub fn rev_parse(what: &str) -> Result<Self> {
         let output = Command::new("git")
             .args([
                 "--git-dir=.git",

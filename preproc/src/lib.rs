@@ -1,6 +1,5 @@
 use std::path::Path;
 
-use anyhow::Context;
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext, book::Book, errors::Result};
 use regex::Regex;
 
@@ -151,8 +150,7 @@ impl Pandocs {
             // If the `.git` directory exists, we're very likely on a dev machine,
             // so it's safe to assume the command is installed.
             if Path::new(".git").exists() {
-                let commit = crate::git::Commit::rev_parse("HEAD")
-                    .context("unable to obtain commit info")?;
+                let commit = crate::git::Commit::rev_parse("HEAD")?;
                 write!(
                     contents,
                     "<small>This document version was produced from git commit [`{}`](https://github.com/gbdev/pandocs/tree/{}) ({}).</small>",

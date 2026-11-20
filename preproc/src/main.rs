@@ -7,7 +7,6 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-use anyhow::{Context, ensure};
 use mdbook_preprocessor::{
     Preprocessor,
     errors::{Error, Result},
@@ -32,13 +31,15 @@ fn main() -> Result<()> {
         None => handle_preprocessing(&preprocessor),
 
         Some("supports") => {
-            let renderer_name = args
-                .next()
-                .context("Missing argument: name of renderer to check for compat")?;
-            ensure!(
-                args.next().is_none(),
-                "Unexpected extra CLI args after the renderer's name"
-            );
+            let renderer_name = args.next().ok_or_else(|| {
+                Error::msg("Missing argument: name of renderer to check for compat")
+            })?;
+            if !args.next().is_none() {
+                return Err(Error::msg(
+                    "Unexpected extra CLI args after the renderer's name",
+                ));
+            }
+
             handle_supports(&preprocessor, &renderer_name)
         }
 
