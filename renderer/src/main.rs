@@ -108,7 +108,8 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
     // HACK: this assumes all link tags span a single line
     let mut lines = print_page.lines().peekable();
     let mut removed_placeholder = false;
-    while let Some(mut line) = lines.next().transpose()? {
+    while let Some(result) = lines.next() {
+        let mut line = result?;
         // Remove the placeholder "Single-page version" chapter (`src/single.md`),
         // which would otherwise be included at the end of the page.
         // HACK: this assumes that each chapter starts with a page break `<div>` line,
