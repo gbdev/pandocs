@@ -119,11 +119,11 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
             .starts_with(r#"<div style="break-before: page;"#)
             // immediately followed by the chapter's `<h1>` line.
             && lines
-                .next_if(|next_line| next_line.is_ok_and(|contents| {
+                .next_if(|next_line| next_line.as_ref().is_ok_and(|contents| {
                     contents
                         .trim_start()
-                        .starts_with(r#"<h1 id="single-page-version">"#),
-                })
+                        .starts_with(r#"<h1 id="single-page-version">"#)
+                }))
                 .is_some()
         {
             // Discard lines until the end of the chapter, which is either the next chapter's
@@ -133,8 +133,7 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
                 .find(|res| match res {
                     Ok(line) => {
                         let line = line.trim_start();
-                        line == "</main>"
-                            || line.starts_with(r#"<div style="break-before: page;"#)
+                        line == "</main>" || line.starts_with(r#"<div style="break-before: page;"#)
                     }
                     Err(_) => true,
                 })
@@ -208,7 +207,10 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
         }
     }
 
-    anyhow::ensure!(removed_placeholder, "Did not find the placeholder single-page chapter to remove");
+    anyhow::ensure!(
+        removed_placeholder,
+        "Did not find the placeholder single-page chapter to remove"
+    );
     single_page.flush()?;
     Ok(())
 }
