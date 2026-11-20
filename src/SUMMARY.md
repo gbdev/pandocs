@@ -35,8 +35,9 @@
 - [Interrupts](./Interrupts.md)
   - [Interrupt Sources](./Interrupt_Sources.md)
   - [HALT](./halt.md)
-- [CGB Registers](./CGB_Registers.md)
-- [Infrared Communication](./IR.md)
+- [GBC Enhancements](./CGB_Registers.md)
+  - [VRAM DMA Transfer](./VDMA.md)
+  - [Infrared Communication](./IR.md)
 
 # Super Game Boy
 
