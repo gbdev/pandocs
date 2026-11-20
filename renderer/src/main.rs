@@ -208,9 +208,7 @@ fn gen_single_page(path: &mut PathBuf, base_url: &Url) -> Result<()> {
         }
     }
 
-    if !removed_placeholder {
-        anyhow::bail!("Did not find the placeholder single-page chapter to remove");
-    }
+    anyhow::ensure!(removed_placeholder, "Did not find the placeholder single-page chapter to remove");
     single_page.flush()?;
     Ok(())
 }
