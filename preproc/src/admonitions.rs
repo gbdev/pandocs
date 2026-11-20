@@ -7,10 +7,7 @@
  * http://mozilla.org/MPL/2.0/.
  */
 
-use anyhow::ensure;
-use mdbook_preprocessor::errors::Result;
-
-use crate::Pandocs;
+use crate::{Pandocs, bail, diagnostics::ChapterResult, ensure};
 
 pub fn render_admonition(
     dest: &mut String,
@@ -19,26 +16,44 @@ pub fn render_admonition(
     kind: &str,
     title: Option<&str>,
     contents: &str,
-) -> Result<()> {
+    chapter_contents: &str,
+) -> ChapterResult {
+    let substr_range = |substr: &str| {
+        chapter_contents
+            .as_bytes()
+            .subslice_range(substr.as_bytes())
+            .unwrap()
+    };
+
     ensure!(
         matches!(kind, "tip" | "warning" | "danger"),
-        "Unknown admonition type \"{kind}\" (must be \"tip\", \"warning\", or \"danger\"",
+        (
+            "Unknown admonition type",
+            substr_range(kind),
+            "must be \"tip\", \"warning\", or \"danger\""
+        )
     );
     ensure!(
         end_indentation == indentation,
-        "Admonition's end marker not indented like its start"
+        (
+            "End marker not indented like its start",
+            substr_range(end_indentation),
+            "does not match the start marker"
+        )
     );
     let real_contents = contents
         .strip_circumfix('\n', '\n')
-        // Important to maintain blank lines as expected
+        // The rendering code relies on the surrounding newline characters.
         .expect("Regex doesn't capture newlines around admonition content!?");
-    ensure!(
-        real_contents
-            .lines()
-            .all(|line| line.starts_with(indentation)
-                || !line.contains(|ch| !Pandocs::WHITESPACE.contains(&ch))),
-        "Admonition's body is less indented than its opening marker",
-    );
+    if let Some(bad_line) = real_contents.lines().find(|line| {
+        !line.starts_with(indentation) && line.contains(|ch| !Pandocs::WHITESPACE.contains(&ch))
+    }) {
+        bail!(
+            "Body is less indented than its opening marker",
+            substr_range(bad_line), // TODO: this can be overly long
+            "this line is not indented enough"
+        );
+    }
 
     use std::fmt::Write; // Note that `write!()`ing to a `String` never fails, so `unwrap()` is fine.
 

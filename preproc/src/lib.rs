@@ -4,7 +4,7 @@ use anyhow::Context;
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext, book::Book, errors::Result};
 use regex::Regex;
 
-use crate::diagnostics::{DummySpan, GlobalDiag};
+use crate::diagnostics::{ChapterError, DummySpan, FileDiags, GlobalDiag};
 
 mod admonitions;
 mod anchors;
@@ -61,12 +61,10 @@ impl Pandocs {
         is_out_of_repo: bool,
     ) -> Result<()> {
         // Process blocks.
-        let mut error_src = crate::diagnostics::FileDiags::new(file_name, contents);
+        let mut error_src = FileDiags::new(file_name, contents);
         let mut replacer = replacing::Replacer::new(contents);
         for captures in self.block_regex.captures_iter(contents) {
             let match_span = error_src.make_span(captures.get_match().range());
-            let make_block_label =
-                || diagnostics::secondary_label(match_span.clone(), "in this block");
 
             let dest = replacer.replace(captures.get_match().range());
             let opt_match = |idx| captures.get(idx).map(|m| m.as_str());
@@ -100,6 +98,18 @@ impl Pandocs {
             };
             let indentation = indentation.as_str();
 
+            let render_block_error = |error: ChapterError, error_src: &mut FileDiags| {
+                error_src.render(
+                    diagnostics::make_error(match_span.clone(), error.err_msg).with_labels([
+                        diagnostics::error_label(
+                            error_src.make_span(error.label_byte_range),
+                            error.label_msg,
+                        ),
+                        diagnostics::secondary_label(match_span, "in this block"),
+                    ]),
+                );
+            };
+
             // TODO: `debug_assert` which captures matched..?
             if let Some(tag_name) = captures.get(2) {
                 let body = &captures[3];
@@ -109,27 +119,20 @@ impl Pandocs {
                 } {
                     error.substr_adjust(contents, body);
 
-                    let block_label = make_block_label();
-                    error_src.render(
-                        diagnostics::make_error(match_span, error.err_msg).with_labels([
-                            diagnostics::error_label(
-                                error_src.make_span(error.label_byte_range),
-                                error.label_msg,
-                            ),
-                            block_label,
-                        ]),
-                    );
+                    render_block_error(error, &mut error_src);
                 }
             } else if let Some(admonition_type) = captures.get(4) {
-                admonitions::render_admonition(
+                if let Err(error) = admonitions::render_admonition(
                     dest,
                     indentation,
                     &captures[7],
                     admonition_type.as_str(),
                     opt_match(5),
                     &captures[6],
-                )
-                .with_context(|| format!("Bad admonition at {:?}", captures.get_match()))?;
+                    contents,
+                ) {
+                    render_block_error(error, &mut error_src);
+                }
             } else {
                 unreachable!(); // One of the regex's two arms must have matched.
             }

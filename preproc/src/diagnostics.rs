@@ -36,6 +36,7 @@ impl<'a> FileDiags<'a> {
         let source = match self.contents {
             Ok(ref source) => source,
             Err(contents) => {
+                // TODO: check if different from on-disk, and if so, bring it up
                 self.contents = Ok(Source::from(contents));
                 self.contents.as_ref().unwrap()
             }
