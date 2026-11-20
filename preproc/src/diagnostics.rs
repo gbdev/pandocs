@@ -152,12 +152,6 @@ impl<EM: ToString, LBR: Into<Range<usize>>, LM: ToString> From<(EM, LBR, LM)> fo
         Self::new(err_msg, label_byte_range, label_msg)
     }
 }
-pub fn substr_adjust<T>(res: ChapterResult<T>, string: &str, substring: &str) -> ChapterResult<T> {
-    res.map_err(|mut error| {
-        error.substr_adjust(string, substring);
-        error
-    })
-}
 
 #[macro_export]
 macro_rules! bail {

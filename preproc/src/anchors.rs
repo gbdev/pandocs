@@ -13,7 +13,7 @@ use mdbook_preprocessor::book::Book;
 use pulldown_cmark::{CowStr, Event, Parser, Tag, TagEnd};
 use rustc_hash::{FxBuildHasher, FxHashMap};
 
-use crate::{Pandocs, bail, diagnostics::ChapterError, ensure};
+use crate::{Pandocs, bail, diagnostics::ChapterError};
 
 #[derive(Debug)]
 pub struct InternalLinkMap {
