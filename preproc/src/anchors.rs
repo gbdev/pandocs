@@ -9,8 +9,7 @@
 
 use std::ops::Deref;
 
-use anyhow::Context;
-use mdbook_preprocessor::{book::Book, errors::Result};
+use mdbook_preprocessor::book::Book;
 use pulldown_cmark::{Event, Parser, Tag, TagEnd};
 use rustc_hash::{FxBuildHasher, FxHashMap};
 use tracing::warn;
@@ -79,7 +78,7 @@ impl InternalLinkMap {
         Self { headings }
     }
 
-    pub fn rewrite_internal_links(&self, content: &mut String, chapter_name: &str) -> Result<()> {
+    pub fn rewrite_internal_links(&self, content: &mut String, chapter_name: &str) {
         let events = Parser::new_ext(content, Pandocs::MARKDOWN_OPTIONS).map(|mut event| {
             if let Event::Start(Tag::Link {
                 ref mut dest_url,
@@ -94,8 +93,9 @@ impl InternalLinkMap {
                             warn!("Referencing multiply-defined section \"{anchor}\" (using chapter \"{chapter_name}\")");
                         }
 
-                        let target_fragment = match info.id.as_deref() {
-                            Some(id) => id,
+                        // `unwrap_or_else` does not extend the lifetime of the temporary returned by `id_from_name`!
+                        let target_fragment = match info.id {
+                            Some(ref id) => id,
                             None => &id_from_name(anchor),
                         };
                         *dest_url = format!("{}#{target_fragment}", info.file).into();
@@ -107,10 +107,8 @@ impl InternalLinkMap {
 
         let mut new_content = String::with_capacity(content.len());
         pulldown_cmark_to_cmark::cmark(events, &mut new_content, Pandocs::MARKDOWN_OPTIONS)
-            .context("serialisation failed")?;
+            .expect("Markdown serialisation failed!?");
         *content = new_content;
-
-        Ok(())
     }
 
     #[cfg(test)]

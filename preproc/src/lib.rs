@@ -139,10 +139,8 @@ impl Pandocs {
         }
 
         // Process internal anchor links.
-        // We do this in a separate pass from the above, since they may introduce extra
-        link_map
-            .rewrite_internal_links(contents, name)
-            .context("link map error")?;
+        // We do this in a separate pass after processing blocks, since those could introduce more links.
+        link_map.rewrite_internal_links(contents, name);
 
         if name == "Foreword" {
             use std::fmt::Write;
