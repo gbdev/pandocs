@@ -10,11 +10,10 @@
 use std::ops::Deref;
 
 use mdbook_preprocessor::book::Book;
-use pulldown_cmark::{Event, Parser, Tag, TagEnd};
+use pulldown_cmark::{CowStr, Event, Parser, Tag, TagEnd};
 use rustc_hash::{FxBuildHasher, FxHashMap};
-use tracing::warn;
 
-use crate::Pandocs;
+use crate::{Pandocs, bail, diagnostics::ChapterError, ensure};
 
 #[derive(Debug)]
 pub struct InternalLinkMap {
@@ -22,9 +21,7 @@ pub struct InternalLinkMap {
 }
 #[derive(Debug)]
 struct HeadingInfo {
-    /// Sans extension.
-    file: Box<str>,
-    has_homonyms: bool,
+    file_name: Option<Box<str>>,
     /// Custom ID if one was provided and parsed as such.
     id: Option<Box<str>>,
 }
@@ -62,13 +59,12 @@ impl InternalLinkMap {
                     match headings.entry(name) {
                         Entry::Vacant(vacant_entry) => {
                             vacant_entry.insert(HeadingInfo {
-                                file: file_name.into(),
-                                has_homonyms: false,
+                                file_name: Some(file_name.into()),
                                 id: id.map(|s| s.deref().into()),
                             });
                         }
                         Entry::Occupied(occupied_entry) => {
-                            occupied_entry.into_mut().has_homonyms = true
+                            occupied_entry.into_mut().file_name = None
                         }
                     }
                 }
@@ -78,37 +74,60 @@ impl InternalLinkMap {
         Self { headings }
     }
 
-    pub fn rewrite_internal_links(&self, content: &mut String, chapter_name: &str) {
-        let events = Parser::new_ext(content, Pandocs::MARKDOWN_OPTIONS).map(|mut event| {
-            if let Event::Start(Tag::Link {
-                ref mut dest_url,
-                ..
-            }) = event
-                && let Some(anchor) = dest_url.strip_prefix('#')
-            {
-                match self.headings.get(anchor) {
-                    None => warn!("{chapter_name}: Found no heading called \"{anchor}\", keeping internal link as-is"),
-                    Some(info) => {
-                        if info.has_homonyms {
-                            warn!("Referencing multiply-defined section \"{anchor}\" (using chapter \"{chapter_name}\")");
-                        }
+    pub fn rewrite_internal_links(&self, content: &str) -> (Vec<ChapterError>, String) {
+        let rewrite_link = |dest_url: &mut CowStr<'_>, src_range| {
+            let Some(anchor) = dest_url.strip_prefix('#') else {
+                return Ok(());
+            };
 
-                        // `unwrap_or_else` does not extend the lifetime of the temporary returned by `id_from_name`!
-                        let target_fragment = match info.id {
-                            Some(ref id) => id,
-                            None => &id_from_name(anchor),
-                        };
-                        *dest_url = format!("{}#{target_fragment}", info.file).into();
+            let Some(info) = self.headings.get(anchor) else {
+                bail!(
+                    "No such heading",
+                    src_range,
+                    "not found anywhere in the book"
+                );
+            };
+            let Some(ref file_name) = info.file_name else {
+                bail!(
+                    "This heading exists in multiple places",
+                    src_range,
+                    "please disambiguate (TODO)"
+                );
+            };
+
+            // `unwrap_or_else` would not extend the lifetime of the temporary returned by `id_from_name`!
+            let target_fragment = match info.id {
+                Some(ref id) => id,
+                None => &id_from_name(anchor),
+            };
+            *dest_url = format!("{file_name}#{target_fragment}").into();
+
+            Ok(())
+        };
+
+        let mut errors = vec![];
+
+        let events = Parser::new_ext(content, Pandocs::MARKDOWN_OPTIONS)
+            .into_offset_iter()
+            .map(|(mut event, src_range)| {
+                #[allow(clippy::collapsible_if)] // They serve different semantic purposes.
+                if let Event::Start(Tag::Link {
+                    ref mut dest_url, ..
+                }) = event
+                {
+                    // TODO: if the link uses a ref, we should point to it...
+                    if let Err(error) = rewrite_link(dest_url, src_range) {
+                        errors.push(error);
                     }
                 }
-            }
-            event
-        });
+                event
+            });
 
         let mut new_content = String::with_capacity(content.len());
         pulldown_cmark_to_cmark::cmark(events, &mut new_content, Pandocs::MARKDOWN_OPTIONS)
             .expect("Markdown serialisation failed!?");
-        *content = new_content;
+
+        (errors, new_content)
     }
 
     #[cfg(test)]

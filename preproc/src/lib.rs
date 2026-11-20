@@ -142,7 +142,19 @@ impl Pandocs {
 
         // Process internal anchor links.
         // We do this in a separate pass after processing blocks, since those could introduce more links.
-        link_map.rewrite_internal_links(contents, name);
+        let (errors, new_contents) = link_map.rewrite_internal_links(contents);
+        if !errors.is_empty() {
+            // Must create a new one, since `contents` may have been modified.
+            let mut error_src = FileDiags::new(file_name, contents);
+            for error in errors {
+                let span = error_src.make_span(error.label_byte_range);
+                error_src.render(
+                    diagnostics::make_error(span.clone(), error.err_msg)
+                        .with_label(diagnostics::error_label(span, error.label_msg)),
+                );
+            }
+        }
+        *contents = new_contents;
 
         if name == "Foreword" {
             use std::fmt::Write;
