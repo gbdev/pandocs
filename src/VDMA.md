@@ -31,9 +31,9 @@ Thus, changing the active bank of a region a HDMA is reading from is perilous!
 
 ### FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]
 
-These two registers specify the address within 8000-9FF0 to which the
-data will be copied. Only bits 12-4 are respected; others are ignored.
+These two registers specify the address within 8000-9FF0 to which the data will be copied.
 The four lower bits of this address will be ignored and treated as 0.
+The upper 4 bits are ignored during a transfer, but they keep counting up, and the transfer aborts if they overflow (the status of the registers if this happens still [needs to be investigated](https://github.com/gbdev/pandocs/issues/364)).
 
 :::warning Banking hazard
 
@@ -44,81 +44,45 @@ Thus, writing to `VBK` while a HDMA is running is perilous!
 
 ## FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start
 
-These registers are used to initiate a DMA transfer from ROM or RAM to
-VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
-the lower four bits of the address are ignored (treated as zero). The
-Destination Start Address may be located at 8000-9FF0, the lower four
-bits of the address are ignored (treated as zero), the upper 3 bits are
-ignored either (destination is always in VRAM).
+{{#bits 8 >
+  "VDMA_LEN (read)" 7:"Active" 6-0:"Remaining length";
+	"VDMA_LEN (write)" 7:"Mode" 6-0:"Length"
+}}
 
-Writing to this register starts the transfer, the lower 7 bits of which
-specify the Transfer Length (divided by $10, minus 1), that is, lengths of
-$10-$800 bytes can be defined by the values $00-$7F. The upper bit
-indicates the Transfer Mode:
+- **Active**: Indicates whether a HDMA is in progress; `0` = yes, `1` = no.
+- **Mode**: Selects between GDMA (`0`) and HDMA (`1`), see below.
+- **Length**: In 16-byte blocks, minus 1 (thus between `$00` = 16 bytes to `$7F` = 128 × 16 bytes).
 
-### Bit 7 = 0 — General-Purpose DMA
+Writing to this register immediately starts the transfer.
 
-When using this transfer method,
-all data is transferred at once. The execution of the program is halted
-until the transfer has completed. Note that the General Purpose DMA
-blindly attempts to copy the data, even if the LCD controller is
-currently accessing VRAM. So General Purpose DMA should be used only if
-the Display is disabled, or during VBlank, or (for rather short blocks)
-during HBlank. The execution of the program continues when the transfer
-has been completed, and FF55 then contains a value of $FF.
+### Bit 7 = 0: General-purpose DMA
 
-### Bit 7 = 1 — HBlank DMA
+This mode transfers everything at once; thus, since it is subject to the same access restrictions as the CPU (particularly VRAM), it is only suitable for use while the LCD is off or during VBlank, or during HBlank / OAM scan for short enough transfers (see [timing information](<#Transfer Timings>) below).
 
-The HBlank DMA transfers $10 bytes of
-data during each HBlank, that is, at LY=0-143, no data is transferred during
-VBlank (LY=144-153), but the transfer will then continue at LY=00. The
-execution of the program is halted during the separate transfers, but
-the program execution continues during the "spaces" between each data
-block. Note that the program should not change the Destination VRAM bank
-(FF4F), or the Source ROM/RAM bank (in case data is transferred from
-bankable memory) until the transfer has completed! (The transfer should
-be paused as described below while the banks are switched).
+The CPU is paused during the transfer (thus, as soon as `VDMA_LEN` is written to).
+After completion, reading `VDMA_LEN` will return $FF.
 
-Upon halting the CPU (using the [halt instruction](<#Using the HALT Instruction>)),
-the transfer will also be halted and will be resumed only when the CPU resumes execution ([test rom](https://github.com/alloncm/MagenTests?tab=readme-ov-file#vram-dma-hblank-mode) exhibiting this behaviour).
+### Bit 7 = 1: HBlank DMA
 
-Reading from Register FF55 returns the remaining length (divided by $10,
-minus 1), a value of $FF indicates that the transfer has completed. It
-is also possible to terminate an active HBlank transfer by writing zero
-to Bit 7 of FF55. In that case reading from FF55 will return how many
-\$10 "blocks" remained (minus 1) in the lower 7 bits, but Bit 7 will
-be read as "1". Stopping the transfer doesn't set HDMA1-4 to \$FF.
+This mode copies each 16-byte block at the start of HBlank; thus, 16 bytes get copied on each of scanlines 0 to 143, and none during VBlank, until all specified blocks have been written and the transfer ends automatically.
+The CPU is paused during each copy.
 
-:::warning WARNING
+Quirks:
 
-HBlank DMA should not be started (write to FF55) during a HBlank
-period (STAT mode 0).
+- Starting a HDMA during HBlank immediately performs the first copy.
+- Starting a HDMA while the LCD is off immediately performs one copy, and no more until the LCD is turned back on.
+- Transfers cannot occur while the CPU is [halted], and will be resumed only when the CPU resumes execution ([test rom](https://github.com/alloncm/MagenTests#vram-dma-hblank-mode)).
 
-If the transfer's destination address overflows, the transfer stops
-prematurely.
-The status of the registers if this happens still needs to be [investigated](https://github.com/gbdev/pandocs/issues/364).
-
-:::
-
-## Confirming if the DMA Transfer is Active
-
-Reading Bit 7 of FF55 can be used to confirm if the DMA transfer is
-active (1=Not Active, 0=Active). This works under any circumstances -
-after completion of General Purpose, or HBlank Transfer, and after
-manually terminating a HBlank Transfer.
+After the last copy, reads from `VDMA_LEN` return \$FF.
+However, while the transfer is ongoing, reading from `VDMA_LEN` returns the remaining length (divided by 16, minus 1) and bit 7 reset.
+Writing a value with bit 7 clear to `VDMA_LEN` will cancel the HDMA, and `VDMA_LEN` will report how many blocks remained to be copied (in the usual format) in the bottom 7 bits but bit 7 will be set.
 
 ## Transfer Timings
 
-In both Normal Speed and Double Speed Mode it takes about 8 μs to
-transfer a block of $10 bytes.
-That is, 8 M-cycles in Normal Speed Mode [\[1\]](imgs/hdma_normal_speed.png),
-and 16 "fast" M-cycles in Double Speed Mode [\[2\]](imgs/hdma_double_speed.png).
-Older MBC controllers (like MBC1-3) and slower ROMs are not guaranteed to support General
-Purpose or HBlank DMA, that's because there are always 2 bytes
-transferred per microsecond (even if the itself program runs it Normal
-Speed Mode).
+Each 16-byte copy takes 8 µs regardless of the [current CPU speed], so 8 M-cycles in Normal-speed mode [\[1\]](imgs/hdma_normal_speed.png) / 16 M-cycles in Double-speed mode [\[2\]](imgs/hdma_double_speed.png).
+Thus, up to 2280 bytes (142.5 tiles) can be transferred during a single VBlank.
 
-This allows for a transfer of 2280 bytes during VBlank, which is up to 142.5 tiles.
+Since VDMA accesses ROM as fast as Double-speed mode, official documentation stated that MBCs other than MBC5 should not be used with VDMA; in practice, modern chips have sufficiently fast response times.
 
 ## Tricks
 
@@ -132,4 +96,6 @@ TODO: what state does the boot ROM leave them at?
 
 [gdma_cont]: https://github.com/LIJI32/SameSuite/blob/f15645fb049a47ea235f6d2c9a033e72d8087901/dma/gbc_dma_cont.asm
 [`VBK`]: <#FF4F — VBK (CGB Mode only): VRAM bank>
+[halted]: <#Using the HALT Instruction>
+[current CPU speed]: <#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>
 [interrupt]: #Interrupts
