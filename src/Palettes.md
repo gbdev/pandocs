@@ -126,7 +126,7 @@ darker colors.
 :::tip WORKAROUND
 
 Newer CGB games may avoid this effect by changing palette data when
-detecting GBA hardware ([see how](<#Detecting CGB (and GBA) functions>)).
+[detecting GBA hardware]).
 Based on measurements of GBC and GBA palettes using the
 [144p Test Suite](https://github.com/pinobatch/240p-test-mini/tree/master/gameboy),
 a fairly close approximation is `GBA = GBC × 3/4 + $08` for each R/G/B
@@ -139,3 +139,5 @@ ways better than no conversion.
 This problem with low brightness levels does not affect later GBA SP
 units and Game Boy Player. Thus ideally, the player should have control
 of this brightness correction.
+
+[detecting GBA hardware]: <#Detecting GBA>
