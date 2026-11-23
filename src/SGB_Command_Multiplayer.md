@@ -33,9 +33,9 @@ active.
 ## Reading Multiple Controllers (Joypads)
 
 When having enabled multiple controllers by `MLT_REQ`, data for each
-joypad can be read out through [the `P1` register](<#FF00 — P1/JOYP: Joypad>) as follows: First
+joypad can be read out through [the `JOYP` register](<#FF00 — JOYP: Joypad>) as follows: First
 set P14 and P15 both HIGH (deselect both Buttons and Cursor keys), you
-can now read the lower 4 bits of `P1`, which indicate the joypad ID for
+can now read the lower 4 bits of `JOYP`, which indicate the joypad ID for
 the following joypad input:
 
 Byte | Player \#

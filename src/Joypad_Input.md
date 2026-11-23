@@ -1,13 +1,15 @@
 # Joypad Input
 
-## FF00 — P1/JOYP: Joypad
+## FF00 — `JOYP`: Joypad
+
+*Historically known as `P1`.*
 
 The eight Game Boy action/direction buttons are arranged as a 2×4
 matrix. Select either action or direction buttons by writing to this
 register, then read out the bits 0-3.
 
 {{#bits 8 >
-	"P1" 5:"Select buttons" 4:"Select d-pad" 3:"Start / Down" 2:"Select / Up" 1:"B / Left" 0:"A / Right"
+	"JOYP" 5:"Select buttons" 4:"Select d-pad" 3:"Start / Down" 2:"Select / Up" 1:"B / Left" 0:"A / Right"
 }}
 
 - **Select buttons**: If this bit is `0`, then buttons (SsBA) can be read from the lower nibble.

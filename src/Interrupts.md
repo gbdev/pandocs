@@ -16,7 +16,7 @@ The effect of `ei` is delayed by one instruction. This means that `ei`
 followed immediately by `di` does not allow any interrupts between them.
 This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 
-## FFFF — IE: Interrupt enable
+## FFFF — `IE`: Interrupt enable
 
 {{#bits 8 >
 	"IE" 4:"Joypad" 3:"Serial" 2:"Timer" 1:"LCD" 0:"VBlank"
@@ -28,7 +28,7 @@ This interacts with the [`halt` bug](<#halt bug>) in an interesting way.
 - **Serial** (*Read/Write*): Controls whether [the Serial interrupt handler](<#INT $58 — Serial interrupt>) may be called (see `IF` below).
 - **Joypad** (*Read/Write*): Controls whether [the Joypad interrupt handler](<#INT $60 — Joypad interrupt>) may be called (see `IF` below).
 
-## FF0F — IF: Interrupt flag
+## FF0F — `IF`: Interrupt flag
 
 {{#bits 8 >
 	"IF" 4:"Joypad" 3:"Serial" 2:"Timer" 1:"LCD" 0:"VBlank"

@@ -53,7 +53,7 @@ The SGB2 rectifies this issue.
 All interfaces to the APU use **durations** instead of frequencies, which may be confusing as signal theory and music are more typically based on the latter.
 Thus, durations will be expressed from their frequencies: for example, a "256 Hz tick" means "1 ∕ 256th of a second".
 
-The length of APU ticks is not affected by [CGB double speed](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>), so the APU works just the same regardless of CPU speed.
+The length of APU ticks is not affected by [CGB double speed](<#FF4D — SPD (CGB Mode only): Prepare speed switch>), so the APU works just the same regardless of CPU speed.
 
 :::warning Terminology
 
@@ -91,7 +91,7 @@ However, as explained above, the Game Boy APU primarily works with durations; th
 :::warning
 
 The terms "period" and "period value" throughout this document refer to a parameter that has a somewhat nonintuitive relationship with frequency.
-See the description of each NRx3 register for more information.
+See the description of [`AUD1LOW`], [`AUD3LOW`], or [`AUD4POLY`] for more information.
 
 :::
 
@@ -109,3 +109,7 @@ See the description of each NRx3 register for more information.
           The higher the frequency, the higher the pitch; therefore, pitch will be omitted from the rest of the document.
 
 [^len_raw]: Actually, the APU interfaces don't work strictly with periods, but with values that can be thought of as *negative* periods.
+
+[`AUD1LOW`]: <#FF13 — AUD1LOW: Channel 1 period low \[write-only\]>
+[`AUD3LOW`]: <#FF1D — AUD3LOW: Channel 3 period low \[write-only\]>
+[`AUD4POLY`]: <#FF22 — AUD4POLY: Channel 4 frequency & randomness>

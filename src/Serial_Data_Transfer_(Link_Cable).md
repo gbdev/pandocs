@@ -9,7 +9,7 @@ data byte at the time the transfer begins, the last one will go out
 again. Alternately, if it's ready to send the next byte but the last
 one hasn't gone out yet, it has no choice but to wait.
 
-## FF01 — SB: Serial transfer data
+## FF01 — `SB`: Serial transfer data
 
 Before a transfer, it holds the next byte that will go out.
 
@@ -29,7 +29,7 @@ incoming bit is shifted in from the other side:
 	"8 shifts"  7:"i.7" 6:"i.6" 5:"i.5" 4:"i.4" 3:"i.3" 2:"i.2" 1:"i.1" 0:"i.0"
 }}
 
-## FF02 — SC: Serial transfer control
+## FF02 — `SC`: Serial transfer control
 
 {{#bits 8 >
 	"SC" 7:"Transfer enable" 1:"Clock speed" 0:"Clock select"

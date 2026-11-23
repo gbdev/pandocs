@@ -6,7 +6,7 @@ A *dot* is the shortest period over which the PPU can output one pixel: is it eq
 
 :::
 
-## FF44 — LY: LCD Y coordinate \[read-only\]
+## FF44 — `LY`: LCD Y coordinate \[read-only\]
 
 LY indicates the current horizontal line, which might be about to be drawn,
 being drawn, or just been drawn. LY can hold any value from 0 to 153, with
@@ -27,7 +27,7 @@ In particular, this common wait loop is guaranteed to return at least 110 cycles
 ; the next 110 - (2 + 2) = 106 cycles (due to overhead of `cp` and `jr`).
 ```
 
-## FF45 — LYC: LY compare
+## FF45 — `LYC`: LY compare
 
 The Game Boy constantly compares the value of the LYC and LY registers.
 When both values are identical, the "LYC=LY" flag in the STAT register
@@ -37,7 +37,7 @@ Since the comparison uses LY's value, a match with LYC = 0 happens early,
 [during line 153](<#Line 153>) (while still in VBlank),
 rather than at the beginning of line 0.
 
-## FF41 — STAT: LCD status
+## FF41 — `STAT`: LCD status
 
 {{#bits 8 >
 	""  6:"LYC int select" 5:"Mode 2 int select" 4:"Mode 1 int select" 3:"Mode 0 int select" 2:"LYC == LY" 1-0:"PPU mode";

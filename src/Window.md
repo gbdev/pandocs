@@ -1,6 +1,6 @@
 # Window behavior
 
-## FF4A–FF4B — WY, WX: Window Y position, X position plus 7
+## FF4A–FF4B — `WY`, `WX`: Window Y position, X position plus 7
 
 These two registers specify the on-screen coordinates of [the Window]'s top-left pixel.
 

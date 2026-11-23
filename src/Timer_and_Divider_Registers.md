@@ -9,26 +9,26 @@ a completely different thing, described in
 
 :::
 
-## FF04 — DIV: Divider register
+## FF04 — `DIV`: Divider register
 
 This register is incremented at a rate of 16384Hz (\~16779Hz on SGB).
 Writing any value to this register resets it to $00.
 Additionally, this register is reset when executing the `stop` instruction, and
 only begins ticking again once `stop` mode ends. This also occurs during a
-[speed switch](<#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>).
+[speed switch](<#FF4D — SPD (CGB Mode only): Prepare speed switch>).
 (TODO: how is it affected by the wait after a speed switch?)
 
 Note: The divider is affected by CGB double speed mode, and will
 increment at 32768Hz in double speed.
 
-## FF05 — TIMA: Timer counter
+## FF05 — `TIMA`: Timer counter
 
 This timer is incremented at the clock frequency specified by the TAC
 register (\$FF07). When the value overflows (exceeds $FF)
 it is reset to the value specified in TMA (FF06) and [an interrupt](<#INT $50 — Timer interrupt>)
 is requested, as described below.
 
-## FF06 — TMA: Timer modulo
+## FF06 — `TMA`: Timer modulo
 
 When TIMA overflows, it is reset to the value in this register and [an interrupt](<#INT $50 — Timer interrupt>) is requested.
 Example of use: if TMA is set to $FF, an interrupt is requested at the clock frequency selected in
@@ -39,7 +39,7 @@ TMA to $FD would divide the clock by three, and so on.
 If a TMA write is executed on the same M-cycle as the content of TMA is transferred to TIMA
 due to a timer overflow, the old value is transferred to TIMA.
 
-## FF07 — TAC: Timer control
+## FF07 — `TAC`: Timer control
 
 {{#bits 8 >
 	"TAC" 2:"Enable" 1-0:"Clock select"

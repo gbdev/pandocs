@@ -86,9 +86,9 @@ Then, like the monochrome boot ROMs, the header logo is checked *from the buffer
 For unknown reasons, however, only the first half of the logo is checked, despite the full logo being present in the HRAM buffer.
 
 Finally, the boot ROM fades all BG palettes to white, and sets the hardware to compatibility mode.
-If [the CGB compatibility byte](<#0143 — CGB flag>) indicates CGB compatibility, the byte is written directly to [`KEY0`](<#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>), potentially [enabling "PGB mode"](<#PGB mode>);
-otherwise, $04 is written to [`KEY0`](<#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>) (enabling DMG compatibility mode in the CPU),
-$01 is written to [`OPRI`](<#FF6C — OPRI (CGB Mode only): Object priority mode>) (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
+If [the CGB compatibility byte](<#0143 — CGB flag>) indicates CGB compatibility, the byte is written directly to [`SYS`], potentially [enabling "PGB mode"](<#PGB mode>);
+otherwise, $04 is written to [`SYS`] (enabling DMG compatibility mode in the CPU),
+$01 is written to [`OPRI`] (enabling [DMG OBJ priority](<#Object Priority and Conflicts>)), and the [compatibility palettes](<#Compatibility palettes>) are written.
 Additionally, the DMG logo tilemap is written [if the compatibility requests it](<#Compatibility palettes>).
 
 Like all other boot ROMs, the last thing the color boot ROMs do is hand off execution at the same time as they unmap themselves, though they write $11 instead of $01 or $FF.
@@ -268,65 +268,65 @@ The tables above were obtained from analysis of [the boot ROM's disassemblies](h
 
 As far as timing-sensitive values are concerned, these values are recorded at PC = $0100.
 
-Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
--------------:|:-------:|:--------:|:---------:|:----------:|:-----------:
-[`P1`]        | $FF00   | $CF      | $CF       | $C7 or $CF | $C7 or $CF
-[`SB`]        | $FF01   | $00      | $00       | $00        | $00
-[`SC`]        | $FF02   | $7E      | $7E       | $7E        | $7F
-[`DIV`]       | $FF04   | $18      | $AB       | ??[^unk]   | ??[^unk_pad]
-[`TIMA`]      | $FF05   | $00      | $00       | $00        | $00
-[`TMA`]       | $FF06   | $00      | $00       | $00        | $00
-[`TAC`]       | $FF07   | $F8      | $F8       | $F8        | $F8
-[`IF`]        | $FF0F   | $E1      | $E1       | $E1        | $E1
-[`NR10`]      | $FF10   | $80      | $80       | $80        | $80
-[`NR11`]      | $FF11   | $BF      | $BF       | $BF        | $BF
-[`NR12`]      | $FF12   | $F3      | $F3       | $F3        | $F3
-[`NR13`]      | $FF13   | $FF      | $FF       | $FF        | $FF
-[`NR14`]      | $FF14   | $BF      | $BF       | $BF        | $BF
-[`NR21`]      | $FF16   | $3F      | $3F       | $3F        | $3F
-[`NR22`]      | $FF17   | $00      | $00       | $00        | $00
-[`NR23`]      | $FF18   | $FF      | $FF       | $FF        | $FF
-[`NR24`]      | $FF19   | $BF      | $BF       | $BF        | $BF
-[`NR30`]      | $FF1A   | $7F      | $7F       | $7F        | $7F
-[`NR31`]      | $FF1B   | $FF      | $FF       | $FF        | $FF
-[`NR32`]      | $FF1C   | $9F      | $9F       | $9F        | $9F
-[`NR33`]      | $FF1D   | $FF      | $FF       | $FF        | $FF
-[`NR34`]      | $FF1E   | $BF      | $BF       | $BF        | $BF
-[`NR41`]      | $FF20   | $FF      | $FF       | $FF        | $FF
-[`NR42`]      | $FF21   | $00      | $00       | $00        | $00
-[`NR43`]      | $FF22   | $00      | $00       | $00        | $00
-[`NR44`]      | $FF23   | $BF      | $BF       | $BF        | $BF
-[`NR50`]      | $FF24   | $77      | $77       | $77        | $77
-[`NR51`]      | $FF25   | $F3      | $F3       | $F3        | $F3
-[`NR52`]      | $FF26   | $F1      | $F1       | $F0        | $F1
-[`LCDC`]      | $FF40   | $91      | $91       | $91        | $91
-[`STAT`]      | $FF41   | $81      | $85       | ??[^unk]   | ??[^unk_pad]
-[`SCY`]       | $FF42   | $00      | $00       | $00        | $00
-[`SCX`]       | $FF43   | $00      | $00       | $00        | $00
-[`LY`]        | $FF44   | $91      | $00       | ??[^unk]   | ??[^unk_pad]
-[`LYC`]       | $FF45   | $00      | $00       | $00        | $00
-[`DMA`]       | $FF46   | $FF      | $FF       | $FF        | $00
-[`BGP`]       | $FF47   | $FC      | $FC       | $FC        | $FC
-[`OBP0`]      | $FF48   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
-[`OBP1`]      | $FF49   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
-[`WY`]        | $FF4A   | $00      | $00       | $00        | $00
-[`WX`]        | $FF4B   | $00      | $00       | $00        | $00
-[`KEY0`]      | $FF4C   | ---      | ---       | ---        | ??[^unk]
-[`KEY1`]      | $FF4D   | ---      | ---       | ---        | $7E[^cgb_only]
-[`VBK`]       | $FF4F   | ---      | ---       | ---        | $FE[^cgb_only]
-[`BANK`]      | $FF50   | ---      | ---       | ---        | ---
-[`HDMA1`]     | $FF51   | ---      | ---       | ---        | $FF[^cgb_only]
-[`HDMA2`]     | $FF52   | ---      | ---       | ---        | $FF[^cgb_only]
-[`HDMA3`]     | $FF53   | ---      | ---       | ---        | $FF[^cgb_only]
-[`HDMA4`]     | $FF54   | ---      | ---       | ---        | $FF[^cgb_only]
-[`HDMA5`]     | $FF55   | ---      | ---       | ---        | $FF[^cgb_only]
-[`RP`]        | $FF56   | ---      | ---       | ---        | $3E[^cgb_only]
-[`BGPI`]      | $FF68   | ---      | ---       | ---        | ??[^compat]
-[`BGPD`]      | $FF69   | ---      | ---       | ---        | ??[^compat]
-[`OBPI`]      | $FF6A   | ---      | ---       | ---        | ??[^compat]
-[`OBPD`]      | $FF6B   | ---      | ---       | ---        | ??[^compat]
-[`SVBK`]      | $FF70   | ---      | ---       | ---        | $F8[^cgb_only]
-[`IE`]        | $FFFF   | $00      | $00       | $00        | $00
+Name               | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
+------------------:|:-------:|:--------:|:---------:|:----------:|:-----------:
+[`JOYP`]           | $FF00   | $CF      | $CF       | $C7 or $CF | $C7 or $CF
+[`SB`]             | $FF01   | $00      | $00       | $00        | $00
+[`SC`]             | $FF02   | $7E      | $7E       | $7E        | $7F
+[`DIV`]            | $FF04   | $18      | $AB       | ??[^unk]   | ??[^unk_pad]
+[`TIMA`]           | $FF05   | $00      | $00       | $00        | $00
+[`TMA`]            | $FF06   | $00      | $00       | $00        | $00
+[`TAC`]            | $FF07   | $F8      | $F8       | $F8        | $F8
+[`IF`]             | $FF0F   | $E1      | $E1       | $E1        | $E1
+[`AUD1SWEEP`]      | $FF10   | $80      | $80       | $80        | $80
+[`AUD1LEN`]        | $FF11   | $BF      | $BF       | $BF        | $BF
+[`AUD1ENV`]        | $FF12   | $F3      | $F3       | $F3        | $F3
+[`AUD1LOW`]        | $FF13   | $FF      | $FF       | $FF        | $FF
+[`AUD1HIGH`]       | $FF14   | $BF      | $BF       | $BF        | $BF
+[`AUD2LEN`]        | $FF16   | $3F      | $3F       | $3F        | $3F
+[`AUD2ENV`]        | $FF17   | $00      | $00       | $00        | $00
+[`AUD2LOW`]        | $FF18   | $FF      | $FF       | $FF        | $FF
+[`AUD2HIGH`]       | $FF19   | $BF      | $BF       | $BF        | $BF
+[`AUD3ENA`]        | $FF1A   | $7F      | $7F       | $7F        | $7F
+[`AUD3LEN`]        | $FF1B   | $FF      | $FF       | $FF        | $FF
+[`AUD3LEVEL`]      | $FF1C   | $9F      | $9F       | $9F        | $9F
+[`AUD3LOW`]        | $FF1D   | $FF      | $FF       | $FF        | $FF
+[`AUD3HIGH`]       | $FF1E   | $BF      | $BF       | $BF        | $BF
+[`AUD4LEN`]        | $FF20   | $FF      | $FF       | $FF        | $FF
+[`AUD4ENV`]        | $FF21   | $00      | $00       | $00        | $00
+[`AUD4POLY`]       | $FF22   | $00      | $00       | $00        | $00
+[`AUD4GO`]         | $FF23   | $BF      | $BF       | $BF        | $BF
+[`AUDVOL`]         | $FF24   | $77      | $77       | $77        | $77
+[`AUDTERM`]        | $FF25   | $F3      | $F3       | $F3        | $F3
+[`AUDENA`]         | $FF26   | $F1      | $F1       | $F0        | $F1
+[`LCDC`]           | $FF40   | $91      | $91       | $91        | $91
+[`STAT`]           | $FF41   | $81      | $85       | ??[^unk]   | ??[^unk_pad]
+[`SCY`]            | $FF42   | $00      | $00       | $00        | $00
+[`SCX`]            | $FF43   | $00      | $00       | $00        | $00
+[`LY`]             | $FF44   | $91      | $00       | ??[^unk]   | ??[^unk_pad]
+[`LYC`]            | $FF45   | $00      | $00       | $00        | $00
+[`DMA`]            | $FF46   | $FF      | $FF       | $FF        | $00
+[`BGP`]            | $FF47   | $FC      | $FC       | $FC        | $FC
+[`OBP0`]           | $FF48   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
+[`OBP1`]           | $FF49   | ??[^obp] | ??[^obp]  | ??[^obp]   | ??[^obp]
+[`WY`]             | $FF4A   | $00      | $00       | $00        | $00
+[`WX`]             | $FF4B   | $00      | $00       | $00        | $00
+[`SYS`]            | $FF4C   | ---      | ---       | ---        | ??[^unk]
+[`SPD`]            | $FF4D   | ---      | ---       | ---        | $7E[^cgb_only]
+[`VBK`]            | $FF4F   | ---      | ---       | ---        | $FE[^cgb_only]
+[`BANK`]           | $FF50   | ---      | ---       | ---        | ---
+[`VDMA_SRC_HIGH`]  | $FF51   | ---      | ---       | ---        | $FF[^cgb_only]
+[`VDMA_SRC_LOW`]   | $FF52   | ---      | ---       | ---        | $FF[^cgb_only]
+[`VDMA_DEST_HIGH`] | $FF53   | ---      | ---       | ---        | $FF[^cgb_only]
+[`VDMA_DEST_LOW`]  | $FF54   | ---      | ---       | ---        | $FF[^cgb_only]
+[`VDMA_LEN`]       | $FF55   | ---      | ---       | ---        | $FF[^cgb_only]
+[`RP`]             | $FF56   | ---      | ---       | ---        | $3E[^cgb_only]
+[`BGPI`]           | $FF68   | ---      | ---       | ---        | ??[^compat]
+[`BGPD`]           | $FF69   | ---      | ---       | ---        | ??[^compat]
+[`OBPI`]           | $FF6A   | ---      | ---       | ---        | ??[^compat]
+[`OBPD`]           | $FF6B   | ---      | ---       | ---        | ??[^compat]
+[`WBK`]            | $FF70   | ---      | ---       | ---        | $F8[^cgb_only]
+[`IE`]             | $FFFF   | $00      | $00       | $00        | $00
 
 [^unk]: Since this boot ROM's duration depends on the header's contents, a general answer can't be given.
         The value should be static for a given header, though.
@@ -344,7 +344,7 @@ Name          | Address | DMG0     | DMG / MGB | SGB / SGB2 | CGB / AGB
 
 The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-dmg0.s), [`acceptance/boot_hwio-dmgABCmgb`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-dmgABCmgb.s), [`acceptance/boot_hwio-S`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/acceptance/boot_hwio-S.s), and [`misc/boot_hwio-C`](https://github.com/Gekkio/mooneye-gb/blob/ca7ff30b52fd3de4f1527397f27a729ffd848dfa/tests/misc/boot_hwio-C.s), plus some extra testing.
 
-[`P1`]: <#FF00 — P1/JOYP: Joypad>
+[`JOYP`]: <#FF00 — JOYP: Joypad>
 [`SB`]: <#FF01 — SB: Serial transfer data>
 [`SC`]: <#FF02 — SC: Serial transfer control>
 [`DIV`]: <#FF04 — DIV: Divider register>
@@ -352,27 +352,27 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`TMA`]: <#FF06 — TMA: Timer modulo>
 [`TAC`]: <#FF07 — TAC: Timer control>
 [`IF`]: <#FF0F — IF: Interrupt flag>
-[`NR10`]: <#FF10 — NR10: Channel 1 sweep>
-[`NR11`]: <#FF11 — NR11: Channel 1 length timer & duty cycle>
-[`NR12`]: <#FF12 — NR12: Channel 1 volume & envelope>
-[`NR13`]: <#FF13 — NR13: Channel 1 period low \[write-only\]>
-[`NR14`]: <#FF14 — NR14: Channel 1 period high & control>
-[`NR21`]: <#Sound Channel 2 — Pulse>
-[`NR22`]: <#Sound Channel 2 — Pulse>
-[`NR23`]: <#Sound Channel 2 — Pulse>
-[`NR24`]: <#Sound Channel 2 — Pulse>
-[`NR30`]: <#FF1A — NR30: Channel 3 DAC enable>
-[`NR31`]: <#FF1B — NR31: Channel 3 length timer \[write-only\]>
-[`NR32`]: <#FF1C — NR32: Channel 3 output level>
-[`NR33`]: <#FF1D — NR33: Channel 3 period low \[write-only\]>
-[`NR34`]: <#FF1E — NR34: Channel 3 period high & control>
-[`NR41`]: <#FF20 — NR41: Channel 4 length timer \[write-only\]>
-[`NR42`]: <#FF21 — NR42: Channel 4 volume & envelope>
-[`NR43`]: <#FF22 — NR43: Channel 4 frequency & randomness>
-[`NR44`]: <#FF23 — NR44: Channel 4 control>
-[`NR50`]: <#FF24 — NR50: Master volume & VIN panning>
-[`NR51`]: <#FF25 — NR51: Sound panning>
-[`NR52`]: <#FF26 — NR52: Audio master control>
+[`AUD1SWEEP`]: <#FF10 — AUD1SWEEP: Channel 1 sweep>
+[`AUD1LEN`]: <#FF11 — AUD1LEN: Channel 1 length timer & duty cycle>
+[`AUD1ENV`]: <#FF12 — AUD1ENV: Channel 1 volume & envelope>
+[`AUD1LOW`]: <#FF13 — AUD1LOW: Channel 1 period low \[write-only\]>
+[`AUD1HIGH`]: <#FF14 — AUD1HIGH: Channel 1 period high & control>
+[`AUD2LEN`]: <#Sound Channel 2 — Pulse>
+[`AUD2ENV`]: <#Sound Channel 2 — Pulse>
+[`AUD2LOW`]: <#Sound Channel 2 — Pulse>
+[`AUD2HIGH`]: <#Sound Channel 2 — Pulse>
+[`AUD3ENA`]: <#FF1A — AUD3ENA: Channel 3 DAC enable>
+[`AUD3LEN`]: <#FF1B — AUD3LEN: Channel 3 length timer \[write-only\]>
+[`AUD3LEVEL`]: <#FF1C — AUD3LEVEL: Channel 3 output level>
+[`AUD3LOW`]: <#FF1D — AUD3LOW: Channel 3 period low \[write-only\]>
+[`AUD3HIGH`]: <#FF1E — AUD3HIGH: Channel 3 period high & control>
+[`AUD4LEN`]: <#FF20 — AUD4LEN: Channel 4 length timer \[write-only\]>
+[`AUD4ENV`]: <#FF21 — AUD4ENV: Channel 4 volume & envelope>
+[`AUD4POLY`]: <#FF22 — AUD4POLY: Channel 4 frequency & randomness>
+[`AUD4GO`]: <#FF23 — AUD4GO: Channel 4 control>
+[`AUDVOL`]: <#FF24 — AUDVOL: Master volume & VIN panning>
+[`AUDTERM`]: <#FF25 — AUDTERM: Sound panning>
+[`AUDENA`]: <#FF26 — AUDENA: Audio master control>
 [`LCDC`]: <#FF40 — LCDC: LCD control>
 [`STAT`]: <#FF41 — STAT: LCD status>
 [`SCY`]: <#FF42–FF43 — SCY, SCX: Background viewport Y position, X position>
@@ -385,20 +385,20 @@ The table above was obtained from Mooneye-GB tests [`acceptance/boot_hwio-dmg0`]
 [`OBP1`]: <#FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data>
 [`WY`]: <#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>
 [`WX`]: <#FF4A–FF4B — WY, WX: Window Y position, X position plus 7>
-[`KEY0`]: <#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>
-[`KEY1`]: <#FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch>
+[`SYS`]: <#FF4C — SYS (CGB Mode only): CPU mode select>
+[`SPD`]: <#FF4D — SPD (CGB Mode only): Prepare speed switch>
 [`VBK`]: <#FF4F — VBK (CGB Mode only): VRAM bank>
 [`BANK`]: <#Power-Up Sequence>
-[`HDMA1`]: <#FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]>
-[`HDMA2`]: <#FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]>
-[`HDMA3`]: <#FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]>
-[`HDMA4`]: <#FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]>
-[`HDMA5`]: <#FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start>
+[`VDMA_SRC_HIGH`]: <#FF51–FF52 — VDMA_SRC_HIGH, VDMA_SRC_LOW (CGB Mode only): VRAM DMA source address \[write-only\]>
+[`VDMA_SRC_LOW`]: <#FF51–FF52 — VDMA_SRC_HIGH, VDMA_SRC_LOW (CGB Mode only): VRAM DMA source address \[write-only\]>
+[`VDMA_DEST_HIGH`]: <#FF53–FF54 — VDMA_DEST_HIGH, VDMA_DEST_LOW (CGB Mode only): VRAM DMA destination address \[write-only\]>
+[`VDMA_DEST_LOW`]: <#FF53–FF54 — VDMA_DEST_HIGH, VDMA_DEST_LOW (CGB Mode only): VRAM DMA destination address \[write-only\]>
+[`VDMA_LEN`]: <#FF55 — VDMA_LEN (CGB Mode only): VRAM DMA length/mode/start>
 [`RP`]: <#FF56 — RP (CGB Mode only): Infrared communications port>
 [`BGPI`]: <#FF68 — BGPI (CGB Mode only): Background palette index>
 [`BGPD`]: <#FF69 — BGPD (CGB Mode only): Background palette data>
 [`OBPI`]: <#FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>
 [`OBPD`]: <#FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>
 [`OPRI`]: <#FF6C — OPRI (CGB Mode only): Object priority mode>
-[`SVBK`]: <#FF70 — SVBK/WBK (CGB Mode only): WRAM bank>
+[`WBK`]: <#FF70 — WBK (CGB Mode only): WRAM bank>
 [`IE`]: <#FFFF — IE: Interrupt enable>

@@ -35,7 +35,7 @@ The GBA's backwards compatibility mode has a few unique quirks, so it may be use
 The CGB has twice the VRAM of the DMG, but it is banked and either bank
 has a different purpose.
 
-#### FF4F — VBK (CGB Mode only): VRAM bank
+#### FF4F — `VBK` (CGB Mode only): VRAM bank
 
 This register can be written to change VRAM banks. Only bit 0
 matters, all other bits are ignored.
@@ -50,10 +50,12 @@ corresponding Tile Maps.
 Reading from this register will return the number of the currently
 loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
-### FF4D — KEY1/SPD (CGB Mode only): Prepare speed switch
+### FF4D — `SPD` (CGB Mode only): Prepare speed switch
+
+*Historically known as `KEY1`.*
 
 {{#bits 8 >
-	"KEY1" 7:"Current speed" 0:"Switch armed"
+	"SPD" 7:"Current speed" 0:"Switch armed"
 }}
 
 - **Current speed** (*Read-only*): `0` = Normal-speed mode, `1` = Double-speed mode
@@ -67,10 +69,10 @@ at the "other" speed. The recommended speed switching procedure in
 pseudocode would be:
 
 ```
-IF KEY1_BIT7 != DESIRED_SPEED THEN
-   IE = $00       ; (FFFF) = $00
-   JOYP = $30     ; (FF00) = $30
-   KEY1 = $01     ; (FF4D) = $01
+IF SPD.7 != DESIRED_SPEED THEN
+   IE = $00       ; [$FFFF] = $00
+   JOYP = $30     ; [$FF00] = $30
+   SPD = $01      ; [$FF4D] = $01
    STOP
 ENDIF
 ```
@@ -103,7 +105,7 @@ different results depending on the [PPU mode](<#PPU modes>) it's started in:
 
 TODO: confirm whether interrupts can occur (just the joypad one?) during the pause, and consequences if so
 
-### FF56 — RP (CGB Mode only): Infrared communications port
+### FF56 — `RP` (CGB Mode only): Infrared communications port
 
 This register allows to input and output data through the CGBs built-in
 Infrared Port. When reading data, bit 6 and 7 must be set (and obviously
@@ -127,7 +129,9 @@ ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a permanent
 880us LED ON signal. Even though being generally CGB compatible, the GBA
 does not include an infra-red port.
 
-### FF4C — KEY0/SYS (CGB Mode only): CPU mode select
+### FF4C — `SYS` (CGB Mode only): CPU mode select
+
+*Historically known as `KEY0`.*
 
 This GBC-only register (which is not officially documented) is written only by the CGB boot ROM,
 as it gets locked after the bootrom finish execution (by a write to the [BANK register](<#Monochrome models (DMG0, DMG, MGB)>)).
@@ -138,7 +142,7 @@ As a result of the above most of the behavior is not directly testable without h
 Even though we can't test its behavior directly we can inspect the disassembly of the CGB bootrom and infer the following: 
 
 {{#bits 8 >
-	"KEY0" 2:"DMG compatibility mode"
+	"SYS" 2:"DMG compatibility mode"
 }}
 
 - **DMG compatibility mode**: `0` = Disabled (full CGB mode, for regular CGB cartridges), `1` = Enabled (for DMG only cartridges)
@@ -153,13 +157,13 @@ This mode is not well researched nor documented yet, you are welcome to help [he
 
 :::
 
-### FF6C — OPRI (CGB Mode only): Object priority mode
+### FF6C — `OPRI` (CGB Mode only): Object priority mode
 
 This register serves as a flag for which object priority mode to use. While
 the DMG prioritizes objects by x-coordinate, the CGB prioritizes them by
 location in OAM. This flag is set by the CGB bios after checking the game's CGB compatibility.
 
-OPRI has an effect if a [PGB](<#PGB mode>) value (`0xX8`, `0xXC`) is written to [KEY0](<#FF4C — KEY0/SYS (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
+`OPRI` has an effect if a [PGB](<#PGB mode>) value (`0xX8`, `0xXC`) is written to [`SYS`](<#FF4C — SYS (CGB Mode only): CPU mode select>) but STOP hasn't been executed yet, and the write takes effect instantly.
 
 :::warning TO BE VERIFIED
 
@@ -174,14 +178,16 @@ It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effec
 
 - **Priority mode** (*Read/Write*): `0` = CGB-style priority, `1` = DMG-style priority
 
-### FF70 — SVBK/WBK (CGB Mode only): WRAM bank
+### FF70 — `WBK` (CGB Mode only): WRAM bank
+
+*Historically known as `SVBK`.*
 
 In CGB Mode, 32 KiB of internal RAM are available.
 This memory is divided into 8 banks of 4 KiB each.
 Bank 0 is always available in memory at C000–CFFF, banks 1–7 can be selected into the address space at D000–DFFF.
 
 {{#bits 8 >
-	"SVBK" 2-0:"WRAM bank"
+	"WBK" 2-0:"WRAM bank"
 }}
 
 - **WRAM bank** (*Read/Write*): Writing a value will map the corresponding bank to [D000–DFFF](<Memory_Map.md#Memory Map>), except 0, which maps bank 1 instead.
