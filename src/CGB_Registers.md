@@ -1,29 +1,32 @@
 # GBC Enhancements
 
-The GBC was engineered to provide enhancements over the monochrome consoles;
-the flagship colour functionality is [described elsewhere](<#LCD Color Palettes (CGB only)>),
-but there are other enhancements.
-Some existing registers gain new functionality (e.g. [`SC`]'s speed booster),
-some existing registers change meaning (e.g. [`LCDC`'s bit 0]),
-and new registers are added at some previously-unused addresses: these chapters document the latter.
+The GBC was engineered to provide enhancements over the monochrome consoles; the flagship colour functionality is [described elsewhere](<#LCD Color Palettes (CGB only)>), but there are other enhancements.
+Some existing registers gain new functionality (e.g. [`SC`]'s speed booster), some existing registers change meaning (e.g. [`LCDC`'s bit 0]), and new registers are added at some previously-unused addresses: these chapters document the latter.
 
-## Unlocking CGB functions
+## Unlocking enhancements / compatibility mode
 
-When using any CGB registers (including those in the Video/Link
-chapters), you must first unlock CGB features by changing byte 0143 in
-the cartridge header. Typically, use a value of $80 for games which
-support both CGB and monochrome Game Boy systems, and $C0 for games which work
-on CGBs only. Otherwise, the CGB will operate in monochrome "Non CGB"
-compatibility mode.
+Games not made with the GBC in mind will malfunction with its enhancements; for this reason, the GBC has a backwards compatibility mode which it enables unless the game [advertises compatibility](<#0143 — CGB flag>).
+We refer to the DMG compatibility mode as **Non-CGB Mode**, and the enhanced mode as **CGB Mode**.
 
-## Detecting CGB (and GBA) functions
+Note that a GBC in compatibility mode still differs from monochrome consoles in several ways, which is known to [break at least two licensed games](<#Spurious STAT interrupts>).
 
-CGB hardware can be detected by examining the CPU accumulator (A-register)
-directly after startup. A value of $11 indicates CGB (or GBA) hardware,
-if so, CGB functions can be used (if unlocked, see above). When A=$11,
-you may also examine Bit 0 of the CPUs B-Register to separate between
-CGB (bit cleared) and GBA (bit set), by that detection it is possible to
-use "repaired" color palette data matching for GBA displays.
+Further, monochrome consoles do *not* perform any verification, and thus will still boot games that aren't meant to function without GBC enhancements.
+All such official games detect that they are not running on a GBC (see below), and [display a message](https://www.vgmuseum.com/features/warn/) sometimes with special artwork, but some homebrew has gotten more creative and provided extra functionality, such as a music player.
+
+(See also [trivia about the colorisation process].)
+
+## Detecting GBC
+
+The official way to detect a GBC is to examine the value of the CPU's accumulator (`a`) [left by the boot ROM]: $11 indicates GBC (or GBA in GBC compatibility mode).
+
+This technique has two downsides: it only tells which console is running the game, but not whether enhancements are actually available; and it is only available at boot-up and requires storing its result in memory somewhere.
+It is possible to instead detect whether the enhancements are enabled, since most registers' extra bits are not writable in compatibility mode.
+
+### Detecting GBA
+
+The GBA also has its own GBC backwards-compatibility mode (which *also* includes the GBC's DMG compatibility mode, don't get confused!), which is officially distinguishable by checking the value of `b` likewise: bit 0 is clear on GBC, and set on GBA.
+
+The GBA's backwards compatibility mode has a few unique quirks, so it may be useful to detect it to compensate; the most common difference is using different colours due to [LCD differences], but some official games had special GBA-exclusive features (example: [*Shantae*'s Tinkerbat form](https://shantae.fandom.com/wiki/Forms#Tinkerbat)) as promotional bonuses.
 
 ## Documented registers
 
@@ -209,3 +212,6 @@ Their initial value is 0.
 
 [`SC`]: <#FF02 — SC: Serial transfer control>
 [`LCDC`'s bit 0]: <#LCDC.0 — BG and Window enable/priority>
+[trivia about the colorisation process]: <#GBC Approval Process>
+[left by the boot ROM]: <#CPU registers>
+[LCD differences]: <#RGB Translation by GBAs>
