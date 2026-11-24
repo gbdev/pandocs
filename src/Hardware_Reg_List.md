@@ -94,7 +94,7 @@ $FFFF      | [`IE`]             | Interrupt enable                              
 [`AUDVOL`]: <#FF24 — AUDVOL: Master volume & VIN panning>
 [`AUDTERM`]: <#FF25 — AUDTERM: Sound panning>
 [`AUDENA`]: <#FF26 — AUDENA: Audio master control>
-[`Wave RAM`]: <#FF30–FF3F — Wave pattern RAM>
+[Wave RAM]: <#FF30–FF3F — Wave pattern RAM>
 [`LCDC`]: <#FF40 — LCDC: LCD control>
 [`STAT`]: <#FF41 — STAT: LCD status>
 [`SCY`]: <#FF42–FF43 — SCY, SCX: Background viewport Y position, X position>
@@ -123,6 +123,6 @@ $FFFF      | [`IE`]             | Interrupt enable                              
 [`OBPD`]: <#FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data>
 [`OPRI`]: <#FF6C — OPRI (CGB Mode only): Object priority mode>
 [`WBK`]: <#FF70 — WBK (CGB Mode only): WRAM bank>
-[`PCM12`]: <#FF76 — PCM12 (CGB Mode only): Digital outputs 1 & 2 \[read-only\]>
-[`PCM34`]: <#FF77 — PCM34 (CGB Mode only): Digital outputs 3 & 4 \[read-only\]>
+[`PCM12`]: <#FF76 — PCM12 (CGB only): Digital outputs 1 & 2 \[read-only\]>
+[`PCM34`]: <#FF77 — PCM34 (CGB only): Digital outputs 3 & 4 \[read-only\]>
 [`IE`]: <#FFFF — IE: Interrupt enable>

@@ -44,6 +44,8 @@ Thus, writing to `VBK` while a HDMA is running is perilous!
 
 *Historically known as `HDMA5`.*
 
+(This register always reads \$FF in Non-CGB Mode.)
+
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
 the lower four bits of the address are ignored (treated as zero). The

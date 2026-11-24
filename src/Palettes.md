@@ -72,6 +72,8 @@ Much like VRAM, the CRAM data registers are inaccessible when the PPU is reading
 - **Address**: Specifies which byte of BG Palette Memory can be accessed through
   [`BGPD`](<#FF69 — BGPD (CGB Mode only): Background palette data>)
 
+(This register always reads \$FF in Non-CGB Mode.)
+
 Unlike `BGPD`, this register can be freely accessed outside VBlank and HBlank.
 
 ### FF69 — `BGPD` (CGB Mode only): Background palette data
@@ -82,6 +84,8 @@ As each color is two bytes in size, you must read/write this register *twice* to
 
 This is made much easier through the use of the address auto-increment: `BGPI`'s "address" field is automatically incremented (wrapping around from 63 back to 0) after each write to this register, even if the write fails due to CRAM being inaccessible.
 Reads, however, never trigger auto-increment.
+
+This register behaves normally in Non-CGB Mode, however auto-increment is disabled.
 
 ### FF6A–FF6B — `OBPI`, `OBPD` (CGB Mode only): OBJ palette index, OBJ palette data
 

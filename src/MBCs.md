@@ -136,5 +136,5 @@ This is why the two registers accept writes in 256 byte alternating "stripes" of
 [Wisdom Tree]: <#Wisdom Tree>
 [MBC3's ROM bank switch]: <MBC3.md#2000-3FFF - ROM Bank Number (Write Only)>
 [MBC2]: #MBC2
-[the `VIN` pin]: <#FF24 — NR50: Master volume & VIN panning>
+[the `VIN` pin]: <#FF24 — AUDVOL: Master volume & VIN panning>
 [Echo RAM]: <#Echo RAM>

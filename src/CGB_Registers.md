@@ -40,6 +40,8 @@ has a different purpose.
 This register can be written to change VRAM banks. Only bit 0
 matters, all other bits are ignored.
 
+(This register always reads \$FE in Non-CGB Mode.)
+
 #### VRAM bank 1
 
 VRAM bank 1 is split like VRAM bank 0 ; 8000-97FF also stores tiles
@@ -60,6 +62,8 @@ loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
 - **Current speed** (*Read-only*): `0` = Normal-speed mode, `1` = Double-speed mode
 - **Switch armed** (*Read/Write*): `0` = No, `1` = Armed
+
+(This register always reads \$FF in Non-CGB Mode.)
 
 This register is used to prepare the Game Boy to switch between CGB
 Double Speed Mode and Normal Speed Mode. The actual speed switch is
@@ -121,6 +125,8 @@ register to $00 to reduce battery power consumption again.
 - **Receiving** (*Read-only*): `0` = Receiving IR signal, `1` = Normal
 - **Emitting** (*Read/Write*): `0` = LED off, `1` = LED on
 
+(This register always reads \$FF in Non-CGB Mode.)
+
 Note that the receiver will adapt itself to the normal level of IR
 pollution in the air, so if you would send a LED ON signal for a longer
 period, then the receiver would treat that as normal (=OFF) after a
@@ -178,6 +184,8 @@ It is not known if triggering a PSM NMI, which remaps the boot ROM, has an effec
 
 - **Priority mode** (*Read/Write*): `0` = CGB-style priority, `1` = DMG-style priority
 
+(This register always reads \$FF in Non-CGB Mode.)
+
 ### FF70 — `WBK` (CGB Mode only): WRAM bank
 
 *Historically known as `SVBK`.*
@@ -192,6 +200,8 @@ Bank 0 is always available in memory at C000–CFFF, banks 1–7 can be selected
 
 - **WRAM bank** (*Read/Write*): Writing a value will map the corresponding bank to [D000–DFFF](<Memory_Map.md#Memory Map>), except 0, which maps bank 1 instead.
 
+(This register always reads \$FF in Non-CGB Mode.)
+
 ## Undocumented registers
 
 These are undocumented CGB Registers. The purpose of these registers is
@@ -199,9 +209,9 @@ unknown (if any). It isn't recommended to use them in your software,
 but you could, for example, use them to check if you are running on an
 emulator or on DMG hardware.
 
-### FF72–FF73 — Bits 0–7 (CGB Mode only)
+### FF72–FF73 — Bits 0–7 (CGB only)
 
-Both of these registers are fully read/write.
+Both of these registers are fully read/write, even in Non-CGB Mode.
 Their initial value is $00.
 
 ### FF74 — Bits 0–7 (CGB Mode only)
@@ -209,11 +219,11 @@ Their initial value is $00.
 In CGB mode, this register is fully readable and writable.
 Its initial value is $00.
 
-Otherwise, this register is read-only, and locked at value $FF.
+(This register always reads \$FF in Non-CGB Mode.)
 
-### FF75 — Bits 4–6 (CGB Mode only)
+### FF75 — Bits 4–6 (CGB only)
 
-Only bits 4, 5 and 6 of this register are read/write enabled.
+Only bits 4, 5 and 6 of this register are read/write enabled, even in Non-CGB Mode.
 Their initial value is 0.
 
 [`SC`]: <#FF02 — SC: Serial transfer control>

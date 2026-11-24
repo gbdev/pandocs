@@ -36,7 +36,8 @@ incoming bit is shifted in from the other side:
 }}
 
 - **Transfer enable** (*Read/Write*): If `1`, a transfer is either requested or in progress.
-- **Clock speed** \[*CGB Mode only*\] (*Read/Write*): If set to `1`, enable high speed serial clock (~256 kHz in normal-speed mode)
+- **Clock speed** \[*CGB Mode only*\] (*Read/Write*): If set to `1`, enable high speed serial clock (~256 kHz in normal-speed mode).
+  This bit always reads 1 in Non-CGB Mode.
 - **Clock select** (*Read/Write*): `0` = External clock ("slave"), `1` = Internal clock ("master").
 
 The master Game Boy will load up a data byte in SB and then set

@@ -49,11 +49,11 @@ For short, a HPF constantly tries to "pull" the signal towards analog 0 (neutral
 These two registers, only present in the Game Boy Color and later models, allow reading the output of the generation circuits directly; this is very useful for testing "internal" APU behavior.
 These registers are not documented in any known Nintendo manual.
 
-### FF76 — `PCM12` (CGB Mode only): Digital outputs 1 & 2 \[read-only\]
+### FF76 — `PCM12` (CGB only): Digital outputs 1 & 2 \[read-only\]
 
 The low nibble is a copy of sound channel 1's digital output, the high nibble a copy of sound channel 2's.
 
-### FF77 — `PCM34` (CGB Mode only): Digital outputs 3 & 4 \[read-only\]
+### FF77 — `PCM34` (CGB only): Digital outputs 3 & 4 \[read-only\]
 
 Same, but with channels 3 and 4.
 
