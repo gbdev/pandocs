@@ -1,0 +1,83 @@
+<svg viewBox="5 4 90 98">
+	<rect class="gb-addr" x="7"  y="99" width="2" height="3"/><polyline class="gb-addr" points=" 8,99  8,28 70,28 70,32 68,32"/>
+	<rect class="gb-addr" x="10" y="99" width="2" height="3"/><polyline class="gb-addr" points="11,99 11,96 16,96 16,41 32,41"/>
+	<rect class="gb-addr" x="13" y="99" width="2" height="3"/><polyline class="gb-addr" points="14,99 14,97 17,97 17,44 32,44"/>
+	<rect class="gb-addr" x="16" y="99" width="2" height="3"/><polyline class="gb-addr" points="17,99 17,98 18,98 18,47 32,47"/>
+	<rect class="gb-addr" x="19" y="99" width="2" height="3"/><polyline class="gb-addr" points="20,99 20,98 19,98 19,50 32,50"/>
+	<rect class="gb-addr" x="22" y="99" width="2" height="3"/><polyline class="gb-addr" points="23,99 23,97 20,97 20,53 32,53"/>
+	<rect class="gb-addr" x="25" y="99" width="2" height="3"/><polyline class="gb-addr" points="26,99 26,96 21,96 21,56 32,56"/>
+	<rect class="gb-addr" x="28" y="99" width="2" height="3"/><polyline class="gb-addr" points="29,99 29,95 22,95 22,59 32,59"/>
+	<rect class="gb-addr" x="31" y="99" width="2" height="3"/><polyline class="gb-addr" points="32,99 32,94 23,94 23,62 32,62"/>
+	<rect class="gb-addr" x="34" y="99" width="2" height="3"/><polyline class="gb-addr" points="35,99 35,93 24,93 24,65 32,65"/>
+	<rect class="gb-addr" x="37" y="99" width="2" height="3"/><polyline class="gb-addr" points="38,99 38,92 25,92 25,68 32,68"/>
+	<rect class="gb-addr" x="40" y="99" width="2" height="3"/><polyline class="gb-addr" points="41,99 41,91 26,91 26,71 32,71"/>
+	<rect class="gb-addr" x="43" y="99" width="2" height="3"/><polyline class="gb-addr" points="44,99 44,90 27,90 27,74 32,74"/>
+	<rect class="gb-addr" x="46" y="99" width="2" height="3"/><polyline class="gb-addr" points="47,99 47,89 28,89 28,77 32,77"/>
+	<rect class="gb-addr" x="49" y="99" width="2" height="3"/><polyline class="gb-addr" points="50,99 50,88 29,88 29,80 32,80"/>
+	<rect class="gb-addr" x="52" y="99" width="2" height="3"/><polyline class="gb-addr" points="53,99 53,87 30,87 30,83 32,83"/>
+	<text x="30.5" y="90" class="label">Address</text>
+	<rect class="write" x="59" y="99" width="2" height="3"/><line class="write" x1="60" y1="99" x2="60" y2="85"/>
+	  <line class="write dashed" x1="60" y1="85" x2="60" y2="30"/><polyline class="write" points="60,30 60,26 65,26 65,22 63,22"/>
+	<text x="63" y="95" class="label smaller right">Write</text>
+	<rect class="read" x="63" y="99" width="2" height="3"/><polyline class="read" points="64,99 64,87 70,87 70,83 68,83"/>
+	<text x="61" y="90" class="label smaller left">Read</text>
+	<rect class="data" x="70" y="99" width="2" height="3"/><polyline class="data" points="71,99 71,98 73,98 73,46 68,46"/>
+	<rect class="data" x="73" y="99" width="2" height="3"/><polyline class="data" points="74,99 74,95       74,49 68,49"/>
+	<rect class="data" x="76" y="99" width="2" height="3"/><polyline class="data" points="77,99 77,98 75,98 75,52 68,52"/>
+	<rect class="data" x="79" y="99" width="2" height="3"/><polyline class="data" points="80,99 80,97 76,97 76,55 68,55"/>
+	<rect class="data" x="82" y="99" width="2" height="3"/><polyline class="data" points="83,99 83,96 77,96 77,58 68,58"/>
+	<rect class="data" x="85" y="99" width="2" height="3"/><polyline class="data" points="86,99 86,95 78,95 78,61 68,61"/>
+	<rect class="data" x="88" y="99" width="2" height="3"/><polyline class="data" points="89,99 89,94 79,94 79,64 68,64"/>
+	<rect class="data" x="91" y="99" width="2" height="3"/><polyline class="data" points="92,99 92,93 80,93 80,67 68,67"/>
+	<polyline class="gb-addr" points="67,28 67,19 63,19"/>
+	<polyline class="data" points="80,67 80,13 63,13"/>
+	<polyline class="data" points="79,64 79,10 63,10"/>
+	<polyline class="data" points="78,61 78,7  63,7 "/>
+	<polyline class="extra-addr" points="37,7  28,7  28,32 32,32"/>
+	<polyline class="extra-addr" points="37,10 29,10 29,35 32,35"/>
+	<polyline class="extra-addr" points="37,13 30,13 30,38 32,38"/>
+	<text x="81.5" y="90" class="label">Data</text>
+	<rect x="40" y="5"  width="20" height="19"/><text x="50" y="16" class="small">Mapper</text>
+	<path class="ghost" d="M57.5,10 h-5 m1,-1 l-1,1 l1,1"/><path class="ghost" d="M59.75,6 q-3,4,0,8"/>
+	  <text x="50" y="10.1" class="smaller">💭</text>
+	<path class="ghost" d="M47.5,10 h-5 m1,-1 l-1,1 l1,1"/><path class="ghost" d="M40.25,6 q3,4,0,8"/>
+	<rect x="37" y="6"  width="2.85" height="2"/>
+	<rect x="37" y="9"  width="2.85" height="2"/>
+	<rect x="37" y="12" width="2.85" height="2"/>
+	<rect x="60.15" y="6"  width="2.85" height="2"/>
+	<rect x="60.15" y="9"  width="2.85" height="2"/>
+	<rect x="60.15" y="12" width="2.85" height="2"/>
+	<rect x="60.15" y="18" width="2.85" height="2"/>
+	<rect x="60.15" y="21" width="2.85" height="2"/>
+	<rect x="35" y="30" width="30" height="55"/><text x="50" y="55" class="smaller">(Larger)</text><text x="50" y="60">ROM</text>
+	<rect x="32" y="31" width="2.85" height="2"/>
+	<rect x="32" y="34" width="2.85" height="2"/>
+	<rect x="32" y="37" width="2.85" height="2"/>
+	<rect x="32" y="40" width="2.85" height="2"/>
+	<rect x="32" y="43" width="2.85" height="2"/>
+	<rect x="32" y="46" width="2.85" height="2"/>
+	<rect x="32" y="49" width="2.85" height="2"/>
+	<rect x="32" y="52" width="2.85" height="2"/>
+	<rect x="32" y="55" width="2.85" height="2"/>
+	<rect x="32" y="58" width="2.85" height="2"/>
+	<rect x="32" y="61" width="2.85" height="2"/>
+	<rect x="32" y="64" width="2.85" height="2"/>
+	<rect x="32" y="67" width="2.85" height="2"/>
+	<rect x="32" y="70" width="2.85" height="2"/>
+	<rect x="32" y="73" width="2.85" height="2"/>
+	<rect x="32" y="76" width="2.85" height="2"/>
+	<rect x="32" y="79" width="2.85" height="2"/>
+	<rect x="32" y="82" width="2.85" height="2"/>
+	<rect x="65.15" y="31" width="2.85" height="2"/>
+	<!-- Data bus -->
+	<rect x="65.15" y="45" width="2.85" height="2"/>
+	<rect x="65.15" y="48" width="2.85" height="2"/>
+	<rect x="65.15" y="51" width="2.85" height="2"/>
+	<rect x="65.15" y="54" width="2.85" height="2"/>
+	<rect x="65.15" y="57" width="2.85" height="2"/>
+	<rect x="65.15" y="60" width="2.85" height="2"/>
+	<rect x="65.15" y="63" width="2.85" height="2"/>
+	<rect x="65.15" y="66" width="2.85" height="2"/>
+	<!-- Read -->
+	<rect x="65.15" y="82" width="2.85" height="2"/>
+</svg>
