@@ -1,0 +1,93 @@
+<svg viewBox="5 7 90 92.95">
+	<defs>
+		<style type="text/css"><![CDATA[
+			rect {
+				stroke: var(--fg, #000);
+			}
+			text {
+				fill: var(--fg, #000);
+				font-size: 7px;
+				dominant-baseline: middle;
+				text-anchor: middle;
+			}
+			.left  { text-anchor: start; }
+			.right { text-anchor: end; }
+			.label { stroke: var(--bg); stroke-width: .1px; }
+			.small   { font-size: 5px; }
+			.smaller { font-size: 3px; }
+			.gb-addr    { stroke: #e67; }
+			.extra-addr { stroke: #a37; }
+			.read       { stroke: #283; }
+			.write      { stroke: #cb4; }
+			.data       { stroke: #6ce; }
+			polyline, line, path, rect {
+				fill: none;
+				stroke: var(--fg, #000);
+				stroke-width: .25px;
+			}
+			rect { stroke-width: .5px; }
+			.thick { stroke-width: 1px; }
+			.dashed { stroke-dasharray: 1; }
+			.ghost { stroke-opacity: .7; }
+		]]></style>
+	</defs>
+	<rect class="gb-addr" x="7"  y="97" width="2" height="3"/><polyline class="gb-addr" points=" 8,97  8,8  70,8  70,12 68,12"/>
+	<rect class="gb-addr" x="10" y="97" width="2" height="3"/><polyline class="gb-addr" points="11,97 11,70 16,70 16,12 32,12"/>
+	<rect class="gb-addr" x="13" y="97" width="2" height="3"/><polyline class="gb-addr" points="14,97 14,71 17,71 17,15 32,15"/>
+	<rect class="gb-addr" x="16" y="97" width="2" height="3"/><polyline class="gb-addr" points="17,97 17,72 18,72 18,18 32,18"/>
+	<rect class="gb-addr" x="19" y="97" width="2" height="3"/><polyline class="gb-addr" points="20,97 20,72 19,72 19,21 32,21"/>
+	<rect class="gb-addr" x="22" y="97" width="2" height="3"/><polyline class="gb-addr" points="23,97 23,71 20,71 20,24 32,24"/>
+	<rect class="gb-addr" x="25" y="97" width="2" height="3"/><polyline class="gb-addr" points="26,97 26,70 21,70 21,27 32,27"/>
+	<rect class="gb-addr" x="28" y="97" width="2" height="3"/><polyline class="gb-addr" points="29,97 29,69 22,69 22,30 32,30"/>
+	<rect class="gb-addr" x="31" y="97" width="2" height="3"/><polyline class="gb-addr" points="32,97 32,68 23,68 23,33 32,33"/>
+	<rect class="gb-addr" x="34" y="97" width="2" height="3"/><polyline class="gb-addr" points="35,97 35,67 24,67 24,36 32,36"/>
+	<rect class="gb-addr" x="37" y="97" width="2" height="3"/><polyline class="gb-addr" points="38,97 38,66 25,66 25,39 32,39"/>
+	<rect class="gb-addr" x="40" y="97" width="2" height="3"/><polyline class="gb-addr" points="41,97 41,65 26,65 26,42 32,42"/>
+	<rect class="gb-addr" x="43" y="97" width="2" height="3"/><polyline class="gb-addr" points="44,97 44,64 27,64 27,45 32,45"/>
+	<rect class="gb-addr" x="46" y="97" width="2" height="3"/><polyline class="gb-addr" points="47,97 47,63 28,63 28,48 32,48"/>
+	<rect class="gb-addr" x="49" y="97" width="2" height="3"/><polyline class="gb-addr" points="50,97 50,62 29,62 29,51 32,51"/>
+	<rect class="gb-addr" x="52" y="97" width="2" height="3"/><polyline class="gb-addr" points="53,97 53,61 30,61 30,54 32,54"/>
+	<text x="30.5" y="90" class="label">Address</text>
+	<rect class="write" x="59" y="97" width="2" height="3"/><line class="write" x1="60" y1="97" x2="60" y2="80"/>
+	  <line x1="59" y1="79" x2="61" y2="81"/><line x1="61" y1="79" x2="59" y2="81"/>
+	<text x="63" y="93" class="label smaller right">Write</text>
+	<rect class="read" x="63" y="97" width="2" height="3"/><polyline class="read" points="64,97 64,61 70,61 70,57 68,57"/>
+	<text x="61" y="88" class="label smaller left">Read</text>
+	<rect class="data" x="70" y="97" width="2" height="3"/><polyline class="data" points="71,97 71,66 73,66 73,24 68,24"/>
+	<rect class="data" x="73" y="97" width="2" height="3"/><polyline class="data" points="74,97 74,65       74,27 68,27"/>
+	<rect class="data" x="76" y="97" width="2" height="3"/><polyline class="data" points="77,97 77,66 75,66 75,30 68,30"/>
+	<rect class="data" x="79" y="97" width="2" height="3"/><polyline class="data" points="80,97 80,65 76,65 76,33 68,33"/>
+	<rect class="data" x="82" y="97" width="2" height="3"/><polyline class="data" points="83,97 83,64 77,64 77,36 68,36"/>
+	<rect class="data" x="85" y="97" width="2" height="3"/><polyline class="data" points="86,97 86,63 78,63 78,39 68,39"/>
+	<rect class="data" x="88" y="97" width="2" height="3"/><polyline class="data" points="89,97 89,62 79,62 79,42 68,42"/>
+	<rect class="data" x="91" y="97" width="2" height="3"/><polyline class="data" points="92,97 92,61 80,61 80,45 68,45"/>
+	<text x="81.5" y="90" class="label">Data</text>
+	<rect x="35" y="10" width="30" height="49"/><text x="50" y="35">ROM</text>
+	<rect x="32" y="11" width="2.85" height="2"/>
+	<rect x="32" y="14" width="2.85" height="2"/>
+	<rect x="32" y="17" width="2.85" height="2"/>
+	<rect x="32" y="20" width="2.85" height="2"/>
+	<rect x="32" y="23" width="2.85" height="2"/>
+	<rect x="32" y="26" width="2.85" height="2"/>
+	<rect x="32" y="29" width="2.85" height="2"/>
+	<rect x="32" y="32" width="2.85" height="2"/>
+	<rect x="32" y="35" width="2.85" height="2"/>
+	<rect x="32" y="38" width="2.85" height="2"/>
+	<rect x="32" y="41" width="2.85" height="2"/>
+	<rect x="32" y="44" width="2.85" height="2"/>
+	<rect x="32" y="47" width="2.85" height="2"/>
+	<rect x="32" y="50" width="2.85" height="2"/>
+	<rect x="32" y="53" width="2.85" height="2"/>
+	<rect x="65.15" y="11" width="2.85" height="2"/>
+	<!-- Data bus -->
+	<rect x="65.15" y="23" width="2.85" height="2"/>
+	<rect x="65.15" y="26" width="2.85" height="2"/>
+	<rect x="65.15" y="29" width="2.85" height="2"/>
+	<rect x="65.15" y="32" width="2.85" height="2"/>
+	<rect x="65.15" y="35" width="2.85" height="2"/>
+	<rect x="65.15" y="38" width="2.85" height="2"/>
+	<rect x="65.15" y="41" width="2.85" height="2"/>
+	<rect x="65.15" y="44" width="2.85" height="2"/>
+	<!-- Read -->
+	<rect x="65.15" y="56" width="2.85" height="2"/>
+</svg>
