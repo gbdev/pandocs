@@ -65,7 +65,7 @@ In other words, eight serial clock cycles after starting a transfer (by setting 
 
 ## INT $60 — Joypad interrupt
 
-The Joypad interrupt [is requested] when any of [`P1`](<#FF00 — P1/JOYP: Joypad>) bits 0-3 change
+The Joypad interrupt [is requested] when any of [`JOYP`](<#FF00 — JOYP: Joypad>)'s bits 0-3 change
 from High to Low. This happens when a button is
 pressed (provided that the action/direction buttons are enabled by
 bit 5/4, respectively), however, due to switch bounce, one or more High to Low

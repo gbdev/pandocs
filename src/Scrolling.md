@@ -3,7 +3,7 @@
 These registers can be accessed even during Mode 3, but modifications may not take
 effect immediately (see further below).
 
-## FF42–FF43 — SCY, SCX: Background viewport Y position, X position
+## FF42–FF43 — `SCY`, `SCX`: Background viewport Y position, X position
 
 These two registers specify the top-left coordinates of the visible 160×144 pixel area within the
 256×256 pixels BG map. Values in the range 0–255 may be used.

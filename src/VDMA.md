@@ -3,18 +3,14 @@
 The GBC added a system that can copy data to VRAM in 16-byte increments much faster than the CPU can;
 such a transfer can be done either all at once ("GDMA"), or at a rate of 16 bytes per HBlank ("HDMA").
 
-:::tip Register naming
-
-The traditional `HDMAx` naming convention makes each register's purpose not immediately clear from its name, so some alternative `VDMA_*` names have been proposed, [such as `VDMA_LEN` for `HDMA5`](https://github.com/gbdev/hardware.inc/blob/8d4432e5796bffe2e13c438013285c5f11c37b99/hardware.inc#L919).
-
-:::
-
 ## Source and destination
 
 The GBC internally holds two 16-bit addresses (source, and destination); these registers allow updating half of one address.
 Notably, the internal addresses are updated during transfers (though the intermediate updates can only be witnessed during a HDMA), and preserved even after a transfer completes ([test ROM][gdma_cont]).
 
-### FF51–FF52 — HDMA1, HDMA2 (CGB Mode only): VRAM DMA source (high, low) \[write-only\]
+### FF51–FF52 — `VDMA_SRC_HIGH`, `VDMA_SRC_LOW` (CGB Mode only): VRAM DMA source address \[write-only\]
+
+*Historically known as `HDMA1` and `HDMA2` respectively.*
 
 This should point to ROM, SRAM, or WRAM; thus either in range $0000–7FF0 or $A000–DFF0.
 \[Note: this has yet to be tested on Echo RAM, OAM, FEXX, IO and HRAM\].
@@ -29,7 +25,9 @@ Thus, changing the active bank of a region a HDMA is reading from is perilous!
 
 :::
 
-### FF53–FF54 — HDMA3, HDMA4 (CGB Mode only): VRAM DMA destination (high, low) \[write-only\]
+### FF53–FF54 — `VDMA_DEST_HIGH`, `VDMA_DEST_LOW` (CGB Mode only): VRAM DMA destination address \[write-only\]
+
+*Historically known as `HDMA3` and `HDMA4` respectively.*
 
 These two registers specify the address within 8000-9FF0 to which the
 data will be copied. Only bits 12-4 are respected; others are ignored.
@@ -42,7 +40,9 @@ Thus, writing to `VBK` while a HDMA is running is perilous!
 
 :::
 
-## FF55 — HDMA5 (CGB Mode only): VRAM DMA length/mode/start
+## FF55 — `VDMA_LEN` (CGB Mode only): VRAM DMA length/mode/start
+
+*Historically known as `HDMA5`.*
 
 These registers are used to initiate a DMA transfer from ROM or RAM to
 VRAM. The Source Start Address may be located at 0000-7FF0 or A000-DFF0,
@@ -87,7 +87,7 @@ minus 1), a value of $FF indicates that the transfer has completed. It
 is also possible to terminate an active HBlank transfer by writing zero
 to Bit 7 of FF55. In that case reading from FF55 will return how many
 \$10 "blocks" remained (minus 1) in the lower 7 bits, but Bit 7 will
-be read as "1". Stopping the transfer doesn't set HDMA1-4 to \$FF.
+be read as "1". Stopping the transfer doesn't set `VDMA_SRC_*`/`VDMA_DEST_*` to \$FF.
 
 :::warning WARNING
 
@@ -122,8 +122,8 @@ This allows for a transfer of 2280 bytes during VBlank, which is up to 142.5 til
 
 ## Tricks
 
-- More than 128 tiles can be transferred by writing to `HDMA5` again after a transfer completes; there is no need to write to the other registers again.
-- It is possible to fill all of VRAM with a repeating 16-byte pattern by performing one transfer, resetting only the source address (`HDMA2` is sufficient if it wasn't $F0), and repeating.
+- More than 128 tiles can be transferred by writing to `VDMA_LEN` again after a transfer completes; there is no need to write to the other registers again.
+- It is possible to fill all of VRAM with a repeating 16-byte pattern by performing one transfer, resetting only the source address (`VDMA_SRC_LOW` is sufficient if it wasn't $F0), and repeating.
 - It is also possible to alter the source and/or destination between two HDMA writes, or even to change `VBK` to write to both VRAM banks; this however requires careful timing, which can be messed up by an unfortunately-timed [interrupt].
 
 ## Boot-up state

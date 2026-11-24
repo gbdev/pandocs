@@ -77,7 +77,7 @@ the current screen.
 
 STOP is terminated by one of the P10 to P13 lines going low. For this
 reason, d-pad and/or button inputs should be enabled by writing $00,
-$10 or $20 to the `P1` register before entering STOP (depending on which
+$10 or $20 to the `JOYP` register before entering STOP (depending on which
 buttons you want to terminate the STOP on).
 
 ### The bizarre case of the Game Boy STOP instruction, before even considering timing.
@@ -125,4 +125,3 @@ To optimize your code, it might be a good idea to look at
 (although it applies to the original Z80 CPU, so one must adapt the
 optimizations to the SM83), or at
 [this SM83-specific page](https://github.com/pret/pokecrystal/wiki/Optimizing-assembly-code).
-

@@ -7,7 +7,7 @@ Non-Color games have access to one palette for the background (and Window), and 
 In CGB Mode the color palettes are taken from [CGB palette memory](<#LCD Color Palettes (CGB only)>)
 instead.
 
-### FF47 — BGP (Non-CGB Mode only): BG palette data
+### FF47 — `BGP` (Non-CGB Mode only): BG palette data
 
 This register assigns gray shades to the [color indices](<#Data format>) of the BG and Window tiles.
 
@@ -24,7 +24,7 @@ Value | Color
   2   | Dark gray
   3   | Black
 
-### FF48–FF49 — OBP0, OBP1 (Non-CGB Mode only): OBJ palette 0, 1 data
+### FF48–FF49 — `OBP0`, `OBP1` (Non-CGB Mode only): OBJ palette 0, 1 data
 
 These registers assigns gray shades to the color indexes of the OBJs that use the corresponding palette.
 They work exactly like [`BGP`](<#FF47 — BGP (Non-CGB Mode only): BG palette data>), except that the lower two bits are ignored because color index 0 is transparent for OBJs.
@@ -60,7 +60,9 @@ Much like VRAM, the CRAM data registers are inaccessible when the PPU is reading
 
 [^cram_size]: 2 bytes/color × 4 colors/palette × 8 palettes = 64 bytes.
 
-### FF68 — BGPI (CGB Mode only): Background palette index
+### FF68 — `BGPI` (CGB Mode only): Background palette index
+
+*Historically known as `BCPS`.*
 
 {{#bits 8 >
 	"BGPI"  7:"Auto-increment" 5-0:"Address";
@@ -72,14 +74,18 @@ Much like VRAM, the CRAM data registers are inaccessible when the PPU is reading
 
 Unlike `BGPD`, this register can be freely accessed outside VBlank and HBlank.
 
-### FF69 — BGPD (CGB Mode only): Background palette data
+### FF69 — `BGPD` (CGB Mode only): Background palette data
+
+*Historically known as `BCPD`.*
 
 As each color is two bytes in size, you must read/write this register *twice* to access a whole color.
 
 This is made much easier through the use of the address auto-increment: `BGPI`'s "address" field is automatically incremented (wrapping around from 63 back to 0) after each write to this register, even if the write fails due to CRAM being inaccessible.
 Reads, however, never trigger auto-increment.
 
-### FF6A–FF6B — OBPI, OBPD (CGB Mode only): OBJ palette index, OBJ palette data
+### FF6A–FF6B — `OBPI`, `OBPD` (CGB Mode only): OBJ palette index, OBJ palette data
+
+*Historically known as `OCPS` and `OCPD` respectively.*
 
 These registers function exactly like BGPI and BGPD respectively; the 64 bytes of OBJ palette memory are entirely separate from Background palette memory, but function the same.
 
