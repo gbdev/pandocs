@@ -5,7 +5,8 @@
 These two registers specify the on-screen coordinates of [the Window]'s top-left pixel.
 
 The Window is visible (if enabled) when `WX` and `WY` are in the range \[0; 166\] and \[0; 143\] respectively.
-Values `WX`=7, `WY`=0 place the Window at the top left of the screen, completely covering the background.
+Values `WX`=7, `WY`=0 place the Window at the top left of the screen, completely covering the background.Unlike the Background, the Window's content is not scrollable; it is always displayed starting at the top-left tile of its tile map. Additionally, rendering the Window makes Mode 3 slightly longer on scanlines where it is visible.
+
 
 ## Window mid-frame behavior
 
