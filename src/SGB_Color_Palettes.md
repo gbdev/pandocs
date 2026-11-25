@@ -37,7 +37,7 @@ defined by the most recently color being assigned to Color 0 (regardless
 of the palette number being used for that operation). Effectively,
 gamescreen palettes can have only three custom colors each, and SGB
 border palettes only 15 colors each, additionally, color 0 can be used
-for for all palettes, which will then all share the same color though.
+for all palettes, which will then all share the same color though.
 
 ## Translation of Grayshades into Colors
 
