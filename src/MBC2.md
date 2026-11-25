@@ -51,5 +51,6 @@ Specifically, the lower 4 bits of the value written to this address range specif
 If bank 0 is written, the resulting bank will be bank 1 instead.
 
 Examples of address that can control ROM: $0100–01FF, $0300–03FF, $0500–05FF, ..., $3F00–3FFF.
+Using address \$2100 is recommended for compatibility with other MBCs' equivalent memory ranges.
 
 The ROM bank is set to 1 by default.
