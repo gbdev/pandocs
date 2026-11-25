@@ -54,7 +54,7 @@ hardware registers. This makes scrolling very cheap.
 
 ### Window
 
-The window is sort of a second background layer on top of the background.Like the background, it is composed of a tilemap and shares the same Tile Data Table.
+The window is sort of a second background layer on top of the background. Like the background, it is composed of a tilemap and shares the same Tile Data Table.
 
 It is fairly limited: it has no transparency, it's always a
 rectangle and only the position of the top-left pixel can be controlled.
